@@ -1,3 +1,6 @@
+"""
+plot_ruwe_vs_apparentmag
+"""
 import os, corner, pickle
 from glob import glob
 from datetime import datetime
