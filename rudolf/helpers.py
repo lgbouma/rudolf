@@ -1,3 +1,13 @@
+"""
+Data getters:
+    get_gaia_cluster_data
+    get_simulated_RM_data
+
+One-offs to get the Stephenson-1 information:
+    get_candidate_stephenson1_member_list
+    supplement_sourcelist_with_gaiainfo
+
+"""
 import os, collections, pickle
 import numpy as np, pandas as pd
 from glob import glob
@@ -102,3 +112,44 @@ def get_gaia_cluster_data():
     trgt_df = df_edr3[df_edr3.source_id.astype(str) == trgt_id]
 
     return df_dr2, df_edr3, trgt_df
+
+
+ORIENTATIONTRUTHDICT = {
+    'prograde': 0,
+    'retrograde': -150,
+    'polar': 85
+}
+
+def get_simulated_RM_data(orientation, makeplot=1):
+
+    #
+    # https://github.com/gummiks/rmfit. Hirano+11,+12 implementation by
+    # Gudmundur Stefansson.
+    #
+    from rmfit import RMHirano
+
+    assert orientation in ['prograde', 'retrograde', 'polar']
+    lam = ORIENTATIONTRUTHDICT[orientation]
+
+    t_cadence = 15/(24*60) # 15 minutes, in days
+
+    T0 = 2454953.790531
+    P = 7.20281
+    aRs = 12.03
+    i = 86.138
+    vsini = 20
+    rprs = 0.0433
+    e = 0.
+    w = 90.
+    # lam = 0
+    u = [0.515, 0.23]
+
+    beta = 4
+    sigma = vsini / 1.31 # assume sigma is vsini/1.31 (see Hirano et al. 2010)
+
+    times = np.arange(-2.5/24+T0,2.5/24+t_cadence+T0,t_cadence)
+
+    R = RMHirano(lam,vsini,P,T0,aRs,i,rprs,e,w,u,beta,sigma,supersample_factor=7,exp_time=t_cadence,limb_dark='quadratic')
+    rm = R.evaluate(times)
+
+    return times, rm
