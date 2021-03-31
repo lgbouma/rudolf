@@ -131,7 +131,7 @@ def get_simulated_RM_data(orientation, makeplot=1):
     assert orientation in ['prograde', 'retrograde', 'polar']
     lam = ORIENTATIONTRUTHDICT[orientation]
 
-    t_cadence = 15/(24*60) # 15 minutes, in days
+    t_cadence = 20/(24*60) # 15 minutes, in days
 
     T0 = 2454953.790531
     P = 7.20281
