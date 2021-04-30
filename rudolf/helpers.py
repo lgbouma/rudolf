@@ -3,6 +3,8 @@ Data getters:
     get_gaia_cluster_data
     get_simulated_RM_data
 
+    get_keplerfield_dict
+
 One-offs to get the Stephenson-1 information:
     get_candidate_stephenson1_member_list
     supplement_sourcelist_with_gaiainfo
@@ -20,6 +22,7 @@ from astropy import units as u
 from astropy.table import Table
 from astroquery.vizier import Vizier
 from astroquery.xmatch import XMatch
+from astropy.coordinates import SkyCoord
 
 import cdips.utils.lcutils as lcu
 import cdips.lcproc.detrend as dtr
@@ -153,3 +156,51 @@ def get_simulated_RM_data(orientation, makeplot=1):
     rm = R.evaluate(times)
 
     return times, rm
+
+
+def get_keplerfield_dict():
+
+    kep = pd.read_csv(
+        os.path.join(DATADIR, 'skychart', 'kepler_field_footprint.csv')
+    )
+
+    # we want the corner points, not the mid-points
+    is_mipoint = ((kep['row']==535) & (kep['column']==550))
+    kep = kep[~is_mipoint]
+
+    kep_coord = SkyCoord(
+        np.array(kep['ra'])*u.deg, np.array(kep['dec'])*u.deg, frame='icrs'
+    )
+    kep_elon = kep_coord.barycentrictrueecliptic.lon.value
+    kep_elat = kep_coord.barycentrictrueecliptic.lat.value
+    kep['elon'] = kep_elon
+    kep['elat'] = kep_elat
+
+    kep_d = {}
+    for module in np.unique(kep['module']):
+        kep_d[module] = {}
+        for output in np.unique(kep['output']):
+            kep_d[module][output] = {}
+            sel = (kep['module']==module) & (kep['output']==output)
+
+            _ra = list(kep[sel]['ra'])
+            _dec = list(kep[sel]['dec'])
+            _elon = list(kep[sel]['elon'])
+            _elat = list(kep[sel]['elat'])
+
+            _ra = [_ra[0], _ra[1], _ra[3], _ra[2] ]
+            _dec =  [_dec[0], _dec[1], _dec[3], _dec[2] ]
+            _elon = [_elon[0], _elon[1], _elon[3], _elon[2] ]
+            _elat = [_elat[0], _elat[1], _elat[3], _elat[2] ]
+
+            _ra.append(_ra[0])
+            _dec.append(_dec[0])
+            _elon.append(_elon[0])
+            _elat.append(_elat[0])
+
+            kep_d[module][output]['corners_ra'] = _ra
+            kep_d[module][output]['corners_dec'] = _dec
+            kep_d[module][output]['corners_elon'] = _elon
+            kep_d[module][output]['corners_elat'] = _elat
+
+    return kep_d

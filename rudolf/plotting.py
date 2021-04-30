@@ -1,15 +1,18 @@
 """
 plot_ruwe_vs_apparentmag
 plot_simulated_RM
+plot_skychart
 """
-import os, corner, pickle
+import os, corner, pickle, inspect
 from glob import glob
 from datetime import datetime
 import numpy as np, matplotlib.pyplot as plt, pandas as pd, pymc3 as pm
 from numpy import array as nparr
+from collections import Counter
 
 import matplotlib as mpl
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+import cartopy.crs as ccrs
 
 from astropy import units as u, constants as const
 from astropy.coordinates import SkyCoord
@@ -32,7 +35,7 @@ from cdips.utils.mamajek import get_interp_BpmRp_from_Teff
 
 from rudolf.paths import DATADIR, RESULTSDIR
 from rudolf.helpers import (
-    get_gaia_cluster_data, get_simulated_RM_data
+    get_gaia_cluster_data, get_simulated_RM_data, get_keplerfield_dict
 )
 
 
@@ -254,3 +257,178 @@ def plot_simulated_RM(outdir, orientation, N_mcmc=10000):
     outpath = os.path.join(outdir, f'rmfit_moneyplot_{orientation}.png')
     savefig(fig, outpath, dpi=400)
     plt.close('all')
+
+
+def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0, shownakedeye=0):
+
+    set_style()
+
+    df_dr2, df_edr3, trgt_df = get_gaia_cluster_data()
+
+    plt.close('all')
+    f, ax = plt.subplots(figsize=(4,3), constrained_layout=True)
+
+    xkey, ykey = 'ra', 'dec'
+    get_yval = (
+        lambda _df: np.array(
+            _df[ykey]
+        )
+    )
+    get_xval = (
+        lambda _df: np.array(
+            _df[xkey]
+        )
+    )
+
+    if not showtess:
+        ax.scatter(
+            get_xval(df_edr3), get_yval(df_edr3), c='k', alpha=0.9,
+            zorder=4, s=5, rasterized=True, linewidths=0,
+            label='$\delta$ Lyr Cluster', marker='.'
+        )
+        ax.plot(
+            get_xval(trgt_df), get_yval(trgt_df), alpha=1, mew=0.5,
+            zorder=8, label='Kepler 1627', markerfacecolor='yellow',
+            markersize=10, marker='*', color='black', lw=0
+        )
+
+    if showkepler:
+        kep_d = get_keplerfield_dict()
+        for mod in np.sort(list(kep_d.keys())):
+            for op in np.sort(list(kep_d[mod].keys())):
+                this = kep_d[mod][op]
+                ra, dec = nparr(this['corners_ra']), nparr(this['corners_dec'])
+                ax.fill(ra, dec, c='lightgray', alpha=0.95, lw=0,
+                        rasterized=True, zorder=-1)
+
+    if showtess:
+
+        outcsv = os.path.join(outdir, 'showtess_stephenson1_cache.csv')
+
+        if not os.path.exists(outcsv):
+
+            from tess_stars2px import tess_stars2px_function_entry
+            ra, dec = get_xval(df_edr3), get_yval(df_edr3)
+            source_id = nparr(df_edr3.source_id) # actual ID doesnt matter
+
+            out_tuple = (
+                 tess_stars2px_function_entry(source_id, ra, dec)
+             )
+
+            (outID, outEclipLong, outEclipLat, outSec,
+             outCam, outCcd, outColPix, outRowPix, scinfo) = out_tuple
+
+            tdf = pd.DataFrame({
+                'source_id': outID, 'elon': outEclipLong, 'elat': outEclipLat,
+                'sec': outSec, 'cam': outCam, 'ccd': outCcd, 'col_px':
+                outColPix, 'row_px': outRowPix, 'scinfo': scinfo
+            })
+
+            # Require within first two years
+            stdf = tdf[tdf.sec <= 26]
+
+            # now count
+            res = Counter(nparr(stdf.source_id))
+            tess_df = pd.DataFrame({
+                "source_id":list(res.keys()), "n_tess_sector": list(res.values())}
+            )
+            mdf = df_edr3.merge(tess_df, on="source_id", how='left')
+            assert len(mdf) == len(df_edr3)
+
+            mdf.to_csv(outcsv, index=False)
+
+        mdf = pd.read_csv(outcsv)
+
+        cmap = mpl.cm.viridis
+        bounds = np.arange(-0.5, 4.5, 1)
+        ticks = (np.arange(-1,4)+1)
+        norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
+
+        cax = ax.scatter(
+            mdf.ra, mdf.dec, c=mdf.n_tess_sector, cmap=cmap,
+            alpha=0.9, zorder=40, s=2, rasterized=True, linewidths=0,
+            marker='.', norm=norm,
+        )
+
+        trgt_id = "2103737241426734336" # Kepler 1627
+        trgt_mdf = mdf[mdf.source_id.astype(str) == trgt_id]
+
+        cax = ax.scatter(
+            trgt_mdf.ra, trgt_mdf.dec, c=trgt_mdf.n_tess_sector, cmap=cmap,
+            alpha=1, zorder=42, s=60, linewidths=0.2,
+            marker='*', norm=norm, edgecolors='k'
+        )
+
+        cb = f.colorbar(cax, extend='max', ticks=ticks)
+        cb.ax.minorticks_off()
+
+        cb.set_label("TESS Sectors", rotation=270, labelpad=10)
+
+    if narrowlims:
+        dx,dy = 30,20
+        x0,y0 = float(get_xval(trgt_df)),float(get_yval(trgt_df))
+        xmin,xmax = x0-dx,x0+dx
+        ymin,ymax = y0-dy,y0+dy
+        ax.set_xlim([xmin,xmax])
+        ax.set_ylim([ymin,ymax])
+
+
+    if shownakedeye:
+
+        plot_starnames = 1
+
+        from earhart.skyfield_helpers import (
+            get_hygdata, get_asterisms, get_constellation_boundaries,
+            get_messier_data, radec_to_lb, get_const_names
+        )
+        limiting_magnitude = 6.5
+        _, stars = get_hygdata()
+        asterisms = get_asterisms()
+        messiers = get_messier_data()
+        const_names = get_const_names()
+
+        # the stars
+        magnitude = stars['mag']
+        marker_size = (0.5 + limiting_magnitude - magnitude) ** 1.5
+        ras, decs = 360/24*nparr(stars['ra']), nparr(stars['dec'])
+        stars['ra'] = ras
+        stars['dec'] = decs
+        ax.scatter(ras, decs, s=marker_size, alpha=0.5, lw=0, c='k')
+
+        bbox = dict(facecolor='white', alpha=0.9, pad=0, edgecolor='white')
+        if plot_starnames:
+            stars_names = stars[pd.notnull(stars['proper'])]
+            sel_names = ['Vega', 'Albireo', 'Deneb']
+            stars_names = stars_names[
+                stars_names.proper.str.contains('|'.join(sel_names))
+            ]
+            stars_names = stars_names[
+                ~stars_names.proper.str.contains('Denebola')
+            ]
+            deltay=0.6
+            for index, row in stars_names.iterrows():
+                ax.text(row['ra'], row['dec']+deltay, row['proper'], ha='center',
+                        va='bottom', fontsize='xx-small', bbox=bbox)
+
+
+
+    if not showtess:
+        leg = ax.legend(loc='upper left', handletextpad=0.1,
+                        fontsize='x-small', framealpha=0.9)
+
+    ax.set_xlabel(r'$\alpha$ [deg]', fontsize='large')
+    ax.set_ylabel(r'$\delta$ [deg]', fontsize='large')
+
+    s = ''
+    if narrowlims:
+        s += '_narrowlims'
+    if showkepler:
+        s += '_showkepler'
+    if showtess:
+        s += '_showtess'
+    if shownakedeye:
+        s += '_shownakedeye'
+
+    bn = inspect.stack()[0][3].split("_")[1]
+    outpath = os.path.join(outdir, f'{bn}{s}.png')
+    savefig(f, outpath, dpi=400)
