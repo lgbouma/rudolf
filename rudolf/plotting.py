@@ -2,6 +2,7 @@
 plot_ruwe_vs_apparentmag
 plot_simulated_RM
 plot_skychart
+plot_XYZvtang
 """
 import os, corner, pickle, inspect
 from glob import glob
@@ -428,6 +429,150 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0, shownakedeye=0
         s += '_showtess'
     if shownakedeye:
         s += '_shownakedeye'
+
+    bn = inspect.stack()[0][3].split("_")[1]
+    outpath = os.path.join(outdir, f'{bn}{s}.png')
+    savefig(f, outpath, dpi=400)
+
+
+def plot_XYZvtang(outdir, show1627):
+
+    plt.close('all')
+    set_style()
+
+    df_dr2, df_edr3, trgt_df = get_gaia_cluster_data()
+    # set "dr2_radial_velocity" according to Andrew Howard HIRES recon
+    # spectrum. agrees with -16.9km/s+/-0.5km/s TRES.
+    trgt_df['dr2_radial_velocity'] = -16.7
+
+    from earhart.physicalpositions import append_physicalpositions
+    df_edr3 = append_physicalpositions(df_edr3, trgt_df)
+    trgt_df = append_physicalpositions(trgt_df, med_df)
+
+    # use plx S/N>20 to get good XYZ.
+    sdf = df_edr3[df_edr3.parallax_over_error > 20]
+
+    plt.close('all')
+
+    fig = plt.figure(figsize=(8,3), constrained_layout=True)
+    axd = fig.subplot_mosaic(
+        """
+        ABBDD
+        ACCDD
+        """,
+        gridspec_kw={
+            "width_ratios": [1, 1, 1, 1, 1]
+        }
+    )
+
+    xydict = [
+        "A":('x_pc', 'y_pc'),
+        "B":('x_pc', 'z_pc'),
+        "C":('y_pc', 'z_pc'),
+        "D":('delta_pmra_prime_km_s', 'delta_pmdec_prime_km_s')
+    ]
+    ldict = {
+        'x_pc':'X [pc]',
+        'y_pc':'Y [pc]',
+        'z_pc':'Z [pc]',
+        'delta_pmra_prime_km_s': r"$\Delta \mu_{{\alpha'}}^{*}$ [km$\,$s$^{-1}$]",
+        'delta_pmdec_prime_km_s': r"$\Delta \mu_{\delta}^{*}$ [km$\,$s$^{-1}$]"
+    }
+
+    for k,v in xydict.items():
+
+        xv, yv = v[0], v[1]
+
+        axd[k].scatter(
+            sdf[xv], sdf[yv], c='k', alpha=1, zorder=7, s=2, edgecolors='none',
+            rasterized=True, marker='.'
+        )
+
+        if show1627:
+            axd[k].plot(
+                trgt_df[xv], trgt_df[yv], alpha=1, mew=0.5,
+                zorder=8, label='Kepler 1627', markerfacecolor='yellow',
+                markersize=7, marker='*', color='black', lw=0
+            )
+
+
+        axd[k].update({'xlabel': ldict[xv], 'ylabel': ldict[yv]})
+
+        # add orientation arrows
+        if k == 'A':
+            delta_x = 0.1
+            axd['A'].arrow(0.73, 0.07, delta_x, 0, length_includes_head=True,
+                           head_width=1e-2, head_length=1e-2,
+                           transform=axd['A'].transAxes)
+            axd['A'].text(0.73+delta_x/2, 0.085, 'Galactic center',
+                          va='bottom', ha='center',
+                          transform=axd['A'].transAxes, fontsize='xx-small')
+            axd['A'].arrow(0.07, 0.73, 0, delta_x, length_includes_head=True,
+                           head_width=1e-2, head_length=1e-2,
+                           transform=axd['A'].transAxes)
+            axd['A'].text(0.085, 0.73+delta_x/2, 'Galactic rotation',
+                          va='center', ha='left', transform=axd['A'].transAxes,
+                          fontsize='xx-small', rotation=90)
+
+        elif k == 'B':
+            delta_x = 0.1
+            axd['B'].arrow(0.73, 0.07, delta_x, 0, length_includes_head=True,
+                           head_width=1e-2, head_length=1e-2,
+                           transform=axs[1].transAxes)
+            axd['B'].text(0.73+delta_x/2, 0.085, 'Galactic center',
+                          va='bottom', ha='center', transform=axs[1].transAxes,
+                          fontsize='xx-small')
+
+        elif k == 'C':
+            delta_x = 0.1
+            axd['C'].arrow(0.73, 0.07, delta_x, 0,
+                         length_includes_head=True, head_width=1e-2,
+                         head_length=1e-2,
+                         transform=axd['C'].transAxes)
+            axd['C'].text(0.73+delta_x/2, 0.085, 'Galactic rotation', va='bottom',
+                        ha='center', transform=axd['C'].transAxes, fontsize='xx-small')
+
+
+    # quiver option..
+
+    #factor=2
+    #x0,y0 = -7980, -220
+    #axd['A'].quiver(
+    #    x0, y0, factor*vdiff_median.d_x.value,
+    #    factor*vdiff_median.d_y.value, angles='xy',
+    #    scale_units='xy', scale=1, color='C0',
+    #    width=6e-3, linewidths=4, headwidth=8, zorder=9
+    #)
+    ## NOTE the galactic motion is dominant!!!!
+    # axd['A'].quiver(
+    #     x0, y0, factor*c_median.v_x.value,
+    #     factor*c_median.v_y.value, angles='xy',
+    #     scale_units='xy', scale=1, color='gray',
+    #     width=6e-3, linewidths=4, headwidth=10, zorder=9
+    # )
+
+    #x0,y0 = -8160, -50
+    #axd['B'].quiver(
+    #    x0, y0, factor*vdiff_median.d_x.value,
+    #    factor*vdiff_median.d_z.value, angles='xy',
+    #    scale_units='xy', scale=1, color='C0',
+    #    width=6e-3, linewidths=4, headwidth=8, zorder=9
+    #)
+
+    #x0,y0 = -600, -50
+    #axd['C'].quiver(
+    #    x0, y0, factor*vdiff_median.d_y.value,
+    #    factor*vdiff_median.d_z.value, angles='xy',
+    #    scale_units='xy', scale=1, color='C0',
+    #    width=6e-3, linewidths=4, headwidth=8, zorder=9
+    #)
+
+    #axd['C'].update({'xlabel': 'Y [pc]', 'ylabel': 'Z [pc]'})
+
+
+    s = ''
+    if show1627:
+        s += "show1627"
 
     bn = inspect.stack()[0][3].split("_")[1]
     outpath = os.path.join(outdir, f'{bn}{s}.png')
