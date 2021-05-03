@@ -1,6 +1,7 @@
 """
 Data getters:
     get_gaia_cluster_data
+    get_comovers
     get_simulated_RM_data
 
     get_keplerfield_dict
@@ -115,6 +116,28 @@ def get_gaia_cluster_data():
     trgt_df = df_edr3[df_edr3.source_id.astype(str) == trgt_id]
 
     return df_dr2, df_edr3, trgt_df
+
+
+def get_comovers():
+    """
+    made by plot_XYZvtang.py
+
+        sel = (
+            (df_edr3.delta_pmdec_prime_km_s > -5)
+            &
+            (df_edr3.delta_pmdec_prime_km_s < 2)
+            &
+            (df_edr3.delta_pmra_prime_km_s > -4)
+            &
+            (df_edr3.delta_pmra_prime_km_s < 2)
+        )
+
+    """
+    csvpath = os.path.join(RESULTSDIR, 'tables',
+                           'stephenson1_edr3_XYZvtang_candcomovers.csv')
+
+    return pd.read_csv(csvpath)
+
 
 
 ORIENTATIONTRUTHDICT = {

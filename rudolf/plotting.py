@@ -36,7 +36,8 @@ from cdips.utils.mamajek import get_interp_BpmRp_from_Teff
 
 from rudolf.paths import DATADIR, RESULTSDIR
 from rudolf.helpers import (
-    get_gaia_cluster_data, get_simulated_RM_data, get_keplerfield_dict
+    get_gaia_cluster_data, get_simulated_RM_data, get_keplerfield_dict,
+    get_comovers
 )
 
 
@@ -69,7 +70,7 @@ def plot_ruwe_vs_apparentmag(outdir):
     ax.plot(
         get_xval(trgt_df), get_yval(trgt_df), alpha=1, mew=0.5,
         zorder=8, label='Kepler 1627', markerfacecolor='yellow',
-        markersize=10, marker='*', color='black', lw=0
+        markersize=20, marker='*', color='black', lw=0
     )
 
     leg = ax.legend(loc='upper left', handletextpad=0.1, fontsize='x-small',
@@ -260,11 +261,14 @@ def plot_simulated_RM(outdir, orientation, N_mcmc=10000):
     plt.close('all')
 
 
-def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0, shownakedeye=0):
+def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
+                  shownakedeye=0, showcomovers=0):
 
     set_style()
 
     df_dr2, df_edr3, trgt_df = get_gaia_cluster_data()
+    if showcomovers:
+        df_edr3 = get_comovers()
 
     plt.close('all')
     f, ax = plt.subplots(figsize=(4,3), constrained_layout=True)
@@ -285,7 +289,7 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0, shownakedeye=0
         ax.scatter(
             get_xval(df_edr3), get_yval(df_edr3), c='k', alpha=0.9,
             zorder=4, s=5, rasterized=True, linewidths=0,
-            label='$\delta$ Lyr Cluster', marker='.'
+            label='$\delta$ Lyr Comovers', marker='.'
         )
         ax.plot(
             get_xval(trgt_df), get_yval(trgt_df), alpha=1, mew=0.5,
@@ -304,7 +308,8 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0, shownakedeye=0
 
     if showtess:
 
-        outcsv = os.path.join(outdir, 'showtess_stephenson1_cache.csv')
+        _s = '' if not showcomovers else '_comovers'
+        outcsv = os.path.join(outdir, f'showtess_stephenson1_cache{_s}.csv')
 
         if not os.path.exists(outcsv):
 
@@ -373,6 +378,13 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0, shownakedeye=0
         ax.set_xlim([xmin,xmax])
         ax.set_ylim([ymin,ymax])
 
+    if showcomovers:
+        x,y = get_xval(df_edr3), get_yval(df_edr3)
+        xmin,xmax = np.max(x)+1, np.min(x)-1
+        ymin,ymax = np.min(y)-1, np.max(y)+1
+        ax.set_xlim([xmin,xmax])
+        ax.set_ylim([ymin,ymax])
+
 
     if shownakedeye:
 
@@ -429,13 +441,16 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0, shownakedeye=0
         s += '_showtess'
     if shownakedeye:
         s += '_shownakedeye'
+    if showcomovers:
+        s += '_showcomovers'
 
     bn = inspect.stack()[0][3].split("_")[1]
     outpath = os.path.join(outdir, f'{bn}{s}.png')
     savefig(f, outpath, dpi=400)
 
 
-def plot_XYZvtang(outdir, show1627):
+def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, show_comovers=0,
+                  show_sun=0):
 
     plt.close('all')
     set_style()
@@ -443,34 +458,53 @@ def plot_XYZvtang(outdir, show1627):
     df_dr2, df_edr3, trgt_df = get_gaia_cluster_data()
     # set "dr2_radial_velocity" according to Andrew Howard HIRES recon
     # spectrum. agrees with -16.9km/s+/-0.5km/s TRES.
-    trgt_df['dr2_radial_velocity'] = -16.7
+    trgt_df.dr2_radial_velocity = -16.7
 
     from earhart.physicalpositions import append_physicalpositions
     df_edr3 = append_physicalpositions(df_edr3, trgt_df)
-    trgt_df = append_physicalpositions(trgt_df, med_df)
+    trgt_df = append_physicalpositions(trgt_df, trgt_df)
+
+    if save_candcomovers:
+
+        sel = (
+            (df_edr3.delta_pmdec_prime_km_s > -5)
+            &
+            (df_edr3.delta_pmdec_prime_km_s < 2)
+            &
+            (df_edr3.delta_pmra_prime_km_s > -4)
+            &
+            (df_edr3.delta_pmra_prime_km_s < 2)
+        )
+        cm_df_edr3 = df_edr3[sel]
+
+        _outpath = os.path.join(RESULTSDIR, 'tables',
+                                'stephenson1_edr3_XYZvtang_candcomovers.csv')
+        cm_df_edr3.to_csv(_outpath, index=False)
 
     # use plx S/N>20 to get good XYZ.
     sdf = df_edr3[df_edr3.parallax_over_error > 20]
+    scmdf = cm_df_edr3[cm_df_edr3.parallax_over_error > 20]
 
     plt.close('all')
 
-    fig = plt.figure(figsize=(8,3), constrained_layout=True)
+    factor=1.2
+    fig = plt.figure(figsize=(factor*6,factor*4))
     axd = fig.subplot_mosaic(
         """
-        ABBDD
-        ACCDD
-        """,
-        gridspec_kw={
-            "width_ratios": [1, 1, 1, 1, 1]
-        }
+        AB
+        CD
+        """#,
+        #gridspec_kw={
+        #    "width_ratios": [1, 1, 1, 1]
+        #}
     )
 
-    xydict = [
+    xydict = {
         "A":('x_pc', 'y_pc'),
         "B":('x_pc', 'z_pc'),
         "C":('y_pc', 'z_pc'),
         "D":('delta_pmra_prime_km_s', 'delta_pmdec_prime_km_s')
-    ]
+    }
     ldict = {
         'x_pc':'X [pc]',
         'y_pc':'Y [pc]',
@@ -478,36 +512,59 @@ def plot_XYZvtang(outdir, show1627):
         'delta_pmra_prime_km_s': r"$\Delta \mu_{{\alpha'}}^{*}$ [km$\,$s$^{-1}$]",
         'delta_pmdec_prime_km_s': r"$\Delta \mu_{\delta}^{*}$ [km$\,$s$^{-1}$]"
     }
+    sun = {
+        'x_pc':-8122,
+        'y_pc':0,
+        'z_pc':20.8
+    }
 
     for k,v in xydict.items():
 
         xv, yv = v[0], v[1]
 
+        c = 'k' if not show_comovers else 'darkgray'
         axd[k].scatter(
-            sdf[xv], sdf[yv], c='k', alpha=1, zorder=7, s=2, edgecolors='none',
+            sdf[xv], sdf[yv], c=c, alpha=1, zorder=7, s=2, edgecolors='none',
             rasterized=True, marker='.'
         )
+        if show_comovers:
+            axd[k].scatter(
+                scmdf[xv], scmdf[yv], c='k', alpha=1, zorder=8, s=2,
+                edgecolors='none', rasterized=True, marker='.'
+            )
 
-        if show1627:
+        if show_1627:
             axd[k].plot(
                 trgt_df[xv], trgt_df[yv], alpha=1, mew=0.5,
-                zorder=8, label='Kepler 1627', markerfacecolor='yellow',
+                zorder=42, label='Kepler 1627', markerfacecolor='yellow',
                 markersize=7, marker='*', color='black', lw=0
             )
 
+        if show_sun and '_pc' in xv:
+            axd[k].scatter(
+                sun[xv], sun[yv], c='k', alpha=1, zorder=10, s=10,
+                edgecolors='k', marker='.'
+            )
+            axd[k].plot(
+                sun[xv], sun[yv], c='k', alpha=1, zorder=10, ms=10,
+                marker='o', markerfacecolor="None", markeredgecolor='k',
+                markeredgewidth=0.5
+            )
 
+        # update x/ylabels
         axd[k].update({'xlabel': ldict[xv], 'ylabel': ldict[yv]})
 
         # add orientation arrows
         if k == 'A':
             delta_x = 0.1
+            delta_y = 0.2
             axd['A'].arrow(0.73, 0.07, delta_x, 0, length_includes_head=True,
                            head_width=1e-2, head_length=1e-2,
                            transform=axd['A'].transAxes)
             axd['A'].text(0.73+delta_x/2, 0.085, 'Galactic center',
                           va='bottom', ha='center',
                           transform=axd['A'].transAxes, fontsize='xx-small')
-            axd['A'].arrow(0.07, 0.73, 0, delta_x, length_includes_head=True,
+            axd['A'].arrow(0.07, 0.68, 0, delta_y, length_includes_head=True,
                            head_width=1e-2, head_length=1e-2,
                            transform=axd['A'].transAxes)
             axd['A'].text(0.085, 0.73+delta_x/2, 'Galactic rotation',
@@ -518,10 +575,10 @@ def plot_XYZvtang(outdir, show1627):
             delta_x = 0.1
             axd['B'].arrow(0.73, 0.07, delta_x, 0, length_includes_head=True,
                            head_width=1e-2, head_length=1e-2,
-                           transform=axs[1].transAxes)
+                           transform=axd['B'].transAxes)
             axd['B'].text(0.73+delta_x/2, 0.085, 'Galactic center',
-                          va='bottom', ha='center', transform=axs[1].transAxes,
-                          fontsize='xx-small')
+                          va='bottom', ha='center',
+                          transform=axd['B'].transAxes, fontsize='xx-small')
 
         elif k == 'C':
             delta_x = 0.1
@@ -569,11 +626,19 @@ def plot_XYZvtang(outdir, show1627):
 
     #axd['C'].update({'xlabel': 'Y [pc]', 'ylabel': 'Z [pc]'})
 
+    for _,ax in axd.items():
+        format_ax(ax)
+
+    fig.tight_layout()
 
     s = ''
-    if show1627:
-        s += "show1627"
+    if show_1627:
+        s += "_show1627"
+    if show_comovers:
+        s += "_showcomovers"
+    if show_sun:
+        s += "_showsun"
 
     bn = inspect.stack()[0][3].split("_")[1]
     outpath = os.path.join(outdir, f'{bn}{s}.png')
-    savefig(f, outpath, dpi=400)
+    savefig(fig, outpath, dpi=400)
