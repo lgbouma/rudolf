@@ -1,0 +1,13 @@
+@MISC{2020ascl.soft03001B,
+author = {{Burke}, C.~J. and {Levine}, A. and {Fausnaugh}, M. and {Vanderspek}, R. and {Barclay}, T. and {Libby-Roberts}, J.~E. and {Morris}, B. and {Sipocz}, B. and {Owens}, M. and {Feinstein}, A.~D. and {Camacho}, J.
+},
+title = "{TESS-Point: High precision TESS pointing tool}",
+keywords = {Software },
+howpublished = {Astrophysics Source Code Library},
+year = 2020,
+month = mar,
+archivePrefix = "ascl",
+eprint = {2003.001},
+adsurl = {http://adsabs.harvard.edu/abs/2020ascl.soft03001B},
+adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
