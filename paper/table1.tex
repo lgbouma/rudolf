@@ -1,0 +1,111 @@
+%% \begin{deluxetable}{} command tell LaTeX how many columns
+%% there are and how to align them.
+%\startlongtable
+\begin{deluxetable*}{lccc}
+    
+%% Keep a portrait orientation
+
+%% Over-ride the default font size
+%% Use Default (12pt)
+\tabletypesize{\scriptsize}
+%\tabletypesize{\small}
+%\tabletypesize{\normal}
+
+%% Use \tablewidth{?pt} to over-ride the default table width.
+%% If you are unhappy with the default look at the end of the
+%% *.log file to see what the default was set at before adjusting
+%% this value.
+
+%% This is the title of the table.
+\tablecaption{Provenances of Young and Age-Dateable Stars.}
+\label{tab:metadata}
+
+%% This command over-rides LaTeX's natural table count
+%% and replaces it with this number.  LaTeX will increment 
+%% all other tables after this table based on this number
+%\tablenum{3}
+
+%% The \tablehead gives provides the column headers.  It
+%% is currently set up so that the column labels are on the
+%% top line and the units surrounded by ()s are in the 
+%% bottom line.  You may add more header information by writing
+%% another line between these lines. For each column that requries
+%% extra information be sure to include a \colhead{text} command
+%% and remember to end any extra lines with \\ and include the 
+%% correct number of &s.
+\tablehead{
+  \colhead{Reference} &
+  \colhead{$N_{\rm Gaia}$} &
+  \colhead{$N_{\rm Age}$} &
+  \colhead{$N_{G_{\rm RP}<16}$}
+}
+
+%% All data must appear between the \startdata and \enddata commands
+%
+% paste from
+% /Users/luke/Dropbox/proj/rudolf/paper/metadata_table_data.tex
+% via drivers/write_metadata_table.py
+\startdata
+                           \citet{Kounkel2020}  &             987376 &            987376 &                775363 \\
+                     \citet{CantatGaudin2020a}  &             433669 &            412671 &                269566 \\
+                     \citet{CantatGaudin2018a}  &             399654 &            381837 &                246067 \\
+                      \citet{KounkelCovey2019}  &             288370 &            288370 &                229506 \\
+                     \citet{CantatGaudin2020b}  &             233369 &            227370 &                183974 \\
+                           \citet{Zari2018} UMS &              86102 &                 0 &                 86102 \\
+                  \citet{SIMBAD} $\texttt{Y*?}$ &              61432 &                 0 &                 45076 \\
+                           \citet{Zari2018} PMS &              43719 &                 0 &                 38435 \\
+\citet{GaiaCollaboration2018} $d>250\,{\rm pc}$ &              35506 &             31182 &                 18830 \\
+                      \citet{CastroGinard2020}  &              33635 &             24834 &                 31662 \\
+                  \citet{SIMBAD} $\texttt{Y*O}$ &              28406 &                 0 &                 16205 \\
+                        \citet{VillaVelez2018}  &              14459 &             14459 &                 13866 \\
+                     \citet{CantatGaudin2019a}  &              11843 &             11843 &                  9246 \\
+                        \citet{Damiani2019} PMS  &              10839 &             10839 &                  9901 \\
+                                \citet{Oh2017}  &              10379 &                 0 &                 10370 \\
+                          \citet{Meingast2021}  &               7925 &              7925 &                  5878 \\
+                 \citet{SIMBAD} $\texttt{pMS*}$ &               5901 &                 0 &                  3006 \\
+\citet{GaiaCollaboration2018} $d>250\,{\rm pc}$ &               5378 &               817 &                  3968 \\
+                           \citet{Kounkel2018}  &               5207 &              3740 &                  5207 \\
+                        \citet{Ratzenbock2020}  &               4269 &              4269 &                  2662 \\
+                  \citet{SIMBAD} $\texttt{TT*}$ &               4022 &                 0 &                  3344 \\
+                        \citet{Damiani2019} UMS  &               3598 &              3598 &                  3598 \\
+                           \citet{Rizzuto2017}  &               3294 &              3294 &                  2757 \\
+            \citet{NASAExoArchive_ps_20210506}  &               3107 &               868 &                  3098 \\
+                              \citet{Tian2020}  &               1989 &              1989 &                  1394 \\
+                           \citet{Goldman2018}  &               1844 &              1844 &                  1783 \\
+                        \citet{CottenSong2016}  &               1695 &                 0 &                  1693 \\
+                            \citet{Gagne2018a}  &               1429 &                 0 &                  1389 \\
+             \citet{RoserSchilbach2020} Psc-Eri &               1387 &              1387 &                  1107 \\
+            \citet{RoserSchilbach2020} Pleiades &               1245 &              1245 &                  1019 \\
+                  \citet{SIMBAD} $\texttt{TT?}$ &               1198 &                 0 &                   853 \\
+                            \citet{Gagne2018c}  &                914 &                 0 &                   913 \\
+                          \citet{Pavlidou2021}  &                913 &               913 &                   504 \\
+                            \citet{Gagne2018b}  &                692 &                 0 &                   692 \\
+                            \citet{Ujjwal2020}  &                563 &                 0 &                   563 \\
+                             \citet{Gagne2020}  &                566 &               566 &                   351 \\
+                      \citet{EsplinLuhman2019}  &                377 &               443 &                   296 \\
+                     \citet{Roccatagliata2020}  &                283 &               283 &                   232 \\
+                          \citet{Meingast2019}  &                238 &               238 &                   238 \\
+                 \citet{Furnkranz2019} Coma-Ber &                214 &               214 &                   213 \\
+           \citet{Furnkranz2019} Neighbor Group &                177 &               177 &                   167 \\
+                             \citet{Kraus2014}  &                145 &               145 &                   145 \\
+\enddata
+
+%% Include any \tablenotetext{key}{text}, \tablerefs{ref list},
+%% or \tablecomments{text} between the \enddata and 
+%% \end{deluxetable} commands
+
+%% General table comment marker
+\tablecomments{
+Table~\ref{tab:metadata} describes the provenances for the young and
+age-dateable stars in Table~\ref{tab:v05}.  $N_{\rm Gaia}$: number of
+Gaia stars we parsed from the literature source.  $N_{\rm Age}$:
+number of stars in the literature source with ages reported.
+$N_{G_{\rm RP}<16}$: number of Gaia stars we parsed from the
+literature source with either $G_{\rm RP}<16$, or a parallax S/N
+exceeding 5 and a distance closer than 100\,pc.  The latter criterion
+included a few hundred white dwarfs that would have otherwise been
+neglected.  Some studies appear multiple times when multiple tables
+from the analysis were included in the concatenation.
+}
+\vspace{-0.5cm}
+\end{deluxetable*}

@@ -63,18 +63,19 @@
 \begin{abstract}
   The Gaia satellite is revitalizing our understanding of nearby
   open clusters and moving groups.  Here, we focus on the
-  underappreciated \cn.  Based on rotation periods from TESS and lithium
-  measurements from ground-based spectrographs, we find the age of the
-  cluster to be $30\pm XX$\,Myr.  \sn\ is a binary system in the
-  cluster, serendipitously observed by the Kepler satellite because
-  the primary is nearby and Sun-like.  Kepler\,1627A was found to host
-  a $3.7\pm X.X\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  We
-  re-validate the existence of \pn, and cement it as the youngest
-  planet with a well-measured age observed by the main Kepler mission.
-  Newly derived ages from Gaia offer the opportunity to significantly
-  expand the census of age-dated planets.  The properties of \pn\ are
-  may also help clarify how the orbits and atmospheres of the
-  mini-Neptune planets evolve.
+  underappreciated \cn.  Based on rotation periods from TESS and
+  lithium measurements from ground-based spectrographs, we find the
+  age of the cluster to be $30\pm XX$\,Myr.  \sn\ is a binary system
+  in the cluster, serendipitously observed by the Kepler satellite
+  because the primary is nearby and Sun-like.  Kepler\,1627A was
+  previously found to host a $3.7\pm X.X\,R_\oplus$ mini-Neptune on a
+  7.2\,day orbit.  We re-validate the existence of \pn, and cement it
+  as the youngest planet with a well-measured age observed by the main
+  Kepler mission.  Newly derived ages from Gaia offer the opportunity
+  to significantly expand the census of age-dated planets -- we offer
+  a literature compilation of young stars to enable this expansion.
+  The properties of \pn\ are may also help clarify how the orbits and
+  atmospheres of the mini-Neptune planets evolve.
 \end{abstract}
 
 \keywords{
@@ -347,7 +348,6 @@ efforts to make the mission a continued success.
 % 	VLT:Antu (FORS2).
 }
 
-% \input{maintable_header.tex}
 % \input{TOI837_phot_table.tex}
 % \input{TOI837_rv_table.tex}
 % \input{ic2602_ages.tex}
@@ -360,8 +360,86 @@ efforts to make the mission a continued success.
 \bibliography{bibliography} 
 
 \appendix
-\section{first appendix}
-\label{app:first}
+\section{Young, Age-Dated, and Age-Dateable Star Compilation}
+\label{app:targetlist}
+
+\input{table1.tex}
+
+The \texttt{v0.5} CDIPS target catalog includes some important updates
+from previous versions.  As in \citet{bouma_cdipsI_2019}, we collected
+membership information for young, age-dated, or age-dateable stars
+from across the literature.  Table~\ref{tab:metadata} gives a list of
+the sources included, and some brief summary statistics.
+
+The first major important change is that the extent of analyses
+performed on the Gaia data at the time of our compilation was wide and
+deep enough that we opted to neglect pre-Gaia analyses, except in
+cases for which spectroscopically confirmed samples of stars had been
+collected.  The membership lists for instance of
+\citet{Kharchenko_et_al_2013} and \citet{dias_proper_2014} (MWSC and
+DAML) were no longer required, especially given their relatively high
+field-star contamination rates compared to Gaia-derived membership
+catalogs.
+
+For any of the catalogs for which Gaia DR2 identifiers were not
+immediately available, we either followed the spatial (plus
+proper-motion) crossmatching procedures described in
+\citet{bouma_cdipsI_2019}, or else we pulled the Gaia DR2 source
+identifiers associated with the catalog from SIMBAD.  We consequently
+opted to drop the $\texttt{ext\_catalog\_name}$ and $\texttt{dist}$
+columns maintained in \citet{bouma_cdipsI_2019}, as these were only
+populated for a small number of stars.
+
+The most crucial parameters of a given star for our purposes are the
+Gaia DR2 source identifier ($\texttt{source\_id}$), the cluster name
+($\texttt{cluster}$), and the ($\texttt{age}$).  Given the
+hierarchical nature of many stellar associations, we do not attempt to
+resolve the cluster names to a single unique string.  The Orion
+complex for instance, can be divided into almost one hundred kinematic
+subgroups \citep{kounkel_apogee2_2018}.  Similar complexity applies to
+the problem of determining homogeneous ages, which we do not attempt
+to resolve.  Instead, we simply merged the cluster names and ages
+reported by various authors together.
+
+This means that our ``age'' column can be null, for cases in which the
+original authors did not report an age, and a reference literature age
+was not readily available.  Nonetheless, since we do generally prefer
+stars with known ages, we made a few additional efforts to populate
+this column.  When available, the age provenance is from the original
+analysis of the cluster.  However, in a few cases we adopted other
+ages when the string-based crossmatches on the ``cluster'' name was
+straightforward.  In particular, we used the ages determined by
+\citet{CantatGaudin2020b} to assign ages to the catalogs from
+\citet{GaiaCollaboration2018}, \citet{CantatGaudin2018a},
+\citet{CastroGinard2020}, and \citet{CantatGaudin2020a}.
+
+The catalogs we included for which ages were not immediately available
+were those of \citet{CottenSong2016}, \citet{Oh2017},
+\citet{Zari2018}, \citet{Gagne2018a},
+\citet{Gagne2018b},\citet{Gagne2018c}, and \citet{Ujjwal2020}.  While
+in principle the moving group members discussed by
+\citet{Gagne2018a,Gagne2018b,Gagne2018c} and \citet{Ujjwal2020} have
+easily associated ages, our SIMBAD cross-matching lost the moving
+group association from those studies, which should therefore be
+recovered tools such as BANYAN
+$\Sigma$.\footnote{\url{http://www.exoplanetes.umontreal.ca/banyan/banyansigma.php}}.
+We also included the SIMBAD object identifiers $\texttt{TT*}$,
+$\texttt{Y*O}, $\texttt{Y*?}, $\texttt{TT?}$, and $\texttt{pMS*}$.
+Finally, we also included every star in the NASA Exoplanet Archive
+$\texttt{ps}$ table that had a Gaia identifier available
+\citep{NASAExoArchive_ps_20210506}.  If the age had finite
+uncertainties, we also included it, since stellar ages determined
+through the combination of isochrone-fitting and transit-derived
+stellar densities typically have higher precision than from isochrones
+alone.
+
+The technical manipulations for the merging, cleaning, and joining
+were performed using $\texttt{pandas}$
+\citep{mckinney-proc-scipy-2010}.  The eventual crossmatch (using the
+Gaia DR2 $\texttt{source\_id}$) against the Gaia DR2 archive was performed
+asychronously on the Gaia archive
+website\footnote{\url{https://gea.esac.esa.int/archive/}}.
+
 
 
 
