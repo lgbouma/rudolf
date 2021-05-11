@@ -1,0 +1,84 @@
+%% \begin{deluxetable}{} command tell LaTeX how many columns
+%% there are and how to align them.
+%\startlongtable
+\begin{deluxetable*}{lll}
+    
+%% Keep a portrait orientation
+
+%% Over-ride the default font size
+%% Use Default (12pt)
+\tabletypesize{\scriptsize}
+%\tabletypesize{\small}
+
+%% Use \tablewidth{?pt} to over-ride the default table width.
+%% If you are unhappy with the default look at the end of the
+%% *.log file to see what the default was set at before adjusting
+%% this value.
+
+%% This is the title of the table.
+\tablecaption{Young, Age-dated, and Age-dateable Stars Within the
+  Nearest Few Kiloparsecs ($\texttt{v0.5}$ of the CDIPS Target
+  List).}
+\label{tab:v05}
+
+%% This command over-rides LaTeX's natural table count
+%% and replaces it with this number.  LaTeX will increment 
+%% all other tables after this table based on this number
+%\tablenum{3}
+
+%% The \tablehead gives provides the column headers.  It
+%% is currently set up so that the column labels are on the
+%% top line and the units surrounded by ()s are in the 
+%% bottom line.  You may add more header information by writing
+%% another line between these lines. For each column that requries
+%% extra information be sure to include a \colhead{text} command
+%% and remember to end any extra lines with \\ and include the 
+%% correct number of &s.
+\tablehead{
+  \colhead{Parameter} &
+  \colhead{Example Value} &
+  \colhead{Description}
+}
+
+%% All data must appear between the \startdata and \enddata commands
+%
+% paste from
+% /Users/luke/Dropbox/proj/rudolf/results/tables/v05_main_tableheader.tex
+% via drivers/write_v05_main_tableheader.py
+\startdata
+         \texttt{source\_id} &                                         1709456705329541504 &                                             Gaia DR2 source identifier. \\
+                 \texttt{ra} &                                                     247.826 &                                         Gaia DR2 right ascension [deg]. \\
+                \texttt{dec} &                                                      79.789 &                                             Gaia DR2 declination [deg]. \\
+           \texttt{parallax} &                                                      35.345 &                                                Gaia DR2 parallax [mas]. \\
+    \texttt{parallax\_error} &                                                       0.028 &                                    Gaia DR2 parallax uncertainty [mas]. \\
+               \texttt{pmra} &                                                      94.884 &     Gaia DR2 proper motion $\mu_\alpha \cos \delta$ [mas$\,$yr${^-1}$]. \\
+              \texttt{pmdec} &                                                     -86.971 &                 Gaia DR2 proper motion $\mu_\delta$ [mas$\,$yr${^-1}$]. \\
+ \texttt{phot\_g\_mean\_mag} &                                                        6.85 &                                                 Gaia DR2 $G$ magnitude. \\
+\texttt{phot\_bp\_mean\_mag} &                                                       6.409 &                                     Gaia DR2 $G_\mathrm{BP}$ magnitude. \\
+\texttt{phot\_rp\_mean\_mag} &                                                       7.189 &                                     Gaia DR2 $G_\mathrm{RP}$ magnitude. \\
+            \texttt{cluster} &                 Uma,IR\_excess,NASAExoArchive\_ps\_20210506 &                                  Comma-separated cluster or group name. \\
+                \texttt{age} &                                                nan,nan,9.48 & Comma-separated logarithm (base-10) of reported$^{\rm a}$ age in years. \\
+          \texttt{mean\_age} &                                                        9.48 &                          Mean (ignoring NaNs) of $\texttt{age}$ column. \\
+      \texttt{reference\_id} &      Ujjwal2020,CottenSong2016,NASAExoArchive\_ps\_20210506 &                          Comma-separted provenance of group membership. \\
+ \texttt{reference\_bibcode} & 2020AJ....159..166U,2016ApJS..225...15C,2013PASP..125..989A &                  ADS bibcode corresponding to $\texttt{reference\_id}$. \\
+\enddata
+
+%% Include any \tablenotetext{key}{text}, \tablerefs{ref list},
+%% or \tablecomments{text} between the \enddata and 
+%% \end{deluxetable} commands
+
+%% General table comment marker
+\tablecomments{
+Table~\ref{tab:v05} is
+published in its entirety in a machine-readable format.   This table is a
+concatenation of the studies listed in Table~\ref{tab:metadata}.
+One entry is
+shown for guidance regarding form and content. 
+In this particular example, the star has a
+cold Jupiter on a 16 year orbit, HD 150706b \citep{2012AA...545A..55B}.
+An infrared excess has been reported \citep{CottenSong2016}, and the star was identified by \citet{Ujjwal2020} as a candidate UMa moving group
+member ($\approx 400\,{\rm Myr}$; \citealt{mann_tess_2020}).
+The star's RV activity and TESS rotation period corroborate its youth.
+}
+\vspace{-0.5cm}
+\end{deluxetable*}

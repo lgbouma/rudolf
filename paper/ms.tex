@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\documentclass[12pt,twocolumn,tighten]{aastex63}
-\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
+\documentclass[12pt,twocolumn,tighten]{aastex63}
+%\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
 %\documentclass[12pt,twocolumn,tighten,trackchanges]{aastex63}
 \usepackage{amsmath,amstext,amssymb}
 \usepackage[T1]{fontenc}
@@ -108,35 +108,17 @@ Section~\ref{sec:conclusion} gives our conclusions.
 \begin{figure*}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=1\textwidth]{f1.pdf}
-	\end{center}
-	\vspace{-0.7cm}
-  \caption{
-  {\bf Galactic position and tangential velocities of the
-  $\delta$\,Lyr cluster (also known as Theia 73 and Stephenson\,1).}  Points are
-  candidate cluster members with $\varpi/\sigma_\varpi > 20$, reported
-  to be in the group by \citet{kounkel_untangling_2019}.  We focus
-  on stars in a small region (black points) in the kinematic
-  vicinity of Kepler\,1627 (yellow star).  The other candidate cluster
-  members (gray points) may or may not share the ages of the selected
-  kinematic group.  The location of the Sun is ($\odot$) is shown.
-  \label{fig:XYZvtang}
-  }
-\end{figure*}
-
-\begin{figure*}[t]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=0.95\textwidth]{f2.pdf}
+		\includegraphics[width=0.99\textwidth]{f2.pdf}
 	\end{center}
 	\vspace{-0.7cm}
   \caption{
   {\bf Kepler and TESS views of the $\delta$\,Lyr cluster.} Colored points are
   kinematically selected members of the $\delta$\,Lyr cluster (black points in
   Figure~\ref{fig:XYZvtang}).  Both Kepler (gray panels) and TESS (colored
-  points) observed members of the cluster.  Gray points are naked-eye stars
+  points) observed portions of the cluster.  Gray points are naked-eye stars
   ($m_{\rm V}<6.5$), three of which are annotated.  Kepler\,1627 (green star) was
-  observed for two TESS sectors, and during the entirety of the Kepler mission.
+  observed during the entirety of the Kepler mission, and has (so far) been observed
+  for two lunar months by TESS.
   \label{fig:skychart}
   }
 \end{figure*}
@@ -363,13 +345,15 @@ efforts to make the mission a continued success.
 \section{Young, Age-Dated, and Age-Dateable Star Compilation}
 \label{app:targetlist}
 
-\input{table1.tex}
+\input{t1_appendix.tex}
+\input{t2_appendix.tex}
 
-The \texttt{v0.5} CDIPS target catalog includes some important updates
-from previous versions.  As in \citet{bouma_cdipsI_2019}, we collected
-membership information for young, age-dated, or age-dateable stars
-from across the literature.  Table~\ref{tab:metadata} gives a list of
-the sources included, and some brief summary statistics.
+The \texttt{v0.5} CDIPS target catalog (Table~\ref{tab:v05}) includes
+some important updates from previous versions.  As in
+\citet{bouma_cdipsI_2019}, we collected membership information for
+young, age-dated, or age-dateable stars from across the literature.
+Table~\ref{tab:metadata} gives a list of the sources included, and
+some brief summary statistics.
 
 The first major important change is that the extent of analyses
 performed on the Gaia data at the time of our compilation was wide and
@@ -441,7 +425,44 @@ asychronously on the Gaia archive
 website\footnote{\url{https://gea.esac.esa.int/archive/}}.
 
 
+\section{Kinematic Selection of $\delta$\,Lyr Cluster Members}
 
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=1\textwidth]{f1.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf Galactic position and tangential velocities of the
+			$\delta$\,Lyr cluster (also known as Theia 73 and Stephenson\,1).}  Points are
+		candidate cluster members with $\varpi/\sigma_\varpi > 20$, reported
+		to be in the group by \citet{kounkel_untangling_2019}.  We focus
+		on stars in a small region (black points) in the kinematic
+		vicinity of Kepler\,1627 (yellow star).  The other candidate cluster
+		members (gray points) may or may not share the ages of the selected
+		kinematic group.  The location of the Sun is ($\odot$) is shown.
+		\label{fig:XYZvtang}
+	}
+\end{figure*}
+
+Figure~\ref{fig:XYZvtang} shows members of the \cn\
+reported
+by \citet{kounkel_untangling_2019} to be in the group.
+Galactic positions are determined and plotted only for stars with parallax
+signal-to-noise exceeding 20.
+The location of the Sun is shown on the plots.
+The non-uniform ``clumps'' might be
+an artifact of the data processing steps performed by \citet{kounkel_untangling_2019}.
+We therefore only consider stars in the immediate kinematic group
+around \sn. 
+The tangential velocities relative to \sn\ are shown in the bottom right panel.
+These are computed by assuming that every star has the same three-dimensional
+spatial velocity as \sn, where we assume a systemic radial velocity of
+$-16.7 \pm 0.2$\,\kms\ based on the reconnaissance spectra obtained by
+A.~Howard on HIRES and D.~Latham on TRES.
+The relevant projection effects are then taken into account,
+as discussed by {\it e.g.}, \citet{Meingast2021} and {\bf L.~Bouma et al (2021, submitted)}.
 
 
 \listofchanges

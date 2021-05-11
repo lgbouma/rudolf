@@ -3,7 +3,7 @@ import re, os
 # https://ads.readthedocs.io/en/latest/#getting-started
 import ads
 
-from rudolf.paths import PAPERDIR
+from rudolf.paths import RESULTSDIR
 
 csvpath = '/Users/luke/Dropbox/proj/cdips/data/cluster_data/list_of_lists_keys_paths_assembled_v0.5_gaiasources.csv'
 df = pd.read_csv(csvpath)
@@ -98,7 +98,7 @@ outdf = pd.DataFrame({
     'N_{\mathrm{Age}}': sdf.Nstars_with_age,
     'N_{G_\mathrm{RP}<16}': sdf.N_Rplt16_orclose
 })
-outpath = os.path.join(PAPERDIR, 'metadata_table_data.tex')
+outpath = os.path.join(RESULTSDIR, 'tables', 'metadata_table_data.tex')
 outdf.to_latex(outpath, index=False, escape=False)
 print(f'Wrote {outpath}')
 
