@@ -53,10 +53,6 @@ def run_gptransit(starid='Kepler_1627', N_samples=1000):
     # flags.
     sel = (qual == 0)
 
-    # FIXME: to make things manageable
-    sel &= ( (time > 200) & (time < 350) )
-
-
     datasets['keplerllc'] = [time[sel], flux[sel], flux_err[sel], texp]
 
     priorpath = join(DATADIR, 'priors', f'{starid}_priors.py')
