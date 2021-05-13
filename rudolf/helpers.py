@@ -1,15 +1,16 @@
 """
 Data getters:
+    get_kep1627_kepler_lightcurve
     get_gaia_cluster_data
     get_comovers
-    get_simulated_RM_data
+    get_keplerfieldfootprint_dict
 
-    get_keplerfield_dict
+Proposal/RM-related:
+    get_simulated_RM_data
 
 One-offs to get the Stephenson-1 information:
     get_candidate_stephenson1_member_list
     supplement_sourcelist_with_gaiainfo
-
 """
 import os, collections, pickle
 import numpy as np, pandas as pd
@@ -38,6 +39,64 @@ from cdips.utils.gaiaqueries import (
 )
 
 from rudolf.paths import DATADIR, RESULTSDIR
+
+def get_kep1627_kepler_lightcurve(lctype='longcadence'):
+    """
+    Collect and stitch available Kepler quarters, after median-normalizing in
+    each quater.
+    """
+
+    if lctype == 'longcadence':
+        lcfiles = glob(os.path.join(DATADIR, 'phot', 'kplr*_llc.fits'))
+    else:
+        raise NotImplementedError('could do short cadence here too')
+
+    timelist,f_list,ferr_list,qual_list,texp_list = [],[],[],[],[]
+
+    for lcfile in lcfiles:
+
+        hdul = fits.open(lcfile)
+        d = hdul[1].data
+
+        yval = 'PDCSAP_FLUX'
+        time = d['TIME']
+        _f, _f_err = d[yval], d[yval+'_ERR']
+        flux = _f/np.nanmedian(_f)
+        flux_err = _f_err/np.nanmedian(_f)
+        qual = d['SAP_QUALITY']
+
+        sel = np.isfinite(time) & np.isfinite(flux) & np.isfinite(flux_err)
+
+        texp = np.nanmedian(np.diff(time[sel]))
+
+        timelist.append(time[sel])
+        f_list.append(flux[sel])
+        ferr_list.append(flux_err[sel])
+        qual_list.append(qual[sel])
+        texp_list.append(texp)
+
+    time = np.hstack(timelist)
+    flux = np.hstack(f_list)
+    flux_err = np.hstack(ferr_list)
+    qual = np.hstack(qual_list)
+    texp = np.nanmedian(texp_list)
+
+    # require ascending time
+    s = np.argsort(time)
+    flux = flux[s]
+    flux_err = flux_err[s]
+    qual = qual[s]
+    time = time[s]
+    assert np.all(np.diff(time) > 0)
+
+    return (
+        time.astype(np.float64),
+        flux.astype(np.float64),
+        flux_err.astype(np.float64),
+        qual,
+        texp
+    )
+
 
 def get_candidate_stephenson1_member_list():
 
@@ -120,6 +179,7 @@ def get_gaia_cluster_data():
 
 def get_comovers():
     """
+    Get the kinematic neighbors of Kepler 1627.
     made by plot_XYZvtang.py
 
         sel = (
@@ -181,7 +241,7 @@ def get_simulated_RM_data(orientation, makeplot=1):
     return times, rm
 
 
-def get_keplerfield_dict():
+def get_keplerfieldfootprint_dict():
 
     kep = pd.read_csv(
         os.path.join(DATADIR, 'skychart', 'kepler_field_footprint.csv')
