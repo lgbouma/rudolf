@@ -33,7 +33,7 @@ EPHEMDICT = {
 }
 
 
-def run_gptransit(starid='Kepler_1627', N_samples=1000):
+def run_gptransit(starid='Kepler_1627', N_samples=500):
 
     modelid = 'gptransit'
 
@@ -53,6 +53,9 @@ def run_gptransit(starid='Kepler_1627', N_samples=1000):
     # flags.
     sel = (qual == 0)
 
+    # FIXME
+    #sel &= (time > 200) & (time < 320)
+
     datasets['keplerllc'] = [time[sel], flux[sel], flux_err[sel], texp]
 
     priorpath = join(DATADIR, 'priors', f'{starid}_priors.py')
@@ -70,14 +73,23 @@ def run_gptransit(starid='Kepler_1627', N_samples=1000):
                     pklpath=pklpath, overwrite=0, N_samples=N_samples,
                     N_cores=os.cpu_count())
 
-    import IPython; IPython.embed()
-    # NOTE: care about the "ecc" and "omega" results here too... 
+    var_names = [
+        'mean','logg_star','t0','period','log_jitter',
+        'log_prot','log_Q0','log_dQ','r_star','rho_star','u[0]','u[1]', 'r',
+        'b', 'ecc', 'omega', 'sigma', 'rho', 'sigma_rot', 'prot', 'f',
+        'r_planet', 'a_Rs', 'cosi', 'sini','T_14','T_13'
+    ]
 
-    print(pm.summary(m.trace, var_names=list(priordict)))
+    print(pm.summary(m.trace, var_names=var_names))
 
-    summdf = pm.summary(m.trace, var_names=list(priordict), round_to=10,
+    summdf = pm.summary(m.trace, var_names=var_names, round_to=10,
                         kind='stats', stat_funcs={'median':np.nanmedian},
                         extend=True)
+
+    #FIXME FIXME gotta fix posterior table!
+    #FIXME FIXME gotta fix posterior table!
+    #FIXME FIXME gotta fix posterior table!
+    #FIXME FIXME gotta fix posterior table!
 
     fitindiv = 1
     phaseplot = 1
