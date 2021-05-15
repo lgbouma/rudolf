@@ -1,0 +1,93 @@
+% Table of best fit parameters
+%\startlongtable
+\begin{deluxetable*}{lllrrrrrrr}
+%
+  \tablecaption{ Priors and posteriors for the transit and stellar
+  variability model fitted to the long-cadence Kepler 1627b
+  photometric timeseries.}
+\label{tab:posterior}
+%
+\tabletypesize{\scriptsize}
+%\tabletypesize{\small}
+%
+%\tablenum{2}
+%
+\tablehead{
+  \colhead{Param.} & 
+  \colhead{Unit} &
+  \colhead{Prior} & 
+  \colhead{Median} & 
+  \colhead{Mean} & 
+  \colhead{Std{.} Dev.} &
+  \colhead{3\%} &
+  \colhead{97\%} &
+  \colhead{ESS} &
+  \colhead{$\hat{R}-1$}
+}
+
+%/Users/luke/Dropbox/proj/rudolf/results/run_gptransit/Kepler_1627_gptransit_posteriortable.tex
+\startdata
+{\it Sampled} & & & & & & & & & \\
+\hline
+$P$ & d & $\mathcal{N}(7.20281; 0.01000)$ & 7.202804 & 7.202804 & 0.0000072 & 7.2027906 & 7.2028173 & 2562.0012087 & 0.0011528 \\
+$t_0^{(1)}$ & d & $\mathcal{N}(120.79053; 0.02000)$ & 120.7903359 & 120.7903263 & 0.0009056 & 120.7886253 & 120.7920160 & 1982.4196452 & 0.0000234 \\
+$\log R_{\rm p}/R_\star$ & -- & $\mathcal{U}(-4.605; 0.000)$ & -3.3349 & -3.33418 & 0.06621 & -3.46662 & -3.21543 & 1203.15584 & 0.0038 \\
+$b$ & -- & $\mathcal{U}(0; 1+R_{\mathrm{p}}/R_\star)$ & 0.3648 & 0.3623 & 0.2083 & 0.0001 & 0.6914 & 226.4445 & 0.0064 \\
+$u_1$ & -- & $\mathcal{U}(0.310; 0.710)$ & 0.393 & 0.406 & 0.072 & 0.310 & 0.538 & 1058.579 & 0.007 \\
+$u_2$ & -- & $\mathcal{U}(0.040; 0.440)$ & 0.218 & 0.223 & 0.110 & 0.041 & 0.401 & 1201.271 & -0. \\
+$R_\star$ & $R_\odot$ & $\mathcal{T}(0.910; 0.052)$ & 0.911 & 0.910 & 0.052 & 0.812 & 1.002 & 2132.132 & 0.001 \\
+$\log g$ & cgs & $\mathcal{N}(4.600; 0.100)$ & 4.617 & 4.610 & 0.095 & 4.433 & 4.775 & 1074.583 & 0.002 \\
+$\langle f \rangle$ & -- & $\mathcal{N}(1.000; 0.100)$ & 0.4999 & 0.4999 & 0.0007 & 0.4986 & 0.5014 & 2324.6122 & 0.0025 \\
+$e^{(2)}$ & -- & \citet{vaneylen19} & 0.124 & 0.167 & 0.151 & 0. & 0.440 & 674.320 & 0.003 \\
+$\omega$ & rad & $\mathcal{U}(0.000; 6.283)$ & -0.181 & -0.144 & 1.932 & -3.137 & 2.9 & 931.911 & -0.001 \\
+$\log \sigma_f$ & -- & $\mathcal{N}(\log\langle \sigma_f \rangle; 2.000)$ & -8.058 & -8.058 & 0.007 & -8.072 & -8.045 & 1865.285 & 0.002 \\
+$\rho$ & d & $\mathrm{InvGamma}(0.500; 2.000)$ & 4.317 & 4.320 & 0.138 & 4.071 & 4.579 & 2112.469 & 0. \\
+$\sigma$ & d$^{-1}$ & $\mathrm{InvGamma}(1.000; 5.000)$ & 0.026 & 0.026 & 0.001 & 0.024 & 0.028 & 2177.477 & 0. \\
+$\sigma_{\mathrm{rot}}$ & d$^{-1}$ & $\mathrm{InvGamma}(1.000; 5.000)$ & 0.662 & 0.681 & 0.136 & 0.452 & 0.940 & 1703.701 & 0.002 \\
+$\log P_{\mathrm{rot}}$ & $\log (\mathrm{d})$ & $\mathcal{N}(0.958; 0.020)$ & 1.66 & 1.66 & 0.002 & 1.656 & 1.663 & 2494.624 & 0. \\
+$\log Q_0$ & -- & $\mathcal{N}(0.000; 2.000)$ & 10.514 & 10.551 & 0.662 & 9.383 & 11.832 & 479.465 & 0.008 \\
+$\log \mathrm{d}Q$ & -- & $\mathcal{N}(0.000; 2.000)$ & 15.963 & 15.973 & 0.769 & 14.425 & 17.350 & 1432.296 & 0. \\
+$f$ & -- & $\mathcal{U}(0.100; 1.000)$ & 0.201 & 0.324 & 0.259 & 0.1 & 0.877 & 295.040 & 0.013 \\
+\hline
+{\it Derived} & & & & & & & & & \\
+\hline
+$R_{\rm p}/R_\star$ & -- & -- & 0.036 & 0.036 & 0.002 & 0.031 & 0.040 & 1203.156 & 0.004 \\
+$\rho_\star$ & g$\ $cm$^{-3}$ & -- & 2.336 & 2.361 & 0.518 & 1.454 & 3.280 & 1079.762 & 0.002 \\
+$R_{\rm p}$ & $R_{\mathrm{Jup}}$ & -- & 0.316 & 0.317 & 0.038 & 0.245 & 0.385 & 1671.595 & 0.001 \\
+$a/R_\star$ & -- & -- & 18.572 & 18.539 & 1.370 & 15.859 & 20.798 & 1079.783 & 0.002 \\
+$\cos i$ & -- & -- & 0.02 & 0.02 & 0.011 & 0. & 0.036 & 251.447 & 0.007 \\
+$T_{14}$ & hr & -- & 2.815 & 2.817 & 0.048 & 2.727 & 2.908 & 883.771 & 0.001 \\
+$T_{13}$ & hr & -- & 2.579 & 2.570 & 0.065 & 2.448 & 2.688 & 592.371 & 0.003 \\
+\enddata
+%
+\tablecomments{
+  ESS refers to the number of effective samples.
+  $\hat{R}$ is the Gelman-Rubin convergence diagnostic.
+  Logarithms through this table are in base-$e$.
+  $\mathcal{U}$ denotes a uniform distribution,
+  $\mathcal{N}$ a normal distribution, and
+  $\mathcal{T}$ a truncated normal bounded between zero and an upper limit much larger than the mean.
+  (1) The ephemeris is in units of BJDTDB - 2454833.
+  (2) The eccentricity vectors are sampled in the $(e\cos\omega,
+  e\sin\omega)$ basis.
+%
+% (2) Uninformative quadratic limb-darkening prior from \citet{exoplanet:kipping13}, implemented by \citet{exoplanet:exoplanet}.
+% The precision achieved in the ground-based data did not appear to
+% necessitate using bandpass-dependent limb-darkening coefficients.
+% For comparison, the \citet{claret_limb_2017} parameters for
+% the appropriate $T_{\rm eff}$ and $\log g$ in TESS-band would have been 
+% $(u_1, u_2) = (0.3249, 0.235)$.
+%
+% (2) Assuming an informative quadratic limb-darkening prior with
+% values about those given for the appropriate $T_{\rm eff}$ and
+% $\log g$ in TESS-band from \citet{claret_limb_2017}. The precision
+% achieved in the ground-based data did not appear to necessitate using
+% bandpass-dependent limb-darkening coefficients.
+% (3) The second and third contact points do not exist for a grazing transit.
+% {\it Notation}:
+% $a_{ij;\mathrm{Instr}}$ denotes the $i^{\rm th}$ transit of a
+% particular instrument, and the $j^{\rm th}$ polynomial detrending
+% order.
+}
+\vspace{-0.3cm}
+\end{deluxetable*}

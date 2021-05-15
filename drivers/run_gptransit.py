@@ -74,7 +74,7 @@ def run_gptransit(starid='Kepler_1627', N_samples=500):
                     N_cores=os.cpu_count())
 
     var_names = [
-        'mean','logg_star','t0','period','log_jitter',
+        'mean','logg_star','t0','period','log_r','log_jitter',
         'log_prot','log_Q0','log_dQ','r_star','rho_star','u[0]','u[1]', 'r',
         'b', 'ecc', 'omega', 'sigma', 'rho', 'sigma_rot', 'prot', 'f',
         'r_planet', 'a_Rs', 'cosi', 'sini','T_14','T_13'
@@ -86,11 +86,6 @@ def run_gptransit(starid='Kepler_1627', N_samples=500):
                         kind='stats', stat_funcs={'median':np.nanmedian},
                         extend=True)
 
-    #FIXME FIXME gotta fix posterior table!
-    #FIXME FIXME gotta fix posterior table!
-    #FIXME FIXME gotta fix posterior table!
-    #FIXME FIXME gotta fix posterior table!
-
     fitindiv = 1
     phaseplot = 1
     cornerplot = 1
@@ -98,7 +93,8 @@ def run_gptransit(starid='Kepler_1627', N_samples=500):
 
     if posttable:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')
-        make_posterior_table(pklpath, priordict, outpath, modelid, makepdf=1)
+        make_posterior_table(pklpath, priordict, outpath, modelid, makepdf=1,
+                             var_names=var_names)
 
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_phaseplot.png')
