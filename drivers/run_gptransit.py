@@ -43,18 +43,9 @@ def run_gptransit(starid='Kepler_1627', N_samples=500):
     else:
         raise NotImplementedError
 
-    # NOTE: might want this, since it's 50k data points...
-    # time, flux, flux_err = _subset_cut(
-    #     time, flux, flux_err, n=2.0, t0=EPHEMDICT[starid]['t0'],
-    #     per=EPHEMDICT[starid]['per'], tdur=EPHEMDICT[starid]['tdur']
-    # )
-
     # NOTE: we have an abundance of data. so... drop all non-zero quality
     # flags.
     sel = (qual == 0)
-
-    # FIXME
-    #sel &= (time > 200) & (time < 320)
 
     datasets['keplerllc'] = [time[sel], flux[sel], flux_err[sel], texp]
 
@@ -86,28 +77,23 @@ def run_gptransit(starid='Kepler_1627', N_samples=500):
                         kind='stats', stat_funcs={'median':np.nanmedian},
                         extend=True)
 
-    fitindiv = 1
     phaseplot = 1
     cornerplot = 1
     posttable = 1
 
+    if phaseplot:
+        outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
+        ylimd = {'A':[-3.5, 2.5], 'B':[-2,2]}
+        bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
+                                   from_trace=True, ylimd=ylimd, alpha=0.2)
     if posttable:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')
         make_posterior_table(pklpath, priordict, outpath, modelid, makepdf=1,
                              var_names=var_names)
 
-    if phaseplot:
-        outpath = join(PLOTDIR, f'{starid}_{modelid}_phaseplot.png')
-        bp.plot_phasefold(m, summdf, outpath, modelid=modelid, inppt=1)
-
-    if fitindiv:
-        outpath = join(PLOTDIR, f'{starid}_{modelid}_fitindiv.png')
-        bp.plot_fitindiv(m, summdf, outpath, modelid=modelid)
-
     if cornerplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_cornerplot.png')
-        bp.plot_cornerplot(list(priordict), m, outpath)
-
+        bp.plot_cornerplot(var_names, m, outpath)
 
 
 if __name__ == "__main__":
