@@ -443,18 +443,44 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
 
         bbox = dict(facecolor='white', alpha=0.9, pad=0, edgecolor='white')
         if plot_starnames:
-            stars_names = stars[pd.notnull(stars['proper'])]
-            sel_names = ['Vega', 'Albireo', 'Deneb']
-            stars_names = stars_names[
-                stars_names.proper.str.contains('|'.join(sel_names))
+            #stars_names = stars[pd.notnull(stars['proper'])]
+            sel_names = ['Vega', 'Albireo', 'Deneb', '12Del2Lyr']
+            stars_names = stars[
+                (stars.proper.astype(str).str.contains('|'.join(sel_names)))
+                |
+                (stars.bf.astype(str).str.contains('|'.join(sel_names)))
             ]
             stars_names = stars_names[
-                ~stars_names.proper.str.contains('Denebola')
+                ~stars_names.proper.astype(str).str.contains('Denebola')
             ]
+            # delta lyra fine tuning
+            sel = stars_names.bf.astype(str).str.contains('Del2Lyr')
+            stars_names.loc[sel, 'proper'] = ''
             deltay=0.6
             for index, row in stars_names.iterrows():
                 ax.text(row['ra'], row['dec']+deltay, row['proper'], ha='center',
-                        va='bottom', fontsize='xx-small', bbox=bbox)
+                        va='bottom', fontsize='xx-small', bbox=bbox,
+                        zorder=49)
+
+            magnitude = stars_names['mag']
+            marker_size = (0.5 + limiting_magnitude - magnitude) ** 1.5
+            ax.scatter(stars_names['ra'], stars_names['dec'], s=1.05*marker_size,
+                       alpha=1, lw=0, c='C2', zorder=50)
+
+            radec = 283.62618-0.5, 36.898613
+            delradec = -8, -4
+            ax.annotate(
+                'δ Lyr', radec, nparr(radec) + nparr(delradec),
+                transform=ax.transData, ha='center', va='center',
+                fontsize='xx-small',
+                bbox=bbox,
+                zorder=50,
+                arrowprops=dict(
+                    arrowstyle='->', shrinkA=0.0, shrinkB=0.0,
+                    connectionstyle='angle3', linewidth=1
+                )
+            )
+
 
 
 
