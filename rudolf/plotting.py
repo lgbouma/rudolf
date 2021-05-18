@@ -773,7 +773,8 @@ def plot_keplerlc(outdir, N_samples=500, xlim=[200,300]):
 
 
 
-def _plot_zoom_light_curve(data, soln, axd, fig, xlim=[200,300], mask=None):
+def _plot_zoom_light_curve(data, soln, axd, fig, xlim=[200,300], mask=None,
+                           dumpmodel=True):
     # plotter for kepler 1627
 
     from betty.plotting import doublemedian
@@ -785,6 +786,20 @@ def _plot_zoom_light_curve(data, soln, axd, fig, xlim=[200,300], mask=None):
         mask = np.ones(len(x), dtype=bool)
     gp_mod = doublemedian(soln["gp_pred"]) + doublemedian(soln["mean"])
 
+    if dumpmodel:
+        # Dump the model data for iterative bls searching
+        outdf = pd.DataFrame({
+            'x': x,
+            'y': y,
+            'yerr': yerr,
+            'gp_mod': gp_mod
+        })
+        from cdips.utils import today_YYYYMMDD
+        outpath = os.path.join(
+            RESULTSDIR, 'iterative_bls', f'gptransit_dtr_{today_YYYYMMDD()}.csv'
+        )
+        outdf.to_csv(outpath, index=False)
+        print(f'Wrote {outpath}')
 
     if len(x[mask]) > int(2e4):
         # see https://github.com/matplotlib/matplotlib/issues/5907
@@ -793,7 +808,7 @@ def _plot_zoom_light_curve(data, soln, axd, fig, xlim=[200,300], mask=None):
     x0 = np.nanmin(x[mask])
 
     from astrobase.lcmath import find_lc_timegroups
-    ngroups, groups = find_lc_timegroups(x[mask], mingap=1/24)
+    ngroups, groups = find_lc_timegroups(x[mask], mingap=3/24)
 
     for g in groups:
 

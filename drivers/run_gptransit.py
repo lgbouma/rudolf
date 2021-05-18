@@ -18,9 +18,7 @@ except ModuleNotFoundError as e:
     print(f'WRN! {e}')
     pass
 
-from rudolf.helpers import (
-    get_kep1627_kepler_lightcurve
-)
+from rudolf.helpers import get_kep1627_kepler_lightcurve
 from betty.helpers import _subset_cut
 from betty.posterior_table import make_posterior_table
 from betty.modelfitter import ModelFitter
