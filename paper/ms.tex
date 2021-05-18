@@ -19,7 +19,7 @@
 
 \newcommand{\cn}{$\delta$~Lyr\ cluster} % cluster name
 \newcommand{\sn}{Kepler\,1627} % star system name (binary)
-\newcommand{\pn}{Kepler\,1627Ab} % plane name
+\newcommand{\pn}{Kepler\,1627Ab} % planet name
 
 % gaia target sample numbers
 \newcommand{\nkinematic}{3{,}298} % "fullfaint" kinematic sample, core+halo (CG18+KC19+M21). from any call of earhat.helpers._get_fullfaint_dataframes
@@ -127,6 +127,26 @@ Section~\ref{sec:conclusion} gives our conclusions.
 
 \section{second}
 \label{sec:second}
+
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=1\textwidth]{f4.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+    {\bf \sn\ light curve over 100 days.}  
+    The full Kepler dataset spans 1{,}437 days (3.9 years), sampled at
+    30 minute cadence.  The {\it top panel} shows the largest
+    signal, induced by starspots and plages.  The model for the
+    stellar variability (orange line) is subtracted in the {\it
+    bottom panel}, highlighting the transits of \pn, as well as other
+    deviations from the stellar variability model.  The 
+    Figure Set available online shows the entire 3.9 years of
+    available data.
+		\label{fig:lightcurve}
+	}
+\end{figure*}
 
 \begin{figure*}[t]
 	\begin{center}

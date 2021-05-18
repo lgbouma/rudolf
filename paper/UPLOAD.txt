@@ -1,0 +1,2 @@
+* include the "SUPPLEMENTARY" Kepler light curve figures. (slices
+  other than 500-600 days).
