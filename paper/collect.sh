@@ -6,4 +6,4 @@ cp /Users/luke/Dropbox/proj/rudolf/results/keplerlc/keplerlc_Nsample500_xlim0500
 
 cp /Users/luke/Dropbox/proj/rudolf/results/run_gptransit/Kepler_1627_gptransit_posterior_phaseplot.pdf f5.pdf
 
-
+cp /Users/luke/Dropbox/proj/rudolf/results/run_gptransit/Kepler_1627_gptransit_cornerplot.png dontinclude0.png
