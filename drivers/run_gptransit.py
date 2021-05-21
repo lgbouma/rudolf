@@ -6,7 +6,6 @@ transit for the planet.
 import numpy as np, matplotlib.pyplot as plt, pandas as pd, pymc3 as pm
 import pickle, os, corner, pytest
 from collections import OrderedDict
-from pymc3.backends.tracetab import trace_to_dataframe
 import exoplanet as xo
 
 from os.path import join
@@ -19,19 +18,16 @@ except ModuleNotFoundError as e:
     pass
 
 from rudolf.helpers import get_kep1627_kepler_lightcurve
-from betty.helpers import _subset_cut
 from betty.posterior_table import make_posterior_table
 from betty.modelfitter import ModelFitter
 
 from rudolf.paths import DATADIR, RESULTSDIR
 from betty.paths import BETTYDIR
 
-EPHEMDICT = {
-    'Kepler_1627': {'t0': 1355.1845, 'per': 1.338231466, 'tdur':2.5/24},
-}
-
-
 def run_gptransit(starid='Kepler_1627', N_samples=500):
+
+    # this line ensures I use the right python environment on my system
+    assert os.environ['CONDA_DEFAULT_ENV'] == 'py38'
 
     modelid = 'gptransit'
 
@@ -41,8 +37,7 @@ def run_gptransit(starid='Kepler_1627', N_samples=500):
     else:
         raise NotImplementedError
 
-    # NOTE: we have an abundance of data. so... drop all non-zero quality
-    # flags.
+    # NOTE: we have an abundance of data -> drop all non-zero quality flags.
     sel = (qual == 0)
 
     datasets['keplerllc'] = [time[sel], flux[sel], flux_err[sel], texp]
@@ -64,7 +59,7 @@ def run_gptransit(starid='Kepler_1627', N_samples=500):
 
     var_names = [
         'mean','logg_star','t0','period','log_r','log_jitter',
-        'log_prot','log_Q0','log_dQ','r_star','rho_star','u[0]','u[1]', 'r',
+        'log_prot','log_Q0','log_dQ','r_star','rho_star','u_star', 'r',
         'b', 'ecc', 'omega', 'sigma', 'rho', 'sigma_rot', 'prot', 'f',
         'r_planet', 'a_Rs', 'cosi', 'sini','T_14','T_13'
     ]
@@ -83,7 +78,8 @@ def run_gptransit(starid='Kepler_1627', N_samples=500):
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
         ylimd = {'A':[-3.5, 2.5], 'B':[-2,2]}
         bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
-                                   from_trace=True, ylimd=ylimd, alpha=0.2)
+                                   from_trace=True, ylimd=ylimd)
+
     if posttable:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')
         make_posterior_table(pklpath, priordict, outpath, modelid, makepdf=1,
