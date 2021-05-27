@@ -160,11 +160,13 @@ Section~\ref{sec:conclusion} gives our conclusions.
 	\caption{
 		{\bf Phase-folded transit of Kepler 1627b, with stellar
     variability removed.}  
-    The 1-$\sigma$ model uncertainties and the median model are shown
+    The 1-$\sigma$ model uncertainties and the mean model are shown
     as the faint purple band, and the dark purple line.
     Gray points are individual \texttt{PDCSAP} flux measurements;
     black points are binned to 20 minutes, with a representative error
     bar shown.
+    {\bf LGB FIXME: seems like the uncertainty is bigger than the RMS
+    in the out of transit...}
 		\label{fig:phasefold}
 	}
 \end{figure*}
@@ -176,6 +178,17 @@ advocated by CITET Kipping2013.
 % interpolated CITET Claret+2011 coefficients in the Kepler-band, with
 % with $\pm 0.2$ in either parameter.  The fit was not as good.
 
+Figure~\ref{fig:phasefold} shows X, Y, Z.  The residuals during the
+transit may hint at some small degree of unfitted signal -- in the
+sense that the observations are systematically high in the first half
+of transit, and low in the second half.  
+One possible explanation could be that we are seeing the effects of
+gravity darkening (e.g., CITE Masuda 2015).
+The expected amplitude of the effect is XXX, based on CITE.
+However, there is also a dip of comparable amplitude shortly before
+the transit. 
+Given the uncertainties in the stellar variability model, we expect
+that these patterns may correspond to more noise than signal.
 
 
 \section{Discussion}

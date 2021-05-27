@@ -24,7 +24,7 @@ from betty.modelfitter import ModelFitter
 from rudolf.paths import DATADIR, RESULTSDIR
 from betty.paths import BETTYDIR
 
-def run_gptransit(starid='Kepler_1627', N_samples=500):
+def run_gptransit(starid='Kepler_1627', N_samples=2000):
 
     # this line ensures I use the right python environment on my system
     assert os.environ['CONDA_DEFAULT_ENV'] == 'py38'

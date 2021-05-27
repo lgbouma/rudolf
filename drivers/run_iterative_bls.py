@@ -7,7 +7,7 @@ from rudolf.paths import DATADIR, RESULTSDIR
 
 outdir = os.path.join(RESULTSDIR, 'iterative_bls')
 # made by plot_keplerlc.py, in a dumper under _plot_zoom_light_curve
-incsv = os.path.join(outdir, 'gptransit_dtr_20210518.csv')
+incsv = os.path.join(outdir, 'gptransit_dtr_20210521.csv')
 df = pd.read_csv(incsv)
 
 x,y,yerr,gp_mod = nparr(df.x), nparr(df.y), nparr(df.yerr), nparr(df.gp_mod)
