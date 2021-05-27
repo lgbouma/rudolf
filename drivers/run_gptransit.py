@@ -71,14 +71,15 @@ def run_gptransit(starid='Kepler_1627', N_samples=2000):
                         extend=True)
 
     phaseplot = 1
-    cornerplot = 1
-    posttable = 1
+    cornerplot = 0
+    posttable = 0
 
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
         ylimd = {'A':[-3.5, 2.5], 'B':[-1,1]}
         bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
-                                   from_trace=True, ylimd=ylimd)
+                                   from_trace=True, ylimd=ylimd,
+                                   map_estimate=m.map_estimate)
 
     if posttable:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')

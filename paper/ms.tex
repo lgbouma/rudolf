@@ -61,20 +61,20 @@
 \input{authors.tex}
 
 \begin{abstract}
-  Kepler\,1627 is an active Sun-like star previously found to host a
-  $3.56\pm 0.04\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  The star was
-  selected for observation by the Kepler satellite because it is
-  nearby and Sun-like.  Here, combining data from the Gaia satellite
-  with rotation periods from TESS, we show that Kepler\,1627 is a
-  member of the underappreciated \cn.  Based on isochronal and
-  gyrochronal evidence, the cluster is $30\pm
-  XX$\,Myr old.  Based on archival NIRC2 imaging, we also highlight the existence of 
-  a previously unknown stellar companion. Our analysis advances Kepler\,1627Ab as the youngest planet with a
-  precise age observed by the main Kepler mission.  Newly
-  derived ages from Gaia offer the opportunity to significantly expand
-  the census of age-dated planets -- we offer a literature compilation
-  of young stars to support this effort.  The properties of \pn\
-  may also help clarify how the orbits and atmospheres of the
+  Kepler\,1627 is an active G8V star previously found to host a
+  $3.56\pm 0.04\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  The star
+  was selected for observation by the Kepler satellite because it is
+  nearby and it resembles the Sun.  Combining data from the Gaia
+  satellite with rotation periods from TESS, we show that Kepler\,1627
+  is a member of the \cn.  Based on isochronal and gyrochronal
+  evidence, the cluster is $30\pm XX$\,Myr old.  Based on archival
+  NIRC2 imaging, we also note the existence of a low-mass stellar
+  companion. Our analysis advances Kepler\,1627Ab as the youngest
+  planet with a precise age detected by the main Kepler mission.
+  Newly derived ages from Gaia offer the opportunity to significantly
+  expand the census of age-dated planets -- we offer a literature
+  concatenation of young stars to support this effort.  The properties
+  of \pn\ may also help clarify how the orbits and atmospheres of the
   mini-Neptune planets evolve.
 \end{abstract}
 
@@ -145,11 +145,35 @@ the observed radius distribution of both mature exoplanets
 \begin{figure*}[t]
 	\begin{center}
 		\leavevmode
+		\subfloat{
+			\includegraphics[width=0.49\textwidth]{TEMP_Prot_vs_BpmRp.png}
+			\includegraphics[width=0.49\textwidth]{TEMP_hrd.png}
+		}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+    {\bf \cn is $35\pm15$\,Myr old.} {\it Left:} TESS and
+    Kepler rotations periods and dereddened Gaia colors, with the
+    Pleiades \citep[125\,Myr;][]{rebull_rotation_2016a} and Praesepe
+    \citep[650\,Myr;][]{douglas_poking_2017} shown for reference.
+    Stars of a given color (mass) move up through time due to magnetic
+    braking.  The \cn\ has a 40 Myr gyrochronal age, as calibrated
+    against the LDB-age of IC\,2602.  {\it Right:} HR diagram of the
+    same comparison. {\bf todo: caption improve}.
+   \label{fig:age}
+	}
+\end{figure*}
+
+
+
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
 		\includegraphics[width=1\textwidth]{f4.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-		{\bf 100 day window of the \sn\ light curve.}  
+		{\bf Zoomed view of the \sn\ light curve.}  
 		The full Kepler dataset spans 1{,}437 days (3.9 years), sampled at
 		30 minute cadence.  The {\it top panel} shows the
 		\texttt{PDCSAP} median-subtracted flux in units of
@@ -173,18 +197,16 @@ the observed radius distribution of both mature exoplanets
 	\caption{
 		{\bf Phase-folded transit of Kepler 1627b, with stellar
 			variability removed.}  
-		The 1-$\sigma$ model uncertainties and the mean model are shown
-		as the faint purple band, and the dark purple line.
-		Gray points are individual \texttt{PDCSAP} flux measurements;
-		black points are binned to 20 minutes, with a representative error
-		bar shown.
-		{\bf LGB FIXME: seems like the uncertainty is bigger than the RMS
-			in the out of transit...}
+    The 1-$\sigma$ model uncertainties and the maximum {\it a
+    posteriori} model are shown as the faint purple band, and the dark
+    purple line.  Gray points are individual \texttt{PDCSAP} flux
+    measurements; black points are binned to 20 minutes, with a
+    representative error bar shown.
+    {\bf LGB FIXME: seems like the uncertainty is bigger than the RMS
+    in the out of transit...}
 		\label{fig:phasefold}
 	}
 \end{figure*}
-
-\input{model_posterior_table.tex}
 
 At the time of the main Kepler mission (2009--2013), only four open
 clusters were known in the Kepler field: NGC\,6866, NGC\,6811,
@@ -199,7 +221,7 @@ from the literature, which yielded a list of candidate young and
 age-dated stars (see Section~\ref{app:targetlist}).
 
 Comparing our young star list against the Kepler field yielded two
-notable discoveries.  The first, to be discussed in an upcoming analysis
+discoveries.  The first, to be discussed in an upcoming analysis
 by J. Curtis et al{.}, is that Kepler observed the $\approx$350\,Myr
 open cluster Theia\,520 (UBC\,1).  At least five Kepler planets are
 known in the cluster, including the Kepler-52 and Kepler-968 systems.
@@ -207,100 +229,89 @@ The second discovery, and the focus of this work, is that Kepler
 observed a portion of the $\delta$\,Lyr cluster, shown in
 Figure~\ref{fig:skychart}.
 
-While we have yet to perform an in-depth search of the {\bf XXX} light
-curves Kepler acquired for the \cn, there is already a known planet
-that has been detected in the cluster: Kepler\,1627b.  A portion of
-the light curve is shown in Figure~\ref{fig:lightcurve}, and the
-phase-folded transit is shown in Figure~\ref{fig:phasefold}.  The
-dominant signal in the \texttt{PDCSAP} photometry is a quasi-period
-starspot signal with a peak-to-peak amplitude that varies between
-roughly 2\% and 8\%, depending on the degree of asymmetry in spot
-coverage between the stellar hemispheres.  The starspot signal repeats
-roughly every 2.606\,days, though this value varies by a few percent
-depending on which portion of the light curve is analyzed {\bf (FIXME:
-	do!)}.  The details of how we model this signal to derive the
-parameters of the planet are discussed in Section~\ref{app:gptransit}.
-The results, given in Table~\ref{tab:posterior}, are consistent with a
-mini-Neptune sized planet ($3.56\pm 0.04\,R_\oplus$) on a circular
-7.2\,day orbit, around a G8V star ($0.91 \pm 0.05 R_\odot$) {\bf
-	fixme: age}. 
+While we have yet to perform an in-depth planet search of the {\bf
+XXX} light curves Kepler acquired for the \cn, there is already a
+known planet in the cluster: Kepler\,1627b.  We considered the
+planet's previous statistical validation by \citet{morton_false_2016}
+to be sufficient cause to examine the age of the star and its cluster more closely.
+We collected the previously measured {\bf XXX} Kepler
+rotation periods (CITEP MCQUILLAN2014), and measured {\bf YYY} new stellar
+rotation periods for cluster members observed by TESS.
+We also performed an isochronal analysis.
+The results are shown in Figure~\ref{fig:age}.
+From the ensemble perspective, which provides the strongest
+constraints (SEE CITET SODERBLOM 2014),
+the age of the star is $XX \pm YY$\,Myr.
+Individual measurements of the star's rotation period and lithium
+abundance corroborate this conclusion.
 
+If the Kepler\,1627b transit signal truly corresponds to a planet,
+this age would make it the youngest planet yet found by the main
+Kepler mission.  A portion of the light curve is shown in
+Figure~\ref{fig:lightcurve}, and the phase-folded transit is shown in
+Figure~\ref{fig:phasefold}.  The dominant signal in the
+\texttt{PDCSAP} photometry is a quasi-period starspot signal with a
+peak-to-peak amplitude that varies between roughly 2\% and 8\%,
+depending on the degree of asymmetry in spot coverage between the
+stellar hemispheres.  The starspot signal repeats roughly every
+2.606\,days, though this value varies by a few percent depending on
+which portion of the light curve is analyzed {\bf (FIXME: do!)}.  The
+details of how we model this signal to derive the parameters of the
+planet are discussed in Section~\ref{app:gptransit}.  The results,
+given in Table~\ref{tab:posterior}, are consistent with a mini-Neptune
+sized planet ($3.56\pm 0.04\,R_\oplus$) on a circular 7.2\,day orbit,
+around a G8V star ($0.91 \pm 0.05 R_\odot$) {\bf fixme: age}. 
 
 Could the transit signal be produced by anything other than a planet
 orbiting this near-solar analog?  \citet{morton_false_2016} considered
 the various false positive scenarios, including those of a foreground
 eclipsing binary, a hierarchical triple-star binary system, and a
-background eclipsing binary.  \citet{morton_false_2016} reported the latter
-scenario to be the only possible case, with a (model-depending)
+background eclipsing binary.  \citet{morton_false_2016} reported the
+latter scenario to be the only possible case, with a (model-dependent)
 probability of $\approx10^{-5}$.  While this statistical validation is
 reassuring, ``validated" planets have been demonstrated to be false
-positives \citep{shporer_three_2017}.  We are not particularly
-concerned in this case however, since these cases almost always
-originate when attempting to separate the smallest stars from
-identically-sized gas giant planets.  With a size of $\approx
-3.6\,R_\oplus$, Kepler\,1627b is well below the regime of concern.
+positives \citep{shporer_three_2017}.  Most failures of the
+statistical validation approach arise when attempting to separate the
+smallest stars from identically-sized gas giant planets (CITE).  With a size
+of $\approx 3.6\,R_\oplus$, Kepler\,1627b does not meet this
+concern.  The fact that we detect a low-mass stellar companion in
+archival Keck-NIRC2 Kp-band (2.12\,$\mu $m) imaging does not change
+the conclusion: the companion contributes 1\% of the flux
+observed by Kepler, which combined with the observed transit shape
+cannot be invoked as an explanation for the observed data
+(Section~\ref{app:companionstar}).
 
-Nonetheless, our analysis of archival Keck-NIRC2 Kp-band (2.12\,$\mu
-$m) imaging did reveal the existence of a neighboring star, unresolved
-in the Gaia source catalog {\bf FIXME: uncertainties}.  The NIRC2
-images yield a projected separation $\rho=0\farcs17$, with $\Delta
-{\rm Kp} = 2.5$.  Using the measured Gaia EDR3 parallax for the
-system, this implies a projected separation of 54\,AU.  The presence
-of this star is consistent with the excess noise reported to be
-present in the Gaia astrometric time-series (see
-Section~\ref{app:companionstar}).  Given the low chance of a star
-imaged within {\bf X.X arcseconds} to be a chance unbound companion
-along this line of sight, we dub the companion star Kepler\,1627B, and
-proceed under the assumption that it is bound.
+Kepler\,1627Ab therefore provides an interesting extremum in the ages of the
+Kepler planets, and opens multiple avenues for detailed
+study.  In order of ascending difficulty, observing its
+Doppler transit ($\Delta v_{\rm RM} \approx 20$\ms) with HIRES or the
+upcoming KPF spectrograph could yield a measurement of its orbital
+obliquity (CITEP,CITEP).  A transmission
+spectrum focused on either hydrogen or helium absorption could yield
+insight into its atmosphere, which is expected to be outflowing at a
+rate of {\bf X.X}\,$M_\oplus\,{\rm yr}^{-1}$ (CITE).  Finally, the
+most challenging measurement that may currently be in reach would be a
+measurement of its mass, through either detailed timing analyses of
+the Kepler data, or through a high-cadence multi-color radial velocity campaign.  The mass would yield constraints on both the planet's
+composition (do the mini-Neptunes form with gaseous envelopes?), as
+well as its initial entropy (``hot'' or ``cold''? CITE).
 
-Unforuntately, we do not have any reliable color information about the
-secondary star.  Based on the
-tabulation\footnote{\url{http://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt},
-version \texttt{2021/03/02}.} by \citet{pecaut_mamajek_2013}, the
-NIR-contrast measured for a main sequence G8V star corresponds to a
-spectral type for the companion of $\approx$M2V ($M_\star \approx
-0.44\,M_\odot$).  However, the companion should therefore have a
-significantly longer pre-main-sequence contraction phase, which would
-imply that this mass is an overestimate by $\approx20\%$.
-
-Could the companion host the planet, or be creating a false positive
-signal?  The star contributes $\approx$1\% of the total flux observed
-in the Kepler aperture(0.7-2.0\% V-band to G-band dmag difference from
-EEM table; todo is fix using model spectra).  The observed transit has
-a depth of 0.18\%.  An 18\% deep eclipse of the secondary star could
-produce such a signal.  Given the shape of the observed signal
-(allowed impact parameters span 0.02 to 0.73, see
-Table~\ref{tab:posterior}), the body transiting the secondary would
-need to be non-grazing with $R/R_2 \approx 0.42$, {\it i.e.}, with
-radius $\approx 0.2R_\odot$.
-The duration of the transit 
-($2.823 \pm 0.057 hr$) is ultimately what makes this scenario
-implausible.
-
-% {\bf TODO:
-% uhhh what about the pre-MS M dwarf star being not very dense?
-% What is the density of the G dwarf expected to be?
-% }
-% 
-% $T_{14}$ & hr & -- & 2.822 & 2.823 & 0.057 & 2.710 & 2.917 & 1086.008 & 0.002 \\
-% $\rho_\star$ & g$\ $cm$^{-3}$ & -- & 2.27 & 2.312 & 0.516 & 1.408 & 3.272 & 910.746 & 0.001 \\
-
-
-
-
-
-
-
-%\section{Discussion}
-%\label{sec:discussion}
-
-
-%\section{Conclusion}
-%\label{sec:conclusion}
-
+Ultimately, our age measurement for Kepler\,6127Ab was enabled by
+identifying its connection to the \cn\ through the Gaia data.  The
+Supplementary Table~\ref{tab:v05} enables similar crossmatches to
+already known planets, as well as forthcoming planets from the TESS
+mission (CITE RickerJATIS2014).  An alternative approach also
+likely to bear fruit is to identify kinematic associations
+around exoplanet host stars using the Gaia data, and to then verify
+these associations with ancilliary rotation periods and spectroscopy
+(CITEP Tofflemire).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\input{model_posterior_table.tex}
 
 
 %\clearpage
@@ -650,10 +661,103 @@ the transit.
 Given the uncertainties in the stellar variability model, we expect
 that these patterns may correspond to more noise than signal.
 
-\section{Companion Star}
+\section{Companion Star and False Positive Assessment}
 \label{app:companionstar}
 
-{\bf TODO: include the RUWE vs Rp mag.}
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.6\textwidth]{f6.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+    {\bf Gaia EDR3 renormalized unit weight error (RUWE) point
+    estimates for Kepler\,1627A and other members of
+    the $\delta$\,Lyr cluster.}  Since other members of the cluster
+    with similar colors have comparable degrees of photometric
+    variability, the high RUWE estimate suggests that Kepler\,1627A is
+    a binary. 
+		\label{fig:ruwe}
+	}
+\end{figure*}
+
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.6\textwidth]{TEMP_binarity_ao.png}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+    {\bf Keck NIRC2 AO image of Kepler 1627A and Kepler 1627B.}  
+    {\bf SCALEBAR DENOTES...}
+    {\bf North is up, East is left}.
+    \label{fig:ao}
+	}
+\end{figure*}
+
+Our analysis of archival Keck-NIRC2 Kp-band (2.12\,$\mu $m) imaging
+revealed the existence of a previously unreported stellar neighbor,
+unresolved in the Gaia source catalog {\bf FIXME: uncertainties}.  The
+NIRC2 images yield a projected separation $\rho=0\farcs17$, with
+$\Delta {\rm Kp} = 2.5$.  Using the measured Gaia EDR3 parallax for
+the system, this implies a projected separation of 54\,AU.  The
+presence of this star is consistent with the excess noise in the Gaia
+astrometric time-series (see Section~\ref{app:companionstar}).  Given
+the low chance of a star imaged within {\bf X.X arcseconds} to be a
+chance companion along the line of sight, we proceed under the
+assumption that it is bound, and that the Kepler\,1627 system is
+binary.
+
+Unforuntately, we do not have any reliable color information about
+Kepler\,1627B.  Based on the
+tabulation\footnote{\url{http://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt},
+version \texttt{2021/03/02}.} by \citet{pecaut_mamajek_2013}, the
+measured NIR-contrast for a main sequence G8V star corresponds to a
+spectral type for the companion of $\approx$M2V ($M_\star \approx
+0.44\,M_\odot$).  However, the companion should have a longer
+pre-main-sequence contraction phase than the primary, which would
+imply that this mass is overestimated by $\sim10$ to $20\%$.
+
+Could the companion be creating a false positive signal?  The
+companion star contributes $\approx$1\% of the total flux observed in
+the Kepler aperture (0.7-2.0\% V-band to G-band dmag difference from
+EEM table; todo is fix using model spectra).  The observed transit has
+a depth of 0.18\%.  An 18\% deep eclipse of the secondary star would
+therefore be needed to produce a deep enough signal.  The shape of the
+observed signal requires allowed impact parameters to span 0.02 to
+0.73 (Table~\ref{tab:posterior}); the body transiting the secondary
+would therefore need to be non-grazing with $R_3/R_2 \approx 0.42$.
+Assuming a $\approx 0.42R_\odot$ radius of the imaged secondary, this
+would imply a tertiary stellar radius of $\approx 0.2R_\odot$.  This
+scenario ultimately yields a contradiction, because it would require
+an ingress and egress phase that each span $\approx$40\% of the
+transit duration ($\approx 65\,{\rm minutes}$).  The actual measured
+ingress and egress duration is $\approx 15\,{\rm minutes}$),
+4.4$\times$ shorter.
+
+\paragraph{Stellar density implied by transit duration}
+The duration of the transit ($2.823 \pm 0.057 hr$) and the implied
+stellar density ($2.31 \pm 0.52\,{\rm g\,cm}^{-3}$) could in theory
+help rule between whether the transiting body orbits the primary or
+secondary star.  Ultimately, our stellar density measurement is not
+precise enough to render the blend scenario implausible.  At 30 Myr, a
+0.40\,$M_\odot$ solar-metallicity dwarf is $\approx 26\%$ larger than
+when it is fully contracted on the main sequence (0.40\,$R_\odot$
+vs{.} 0.50\,$R_\odot$; CITEALT: Choi et al, MIST grids).  The
+theoretically implied companion density of $3.2\,{\rm g\,cm}^{-3}$ is
+indeed larger than the primary star's density of $1.80\,{\rm
+g\,cm}^{-3}$ (measured through the HIRES reconaissance spectroscopy).
+However the stellar density measured from the transit fitting ($2.31
+\pm 0.52\,{\rm g\,cm}^{-3}$) is only discrepant at the
+$\approx$2-$\sigma$ level from the M-dwarf blend scenario.  It is
+instead the combination of the flux contrast, transit depth, and
+ingress duration that rule out this scenario.
+
+
+
+
+
+
 
 
 
