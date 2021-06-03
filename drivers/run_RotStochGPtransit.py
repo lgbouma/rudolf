@@ -24,12 +24,12 @@ from betty.modelfitter import ModelFitter
 from rudolf.paths import DATADIR, RESULTSDIR
 from betty.paths import BETTYDIR
 
-def run_gptransit(starid='Kepler_1627', N_samples=2000):
+def run_RotStochGPtransit(starid='Kepler_1627', N_samples=2000):
 
     # this line ensures I use the right python environment on my system
     assert os.environ['CONDA_DEFAULT_ENV'] == 'py38'
 
-    modelid = 'gptransit'
+    modelid = 'RotStochGPtransit'
 
     datasets = OrderedDict()
     if starid == 'Kepler_1627':
@@ -42,7 +42,7 @@ def run_gptransit(starid='Kepler_1627', N_samples=2000):
 
     datasets['keplerllc'] = [time[sel], flux[sel], flux_err[sel], texp]
 
-    priorpath = join(DATADIR, 'priors', f'{starid}_priors.py')
+    priorpath = join(DATADIR, 'priors', f'{starid}_{modelid}_priors.py')
     assert os.path.exists(priorpath)
     priormod = SourceFileLoader('prior', priorpath).load_module()
     priordict = priormod.priordict
@@ -71,15 +71,22 @@ def run_gptransit(starid='Kepler_1627', N_samples=2000):
                         extend=True)
 
     phaseplot = 1
-    cornerplot = 0
-    posttable = 0
+    cornerplot = 1
+    posttable = 1
 
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
-        ylimd = {'A':[-3.5, 2.5], 'B':[-0.1,0.1]}
+        ylimd = {'A':[-3.5, 2.5], 'B':[-0.5,0.5]}
         bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
                                    from_trace=True, ylimd=ylimd,
                                    map_estimate=m.map_estimate)
+        outpath = join(PLOTDIR,
+                       f'{starid}_{modelid}_posterior_phaseplot_fullxlim.png')
+        ylimd = {'A':[-3.5, 2.5], 'B':[-1,1]}
+        bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
+                                   from_trace=True, ylimd=ylimd,
+                                   map_estimate=m.map_estimate, fullxlim=True,
+                                   BINMS=0.5)
 
     if posttable:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')
@@ -92,4 +99,4 @@ def run_gptransit(starid='Kepler_1627', N_samples=2000):
 
 
 if __name__ == "__main__":
-    run_gptransit()
+    run_RotStochGPtransit()
