@@ -48,8 +48,12 @@ def get_kep1627_kepler_lightcurve(lctype='longcadence'):
 
     if lctype == 'longcadence':
         lcfiles = glob(os.path.join(DATADIR, 'phot', 'kplr*_llc.fits'))
+    elif lctype == 'shortcadence':
+        lcfiles = glob(os.path.join(DATADIR, 'phot', 'full_MAST_sc', 'MAST_*',
+                                    'Kepler', 'kplr006184894*', 'kplr*_slc.fits'))
     else:
         raise NotImplementedError('could do short cadence here too')
+    assert len(lcfiles) > 1
 
     timelist,f_list,ferr_list,qual_list,texp_list = [],[],[],[],[]
 

@@ -658,6 +658,18 @@ advocated by CITET Kipping2013.
 % interpolated CITET Claret+2011 coefficients in the Kepler-band, with
 % with $\pm 0.2$ in either parameter.  The fit was not as good.
 
+Our default stellar variability model (RotGPtransit) allows for a
+\texttt{RotTerm} GP kernel, with a logjitter term to inflate the
+uncertainties to account for excess white noise.
+(This results in an inflation of the uncertainties by a factor
+of about three).
+
+We considered including an additive \texttt{SHOTerm} kernel to account
+for stochastic noise (RotStochGPtransit).  This didn't seem to affect the results much, so
+we opted for the simpler model.
+
+
+
 Figure~\ref{fig:phasefold} shows X, Y, Z.  The residuals during the
 transit may hint at some small degree of unfitted signal -- in the
 sense that the observations are systematically high in the first half

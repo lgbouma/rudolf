@@ -24,7 +24,10 @@ from betty.modelfitter import ModelFitter
 from rudolf.paths import DATADIR, RESULTSDIR
 from betty.paths import BETTYDIR
 
-def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
+# NOTE: change starid as desired based on the dataset to use.
+def run_RotGPtransit(starid='Kepler_1627_Q15slc', N_samples=1000):
+
+    assert starid in ['Kepler_1627', 'Kepler_1627_Q15slc']
 
     # this line ensures I use the right python environment on my system
     assert os.environ['CONDA_DEFAULT_ENV'] == 'py38'
@@ -33,7 +36,13 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
 
     datasets = OrderedDict()
     if starid == 'Kepler_1627':
-        time, flux, flux_err, qual, texp = get_kep1627_kepler_lightcurve()
+        time, flux, flux_err, qual, texp = (
+            get_kep1627_kepler_lightcurve(lctype='longcadence')
+        )
+    elif starid == 'Kepler_1627_Q15slc':
+        time, flux, flux_err, qual, texp = (
+            get_kep1627_kepler_lightcurve(lctype='shortcadence')
+        )
     else:
         raise NotImplementedError
 
@@ -49,7 +58,8 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
 
     pklpath = join(BETTYDIR, f'run_{starid}_{modelid}.pkl')
 
-    PLOTDIR = os.path.join(RESULTSDIR, 'run_'+modelid)
+    s = '' if starid == 'Kepler_1627' else '_'+starid
+    PLOTDIR = os.path.join(RESULTSDIR, 'run_'+modelid+s)
     if not os.path.exists(PLOTDIR):
         os.mkdir(PLOTDIR)
 
