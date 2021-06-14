@@ -7,6 +7,7 @@ plot_skychart
 plot_XYZvtang
 plot_keplerlc
     _plot_zoom_light_curve
+plot_flare_checker
 """
 import os, corner, pickle, inspect
 from glob import glob
@@ -41,9 +42,9 @@ from cdips.utils.mamajek import get_interp_BpmRp_from_Teff
 from rudolf.paths import DATADIR, RESULTSDIR
 from rudolf.helpers import (
     get_gaia_cluster_data, get_simulated_RM_data,
-    get_keplerfieldfootprint_dict, get_comovers
+    get_keplerfieldfootprint_dict, get_comovers,
+    get_kep1627_kepler_lightcurve
 )
-
 
 def plot_TEMPLATE(outdir):
 
@@ -717,7 +718,6 @@ def plot_keplerlc(outdir, N_samples=500, xlim=[200,300]):
 
     ##########################################
     # BEGIN-COPYPASTE FROM RUN_GPTRANSIT.PY
-    from rudolf.helpers import get_kep1627_kepler_lightcurve
     from betty.paths import BETTYDIR
     from betty.modelfitter import ModelFitter
 
@@ -846,3 +846,135 @@ def _plot_zoom_light_curve(data, soln, axd, fig, xlim=[200,300], mask=None,
     ax.set_xlabel('Days from start')
 
     fig.tight_layout()
+
+
+class containerclass(object):
+    pass
+
+
+def _get_detrended_flare_data(cachepath):
+
+    if not os.path.exists(cachepath):
+        # get 1min data
+        time, flux, flux_err, qual, texp = (
+            get_kep1627_kepler_lightcurve(lctype='shortcadence')
+        )
+        sel = (qual == 0)
+        time, flux, flux_err = time[sel], flux[sel], flux_err[sel]
+
+        # identify flare times.
+        # before fitting out the rotation signal, clip out points +/-3*MAD above a
+        # sliding median window of 4 hours.  (less than typical flare time)
+        # then detrend each segment using a spline with knots separated by 0.3 days.
+        from wotan import flatten
+        P_rotation = 2.6064
+        if method == 'pspline':
+            flat_flux, trend_flux, nsplines = flatten(
+                time, flux, method='pspline', max_splines=300, edge_cutoff=0.5,
+                return_trend=True, return_nsplines=True, verbose=False
+            )
+            print(f'Split LC into {nsplines} segments.')
+        elif method == 'rspline':
+            flat_flux, trend_flux = flatten(
+                time, flux, method='rspline', edge_cutoff=0.5,
+                window_length=P_rotation/7, return_trend=True
+            )
+        elif method == 'gp':
+            from betty.mapfitroutines import flatten_starspots
+            flat_flux, trend_flux = flatten_starspots(
+                time, flux, flux_err, P_rotation
+            )
+
+        #  then, find positive outliers using 
+        resid = (flat_flux - np.nanmedian(flat_flux))
+        mad = np.nanmedian(np.abs(resid))
+
+        is_gtNmad = resid > 7*mad
+
+        c = containerclass()
+        c.time = time
+        c.flux = flux
+        c.flux_err = flux_err
+        c.flat_flux = flat_flux
+        c.trend_flux = trend_flux
+        c.is_gtNmad = is_gtNmad
+
+        with open(cachepath, "wb") as f:
+            pickle.dump(c, f)
+
+    with open(cachepath, "rb") as f:
+        c = pickle.load(f)
+
+    return c
+
+
+def plot_flare_checker(outdir, method=None):
+
+    assert method in ['gp','pspline','rspline']
+
+    cachepath = os.path.join(outdir, f'flare_checker_cache_{method}.pkl')
+    c = _get_detrended_flare_data(cachepath)
+
+    if len(c.time) > int(2e4):
+        # see https://github.com/matplotlib/matplotlib/issues/5907
+        mpl.rcParams['agg.path.chunksize'] = 10000
+
+    # check the phase
+    from complexrotators.plotting import plot_phased_light_curve
+    t0 = 2454953.790531 # , 0.000769,  (-2454833)
+    period = 7.20280608 # , 0.00000088
+    _outpath = os.path.join(outdir, f'kepler1627_dtr-{method}_flare_phase.png')
+    plot_phased_light_curve(c.time, c.flat_flux, t0, period, _outpath,
+                            titlestr=None, alpha1=0, c0='k', alpha0=1,
+                            phasewrap=False,
+                            plotnotscatter=True)
+
+    #
+    # first-case flare checker plot
+    # A: raw LC, +trend
+    # B: flat LC, + flares in red
+    #
+    plt.close('all')
+    set_style()
+    fig, axs = plt.subplots(nrows=2, figsize=(9,3), sharex=True)
+
+    axs[0].scatter(
+        c.time, 1e3*(c.flux-1), c='k', s=0.5, rasterized=True, linewidths=0,
+        zorder=1
+    )
+    axs[0].plot(
+        c.time, 1e3*(c.trend_flux-1), c='C0', zorder=2, lw=0.5
+    )
+    axs[1].scatter(
+        c.time, 1e3*(c.flat_flux-1), c='k', s=0.5, rasterized=True,
+        linewidths=0, zorder=1
+    )
+    axs[1].scatter(
+        c.time[c.is_gtNmad], 1e3*(c.flat_flux[c.is_gtNmad]-1), c='red', s=0.5,
+        rasterized=True, linewidths=0, zorder=3, label=r'$>7\times$MAD'
+    )
+    axs[1].legend(loc='best', fontsize='xx-small')
+    axs[1].axhline(0, color="C0", lw=0.5, zorder=4)
+
+    fig.text(-0.01,0.5, 'Relative flux [ppt]', va='center', rotation=90)
+    axs[1].set_xlabel('Days from start')
+    fig.tight_layout()
+
+    # naming options
+    s = ''
+    s += "_"+method
+    bn = inspect.stack()[0][3].split("_")[1]
+    outpath = os.path.join(outdir, f'{bn}{s}.png')
+    savefig(fig, outpath, dpi=400)
+
+    #
+    # altai-pony
+    #
+    plt.close('all')
+
+    from altaipony.flarelc import FlareLightCurve
+
+    flc = FlareLightCurve(time=time, flux=flux, flux_err=err)
+    flc = flc.find_flares()
+
+    import IPython; IPython.embed()
