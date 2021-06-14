@@ -9,3 +9,7 @@ cp /Users/luke/Dropbox/proj/rudolf/results/run_RotStochGPtransit/Kepler_1627_Rot
 cp /Users/luke/Dropbox/proj/rudolf/results/run_RotStochGPtransit/Kepler_1627_RotStochGPtransit_cornerplot.png dontinclude0.png
 
 cp /Users/luke/Dropbox/proj/rudolf/results/gaia_ruwe_vs_apparentmag/ruwe_vs_apparentmag.pdf f6.pdf
+
+cp /Users/luke/Dropbox/proj/rudolf/results/flares/flarezoom_itergp.pdf f7.pdf
+
+cp /Users/luke/Dropbox/proj/rudolf/results/flares/flarephase_itergp_altailabel.pdf f8.pdf

@@ -32,6 +32,7 @@ from matplotlib.ticker import MaxNLocator
 from aesthetic.plot import savefig, format_ax, set_style
 
 from astrobase.services.identifiers import gaiadr2_to_tic
+from astrobase.lcmath import phase_magseries
 from cdips.utils.gaiaqueries import (
     given_source_ids_get_gaia_data
 )
@@ -852,7 +853,7 @@ class containerclass(object):
     pass
 
 
-def _get_detrended_flare_data(cachepath):
+def _get_detrended_flare_data(cachepath, method):
 
     if not os.path.exists(cachepath):
         # get 1min data
@@ -884,6 +885,11 @@ def _get_detrended_flare_data(cachepath):
             flat_flux, trend_flux = flatten_starspots(
                 time, flux, flux_err, P_rotation
             )
+        elif method == 'itergp':
+            from betty.mapfitroutines import flatten_starspots
+            flat_flux, trend_flux = flatten_starspots(
+                time, flux, flux_err, P_rotation, flare_iterate=True
+            )
 
         #  then, find positive outliers using 
         resid = (flat_flux - np.nanmedian(flat_flux))
@@ -898,6 +904,7 @@ def _get_detrended_flare_data(cachepath):
         c.flat_flux = flat_flux
         c.trend_flux = trend_flux
         c.is_gtNmad = is_gtNmad
+        c.mad = mad
 
         with open(cachepath, "wb") as f:
             pickle.dump(c, f)
@@ -910,10 +917,10 @@ def _get_detrended_flare_data(cachepath):
 
 def plot_flare_checker(outdir, method=None):
 
-    assert method in ['gp','pspline','rspline']
+    assert method in ['gp','pspline','rspline','itergp']
 
     cachepath = os.path.join(outdir, f'flare_checker_cache_{method}.pkl')
-    c = _get_detrended_flare_data(cachepath)
+    c = _get_detrended_flare_data(cachepath, method)
 
     if len(c.time) > int(2e4):
         # see https://github.com/matplotlib/matplotlib/issues/5907
@@ -949,11 +956,11 @@ def plot_flare_checker(outdir, method=None):
         c.time, 1e3*(c.flat_flux-1), c='k', s=0.5, rasterized=True,
         linewidths=0, zorder=1
     )
-    axs[1].scatter(
-        c.time[c.is_gtNmad], 1e3*(c.flat_flux[c.is_gtNmad]-1), c='red', s=0.5,
-        rasterized=True, linewidths=0, zorder=3, label=r'$>7\times$MAD'
-    )
-    axs[1].legend(loc='best', fontsize='xx-small')
+    #axs[1].scatter(
+    #    c.time[c.is_gtNmad], 1e3*(c.flat_flux[c.is_gtNmad]-1), c='red', s=0.5,
+    #    rasterized=True, linewidths=0, zorder=3, label=r'$>7\times$MAD'
+    #)
+    #axs[1].legend(loc='best', fontsize='xx-small')
     axs[1].axhline(0, color="C0", lw=0.5, zorder=4)
 
     fig.text(-0.01,0.5, 'Relative flux [ppt]', va='center', rotation=90)
@@ -974,7 +981,171 @@ def plot_flare_checker(outdir, method=None):
 
     from altaipony.flarelc import FlareLightCurve
 
-    flc = FlareLightCurve(time=time, flux=flux, flux_err=err)
-    flc = flc.find_flares()
+    flc = FlareLightCurve(time=c.time, flux=c.flux, flux_err=c.flux_err)
+    window_length = 241 # 240 minutes
+    flcd = flc.detrend("savgol", window_length=window_length)
+    #kwargs passed to find_flares_in_cont_obs_period
+    # N1: N1*sigma above median
+    # N2: N2*sigma above detrended flux error
+    flcd = flcd.find_flares(20, **{'N1':7,'N2':7,'N3':2,'sigma':c.mad})
+    fl_df = flcd.flares
 
-    import IPython; IPython.embed()
+    fig = plt.figure(figsize=(4,3))
+    axd = fig.subplot_mosaic(
+        """
+        A
+        B
+        """,
+        gridspec_kw={
+            "height_ratios": [3, 1.5]
+        }
+    )
+
+    fig, axd['A'] = plot_phased_light_curve(
+        c.time, c.flat_flux, t0, period, None, savethefigure=False,
+        titlestr=None, alpha1=0, c0='k', alpha0=1, phasewrap=False,
+        plotnotscatter=True, fig=fig, ax=axd['A'], showtext=False
+    )
+    txt = f'$t_0$ [BJD]: {t0:.6f}\n$P$: {period:.6f} d'
+    axd['A'].text(0.95,0.95,txt,
+            transform=axd['A'].transAxes,
+            ha='right',va='top', color='k', fontsize='xx-small')
+
+
+    _pd = phase_magseries(nparr(fl_df.tstart), nparr(fl_df.ampl_rec), period,
+                          t0, wrap=False, sort=True)
+    x_fold = _pd['phase']
+    y_fold = _pd['mags']
+
+    axd['A'].set_xlabel('')
+    axd['A'].set_xticklabels([])
+
+    #axd['B'].vlines(
+    #    x_fold, 0, 1, ls='-', lw=0.5, colors='k'
+    #)
+    axd['B'].scatter(
+        x_fold, y_fold, c='k', s=2, rasterized=True, linewidths=0,
+        zorder=1
+
+    )
+
+    #axd['B'].set_ylim([0,1])
+    axd['B'].set_yscale('log')
+    axd['B'].set_ylabel('Ampl.')
+    axd['B'].set_xlabel('Phase')
+    axd['B'].set_ylim([1e-3,1e-1])
+    #axd['B'].set_yticklabels([])
+
+    axd['A'].set_xlim([-0.1,1.1])
+    axd['B'].set_xlim([-0.1,1.1])
+
+    fig.tight_layout()
+    outpath = os.path.join(outdir, f'flarephase_{method}_altailabel.png')
+    savefig(fig, outpath, dpi=400)
+
+    #
+    # analyze...
+    #
+    fl_df = fl_df.sort_values(by='ampl_rec', ascending=False)
+
+    P_dict = {
+        'Porb': 7.20283653,
+        'Prot': 2.6064
+    }
+
+    # a "successor" event follows at <1% of the proposed periodicity.
+    # check if each flare has a successor event.
+    for k,P in P_dict.items():
+        for cstr,_eps in zip(['','cand'],[0.01, 0.02]):
+            eps = P * _eps
+
+            has_successors = []
+            for ix, r in fl_df.iterrows():
+                tstart = float(r['tstart'])
+                has_successor = np.any(
+                    np.abs( (tstart + P) - (fl_df.tstart)) < eps
+                )
+                has_successors.append(has_successor)
+
+            fl_df[f'has_{k}_{cstr}successor'] = has_successors
+
+    outpath = os.path.join(outdir, f'fldict_{method}.csv')
+    fl_df.to_csv(outpath, index=False)
+    print(f'Saved {outpath}')
+
+    #
+    # the publication-ready thing.
+    #
+    fig = plt.figure(figsize=(6,4))
+    axd = fig.subplot_mosaic(
+        """
+        AA
+        BB
+        CD
+        """,
+        #gridspec_kw={
+        #    "height_ratios": [3, 1.5]
+        #}
+    )
+
+    # A: flux+model
+    # B: flux resid
+    # lower left: zooms on 1420 thru 1430,  and 1457 thru 1467
+    # lower right: phase-fold and ampl vs phase.
+
+    axd['A'].scatter(
+        c.time, 1e2*(c.flux-1), c='k', s=0.5, rasterized=True, linewidths=0,
+        zorder=1
+    )
+    from astrobase.lcmath import find_lc_timegroups
+    ngroups, groups = find_lc_timegroups(c.time, mingap=1/24)
+    for g in groups:
+        axd['A'].plot(
+            c.time[g], 1e2*(c.trend_flux[g]-1), c='C0', zorder=2, lw=0.3
+        )
+    axd['A'].set_xticklabels([])
+
+    axd['B'].scatter(
+        c.time, 1e2*(c.flat_flux-1), c='k', s=0.5, rasterized=True,
+        linewidths=0, zorder=1
+    )
+    axd['B'].axhline(0, color="C0", lw=0.3, zorder=4)
+
+    axd['C'].scatter(
+        c.time, 1e2*(c.flat_flux-1), c='k', s=0.5, rasterized=True,
+        linewidths=0, zorder=1
+    )
+    axd['C'].axhline(0, color="C0", lw=0.3, zorder=4)
+    yoffset=-0.6
+    t0 = 1420.106829+0.026562/2
+    axd['C'].plot([t0,t0+P_dict['Porb']],[yoffset,yoffset], c='C2',
+                  zorder=3, lw=0.5, ls='--')
+    txt = '$P_\mathrm{orb}$='+f'{P_dict["Porb"]:.3f} d'
+    axd['C'].text(t0+P_dict['Porb']/2, 1.2*yoffset, txt,
+                  ha='center', va='top', color='C2', fontsize='small')
+    axd['C'].set_xlim([t0-2, t0+P_dict['Porb']+2])
+
+
+    axd['D'].scatter(
+        c.time, 1e2*(c.flat_flux-1), c='k', s=0.5, rasterized=True,
+        linewidths=0, zorder=1
+    )
+    axd['D'].axhline(0, color="C0", lw=0.5, zorder=4)
+    t0 = 1458.767766+0.01907/2
+    axd['D'].plot([t0,t0+P_dict['Porb']],[yoffset,yoffset], c='C2',
+                  zorder=3, lw=0.5, ls='--')
+    axd['D'].text(t0+P_dict['Porb']/2, 1.2*yoffset, txt,
+                  ha='center', va='top', color='C2', fontsize='small')
+    axd['D'].set_xlim([t0-2, t0+P_dict['Porb']+2])
+    axd['D'].set_yticklabels([])
+    for a in [axd['C'],axd['D']]:
+        a.set_ylim([-2.5,5])
+        a.xaxis.set_major_locator(MaxNLocator(integer=True))
+
+    fig.text(-0.01,0.5, r'Relative flux [$\times10^{-2}$]', va='center', rotation=90)
+    fig.text(0.5,-0.01, 'Days from start', ha='center', va='center')
+
+    fig.tight_layout(h_pad=0.2)
+    outpath = os.path.join(outdir, f'flarezoom_{method}.png')
+    savefig(fig, outpath, dpi=400)
+

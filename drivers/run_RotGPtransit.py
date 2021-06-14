@@ -25,6 +25,8 @@ from rudolf.paths import DATADIR, RESULTSDIR
 from betty.paths import BETTYDIR
 
 # NOTE: change starid as desired based on the dataset to use.
+# Kepler_1627_Q15slc, or Kepler_1627
+#def run_RotGPtransit(starid='Kepler_1627', N_samples=1000):
 def run_RotGPtransit(starid='Kepler_1627_Q15slc', N_samples=1000):
 
     assert starid in ['Kepler_1627', 'Kepler_1627_Q15slc']
