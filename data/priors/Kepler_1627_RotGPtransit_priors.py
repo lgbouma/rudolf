@@ -32,5 +32,5 @@ priordict = {
 'log_prot': ('Normal', np.log(2.606418), 0.02), # LGB LombScargle, +/-2% sys (on the log) assumed.
 'log_Q0': ('Normal', 0, 2),
 'log_dQ': ('Normal', 0, 2),
-'f': ('Uniform', 0.1, 1),
+'f': ('Uniform', 0.01, 1),
 }
