@@ -286,11 +286,11 @@ cannot be invoked as an explanation for the observed data
 %   TRES.
 
 
-Kepler\,1627Ab therefore provides an interesting extremum in the ages of the
-Kepler planets, and opens multiple avenues for detailed
-study.  Ground-based observations of its Doppler transit ($\Delta
-v_{\rm RM} \approx 20$\ms) with HIRES or the upcoming KPF spectrograph
-could yield a measurement of its orbital obliquity (CITEP,CITEP).
+Kepler\,1627Ab therefore provides an interesting extremum in the ages
+of the Kepler planets, and opens multiple avenues for study from the
+ground.  Observations of its Doppler transit ($\Delta v_{\rm RM}
+\approx 20$\ms) with HIRES or the upcoming KPF spectrograph could
+yield a measurement of its orbital obliquity (CITEP,CITEP).
 Similarly, transit spectroscopy aimed at detecting either hydrogen or
 helium absorption could yield insight into the planet's atmosphere,
 which is expected to be outflowing at a rate of {\bf
@@ -302,35 +302,18 @@ yield constraints on both the planet's composition (``what is the
 extent of the initial gaseous envelope for a typical mini-Neptune?''),
 as well as its initial entropy (``hot'' or ``cold''? CITE).
 
-The precision of the Kepler data itself may enable detailed analyses
-without even needing to acquire more data.
-These could include studies transit timing variations, distortion of
-the transit signal due to the star's gravity darkening, 
-and interactions between the star and planet exhibited by patterns in
-the star's flaring.
-On the latter point,
-Appendix REFERENCE highlights an odd coincidence: 
-in the 97.7 days of available 1-minute cadence Kepler observations
-(``short-cadence''), 
-24 flares were observed to exceed $0.5\%$ in relative flux.
-Cumulatively, these flares spanned a total of 0.27 days.
-The brightest flare, highlighted in FIGURE CITE, had a flare occur
-after it to within 0.2\% of an orbital period.
-This seems {\it a priori} unlikely; in fact, 4 of the 24 flare events
-have candidate ``successors'' (events that follow to within 2\% of the
-planet's orbital period).
-Further analysis would be needed to test the hypothesis of whether or
-not the flare time
-distribution deviated from a Poisson process...
-[like: compare Poisson model versus Poisson+periodic mixture?]
+The precision of the Kepler data itself may enable more detailed
+analyses without even needing to acquire more data.  These could
+include studies transit timing variations, distortion of the transit
+signal due to the star's gravity darkening, and interactions between
+the star and planet exhibited by patterns in the star's flaring.
+The gravity darkening might be interesting as an explanation for the
+$\approx80\,{\rm ppm}$ residual apparent in our transit fit.
+On the point of planet-induced flaring, Appendix REFERENCE
+highlights an odd timing coincidence that may be worthy of further
+examination.  
 
-FIXME
-(A simpler path to the same result might be to determine whether the
-$\approx80\,{\rm ppm}$ residual apparent in our transit fit is caused
-by gravity darkening.)
-
-
-Ultimately, our age measurement for Kepler\,6127Ab was enabled by
+Ultimately though, our age measurement for Kepler\,6127Ab was enabled by
 identifying its connection to the \cn\ through the Gaia data.  The
 Supplementary Table~\ref{tab:v05} enables similar crossmatches to
 already known planets, as well as forthcoming planets from the TESS
@@ -707,6 +690,101 @@ However, there is also a dip of comparable amplitude shortly before
 the transit. 
 Given the uncertainties in the stellar variability model, we expect
 that these patterns may correspond to more noise than signal.
+
+\section{Flare Analysis}
+\label{app:flare}
+
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=1\textwidth]{f7.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf Flares in Kepler\,1627}.  
+    {\it Top:}
+    The full short-cadence Kepler dataset, acquired at 1-minute
+    sampling (black points) is shown with a stellar variability model
+    (blue line).
+    {\it Middle:}
+    Residual after subtracting the stellar variability model.  Flares
+    appear as spikes.
+    {\it Bottom:}
+    Zooms of the brightest, and third-brightest flares.  A timing
+    coincidence -- that both flares has ``successors'' approximately
+    one orbital period after the initial event -- is emphasized.
+		\label{fig:flarezoom}
+	}
+\end{figure*}
+
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=1.0\textwidth]{f8.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf Phase-folded flares in Kepler\,1627}.  
+    {\it Top:}
+    As in the middle of Figure~\ref{fig:flarezoom}, phase-folded at
+    the planet's ephemeris.
+    {\it Bottom:}
+    Fitted flare amplitudes and orbital phases.
+    Colors indiate relative time, from the beginning of the
+    98-day short-cadence Q15 dataset (dark blue) to the end (light
+    yellow).
+    Lower amplitude flares likely exist in the data, and were not
+    examined.
+		\label{fig:flarephase}
+	}
+\end{figure*}
+
+
+The 1-minute cadence Kepler observations span 98 days, and cover 24
+flares exceeding $0.5\%$ in relative flux.  These 24 flares spanned a
+total of 6.5 hours ($\sim$15 minutes per flare).  The coincidence is
+that despite the low flare duty cycle, one orbital period after the
+the brightest flare, a second flare followed.  This and a similar
+event are shown in Figure~\ref{fig:flarezoom}.  The timing error is
+good to a $\approx0.2\%$ difference from the orbital period, which
+seems {\it a priori} unlikely.  If we consider flares falling within
+2\% of the planet's orbital period after a previous flare, then 4 of
+the 24 flare events have candidate ``successors''.
+
+A brief note on how we cleaned the light curve, and identified the
+flares.
+For cleaning, we performed the following iterative detrending procedure.
+\begin{itemize}
+  \item Step 1: Build a two-term mixed SHOTerm GP model with
+    quasi-periodic kernels at Prot and 0.5$\times$Prot. Fit the model
+    to the time, flux, and flux uncertainty.
+  \item Step 2: Select points more than twice the median absolute
+    deviation from the residual, and exclude them from the light
+    curve.  Repeat Step 1.
+  \item Step 3: On the residual from Step 2, identify all flares,
+    requiring them to be at least 20 cadences apart, at least 7 median
+    absolute deviations above the median baseline, and lasting at least
+    2 cadences in duration.  Build the mask spanning these times, from
+    5 minutes before each flare begins to 2.5 minutes after the final
+    flare cadence.  Repeat Step 1 a final time.
+\end{itemize}
+
+The flares were identified and fitted using ALTAIPONY (CITE CITE).
+The fitted model is that of CITE XXX, which parametrizes the flare
+with a start time, a lag time, and an amplitude (CHECK).
+Figure~\ref{fig:flarephase} shows the resulting flares, amplitudes,
+and phases.
+
+We considered two hypotheses: {\it i)} the flare arrival times are
+distributed as a Poisson process, and {\it ii)} they are better
+explained as a Poisson process with a periodic mixture component.
+
+TODO: explore!  Fit the flare inter-arrival times...
+[even the 2-separated ones?]
+
+
+
+
 
 \section{Companion Star and False Positive Assessment}
 \label{app:companionstar}

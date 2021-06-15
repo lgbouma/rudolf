@@ -19,6 +19,7 @@ from importlib.machinery import SourceFileLoader
 
 import matplotlib as mpl
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 from astropy import units as u, constants as const
 from astropy.coordinates import SkyCoord
@@ -992,14 +993,14 @@ def plot_flare_checker(outdir, method=None):
     flcd = flcd.find_flares(20, **{'N1':7,'N2':7,'N3':2,'sigma':c.mad})
     fl_df = flcd.flares
 
-    fig = plt.figure(figsize=(4,3))
+    fig = plt.figure(figsize=(6,4))
     axd = fig.subplot_mosaic(
         """
         A
         B
         """,
         gridspec_kw={
-            "height_ratios": [3, 1.5]
+            "height_ratios": [1,1]
         }
     )
 
@@ -1025,10 +1026,24 @@ def plot_flare_checker(outdir, method=None):
     #axd['B'].vlines(
     #    x_fold, 0, 1, ls='-', lw=0.5, colors='k'
     #)
-    axd['B'].scatter(
-        x_fold, y_fold, c='k', s=2, rasterized=True, linewidths=0,
-        zorder=1
+    _p = axd['B'].scatter(
+        x_fold, y_fold, s=15, rasterized=True, linewidths=0.5,
+        edgecolors='k',
+        zorder=1, #c='k',
+        c=nparr(fl_df.tstart)-min(c.time), cmap='viridis'
     )
+
+    fig.tight_layout()
+
+    axins1 = inset_axes(axd['B'], width="25%", height="5%", loc='upper right')
+    cb = fig.colorbar(_p, cax=axins1, orientation="horizontal")
+    cb.ax.tick_params(labelsize='xx-small')
+    #cb.ax.set_title('Days from start', fontsize='x-small')
+    axd['B'].text(0.725,0.955, '$t$ [days]',
+            transform=axd['B'].transAxes,
+            ha='right',va='top', color='k', fontsize='xx-small')
+    cb.ax.tick_params(size=0, which='both') # remove the ticks
+    #axins1.xaxis.set_ticks_position("bottom")
 
     #axd['B'].set_ylim([0,1])
     axd['B'].set_yscale('log')
@@ -1040,7 +1055,6 @@ def plot_flare_checker(outdir, method=None):
     axd['A'].set_xlim([-0.1,1.1])
     axd['B'].set_xlim([-0.1,1.1])
 
-    fig.tight_layout()
     outpath = os.path.join(outdir, f'flarephase_{method}_altailabel.png')
     savefig(fig, outpath, dpi=400)
 
