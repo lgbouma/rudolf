@@ -8,6 +8,7 @@ plot_XYZvtang
 plot_keplerlc
     _plot_zoom_light_curve
 plot_flare_checker
+plot_ttv
 """
 import os, corner, pickle, inspect
 from glob import glob
@@ -1163,4 +1164,40 @@ def plot_flare_checker(outdir, method=None):
     fig.tight_layout(h_pad=0.2)
     outpath = os.path.join(outdir, f'flarezoom_{method}.png')
     savefig(fig, outpath, dpi=400)
+
+
+def plot_ttv(outdir, narrowylim=0):
+
+    # get data
+    fitspath = os.path.join(DATADIR, 'ttv', 'Holczer_2016_koi5245.fits')
+    hl = fits.open(fitspath)
+    d = hl[1].data
+    df = Table(d).to_pandas()
+
+    # make plot
+    plt.close('all')
+    set_style()
+
+    fig, ax = plt.subplots(figsize=(4,3))
+
+    ax.errorbar(
+        df['N'], df['O-C'], df['e_O-C'],
+        marker='o', elinewidth=0.5, capsize=4, lw=0, mew=0.5, color='k',
+        markersize=3, zorder=5
+    )
+
+    ax.set_xlabel('Transit index')
+    ax.set_ylabel('O-C [min.]')
+
+    # set naming options
+    s = ''
+    if narrowylim:
+        s += '_narrowylim'
+        ax.set_ylim([-25, 25])
+
+    bn = inspect.stack()[0][3].split("_")[1]
+    outpath = os.path.join(outdir, f'{bn}{s}.png')
+    savefig(fig, outpath, dpi=400)
+
+
 
