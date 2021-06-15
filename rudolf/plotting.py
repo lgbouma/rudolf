@@ -890,6 +890,8 @@ def _get_detrended_flare_data(cachepath, method):
             flat_flux, trend_flux = flatten_starspots(
                 time, flux, flux_err, P_rotation, flare_iterate=True
             )
+        else:
+            raise NotImplementedError(f'Got unknown method {method}.')
 
         #  then, find positive outliers using 
         resid = (flat_flux - np.nanmedian(flat_flux))
@@ -1013,7 +1015,7 @@ def plot_flare_checker(outdir, method=None):
 
 
     _pd = phase_magseries(nparr(fl_df.tstart), nparr(fl_df.ampl_rec), period,
-                          t0, wrap=False, sort=True)
+                          t0, wrap=False, sort=False)
     x_fold = _pd['phase']
     y_fold = _pd['mags']
 
@@ -1026,7 +1028,6 @@ def plot_flare_checker(outdir, method=None):
     axd['B'].scatter(
         x_fold, y_fold, c='k', s=2, rasterized=True, linewidths=0,
         zorder=1
-
     )
 
     #axd['B'].set_ylim([0,1])
