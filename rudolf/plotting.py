@@ -389,7 +389,7 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
 
         cax = ax.scatter(
             mdf.ra, mdf.dec, c=mdf.n_tess_sector, cmap=cmap,
-            alpha=0.9, zorder=40, s=2, rasterized=True, linewidths=0,
+            alpha=0.9, zorder=40, s=4, rasterized=True, linewidths=0,
             marker='.', norm=norm,
         )
 
@@ -484,9 +484,6 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
                     connectionstyle='angle3', linewidth=1
                 )
             )
-
-
-
 
     if not showtess:
         leg = ax.legend(loc='upper left', handletextpad=0.1,
