@@ -26,8 +26,8 @@ from betty.paths import BETTYDIR
 
 # NOTE: change starid as desired based on the dataset to use.
 # Kepler_1627_Q15slc, or Kepler_1627
-#def run_RotGPtransit(starid='Kepler_1627', N_samples=1000):
-def run_RotGPtransit(starid='Kepler_1627_Q15slc', N_samples=1000):
+#def run_RotGPtransit(starid='Kepler_1627_Q15slc', N_samples=1000):
+def run_RotGPtransit(starid='Kepler_1627', N_samples=1000):
 
     assert starid in ['Kepler_1627', 'Kepler_1627_Q15slc']
 
@@ -85,6 +85,35 @@ def run_RotGPtransit(starid='Kepler_1627_Q15slc', N_samples=1000):
     phaseplot = 1
     cornerplot = 1
     posttable = 1
+    phasedsubsets = 1
+
+    if phasedsubsets:
+        outpath = join(PLOTDIR, f'{starid}_{modelid}_phasedsubsets_yearchunk.png')
+        timesubsets = [(50,450,'Y1'), (450,850,'Y2'), (850,1250,'Y3'),
+                       (1250,1650,'Y4') ]
+        ylimd = {'0':[-4.5,0.5], '1':[-4.5,0.5]}
+        bp.plot_phased_subsets(
+            datasets, m.trace.posterior, outpath, timesubsets, from_trace=True,
+            map_estimate=m.map_estimate, yoffsetNsigma=5, ylimd=ylimd,
+            inch_per_subset=0.75
+        )
+
+        timepath = os.path.join(
+            DATADIR,'phot','time_to_quarter_conversion.csv'
+        )
+        tdf = pd.read_csv(timepath)
+        outpath = join(PLOTDIR, f'{starid}_{modelid}_phasedsubsets_quarterchunk.png')
+        timesubsets = [(r['tstart'], r['tstop'], 'Q'+str(int(r['quarter'])))
+                       for _,r in tdf.iterrows() if int(r['quarter'])!=0]
+        ylimd = {'0':[-10.5,0.5], '1':[-10.5,0.5]}
+        bp.plot_phased_subsets(
+            datasets, m.trace.posterior, outpath, timesubsets, from_trace=True,
+            map_estimate=m.map_estimate, yoffsetNsigma=3.5, ylimd=ylimd,
+            inch_per_subset=0.35
+        )
+        #FIXME
+        assert 0
+
 
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')

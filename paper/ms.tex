@@ -65,15 +65,20 @@
   $3.6\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  The star was
   selected for observation by the Kepler satellite because it is
   nearby ($d\approx 333\,{\rm pc}$) and resembles the Sun.  Combining
-  data from the Gaia satellite with rotation periods from TESS, we
-  show that Kepler\,1627 is a member of the $35\pm 10$\,Myr old
+  data from Gaia with rotation periods from TESS, we
+  show that Kepler\,1627 is a member of the $35\pm XX$\,Myr old
   $\delta$~Lyr cluster.  Our analysis advances Kepler\,1627Ab as the
-  youngest planet with a precise age detected by the main Kepler
-  mission.  New ages from the combination of Gaia and TESS offer the
-  opportunity to significantly expand the census of age-dated planets
-  -- we offer a literature concatenation of young stars to support
-  this effort.  Future studies of \pn\ may also help clarify how the
-  orbits and atmospheres of the mini-Neptune planets evolve.
+  youngest planet with a precise age found by the main Kepler
+  mission.  
+  Leveraging the corresponding photometry, we explore the possibility
+  that star-planet interactions induce flares in the system, and find
+  evidence that starspot crossings distort the average transit shape.
+  More broadly though, the merging of Gaia and TESS data offers an
+  opportunity to significantly expand the census of age-dated planets;
+  we provide a literature concatenation of young stars to support this
+  effort.
+  In the future, spectroscopic studies of \pn\ may also help clarify
+  how the orbits and atmospheres of the mini-Neptune planets evolve.
 \end{abstract}
 
 \keywords{
@@ -655,8 +660,53 @@ A.~Howard on HIRES and D.~Latham on TRES.
 The relevant projection effects are then taken into account,
 as discussed by {\it e.g.}, \citet{Meingast2021} and {\bf L.~Bouma et al (2021, submitted)}.
 
+
+
 \section{Transit and Stellar Variability Model}
 \label{app:gptransit}
+
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=1\textwidth]{f9.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf Transit model residuals through time}.  
+    {\it Left:}
+		Phase-folded transit of Kepler 1627b, with stellar
+    variability removed, binned by Kepler quarter.
+    Black points are binned to 20 minute intervals.
+    The 1-$\sigma$ model uncertainties and the maximum {\it a
+    posteriori} model are shown as the faint purple band, and the dark
+    purple line.
+    {\it Right:}
+    As on the left, with the transit removed.
+    Quarters 6 and 7 show a consistent deviation in the second half of
+    the transit.
+		\label{fig:phasequarter}
+	}
+\end{figure*}
+
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=1\textwidth]{f10.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+    {\bf Transit model residuals through time (Part 2)}.  
+    {\it Left:}
+		Phase-folded transit of Kepler 1627b, with stellar
+    variability removed, binned by year of observation.
+    Points and models are as in Figure~\ref{fig:phasequarter}.
+    {\it Right:}
+    As on the left, with the transit removed.
+		\label{fig:phaseyear}
+	}
+\end{figure*}
+
+
 
 We assumed a quadratic limb-darkening law, with the uninformative prior
 advocated by CITET Kipping2013.
@@ -667,27 +717,73 @@ advocated by CITET Kipping2013.
 
 Our default stellar variability model (RotGPtransit) allows for a
 \texttt{RotTerm} GP kernel, with a logjitter term to inflate the
-uncertainties to account for excess white noise.
-(This results in an inflation of the uncertainties by a factor
-of about three).
+uncertainties to account for excess white noise.  (This results in an
+inflation of the uncertainties by a factor of about three).
 
 We considered including an additive \texttt{SHOTerm} kernel to account
-for stochastic noise (RotStochGPtransit).  This didn't seem to affect the results much, so
-we opted for the simpler model.
-
-
+for stochastic noise (RotStochGPtransit).  This didn't seem to affect
+the results much, so we opted for the simpler model.
 
 Figure~\ref{fig:phasefold} shows X, Y, Z.  The residuals during the
 transit may hint at some small degree of unfitted signal -- in the
 sense that the observations are systematically high in the first half
-of transit, and low in the second half.  
-One possible explanation could be that we are seeing the effects of
-gravity darkening (e.g., CITE Masuda 2015).
-The expected amplitude of the effect is XXX, based on CITE.
-However, there is also a dip of comparable amplitude shortly before
-the transit. 
-Given the uncertainties in the stellar variability model, we expect
-that these patterns may correspond to more noise than signal.
+of transit, and low in the second half.  This is the phase of maximal
+scatter during each orbital period (TODO: in vs out of transit
+scatter).  The amplitude of the anomaly is $\approx$30\,ppm.
+
+To explore the origin of the anomaly, we binned the Kepler data over
+quarters (Figure~\ref{fig:phasequarter}) and years
+(Figure~\ref{fig:phaseyear}).  In Figure~\ref{fig:phasequarter}
+Quarter 6 shows the strongest asymmetry out of any of the quarters: a
+deviation of about 3\,ppt from expectation.  Quarter 7 shows an
+anomaly at roughly the same transit phase.  Year 2 correspondingly
+shows the strongest anomaly out of any year in
+Figure~\ref{fig:phaseyear}.
+
+We considered three possible explanations for the anomaly: gravity
+darkening, transit timing variations, and spot-crossing events.
+
+Gravity darkening (e.g., CITE Masuda 2015) is based on the premise
+that the rapidly rotating star becomes oblate, and brighter near the
+poles than the equator.  The fractional shape change due to gravity
+darkening is on the order of $(P_{\rm break}/P_{\rm rot})^2$, for
+$P_{\rm break}$ the break-up rotation period, and $P_{\rm rot}$ the
+rotation period.  Using the parameters from Table~\ref{tab:posterior},
+this yields an expected 1.6\% distortion of the $\approx$1.8\,ppt
+transit depth: {\it i.e.}, an absolute deviation of $\approx$3\,ppm.
+This is smaller than the observed anomaly by an order of magnitude,
+and therefore seems unlikely.
+
+The scenario of transit timing variations (TTVs) producing the
+asymmetry seems unlikely, since the analysis by
+\citet{holczer_transit_2016} implies that any such variations in \sn\
+need to be less than of order minutes.  Figures~\ref{fig:phasequarter}
+and~\ref{fig:phaseyear} also provide little evidence in support of
+this possibility.
+
+The final possibility is that of starspot crossings.  Given the high
+expected spot-covering fractions for young stars ({\it e.g.},
+\citealt{morris_relationship_2020}, \citealt{plavchan_planet_2020}),
+\pn\ may cross spot groups on the stellar surface in projection.
+Spot-crossing anomalies often reach amplitudes exceeding 100\,ppm
+({\it e.g.}, CITE Dai 2018, maybe Southworth's recent stuff).  For our
+system,  $P_{\rm orb}/P_{\rm rot} \approx 2.76$.  This means that
+every 4 transits (and 11 stellar rotations), the planet crosses over
+roughly the same stellar longitude.  Over a given quarter, this could
+occur at most three times, assuming the spot groups are persistent.  
+
+This could provide a plausible path to creating the distorted transit
+signal, based on the amplitudes involved.  However, the typical S/N
+per Kepler transit is $\approx8$, and so the individual spot-crossing
+events cannot be resolved.  {\it A priori}, one would also expect the
+spot-crossing events to not have a preferred phase, so that they would
+average out over the $\approx200$ Kepler transits.  Nonetheless, given
+the available data, it is our best explanation for what we believe is
+real additional scatter during the transits, relative to the
+out-of-transit observations.
+
+
+
 
 \section{Flare Analysis}
 \label{app:flare}

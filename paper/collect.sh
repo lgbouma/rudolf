@@ -13,3 +13,6 @@ cp /Users/luke/Dropbox/proj/rudolf/results/gaia_ruwe_vs_apparentmag/ruwe_vs_appa
 cp /Users/luke/Dropbox/proj/rudolf/results/flares/flarezoom_itergp.pdf f7.pdf
 
 cp /Users/luke/Dropbox/proj/rudolf/results/flares/flarephase_itergp_altailabel.pdf f8.pdf
+
+cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_phasedsubsets_quarterchunk.pdf f9.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_phasedsubsets_yearchunk.pdf f10.pdf
