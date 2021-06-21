@@ -22,6 +22,8 @@ import matplotlib as mpl
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
+from scipy.optimize import curve_fit
+
 from astropy import units as u, constants as const
 from astropy.coordinates import SkyCoord
 from astropy.io import fits
@@ -1197,4 +1199,100 @@ def plot_ttv(outdir, narrowylim=0):
     savefig(fig, outpath, dpi=400)
 
 
+def _linear_model(xdata, m, b):
+    return m*xdata + b
 
+
+def plot_ttv_vs_local_slope(outdir):
+
+    # get data
+    datadir = os.path.join(DATADIR, 'ttv', 'Bouma', 'K05245.01/')
+    tnum, tc, tc_err, tc_lin = np.loadtxt(datadir+"tc.dat").T
+
+    ttv = tc - tc_lin
+
+    slopes = []
+    for _tnum in tnum:
+        _t, _f, _ferr, _fmodel = np.loadtxt(datadir+"transit_%04d.dat"%int(_tnum)).T
+        coeffs = np.polyfit(_t, _f, deg=1)
+        slopes.append(coeffs[0])
+
+    slopes = np.array(slopes)
+
+    ttv_mean, ttv_std = np.mean(ttv), np.std(ttv)
+
+    ttv_cut = 0.02 # doesn't mean match
+
+    z1 = np.poly1d(
+        np.polyfit(slopes[np.abs(ttv)<ttv_cut],
+                   ttv[np.abs(ttv)<ttv_cut], deg=1)
+    )
+
+    slope_guess = -5e-2
+    intercept_guess = 0
+    sel = np.abs(ttv)<ttv_cut
+    # ignore the error bars... because they are probably wrong.
+    p_opt, p_cov = curve_fit(
+        _linear_model, slopes[sel], ttv[sel],
+        p0=(slope_guess, intercept_guess)
+    )
+    lsfit_slope = p_opt[0]
+    lsfit_slope_err = p_cov[0,0]**0.5
+    lsfit_int = p_opt[1]
+    lsfit_int_err = p_cov[1,1]**0.5
+
+
+    # make plot
+    plt.close('all')
+    set_style()
+
+    fig, ax = plt.subplots(figsize=(4,3))
+
+    ax.set_ylabel("TTV [minutes]")
+    ax.set_xlabel("Local light curve slope [hour$^{-1}$]")
+
+    sel = np.abs(ttv)<ttv_cut
+    slopes,ttv,tc_err = slopes[sel],ttv[sel],tc_err[sel]
+
+    ax.errorbar(
+        24*slopes, ttv*24*60, tc_err*24*60,
+        marker='o', elinewidth=0.5, capsize=4, lw=0, mew=0.5, color='k',
+        markersize=3, zorder=5
+    )
+
+    t0 = np.linspace(-0.2, 0.2, 100)
+
+    #ax.plot(24*t0, z1(t0)*24*60, '-', label='linear fit', color='C1', alpha=0.6)
+
+    ax.plot(24*t0, _linear_model(t0, lsfit_slope, lsfit_int)*24*60, '-',
+            label='Best fit', color='C2', alpha=1, lw=1)
+
+    ax.fill_between(24*t0,
+                    _linear_model(t0, lsfit_slope-lsfit_slope_err, lsfit_int)*24*60,
+                    _linear_model(t0, lsfit_slope+lsfit_slope_err, lsfit_int)*24*60,
+                    alpha=0.6,
+                    color='C2', lw=0, label='1$\sigma$',zorder=-1)
+
+    ax.fill_between(24*t0,
+                    _linear_model(t0, lsfit_slope-3*lsfit_slope_err, lsfit_int)*24*60,
+                    _linear_model(t0, lsfit_slope+3*lsfit_slope_err, lsfit_int)*24*60,
+                    alpha=0.2,
+                    color='C2', lw=0, label='3$\sigma$',zorder=-2)
+
+    print(f'Slope: {lsfit_slope*24:.2f} +/- {lsfit_slope_err*24:.2f} 1/hr')
+    print(f'implies {abs(lsfit_slope/lsfit_slope_err):.2f}σ different from zero.')
+    print(f'Intercept: {lsfit_int*24*60:.5f} +/- {lsfit_int_err*24*60:.5f} minutes')
+
+
+
+
+    ax.set_ylim([-0.03*24*60,0.03*24*60])
+    ax.set_xlim([-0.15*24,0.15*24])
+
+    ax.legend(fontsize='x-small')
+
+    # set naming options
+    s = ''
+
+    outpath = os.path.join(outdir, f'ttv_vs_local_slope{s}.png')
+    savefig(fig, outpath, dpi=400)

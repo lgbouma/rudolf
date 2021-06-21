@@ -16,3 +16,7 @@ cp /Users/luke/Dropbox/proj/rudolf/results/flares/flarephase_itergp_altailabel.p
 
 cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_phasedsubsets_quarterchunk.pdf f9.pdf
 cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_phasedsubsets_yearchunk.pdf f10.pdf
+
+cp /Users/luke/Dropbox/proj/rudolf/results/ttv_vs_local_slope/ttv_vs_local_slope.pdf f11.pdf
+
+cp /Users/luke/Dropbox/proj/rudolf/results/run_RotStochGPtransit_Q15slc/Kepler_1627_Q15slc_RotStochGPtransit_posterior_phaseplot.pdf f12.pdf

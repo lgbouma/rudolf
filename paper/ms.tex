@@ -61,24 +61,24 @@
 \input{authors.tex}
 
 \begin{abstract}
-  Kepler\,1627A is an active G8V star previously found to host a
+  Kepler\,1627A is a G8V star previously found to host a
   $3.6\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  The star was
   selected for observation by the Kepler satellite because it is
   nearby ($d\approx 333\,{\rm pc}$) and resembles the Sun.  Combining
-  data from Gaia with rotation periods from TESS, we
-  show that Kepler\,1627 is a member of the $35\pm XX$\,Myr old
-  $\delta$~Lyr cluster.  Our analysis advances Kepler\,1627Ab as the
-  youngest planet with a precise age found by the main Kepler
-  mission.  
-  Leveraging the corresponding photometry, we explore the possibility
-  that star-planet interactions induce flares in the system, and find
-  evidence that starspot crossings distort the average transit shape.
-  More broadly though, the merging of Gaia and TESS data offers an
-  opportunity to significantly expand the census of age-dated planets;
-  we provide a literature concatenation of young stars to support this
-  effort.
-  In the future, spectroscopic studies of \pn\ may also help clarify
-  how the orbits and atmospheres of the mini-Neptune planets evolve.
+  data from Gaia with rotation periods from TESS, we show that
+  Kepler\,1627 is a member of the $35\pm XX$\,Myr old $\delta$~Lyr
+  cluster.  Our analysis advances Kepler\,1627Ab as the youngest
+  planet with a precise age found by the main Kepler mission.
+  Analyzing the photometry, we find evidence that starspot crossings
+  {\it i)} distort the average transit shape, and {\it ii)} induce
+  transit timing variations that suggest the planet is on a prograde
+  orbit.  The possibility that star-planet interactions could induce
+  flares in the system is also explored.  Future spectroscopic studies
+  of \pn\ may help clarify the early evolution of the orbit and
+  atmosphere for this mini-Neptune.  More generally, the merging of
+  Gaia and TESS data offers an opportunity to significantly expand the
+  census of age-dated planets; we provide a literature concatenation
+  of young stars to support this effort.
 \end{abstract}
 
 \keywords{
@@ -155,7 +155,7 @@ planets \citep{bouma_cluster_2020}.
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-    {\bf \cn is $35\pm15$\,Myr old.} {\it Left:} TESS and
+    {\bf The \cn\ is $35\pm15$\,Myr old.} {\it Left:} TESS and
     Kepler rotations periods and dereddened Gaia colors, with the
     Pleiades \citep[125\,Myr;][]{rebull_rotation_2016a} and Praesepe
     \citep[650\,Myr;][]{douglas_poking_2017} shown for reference.
@@ -167,47 +167,83 @@ planets \citep{bouma_cluster_2020}.
 	}
 \end{figure*}
 
-\begin{figure*}[t]
+% \begin{figure*}[t]
+% 	\begin{center}
+% 		\leavevmode
+% 		\includegraphics[width=1\textwidth]{f4.pdf}
+% 	\end{center}
+% 	\vspace{-0.7cm}
+% 	\caption{
+% 		{\bf Zoomed view of the \sn\ light curve.}  
+% 		The full Kepler dataset spans 1{,}437 days (3.9 years), sampled at
+% 		30 minute cadence.  A one hundred day segment is shown here.  The {\it top panel} shows the
+% 		\texttt{PDCSAP} median-subtracted flux in units of
+% 		parts-per-thousand ($\times 10^{-3}$).  The dominant signal
+% 		is induced by starspots.  The model for the
+% 		stellar variability (orange line) is subtracted in the {\it
+% 			bottom panel}, revealing the transits of \pn, as well as other
+% 		deviations from the stellar variability model.  The 
+% 		Figure Set available online shows the entire 3.9 years of
+% 		available data.
+% 		\label{fig:lightcurve}
+% 	}
+% \end{figure*}
+% 
+% \begin{figure*}[t]
+% 	\begin{center}
+% 		\leavevmode
+% 		\includegraphics[width=1\textwidth]{f5.pdf}
+% 	\end{center}
+% 	\vspace{-0.7cm}
+% 	\caption{
+% 		{\bf Phase-folded transit of Kepler 1627b, with stellar
+% 			variability removed.}  
+%     The 1-$\sigma$ model uncertainties and the maximum {\it a
+%     posteriori} model are shown as the faint purple band, and the dark
+%     purple line.  Gray points are individual \texttt{PDCSAP} flux
+%     measurements; black points are binned to 20 minutes, with a
+%     representative error bar shown.
+%     {\bf LGB FIXME: seems like the uncertainty is bigger than the RMS
+%     in the out of transit...}
+% 		\label{fig:phasefold}
+% 	}
+% \end{figure*}
+
+\begin{figure*}[tp]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=1\textwidth]{f4.pdf}
+		\subfloat{
+			\includegraphics[width=0.9\textwidth]{f4.pdf}
+			\includegraphics[width=0.9\textwidth]{f5.pdf}
+		}
 	\end{center}
 	\vspace{-0.7cm}
-	\caption{
-		{\bf Zoomed view of the \sn\ light curve.}  
+  \caption{ {\bf The light curve of Kepler\,1627.}
+    {\it Top}: 
 		The full Kepler dataset spans 1{,}437 days (3.9 years), sampled at
 		30 minute cadence.  A one hundred day segment is shown here.  The {\it top panel} shows the
 		\texttt{PDCSAP} median-subtracted flux in units of
 		parts-per-thousand ($\times 10^{-3}$).  The dominant signal
-		is induced by starspots and plages.  The model for the
-		stellar variability (orange line) is subtracted in the {\it
-			bottom panel}, revealing the transits of \pn, as well as other
-		deviations from the stellar variability model.  The 
-		Figure Set available online shows the entire 3.9 years of
-		available data.
-		\label{fig:lightcurve}
-	}
-\end{figure*}
-
-\begin{figure*}[t]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=1\textwidth]{f5.pdf}
-	\end{center}
-	\vspace{-0.7cm}
-	\caption{
-		{\bf Phase-folded transit of Kepler 1627b, with stellar
-			variability removed.}  
-    The 1-$\sigma$ model uncertainties and the maximum {\it a
+		is induced by starspots.  The model for the
+    stellar variability (orange line) is subtracted below, revealing
+    the transits of \pn, as well as other deviations from the stellar
+    variability model.  The Figure Set available online shows the
+    entire 3.9 years of available data.
+    {\it Bottom}:
+		Phase-folded transit of Kepler 1627b, with stellar
+			variability removed.
+    The 2-$\sigma$ model uncertainties and the maximum {\it a
     posteriori} model are shown as the faint purple band, and the dark
     purple line.  Gray points are individual \texttt{PDCSAP} flux
     measurements; black points are binned to 20 minutes, with a
     representative error bar shown.
-    {\bf LGB FIXME: seems like the uncertainty is bigger than the RMS
-    in the out of transit...}
-		\label{fig:phasefold}
-	}
+    The in-transit variation is robust against detrending methods; we
+    believe it is due to starspot crossings (see text).
+    \label{fig:lc}
+  }
 \end{figure*}
+
+
 
 At the time of the main Kepler mission (2009--2013), only four open
 clusters were known in the Kepler field: NGC\,6866, NGC\,6811,
@@ -232,9 +268,9 @@ Figure~\ref{fig:skychart}.
 
 While we have yet to perform an in-depth planet search of the {\bf
 XXX} light curves Kepler acquired for the \cn, there is already a
-known planet in the cluster: Kepler\,1627b.  We considered the
-planet's previous statistical validation by \citet{morton_false_2016}
-to be sufficient cause to examine the age of the star and its cluster more closely.
+known planet in the cluster: Kepler\,1627b.  Given the
+planet's previous statistical validation by \citet{morton_false_2016},
+we decided to examine the age of the star and its cluster more closely.
 We collected the previously measured {\bf XXX} Kepler
 rotation periods (CITEP MCQUILLAN2014), and measured {\bf YYY} new stellar
 rotation periods for cluster members observed by TESS.
@@ -246,7 +282,7 @@ the age of the star is $XX \pm YY$\,Myr.
 Individual measurements of the star's rotation period and lithium
 abundance corroborate this conclusion.
 
-If the Kepler\,1627b transit signal truly corresponds to a planet,
+If the Kepler\,1627b transit signal is created by a bonafide planet,
 this age would make it the youngest planet yet found by the main
 Kepler mission.  A portion of the light curve is shown in
 Figure~\ref{fig:lightcurve}, and the phase-folded transit is shown in
@@ -265,7 +301,7 @@ around a G8V star ($0.91 \pm 0.05 R_\odot$) {\bf fixme: age}.
 
 Could the transit signal be produced by anything other than a planet
 orbiting this near-solar analog?  \citet{morton_false_2016} considered
-the various false positive scenarios, including those of a foreground
+the false positive scenarios of a foreground
 eclipsing binary, a hierarchical triple-star binary system, and a
 background eclipsing binary.  \citet{morton_false_2016} reported the
 latter scenario to be the only possible case, with a (model-dependent)
@@ -273,14 +309,61 @@ probability of $\approx10^{-5}$.  While this statistical validation is
 reassuring, ``validated'' planets have been demonstrated to be false
 positives \citep{shporer_three_2017}.  Most failures of the
 statistical validation approach arise when attempting to separate the
-smallest stars from identically-sized gas giant planets (CITE).  With a size
+smallest stars from identically-sized gas giant planets.  With a size
 of $\approx 3.6\,R_\oplus$, Kepler\,1627b does not meet this
-concern.  The fact that we detect a low-mass stellar companion in
+concern.
+The fact that we detect a low-mass stellar companion in
 archival Keck-NIRC2 Kp-band (2.12\,$\mu $m) imaging does not change
 the conclusion: the companion contributes 1\% of the flux
 observed by Kepler, which combined with the observed transit shape
 cannot be invoked as an explanation for the observed data
 (Section~\ref{app:companionstar}).
+
+Two additional lines of evidence ultimately persuaded us in favor of
+the planetary interpretation.  First, the $\approx$100 days of
+1-minute short-cadence data enables a more precise measurement of the
+transit impact parameter: {\bf todo numbers} it is constrained to be
+$<0.62$ (3-$\sigma$) from the 1-minute cadenced data, compared to
+$<0.XX$ (3-$\sigma$) from the 30-minute data.  The second, and
+ultimately convincing line of evidence came from our transit timing
+analysis.  {\bf todo: KM pls check numbers} We isolated each of the
+144 observed transits to within $\pm4.5$\,hr of each transit, and
+fitted each window with both {\it i)} a local second-order polynomial
+and transit, and {\it ii)} a local linear trend.  We let the mid-time
+of each transit float, and then calculated the residual between the
+measured mid-time and that of a perfectly periodic orbit.  This
+residual, the ``transit timing variation'' (TTV), is plotted in
+Figure~\ref{fig:ttvslope} against the local linear slope.  Only a
+handful of Kepler Objects of Interest have shown this correlation
+\citep{holczer_time_2015}, which is most readily interpreted as a TTV
+induced by unresolved starspot crossings \citep{mazeh_time_2015}.  
+This is of course only possible if the planet is transiting the
+primary star, which excludes the any of the aforementioned false
+positive scenarios.
+It also implies that the planet's orbit is prograde.  The latter
+interpretation assumes that the dominant
+photometric variability is induced by dark spots, rather than bright
+faculae.  Given the observed transition of Sun-like stellar
+variability from spot to faculae-dominated regimes, we expect this
+inference to be reasonably secure
+\citep{shapiro_are_2016,montet_long-term_2017,reinhold_stellar_2020}.
+
+\begin{figure*}[tp]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.9\textwidth]{f11.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf Evidence for a prograde orbit from transit timing variations.}
+    The time of each transit was measured, along with the local linear
+    slope.  The two quantities are anti-correlated, which is most
+    easily explained by starspot crossings during the first
+    (second) half of transit inducing a positive (negative) TTV,
+    provided that the orbit is prograde \citep{mazeh_time_2015}.
+		\label{fig:ttvslope}
+	}
+\end{figure*}
 
 % Could the planet be on a high obliquity orbit?
 % * how do the spectroscopic vsini and the measured v_rot=2πRstar/Prot compare?
@@ -289,14 +372,15 @@ cannot be invoked as an explanation for the observed data
 %   TRES.
 
 
-Kepler\,1627Ab therefore provides an interesting extremum in the ages
+In short, Kepler\,1627Ab provides an interesting extremum in the ages
 of the Kepler planets, and opens multiple avenues for study from the
 ground.  Observations of its Doppler transit ($\Delta v_{\rm RM}
 \approx 20$\ms) with HIRES or the upcoming KPF spectrograph could
-yield a measurement of its orbital obliquity (CITEP,CITEP).
-Similarly, transit spectroscopy aimed at detecting either hydrogen or
-helium absorption could yield insight into the planet's atmosphere,
-which is expected to be outflowing at a rate of {\bf
+yield a quantification of the stellar obliquity, and a means for
+verifying the suggestion of a prograde order from transit timing
+(CITEP,CITEP).  Similar transit spectroscopy aimed at detecting either
+hydrogen or helium absorption could yield insight into the planet's
+atmosphere, which is expected to be outflowing at a rate of {\bf
 X.X}\,$M_\oplus\,{\rm yr}^{-1}$ (CITE).  A more challenging
 measurement would be a measurement of the planet's mass, through
 either detailed timing analyses of the Kepler data, or through a
@@ -306,25 +390,20 @@ extent of the initial gaseous envelope for a typical mini-Neptune?''),
 as well as its initial entropy (``hot'' or ``cold''? CITE).
 
 The precision of the Kepler data itself may enable more detailed
-analyses without even needing to acquire more data.  These could
-include studies transit timing variations, distortion of the transit
-signal due to the star's gravity darkening, and interactions between
-the star and planet exhibited by patterns in the star's flaring.
-The gravity darkening might be interesting as an explanation for the
-$\approx80\,{\rm ppm}$ residual apparent in our transit fit.
-On the point of planet-induced flaring, Appendix REFERENCE
-highlights an odd timing coincidence that may be worthy of further
-examination.  
+analyses without even needing to acquire more data.  While our transit
+timing study did not yield the detection of any clearly significant
+planet-induced TTVs, the star's flaring may be suggestive of
+star-planet interactions.  Appendix REFERENCE highlights an odd flare
+timing coincidence that may be worthy of further examination.  
 
-Ultimately though, our age measurement for Kepler\,6127Ab was enabled by
-identifying its connection to the \cn\ through the Gaia data.  The
+Ultimately though, our age measurement for \pn\ was enabled
+by identifying its connection to the \cn\ through the Gaia data.  The
 Supplementary Table~\ref{tab:v05} enables similar crossmatches to
 already known planets, as well as forthcoming planets from the TESS
-mission (CITE RickerJATIS2014).  An alternative approach also
-likely to bear fruit is to identify kinematic associations
-around exoplanet host stars using the Gaia data, and to then verify
-these associations with ancilliary rotation periods and spectroscopy
-(CITEP Tofflemire).
+mission (CITE RickerJATIS2014).  An alternative approach also likely
+to bear fruit is to identify kinematic associations around exoplanet
+host stars using the Gaia data, and to then verify these associations
+with ancilliary rotation periods and spectroscopy (CITEP Tofflemire).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -339,8 +418,9 @@ these associations with ancilliary rotation periods and spectroscopy
 \raggedbottom
 
 L.G.B{.} and J.L.C{.} are grateful to T{.}~David for help with the
-transit fitting, and to R{.}~Kerr for kindly providing us with the
-\citet{Kerr2021} membership list prior to its publication.
+transit fitting, to R{.}~Kerr for kindly providing us with the
+\citet{Kerr2021} membership list prior to its publication, and to
+K.~Masuda for advice on gravity darkening.
 % is grateful to G.~Zhou, B{.}~Tofflemire, A{.}~McWilliam,
 % E{.}~Newton, M{.}~Kounkel, A{.}~Kraus, L{.}~Hillenbrand, and
 % K{.}~Hawkins for the discussions on young stars, rotation, and lithium
@@ -665,6 +745,7 @@ as discussed by {\it e.g.}, \citet{Meingast2021} and {\bf L.~Bouma et al (2021, 
 \section{Transit and Stellar Variability Model}
 \label{app:gptransit}
 
+\subsection{Long Cadence Data}
 \begin{figure*}[t]
 	\begin{center}
 		\leavevmode
@@ -774,13 +855,34 @@ occur at most three times, assuming the spot groups are persistent.
 
 This could provide a plausible path to creating the distorted transit
 signal, based on the amplitudes involved.  However, the typical S/N
-per Kepler transit is $\approx8$, and so the individual spot-crossing
-events cannot be resolved.  {\it A priori}, one would also expect the
-spot-crossing events to not have a preferred phase, so that they would
-average out over the $\approx200$ Kepler transits.  Nonetheless, given
-the available data, it is our best explanation for what we believe is
-real additional scatter during the transits, relative to the
-out-of-transit observations.
+per Kepler transit is $\approx8$, making individual spot-crossing
+unresolved, and this scenario challenging to test.  {\it A priori},
+one would also expect the spot-crossing events to not have a preferred
+orbital phase, so that they would average out over the $\approx200$
+Kepler transits.  Nonetheless, given the available data, it is our
+best explanation for what we believe is real additional photometric
+scatter observed during the transits.
+
+\subsection{Short Cadence Data}
+
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=1\textwidth]{f12.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf Phase-folded short cadence transit of Kepler\,1627 Ab}.  
+    The precision with which the impact parameter can be measured is
+    higher than from the long cadence data.
+		\label{fig:phase_slc}
+	}
+\end{figure*}
+
+Figure~\ref{fig:phase_slc} shows the result from analyzing 100 days of
+short cadence (1-minute) data acquired during Quarter 15.
+%TODO: get quantitative on better impact parameter...
+
 
 
 
@@ -805,7 +907,7 @@ out-of-transit observations.
     appear as spikes.
     {\it Bottom:}
     Zooms of the brightest, and third-brightest flares.  A timing
-    coincidence -- that both flares has ``successors'' approximately
+    coincidence -- that both flares have ``successors'' approximately
     one orbital period after the initial event -- is emphasized.
 		\label{fig:flarezoom}
 	}
@@ -823,9 +925,10 @@ out-of-transit observations.
     As in the middle of Figure~\ref{fig:flarezoom}, phase-folded at
     the planet's ephemeris.
     {\it Bottom:}
-    Fitted flare amplitudes and orbital phases.
-    Colors indiate relative time, from the beginning of the
-    98-day short-cadence Q15 dataset (dark blue) to the end (light
+    Fitted flare amplitudes and orbital phases -- each point
+    represents one flare.
+    Colors indicate relative time, from the beginning of the
+    98-day short-cadence Quarter 15 dataset (dark blue) to the end (light
     yellow).
     Lower amplitude flares likely exist in the data, and were not
     examined.
@@ -838,7 +941,7 @@ The 1-minute cadence Kepler observations span 98 days, and cover 24
 flares exceeding $0.5\%$ in relative flux.  These 24 flares spanned a
 total of 6.5 hours ($\sim$15 minutes per flare).  The coincidence is
 that despite the low flare duty cycle, one orbital period after the
-the brightest flare, a second flare followed.  This and a similar
+brightest flare, a second flare followed.  This and a similar
 event are shown in Figure~\ref{fig:flarezoom}.  The timing error is
 good to a $\approx0.2\%$ difference from the orbital period, which
 seems {\it a priori} unlikely.  If we consider flares falling within
