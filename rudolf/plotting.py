@@ -9,6 +9,7 @@ plot_keplerlc
     _plot_zoom_light_curve
 plot_flare_checker
 plot_ttv
+plot_ttv_vs_local_slope
 """
 import os, corner, pickle, inspect
 from glob import glob

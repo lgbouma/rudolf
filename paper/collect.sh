@@ -4,9 +4,9 @@ cp /Users/luke/Dropbox/proj/rudolf/results/skychart/skychart_showkepler_showtess
 
 cp /Users/luke/Dropbox/proj/rudolf/results/keplerlc/keplerlc_Nsample500_xlim0500_0600.pdf f4.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/run_RotStochGPtransit/Kepler_1627_RotStochGPtransit_posterior_phaseplot.pdf f5.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_posterior_phaseplot.pdf f5.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/run_RotStochGPtransit/Kepler_1627_RotStochGPtransit_cornerplot.png dontinclude0.png
+cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_cornerplot.png dontinclude0.png
 
 cp /Users/luke/Dropbox/proj/rudolf/results/gaia_ruwe_vs_apparentmag/ruwe_vs_apparentmag.pdf f6.pdf
 
@@ -19,4 +19,4 @@ cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtra
 
 cp /Users/luke/Dropbox/proj/rudolf/results/ttv_vs_local_slope/ttv_vs_local_slope.pdf f11.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/run_RotStochGPtransit_Q15slc/Kepler_1627_Q15slc_RotStochGPtransit_posterior_phaseplot.pdf f12.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit_Kepler_1627_Q15slc/Kepler_1627_Q15slc_RotGPtransit_posterior_phaseplot.pdf f12.pdf
