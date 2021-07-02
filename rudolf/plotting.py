@@ -10,6 +10,7 @@ plot_keplerlc
 plot_flare_checker
 plot_ttv
 plot_ttv_vs_local_slope
+plot_rotation_period_windowslider
 """
 import os, corner, pickle, inspect
 from glob import glob
@@ -1297,3 +1298,43 @@ def plot_ttv_vs_local_slope(outdir):
 
     outpath = os.path.join(outdir, f'ttv_vs_local_slope{s}.png')
     savefig(fig, outpath, dpi=400)
+
+
+def plot_rotation_period_windowslider(outdir):
+
+    from timmy.rotationperiod import measure_rotation_period_and_unc
+
+    # get data
+    modelid, starid = 'gptransit', 'Kepler_1627'
+    datasets = OrderedDict()
+    time, flux, flux_err, qual, texp = (
+        get_kep1627_kepler_lightcurve(lctype='longcadence_byquarter')
+    )
+
+    N_quarters = len(time)
+
+    periods, period_uncs = [], []
+    for i in range(N_quarters):
+        print(i)
+
+        t,f = time[i],flux[i]
+
+        plotpath = os.path.join(outdir, f'kep1627_rotationperiodslider_quarter_ix{i}.png')
+        p, p_unc = measure_rotation_period_and_unc(t, f, 1, 10,
+                                                   period_fit_cut=0.5, nterms=1,
+                                                   samples_per_peak=50,
+                                                   plotpath=plotpath)
+
+        periods.append(p)
+        period_uncs.append(p_unc)
+
+    outdf = pd.DataFrame(
+        {'period': periods, 'period_unc': period_uncs}
+    )
+    outpath = os.path.join(outdir, 'rotation_period_windowslider_QUARTERS.csv')
+    outdf.to_csv(outpath, index=False)
+
+    print(42*'-')
+    print(f'P: {np.mean(outdf.period):.4f}, scatter: {np.std(outdf.period):.4f}')
+    print(outdf)
+    print(42*'-')

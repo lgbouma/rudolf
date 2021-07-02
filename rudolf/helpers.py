@@ -46,7 +46,9 @@ def get_kep1627_kepler_lightcurve(lctype='longcadence'):
     each quater.
     """
 
-    if lctype == 'longcadence':
+    assert lctype in ['longcadence', 'shortcadence', 'longcadence_byquarter']
+
+    if lctype in ['longcadence', 'longcadence_byquarter']:
         lcfiles = glob(os.path.join(DATADIR, 'phot', 'kplr*_llc.fits'))
     elif lctype == 'shortcadence':
         lcfiles = glob(os.path.join(DATADIR, 'phot', 'full_MAST_sc', 'MAST_*',
@@ -79,11 +81,20 @@ def get_kep1627_kepler_lightcurve(lctype='longcadence'):
         qual_list.append(qual[sel])
         texp_list.append(texp)
 
-    time = np.hstack(timelist)
-    flux = np.hstack(f_list)
-    flux_err = np.hstack(ferr_list)
-    qual = np.hstack(qual_list)
-    texp = np.nanmedian(texp_list)
+    if lctype == 'longcadence':
+        time = np.hstack(timelist)
+        flux = np.hstack(f_list)
+        flux_err = np.hstack(ferr_list)
+        qual = np.hstack(qual_list)
+        texp = np.nanmedian(texp_list)
+    elif lctype == 'longcadence_byquarter':
+        return (
+            timelist,
+            f_list,
+            ferr_list,
+            qual_list,
+            texp_list
+        )
 
     # require ascending time
     s = np.argsort(time)

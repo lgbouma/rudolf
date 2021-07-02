@@ -67,18 +67,18 @@
   nearby ($d\approx 333\,{\rm pc}$) and resembles the Sun.  Combining
   data from Gaia with rotation periods from TESS, we show that
   Kepler\,1627 is a member of the $35\pm XX$\,Myr old $\delta$~Lyr
-  cluster.  Our analysis advances Kepler\,1627Ab as the youngest
-  planet with a precise age found by the main Kepler mission.
+  cluster.  Kepler\,1627Ab is therefore the youngest planet with a
+  precise age found so far by the main Kepler mission.
   Analyzing the photometry, we find evidence that starspot crossings
-  {\it i)} distort the average transit shape, and {\it ii)} induce
-  transit timing variations that suggest the planet is on a prograde
-  orbit.  The possibility that star-planet interactions could induce
+  distort the average transit shape, and induce transit timing
+  variations that suggest the planet is on a prograde orbit.  The
+  possibility that star-planet interactions could induce
   flares in the system is also explored.  Future spectroscopic studies
-  of \pn\ may help clarify the early evolution of the orbit and
-  atmosphere for this mini-Neptune.  More generally, the merging of
-  Gaia and TESS data offers an opportunity to significantly expand the
-  census of age-dated planets; we provide a literature concatenation
-  of young stars to support this effort.
+  of \pn\ may help clarify how the orbit and atmosphere of this
+  mini-Neptune evolve.  More generally, the combination of Gaia and TESS
+  offers an opportunity to significantly expand the census of
+  age-dated planets; we provide a literature concatenation of young
+  stars to support this effort.
 \end{abstract}
 
 \keywords{
@@ -95,16 +95,16 @@
 
 While thousands of exoplanets have been discovered orbiting nearby
 stars, the vast majority of them are several billion years old.  This
-results in difficulty testing theories for the origins of the
+makes it difficult to test theories for the origins of the
 different families of planets, since many expected evolutionary
-processes operate on timescales of less than 100 million years.  
+processes operate on timescales of less than 100 million years.
 
 For instance, the ``mini-Neptune'' planets, thought to be made of
 molten rocky cores and extended atmospheric envelopes of hydrogen and
 helium, are expected to shrink in size by factors of several over
 their first $10^8$ years \citep{owen_constraining_2020}.
 Specifically, they start with sizes of 4--12\,$R_\oplus$ at the time
-of disk dispersal ($\approx$$10^7$\,years), and shrink to sizes of
+of disk dispersal ($\lesssim$$10^7$\,years), and shrink to sizes of
 2--4\,$R_\oplus$ by 10$^8$ years.  This change is driven by a
 combination of stellar irradiation and internal heat that powers an
 outflow, which eventually depletes or entirely strips the envelope
@@ -135,7 +135,7 @@ planets \citep{bouma_cluster_2020}.
 	\caption{
 		{\bf Kepler and TESS views of the $\delta$\,Lyr cluster.} Colored
 		points are kinematically selected members of the $\delta$\,Lyr
-		cluster (black points in Figure~\ref{fig:XYZvtang}).  Both Kepler
+		cluster.  Both Kepler
 		(gray squares) and TESS (colored points) observed portions of the
 		cluster.  Naked-eye stars ($m_{\rm V}<6.5$) are shown in gray; four
 		of them (orange points) have their names annotated.  Kepler\,1627 (green
@@ -240,8 +240,9 @@ planets \citep{bouma_cluster_2020}.
     purple line.  Gray points are individual \texttt{PDCSAP} flux
     measurements; black points are binned to 20 minutes, with a
     representative error bar shown.
-    The in-transit residual is robust against detrending methods; we
-    believe it is caused by starspot crossings (see text).
+    The asymmetric residual visible during the transit is robust
+    against detrending methods; we believe it is caused by starspot
+    crossings.
     \label{fig:lc}
   }
 \end{figure*}
@@ -263,15 +264,17 @@ age-dated stars (see Section~\ref{app:targetlist}).
 Comparing our young star list against the Kepler field yielded two
 discoveries.  The first, to be discussed in an upcoming analysis
 by J. Curtis et al{.}, is that Kepler observed the $\approx$350\,Myr
-open cluster Theia\,520 (UBC\,1).  At least five Kepler planets are
+open cluster Theia\,520 (UBC\,1).  At least six Kepler planets are
 known in the cluster, including the Kepler-52 and Kepler-968 systems.
 The second discovery, and the focus of this work, is that Kepler
 observed a portion of the $\delta$\,Lyr cluster, shown in
 Figure~\ref{fig:skychart}.
 
-While we have yet to perform an in-depth planet search of the {\bf
-XXX} light curves Kepler acquired for the \cn, there is already a
-known planet in the cluster: Kepler\,1627b.  Given the
+Kepler\,1627 (KIC 6184894; KOI 5245; TIC 120105470) was previosuly
+reported to host a close-in mini-Neptune planet candidate,
+Kepler\,1627Ab
+\citep{2012ApJS..199...24T,thompson_planetary_2018}
+Given the
 planet's previous statistical validation by \citet{morton_false_2016},
 we decided to examine the age of the star and its cluster more closely.
 We collected the previously measured {\bf XXX} Kepler
@@ -285,22 +288,29 @@ the age of the star is $XX \pm YY$\,Myr.
 Individual measurements of the star's rotation period and lithium
 abundance corroborate this conclusion.
 
-If the Kepler\,1627b transit signal is created by a bonafide planet,
-this age would make it the youngest planet yet found by the main
-Kepler mission.  A portion of the light curve is shown in
-Figure~\ref{fig:lightcurve}, and the phase-folded transit is shown in
-Figure~\ref{fig:phasefold}.  The dominant signal in the
+% rotation period from plot_rotation_period_windowslider.py
+
+If the \pn\ transit signal is created by a bonafide planet, this age
+would make it the youngest planet yet found by the main Kepler
+mission\footnote{The re-purposed K2 mission found two slightly younger
+systems: K2-33b \citep{David_et_al_2017,Mann_K2_33b_2016} and V1298
+Tau \citep{david_four_2019}}.  A portion of the light curve is shown
+in Figure~\ref{fig:lightcurve}, and the phase-folded transit is shown
+in Figure~\ref{fig:phasefold}.  The dominant signal in the
 \texttt{PDCSAP} photometry is a quasi-period starspot signal with a
 peak-to-peak amplitude that varies between roughly 2\% and 8\%,
 depending on the degree of asymmetry in spot coverage between the
-stellar hemispheres.  The starspot signal repeats roughly every
-2.606\,days, though this value varies by a few percent depending on
-which portion of the light curve is analyzed {\bf (FIXME: do!)}.  The
-details of how we model this signal to derive the parameters of the
-planet are discussed in Section~\ref{app:gptransit}.  The results,
-given in Table~\ref{tab:posterior}, are consistent with a mini-Neptune
-sized planet ($3.56\pm 0.04\,R_\oplus$) on a circular 7.2\,day orbit,
-around a G8V star ($0.91 \pm 0.05 R_\odot$) {\bf fixme: age}. 
+stellar hemispheres.  The starspot signal repeats every
+$2.642\pm0.042$\,days, where we have adopted an uncertainty based on
+the scatter observed between different windows (quarters) of the
+time-series data.  The details of how we model this starspot signal to
+derive the parameters of the planet are discussed in
+Section~\ref{app:gptransit}.  The results, given in
+Table~\ref{tab:posterior}, are consistent with a mini-Neptune sized
+planet ($3.56\pm 0.04\,R_\oplus$) on a circular 7.2\,day orbit
+($e<0.XX$), around
+a G8V star ($0.91 \pm 0.05 R_\odot$). 
+{\bf TODO quote the eccentricity limit}
 
 Could the transit signal be produced by anything other than a planet
 orbiting this near-solar analog?  \citet{morton_false_2016} considered
