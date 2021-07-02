@@ -1251,13 +1251,18 @@ def plot_ttv_vs_local_slope(outdir):
     fig, ax = plt.subplots(figsize=(4,3))
 
     ax.set_ylabel("TTV [minutes]")
-    ax.set_xlabel("Local light curve slope [hour$^{-1}$]")
+    ax.set_xlabel("Local light curve slope [ppt$\,$day$^{-1}$]")
+
+    # 1000 will give ppt per day...
+    # for context, the light curve changes by ~50 ppt per half rotation period
+    # (which is ~1.3 days).
+    XMULT = 1e3
 
     sel = np.abs(ttv)<ttv_cut
     slopes,ttv,tc_err = slopes[sel],ttv[sel],tc_err[sel]
 
     ax.errorbar(
-        24*slopes, ttv*24*60, tc_err*24*60,
+        XMULT*slopes, ttv*24*60, tc_err*24*60,
         marker='o', elinewidth=0.5, capsize=4, lw=0, mew=0.5, color='k',
         markersize=3, zorder=5
     )
@@ -1266,30 +1271,28 @@ def plot_ttv_vs_local_slope(outdir):
 
     #ax.plot(24*t0, z1(t0)*24*60, '-', label='linear fit', color='C1', alpha=0.6)
 
-    ax.plot(24*t0, _linear_model(t0, lsfit_slope, lsfit_int)*24*60, '-',
+    ax.plot(XMULT*t0, _linear_model(t0, lsfit_slope, lsfit_int)*24*60, '-',
             label='Best fit', color='C2', alpha=1, lw=1)
 
-    ax.fill_between(24*t0,
+    ax.fill_between(XMULT*t0,
                     _linear_model(t0, lsfit_slope-lsfit_slope_err, lsfit_int)*24*60,
                     _linear_model(t0, lsfit_slope+lsfit_slope_err, lsfit_int)*24*60,
                     alpha=0.6,
                     color='C2', lw=0, label='1$\sigma$',zorder=-1)
 
-    ax.fill_between(24*t0,
+    ax.fill_between(XMULT*t0,
                     _linear_model(t0, lsfit_slope-3*lsfit_slope_err, lsfit_int)*24*60,
                     _linear_model(t0, lsfit_slope+3*lsfit_slope_err, lsfit_int)*24*60,
                     alpha=0.2,
                     color='C2', lw=0, label='3$\sigma$',zorder=-2)
 
-    print(f'Slope: {lsfit_slope*24:.2f} +/- {lsfit_slope_err*24:.2f} 1/hr')
+    print(f'Slope: {lsfit_slope:.4f} +/- {lsfit_slope_err:.4f} ppt/day')
     print(f'implies {abs(lsfit_slope/lsfit_slope_err):.2f}σ different from zero.')
     print(f'Intercept: {lsfit_int*24*60:.5f} +/- {lsfit_int_err*24*60:.5f} minutes')
 
 
-
-
     ax.set_ylim([-0.03*24*60,0.03*24*60])
-    ax.set_xlim([-0.15*24,0.15*24])
+    ax.set_xlim([-0.15*XMULT,0.15*XMULT])
 
     ax.legend(fontsize='x-small')
 
