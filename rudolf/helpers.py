@@ -4,6 +4,7 @@ Data getters:
     get_gaia_cluster_data
     get_comovers
     get_keplerfieldfootprint_dict
+    get_flare_df
 
 Proposal/RM-related:
     get_simulated_RM_data
@@ -39,6 +40,26 @@ from cdips.utils.gaiaqueries import (
 )
 
 from rudolf.paths import DATADIR, RESULTSDIR
+
+def get_flare_df():
+
+    from rudolf.plotting import _get_detrended_flare_data
+
+    flaredir = os.path.join(RESULTSDIR, 'flares')
+
+    # read data
+    method = 'itergp'
+    cachepath = os.path.join(flaredir, f'flare_checker_cache_{method}.pkl')
+    c = _get_detrended_flare_data(cachepath, method)
+    flpath = os.path.join(flaredir, f'fldict_{method}.csv')
+    df = pd.read_csv(flpath)
+
+    FL_AMP_CUTOFF = 5e-3
+    sel = df.ampl_rec > FL_AMP_CUTOFF
+    sdf = df[sel]
+
+    return sdf
+
 
 def get_kep1627_kepler_lightcurve(lctype='longcadence'):
     """

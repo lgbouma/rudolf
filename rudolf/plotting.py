@@ -11,6 +11,7 @@ plot_flare_checker
 plot_ttv
 plot_ttv_vs_local_slope
 plot_rotation_period_windowslider
+plot_flare_pair_time_distribution
 """
 import os, corner, pickle, inspect
 from glob import glob
@@ -1341,3 +1342,49 @@ def plot_rotation_period_windowslider(outdir):
     print(f'P: {np.mean(outdf.period):.4f}, scatter: {np.std(outdf.period):.4f}')
     print(outdf)
     print(42*'-')
+
+
+def plot_flare_pair_time_distribution(uniq_dists, outpath, ylim=[0,18]):
+    # uniq_dists: distribution of inter-flare arrival times.
+
+    plt.close('all')
+    set_style()
+    fig, ax = plt.subplots(figsize=(4,3))
+    bins = np.logspace(-1, 2, 100)
+    ax.hist(uniq_dists, bins=bins, cumulative=False, color='k',
+            fill=False, histtype='step', linewidth=0.5)
+
+    P_orb = 7.2028041 # pm 0.0000074 
+    P_rot = 2.642 # pm 0.042
+    P_syn = (1/P_rot - 1/P_orb)**(-1) # ~=4.172 day
+
+    ax.set_ylim(ylim)
+    ylim = ax.get_ylim()
+    ax.vlines(P_orb, min(ylim), max(ylim), ls='--', lw=0.5, colors='C0',
+              zorder=-1, label='P$_\mathrm{orb}$'+f' ({P_orb:.3f} d)')
+
+    #ax.vlines(2*P_orb, min(ylim), max(ylim), ls='--', lw=0.5, colors='C0',
+    #          zorder=-1, label=r'2$\times$P$_\mathrm{orb}$')
+    ax.vlines(P_syn, min(ylim), max(ylim), ls='--', lw=0.5, colors='C1',
+              zorder=-1, label='P$_\mathrm{syn}$'+f' ({P_syn:.3f} d)')
+    ax.vlines(2*P_syn, min(ylim), max(ylim), ls='--', lw=0.5, colors='C1',
+              zorder=-1, label=r'2$\times$P$_\mathrm{syn}$')
+
+    ax.vlines(P_orb+P_syn, min(ylim), max(ylim), ls='--', lw=0.5,
+              colors='C2',
+              zorder=-1, label='P$_\mathrm{orb}$+P$_\mathrm{syn}$')
+    ax.vlines(P_orb+2*P_syn, min(ylim), max(ylim), ls='--', lw=0.5,
+              colors='C2',
+              zorder=-1, label=r'P$_\mathrm{orb}$+2$\times$P$_\mathrm{syn}$')
+
+    #ax.vlines(3*P_syn, min(ylim), max(ylim), ls='--', lw=0.5, colors='C1',
+    #          zorder=-1, label=r'3$\times$P$_\mathrm{syn}$')
+
+    ax.legend(loc='upper left', fontsize='x-small')
+    ax.set_xscale('log')
+
+    ax.set_xlim([1e-1, 1e2])
+    ax.set_ylim(ylim)
+    ax.set_xlabel('Flare pair separation [days]')
+    ax.set_ylabel('Count')
+    savefig(fig, outpath, dpi=400)
