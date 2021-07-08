@@ -64,21 +64,21 @@
   Kepler\,1627A is a G8V star previously found to host a
   $3.6\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  The star was
   selected for observation by the Kepler satellite because it is
-  nearby ($d\approx 333\,{\rm pc}$) and resembles the Sun.  Combining
+  nearby ($d\approx 333\,{\rm pc}$) and it resembles the Sun.  Combining
   data from Gaia with rotation periods from TESS, we show that
   Kepler\,1627 is a member of the $35\pm XX$\,Myr old $\delta$~Lyr
   cluster.  Kepler\,1627Ab is therefore the youngest planet with a
-  precise age found so far by the main Kepler mission.
+  precise age found to date by the main Kepler mission.
   Analyzing the photometry, we find evidence that starspot crossings
   distort the average transit shape, and induce transit timing
-  variations that suggest the planet is on a prograde orbit.  The
-  possibility that star-planet interactions could induce
-  flares in the system is also explored.  Future spectroscopic studies
-  of \pn\ may help clarify how the orbit and atmosphere of this
-  mini-Neptune evolve.  More generally, the combination of Gaia and TESS
-  offers an opportunity to significantly expand the census of
-  age-dated planets; we provide a literature concatenation of young
-  stars to support this effort.
+  variations that suggest the planet is on a prograde orbit.  The 
+  flare arrival times may show hints of being
+  non-Poissonian, but the statistical evidence is not overwhelming ($<3$-$\sigma$).  In the future,
+  spectroscopic studies of \pn\ may help clarify the evolution of this
+  mini-Neptune's orbit and atmosphere.  More broadly, the
+  combination of Gaia and TESS data offers an opportunity to
+  expand the census of age-dated planets; we provide a literature
+  concatenation of young stars to support this effort.
 \end{abstract}
 
 \keywords{
@@ -905,20 +905,35 @@ short cadence (1-minute) data acquired during Quarter 15.
 	}
 \end{figure*}
 
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=1.0\textwidth]{f13.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf Statistics of inter-flare arrival times}.  
+    24 flares were recorded with amplitudes exceeding 0.5\% over the
+    97.7 days of short cadence observations.  The histogram of the
+    time intervals between every possible pair of flares is shown in
+    black.  Some plausibly important timescales for star-planet
+    interactions, namely the planetary orbital period and synodic
+    period (the orbital period as seen from the rotating stellar frame) are
+    shown along with their linear combinations.  Monte Carlo
+    draws from a Poisson distribution are shown
+    with the gray bands.  While peaks in the observed distribution do
+    coincide with the locations of these ``special periods'', the
+    statistical evidence for a non-Poissonian process driving the
+    flares does not reach the $5$-$\sigma$ threshold.
+		\label{fig:flarestats}
+	}
+\end{figure*}
 
-The 1-minute cadence Kepler observations span 98 days, and cover 24
-flares exceeding $0.5\%$ in relative flux.  These 24 flares spanned a
-total of 6.5 hours ($\sim$15 minutes per flare).  The coincidence is
-that despite the low flare duty cycle, one orbital period after the
-brightest flare, a second flare followed.  This and a similar
-event are shown in Figure~\ref{fig:flarezoom}.  The timing error is
-good to a $\approx0.2\%$ difference from the orbital period, which
-seems {\it a priori} unlikely.  If we consider flares falling within
-2\% of the planet's orbital period after a previous flare, then 4 of
-the 24 flare events have candidate ``successors''.
-
-A brief note on how we cleaned the light curve, and identified the
-flares.
+The short cadence (1-minute) Kepler observations span 97.7 days.
+The light curve shows a significant number of flares
+(Figure~\ref{fig:flarezoom}).
+To quantify clean the light curve and identify the flares, we
+performed the following procedure.
 For cleaning, we performed the following iterative detrending procedure.
 \begin{itemize}
   \item Step 1: Build a two-term mixed SHOTerm GP model with
@@ -934,21 +949,55 @@ For cleaning, we performed the following iterative detrending procedure.
     5 minutes before each flare begins to 2.5 minutes after the final
     flare cadence.  Repeat Step 1 a final time.
 \end{itemize}
-
-The flares were identified and fitted using ALTAIPONY (CITE CITE).
+The flares were then identified and fitted using ALTAIPONY (CITE CITE).
 The fitted model is that of CITE XXX, which parametrizes the flare
 with a start time, a lag time, and an amplitude (CHECK).
 Figure~\ref{fig:flarephase} shows the resulting flares, amplitudes,
 and phases.
 
-We considered two hypotheses: {\it i)} the flare arrival times are
-distributed as a Poisson process, and {\it ii)} they are better
-explained as a Poisson process with a periodic mixture component.
+There were $N_{\rm f}=24$ flares exceeding $0.5\%$ in relative flux during the
+short-cadence observations.  These 24 flares spanned a total of 6.5
+hours ($\sim$15 minutes per flare).  For better or worse, we noticed a
+coincidence in the flare arrival times.  The coincidence is that
+despite the low flare duty cycle, one orbital period after the
+brightest flare, a second flare followed.  This and a similar event
+are shown in Figure~\ref{fig:flarezoom}.  The timing error is good to
+a $\approx0.2\%$ difference from the orbital period, which seems {\it
+a priori} unlikely.  If we consider flares falling within 2\% of the
+planet's orbital period after a previous flare, then 4 of the 24 flare
+events have candidate ``successors''.
 
-TODO: explore!  Fit the flare inter-arrival times...
-[even the 2-separated ones?]
+As with any coincidence, when one does not have a firm prediction, it
+is difficult to assess the statistical significance of a surprise.
+Since our surprise was specifically at the inter-arrival time of
+certain flares coinciding with special time intervals, we performed
+the following analysis.  First, we considered all unordered pairs of
+flares.  For $N$ flares there are ${n \choose 2}$ such pairs (for our
+case, 276 pairs).  We then compared the distribution of the pair
+separations against that from a Poisson distribution.  Specifically,
+we drew $N_{\rm f}=24$ samples from a Poisson distribution with
+$\lambda = \Delta t / N_{\rm f}$, for $\Delta t=97.7\,{\rm days}$ the
+duration of the observations, and repeated the draw $10^3$ times with
+unique random seeds.
 
-
+Figure~\ref{fig:flarestats} shows the results.  The vertical lines in
+the figure show the planetary orbital period, the synodic period
+$P_{\rm syn} = (P_{\rm rot}^{-1} - P_{\rm orb}^{-1})^{-1}$, and linear
+combinations thereof.  Note that the tidal period (half the synodic
+period) is not shown.  The bins are logarithmically spaced to give 100
+bins between the minimum and maximum ordinate values.  The gray bands
+express the range of values observed from the Poissonian draws.  While
+it does seem like a rather odd coincidence for peaks in the observed
+flare arrival time distribution to coincide with the locations of
+these ``special intervals'', the statistical evidence for a
+non-Poissonian process driving the flares does not seem particularly
+strong.  More quantitatively, the peaks observed at the orbital and
+synodic periods are within the $\pm 2$-$\sigma$ range of a
+Poissonian process, and those at $P_{\rm orb}+P_{\rm syn}$ and $P_{\rm
+orb}+2P_{\rm syn}$ are only slightly above this range. 
+With that said,
+future analyses of these data by investigators more versed in the
+topic than ourselves could very well yield new insights.
 
 
 

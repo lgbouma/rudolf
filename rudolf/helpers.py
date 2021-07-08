@@ -102,7 +102,7 @@ def get_kep1627_kepler_lightcurve(lctype='longcadence'):
         qual_list.append(qual[sel])
         texp_list.append(texp)
 
-    if lctype == 'longcadence':
+    if lctype == 'longcadence' or 'shortcadence':
         time = np.hstack(timelist)
         flux = np.hstack(f_list)
         flux_err = np.hstack(ferr_list)

@@ -20,8 +20,8 @@ plt.savefig('../results/flares/poisson_comparison_temp.png')
 # ok... so guess the rate as the time difference divided by the number of
 # events... NB the interarrival time distriubtion for a poisson process is an
 # EXOPONENTIAL distribution.
-# 100 days total observed... #TODO GET THE EXACT NUMBER (NUMERATOR), TO GET AN EXACT RATE...
-lambda_0 = 100 / len(t_arr)
+t_shortcadence = 97.667479  # max-min from get_kep1627_kepler_lightcurve
+lambda_0 = t_shortcadence / len(t_arr)
 print(f'λ0: {lambda_0:.3f}')
 
 np.random.seed(3)
@@ -37,6 +37,7 @@ t_arr_0 = t0 + np.hstack([0, np.cumsum(samples_0)])
 assert len(t_arr_0) == len(t_arr)
 dists_0 = np.abs(t_arr_0 - t_arr_0[:, None])
 uniq_distances_0 = np.unique(np.round(dists_0,4).flatten())
+print(len(uniq_distances_0)) # should be N choose 2, or 276, for N=24
 
 outpath = '../results/flares/flare_pair_separation_histogram_poisson_sampled0.png'
 plot_flare_pair_time_distribution(uniq_distances_0, outpath)
