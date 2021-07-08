@@ -1344,27 +1344,56 @@ def plot_rotation_period_windowslider(outdir):
     print(42*'-')
 
 
-def plot_flare_pair_time_distribution(uniq_dists, outpath, ylim=[0,18]):
+def plot_flare_pair_time_distribution(uniq_dists, outpath, ylim=[0,18],
+                                      hists=None):
     # uniq_dists: distribution of inter-flare arrival times.
-
-    plt.close('all')
-    set_style()
-    fig, ax = plt.subplots(figsize=(4,3))
-    bins = np.logspace(-1, 2, 100)
-    ax.hist(uniq_dists, bins=bins, cumulative=False, color='k',
-            fill=False, histtype='step', linewidth=0.5)
 
     P_orb = 7.2028041 # pm 0.0000074 
     P_rot = 2.642 # pm 0.042
     P_syn = (1/P_rot - 1/P_orb)**(-1) # ~=4.172 day
 
+    plt.close('all')
+    set_style()
+    fig, ax = plt.subplots(figsize=(4,3))
+    bins = np.logspace(-1, 2, 100)
+
+    if isinstance(uniq_dists, np.ndarray):
+        label = None if hists is None else 'Observed'
+        ax.hist(uniq_dists, bins=bins, cumulative=False, color='k',
+                fill=False, histtype='step', linewidth=0.5, label=label)
+    elif isinstance(uniq_dists, list):
+        # list of uniq distances
+        for u in uniq_dists:
+            ax.hist(u, bins=bins, cumulative=False, color='k',
+                    fill=False, histtype='step', linewidth=0.5, alpha=0.1)
+
+    if isinstance(hists, tuple):
+        avg_hist = hists[0]
+        std_hist = hists[1]
+        x = hists[2]
+        # midpoints of logspaced values
+        midway = np.exp((np.log(x[0:-1])+np.log(x[1:]))/2)
+        #ax.errorbar(
+        #    midway, avg_hist, yerr=std_hist, ls='none',
+        #    color='gray', elinewidth=0.5, capsize=0.5, marker='.', markersize=0,
+        #    zorder=-1, alpha=1
+        #)
+        from scipy.ndimage import gaussian_filter1d
+        fn = lambda x: gaussian_filter1d(x, sigma=1)
+        ax.fill_between(midway, fn(avg_hist-std_hist),
+                        fn(avg_hist+std_hist), alpha=1,
+                        color='darkgray', lw=0,
+                        label='Poisson $\pm$1$\sigma$',zorder=-1)
+        ax.fill_between(midway, fn(avg_hist-2*std_hist),
+                        fn(avg_hist+2*std_hist), alpha=1,
+                        color='gainsboro', lw=0,
+                        label='Poisson $\pm$2$\sigma$',zorder=-2)
+
+
     ax.set_ylim(ylim)
     ylim = ax.get_ylim()
     ax.vlines(P_orb, min(ylim), max(ylim), ls='--', lw=0.5, colors='C0',
               zorder=-1, label='P$_\mathrm{orb}$'+f' ({P_orb:.3f} d)')
-
-    #ax.vlines(2*P_orb, min(ylim), max(ylim), ls='--', lw=0.5, colors='C0',
-    #          zorder=-1, label=r'2$\times$P$_\mathrm{orb}$')
     ax.vlines(P_syn, min(ylim), max(ylim), ls='--', lw=0.5, colors='C1',
               zorder=-1, label='P$_\mathrm{syn}$'+f' ({P_syn:.3f} d)')
     ax.vlines(2*P_syn, min(ylim), max(ylim), ls='--', lw=0.5, colors='C1',
@@ -1377,10 +1406,16 @@ def plot_flare_pair_time_distribution(uniq_dists, outpath, ylim=[0,18]):
               colors='C2',
               zorder=-1, label=r'P$_\mathrm{orb}$+2$\times$P$_\mathrm{syn}$')
 
-    #ax.vlines(3*P_syn, min(ylim), max(ylim), ls='--', lw=0.5, colors='C1',
-    #          zorder=-1, label=r'3$\times$P$_\mathrm{syn}$')
+
+    ## correct the "stepfill" box legend label...
+    #from matplotlib.lines import Line2D
+    #handles, labels = ax.get_legend_handles_labels()
+    #new_handles = [Line2D([], [], c=h.get_edgecolor()) for h in handles]
+    #ax.legend(labels=labels, handles=new_handles, loc='upper left',
+    #          fontsize='x-small')
 
     ax.legend(loc='upper left', fontsize='x-small')
+
     ax.set_xscale('log')
 
     ax.set_xlim([1e-1, 1e2])

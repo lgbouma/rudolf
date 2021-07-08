@@ -10,7 +10,7 @@ sdf = get_flare_df()
 # is symmetric). np sorting is optional.
 t_arr = np.sort(np.array(sdf.tstart))
 dists = np.abs(t_arr - t_arr[:, None])
-uniq_dists = np.unique(np.round(dists,3).flatten())
+uniq_dists = np.unique(np.round(dists,4).flatten())
 
 outpath = '../results/flares/flare_pair_separation_histogram.png'
 
