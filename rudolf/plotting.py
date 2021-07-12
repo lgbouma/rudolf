@@ -12,6 +12,7 @@ plot_ttv
 plot_ttv_vs_local_slope
 plot_rotation_period_windowslider
 plot_flare_pair_time_distribution
+plot_hr
 """
 import os, corner, pickle, inspect
 from glob import glob
@@ -45,13 +46,17 @@ from cdips.utils.gaiaqueries import (
 )
 from cdips.utils.tapqueries import given_source_ids_get_tic8_data
 from cdips.utils.plotutils import rainbow_text
-from cdips.utils.mamajek import get_interp_BpmRp_from_Teff
+from cdips.utils.mamajek import (
+    get_SpType_BpmRp_correspondence, get_SpType_GmRp_correspondence
+)
+
 
 from rudolf.paths import DATADIR, RESULTSDIR
 from rudolf.helpers import (
-    get_gaia_cluster_data, get_simulated_RM_data,
-    get_keplerfieldfootprint_dict, get_comovers,
-    get_kep1627_kepler_lightcurve
+    get_deltalyr_kc19_gaia_data, get_simulated_RM_data,
+    get_keplerfieldfootprint_dict, get_deltalyr_kc19_comovers,
+    get_deltalyr_kc19_cleansubset, get_kep1627_kepler_lightcurve,
+    get_gaia_catalog_of_nearby_stars, get_clustermembers_cg18_subset
 )
 
 def plot_TEMPLATE(outdir):
@@ -87,7 +92,7 @@ def plot_ruwe_vs_apparentmag(outdir):
 
     set_style()
 
-    df_dr2, df_edr3, trgt_df = get_gaia_cluster_data()
+    df_dr2, df_edr3, trgt_df = get_deltalyr_kc19_gaia_data()
 
     plt.close('all')
 
@@ -308,9 +313,9 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
 
     set_style()
 
-    df_dr2, df_edr3, trgt_df = get_gaia_cluster_data()
+    df_dr2, df_edr3, trgt_df = get_deltalyr_kc19_gaia_data()
     if showcomovers:
-        df_edr3 = get_comovers()
+        df_edr3 = get_deltalyr_kc19_comovers()
 
     plt.close('all')
     f, ax = plt.subplots(figsize=(4,3), constrained_layout=True)
@@ -514,13 +519,13 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
     savefig(f, outpath, dpi=400)
 
 
-def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, show_comovers=0,
-                  show_sun=0):
+def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
+                  show_comovers=0, show_sun=0):
 
     plt.close('all')
     set_style()
 
-    df_dr2, df_edr3, trgt_df = get_gaia_cluster_data()
+    df_dr2, df_edr3, trgt_df = get_deltalyr_kc19_gaia_data()
     # set "dr2_radial_velocity" according to Andrew Howard HIRES recon
     # spectrum. agrees with -16.9km/s+/-0.5km/s TRES.
     trgt_df.dr2_radial_velocity = -16.7
@@ -545,6 +550,13 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, show_comovers=0,
         _outpath = os.path.join(RESULTSDIR, 'tables',
                                 'stephenson1_edr3_XYZvtang_candcomovers.csv')
         cm_df_edr3.to_csv(_outpath, index=False)
+
+    if save_allphys:
+
+        _outpath = os.path.join(RESULTSDIR, 'tables',
+                                'stephenson1_edr3_XYZvtang_allphysical.csv')
+        df_edr3.to_csv(_outpath, index=False)
+
 
     # use plx S/N>20 to get good XYZ.
     sdf = df_edr3[df_edr3.parallax_over_error > 20]
@@ -1423,3 +1435,324 @@ def plot_flare_pair_time_distribution(uniq_dists, outpath, ylim=[0,18],
     ax.set_xlabel('Flare pair separation [days]')
     ax.set_ylabel('Count')
     savefig(fig, outpath, dpi=400)
+
+
+def plot_hr(outdir, isochrone=None, color0='phot_bp_mean_mag',
+            rasterized=False, show100pc=0, clusters=['$\delta$ Lyr cluster']):
+    # clusters: ['$\delta$ Lyr cluster', 'IC 2602', 'Pleiades']
+
+    set_style()
+
+    # Kinematic subgroup of δ Lyr cluster
+    #df = get_deltalyr_kc19_comovers()
+    df = get_deltalyr_kc19_cleansubset()
+
+    if show100pc:
+        import mpl_scatter_density # adds projection='scatter_density'
+        df_bkgd = get_gaia_catalog_of_nearby_stars()
+
+    if isochrone in ['mist', 'parsec']:
+        if isochrone == 'mist':
+            # see /doc/20210226_isochrones_theory.txt
+            from timmy.read_mist_model import ISOCMD
+            isocmdpath = os.path.join(DATADIR, 'isochrones',
+                                      'MIST_iso_6039374449e9d.iso.cmd')
+            # relevant params: star_mass log_g log_L log_Teff Gaia_RP_DR2Rev
+            # Gaia_BP_DR2Rev Gaia_G_DR2Rev
+            isocmd = ISOCMD(isocmdpath)
+            assert len(isocmd.isocmds) > 1
+
+        elif isochrone == 'parsec':
+            #
+            # see /doc/20210226_isochrones_theory.txt
+            #
+            # v4
+            isopath = os.path.join(DATADIR, 'isochrones',
+                                   'output360587063784.dat')
+            nored_iso_df = pd.read_csv(isopath, delim_whitespace=True, comment='#')
+
+            # v5
+            isopath = os.path.join(DATADIR, 'isochrones',
+                                   'output813364732851.dat')
+            iso_df = pd.read_csv(isopath, delim_whitespace=True, comment='#')
+
+    ##########
+
+    plt.close('all')
+
+    if not show100pc:
+        f, ax = plt.subplots(figsize=(1.5*2,1.5*3))
+    else:
+        f = plt.figure(figsize=(1.5*2,1.5*3))
+        ax = f.add_subplot(1, 1, 1, projection='scatter_density')
+
+    get_yval = (
+        lambda _df: np.array(
+            _df['phot_g_mean_mag'] + 5*np.log10(_df['parallax']/1e3) + 5
+        )
+    )
+    get_xval = (
+        lambda _df: np.array(
+            _df[color0] - _df['phot_rp_mean_mag']
+        )
+    )
+
+    # mixed rasterizing along layers b/c we keep the loading times nice
+    l0 = '$\delta$ Lyr cluster'
+    ax.scatter(
+        get_xval(df), get_yval(df), c='k', alpha=1, zorder=2,
+        s=2, rasterized=False, linewidths=0.1, label=l0, marker='o',
+        edgecolors='k'
+    )
+
+    if 'IC 2602' in clusters:
+        _df = get_clustermembers_cg18_subset('IC_2602')
+        ax.scatter(
+            get_xval(_df), get_yval(_df), c='orange', alpha=1, zorder=3,
+            s=2, rasterized=False, label='IC 2602', marker='o',
+            edgecolors='k', linewidths=0.1
+        )
+    if 'Pleiades' in clusters:
+        _df = get_clustermembers_cg18_subset('Melotte_22')
+        ax.scatter(
+            get_xval(_df), get_yval(_df), c='deepskyblue', alpha=1, zorder=1,
+            s=2, rasterized=False, label='Pleiades', marker='o',
+            edgecolors='k', linewidths=0.1
+        )
+
+
+    if show100pc:
+        from matplotlib.colors import LinearSegmentedColormap
+        # "Viridis-like" colormap with white background
+        white_viridis = LinearSegmentedColormap.from_list('white_viridis', [
+            (0, '#ffffff'),
+            (1e-20, '#440053'),
+            (0.2, '#404388'),
+            (0.4, '#2a788e'),
+            (0.6, '#21a784'),
+            (0.8, '#78d151'),
+            (1, '#fde624'),
+        ], N=256)
+
+        _x = get_xval(df_bkgd)
+        _y = get_yval(df_bkgd)
+        s = np.isfinite(_x) & np.isfinite(_y)
+        density = ax.scatter_density(_x[s], _y[s], cmap='Greys')
+
+        # NOTE: looks fine, but really not needed.
+        # # default is 72 dots per inch on the map.
+        # axins1 = inset_axes(ax, width="20%", height="2%", loc='upper right')
+        # cb = f.colorbar(density, cax=axins1, orientation="horizontal",
+        #                 extend="neither")
+        # cb.ax.tick_params(labelsize='xx-small')
+        # cb.ax.tick_params(size=0, which='both') # remove the ticks
+        # cb.ax.yaxis.set_ticks_position('default')
+        # #cb.ax.yaxis.set_label_position('default')
+        # cb.set_label("Stars per pixel", fontsize='xx-small')
+
+
+    if isochrone:
+
+        from earhart.priors import AVG_AG, AVG_EBpmRp
+
+        if isochrone == 'mist':
+
+            ages = [100, 178, 316]
+            N_ages = len(ages)
+            colors = plt.cm.cool(np.linspace(0,1,N_ages))[::-1]
+
+            for i, (a, c) in enumerate(zip(ages, colors)):
+                mstar = isocmd.isocmds[i]['star_mass']
+                sel = (mstar < 7)
+
+                corr = 7.85
+                _yval = (
+                    isocmd.isocmds[i]['Gaia_G_DR2Rev'][sel] +
+                    5*np.log10(np.nanmedian(core_df['parallax']/1e3)) + 5
+                    + AVG_AG
+                    + corr
+                )
+
+                if color0 == 'phot_bp_mean_mag':
+                    _c0 = 'Gaia_BP_DR2Rev'
+                elif color0 == 'phot_g_mean_mag':
+                    _c0 = 'Gaia_G_DR2Rev'
+                else:
+                    raise NotImplementedError
+
+                _xval = (
+                    isocmd.isocmds[i][_c0][sel]-isocmd.isocmds[i]['Gaia_RP_DR2Rev'][sel]
+                    + AVG_EBpmRp
+                )
+
+                ax.plot(
+                    _xval,
+                    _yval,
+                    c=c, alpha=1., zorder=7, label=f'{a} Myr', lw=0.5
+                )
+
+        elif isochrone == 'parsec':
+
+            ages = [100, 178, 316]
+            logages = [8, 8.25, 8.5]
+            N_ages = len(ages)
+            #colors = plt.cm.cividis(np.linspace(0,1,N_ages))
+            colors = plt.cm.spring(np.linspace(0,1,N_ages))
+            colors = ['red','gold','lime']
+
+            for i, (a, la, c) in enumerate(zip(ages, logages, colors)):
+
+                sel = (
+                    (np.abs(iso_df.logAge - la) < 0.01) &
+                    (iso_df.Mass < 7)
+                )
+
+                corr = 7.80
+                #corr = 7.65
+                #corr = 7.60
+                _yval = (
+                    iso_df[sel]['Gmag'] +
+                    5*np.log10(np.nanmedian(core_df['parallax']/1e3)) + 5
+                    + AVG_AG
+                    + corr
+                )
+                sel2 = (_yval < 15) # numerical issue
+                _yval = _yval[sel2]
+
+                if color0 == 'phot_bp_mean_mag':
+                    _c0 = 'G_BPmag'
+                elif color0 == 'phot_g_mean_mag':
+                    _c0 = 'Gmag'
+
+                #+ AVG_EBpmRp  # NOTE: reddening already included!
+                _xval = (
+                    iso_df[sel][sel2][_c0]-iso_df[sel][sel2]['G_RPmag']
+                )
+
+                # ax.plot(
+                #     _xval, _yval,
+                #     c=c, alpha=1., zorder=7, label=f'{a} Myr', lw=0.5
+                # )
+
+                late_mdwarfs = (_xval > 2.2) & (_yval > 5)
+                ax.plot(
+                    _xval[~late_mdwarfs], _yval[~late_mdwarfs],
+                    c=c, ls='-', alpha=1., zorder=7, label=f'{a} Myr', lw=0.5
+                )
+                ax.plot(
+                    _xval, _yval,
+                    c=c, ls='--', alpha=1., zorder=6, lw=0.5
+                )
+
+                nored_y = (
+                    nored_iso_df[sel]['Gmag'] +
+                    5*np.log10(np.nanmedian(core_df['parallax']/1e3)) + 5
+                    + AVG_AG
+                    + corr
+                )
+                nored_y = nored_y[sel2] # same jank numerical issue
+                nored_x = (
+                    nored_iso_df[sel][sel2][_c0] - nored_iso_df[sel][sel2]['G_RPmag']
+                )
+
+                diff_x = -(nored_x - _xval)
+                diff_y = -(nored_y - _yval)
+
+                # SED-dependent reddening check, usually off.
+                print(42*'*')
+                print(f'Median Bp-Rp difference: {np.median(diff_x):.4f}')
+                print(42*'*')
+                if i == 0:
+                    sep = 2
+                    # # NOTE: to show EVERYTHING
+                    # ax.quiver(
+                    #     nored_x[::sep], nored_y[::sep], diff_x[::sep], diff_y[::sep], angles='xy',
+                    #     scale_units='xy', scale=1, color='magenta',
+                    #     width=1e-3, linewidths=1, headwidth=5, zorder=9
+                    # )
+
+                    ax.quiver(
+                        2.6, 3.5, np.nanmedian(diff_x[::sep]),
+                        np.nanmedian(diff_y[::sep]), angles='xy',
+                        scale_units='xy', scale=1, color='black',
+                        width=3e-3, linewidths=2, headwidth=5, zorder=9
+                    )
+
+    ax.set_ylabel('Absolute $\mathrm{M}_{G}$ [mag]', fontsize='medium')
+    if color0 == 'phot_bp_mean_mag':
+        ax.set_xlabel('$G_{\mathrm{BP}}-G_{\mathrm{RP}}$ [mag]',
+                      fontsize='medium')
+        c0s = '_Bp_m_Rp'
+    elif color0 == 'phot_g_mean_mag':
+        ax.set_xlabel('$G-G_{\mathrm{RP}}$ [mag]',
+                      fontsize='medium')
+        c0s = '_G_m_Rp'
+    else:
+        raise NotImplementedError
+
+    ylim = ax.get_ylim()
+    ax.set_ylim((max(ylim),min(ylim)))
+
+    if len(clusters) > 1:
+        ax.legend(fontsize='xx-small', loc='upper right', handletextpad=0.1)
+
+    if show100pc and color0 == 'phot_bp_mean_mag':
+        ax.set_xlim([-1,4.5])
+        ax.set_ylim((16, -3))
+    elif show100pc and color0 == 'phot_g_mean_mag':
+        ax.set_xlim([-0.2,2.0])
+        ax.set_ylim((16, -3))
+        #FIXME FIXME FIXME FIX FOR THE G- G_RP PLOT...
+
+    format_ax(ax)
+    ax.tick_params(axis='x', which='both', top=False)
+
+
+    #
+    # append SpTypes (ignoring reddening)
+    #
+    from rudolf.priors import AVG_EBpmRp, AVG_EGmRp
+    tax = ax.twiny()
+    tax.set_xlabel('Spectral Type')
+
+    xlim = ax.get_xlim()
+    getter = (
+        get_SpType_BpmRp_correspondence
+        if color0 == 'phot_bp_mean_mag' else
+        get_SpType_GmRp_correspondence
+    )
+    sptypes, xtickvals = getter(
+        ['A0V','F0V','G0V','K2V','K5V','M0V','M2V','M4V']
+    )
+    print(sptypes)
+    print(xtickvals)
+
+    xvals = np.linspace(min(xlim), max(xlim), 100)
+    tax.plot(xvals, np.ones_like(xvals), c='k', lw=0) # hidden, but fixes axis.
+    tax.set_xlim(xlim)
+    ax.set_xlim(xlim)
+
+    tax.set_xticks(xtickvals+AVG_EBpmRp)
+    tax.set_xticklabels(sptypes, fontsize='x-small')
+
+    tax.xaxis.set_ticks_position('top')
+    tax.tick_params(axis='x', which='minor', top=False)
+    tax.get_yaxis().set_tick_params(which='both', direction='in')
+
+    if not isochrone:
+        s = ''
+    else:
+        s = '_'+isochrone
+    if isochrone is not None:
+        c0s += f'_{isochrone}'
+    if show100pc:
+        c0s += f'_show100pc'
+    if len(clusters) > 1:
+        c0s += '_'+'_'.join(clusters).replace(' ','_')
+
+    outpath = os.path.join(outdir, f'hr{s}{c0s}.png')
+
+    savefig(f, outpath, dpi=400)
+
+
+

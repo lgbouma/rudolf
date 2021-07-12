@@ -1,10 +1,17 @@
 """
 Data getters:
-    get_kep1627_kepler_lightcurve
-    get_gaia_cluster_data
-    get_comovers
-    get_keplerfieldfootprint_dict
-    get_flare_df
+    δ Lyr Cluster:
+        get_deltalyr_kc19_gaia_data
+        get_deltalyr_kc19_comovers
+        get_deltalyr_kc19_cleansubset
+    Kepler 1627:
+        get_kep1627_kepler_lightcurve
+        get_keplerfieldfootprint_dict
+        get_flare_df
+
+    Other stellar and cluster datasets:
+        get_gaia_catalog_of_nearby_stars
+        get_clustermembers_cg18_subset
 
 Proposal/RM-related:
     get_simulated_RM_data
@@ -193,7 +200,10 @@ def supplement_sourcelist_with_gaiainfo(df):
     dr2_x_edr3_df.to_csv(outpath_dr2xedr3, index=False)
 
 
-def get_gaia_cluster_data():
+def get_deltalyr_kc19_gaia_data():
+    """
+    Get all Kounkel & Covey 2019 "Stephenson 1" members.
+    """
 
     outpath_dr2 = os.path.join(DATADIR, 'gaia', 'stephenson1_kc19_dr2.csv')
     outpath_edr3 = os.path.join(DATADIR, 'gaia', 'stephenson1_kc19_edr3.csv')
@@ -213,9 +223,11 @@ def get_gaia_cluster_data():
     return df_dr2, df_edr3, trgt_df
 
 
-def get_comovers():
+def get_deltalyr_kc19_comovers():
     """
-    Get the kinematic neighbors of Kepler 1627.
+    Get the kinematic neighbors of Kepler 1627.  The contents of this file are
+    EDR3 properties.
+
     made by plot_XYZvtang.py
 
         sel = (
@@ -234,6 +246,77 @@ def get_comovers():
 
     return pd.read_csv(csvpath)
 
+
+def get_deltalyr_kc19_cleansubset():
+    """
+    To make this subset, I took the KC19 members (EDR3-crossedmatched).
+    Then, I ran them through plot_XYZvtang, which created
+        "stephenson1_edr3_XYZvtang_allphysical.csv"
+    Then, I opened it up in glue.  I made a selection lasso in kinematic
+    velocity space, in XZ, and XY position space.
+    """
+    csvpath = os.path.join(RESULTSDIR,
+                           'glue_stephenson1_edr3_XYZvtang_allphysical',
+                           'set0_select_kinematic_YX_ZX.csv')
+
+    return pd.read_csv(csvpath)
+
+
+def get_gaia_catalog_of_nearby_stars():
+    fitspath = os.path.join(
+        DATADIR, 'nearby_stars', 'GaiaCollaboration_2021_GCNS.fits'
+    )
+    hl = fits.open(fitspath)
+    d = hl[1].data
+    df = Table(d).to_pandas()
+
+    COLDICT = {
+        'GaiaEDR3': 'edr3_source_id',
+        'RA_ICRS': 'ra',
+        'DE_ICRS': 'dec',
+        'Plx': 'parallax',
+        'pmRA': 'pmra',
+        'pmDE': 'pmdec',
+        'Gmag': 'phot_g_mean_mag',
+        'BPmag': 'phot_bp_mean_mag',
+        'RPmag': 'phot_rp_mean_mag'
+    }
+    df = df.rename(columns=COLDICT)
+
+    return df
+
+
+def get_clustermembers_cg18_subset(clustername):
+    """
+    e.g., IC_2602, or "Melotte_22" for Pleaides.
+    """
+
+    csvpath = '/Users/luke/local/cdips/catalogs/cdips_targets_v0.6_nomagcut_gaiasources.csv'
+    df = pd.read_csv(csvpath, sep=',')
+
+    sel0 = (
+        df.cluster.str.contains(clustername)
+        &
+        df.reference_id.str.contains('CantatGaudin2018a')
+    )
+    sdf = df[sel0]
+
+    sel = []
+    for ix, r in sdf.iterrows():
+        c = np.array(r['cluster'].split(','))
+        ref = np.array(r['reference_id'].split(','))
+        this = np.any(
+            np.in1d(
+                'CantatGaudin2018a',
+                ref[np.argwhere( c == clustername ).flatten()]
+            )
+        )
+        sel.append(this)
+    sel = np.array(sel).astype(bool)
+
+    csdf = sdf[sel]
+
+    return csdf
 
 
 ORIENTATIONTRUTHDICT = {
