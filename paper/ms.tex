@@ -46,12 +46,6 @@
 
 \begin{document}
 
-\defcitealias{cantatgaudin_gaia_2018}{CG18}
-\defcitealias{kounkel_untangling_2019}{KC19}
-\defcitealias{meingast_2021}{M21}
-
-% Cluster Difference Imaging Photometric Survey. III.
-% Rotation and Lithium in an Open Cluster Spanning 500\,Parsecs
 \title{
   An Adolescent Mini-Neptune in the Kepler Field
 }
@@ -72,13 +66,14 @@
   Analyzing the photometry, we find evidence that starspot crossings
   distort the average transit shape, and induce transit timing
   variations that suggest the planet is on a prograde orbit.  The 
-  flare arrival times may show hints of being
-  non-Poissonian, but the statistical evidence is not overwhelming ($<3$-$\sigma$).  In the future,
-  spectroscopic studies of \pn\ may help clarify the evolution of this
-  mini-Neptune's orbit and atmosphere.  More broadly, the
-  combination of Gaia and TESS data offers an opportunity to
-  expand the census of age-dated planets; we provide a literature
-  concatenation of young stars to support this effort.
+  flare arrival time distribution is most likely Poissonian, though
+  there may be hints ($<3$-$\sigma$) of additional flares at the
+  orbital and synodic periods.  In the future, spectroscopic studies
+  of \pn\ may help clarify the evolution of this mini-Neptune's orbit
+  and atmosphere.  More broadly, the combination of Gaia and TESS data
+  offers an opportunity to expand the census of age-dated planets; we
+  provide a literature concatenation of young stars to support this
+  effort.
 \end{abstract}
 
 \keywords{
@@ -112,9 +107,8 @@ outflow, which can eventually deplete or entirely strip the envelope
 from the rocky core \citep{Owen_Wu_2013,gupta_sculpting_2019}.
 Discovering young planets and measuring their compositions and
 atmospheric outflows are key steps toward testing this paradigm, which
-is often invoked to explain the observed radius distribution of both
-mature exoplanets \citep{Fulton_et_al_2017}, as well as younger
-planets \citep{bouma_cluster_2020}.
+is often invoked to explain the observed radius distribution of 
+mature exoplanets \citep{Fulton_et_al_2017}.
 
 % TODO: decide whether a paragraph about young planet obliquities is
 % needed.
@@ -214,7 +208,7 @@ NGC\,6819, and NGC\,6791, with ages spanning 0.7\,Gyr to 9\,Gyr
 \citep{meibom_kepler_2011}.  Since that time, analyses of the
 kinematic, photometric, and astrometric Gaia data have expanded our
 knowledge of open cluster and moving group memberships \citep[{\it
-e.g.},][]{cantatgaudin_gaia_2018,zari_3d_2018,kounkel_untangling_2019,Meingast2021}.
+e.g.},][]{cantatgaudin_gaia_2018,zari_3d_2018,kounkel_untangling_2019,Meingast2021,kerr_stars_2021}.
 As part of our Cluster Difference Imaging Photometric Survey (CDIPS,
 \citealt{bouma_cdipsI_2019}), we concatenated the available analyses
 from the literature, which yielded a list of candidate young and
@@ -224,10 +218,11 @@ Comparing our young star list against the Kepler field yielded two
 discoveries.  The first, to be discussed in an upcoming analysis by J.
 Curtis et al{.}, is that Kepler observed the $\approx$350\,Myr open
 cluster Theia\,520 (UBC\,1).  At least six Kepler planets are known in
-the cluster, from the Kepler-52 and Kepler-968 systems
+the cluster from the Kepler-52 and Kepler-968 systems
 \citep{rowe_validation_2014,jontof-hutter_following_2021}.  The second
 discovery, and the focus of this work, is that Kepler observed a
-portion of the $\delta$\,Lyr cluster, shown in
+portion of the $\delta$\,Lyr cluster \citep{stephenson_possible_1959,eggen_photometric_1968}.
+The overlap between the Kepler field and the cluster is shown in
 Figure~\ref{fig:skychart}.
 
 {\bf Jason Curtis todo}
@@ -278,28 +273,29 @@ binary.  Based on the transit shape, \citet{morton_false_2016} found
 the latter scenario to be the only possible case, with a
 (model-dependent) probability of $\approx10^{-5}$.  While this
 statistical validation is reassuring, ``validated'' planets have been
-demonstrated to be false positives \citep{shporer_three_2017}.  Most
+shown to be false positives \citep{shporer_three_2017}.  Most
 failures of the statistical validation approach arise when attempting
 to separate the smallest stars from identically-sized gas giant
 planets.  With a size of $\approx 3.6\,R_\oplus$, Kepler\,1627b does
 not meet this concern.  The fact that we detect a low-mass stellar
 companion in archival Keck-NIRC2 Kp-band (2.12\,$\mu $m) imaging does
-not change the conclusion: the companion contributes 1\% of the flux
-observed by Kepler, which combined with the observed transit shape
-cannot be invoked as an explanation for the observed data
-(Appendix~\ref{app:companionstar}).
+not change the conclusion: the companion star contributes 1\% of the
+flux observed by Kepler.  Combined with the observed transit depth and
+shape (Appendix~\ref{app:companionstar}), a planet transiting the
+primary star is the only plausible interpretation of the
+data.
 
 {\bf todo: LGB to check numbers on full-dataset transit ecc and b} 
-Two additional new lines of evidence support the planetary
+Two additional new lines of evidence confirm the planetary
 interpretation.  First, the $\approx$100 days of 1-minute
-short-cadence data reduces the cadence-induced smearing enables a more
-precise measurement of the transit impact parameter
+cadenced Kepler observations reduce the cadence-induced smearing,
+enabling a more precise measurement of the transit impact parameter
 \citep{kipping_binning_2010}.  The planet transits with $b<0.YY$
 (3-$\sigma$) from the 1-minute cadenced data, compared to $<0.XX$
 (3-$\sigma$) from the 30-minute data.
 
 {\bf todo: Kento to check numbers on per-transit analysis} 
-The second line of evidence came from our transit timing analysis. We
+The second line of evidence comes from our transit timing analysis. We
 isolated each of the 144 observed transits to within $\pm4.5$\,hr of
 each transit, and fitted each window with both {\it i)} a local
 second-order polynomial and transit, and {\it ii)} a local linear
