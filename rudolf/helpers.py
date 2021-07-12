@@ -319,6 +319,11 @@ def get_clustermembers_cg18_subset(clustername):
 
     csdf = sdf[sel]
 
+    if 'l' not in csdf:
+        _c = SkyCoord(ra=nparr(csdf.ra)*u.deg, dec=nparr(csdf.dec)*u.deg)
+        csdf['l'] = _c.galactic.l.value
+        csdf['b'] = _c.galactic.b.value
+
     return csdf
 
 

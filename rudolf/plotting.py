@@ -1565,8 +1565,11 @@ def plot_hr(
             (1, '#fde624'),
         ], N=256)
 
-        _x = get_xval(df_bkgd)
-        _y = get_yval(df_bkgd)
+        get_xval_no_corr = lambda _df: np.array(_df[color0] - _df['phot_rp_mean_mag'])
+        get_yval_no_corr = lambda _df: np.array(_df['phot_g_mean_mag'] + 5*np.log10(_df['parallax']/1e3) + 5)
+
+        _x = get_xval_no_corr(df_bkgd)
+        _y = get_yval_no_corr(df_bkgd)
         s = np.isfinite(_x) & np.isfinite(_y)
         density = ax.scatter_density(_x[s], _y[s], cmap='Greys')
 
