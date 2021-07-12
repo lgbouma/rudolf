@@ -15,5 +15,6 @@ if not os.path.exists(PLOTDIR):
 for isochrone in isochrones:
     for c in colors:
         for o in [1,0]:
-            rp.plot_hr(PLOTDIR, isochrone=isochrone, color0=c, show100pc=o,
-                       clusters=clusters)
+            for reddening_corr in [1,0]:
+                rp.plot_hr(PLOTDIR, isochrone=isochrone, color0=c, show100pc=o,
+                           clusters=clusters, reddening_corr=reddening_corr)

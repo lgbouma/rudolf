@@ -42,7 +42,7 @@ from aesthetic.plot import savefig, format_ax, set_style
 from astrobase.services.identifiers import gaiadr2_to_tic
 from astrobase.lcmath import phase_magseries
 from cdips.utils.gaiaqueries import (
-    given_source_ids_get_gaia_data
+    given_source_ids_get_gaia_data, parallax_to_distance_highsn
 )
 from cdips.utils.tapqueries import given_source_ids_get_tic8_data
 from cdips.utils.plotutils import rainbow_text
@@ -50,13 +50,16 @@ from cdips.utils.mamajek import (
     get_SpType_BpmRp_correspondence, get_SpType_GmRp_correspondence
 )
 
-
 from rudolf.paths import DATADIR, RESULTSDIR
 from rudolf.helpers import (
     get_deltalyr_kc19_gaia_data, get_simulated_RM_data,
     get_keplerfieldfootprint_dict, get_deltalyr_kc19_comovers,
     get_deltalyr_kc19_cleansubset, get_kep1627_kepler_lightcurve,
-    get_gaia_catalog_of_nearby_stars, get_clustermembers_cg18_subset
+    get_gaia_catalog_of_nearby_stars, get_clustermembers_cg18_subset,
+    supplement_gaia_stars_extinctions_corrected_photometry
+)
+from rudolf.extinction import (
+    retrieve_stilism_reddening, append_corrected_gaia_phot_Gagne2020
 )
 
 def plot_TEMPLATE(outdir):
@@ -1437,15 +1440,26 @@ def plot_flare_pair_time_distribution(uniq_dists, outpath, ylim=[0,18],
     savefig(fig, outpath, dpi=400)
 
 
-def plot_hr(outdir, isochrone=None, color0='phot_bp_mean_mag',
-            rasterized=False, show100pc=0, clusters=['$\delta$ Lyr cluster']):
-    # clusters: ['$\delta$ Lyr cluster', 'IC 2602', 'Pleiades']
+def plot_hr(
+    outdir, isochrone=None, color0='phot_bp_mean_mag', rasterized=False,
+    show100pc=0, clusters=['$\delta$ Lyr cluster'], reddening_corr=0
+):
+    """
+    clusters: ['$\delta$ Lyr cluster', 'IC 2602', 'Pleiades']
+    """
 
     set_style()
 
-    # Kinematic subgroup of δ Lyr cluster
+    # Kinematic (and spatially) selected subgroups of KC19's δ Lyr cluster
     #df = get_deltalyr_kc19_comovers()
-    df = get_deltalyr_kc19_cleansubset()
+    outpath = os.path.join(
+        RESULTSDIR, 'tables', 'deltalyr_kc19_cleansubset_withreddening.csv'
+    )
+    if not os.path.exists(outpath):
+        df = get_deltalyr_kc19_cleansubset()
+        df = supplement_gaia_stars_extinctions_corrected_photometry(df)
+        df.to_csv(outpath, index=False)
+    df = pd.read_csv(outpath)
 
     if show100pc:
         import mpl_scatter_density # adds projection='scatter_density'
@@ -1486,14 +1500,15 @@ def plot_hr(outdir, isochrone=None, color0='phot_bp_mean_mag',
         f = plt.figure(figsize=(1.5*2,1.5*3))
         ax = f.add_subplot(1, 1, 1, projection='scatter_density')
 
+    cstr = '_corr' if reddening_corr else ''
     get_yval = (
         lambda _df: np.array(
-            _df['phot_g_mean_mag'] + 5*np.log10(_df['parallax']/1e3) + 5
+            _df['phot_g_mean_mag'+cstr] + 5*np.log10(_df['parallax']/1e3) + 5
         )
     )
     get_xval = (
         lambda _df: np.array(
-            _df[color0] - _df['phot_rp_mean_mag']
+            _df[color0+cstr] - _df['phot_rp_mean_mag'+cstr]
         )
     )
 
@@ -1506,14 +1521,30 @@ def plot_hr(outdir, isochrone=None, color0='phot_bp_mean_mag',
     )
 
     if 'IC 2602' in clusters:
-        _df = get_clustermembers_cg18_subset('IC_2602')
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', 'IC_2602_withreddening.csv'
+        )
+        if not os.path.exists(outpath):
+            _df = get_clustermembers_cg18_subset('IC_2602')
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(_df)
+            _df.to_csv(outpath, index=False)
+        _df = pd.read_csv(outpath)
         ax.scatter(
             get_xval(_df), get_yval(_df), c='orange', alpha=1, zorder=3,
             s=2, rasterized=False, label='IC 2602', marker='o',
             edgecolors='k', linewidths=0.1
         )
+
     if 'Pleiades' in clusters:
-        _df = get_clustermembers_cg18_subset('Melotte_22')
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', 'Pleiades_withreddening.csv'
+        )
+        if not os.path.exists(outpath):
+            _df = get_clustermembers_cg18_subset('Melotte_22')
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(_df)
+            _df.to_csv(outpath, index=False)
+        _df = pd.read_csv(outpath)
+
         ax.scatter(
             get_xval(_df), get_yval(_df), c='deepskyblue', alpha=1, zorder=1,
             s=2, rasterized=False, label='Pleiades', marker='o',
@@ -1687,6 +1718,14 @@ def plot_hr(outdir, isochrone=None, color0='phot_bp_mean_mag',
         ax.set_xlabel('$G-G_{\mathrm{RP}}$ [mag]',
                       fontsize='medium')
         c0s = '_G_m_Rp'
+    elif color0 == 'phot_bp_mean_mag_corr':
+        ax.set_xlabel('$(G_{\mathrm{BP}}-G_{\mathrm{RP}})_0$ [mag]',
+                      fontsize='medium')
+        c0s = '_Bp_m_Rp_corr'
+    elif color0 == 'phot_g_mean_mag_corr':
+        ax.set_xlabel('$(G-G_{\mathrm{RP}})_0$ [mag]',
+                      fontsize='medium')
+        c0s = '_G_m_Rp_corr'
     else:
         raise NotImplementedError
 
@@ -1696,13 +1735,12 @@ def plot_hr(outdir, isochrone=None, color0='phot_bp_mean_mag',
     if len(clusters) > 1:
         ax.legend(fontsize='xx-small', loc='upper right', handletextpad=0.1)
 
-    if show100pc and color0 == 'phot_bp_mean_mag':
+    if show100pc and 'phot_bp_mean_mag' in color0:
         ax.set_xlim([-1,4.5])
         ax.set_ylim((16, -3))
-    elif show100pc and color0 == 'phot_g_mean_mag':
+    elif show100pc and 'phot_g_mean_mag' in color0:
         ax.set_xlim([-0.2,2.0])
         ax.set_ylim((16, -3))
-        #FIXME FIXME FIXME FIX FOR THE G- G_RP PLOT...
 
     format_ax(ax)
     ax.tick_params(axis='x', which='both', top=False)
@@ -1718,7 +1756,7 @@ def plot_hr(outdir, isochrone=None, color0='phot_bp_mean_mag',
     xlim = ax.get_xlim()
     getter = (
         get_SpType_BpmRp_correspondence
-        if color0 == 'phot_bp_mean_mag' else
+        if 'phot_bp_mean_mag' in color0 else
         get_SpType_GmRp_correspondence
     )
     sptypes, xtickvals = getter(
@@ -1747,6 +1785,8 @@ def plot_hr(outdir, isochrone=None, color0='phot_bp_mean_mag',
         c0s += f'_{isochrone}'
     if show100pc:
         c0s += f'_show100pc'
+    if reddening_corr:
+        c0s += f'_redcorr'
     if len(clusters) > 1:
         c0s += '_'+'_'.join(clusters).replace(' ','_')
 

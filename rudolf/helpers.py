@@ -13,6 +13,9 @@ Data getters:
         get_gaia_catalog_of_nearby_stars
         get_clustermembers_cg18_subset
 
+    Supplement a set of Gaia stars with extinctions and corrected photometry:
+        supplement_gaia_stars_extinctions_corrected_photometry
+
 Proposal/RM-related:
     get_simulated_RM_data
 
@@ -406,3 +409,17 @@ def get_keplerfieldfootprint_dict():
             kep_d[module][output]['corners_elat'] = _elat
 
     return kep_d
+
+
+def supplement_gaia_stars_extinctions_corrected_photometry(df):
+
+    from cdips.utils.gaiaqueries import parallax_to_distance_highsn
+    from rudolf.extinction import (
+        retrieve_stilism_reddening, append_corrected_gaia_phot_Gagne2020
+    )
+
+    df['distance'] = parallax_to_distance_highsn(df['parallax'])
+    df = retrieve_stilism_reddening(df, verbose=False)
+    df = append_corrected_gaia_phot_Gagne2020(df)
+
+    return df
