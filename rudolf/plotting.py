@@ -56,6 +56,7 @@ from rudolf.helpers import (
     get_keplerfieldfootprint_dict, get_deltalyr_kc19_comovers,
     get_deltalyr_kc19_cleansubset, get_kep1627_kepler_lightcurve,
     get_gaia_catalog_of_nearby_stars, get_clustermembers_cg18_subset,
+    get_mutau_members, get_ScoOB2_members,
     supplement_gaia_stars_extinctions_corrected_photometry
 )
 from rudolf.extinction import (
@@ -1515,10 +1516,25 @@ def plot_hr(
     # mixed rasterizing along layers b/c we keep the loading times nice
     l0 = '$\delta$ Lyr cluster'
     ax.scatter(
-        get_xval(df), get_yval(df), c='k', alpha=1, zorder=2,
+        get_xval(df), get_yval(df), c='k', alpha=1, zorder=3,
         s=2, rasterized=False, linewidths=0.1, label=l0, marker='o',
         edgecolors='k'
     )
+
+    if 'UCL' in clusters:
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', 'UCL_withreddening.csv'
+        )
+        if not os.path.exists(outpath):
+            _df = get_ScoOB2_members()
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(_df)
+            _df.to_csv(outpath, index=False)
+        _df = pd.read_csv(outpath)
+        ax.scatter(
+            get_xval(_df), get_yval(_df), c='purple', alpha=1, zorder=10,
+            s=2, rasterized=False, label='UCL', marker='o',
+            edgecolors='k', linewidths=0.1
+        )
 
     if 'IC 2602' in clusters:
         outpath = os.path.join(
@@ -1530,7 +1546,7 @@ def plot_hr(
             _df.to_csv(outpath, index=False)
         _df = pd.read_csv(outpath)
         ax.scatter(
-            get_xval(_df), get_yval(_df), c='orange', alpha=1, zorder=3,
+            get_xval(_df), get_yval(_df), c='orange', alpha=1, zorder=10,
             s=2, rasterized=False, label='IC 2602', marker='o',
             edgecolors='k', linewidths=0.1
         )
@@ -1550,6 +1566,24 @@ def plot_hr(
             s=2, rasterized=False, label='Pleiades', marker='o',
             edgecolors='k', linewidths=0.1
         )
+
+
+    if 'μ Tau' in clusters:
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', 'muTau_withreddening.csv'
+        )
+        if not os.path.exists(outpath):
+            _df = get_mutau_members()
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(_df)
+            _df.to_csv(outpath, index=False)
+        _df = pd.read_csv(outpath)
+
+        ax.scatter(
+            get_xval(_df), get_yval(_df), c='limegreen', alpha=1, zorder=4,
+            s=2, rasterized=False, label='μ Tau', marker='o',
+            edgecolors='k', linewidths=0.1
+        )
+
 
 
     if show100pc:

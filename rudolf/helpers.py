@@ -327,6 +327,120 @@ def get_clustermembers_cg18_subset(clustername):
     return csdf
 
 
+def get_mutau_members():
+
+    tablepath = os.path.join(DATADIR, 'cluster',
+                             'Gagne_2020_mutau_table12_apjabb77et12_mrt.txt')
+    df = Table.read(tablepath, format='ascii.cds').to_pandas()
+
+    sel = (
+        (df['Memb-Type'] == 'IM')
+        |
+        (df['Memb-Type'] == 'CM')
+        #|
+        #(df['Memb-Type'] == 'LM')
+    )
+
+    sdf = df[sel]
+
+    #Gagne's tables are pretty annoying
+    RAh, RAm, RAs = nparr(sdf['Hour']), nparr(sdf['Minute']), nparr(sdf['Second'])
+
+    RA_hms =  [str(rah).zfill(2)+'h'+
+               str(ram).zfill(2)+'m'+
+               str(ras).zfill(2)+'s'
+               for rah,ram,ras in zip(RAh, RAm, RAs)]
+
+    DEd, DEm, DEs = nparr(sdf['Degree']),nparr(sdf['Arcminute']),nparr(sdf['Arcsecond'])
+    DEsign = nparr(sdf['Sign'])
+    DEsign[DEsign != '-'] = '+'
+
+    DE_dms = [str(desgn)+
+              str(ded).zfill(2)+'d'+
+              str(dem).zfill(2)+'m'+
+              str(des).zfill(2)+'s'
+              for desgn,ded,dem,des in zip(DEsign, DEd, DEm, DEs)]
+
+    coords = SkyCoord(ra=RA_hms, dec=DE_dms, frame='icrs')
+
+    RA = coords.ra.value
+    dec = coords.dec.value
+
+    sdf['ra'] = RA
+    sdf['dec'] = dec
+
+    _c = SkyCoord(ra=nparr(sdf.ra)*u.deg, dec=nparr(sdf.dec)*u.deg)
+    sdf['l'] = _c.galactic.l.value
+    sdf['b'] = _c.galactic.b.value
+
+    # columns
+    COLDICT = {
+        'plx': 'parallax',
+        'pmRA': 'pmra',
+        'pmDE': 'pmdec',
+        'Gmag': 'phot_g_mean_mag',
+        'BPmag': 'phot_bp_mean_mag',
+        'RPmag': 'phot_rp_mean_mag'
+    }
+    sdf = sdf.rename(columns=COLDICT)
+
+    return sdf
+
+
+def get_ScoOB2_members():
+
+    from cdips.catalogbuild.vizier_xmatch_utils import get_vizier_table_as_dataframe
+
+    vizier_search_str = "Damiani J/A+A/623/A112"
+    whichcataloglist = "J/A+A/623/A112"
+
+    srccolumns = 'DR2Name|RAJ2000|DEJ2000|GLON|GLAT|Plx|pmGLON|pmGLAT|Sel|Pop'
+    dstcolumns = 'source_id|ra|dec|l|b|parallax|pm_l|pl_b|Sel|Pop'
+
+    # ScoOB2_PMS
+    df0 = get_vizier_table_as_dataframe(
+        vizier_search_str, srccolumns, dstcolumns,
+        whichcataloglist=whichcataloglist, table_num=0
+    )
+    # ScoOB2_UMS
+    df1 = get_vizier_table_as_dataframe(
+        vizier_search_str, srccolumns, dstcolumns,
+        whichcataloglist=whichcataloglist, table_num=1
+    )
+
+    gdf0 = given_source_ids_get_gaia_data(
+        np.array(df0.source_id).astype(np.int64), 'ScoOB2_PMS_Damiani19',
+        n_max=12000, overwrite=False
+    )
+    gdf1 = given_source_ids_get_gaia_data(
+        np.array(df1.source_id).astype(np.int64), 'ScoOB2_UMS_Damiani19',
+        n_max=12000, overwrite=False
+    )
+    selcols = ['source_id', 'Sel', 'Pop']
+    mdf0 = gdf0.merge(df0[selcols], on='source_id', how='inner')
+    mdf1 = gdf1.merge(df1[selcols], on='source_id', how='inner')
+
+    assert len(mdf0) == 10839
+    assert len(mdf1) == 3598
+
+    df = pd.concat((mdf0, mdf1)).reset_index()
+
+    # proper-motion and v_tang selected...
+    # require population to be UCL-1, since:
+    # Counter({'': 1401, 'D2b': 3510, 'IC2602': 260, 'D1': 2058, 'LCC-1': 84,
+    #         'UCL-2': 51, 'D2a': 750, 'UCL-3': 47, 'Lup III': 69, 'UCL-1':
+    #         551, 'USC-D2': 1210, 'USC-f': 347, 'USC-n': 501})
+    sel = (df.Sel == 'pv')
+    sel &= (df.Pop == 'UCL-1')
+
+    sdf = df[sel]
+
+    return sdf
+
+
+
+
+
 ORIENTATIONTRUTHDICT = {
     'prograde': 0,
     'retrograde': -150,
