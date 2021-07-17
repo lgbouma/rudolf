@@ -1,3 +1,8 @@
+ApJL: 5 combined figures/tables.
+* Abstract <250 words.
+* Main text <3500 words (not incl acknowledgements, appendices)
+* <50 references (in main text)
+
 FIGURES:
 
 f1: Kepler & TESS views of the delta Lyra cluster
@@ -8,11 +13,15 @@ f3: Light curve of Kepler 1627  (raw, and phase-folded)
 
 f4: Evidence for a prograde orbit from TTVs
 
-f?: Orbital periods, radii, and ages for transiting planets.
-
 TABLES:
 
 t1: priors & posteriors for transit and stellar variabiltiy model
+
+------------------------------------------
+STRUCTURE:
+
+
+
 
 ------------------------------------------
 
@@ -41,4 +50,5 @@ Appendix E: Companion star and false positive assessment
 	f?: EDR3 RUWE vs Gmag for delta Lyra members
 	f?: the NIRC2 AO image.
 
-
+Appendix F: The population of young stars and planets
+  f?: Orbital periods, radii, and ages for transiting planets.

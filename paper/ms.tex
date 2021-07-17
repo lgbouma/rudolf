@@ -1,6 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\documentclass[12pt,modern,tighten]{aastex63}
+\documentclass[12pt,modern,twocolumn,tighten]{aastex63}
 %\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
 %\documentclass[12pt,twocolumn,tighten,trackchanges]{aastex63}
 \usepackage{amsmath,amstext,amssymb}
@@ -41,7 +39,7 @@
 \received{---}
 \revised{---}
 \accepted{---}
-\submitjournal{Nature}
+\submitjournal{AAS Journals}
 \shorttitle{Kepler\,1627}
 
 \begin{document}
@@ -54,30 +52,80 @@
 %\NewPageAfterKeywords
 \input{authors.tex}
 
+% \begin{abstract}
+%   Kepler\,1627A is a G8V star previously found to host a
+%   $3.6\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  The star was
+%   selected for observation by the Kepler satellite because it is
+%   nearby ($d\approx 333\,{\rm pc}$) and it resembles the Sun.  Combining
+%   data from Gaia with rotation periods from TESS, we show that
+%   Kepler\,1627 is a member of the $35\pm XX$\,Myr old $\delta$~Lyr
+%   cluster.  Kepler\,1627Ab is therefore the youngest planet with a
+%   precise age found to date by the main Kepler mission.
+%   Analyzing the photometry, we find evidence that starspot crossings
+%   distort the average transit shape, and induce transit timing
+%   variations that suggest the planet is on a prograde orbit.  The 
+%   flare arrival time distribution is most likely Poissonian, though
+%   there may be hints ($<3$-$\sigma$) of additional flares at the
+%   orbital and synodic periods.  In the future, spectroscopic studies
+%   of \pn\ may help clarify the evolution of this mini-Neptune's orbit
+%   and atmosphere.  More broadly, the combination of Gaia and TESS data
+%   offers an opportunity to expand the census of age-dated planets; we
+%   provide a literature concatenation of young stars to support this
+%   effort.
+% \end{abstract}
+
+% 195 words (250 max)
 \begin{abstract}
   Kepler\,1627A is a G8V star previously found to host a
   $3.6\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  The star was
-  selected for observation by the Kepler satellite because it is
-  nearby ($d\approx 333\,{\rm pc}$) and it resembles the Sun.  Combining
-  data from Gaia with rotation periods from TESS, we show that
-  Kepler\,1627 is a member of the $35\pm XX$\,Myr old $\delta$~Lyr
-  cluster.  Kepler\,1627Ab is therefore the youngest planet with a
-  precise age found to date by the main Kepler mission.
-  Analyzing the photometry, we find evidence that starspot crossings
-  distort the average transit shape, and induce transit timing
-  variations that suggest the planet is on a prograde orbit.  The 
-  flare arrival time distribution is most likely Poissonian, though
-  there may be hints ($<3$-$\sigma$) of additional flares at the
-  orbital and synodic periods.  In the future, spectroscopic studies
-  of \pn\ may help clarify the evolution of this mini-Neptune's orbit
-  and atmosphere.  More broadly, the combination of Gaia and TESS data
-  offers an opportunity to expand the census of age-dated planets; we
-  provide a literature concatenation of young stars to support this
-  effort.
+  observed by the Kepler satellite because it is nearby ($d\approx
+  333\,{\rm pc}$) and it resembles the Sun.  Combining Gaia kinematics
+  with rotation periods from TESS, we show that Kepler\,1627 is a
+  member of the $35\pm XX$\,Myr old $\delta$~Lyr cluster.
+  Kepler\,1627Ab is therefore the youngest planet with a precise age
+  yet found by the main Kepler mission.  The precision of the Kepler
+  photometry lets us detect two anomalies.  First, unresolved
+  starspot-crossing events distort the average transit shape, and
+  induce transit timing variations that imply the planet is likely on
+  a prograde orbit.  Second, although the flare arrival time
+  distribution is probably Poissonian, there may be an excess of
+  flares separated by the orbital and synodic periods, and linear
+  combinations thereof.  The $\delta$~Lyr cluster is one of many
+  stellar groups whose properties have been clarified using the Gaia
+  data; many of the other new clusters also overlap with confirmed and
+  candidate exoplanets.  Further studies that combine Gaia kinematics
+  and TESS rotation periods are therefore well-poised to expand the
+  census of age-dated planets, and our understanding of planetary
+  evolution.
 \end{abstract}
 
+% While thousands of exoplanets have been discovered orbiting nearby
+% stars, the vast majority of them are several billion years old.  This
+% makes it difficult to test theories for the origins of the different
+% families of planets, since many evolutionary processes are expected to
+% operate on timescales of less than 100 million years.  The K2 and TESS
+% missions have enabled advances on this front [1,2,3,4,5,6].  The
+% Kepler mission however has not yielded any planets with precise ages
+% below one gigayear [7,8].  Here, we combine kinematic data from Gaia
+% with stellar rotation periods from TESS to show that Kepler 1627 is a
+% member of the 35 ± 10 million year old δ Lyr cluster.  A
+% $3.6\,R_\oplus$ mini-Neptune transits the G8V primary on a 7.2 day
+% orbit, and it is therefore the youngest planet yet found by the main
+% Kepler mission.  The precision of the Kepler photometry lets us detect
+% two anomalies.  First, unresolved starspot-crossing events distort the
+% average transit shape, and induce transit timing variations that imply
+% the planet is likely on a prograde orbit [9].  Second, although the
+% flare arrival time distribution is most likely Poissonian, there may
+% be hints of an excess of flares at the orbital and synodic periods.
+% The δ Lyr cluster is one of many stellar groups whose nature has been
+% clarified using the Gaia data; many other new clusters are expected to
+% overlap datasets of confirmed and candidate planets.  Further studies
+% that combine Gaia kinematics and TESS rotation periods are therefore
+% well-poised to expand the census of age-dated planets, and our
+% understanding of planetary evolution.
+
 \keywords{
-  planetary evolution (XXXX),
+  exoplanet evolution (491),
   stellar associations (1582),
   open star clusters (1160),
 	stellar ages (1581),
@@ -86,48 +134,85 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Manuscript}
+\section{Introduction}
 
 While thousands of exoplanets have been discovered orbiting nearby
 stars, the vast majority of them are several billion years old.  This
-makes it difficult to test theories for the origins of the different
+makes it difficult to test origin theories for the different
 families of planets, since many evolutionary processes are expected to
 operate on timescales of less than 100 million years.
 
-For instance, the ``mini-Neptune'' planets, thought to be made of
-molten rocky cores and extended atmospheric envelopes of hydrogen and
+%TODO: better citations on radius evolution?
+For instance, the ``mini-Neptunes'', thought to be made of
+molten rocky cores \citep{kite_atmosphere_2020} and extended atmospheric envelopes of hydrogen and
 helium, are expected to shrink in size by factors of several over
 their first $10^8$ years
-\citep{owen_constraining_2020,kite_atmosphere_2020}.  Specifically,
+\citep{owen_constraining_2020}.  Specifically,
 they start with sizes of 4--12\,$R_\oplus$ at the time of disk
 dispersal ($\lesssim$$10^7$\,years), and shrink to sizes of
 2--4\,$R_\oplus$ by 10$^8$ years.  This change is driven by a
 combination of stellar irradiation and internal heat that powers an
 outflow, which can eventually deplete or entirely strip the envelope
-from the rocky core \citep{Owen_Wu_2013,gupta_sculpting_2019}.
+from the rocky core \citep{Owen_Wu_2013,ginzburg_corepowered_2018}.
 Discovering young planets and measuring their compositions and
 atmospheric outflows are key steps toward testing this paradigm, which
-is often invoked to explain the observed radius distribution of 
-mature exoplanets \citep{Fulton_et_al_2017}.
+is often invoked to explain the observed radius distribution of mature
+exoplanets \citep{Fulton_et_al_2017}.
 
-% TODO: decide whether a paragraph about young planet obliquities is
-% needed.
+The K2 and TESS missions have now enabled the detection of about ten
+close-in planets younger than 100 million years, all smaller than
+Jupiter
+\citep{Mann_K2_33b_2016,David_et_al_2017,david_four_2019,newton_tess_2019,bouma_cluster_2020,plavchan_planet_2020,rizzuto_tess_2020}.
+The Kepler mission however has not yielded any planets with precise
+ages below one gigayear \citep{Meibom_et_al_2013}.  The reason is that
+at the time of the main Kepler mission (2009--2013), only four open
+clusters were known in the Kepler field: NGC\,6866, NGC\,6811,
+NGC\,6819, and NGC\,6791, with ages spanning 0.7\,Gyr to 9\,Gyr
+\citep{meibom_kepler_2011}.  Since that time, analyses of the
+kinematic, photometric, and astrometric Gaia data have expanded our
+knowledge of open cluster and moving group memberships \citep[{\it
+e.g.},][]{cantatgaudin_gaia_2018,zari_3d_2018,kounkel_untangling_2019,Meingast2021,kerr_stars_2021}.
+As part of our Cluster Difference Imaging Photometric Survey (CDIPS,
+\citealt{bouma_cdipsI_2019}), we concatenated the available analyses
+from the literature, which yielded a list of candidate young and
+age-dated stars (see Appendix~\ref{app:targetlist}).
 
-% The orbits of the planets can also change early on, and can become
-% significantly misaligned from the equators of their host stars.
-% Measurements of the sky-projected angle between the planet orbit and
-% the stellar spin (the stellar obliquity) have shown that high
-% obliquities characterize hot field stars hosting both hot Jupiters and
-% smaller planets \citep{winn10,louden21}.  Conversely, the obliquities
-% of planets around cool stars tend to be low, but this could be due to
-% tidal realignment \citep[{\it e.g.},][]{anderson21}.  Obliquity
-% measurements for young planets are therefore important, because they
-% provide an unobstructed view of the primordial obliquity distribution. 
+Comparing our young star list against the Kepler field yielded two
+discoveries.  The first, to be discussed in an upcoming analysis by J.
+Curtis et al{.}, is that Kepler observed the $\approx$350\,Myr open
+cluster Theia\,520 (UBC\,1).  At least six Kepler planets are known in
+the cluster from the Kepler-52 and Kepler-968 systems
+\citep{rowe_validation_2014,jontof-hutter_following_2021}.  The second
+discovery, and the focus of this work, is that Kepler observed a
+portion of the $\delta$\,Lyr cluster \citep[Stephenson-1;][]{stephenson_possible_1959,eggen_photometric_1968}.
+The overlap between the Kepler field and the cluster is shown in
+Figure~\ref{fig:skychart}.
 
-\begin{figure*}[t]
+A previous clustering analysis of the Gaia data
+reported that
+Kepler\,1627 (KIC 6184894; KOI 5245; TIC 120105470) was a member of the
+\cn\ \citep{kounkel_untangling_2019}.
+Given the statistical validation of the close-in mini-Neptune
+\citep{2012ApJS..199...24T,morton_false_2016,thompson_planetary_2018}, we therefore began by examining the age of
+the star and its putative host cluster (Section~\ref{sec:cluster}). 
+We find that the $\delta$ Lyr cluster is $\approx35$\,Myr old, and
+that \sn\ is indeed a member of the cluster.
+Focusing on the planet itself (Section~\ref{sec:planet}), we confirm
+that despite a previously unreported binary companion, it is indeed a
+mini-Neptune orbiting the roughly Sun-like primary star.
+The presence of a correlation between transit timing variations and
+the local light curve slope renders any other explanation implausible.
+The broader implications for our ability to age-date a statistical
+sample of planets are highlighted in closing (Section~\ref{sec:conc}).
+
+
+\section{The Cluster}
+\label{sec:cluster}
+
+\begin{figure}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.99\textwidth]{f2.pdf}
+		\includegraphics[width=0.48\textwidth]{f2.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -139,9 +224,10 @@ mature exoplanets \citep{Fulton_et_al_2017}.
     their names annotated.  Kepler\,1627 (green star) was observed
     during the entirety of the Kepler mission, and has been observed
     by TESS for two lunar months to date.
+    {\bf todo: move colorbar...}
 		\label{fig:skychart}
 	}
-\end{figure*}
+\end{figure}
 
 \begin{figure*}[t]
 	\begin{center}
@@ -164,6 +250,22 @@ mature exoplanets \citep{Fulton_et_al_2017}.
    \label{fig:age}
 	}
 \end{figure*}
+
+{\bf Jason Curtis todo}
+We collected the previously measured
+{\bf XXX} Kepler rotation periods (CITEP MCQUILLAN2014), and measured
+{\bf YYY} new stellar rotation periods for cluster members observed by
+TESS.  We also performed an isochronal analysis.  The results are
+shown in Figure~\ref{fig:age}.  From the ensemble perspective, which
+provides the strongest constraints (SEE CITET SODERBLOM 2014), the age
+of the star is $XX \pm YY$\,Myr.  Individual measurements of the
+star's rotation period and lithium abundance corroborate this
+conclusion.
+
+
+
+\section{The Planet}
+\label{sec:planet}
 
 \begin{figure*}[tp]
 	\begin{center}
@@ -201,46 +303,26 @@ mature exoplanets \citep{Fulton_et_al_2017}.
   }
 \end{figure*}
 
+\begin{figure}[tp]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.48\textwidth]{f11.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf Evidence for a prograde orbit from transit timing variations.}
+    The time of each transit was measured, along with the local slope
+    of the light curve.  The two quantities appear anti-correlated,
+    which is most easily explained by starspot crossings during the
+    first (second) half of transit inducing a positive (negative) TTV,
+    provided that the orbit is prograde \citep{mazeh_time_2015}.  The
+    units along the abscissa are most easily understood by considering
+    that the flux from the star changes by $\sim$60\,ppt per half
+    rotation period ($\sim$1.3\,days).
+		\label{fig:ttvslope}
+	}
+\end{figure}
 
-At the time of the main Kepler mission (2009--2013), only four open
-clusters were known in the Kepler field: NGC\,6866, NGC\,6811,
-NGC\,6819, and NGC\,6791, with ages spanning 0.7\,Gyr to 9\,Gyr
-\citep{meibom_kepler_2011}.  Since that time, analyses of the
-kinematic, photometric, and astrometric Gaia data have expanded our
-knowledge of open cluster and moving group memberships \citep[{\it
-e.g.},][]{cantatgaudin_gaia_2018,zari_3d_2018,kounkel_untangling_2019,Meingast2021,kerr_stars_2021}.
-As part of our Cluster Difference Imaging Photometric Survey (CDIPS,
-\citealt{bouma_cdipsI_2019}), we concatenated the available analyses
-from the literature, which yielded a list of candidate young and
-age-dated stars (see Appendix~\ref{app:targetlist}).
-
-Comparing our young star list against the Kepler field yielded two
-discoveries.  The first, to be discussed in an upcoming analysis by J.
-Curtis et al{.}, is that Kepler observed the $\approx$350\,Myr open
-cluster Theia\,520 (UBC\,1).  At least six Kepler planets are known in
-the cluster from the Kepler-52 and Kepler-968 systems
-\citep{rowe_validation_2014,jontof-hutter_following_2021}.  The second
-discovery, and the focus of this work, is that Kepler observed a
-portion of the $\delta$\,Lyr cluster \citep{stephenson_possible_1959,eggen_photometric_1968}.
-The overlap between the Kepler field and the cluster is shown in
-Figure~\ref{fig:skychart}.
-
-{\bf Jason Curtis todo}
-The \cn\ contains
-Kepler\,1627 (KIC 6184894; KOI 5245; TIC 120105470), which 
-was previously reported to host a close-in mini-Neptune candidate planet
-\citep{2012ApJS..199...24T,thompson_planetary_2018}
-Given the planet's previous statistical validation by
-\citet{morton_false_2016}, we decided to examine the age of the star
-and its cluster more closely.  We collected the previously measured
-{\bf XXX} Kepler rotation periods (CITEP MCQUILLAN2014), and measured
-{\bf YYY} new stellar rotation periods for cluster members observed by
-TESS.  We also performed an isochronal analysis.  The results are
-shown in Figure~\ref{fig:age}.  From the ensemble perspective, which
-provides the strongest constraints (SEE CITET SODERBLOM 2014), the age
-of the star is $XX \pm YY$\,Myr.  Individual measurements of the
-star's rotation period and lithium abundance corroborate this
-conclusion.
 
 % rotation period from plot_rotation_period_windowslider.py
 
@@ -316,25 +398,31 @@ stellar variability from spot to faculae-dominated regimes, we expect
 this inference to be reasonably secure
 \citep{shapiro_are_2016,montet_long-term_2017,reinhold_stellar_2020}.
 
+\section{Discussion \& Conclusions}
+\label{sec:conc}
+
 \begin{figure*}[tp]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.9\textwidth]{f11.pdf}
+		\includegraphics[width=\textwidth]{f14.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-		{\bf Evidence for a prograde orbit from transit timing variations.}
-    The time of each transit was measured, along with the local slope
-    of the light curve.  The two quantities appear anti-correlated,
-    which is most easily explained by starspot crossings during the
-    first (second) half of transit inducing a positive (negative) TTV,
-    provided that the orbit is prograde \citep{mazeh_time_2015}.  The
-    units along the abscissa are most easily understood by considering
-    that the flux from the star changes by $\sim$60\,ppt per half
-    rotation period ($\sim$1.3\,days).
-		\label{fig:ttvslope}
+    {\bf Radii, orbital periods, and ages of known transiting
+    exoplanets}.  Planets older than
+    $10^9$ years are shown with gray markers.  Planets younger than a
+    gigayear, with $t/\sigma_t > 3$, are shown in color.  
+    \pn\ is shown with a star.
+    The abnormally large radii of the youngest transiting planets
+    could be explained by their primordial atmospheres not yet
+    having evaporated.
+    Selection effects could also be important.
+    Parameters were acquired from the NASA Exoplanet Archive on July
+    2, 2021.
+		\label{fig:rp_period_age}
 	}
 \end{figure*}
+
 
 {\bf LGB TODO: ask James Owen what he thinks the mass loss rate is}
 Kepler\,1627Ab therefore provides a new extremum in the ages of the
@@ -360,28 +448,6 @@ planet-planet induced TTVs, the star's flaring may be suggestive of
 star-planet interactions.  Appendix~\ref{app:flare} highlights an odd
 flare timing coincidence that may be worthy of further examination.
 
-\begin{figure*}[tp]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=\textwidth]{f14.pdf}
-	\end{center}
-	\vspace{-0.7cm}
-	\caption{
-    {\bf Radii, orbital periods, and ages of known transiting
-    exoplanets}.  Planets older than
-    $10^9$ years are shown with gray markers.  Planets younger than a
-    gigayear, with $t/\sigma_t > 3$, are shown in color.  
-    \pn\ is shown with a star.
-    The abnormally large radii of the youngest transiting planets
-    could be explained by their primordial atmospheres not yet
-    having evaporated.
-    Selection effects could also be important.
-    Parameters were acquired from the NASA Exoplanet Archive on July
-    2, 2021.
-		\label{fig:rp_period_age}
-	}
-\end{figure*}
-
 In the context of the known transiting planets, \pn\ is among the
 youngest known (Figure~\ref{fig:rp_period_age}).  Comparable systems
 with precisely measured ages spanning 10 to 100\,Myr include K2-33b,
@@ -396,7 +462,7 @@ between $\approx$10 and 20$\,M_\oplus$, their large sizes and presumed
 low densities are in accord with the expectation that mini-Neptunes
 start their lives with large primordial atmopsheres that are are lost
 over the first gigayear
-\citep{Owen_Wu_2013,Fulton_et_al_2017,ginzburg_core-powered_2018}.
+\citep{Owen_Wu_2013,Fulton_et_al_2017,ginzburg_corepowered_2018}.
 The observation from starspot-induced TTVs that the planetary orbit
 could be aligned with the stellar spin differs from a number of other
 close-in
@@ -406,6 +472,22 @@ migration history for the planet, while the in-situ formation scenario
 is disfavored because the necessary disk mass would always drive
 planets to migrate
 \citep{inamdar_formation_2015,ogihara_reassessment_2015}.
+
+
+% TODO: decide whether a paragraph about young planet obliquities is
+% needed.
+
+% The orbits of the planets can also change early on, and can become
+% significantly misaligned from the equators of their host stars.
+% Measurements of the sky-projected angle between the planet orbit and
+% the stellar spin (the stellar obliquity) have shown that high
+% obliquities characterize hot field stars hosting both hot Jupiters and
+% smaller planets \citep{winn10,louden21}.  Conversely, the obliquities
+% of planets around cool stars tend to be low, but this could be due to
+% tidal realignment \citep[{\it e.g.},][]{anderson21}.  Obliquity
+% measurements for young planets are therefore important, because they
+% provide an unobstructed view of the primordial obliquity distribution. 
+
 
 
 Ultimately, our age measurement for \pn\ was enabled by identifying
@@ -420,7 +502,6 @@ with ancilliary rotation periods and spectroscopy
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 
 \input{model_posterior_table.tex}
@@ -609,6 +690,7 @@ efforts to make the mission a continued success.
 %	  El Sauce:0.356$\,$m,
 % 	Elizabeth 1.0m at SAAO,
 % 	Euler1.2m (EulerCam),
+	  Kepler \citep{borucki_kepler_2010},
 % 	Magellan:Baade (MagIC),
 % 	Max Planck:2.2m	(GROND; \citealt{greiner_grond7-channel_2008})
 % 	NTT,
