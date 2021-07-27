@@ -403,23 +403,52 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
 
         cax = ax.scatter(
             mdf.ra, mdf.dec, c=mdf.n_tess_sector, cmap=cmap,
-            alpha=0.9, zorder=40, s=4, rasterized=True, linewidths=0,
+            alpha=0.9, zorder=40, s=5.5, rasterized=True, linewidths=0,
             marker='.', norm=norm,
         )
 
         trgt_id = "2103737241426734336" # Kepler 1627
         trgt_mdf = mdf[mdf.source_id.astype(str) == trgt_id]
 
-        cax = ax.scatter(
+        _p = ax.scatter(
             trgt_mdf.ra, trgt_mdf.dec, c=trgt_mdf.n_tess_sector, cmap=cmap,
             alpha=1, zorder=42, s=60, linewidths=0.2,
             marker='*', norm=norm, edgecolors='k'
         )
 
-        cb = f.colorbar(cax, extend='max', ticks=ticks)
-        cb.ax.minorticks_off()
+        # standard colorbar...
+        # cb = f.colorbar(cax, extend='max', ticks=ticks)
+        # cb.ax.minorticks_off()
+        # cb.set_label("TESS Sectors", rotation=270, labelpad=10)
 
-        cb.set_label("TESS Sectors", rotation=270, labelpad=10)
+        x0,y0,dx,dy = 0.037, 0.05, 0.03, 0.38
+
+        axins1 = inset_axes(ax, width="100%", height="100%",
+                            # x0,y0, dx, dy
+                            bbox_to_anchor=(x0,y0,dx,dy),
+                            loc='lower left',
+                            bbox_transform=ax.transAxes)
+        cb = f.colorbar(_p, cax=axins1, orientation="vertical",
+                        extend='max', ticks=ticks)
+        cb.ax.minorticks_off()
+        cb.ax.tick_params(labelsize='x-small')
+        cb.ax.set_title("$N_{\mathrm{TESS}}$", fontsize='x-small')
+
+        # add white background
+        import matplotlib.patches as patches
+        rect = patches.Rectangle((x0,y0), 3*dx, dy+0.1, linewidth=1,
+                                 edgecolor='white', facecolor='white',
+                                 transform=ax.transAxes,
+                                 zorder=99, alpha=0.9)
+        ax.add_patch(rect)
+
+
+        #axd['B'].text(0.725,0.955, '$t$ [days]',
+        #        transform=axd['B'].transAxes,
+        #        ha='right',va='top', color='k', fontsize='xx-small')
+        cb.ax.tick_params(size=0, which='both') # remove the ticks
+        #axins1.xaxis.set_ticks_position("bottom")
+
 
     if narrowlims:
         dx,dy = 30,20
@@ -529,13 +558,17 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
     plt.close('all')
     set_style()
 
-    df_dr2, df_edr3, trgt_df = get_deltalyr_kc19_gaia_data()
+    # NOTE: assumes plot_XYZvtang has already been run
+    df_sel = get_deltalyr_kc19_cleansubset()
+
+    _, df_edr3, trgt_df = get_deltalyr_kc19_gaia_data()
     # set "dr2_radial_velocity" according to Andrew Howard HIRES recon
     # spectrum. agrees with -16.9km/s+/-0.5km/s TRES.
     trgt_df.dr2_radial_velocity = -16.7
 
     from earhart.physicalpositions import append_physicalpositions
     df_edr3 = append_physicalpositions(df_edr3, trgt_df)
+    df_sel = append_physicalpositions(df_sel, trgt_df)
     trgt_df = append_physicalpositions(trgt_df, trgt_df)
 
     if save_candcomovers:
@@ -564,7 +597,9 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
 
     # use plx S/N>20 to get good XYZ.
     sdf = df_edr3[df_edr3.parallax_over_error > 20]
-    scmdf = cm_df_edr3[cm_df_edr3.parallax_over_error > 20]
+
+    #scmdf = cm_df_edr3[cm_df_edr3.parallax_over_error > 20]
+    scmdf = df_sel[df_sel.parallax_over_error > 20]
 
     plt.close('all')
 

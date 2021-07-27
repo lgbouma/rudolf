@@ -25,3 +25,5 @@ cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit_Kepler_1627_Q15slc/K
 
 cp ~/Dropbox/proj/rudolf/results/rp_vs_period_scatter/rp_vs_period_scatter_20210702_showss_colorbyage_showkep1627.pdf f14.pdf
 
+
+cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_IC_2602_Pleiades.pdf f15a.pdf

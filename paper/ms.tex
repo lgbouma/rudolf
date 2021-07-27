@@ -52,28 +52,6 @@
 %\NewPageAfterKeywords
 \input{authors.tex}
 
-% \begin{abstract}
-%   Kepler\,1627A is a G8V star previously found to host a
-%   $3.6\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  The star was
-%   selected for observation by the Kepler satellite because it is
-%   nearby ($d\approx 333\,{\rm pc}$) and it resembles the Sun.  Combining
-%   data from Gaia with rotation periods from TESS, we show that
-%   Kepler\,1627 is a member of the $35\pm XX$\,Myr old $\delta$~Lyr
-%   cluster.  Kepler\,1627Ab is therefore the youngest planet with a
-%   precise age found to date by the main Kepler mission.
-%   Analyzing the photometry, we find evidence that starspot crossings
-%   distort the average transit shape, and induce transit timing
-%   variations that suggest the planet is on a prograde orbit.  The 
-%   flare arrival time distribution is most likely Poissonian, though
-%   there may be hints ($<3$-$\sigma$) of additional flares at the
-%   orbital and synodic periods.  In the future, spectroscopic studies
-%   of \pn\ may help clarify the evolution of this mini-Neptune's orbit
-%   and atmosphere.  More broadly, the combination of Gaia and TESS data
-%   offers an opportunity to expand the census of age-dated planets; we
-%   provide a literature concatenation of young stars to support this
-%   effort.
-% \end{abstract}
-
 % 195 words (250 max)
 \begin{abstract}
   Kepler\,1627A is a G8V star previously found to host a
@@ -81,10 +59,10 @@
   observed by the Kepler satellite because it is nearby ($d\approx
   333\,{\rm pc}$) and it resembles the Sun.  Combining Gaia kinematics
   with rotation periods from TESS, we show that Kepler\,1627 is a
-  member of the $35\pm XX$\,Myr old $\delta$~Lyr cluster.
+  member of the {\bf $35\pm XX$\,Myr old} $\delta$~Lyr cluster.
   Kepler\,1627Ab is therefore the youngest planet with a precise age
-  yet found by the main Kepler mission.  The precision of the Kepler
-  photometry lets us detect two anomalies.  First, unresolved
+  yet found by the main Kepler mission.  The Kepler
+  photometry seems to show two anomalies.  First, unresolved
   starspot-crossing events distort the average transit shape, and
   induce transit timing variations that imply the planet is likely on
   a prograde orbit.  Second, although the flare arrival time
@@ -94,9 +72,8 @@
   stellar groups whose properties have been clarified using the Gaia
   data; many of the other new clusters also overlap with confirmed and
   candidate exoplanets.  Further studies that combine Gaia kinematics
-  and TESS rotation periods are therefore well-poised to expand the
-  census of age-dated planets, and our understanding of planetary
-  evolution.
+  and TESS rotation periods are well-poised to expand the census of
+  age-dated planets, and our understanding of planetary evolution.
 \end{abstract}
 
 % While thousands of exoplanets have been discovered orbiting nearby
@@ -154,7 +131,7 @@ dispersal ($\lesssim$$10^7$\,years), and shrink to sizes of
 combination of stellar irradiation and internal heat that powers an
 outflow, which can eventually deplete or entirely strip the envelope
 from the rocky core \citep{Owen_Wu_2013,ginzburg_corepowered_2018}.
-Discovering young planets and measuring their compositions and
+Discovering young planets, measuring their masses, and detecting their
 atmospheric outflows are key steps toward testing this paradigm, which
 is often invoked to explain the observed radius distribution of mature
 exoplanets \citep{Fulton_et_al_2017}.
@@ -184,26 +161,27 @@ cluster Theia\,520 (UBC\,1).  At least six Kepler planets are known in
 the cluster from the Kepler-52 and Kepler-968 systems
 \citep{rowe_validation_2014,jontof-hutter_following_2021}.  The second
 discovery, and the focus of this work, is that Kepler observed a
-portion of the $\delta$\,Lyr cluster \citep[Stephenson-1;][]{stephenson_possible_1959,eggen_photometric_1968}.
-The overlap between the Kepler field and the cluster is shown in
-Figure~\ref{fig:skychart}.
+portion of the $\delta$\,Lyr cluster
+(Stephenson-1; Theia~73; \citealt{stephenson_possible_1959}).
+Figure~\ref{fig:skychart} shows the overlap between the Kepler field
+and the cluster.
 
-A previous clustering analysis of the Gaia data
-reported that
-Kepler\,1627 (KIC 6184894; KOI 5245; TIC 120105470) was a member of the
-\cn\ \citep{kounkel_untangling_2019}.
-Given the statistical validation of the close-in mini-Neptune
-\citep{2012ApJS..199...24T,morton_false_2016,thompson_planetary_2018}, we therefore began by examining the age of
-the star and its putative host cluster (Section~\ref{sec:cluster}). 
-We find that the $\delta$ Lyr cluster is $\approx35$\,Myr old, and
-that \sn\ is indeed a member of the cluster.
-Focusing on the planet itself (Section~\ref{sec:planet}), we confirm
-that despite a previously unreported binary companion, it is indeed a
-mini-Neptune orbiting the roughly Sun-like primary star.
-The presence of a correlation between transit timing variations and
-the local light curve slope renders any other explanation implausible.
-The broader implications for our ability to age-date a statistical
-sample of planets are highlighted in closing (Section~\ref{sec:conc}).
+A previous HDBScan-based clustering analysis of the Gaia data found
+that Kepler\,1627 (KIC 6184894; KOI 5245; TIC 120105470) was a member
+of the \cn\ \citep{kounkel_untangling_2019}.  Given the statistical
+validation of close-in mini-Neptune
+\citep{2012ApJS..199...24T,morton_false_2016,thompson_planetary_2018},
+we opted to examine the age of the star and its putative
+host cluster (Section~\ref{sec:cluster}).  We find that the $\delta$
+Lyr cluster is {\bf $\approx35$\,Myr old}, and that \sn\ is indeed a member
+of the cluster.  Focusing on the planet itself
+(Section~\ref{sec:planet}), we confirm that despite a previously
+unreported binary companion, it is indeed a mini-Neptune orbiting the
+roughly Solar-type primary star.  The presence of a correlation
+between transit timing variations and the local light curve slope
+renders any other explanation implausible.  We conclude by
+highlighting some broader implications for our ability to age-date a
+statistical sample of planets (Section~\ref{sec:conc}).
 
 
 \section{The Cluster}
@@ -224,7 +202,6 @@ sample of planets are highlighted in closing (Section~\ref{sec:conc}).
     their names annotated.  Kepler\,1627 (green star) was observed
     during the entirety of the Kepler mission, and has been observed
     by TESS for two lunar months to date.
-    {\bf todo: move colorbar...}
 		\label{fig:skychart}
 	}
 \end{figure}
@@ -233,24 +210,60 @@ sample of planets are highlighted in closing (Section~\ref{sec:conc}).
 	\begin{center}
 		\leavevmode
 		\subfloat{
+			\includegraphics[width=0.49\textwidth]{f15a.pdf}
 			\includegraphics[width=0.49\textwidth]{TEMP_Prot_vs_BpmRp.png}
-			\includegraphics[width=0.49\textwidth]{TEMP_hrd.png}
 		}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-    {\bf The \cn\ is $35\pm15$\,Myr old.} {\it Left:} TESS and Kepler
-    rotations periods and dereddened Gaia colors, with the Pleiades
+    {\bf The \cn\ is $35\pm15$\,Myr old.}  {\it Left:} HR diagram of 
+    the \cn, IC\,2602 ($\approx35$\,Myr), the Pleiades ($\approx 115$\,Myr), and the field.
+    The \cn\ and IC\,2602 are approximately the same isochronal age.
+    {\it Right:} TESS and Kepler rotations periods and dereddened Gaia
+    colors, with the Pleiades
     \citep[125\,Myr;][]{rebull_rotation_2016a} and Praesepe
     \citep[650\,Myr;][]{douglas_poking_2017} shown for reference.
     Stars of a given color (mass) move up through time due to magnetic
     braking.  The \cn\ has a 40 Myr gyrochronal age, as calibrated
-    against the LDB-age of IC\,2602.  {\it Right:} HR diagram of the
-    same comparison. {\bf todo: caption improve. fix figures.}.
+    against the LDB-age of IC\,2602.  {\bf todo: caption improve. fix
+    figures.}.
    \label{fig:age}
 	}
 \end{figure*}
 
+% paragraph 1: HR 
+To assess the age of the cluster as well as our star of interest,
+we used a combination of the isochronal, gyrochronal, and
+lithium-based age-dating.
+
+\subsection{HR Diagram}
+We meaured the isochrone age using an empirical approach, and also
+compared against theoretical models.
+The left panel of Figure~\ref{fig:age} shows the HR diagram of 
+stars in the \cn, the Pleiades, IC\,2602, and the field.
+The stars shown in the \cn\ are selected based on their positions and
+kinematics, as discussed in Appendix~\ref{app:kinematicselection}.
+Those from the Pleiades and IC\,2602 are adopted from
+\citet{cantatgaudin_gaia_2018}, and the field stars are from the Gaia
+EDR3 Catalog of Nearby Stars \citep{gaia_gcns_2021}.
+% FIXME FIXME
+We corrected for reddening following {\bf procedure X,Y,Z}.
+
+The immediate impression from the left panel of Figure~\ref{fig:age}
+is that the \cn\ and IC\,2602 share approximately the same isochronal
+age, since they overlap.  In our exploration, we also compared against
+$\mu$-Tau ($\approx 60$\,Myr; \citealt{gagne_mutau_2020}) and subsets
+of the Sco OB2 association ($\approx10$-$15$\,Myr;
+\citealt{damiani_stellar_2019}), and confirmed that the
+pre-main-sequence M dwarfs were intermediate between these two
+clusters.
+
+% FIXME FIXME
+We quantified this impression following the empirical fitting procedure
+discussed by \citet{gagne_mutau_2020}.
+
+
+\subsection{Rotation Periods}
 {\bf Jason Curtis todo}
 We collected the previously measured
 {\bf XXX} Kepler rotation periods (CITEP MCQUILLAN2014), and measured
@@ -796,6 +809,7 @@ website\footnote{\url{https://gea.esac.esa.int/archive/}}.
 
 
 \section{Kinematic Selection of $\delta$\,Lyr Cluster Members}
+\label{app:kinematicselection}
 
 \begin{figure*}[t]
 	\begin{center}
@@ -804,36 +818,48 @@ website\footnote{\url{https://gea.esac.esa.int/archive/}}.
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-		{\bf Galactic position and tangential velocities of the
-			$\delta$\,Lyr cluster (also known as Theia 73 and Stephenson\,1).}  Points are
-		candidate cluster members with $\varpi/\sigma_\varpi > 20$, reported
-		to be in the group by \citet{kounkel_untangling_2019}.  We focus
-		on stars in a small region (black points) in the kinematic
-		vicinity of Kepler\,1627 (yellow star).  The other candidate cluster
-		members (gray points) may or may not share the ages of the selected
-		kinematic group.  The location of the Sun is ($\odot$) is shown.
+    {\bf Galactic position and tangential velocities of the
+    $\delta$\,Lyr cluster.}
+    Points are candidate cluster members with $\varpi/\sigma_\varpi >
+    20$, reported to be in the group by
+    \citet{kounkel_untangling_2019}.  We focus on stars in a small
+    region (black points) in the kinematic vicinity of Kepler\,1627
+    (yellow star).  The other candidate cluster members (gray points)
+    may or may not share the ages of the selected kinematic group.
+    The location of the Sun is ($\odot$) is shown.
 		\label{fig:XYZvtang}
 	}
 \end{figure*}
 
-Figure~\ref{fig:XYZvtang} shows members of the \cn\
-reported
-by \citet{kounkel_untangling_2019} to be in the group.
-Galactic positions are determined and plotted only for stars with parallax
-signal-to-noise exceeding 20.
-The location of the Sun is shown on the plots.
-The non-uniform ``clumps'' might be
-an artifact of the data processing steps performed by \citet{kounkel_untangling_2019}.
-We therefore only consider stars in the immediate kinematic group
-around \sn. 
-The tangential velocities relative to \sn\ are shown in the bottom right panel.
-These are computed by assuming that every star has the same three-dimensional
-spatial velocity as \sn, where we assume a systemic radial velocity of
-$-16.7 \pm 0.2$\,\kms\ based on the reconnaissance spectra obtained by
-A.~Howard on HIRES and D.~Latham on TRES.
-The relevant projection effects are then taken into account,
-as discussed by {\it e.g.}, \citet{Meingast2021} and {\bf L.~Bouma et al (2021, submitted)}.
-
+Figure~\ref{fig:XYZvtang} shows stars reported by
+\citet{kounkel_untangling_2019} to be in the group ``Theia 73'', which
+was cross-matched by \citealt{kounkel_untangling_2019} as being
+``Stephenson 1''.  For our Figure, galactic positions were calculated
+and plotted only for stars with parallax signal-to-noise exceeding 20.
+The location of the Sun is shown on the plots.  The smattering of
+reported cluster members (gray and black points) has a significantly
+different structure that the cluster initially identified by
+\citet{stephenson_possible_1959} and corroborated by
+\citet{eggen_photometric_1968}.  While the non-uniform ``clumps''
+might be part of a real structure, they could also be an artifact of
+the data processing steps performed by
+\citet{kounkel_untangling_2019}.  We therefore opted to only consider
+stars in the immediate kinematic and spatial vicinity of \sn.  The
+tangential velocities relative to \sn\ are shown in the bottom right
+panel.  These are computed by assuming that every star has the same
+three-dimensional spatial velocity as \sn, where we assume a systemic
+radial velocity of $-16.7 \pm 0.2$\,\kms\ based on the reconnaissance
+spectra obtained by A.~Howard on HIRES and D.~Latham on TRES.  The
+relevant projection effects are then taken into account, as discussed
+by {\it e.g.}, \citet{Meingast2021} and \citet{bouma_2021_ngc2516}.
+We performed the actual selection by then manually drawing lassos with
+the interactive \texttt{glue} visualization tool
+\citep{beaumont_2014_13866} in the four projections shown in
+Figure~\ref{fig:XYZvtang}.  While bonafide members likely exist
+outside of our selection region (and our selection also includes some
+field star interlopers), our aim is to verify the existence of the
+cluster in the vicinity of Kepler\,1627, and to measure its age.  The
+procedure we have adopted enables both tasks.
 
 
 \section{Transit and Stellar Variability Model}

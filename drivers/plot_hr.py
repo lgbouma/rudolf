@@ -5,7 +5,8 @@ from rudolf.paths import RESULTSDIR
 isochrones = [None]#, 'parsec', 'mist'] # could be None, mist, parsec.
 colors = ['phot_bp_mean_mag', 'phot_g_mean_mag']
 
-clusters = ['δ Lyr cluster', 'IC 2602', 'Pleiades', 'μ Tau', 'UCL']
+#clusters = ['δ Lyr cluster', 'IC 2602', 'Pleiades', 'μ Tau', 'UCL']
+clusters = ['δ Lyr cluster', 'IC 2602', 'Pleiades']#, 'μ Tau', 'UCL']
 
 PLOTDIR = os.path.join(RESULTSDIR, 'hr')
 if not os.path.exists(PLOTDIR):
