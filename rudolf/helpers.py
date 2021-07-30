@@ -530,15 +530,73 @@ def get_keplerfieldfootprint_dict():
     return kep_d
 
 
-def supplement_gaia_stars_extinctions_corrected_photometry(df):
+def supplement_gaia_stars_extinctions_corrected_photometry(
+    df, extinctionmethod='gaia2018', savpath=None
+):
 
     from cdips.utils.gaiaqueries import parallax_to_distance_highsn
     from rudolf.extinction import (
-        retrieve_stilism_reddening, append_corrected_gaia_phot_Gagne2020
+        retrieve_stilism_reddening,
+        append_corrected_gaia_phot_Gagne2020,
+        append_corrected_gaia_phot_Gaia2018
     )
 
-    df['distance'] = parallax_to_distance_highsn(df['parallax'])
-    df = retrieve_stilism_reddening(df, verbose=False)
-    df = append_corrected_gaia_phot_Gagne2020(df)
+    # cache the slow step
+    if not os.path.exists(savpath):
+        df['distance'] = parallax_to_distance_highsn(df['parallax'])
+        df = retrieve_stilism_reddening(df, verbose=False, outpath=savpath)
+    else:
+        df = pd.read_csv(savpath)
+
+    if extinctionmethod == 'gaia2018':
+        df = append_corrected_gaia_phot_Gaia2018(df)
+    if extinctionmethod == 'gagne2020':
+        df = append_corrected_gaia_phot_Gagne2020(df)
 
     return df
+
+
+def get_cleansel(df):
+    """
+    Given a dataframe of Gaia DR2 columns, apply the "cleaning
+    selection" described on page 3 / Appendix B of GaiaCollab+2018 HR
+    diagram paper.
+    """
+    chisq = nparr(df.astrometric_chi2_al)
+    nuprime = nparr(df.astrometric_n_good_obs_al)
+    Gmag = nparr(df.phot_g_mean_mag)
+
+    sel0 = np.sqrt(chisq/(nuprime-5)) < 1.2*np.maximum(
+        1,
+        np.exp(-0.2*(Gmag-19.5))
+    )
+
+    sel1 = (df.parallax_over_error > 5)
+
+    sel2 = (
+        (df.phot_g_mean_flux_over_error > 50)
+        &
+        (df.phot_rp_mean_flux_over_error > 20)
+        &
+        (df.phot_bp_mean_flux_over_error > 20)
+    )
+
+    sel3 = (
+        (
+            df.phot_bp_rp_excess_factor < 1.3 +
+            0.06*(df.phot_bp_mean_mag - df.phot_rp_mean_mag)**2
+        )
+        &
+        (
+            df.phot_bp_rp_excess_factor > 1.0 +
+            0.015*(df.phot_bp_mean_mag - df.phot_rp_mean_mag)**2
+        )
+    )
+
+    sel4 = df.visibility_periods_used > 8
+
+    sel = sel0 & sel1 & sel2 & sel3 & sel4
+
+    return sel
+
+

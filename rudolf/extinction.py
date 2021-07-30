@@ -16,6 +16,68 @@ from scipy.interpolate import interp1d
 
 from rudolf.paths import DATADIR
 
+def append_corrected_gaia_phot_Gaia2018(df):
+    """
+    Using the coefficients calculated by GaiaCollaboration+2018 Table
+    1, and the STILISM reddening values, calculate corrected Gaia
+    photometric magnitudes.  Assumes you have acquired STILISM
+    reddening estimates per retrieve_stilism_reddening below.
+
+    Args:
+        df (DataFrame): contains Gaia photometric magnitudes, and STILISM
+        reddening columns.
+
+    Returns:
+        Same DataFrame, with 'phot_g_mean_mag_corr', 'phot_rp_mean_mag_corr',
+        'phot_bp_mean_mag_corr' columns.
+    """
+    #FIXME
+    corr_path = os.path.join(DATADIR, 'extinction',
+                             'GaiaCollaboration_2018_table1.csv')
+    cdf = pd.read_csv(corr_path, sep=',')
+
+    bandpasses = ['G','BP','RP']
+
+    E_BmV = df['reddening[mag][stilism]']
+    A_0 = 3.1 * E_BmV
+
+    for bp in bandpasses:
+
+        c1 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c1'])
+        c2 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c2'])
+        c3 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c3'])
+        c4 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c4'])
+        c5 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c5'])
+        c6 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c6'])
+        c7 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c7'])
+
+        BpmRp = df.phot_bp_mean_mag - df.phot_rp_mean_mag
+
+        # nb Eq 1 of the paper has BpmRp0 ... which presents a bit of
+        # a self-consistency issue
+        k_X = (
+            c1
+            + c2*(BpmRp)
+            + c3*(BpmRp)**2
+            + c4*(BpmRp)**3
+            + c5*A_0
+            + c6*A_0**2
+            + c7*A_0*BpmRp
+        )
+
+        A_X = k_X * A_0
+
+        # each "corrected magnitude" is whatever the observed
+        # magnitude was, MINUS the extinction (because it needs to
+        # lower the magnitude, making the star brighter)
+        df[f'phot_{bp.lower()}_mean_mag_corr'] = (
+            df[f'phot_{bp.lower()}_mean_mag'] - A_X
+        )
+
+    return df
+
+
+
 def append_corrected_gaia_phot_Gagne2020(df):
     """
     Using the coefficients calculated by Gagne+20 Table 8, and the STILISM
@@ -69,7 +131,7 @@ def append_corrected_gaia_phot_Gagne2020(df):
     return df
 
 
-def retrieve_stilism_reddening(df, verbose=True):
+def retrieve_stilism_reddening(df, verbose=True, outpath=None):
     """
     Note: this is slow. 1 second per item. so, 10 minutes for 600 queries.
     --------------------
@@ -145,5 +207,8 @@ def retrieve_stilism_reddening(df, verbose=True):
             df.loc[index, "reddening_uncertainty_max[mag][stilism]"] = (
                 dfstilism["reddening_uncertainty_max[mag]"][0]
             )
+
+    if isinstance(outpath, str):
+        df.to_csv(outpath, index=False)
 
     return df

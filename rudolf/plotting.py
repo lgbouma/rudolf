@@ -57,7 +57,8 @@ from rudolf.helpers import (
     get_deltalyr_kc19_cleansubset, get_kep1627_kepler_lightcurve,
     get_gaia_catalog_of_nearby_stars, get_clustermembers_cg18_subset,
     get_mutau_members, get_ScoOB2_members,
-    supplement_gaia_stars_extinctions_corrected_photometry
+    supplement_gaia_stars_extinctions_corrected_photometry,
+    get_cleansel
 )
 from rudolf.extinction import (
     retrieve_stilism_reddening, append_corrected_gaia_phot_Gagne2020
@@ -1478,7 +1479,8 @@ def plot_flare_pair_time_distribution(uniq_dists, outpath, ylim=[0,18],
 
 def plot_hr(
     outdir, isochrone=None, color0='phot_bp_mean_mag', rasterized=False,
-    show100pc=0, clusters=['$\delta$ Lyr cluster'], reddening_corr=0
+    show100pc=0, clusters=['$\delta$ Lyr cluster'], reddening_corr=0,
+    cleanhrcut=1, extinctionmethod='gaia2018', smalllims=0
 ):
     """
     clusters: ['$\delta$ Lyr cluster', 'IC 2602', 'Pleiades']
@@ -1496,6 +1498,11 @@ def plot_hr(
         df = supplement_gaia_stars_extinctions_corrected_photometry(df)
         df.to_csv(outpath, index=False)
     df = pd.read_csv(outpath)
+    if cleanhrcut:
+        df = df[get_cleansel(df)]
+    if reddening_corr:
+        print('delta Lyr cluster')
+        print(df['reddening[mag][stilism]'].describe())
 
     if show100pc:
         import mpl_scatter_density # adds projection='scatter_density'
@@ -1548,57 +1555,103 @@ def plot_hr(
         )
     )
 
+    s = 2
+    if smalllims:
+        s = 4
+
     # mixed rasterizing along layers b/c we keep the loading times nice
     l0 = '$\delta$ Lyr cluster'
     ax.scatter(
         get_xval(df), get_yval(df), c='k', alpha=1, zorder=3,
-        s=2, rasterized=False, linewidths=0.1, label=l0, marker='o',
+        s=s, rasterized=False, linewidths=0.1, label=l0, marker='o',
         edgecolors='k'
     )
 
     if 'UCL' in clusters:
         outpath = os.path.join(
-            RESULTSDIR, 'tables', 'UCL_withreddening.csv'
+            RESULTSDIR, 'tables', f'UCL_withreddening_{extinctionmethod}.csv'
         )
         if not os.path.exists(outpath):
             _df = get_ScoOB2_members()
-            _df = supplement_gaia_stars_extinctions_corrected_photometry(_df)
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(
+                _df, extinctionmethod=extinctionmethod,
+                savpath=os.path.join(RESULTSDIR,'tables','UCL_stilism.csv')
+            )
             _df.to_csv(outpath, index=False)
         _df = pd.read_csv(outpath)
+        if cleanhrcut:
+            _df = _df[get_cleansel(_df)]
+        if reddening_corr:
+            print('UCL')
+            print(_df['reddening[mag][stilism]'].describe())
+
         ax.scatter(
             get_xval(_df), get_yval(_df), c='purple', alpha=1, zorder=10,
-            s=2, rasterized=False, label='UCL', marker='o',
+            s=s, rasterized=False, label='UCL', marker='o',
             edgecolors='k', linewidths=0.1
         )
 
     if 'IC 2602' in clusters:
         outpath = os.path.join(
-            RESULTSDIR, 'tables', 'IC_2602_withreddening.csv'
+            RESULTSDIR, 'tables', f'IC_2602_withreddening_{extinctionmethod}.csv'
         )
         if not os.path.exists(outpath):
             _df = get_clustermembers_cg18_subset('IC_2602')
-            _df = supplement_gaia_stars_extinctions_corrected_photometry(_df)
+            _gdf = given_source_ids_get_gaia_data(
+                nparr(_df['source_id']).astype(np.int64), 'IC_2602_rudolf',
+                n_max=10000, overwrite=False,
+                enforce_all_sourceids_viable=True, savstr='', whichcolumns='*',
+                gaia_datarelease='gaiadr2'
+            )
+            assert len(_df) == len(_gdf)
+            del _df
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(
+                _gdf, extinctionmethod=extinctionmethod,
+                savpath=os.path.join(RESULTSDIR,'tables','IC_2602_stilism.csv')
+            )
             _df.to_csv(outpath, index=False)
         _df = pd.read_csv(outpath)
+        if cleanhrcut:
+            _df = _df[get_cleansel(_df)]
+        if reddening_corr:
+            print('IC2602')
+            print(_df['reddening[mag][stilism]'].describe())
+
         ax.scatter(
             get_xval(_df), get_yval(_df), c='orange', alpha=1, zorder=10,
-            s=2, rasterized=False, label='IC 2602', marker='o',
+            s=s, rasterized=False, label='IC 2602', marker='o',
             edgecolors='k', linewidths=0.1
         )
 
     if 'Pleiades' in clusters:
         outpath = os.path.join(
-            RESULTSDIR, 'tables', 'Pleiades_withreddening.csv'
+            RESULTSDIR, 'tables', f'Pleiades_withreddening_{extinctionmethod}.csv'
         )
         if not os.path.exists(outpath):
             _df = get_clustermembers_cg18_subset('Melotte_22')
-            _df = supplement_gaia_stars_extinctions_corrected_photometry(_df)
+            _gdf = given_source_ids_get_gaia_data(
+                nparr(_df['source_id']).astype(np.int64), 'Melotte_22_rudolf',
+                n_max=10000, overwrite=False,
+                enforce_all_sourceids_viable=True, savstr='', whichcolumns='*',
+                gaia_datarelease='gaiadr2'
+            )
+            assert len(_df) == len(_gdf)
+            del _df
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(
+                _gdf, extinctionmethod=extinctionmethod,
+                savpath=os.path.join(RESULTSDIR,'tables','Pleiades_stilism.csv')
+            )
             _df.to_csv(outpath, index=False)
         _df = pd.read_csv(outpath)
+        if cleanhrcut:
+            _df = _df[get_cleansel(_df)]
+        if reddening_corr:
+            print('Pleaides')
+            print(_df['reddening[mag][stilism]'].describe())
 
         ax.scatter(
             get_xval(_df), get_yval(_df), c='deepskyblue', alpha=1, zorder=1,
-            s=2, rasterized=False, label='Pleiades', marker='o',
+            s=s, rasterized=False, label='Pleiades', marker='o',
             edgecolors='k', linewidths=0.1
         )
 
@@ -1609,13 +1662,19 @@ def plot_hr(
         )
         if not os.path.exists(outpath):
             _df = get_mutau_members()
-            _df = supplement_gaia_stars_extinctions_corrected_photometry(_df)
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(
+                _df, extinctionmethod=extinctionmethod,
+                savpath=os.path.join(RESULTSDIR,'tables','muTau_stilism.csv')
+            )
             _df.to_csv(outpath, index=False)
         _df = pd.read_csv(outpath)
+        if reddening_corr:
+            print('muTAU')
+            print(_df['reddening[mag][stilism]'].describe())
 
         ax.scatter(
             get_xval(_df), get_yval(_df), c='limegreen', alpha=1, zorder=4,
-            s=2, rasterized=False, label='μ Tau', marker='o',
+            s=s, rasterized=False, label='μ Tau', marker='o',
             edgecolors='k', linewidths=0.1
         )
 
@@ -1782,9 +1841,14 @@ def plot_hr(
                     )
 
     ax.set_ylabel('Absolute $\mathrm{M}_{G}$ [mag]', fontsize='medium')
+    if reddening_corr:
+        ax.set_ylabel('Absolute $\mathrm{M}_{G,0}$ [mag]', fontsize='medium')
     if color0 == 'phot_bp_mean_mag':
         ax.set_xlabel('$G_{\mathrm{BP}}-G_{\mathrm{RP}}$ [mag]',
                       fontsize='medium')
+        if reddening_corr:
+            ax.set_xlabel('$(G_{\mathrm{BP}}-G_{\mathrm{RP}})_0$ [mag]',
+                          fontsize='medium')
         c0s = '_Bp_m_Rp'
     elif color0 == 'phot_g_mean_mag':
         ax.set_xlabel('$G-G_{\mathrm{RP}}$ [mag]',
@@ -1814,6 +1878,12 @@ def plot_hr(
         ax.set_xlim([-0.2,2.0])
         ax.set_ylim((16, -3))
 
+    if smalllims and 'phot_bp_mean_mag' in color0:
+        ax.set_xlim([1,3.6])
+        ax.set_ylim([12.5,5.5])
+    elif smalllims and 'phot_bp_mean_mag' not in color0:
+        raise NotImplementedError
+
     format_ax(ax)
     ax.tick_params(axis='x', which='both', top=False)
 
@@ -1831,9 +1901,14 @@ def plot_hr(
         if 'phot_bp_mean_mag' in color0 else
         get_SpType_GmRp_correspondence
     )
-    sptypes, xtickvals = getter(
-        ['A0V','F0V','G0V','K2V','K5V','M0V','M2V','M4V']
-    )
+    if not smalllims:
+        sptypes, xtickvals = getter(
+            ['A0V','F0V','G0V','K2V','K5V','M0V','M2V','M4V']
+        )
+    else:
+        sptypes, xtickvals = getter(
+            ['K2V','K5V','M0V','M2V','M3V','M4V']
+        )
     print(sptypes)
     print(xtickvals)
 
@@ -1861,6 +1936,12 @@ def plot_hr(
         c0s += f'_redcorr'
     if len(clusters) > 1:
         c0s += '_'+'_'.join(clusters).replace(' ','_')
+    if cleanhrcut:
+        c0s += f'_cleanhrcut'
+    if extinctionmethod:
+        c0s += f'_{extinctionmethod}'
+    if smalllims:
+        c0s += '_smalllims'
 
     outpath = os.path.join(outdir, f'hr{s}{c0s}.png')
 
