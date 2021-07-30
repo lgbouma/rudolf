@@ -4,17 +4,21 @@ Data getters:
         get_deltalyr_kc19_gaia_data
         get_deltalyr_kc19_comovers
         get_deltalyr_kc19_cleansubset
+        get_autorotation_dataframe
     Kepler 1627:
         get_kep1627_kepler_lightcurve
         get_keplerfieldfootprint_dict
         get_flare_df
 
-    Other stellar and cluster datasets:
+    Get other stellar and cluster datasets:
         get_gaia_catalog_of_nearby_stars
         get_clustermembers_cg18_subset
 
     Supplement a set of Gaia stars with extinctions and corrected photometry:
         supplement_gaia_stars_extinctions_corrected_photometry
+
+    Clean Gaia sources based on photometry:
+        get_clean_gaia_photometric_sources
 
 Proposal/RM-related:
     get_simulated_RM_data
@@ -27,6 +31,7 @@ import os, collections, pickle
 import numpy as np, pandas as pd
 from glob import glob
 from copy import deepcopy
+from datetime import datetime
 
 from numpy import array as nparr
 
@@ -556,7 +561,7 @@ def supplement_gaia_stars_extinctions_corrected_photometry(
     return df
 
 
-def get_cleansel(df):
+def get_clean_gaia_photometric_sources(df):
     """
     Given a dataframe of Gaia DR2 columns, apply the "cleaning
     selection" described on page 3 / Appendix B of GaiaCollab+2018 HR
@@ -600,3 +605,301 @@ def get_cleansel(df):
     return sel
 
 
+def get_autorotation_dataframe(runid='deltaLyrCluster', verbose=1,
+                               cleaning='defaultcleaning'):
+    """
+    runid = 'deltaLyrCluster', for example
+
+    Cleaning options:
+        'defaultcleaning' P<15d, LSP>0.1, Nequal==0, Nclose<=1.
+        'harderlsp' P<15d, LSP>0.15, Nequal==0, Nclose<=1.
+        'nocleaning': P<99d.
+        'defaultcleaning_cutProtColor': add Prot-color plane cut to
+            defaultcleaning.
+    """
+
+    assert isinstance(cleaning, str)
+
+    rotdir = os.path.join(DATADIR, 'rotation')
+
+    #FIXME need to create this file for the deltaLyrCluster...
+    # contains all the GAIA 
+    rotpath = os.path.join(rotdir, f'{runid}_rotation_periods.csv')
+    if runid=='deltaLyrCluster' and not os.path.exists(rotpath):
+
+        # NOTE: this is the file provided by Jason Curtis, with the
+        # rotation periods he measured for KC19 cluster members.
+        df = pd.read_csv(
+            os.path.join(rotdir,'Theia73-Prot_Auto_Results.csv')
+        )
+
+        #
+        # get all the gaia information for the cluster...
+        #
+        df_dr2, df_edr3, trgt_df = get_deltalyr_kc19_gaia_data()
+
+        # get mapping between DR2 and EDR3 source_ids
+        path_dr2xedr3 = os.path.join(DATADIR, 'gaia', 'stephenson1_kc19_dr2xedr3.csv')
+        csvpath_dr2xedr3 = os.path.join(DATADIR, 'gaia', 'stephenson1_kc19_dr2xedr3.csv')
+        dr2_x_edr3_df = pd.read_csv(csvpath_dr2xedr3)
+        get_edr3_xm = lambda _df: (
+            _df.sort_values(by='angular_distance').
+            drop_duplicates(subset='dr2_source_id', keep='first')
+        )
+        s_edr3 = get_edr3_xm(dr2_x_edr3_df)
+
+        # merge everything into one table: first get a dataframe with
+        # both DR2 and EDR3 source_ids. then, merge this against
+        # rotation periods.
+        mdf0 = s_edr3.merge(df_edr3, how='left',
+                            left_on='dr3_source_id',
+                            right_on='source_id')
+        assert len(mdf0) == len(df_dr2)
+
+        mdf = mdf0.merge(df, left_on='dr2_source_id',
+                         right_on='Gaia_DR2_Source', how='left')
+
+        #
+        # get T mag using Stassun+2019 Eq1
+        #
+        Tmag_pred = (
+            mdf['phot_g_mean_mag']
+            - 0.00522555 * (mdf['phot_bp_mean_mag'] - mdf['phot_rp_mean_mag'])**3
+            + 0.0891337 * (mdf['phot_bp_mean_mag'] - mdf['phot_rp_mean_mag'])**2
+            - 0.633923 * (mdf['phot_bp_mean_mag'] - mdf['phot_rp_mean_mag'])
+            + 0.0324473
+        )
+
+        mdf['Tmag_pred'] = Tmag_pred
+
+        # good. now, all this dataframe needs to be useable is the
+        # CROWDING metrics.
+
+        # Count how many stars inside the aperture are brighter.
+        from astroquery.mast import Catalogs
+        nequal,nclose,nfaint = [],[],[]
+        ix = 0
+        for ra,dec,TESSMAG in zip(
+            nparr(mdf.ra), nparr(mdf.dec), nparr(mdf.Tmag_pred)
+        ):
+            print(f'{datetime.utcnow().isoformat()}: {ix}/{len(mdf)}...')
+            APSIZE = 1 # assumes radius 1 pixel, fine for crowding
+            radius = APSIZE*21.0*u.arcsec
+            nbhr_stars = Catalogs.query_region(
+                "{} {}".format(float(ra), float(dec)),
+                catalog="TIC",
+                radius=radius
+            )
+            nequal.append(
+                len(nbhr_stars[nbhr_stars['Tmag'] < TESSMAG])
+            )
+            nclose.append(
+                len(nbhr_stars[nbhr_stars['Tmag'] < (TESSMAG+1.25)])
+            )
+            nfaint.append(
+                len(nbhr_stars[nbhr_stars['Tmag'] < (TESSMAG+2.5)])
+            )
+            ix += 1
+
+        mdf['nequal'] = nparr(nequal)
+        mdf['nclose'] = nparr(nclose)
+        mdf['nfaint'] = nparr(nfaint)
+
+        mdf.to_csv(rotpath, index=False)
+
+    df = pd.read_csv(rotpath)
+    if runid == 'deltaLyrCluster':
+        df = append_phot_binary_column(df)
+        df = append_phot_membershipexclude_column(df)
+        # rename from Jason's column names
+        COLDICT = {
+            'Prot_LS_Auto': 'period',
+            'Power_LS_Auto': 'lspval'
+        }
+        df = df.rename(columns=COLDICT)
+
+
+    if cleaning in ['defaultcleaning', 'periodogram_match',
+                    'match234_alias','harderlsp', 'defaultcleaning_cutProtColor']:
+        # automatic selection criteria for viable rotation periods
+        NEQUAL_CUTOFF = 0 # could also do 1
+        NCLOSE_CUTOFF = 1
+        LSP_CUTOFF = 0.10 # standard
+        if cleaning == 'harderlsp':
+            LSP_CUTOFF = 0.15
+        sel = (
+            (df.period < 15)
+            &
+            (df.lspval > LSP_CUTOFF)
+            &
+            (df.nequal <= NEQUAL_CUTOFF)
+            &
+            (df.nclose <= NCLOSE_CUTOFF)
+        )
+        if cleaning == 'defaultcleaning_cutProtColor':
+            assert 0
+            #FIXME
+            from earhart.priors import AVG_EBpmRp
+            BpmRp0 = (
+                df['phot_bp_mean_mag'] - df['phot_rp_mean_mag'] - AVG_EBpmRp
+            )
+            Prot_boundary = PleaidesQuadProtModel(BpmRp0)
+            sel &= (
+                df.period < Prot_boundary
+            )
+
+    elif cleaning in ['nocleaning']:
+        NEQUAL_CUTOFF = 99999
+        NCLOSE_CUTOFF = 99999
+        LSP_CUTOFF = 0
+        sel = (
+            (df.period < 99)
+        )
+    else:
+        raise ValueError(f'Got cleaning == {cleaning}, not recognized.')
+
+    if cleaning in ['defaultcleaning', 'nocleaning', 'harderlsp',
+                    'defaultcleaning_cutProtColor']:
+        pass
+
+    elif cleaning == 'periodogram_match':
+        raise NotImplementedError
+        sel_periodogram_match = (
+            (0.9 < (df.spdmperiod/df.period))
+            &
+            (1.1 > (df.spdmperiod/df.period))
+        )
+        sel &= sel_periodogram_match
+
+    elif cleaning == 'match234_alias':
+        raise NotImplementedError
+        sel_match = (
+            (0.9 < (df.spdmperiod/df.period))
+            &
+            (1.1 > (df.spdmperiod/df.period))
+        )
+        sel_spdm2x = (
+            (1.9 < (df.spdmperiod/df.period))
+            &
+            (2.1 > (df.spdmperiod/df.period))
+        )
+        sel_spdm3x = (
+            (2.9 < (df.spdmperiod/df.period))
+            &
+            (3.1 > (df.spdmperiod/df.period))
+        )
+        sel_spdm4x = (
+            (3.9 < (df.spdmperiod/df.period))
+            &
+            (4.1 > (df.spdmperiod/df.period))
+        )
+        sel &= (
+            sel_match
+            |
+            sel_spdm2x
+            |
+            sel_spdm3x
+            |
+            sel_spdm4x
+        )
+
+    else:
+        raise ValueError(f'Got cleaning == {cleaning}, not recognized.')
+
+    ref_sel = (
+        (df.nequal <= NEQUAL_CUTOFF)
+        &
+        (df.nclose <= NCLOSE_CUTOFF)
+    )
+
+    if verbose:
+        print(f'Getting autorotation dataframe for {runid}...')
+        print(f'Starting with {len(df[ref_sel])} entries that meet NEQUAL and NCLOSE criteria...')
+        print(f'Got {len(df[sel])} entries with P<15d, LSP>{LSP_CUTOFF}, nequal<={NEQUAL_CUTOFF}, nclose<={NCLOSE_CUTOFF}')
+        if cleaning == 'periodogram_match':
+            print(f'...AND required LS and SPDM periods to agree.')
+        elif cleaning == 'match234_alias':
+            print(f'...AND required LS and SPDM periods to agree (up to 1x,2x,3x,4x harmonic).')
+        print(10*'.')
+
+    return df[sel]
+
+
+def append_phot_binary_column(df, DIFFERENCE_CUTOFF=0.3):
+
+    from scipy.interpolate import interp1d
+
+    csvpath = os.path.join(DATADIR, 'gaia',
+                           'deltaLyrCluster_AbsG_BpmRp_empirical_locus_webplotdigitized.csv')
+    ldf = pd.read_csv(csvpath)
+
+    fn_BpmRp_to_AbsG = interp1d(ldf.BpmRp, ldf.AbsG, kind='quadratic',
+                                bounds_error=False, fill_value=np.nan)
+
+    get_yval = (
+        lambda _df: np.array(
+            _df['phot_g_mean_mag'] + 5*np.log10(_df['parallax']/1e3) + 5
+        )
+    )
+    get_xval = (
+        lambda _df: np.array(
+            _df['phot_bp_mean_mag'] - _df['phot_rp_mean_mag']
+        )
+    )
+
+    sel_photbin = (
+        get_yval(df) <
+        ( fn_BpmRp_to_AbsG(get_xval(df)) - DIFFERENCE_CUTOFF)
+    )
+
+    df['is_phot_binary'] = sel_photbin
+
+    maketemp = 1
+    if maketemp:
+        import matplotlib.pyplot as plt
+        plt.close('all')
+        fig,ax=plt.subplots(figsize=(4,3))
+        sel = df.is_phot_binary
+        ax.scatter(
+            get_xval(df), get_yval(df), c='k', zorder=1,s=2
+        )
+        ax.scatter(
+            get_xval(df[sel]), get_yval(df[sel]), c='r', zorder=2,s=2
+        )
+        ax.set_ylim(ax.get_ylim()[::-1])
+        fig.savefig('temp.png')
+        plt.close('all')
+
+    return df
+
+
+def append_phot_membershipexclude_column(df):
+
+    from scipy.interpolate import interp1d
+
+    csvpath = os.path.join(DATADIR, 'gaia',
+                           'deltaLyrCluster_AbsG_BpmRp_empirical_lowerbound_webplotdigitized.csv')
+    ldf = pd.read_csv(csvpath)
+
+    fn_BpmRp_to_AbsG = interp1d(ldf.BpmRp, ldf.AbsG, kind='quadratic',
+                                bounds_error=False, fill_value=np.nan)
+
+    get_yval = (
+        lambda _df: np.array(
+            _df['phot_g_mean_mag'] + 5*np.log10(_df['parallax']/1e3) + 5
+        )
+    )
+    get_xval = (
+        lambda _df: np.array(
+            _df['phot_bp_mean_mag'] - _df['phot_rp_mean_mag']
+        )
+    )
+
+    #signflip because magnitudes
+    sel_phot_nonmember = (
+        get_yval(df) > fn_BpmRp_to_AbsG(get_xval(df))
+    )
+
+    df['is_phot_nonmember'] = sel_phot_nonmember
+
+    return df

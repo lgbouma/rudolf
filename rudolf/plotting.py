@@ -13,6 +13,7 @@ plot_ttv_vs_local_slope
 plot_rotation_period_windowslider
 plot_flare_pair_time_distribution
 plot_hr
+plot_rotationperiod_vs_color
 """
 import os, corner, pickle, inspect
 from glob import glob
@@ -58,7 +59,7 @@ from rudolf.helpers import (
     get_gaia_catalog_of_nearby_stars, get_clustermembers_cg18_subset,
     get_mutau_members, get_ScoOB2_members,
     supplement_gaia_stars_extinctions_corrected_photometry,
-    get_cleansel
+    get_clean_gaia_photometric_sources
 )
 from rudolf.extinction import (
     retrieve_stilism_reddening, append_corrected_gaia_phot_Gagne2020
@@ -1499,7 +1500,7 @@ def plot_hr(
         df.to_csv(outpath, index=False)
     df = pd.read_csv(outpath)
     if cleanhrcut:
-        df = df[get_cleansel(df)]
+        df = df[get_clean_gaia_photometric_sources(df)]
     if reddening_corr:
         print('delta Lyr cluster')
         print(df['reddening[mag][stilism]'].describe())
@@ -1580,7 +1581,7 @@ def plot_hr(
             _df.to_csv(outpath, index=False)
         _df = pd.read_csv(outpath)
         if cleanhrcut:
-            _df = _df[get_cleansel(_df)]
+            _df = _df[get_clean_gaia_photometric_sources(_df)]
         if reddening_corr:
             print('UCL')
             print(_df['reddening[mag][stilism]'].describe())
@@ -1612,7 +1613,7 @@ def plot_hr(
             _df.to_csv(outpath, index=False)
         _df = pd.read_csv(outpath)
         if cleanhrcut:
-            _df = _df[get_cleansel(_df)]
+            _df = _df[get_clean_gaia_photometric_sources(_df)]
         if reddening_corr:
             print('IC2602')
             print(_df['reddening[mag][stilism]'].describe())
@@ -1644,7 +1645,7 @@ def plot_hr(
             _df.to_csv(outpath, index=False)
         _df = pd.read_csv(outpath)
         if cleanhrcut:
-            _df = _df[get_cleansel(_df)]
+            _df = _df[get_clean_gaia_photometric_sources(_df)]
         if reddening_corr:
             print('Pleaides')
             print(_df['reddening[mag][stilism]'].describe())
@@ -1955,6 +1956,216 @@ def plot_hr(
     outpath = os.path.join(outdir, f'hr{s}{c0s}.png')
 
     savefig(f, outpath, dpi=400)
+
+
+def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
+                                 emph_binaries=False, refcluster_only=False,
+                                 talk_aspect=0, xval_absmag=0,
+                                 kinematic_selection=0):
+    """
+    Plot rotation periods that satisfy the automated selection criteria
+    (specified in helpers.get_autorotation_dataframe)
+    """
+
+    set_style()
+
+    from rudolf.paths import DATADIR
+    rotdir = os.path.join(DATADIR, 'rotation')
+
+    # make plot
+    plt.close('all')
+
+    if not talk_aspect:
+        f, ax = plt.subplots(figsize=(4,5))
+    else:
+        f, ax = plt.subplots(figsize=(4,3))
+
+    classes = ['pleiades', 'praesepe', f'{runid}']
+    colors = ['gray', 'gray', 'k']
+    zorders = [-2, -3, -1]
+    markers = ['X', '+', 'o']
+    lws = [0., 0.1, 0.1]
+    mews= [0., 0.5, 0.5]
+    _s = 3 if runid != 'VelaOB2' else 1.2
+    ss = [15, 12, 8]
+    if runid == 'deltaLyrCluster':
+        l = '$\delta$ Lyr cluster'
+    else:
+        raise NotImplementedError
+    labels = ['Pleaides', 'Praesepe', l]
+
+    # plot vals
+    for _cls, _col, z, m, l, _lw, s, mew in zip(
+        classes, colors, zorders, markers, labels, lws, ss, mews
+    ):
+
+        if f'{runid}' not in _cls:
+            t = Table.read(
+                os.path.join(rotdir, 'Curtis_2020_apjabbf58t5_mrt.txt'),
+                format='cds'
+            )
+            if _cls == 'pleiades':
+                df = t[t['Cluster'] == 'Pleiades'].to_pandas()
+            elif _cls == 'praesepe':
+                df = t[t['Cluster'] == 'Praesepe'].to_pandas()
+            else:
+                raise NotImplementedError
+
+        else:
+            from rudolf.helpers import get_autorotation_dataframe
+            auto_df = get_autorotation_dataframe(
+                runid, cleaning=cleaning
+            )
+
+            # match the rotation dataframe against kinematically selected
+            # cluster members, made by plot_hr. apply cleaning criteria to
+            # these
+            csvpath = os.path.join(
+                RESULTSDIR, 'tables', 'deltalyr_kc19_cleansubset_withreddening.csv'
+            )
+            df0 = pd.read_csv(csvpath)
+            df0 = df0[get_clean_gaia_photometric_sources(df0)]
+
+            if kinematic_selection:
+                # nb df0 has EDR3 source_ids...
+                selcols = ['source_id', 'phot_bp_mean_mag_corr',
+                           'phot_rp_mean_mag_corr', 'phot_g_mean_mag_corr']
+                df = pd.DataFrame(df0[selcols]).merge(
+                    auto_df, left_on='source_id', right_on='dr3_source_id',
+                    how='inner'
+                )
+                cstr = '_corr'
+                # NOTE: 
+                # 2021/07/29: 157 of the 278 auto-selected are in the kinematic subset
+            else:
+                df = auto_df
+                cstr = ''
+            # exclude photometric non-members
+            df = df[~df.is_phot_nonmember]
+
+
+        if f'{runid}' not in _cls:
+            key = '(BP-RP)0' if not xval_absmag else 'MGmag'
+            xval = df[key]
+
+        else:
+            if not xval_absmag:
+                xval = (
+                    df['phot_bp_mean_mag'+cstr] - df['phot_rp_mean_mag'+cstr]
+                )
+            else:
+                get_xval = lambda _df: np.array(
+                    _df['phot_g_mean_mag'] + 5*np.log10(_df['parallax']/1e3) + 5
+                )
+                xval = get_xval(df)
+
+        ykey = 'Prot' if f'{runid}' not in _cls else 'period'
+
+        if refcluster_only and f'{runid}' in _cls:
+            pass
+
+        else:
+            ax.scatter(
+                xval,
+                df[ykey],
+                c=_col, alpha=1, zorder=z, s=s, edgecolors='k',
+                marker=m, linewidths=_lw, label=f"{l.replace('_',' ')}"
+            )
+
+        if emph_binaries and f'{runid}' in _cls:
+
+            #
+            # photometric binaries
+            #
+            ax.scatter(
+                xval[df.is_phot_binary],
+                df[df.is_phot_binary][ykey],
+                c='orange', alpha=1, zorder=10, s=s, edgecolors='k',
+                marker='o', linewidths=_lw, label="Photometric binary"
+            )
+
+            #
+            # astrometric binaries
+            #
+            is_astrometric_binary = (df.ruwe > 1.2)
+            df['is_astrometric_binary'] = is_astrometric_binary
+
+            ax.scatter(
+                nparr(xval)[nparr(df.is_astrometric_binary)],
+                df[nparr(df.is_astrometric_binary)][ykey],
+                c='red', alpha=1, zorder=9, s=s, edgecolors='k',
+                marker='o', linewidths=_lw, label="Astrometric binary"
+            )
+
+    ax.set_ylabel('Rotation Period [days]', fontsize='medium')
+
+    if not xval_absmag:
+        ax.set_xlabel('($G_{\mathrm{BP}}-G_{\mathrm{RP}}$)$_0$ [mag]',
+                      fontsize='medium')
+        if 'deltaLyrCluster' in runid:
+            ax.set_xlim((0.2, 2.4))
+        else:
+            ax.set_xlim((0.2, 3.6))
+    else:
+        ax.set_xlabel('Absolute $\mathrm{M}_{G}$ [mag]', fontsize='medium')
+        ax.set_xlim((1.5, 10))
+
+    if yscale == 'linear':
+        ax.set_ylim((0,15))
+    elif yscale == 'log':
+        ax.set_ylim((0.05,15))
+    else:
+        raise NotImplementedError
+    ax.set_yscale(yscale)
+
+    format_ax(ax)
+
+    #
+    # twiny for the SpTypes
+    #
+    tax = ax.twiny()
+    tax.set_xlabel('Spectral Type')
+
+    xlim = ax.get_xlim()
+    if 'deltaLyrCluster' in runid:
+        splist = ['F0V','F5V','G0V','K0V','K3V','K5V','K7V','M0V','M1V','M2V']
+    else:
+        splist = ['F0V','F5V','G0V','K0V','K3V','K6V','M0V','M1V','M3V','M4V']
+    sptypes, BpmRps = get_SpType_BpmRp_correspondence(splist)
+    print(sptypes)
+    print(BpmRps)
+
+    xvals = np.linspace(min(xlim), max(xlim), 100)
+    tax.plot(xvals, np.ones_like(xvals), c='k', lw=0) # hidden, but fixes axis.
+    tax.set_xlim(xlim)
+    ax.set_xlim(xlim)
+
+    tax.set_xticks(BpmRps)
+    tax.set_xticklabels(sptypes, fontsize='x-small')
+
+    tax.xaxis.set_ticks_position('top')
+    tax.tick_params(axis='x', which='minor', top=False)
+    tax.get_yaxis().set_tick_params(which='both', direction='in')
+
+    # fix legend zorder
+    loc = 'best' if yscale == 'linear' else 'lower right'
+    leg = ax.legend(loc=loc, handletextpad=0.1, fontsize='x-small',
+                    framealpha=1.0)
+
+
+    outstr = '_vs_BpmRp'
+    if emph_binaries:
+        outstr += '_emphbinaries'
+    if talk_aspect:
+        outstr += '_talkaspect'
+    if xval_absmag:
+        outstr += '_xvalAbsG'
+    if kinematic_selection:
+        outstr += '_kinematicspatialselected'
+    outstr += f'_{yscale}'
+    outstr += f'_{cleaning}'
+    outpath = os.path.join(outdir, f'{runid}_rotation{outstr}.png')
+    savefig(f, outpath)
 
 
 
