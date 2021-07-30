@@ -20,10 +20,14 @@
 \newcommand{\pn}{Kepler\,1627Ab} % planet name
 
 % gaia target sample numbers
-\newcommand{\nkinematic}{3{,}298} % "fullfaint" kinematic sample, core+halo (CG18+KC19+M21). from any call of earhat.helpers._get_fullfaint_dataframes
-\newcommand{\nnbhd}{13{,}843} % make_compstar_NGC_2516_sourcelist.py
-\newcommand{\ncore}{1{,}106}  % "fullfaint" kinematic sample, CG18. from any call of earhat.helpers._get_fullfaint_dataframes
-\newcommand{\nhalo}{2{,}192} % "fullfaint" kinematic sample, KC19+M21. from any call of earhat.helpers._get_fullfaint_dataframes
+\newcommand{\nkinematic}{1{,}201} % deltalyr_kc19_cleansubset_withreddening.csv
+% all from oneoff_calculate_rotation_numbers.py
+\newcommand{\noriginal}{3{,}071} % Vizier; KC19 Theia 73 member count
+\newcommand{\nwithtess}{924} % How many stars have TESS data?
+\newcommand{\nkinwithtess}{391} % How many kinematically selected stars have TESS data?
+\newcommand{\nkinwithtessandcrowding}{192} % How many kinematically selected stars have TESS data and meeting the crowding cutoff (nequal<=0, nclose<=1)?
+\newcommand{\nkindefaultcleaning}{157} % How many of these meet the "defaultcleaning" criteria (LSP>0.1, Prot<15, and crowding cut)?
+\newcommand{\nrotgood}{147} % nkindefaultcleaning, minus outliers.
 
 
 %
@@ -213,7 +217,7 @@ statistical sample of planets (Section~\ref{sec:conc}).
 		\leavevmode
 		\subfloat{
 			\includegraphics[width=0.49\textwidth]{f15a.pdf}
-			\includegraphics[width=0.49\textwidth]{f15b.pdf}
+			\includegraphics[width=0.469\textwidth]{f15b.pdf}
 		}
 
 		\vspace{-0.5cm}
@@ -229,12 +233,12 @@ statistical sample of planets (Section~\ref{sec:conc}).
     pre-main-sequence.
     The \cn\ and IC\,2602 are approximately the same isochronal age.
     {\it Bottom:} TESS and Kepler rotations periods and dereddened Gaia
-    colors, with the Pleiades
-    \citep[125\,Myr;][]{rebull_rotation_2016a} and Praesepe
-    \citep[650\,Myr;][]{douglas_poking_2017} shown for reference.
-    Stars of a given color (mass) move up through time due to magnetic
-    braking.  The \cn\ has a 40 Myr gyrochronal age, as calibrated
-    against the LDB-age of IC\,2602.  {\bf todo: caption improve.}.
+    colors, with the Pleiades (125\,Myr)
+    and Praesepe (650\,Myr)
+    shown for reference
+    \citep{rebull_rotation_2016a,douglas_poking_2017}.
+    Kepler\,1627 is shown with a yellow star.
+     {\bf todo: caption improve.}.
    \label{fig:age}
 	}
 \end{figure*}
@@ -304,20 +308,61 @@ We quantified this impression following the empirical fitting procedure
 discussed by \citet{gagne_mutau_2020}.
 
 
-\subsection{Rotation Periods}
-%FIXME TODO REFERENCE LOWER PANELS
-{\bf Jason Curtis todo}
-We collected the previously measured
-{\bf XXX} Kepler rotation periods (CITEP MCQUILLAN2014), and measured
-{\bf YYY} new stellar rotation periods for cluster members observed by
-TESS.  We also performed an isochronal analysis.  The results are
-shown in Figure~\ref{fig:age}.  From the ensemble perspective, which
+\subsection{Stellar Rotation Periods}
+
+Of the \noriginal\ candidate \cn\ members reported by
+\citet{kounkel_untangling_2019}, TESS data were available for
+\nwithtess\ stars.  We extracted light curves using the nearest pixel
+to each star, and regressed them against systematics using the causal
+pixel model implemented by \citet{hattorio_2021_cpm} in the
+\texttt{unpopular} package.  We then measured candidate rotation
+periods using a Lomb-Scargle periodogram
+\citep{lomb_1976,scargle_studies_1982,astropy_2018}.  To enable cuts
+on crowding, we queried the Gaia source catalog for stars within a
+$21\farcs0$ radius of the target star (1 TESS pixel).  We recorded the
+number of stars within the aperture with greater brightness than the
+target star, and with brightness within 1.25 and 2.5 TESS magnitudes
+of the target star.  {\bf We then supplemented these measurements with XXX Kepler
+rotation periods (CITEP MCQUILLAN2014)}.
+
+We cleaned the candidate TESS rotation period measurements through a
+combination of automated and manual steps.  As a matter of scope, we
+restricted our attention to the \nkinwithtess\ stars in
+the spatial and kinematic proximity of Kepler\,1627, as discussed in
+Appendix~\ref{app:kinematicselection}.  We also only focused on
+stars for which no companions were known with a brightness exceeding one-tenth of
+the target star within a $21\farcs0$ radius: there were 
+\nkinwithtessandcrowding\ stars that met these requirements, and that
+had TESS data available.
+For plotting purposes we then imposed a selection based on the strength of the
+rotation period signal itself: we required the Lomb Scargle power to
+exceed 0.1, and the period to be below 15\,days.
+
+The lower panel of Figure~\ref{fig:age} shows the resulting
+\nkindefaultcleaning\ stars.  The majority of these stars fall below
+the ``slow sequence'' of the Pleiades, consistent with a
+gyrochronological age for the \cn\ below 100\,Myr.  Approximately 10 stars 
+appear as outliers above the ``slow sequence''.  Assuming that they
+are all false positives ({\it i.e.}, field interlopers), the rotation
+period detection fraction would be
+\nrotgood/\nkinwithtessandcrowding$\approx 77\%$.
+
+Binarity is known to be an important factor in the density of stars
+falling underneath the ``slow sequence''
+\citep{meibom_effect_2007,gillen_ngts_2020,bouma_2021_ngc2516}.
+Appendix~\ref{app:rotationbinarity} discusses this topic, and finds
+evidence for similar effects to those that have been previously
+discussed in the literature.
+
+\subsection{Age of Kepler\,1627}
+
+%FIXME FIXME FIXME
+From the ensemble perspective, which
 provides the strongest constraints (SEE CITET SODERBLOM 2014), the age
 of the star is $XX \pm YY$\,Myr.  Individual measurements of the
 star's rotation period and lithium abundance corroborate this
 conclusion.
 
-For photometric and astrometric binaries, see the appendix!
 
 
 
@@ -877,13 +922,14 @@ website\footnote{\url{https://gea.esac.esa.int/archive/}}.
 
 Figure~\ref{fig:XYZvtang} shows stars reported by
 \citet{kounkel_untangling_2019} to be in the group ``Theia 73'', which
-was cross-matched by \citealt{kounkel_untangling_2019} as being
-``Stephenson 1''.  For our Figure, galactic positions were calculated
-and plotted only for stars with parallax signal-to-noise exceeding 20.
-The location of the Sun is shown on the plots.  The smattering of
-reported cluster members (gray and black points) has a significantly
-different structure that the cluster initially identified by
-\citet{stephenson_possible_1959} and corroborated by
+was cross-matched by Kounkel \& Covey as being ``Stephenson 1''.
+\citet{kounkel_untangling_2019} reported \noriginal\ stars to be
+present in this cluster.  For our Figure, galactic positions were
+calculated and plotted only for stars with parallax signal-to-noise
+exceeding 20.  The location of the Sun is shown on the plots.  The
+smattering of reported cluster members (gray and black points) has a
+significantly different structure that the cluster initially
+identified by \citet{stephenson_possible_1959} and corroborated by
 \citet{eggen_photometric_1968}.  While the non-uniform ``clumps''
 might be part of a real structure, they could also be an artifact of
 the data processing steps performed by
@@ -906,8 +952,52 @@ cluster in the vicinity of Kepler\,1627, and to measure its age.  The
 procedure we have adopted enables both tasks.
 
 \section{Binarity and Stellar Rotation for $\delta$\,Lyr Cluster Members}
+\label{app:rotationbinarity}
 
-f15supp.pdf
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.9\textwidth]{f15supp.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+  \caption{ {\bf Binarity indicators for rotators in \cn.} 
+    Data are as in the lower panel of
+    Figure~\ref{fig:age}.  Astrometric binaries ($\mathrm{RUWE}>1.2$)
+    appear in red; photometric binaries ($>$0.3\,mag above an
+    empirical isochrone; 20\% of stars) are orange.  
+    Over $0.6<\bpmrpo<1.5$, the detected rotation periods in binaries tend to 
+    fall below the slow sequence.
+    %FIXME!
+		% Over $0.5<\bpmrpo<1.3$, Set $\mathcal{B}$ has \replaced{281}{523} stars.
+		% Dividing these stars into ``slow'' and ``fast'' sequences by eye,
+		% the fraction of stars showing signs of binarity in the slow and fast
+		% subsamples are \replaced{30\% (63/210)}{27\% (106/289)} and
+		% \replaced{56\% (40/71)}{51\% (68/134)}, respectively.
+		\label{fig:binarity}
+	}
+\end{figure*}
+
+Figure~\ref{fig:binarity} shows the rotation-color diagram for \cn\
+members, with the points colored according to indicators of binarity.
+The binaries tend to be redder and have shorter rotation periods.  We
+know of two possible explanations based on selection effects, and two
+based on physics.
+
+Possible selection effects include {\it i)} binaries have a component
+that contributes additional red light to the system, which could skew
+the color measurement of the primary; and {\it ii)} the unresolved
+binary companions could contaminate the rotation period measurement
+\citep[{\it e.g.},][Section~5.1]{stauffer_rotation_2016}.
+
+The two possible physical effects that could be relevant are tidal
+locking and pre-main-sequence disk locking.  Tidal locking has been
+argued to be an unlikely explanation for the frequency of rapid
+rotators due to the population statistics; a more likely scenario
+would be that the presence of the binary leads to faster disk
+dispersal, enabling the primary to contract to more rapid rotation
+periods than possible for single stars
+\citep{meibom_effect_2007,bouma_cluster_2020}.
+
 
 
 \section{Transit and Stellar Variability Model}

@@ -1961,7 +1961,8 @@ def plot_hr(
 def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                                  emph_binaries=False, refcluster_only=False,
                                  talk_aspect=0, xval_absmag=0,
-                                 kinematic_selection=0):
+                                 kinematic_selection=0,
+                                 overplotkep1627=0):
     """
     Plot rotation periods that satisfy the automated selection criteria
     (specified in helpers.get_autorotation_dataframe)
@@ -2013,7 +2014,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
 
         else:
             from rudolf.helpers import get_autorotation_dataframe
-            auto_df = get_autorotation_dataframe(
+            auto_df, base_df = get_autorotation_dataframe(
                 runid, cleaning=cleaning
             )
 
@@ -2097,6 +2098,16 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                 marker='o', linewidths=_lw, label="Astrometric binary"
             )
 
+    if overplotkep1627:
+        sel = (df.dr2_source_id == 2103737241426734336)
+        sdf = df[sel]
+        ax.plot(
+            xval[sel], df[sel]['period'], alpha=1, mew=0.5,
+            zorder=9001, label='Kepler 1627',
+            markerfacecolor='yellow', markersize=14, marker='*',
+            color='black', lw=0
+        )
+
     ax.set_ylabel('Rotation Period [days]', fontsize='medium')
 
     if not xval_absmag:
@@ -2111,9 +2122,9 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
         ax.set_xlim((1.5, 10))
 
     if yscale == 'linear':
-        ax.set_ylim((0,15))
+        ax.set_ylim((0,13))
     elif yscale == 'log':
-        ax.set_ylim((0.05,15))
+        ax.set_ylim((0.05,13))
     else:
         raise NotImplementedError
     ax.set_yscale(yscale)
@@ -2162,8 +2173,12 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
         outstr += '_xvalAbsG'
     if kinematic_selection:
         outstr += '_kinematicspatialselected'
+    else:
+        outstr += '_allKC19'
     outstr += f'_{yscale}'
     outstr += f'_{cleaning}'
+    if overplotkep1627:
+        outstr += '_overplotkep1627'
     outpath = os.path.join(outdir, f'{runid}_rotation{outstr}.png')
     savefig(f, outpath)
 

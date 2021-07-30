@@ -17,6 +17,10 @@ Data getters:
     Supplement a set of Gaia stars with extinctions and corrected photometry:
         supplement_gaia_stars_extinctions_corrected_photometry
 
+    Supplement columns:
+        append_phot_binary_column
+        append_phot_membershipexclude_column
+
     Clean Gaia sources based on photometry:
         get_clean_gaia_photometric_sources
 
@@ -822,7 +826,7 @@ def get_autorotation_dataframe(runid='deltaLyrCluster', verbose=1,
             print(f'...AND required LS and SPDM periods to agree (up to 1x,2x,3x,4x harmonic).')
         print(10*'.')
 
-    return df[sel]
+    return df[sel], df
 
 
 def append_phot_binary_column(df, DIFFERENCE_CUTOFF=0.3):
