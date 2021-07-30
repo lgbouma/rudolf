@@ -1658,12 +1658,21 @@ def plot_hr(
 
     if 'μ Tau' in clusters:
         outpath = os.path.join(
-            RESULTSDIR, 'tables', 'muTau_withreddening.csv'
+            RESULTSDIR, 'tables', f'muTau_withreddening_{extinctionmethod}.csv'
         )
         if not os.path.exists(outpath):
             _df = get_mutau_members()
+            _df = _df[~pd.isnull(_df['Gaia'])]
+            _gdf = given_source_ids_get_gaia_data(
+                nparr(_df['Gaia']).astype(np.int64), 'muTau_rudolf',
+                n_max=10000, overwrite=False,
+                enforce_all_sourceids_viable=True, savstr='', whichcolumns='*',
+                gaia_datarelease='gaiadr2'
+            )
+            assert len(_df) == len(_gdf)
+            del _df
             _df = supplement_gaia_stars_extinctions_corrected_photometry(
-                _df, extinctionmethod=extinctionmethod,
+                _gdf, extinctionmethod=extinctionmethod,
                 savpath=os.path.join(RESULTSDIR,'tables','muTau_stilism.csv')
             )
             _df.to_csv(outpath, index=False)
