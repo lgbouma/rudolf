@@ -63,7 +63,7 @@
   observed by the Kepler satellite because it is nearby ($d\approx
   333\,{\rm pc}$) and it resembles the Sun.  Combining Gaia kinematics
   with rotation periods from TESS, we show that Kepler\,1627 is a
-  member of the {\bf $35\pm XX$\,Myr old} $\delta$~Lyr cluster.
+  member of the $35^{+6}_{-5}$\,Myr old $\delta$~Lyr cluster.
   Kepler\,1627Ab is therefore the youngest planet with a precise age
   yet found by the main Kepler mission.  The Kepler
   photometry seems to show two anomalies.  First, unresolved
@@ -177,7 +177,7 @@ validation of close-in mini-Neptune
 \citep{2012ApJS..199...24T,morton_false_2016,thompson_planetary_2018},
 we opted to examine the age of the star and its putative
 host cluster (Section~\ref{sec:cluster}).  We find that the $\delta$
-Lyr cluster is {\bf $\approx35$\,Myr old}, and that \sn\ is indeed a member
+Lyr cluster is $35^{+6}_{-5}$\,Myr old, and that \sn\ is indeed a member
 of the cluster.  Focusing on the planet itself
 (Section~\ref{sec:planet}), we confirm that despite a previously
 unreported binary companion, it is indeed a mini-Neptune orbiting the
@@ -248,10 +248,10 @@ To assess the age of the cluster as well as our star of interest,
 we used a combination of the isochronal, gyrochronal, and
 lithium-based age-dating.
 
-\subsection{HR Diagram}
+\subsection{Color-Magnitude Diagram}
 We meaured the isochrone age using an empirical approach, and also
 compared against theoretical models.  The left panel of
-Figure~\ref{fig:age} shows the HR diagram of stars in the \cn, the
+Figure~\ref{fig:age} shows the color-magnitude diagram (CMD) of stars in the \cn, the
 Pleiades, IC\,2602, and the field.  The stars shown in the \cn\ are
 selected based on their positions and kinematics, as discussed in
 Appendix~\ref{app:kinematicselection}.  Those from the Pleiades and
@@ -260,7 +260,7 @@ field stars are from the Gaia EDR3 Catalog of Nearby Stars
 \citep{gaia_gcns_2021}.  We cleaned these following identical data
 filtering criteria to those discussed in Appendix~B of
 \citet{GaiaCollaboration2018}, except that we loosened the parallax
-precision requirement to $\texttt{parallax\_over\_error}>5$.  These
+precision requirement to $\varpi/\sigma_\varpi>5$.  These
 filters were designed to include genuine binaries while omitting
 instrumental artifacts.  We then corrected for extinction by querying
 the 3-D maps of \citet{capitanio_threedimensional_2017} and
@@ -272,9 +272,7 @@ yielded a respective mean and standard deviation for the reddening of
 $E(B-V)=\{0.020\pm0.003, 0.045\pm0.008, 0.032\pm0.006\}$.  These
 values agree reasonably well with previously reported values from the
 literature \citep[{\it
-e.g.},][]{GaiaCollaboration2018,kounkel_untangling_2019,bossini_age_2019},
-and have the benefit of being sensitive to effects such as
-differential reddening that may be present in the dust maps.
+e.g.},][]{GaiaCollaboration2018,kounkel_untangling_2019,bossini_age_2019}.
 
 % Gaia+2018 E(B-V):
 % Pleiades 0.045, IC2602 0.031
@@ -297,15 +295,48 @@ differential reddening that may be present in the dust maps.
 The immediate impression from the left panel of Figure~\ref{fig:age}
 is that the \cn\ and IC\,2602 share approximately the same isochronal
 age, since they overlap.  In our exploration, we also compared against
-$\mu$-Tau ($\approx 60$\,Myr; \citealt{gagne_mutau_2020}) and subsets
-of the Sco OB2 association ($\approx10$-$15$\,Myr;
-\citealt{damiani_stellar_2019}), and confirmed that the
-pre-main-sequence M dwarfs were intermediate between these two
-clusters.
+$\mu$-Tau ($\approx 60$\,Myr; \citealt{gagne_mutau_2020}) and the
+Upper-Centaurus-Lupus component of the Sco OB2 association (UCL;
+$\approx10$-$15$\,Myr; \citealt{damiani_stellar_2019}).  We confirmed
+that the pre-main-sequence M dwarfs of the \cn\ were intermediate
+between these two clusters.  To quantify this into an age measurement
+with an uncertainty, we adopted the empirical procedure
+advanced by \citet{gagne_mutau_2020} in their Section~6.3.  In brief,
+we parametrized the pre-main-sequence locus of each of a set of
+reference clusters using splines, and the locus of the target \cn\ was
+then fitted as a piecewise linear combination of these reference
+clusters.  As reference clusters, we adopted members of UCL, IC\,2602, and the
+Pleaides from \citet{damiani_stellar_2019} and \cite{CantatGaudin2018a}.
+We removed binaries from each set by requiring
+$\texttt{RUWE}<1.3$, $\texttt{radial\_velocity\_error}$ below the
+80$^{\rm th}$ percentile of each cluster's distribution, and by
+manually excluding stars that were obvious photometric binaries.  We
+then passed a moving box average and standard deviation across the
+CMD in 0.10\,mag bins, fitted a univariate spline to the binned
+values, and assembled a piecewise grid of hybrid isochrones spanning
+the ages between UCL to the Pleiades following Equations~6 and~7 from
+\citet{gagne_mutau_2020}.  
 
-% FIXME FIXME
-We quantified this impression following the empirical fitting procedure
-discussed by \citet{gagne_mutau_2020}.
+The ages calculated from this procedure depend on the ages assumed for
+each reference cluster.
+In our case, the IC\,2602 cluster is most important.
+As noted by \citet{bouma_cluster_2020}, plausible ages for this
+cluster span 30 to 46\,Myr, with slightly older ages being
+preferred by the lithium-depletion-boundary (LDB) measurements and younger
+ages by the main-sequence turn-off
+\citep{stauffer_rotational_1997,dobbie_ic_2010,david_ages_2015,randich_gaiaeso_2018,bossini_age_2019}.
+If we were to adopt the lower 30\,Myr age for IC\,2602, the \cn\ would be
+$31^{+5}_{-4}$\,Myr old.
+For the converse case of the 46\,Myr boundary, the \cn\ would be
+$44^{+8}_{-7}$\,Myr old.
+Taking an intermediate 35\,Myr age as our reference, 
+the resulting age for the \cn\ is
+$35^{+6}_{-5}$\, Myr, though it should be understood based on the
+systematic uncertainties that an age of up to $\approx50$\,Myr remains
+plausible.  A detailed analysis of the LDB and main-sequence
+turn-off in the \cn\ could help clarify the issue, but both are beyond
+our scope.
+
 
 
 \subsection{Stellar Rotation Periods}
