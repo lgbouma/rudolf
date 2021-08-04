@@ -1481,7 +1481,7 @@ def plot_flare_pair_time_distribution(uniq_dists, outpath, ylim=[0,18],
 def plot_hr(
     outdir, isochrone=None, color0='phot_bp_mean_mag', rasterized=False,
     show100pc=0, clusters=['$\delta$ Lyr cluster'], reddening_corr=0,
-    cleanhrcut=1, extinctionmethod='gaia2018', smalllims=0
+    cleanhrcut=1, extinctionmethod='gaia2018', smalllims=0, overplotkep1627=0
 ):
     """
     clusters: ['$\delta$ Lyr cluster', 'IC 2602', 'Pleiades']
@@ -1567,6 +1567,17 @@ def plot_hr(
         s=s, rasterized=False, linewidths=0.1, label=l0, marker='o',
         edgecolors='k'
     )
+
+    if overplotkep1627:
+        sel = (df.source_id == 2103737241426734336)
+        sdf = df[sel]
+        ax.plot(
+            get_xval(df[sel]), get_yval(df[sel]),
+            alpha=1, mew=0.5,
+            zorder=9001, label='Kepler 1627',
+            markerfacecolor='yellow', markersize=11, marker='*',
+            color='black', lw=0
+        )
 
     if 'UCL' in clusters:
         outpath = os.path.join(
@@ -1952,6 +1963,8 @@ def plot_hr(
         c0s += f'_{extinctionmethod}'
     if smalllims:
         c0s += '_smalllims'
+    if overplotkep1627:
+        c0s += '_overplotkep1627'
 
     outpath = os.path.join(outdir, f'hr{s}{c0s}.png')
 
@@ -2159,7 +2172,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     tax.get_yaxis().set_tick_params(which='both', direction='in')
 
     # fix legend zorder
-    loc = 'best' if yscale == 'linear' else 'lower right'
+    loc = 'upper left' if yscale == 'linear' else 'lower right'
     leg = ax.legend(loc=loc, handletextpad=0.1, fontsize='x-small',
                     framealpha=1.0)
 
@@ -2179,6 +2192,8 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     outstr += f'_{cleaning}'
     if overplotkep1627:
         outstr += '_overplotkep1627'
+    if refcluster_only:
+        outstr += '_refclusteronly'
     outpath = os.path.join(outdir, f'{runid}_rotation{outstr}.png')
     savefig(f, outpath)
 

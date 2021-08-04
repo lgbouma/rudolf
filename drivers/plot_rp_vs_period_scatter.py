@@ -141,16 +141,32 @@ def plot_rp_vs_period_scatter(
 
         _p = ax.scatter(
             period[s1], rp[s1],
-            c=np.log10(age[s1]), alpha=1, zorder=2, s=10, edgecolors='k',
+            c=np.log10(age[s1]), alpha=1, zorder=2, s=13, edgecolors='k',
             marker='o', cmap=cmap, linewidths=0.3, norm=norm
         )
 
         if add_kep1627:
-            ax.scatter(
-                7.2028, 3.52,
-                c=np.log10(3.5e7), alpha=1, zorder=2, s=90, edgecolors='k',
-                marker='*', cmap=cmap, linewidths=0.3, norm=norm,
-            )
+            namelist = ['Kepler-1627']
+            ages = [3.5e7]
+
+            # NOTE: Rp is a bit off in this...
+            for n, a in zip(namelist, ages):
+                sel = ea_df.hostname == n
+
+                _sdf = ea_df[sel]
+                _rp = _sdf.pl_rade
+                _per= _sdf.pl_orbper
+                _age = np.ones(len(_sdf))*a
+
+                if n == 'Kepler-1627':
+                    _rp = (0.314*u.Rjup).to(u.Rearth).value
+
+                ax.scatter(
+                    _per, _rp,
+                    c=np.log10(_age), alpha=1, zorder=2, s=110, edgecolors='k',
+                    marker='*', cmap=cmap, linewidths=0.3, norm=norm
+                )
+
 
         if add_allkep:
             # Kepler-52 and Kepler-968
@@ -165,9 +181,12 @@ def plot_rp_vs_period_scatter(
                 _per= _sdf.pl_orbper
                 _age = np.ones(len(_sdf))*a
 
+                if n == 'Kepler-1627':
+                    _rp = (0.314*u.Rjup).to(u.Rearth).value
+
                 ax.scatter(
                     _per, _rp,
-                    c=np.log10(_age), alpha=1, zorder=2, s=90, edgecolors='k',
+                    c=np.log10(_age), alpha=1, zorder=2, s=110, edgecolors='k',
                     marker='*', cmap=cmap, linewidths=0.3, norm=norm
                 )
 
@@ -256,7 +275,10 @@ def plot_rp_vs_period_scatter(
     ax.set_xlabel('Orbital period [days]')
     ax.set_ylabel('Planet radius [Earths]')
 
-    ax.set_xlim([0.1, 110000])
+    if showss:
+        ax.set_xlim([0.1, 110000])
+    else:
+        ax.set_xlim([0.1, 1100])
     #ax.set_ylim([0.0001*318, 100*318])
     #ax.set_ylim([0.0001*318, 100*318])
     format_ax(ax)
@@ -296,15 +318,19 @@ def plot_rp_vs_period_scatter(
 
 if __name__=='__main__':
 
-    plot_rp_vs_period_scatter(
-        showlegend=0, colorbydisc=0, showarchetypes=0, showss=1, colorbyage=1,
-        verbose=1, add_kep1627=1
-    )
-
-    plot_rp_vs_period_scatter(
-        showlegend=0, colorbydisc=0, showarchetypes=0, showss=1, colorbyage=1,
-        verbose=0, add_kep1627=0, add_allkep=1
-    )
+    for showss in [0,1]:
+        plot_rp_vs_period_scatter(
+            showlegend=0, colorbydisc=0, showarchetypes=0, showss=showss, colorbyage=1,
+            verbose=1, add_kep1627=0
+        )
+        plot_rp_vs_period_scatter(
+            showlegend=0, colorbydisc=0, showarchetypes=0, showss=showss, colorbyage=1,
+            verbose=1, add_kep1627=1
+        )
+        plot_rp_vs_period_scatter(
+            showlegend=0, colorbydisc=0, showarchetypes=0, showss=showss, colorbyage=1,
+            verbose=0, add_kep1627=0, add_allkep=1
+        )
 
     plot_rp_vs_period_scatter(
         showlegend=0, colorbydisc=0, showarchetypes=0, showss=1, colorbyage=1,
