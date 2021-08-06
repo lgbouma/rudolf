@@ -58,13 +58,13 @@
 
 % 195 words (250 max)
 \begin{abstract}
-  Kepler\,1627A is a G8V star previously found to host a
+  Kepler\,1627A is a G8V star previously known to host a
   $3.6\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  The star was
   observed by the Kepler satellite because it is nearby ($d\approx
   333\,{\rm pc}$) and it resembles the Sun.  Combining Gaia kinematics
   with rotation periods from TESS, we show that Kepler\,1627 is a
   member of the $35^{+6}_{-5}$\,Myr old $\delta$~Lyr cluster.
-  Kepler\,1627Ab is therefore the youngest planet with a precise age
+  To our knowledge, Kepler\,1627Ab is therefore the youngest planet with a precise age
   yet found by the main Kepler mission.  The Kepler
   photometry seems to show two anomalies.  First, unresolved
   starspot-crossing events distort the average transit shape, and
@@ -123,13 +123,14 @@ makes it difficult to test origin theories for the different
 families of planets, since many evolutionary processes are expected to
 operate on timescales of less than 100 million years.
 
+%TODO: might want to revise this text to better frame the boil-off phase...
 %TODO: better citations on radius evolution?
 For instance, the ``mini-Neptunes'', thought to be made of
 molten rocky cores \citep{kite_atmosphere_2020} and extended atmospheric envelopes of hydrogen and
 helium, are expected to shrink in size by factors of several over
 their first $10^8$ years
-\citep{owen_constraining_2020}.  Specifically,
-they start with sizes of 4--12\,$R_\oplus$ at the time of disk
+\citep{owen_atmospheres_2016,owen_constraining_2020}.  Specifically,
+they start with sizes of 4--12\,$R_\oplus$ near the time of disk
 dispersal ($\lesssim$$10^7$\,years), and shrink to sizes of
 2--4\,$R_\oplus$ by 10$^8$ years.  This change is driven by a
 combination of stellar irradiation and internal heat that powers an
@@ -170,18 +171,18 @@ portion of the $\delta$\,Lyr cluster
 Figure~\ref{fig:skychart} shows the overlap between the Kepler field
 and the cluster.
 
-A previous HDBScan-based clustering analysis of the Gaia data found
-that Kepler\,1627 (KIC 6184894; KOI 5245; TIC 120105470) was a member
+A previous clustering analysis of the Gaia data reported
+that Kepler\,1627 (KIC 6184894; KOI 5245; TIC 120105470) is a member
 of the \cn\ \citep{kounkel_untangling_2019}.  Given the statistical
-validation of close-in mini-Neptune
+validation of its close-in mini-Neptune
 \citep{2012ApJS..199...24T,morton_false_2016,thompson_planetary_2018},
-we opted to examine the age of the star and its putative
-host cluster (Section~\ref{sec:cluster}).  We find that the $\delta$
+we examined the age of the star and its putative
+host cluster most closely (Section~\ref{sec:cluster}).  We find that the $\delta$
 Lyr cluster is $35^{+6}_{-5}$\,Myr old, and that \sn\ is indeed a member
 of the cluster.  Focusing on the planet itself
 (Section~\ref{sec:planet}), we confirm that despite a previously
 unreported binary companion, it is indeed a mini-Neptune orbiting the
-roughly Solar-type primary star.  The presence of a correlation
+G-dwarf primary star.  The presence of a correlation
 between transit timing variations and the local light curve slope
 renders any other explanation implausible.  We conclude by
 highlighting some broader implications for our ability to age-date a
@@ -249,24 +250,25 @@ we used a combination of the isochronal, gyrochronal, and
 lithium-based age-dating.
 
 \subsection{Color-Magnitude Diagram}
-We meaured the isochrone age using an empirical approach, and also
-compared against theoretical models.  The left panel of
-Figure~\ref{fig:age} shows the color-magnitude diagram (CMD) of stars in the \cn, the
-Pleiades, IC\,2602, and the field.  The stars shown in the \cn\ are
-selected based on their positions and kinematics, as discussed in
-Appendix~\ref{app:kinematicselection}.  Those from the Pleiades and
-IC\,2602 are adopted from \citet{cantatgaudin_gaia_2018}, and the
-field stars are from the Gaia EDR3 Catalog of Nearby Stars
-\citep{gaia_gcns_2021}.  We cleaned these following identical data
-filtering criteria to those discussed in Appendix~B of
-\citet{GaiaCollaboration2018}, except that we loosened the parallax
-precision requirement to $\varpi/\sigma_\varpi>5$.  These
+\label{sec:cmd}
+
+We meaured the isochrone age using an empirical approach.  The left
+panel of Figure~\ref{fig:age} shows the color-magnitude diagram (CMD)
+of stars in the \cn, IC\,2602, the Pleiades, and the field.  The stars
+shown in the \cn\ are selected based on their positions and
+kinematics, as discussed in Appendix~\ref{app:kinematicselection}.
+Those from the Pleiades and IC\,2602 are adopted from
+\citet{cantatgaudin_gaia_2018}, and the field stars are from the Gaia
+EDR3 Catalog of Nearby Stars \citep{gaia_gcns_2021}.  We cleaned these
+following identical data filtering criteria discussed in
+Appendix~B of \citet{GaiaCollaboration2018}, except that we weakened
+the parallax precision requirement to $\varpi/\sigma_\varpi>5$.  These
 filters were designed to include genuine binaries while omitting
 instrumental artifacts.  We then corrected for extinction by querying
-the 3-D maps of \citet{capitanio_threedimensional_2017} and
+the 3-dimensional maps of \citet{capitanio_threedimensional_2017} and
 \citet{lallement_threedimensional_2018}\footnote{\url{https://stilism.obspm.fr/}},
-and by then using the extinction coefficients $k_X\equiv A_X/A_0$
-computed by \citet{GaiaCollaboration2018}, while assuming that $A_0 =
+and by then applying the extinction coefficients $k_X\equiv A_X/A_0$
+computed by \citet{GaiaCollaboration2018} while assuming that $A_0 =
 3.1 E(B-V)$.  For IC\,2602, the Pleaides, and the \cn, this procedure
 yielded a respective mean and standard deviation for the reddening of
 $E(B-V)=\{0.020\pm0.003, 0.045\pm0.008, 0.032\pm0.006\}$.  These
@@ -292,48 +294,49 @@ e.g.},][]{GaiaCollaboration2018,kounkel_untangling_2019,bossini_age_2019}.
 
 %FIXME FIXME TODO TODO get the ages measured
 
-The immediate impression from the left panel of Figure~\ref{fig:age}
-is that the \cn\ and IC\,2602 share approximately the same isochronal
-age, since they overlap.  In our exploration, we also compared against
+The immediate impression from Figure~\ref{fig:age}
+is that the \cn\ and IC\,2602 overlap, and therefore are approximately the same isochronal
+age.  In our exploration, we also compared against
 $\mu$-Tau ($\approx 60$\,Myr; \citealt{gagne_mutau_2020}) and the
 Upper-Centaurus-Lupus component of the Sco OB2 association (UCL;
-$\approx10$-$15$\,Myr; \citealt{damiani_stellar_2019}).  We confirmed
-that the pre-main-sequence M dwarfs of the \cn\ were intermediate
-between these two clusters.  To quantify this into an age measurement
+$\approx10$-$15$\,Myr; \citealt{damiani_stellar_2019}).  
+The pre-main-sequence M dwarfs of the \cn\ were intermediate
+between these latter two clusters.  To quantify this into an age measurement
 with an uncertainty, we adopted the empirical procedure
-advanced by \citet{gagne_mutau_2020} in their Section~6.3.  In brief,
-we parametrized the pre-main-sequence locus of each of a set of
-reference clusters using splines, and the locus of the target \cn\ was
-then fitted as a piecewise linear combination of these reference
-clusters.  As reference clusters, we adopted members of UCL, IC\,2602, and the
-Pleaides from \citet{damiani_stellar_2019} and \cite{CantatGaudin2018a}.
-We removed binaries from each set by requiring
+developed by \citet{gagne_mutau_2020} in their Section~6.  In brief,
+we fitted the pre-main-sequence loci of a set of
+reference clusters, and the locus of the target \cn\ was
+then modeled as a piecewise linear combination of these reference
+clusters.  For our reference clusters, we adopted members of UCL, IC\,2602, and the
+Pleaides from \citet{damiani_stellar_2019} and
+\cite{CantatGaudin2018a} respectively.
+We removed binaries by requiring
 $\texttt{RUWE}<1.3$, $\texttt{radial\_velocity\_error}$ below the
 80$^{\rm th}$ percentile of each cluster's distribution, and by
-manually excluding stars that were obvious photometric binaries.  We
-then passed a moving box average and standard deviation across the
-CMD in 0.10\,mag bins, fitted a univariate spline to the binned
-values, and assembled a piecewise grid of hybrid isochrones spanning
-the ages between UCL to the Pleiades following Equations~6 and~7 from
-\citet{gagne_mutau_2020}.  
+manually excluding stars that were obvious photometric binaries in the
+CMD.  We then passed a moving box average and standard deviation
+across the CMD in 0.10\,mag bins, fitted a univariate spline to the
+binned values, and assembled a piecewise grid of hybrid isochrones
+spanning the ages between UCL to the Pleiades following Equations~6
+and~7 from \citet{gagne_mutau_2020}.  
 
-The ages calculated from this procedure depend on the ages assumed for
+The ages returned by this procedure depend on the ages assumed for
 each reference cluster.
 In our case, the IC\,2602 cluster is most important.
-As noted by \citet{bouma_cluster_2020}, plausible ages for this
-cluster span 30 to 46\,Myr, with slightly older ages being
-preferred by the lithium-depletion-boundary (LDB) measurements and younger
-ages by the main-sequence turn-off
+As noted by \citet{bouma_cluster_2020}, plausible ages for IC\,2602
+span 30\,Myr to 46\,Myr, with slightly older ages being preferred by the
+lithium-depletion-boundary (LDB) measurements and younger ages by the
+main-sequence turn-off
 \citep{stauffer_rotational_1997,dobbie_ic_2010,david_ages_2015,randich_gaiaeso_2018,bossini_age_2019}.
-If we were to adopt the lower 30\,Myr age for IC\,2602, the \cn\ would be
+If we were to adopt the 30\,Myr age for IC\,2602, then the \cn\ would be
 $31^{+5}_{-4}$\,Myr old.
-For the converse case of the 46\,Myr boundary, the \cn\ would be
+For the converse case of 46\,Myr, the \cn\ would be
 $44^{+8}_{-7}$\,Myr old.
-Taking an intermediate 35\,Myr age as our reference, 
-the resulting age for the \cn\ is
+We adopt an intermediate 35\,Myr age as our reference, 
+yielding an age for the \cn\ of
 $35^{+6}_{-5}$\, Myr, though it should be understood based on the
 systematic uncertainties that an age of up to $\approx50$\,Myr remains
-plausible.  A detailed analysis of the LDB and main-sequence
+plausible.  Detailed analyses of the LDB or main-sequence
 turn-off in the \cn\ could help clarify the issue, but both are beyond
 our scope.
 
@@ -345,8 +348,8 @@ Of the \noriginal\ candidate \cn\ members reported by
 \citet{kounkel_untangling_2019}, TESS data were available for
 \nwithtess\ stars.  We extracted light curves using the nearest pixel
 to each star, and regressed them against systematics using the causal
-pixel model implemented by \citet{hattorio_2021_cpm} in the
-\texttt{unpopular} package.  We then measured candidate rotation
+pixel model implemented in the \texttt{unpopular} package
+\citep{hattorio_2021_cpm}.  We then measured candidate rotation
 periods using a Lomb-Scargle periodogram
 \citep{lomb_1976,scargle_studies_1982,astropy_2018}.  To enable cuts
 on crowding, we queried the Gaia source catalog for stars within a
@@ -386,6 +389,18 @@ evidence for similar effects to those that have been previously
 discussed in the literature.
 
 \subsection{Age of Kepler\,1627}
+
+Kinematics are reasonably compelling
+(Appendix~\ref{app:kinematicselection}).
+HR diagram in and of itself doesn't give any age information about the
+star.   (Could quote funny literature isochrone ages).
+Rotation is informative, and is consistent with cluster.
+Final point: Lithium.  Quote your EW. 
+All together, pretty good.  We adopt the age based on the pre-main-sequence
+empirical fitting procedure from Section~\ref{sec:cmd}:
+$35^{+6}_{-5}$\, Myr.
+
+
 
 %FIXME FIXME FIXME
 From the ensemble perspective, which
