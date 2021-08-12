@@ -2,18 +2,24 @@
 plot_TEMPLATE
 
 plot_ruwe_vs_apparentmag
-plot_simulated_RM
 plot_skychart
 plot_XYZvtang
-plot_keplerlc
-    _plot_zoom_light_curve
-plot_flare_checker
-plot_ttv
-plot_ttv_vs_local_slope
-plot_rotation_period_windowslider
-plot_flare_pair_time_distribution
 plot_hr
 plot_rotationperiod_vs_color
+
+Kepler phot:
+    plot_keplerlc
+        _plot_zoom_light_curve
+    plot_flare_checker
+    plot_ttv
+    plot_ttv_vs_local_slope
+    plot_rotation_period_windowslider
+    plot_flare_pair_time_distribution
+
+RM:
+    plot_simulated_RM
+    plot_RM
+
 """
 import os, corner, pickle, inspect
 from glob import glob
@@ -41,7 +47,12 @@ from matplotlib.ticker import MaxNLocator
 from aesthetic.plot import savefig, format_ax, set_style
 
 from astrobase.services.identifiers import gaiadr2_to_tic
-from astrobase.lcmath import phase_magseries
+from astrobase.lcmath import (
+    phase_magseries, phase_magseries_with_errs, phase_bin_magseries,
+    phase_bin_magseries_with_errs, sigclip_magseries, find_lc_timegroups,
+    phase_magseries_with_errs, time_bin_magseries
+)
+
 from cdips.utils.gaiaqueries import (
     given_source_ids_get_gaia_data, parallax_to_distance_highsn
 )
@@ -2196,6 +2207,356 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
         outstr += '_refclusteronly'
     outpath = os.path.join(outdir, f'{runid}_rotation{outstr}.png')
     savefig(f, outpath)
+
+
+
+def plot_RM(outdir, N_mcmc=20000):
+
+    import rmfit # Gudmundur Stefansson's RM fitting package
+
+    rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs.csv')
+    outdir = os.path.join(RESULTSDIR, 'RM')
+    df = pd.read_csv(rvpath)
+
+    # quick check
+    plt.close('all')
+    set_style()
+    fig, ax = plt.subplots(figsize=(4,3))
+
+    # first data
+    ax.errorbar(
+        df.bjd - 2459433, df.rv, df.e_rv,
+        marker='o', elinewidth=0.5, capsize=4, lw=0, mew=0.5, color='k',
+        markersize=3, zorder=5
+    )
+
+
+    # t0 = 2454953.790531
+    # p = 7.20280608
+    # epoch 622, 
+    #
+    # so transit hapepned at t_622= 2459433.93591276
+    # with a formal uncertainty of ~1.1 minutes. Boost it to ~2.2.
+
+    ax.set_xlabel('JD - 2459433 [days]')
+    ax.set_ylabel('RV [m/s]')
+    outpath = os.path.join(outdir, f'kepler_1627_20210809_rvs.png')
+    savefig(fig, outpath, dpi=400)
+    plt.close('all')
+
+    cachepath = os.path.join(outdir, f'rmfit_cache_Kepler1627.pkl')
+    medpath = os.path.join(
+        outdir, f'rmfit_median_posterior_values_Kepler1627.csv'
+    )
+
+    if not os.path.exists(cachepath):
+
+        # read priors from file
+        priorpath = os.path.join(outdir, f'Kepler1627_priors.dat')
+        L = rmfit.rmfit.LPFunction(df.bjd.values, df.rv.values, df.e_rv.values, priorpath)
+        TF = rmfit.rmfit.RMFit(L)
+        # max likelihood fit
+        TF.minimize_PyDE(mcmc=False)
+
+        # plot best-fit
+        outpath = os.path.join(outdir, f'rmfit_maxlikelihood.pdf')
+        TF.plot_fit(TF.min_pv)
+        plt.savefig(outpath)
+        plt.close('all')
+
+        # N=1000 mcmc iterations
+        L = rmfit.rmfit.LPFunction(df.bjd.values,df.rv.values,df.e_rv.values, priorpath)
+        TF = rmfit.rmfit.RMFit(L)
+        TF.minimize_PyDE(mcmc=True, mc_iter=N_mcmc)
+
+        # Plot the median MCMC fit
+        outpath = os.path.join(outdir, f'rmfit_mcmcbest.pdf')
+        TF.plot_mcmc_fit()
+        plt.savefig(outpath)
+        plt.close('all')
+
+        # The min values are recorded in the following attribute
+        print(TF.min_pv_mcmc)
+
+        # plot chains
+        rmfit.mcmc_help.plot_chains(TF.sampler.chain,labels=TF.lpf.ps_vary.labels)
+        outpath = os.path.join(outdir, f'rmfit_chains.pdf')
+        plt.savefig(outpath)
+        plt.close('all')
+
+        # Make flatchain and posteriors
+        burnin_index = 200
+        chains_after_burnin = TF.sampler.chain[:,burnin_index:,:]
+        flatchain = chains_after_burnin.reshape((-1,len(TF.lpf.ps_vary.priors)))
+        df_post = pd.DataFrame(flatchain,columns=TF.lpf.ps_vary.labels)
+        print(df_post)
+
+        # Assess convergence, should be close to 1 (usually within a few percent, if not, then rerun MCMC with more steps)
+        # This example for example would need a lot more steps, but keeping steps fewer for a quick minimal example
+        # Usually good to let it run for 10000 - 20000 steps for a 'production run'
+        print(42*'.')
+        print('Gelman Rubin statistic, Rhat. Near 1?')
+        print(rmfit.mcmc_help.gelman_rubin(chains_after_burnin))
+        print(42*'.')
+
+        # Plot corner plot
+        fig = rmfit.mcmc_help.plot_corner(chains_after_burnin,
+                                          show_titles=True,labels=np.array(TF.lpf.ps_vary.descriptions),title_fmt='.1f',xlabcord=(0.5, -0.2))
+        outpath = os.path.join(outdir, f'rmfit_corner_full.png')
+        savefig(fig, outpath, dpi=100)
+        plt.close('all')
+
+        # Narrow down on the lambda and vsini
+        import corner
+        fig = corner.corner(df_post[['lam_p1','vsini']],show_titles=True,quantiles=[0.18,0.5,0.84])
+        outpath = os.path.join(
+            outdir, f'rmfit_corner_lambda_vsini.png'
+        )
+        savefig(fig, outpath, dpi=300)
+        plt.close('all')
+
+        # Print median values
+        df_medvals = TF.get_mean_values_mcmc_posteriors(df_post.values)
+        df_medvals.to_csv(medpath, index=False)
+
+        with open(cachepath, "wb") as f:
+            pickle.dump({'TF':TF, 'flatchain':flatchain}, f)
+
+    with open(cachepath, "rb") as f:
+        d = pickle.load(f)
+    TF = d['TF']
+    flatchain = d['flatchain']
+    df_medvals = pd.read_csv(medpath)
+
+    ##########################################
+    # The Money Figure
+    # needs: TF, flatchain, df_medvals
+    ##########################################
+    TITLE = 'Kepler 1627 Ab'
+    NUMMODELS = 400
+    shadecolor="black"
+    # 2459433
+    #T0 = 2454953.790531
+    tmid = 2459433.93591276
+
+    #scale_x = lambda x : (x-tmid)*24  # if in hours
+    scale_x = lambda x : (x-int(tmid))
+
+    times1 = np.linspace(TF.lpf.data['x'][0]-0.02,TF.lpf.data['x'][-1]+0.02,500)
+    pv_50 = np.percentile(flatchain,[50],axis=0)[0]
+    t1_mod = np.linspace(times1.min()-0.02,times1.max()+0.02,300)
+    rv_50 = TF.lpf.compute_total_model(pv_50,t1_mod)
+
+    plt.close('all')
+    mpl.rcParams.update(mpl.rcParamsDefault)
+    set_style()
+    fig, ax = plt.subplots(figsize=(4,3))
+
+    # first data
+    ax.errorbar(
+        scale_x(TF.lpf.data['x']), TF.lpf.data['y'], TF.lpf.data['error'],
+        marker='o', elinewidth=0.5, capsize=4, lw=0, mew=0.5, color='k',
+        markersize=3, zorder=5
+    )
+
+    ax.plot(scale_x(t1_mod), rv_50, color="crimson", lw=2., zorder=4)
+
+    # then models
+    mmodel1 = []
+    for i in range(NUMMODELS):
+        if i%100 == 0: print("Sampling, i=",i)
+        idx = np.random.randint(0, flatchain.shape[0])
+        m1 = TF.lpf.compute_total_model(flatchain[idx],times=t1_mod)
+        mmodel1.append(m1)
+    mmodel1 = np.array(mmodel1)
+
+    ax.fill_between(scale_x(t1_mod), np.quantile(mmodel1,0.16,axis=0),
+                    np.quantile(mmodel1,0.84,axis=0), alpha=0.1,
+                    color=shadecolor, lw=0, label='1$\sigma$',zorder=-1)
+    ax.fill_between(scale_x(t1_mod), np.quantile(mmodel1,0.02,axis=0),
+                    np.quantile(mmodel1,0.98,axis=0), alpha=0.1,
+                    color=shadecolor, lw=0, label='2$\sigma$', zorder=-1)
+    ax.fill_between(scale_x(t1_mod), np.quantile(mmodel1,0.0015,axis=0),
+                    np.quantile(mmodel1,0.9985,axis=0), alpha=0.1,
+                    color=shadecolor, lw=0, label='3$\sigma$', zorder=-1)
+
+    sdf = df_medvals[df_medvals.Labels == 'lam_p1']
+    #from rudolf.helpers import ORIENTATIONTRUTHDICT
+    txt = (
+        #'$\lambda_\mathrm{inj}=$'+f'{ORIENTATIONTRUTHDICT[orientation]:.1f}'+'$\!^\circ$'
+        '$\lambda_\mathrm{fit}=$'+f'{str(sdf["values"].iloc[0])}'+'$^\circ$'
+    )
+    ax.text(0.03,0.03,txt,
+            transform=ax.transAxes,
+            ha='left',va='bottom', color='crimson')
+
+    ax.set_xlabel(f'JD - {int(tmid)}')
+    #ax.set_xlabel(f'Time from transit [hours]')
+    ax.set_ylabel('RV [m/s]')
+
+    outpath = os.path.join(outdir, f'rmfit_moneyplot.png')
+    savefig(fig, outpath, dpi=400)
+    plt.close('all')
+
+
+def plot_RM_and_phot(outdir):
+    # NOTE: assumes plot_RM has been run
+
+    import rmfit # Gudmundur Stefansson's RM fitting package
+
+    rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs.csv')
+    outdir = os.path.join(RESULTSDIR, 'RM')
+    df = pd.read_csv(rvpath)
+
+    cachepath = os.path.join(outdir, f'rmfit_cache_Kepler1627.pkl')
+    medpath = os.path.join(
+        outdir, f'rmfit_median_posterior_values_Kepler1627.csv'
+    )
+
+    with open(cachepath, "rb") as f:
+        d = pickle.load(f)
+    TF = d['TF']
+    flatchain = d['flatchain']
+    df_medvals = pd.read_csv(medpath)
+
+    ##########################################
+    # The Money Figure
+    # needs: TF, flatchain, df_medvals
+    ##########################################
+    NUMMODELS = 400
+    shadecolor="black"
+
+    tmid = 2459433.93591276
+    t_ing = tmid - (0.5*2.823/24)
+    t_egr = tmid + (0.5*2.823/24)
+
+    scale_x = lambda x : (x-int(tmid))
+
+    times1 = np.linspace(TF.lpf.data['x'][0]-0.02,TF.lpf.data['x'][-1]+0.02,500)
+    pv_50 = np.percentile(flatchain,[50],axis=0)[0]
+    t1_mod = np.linspace(times1.min()-0.02,times1.max()+0.02,300)
+    rv_50 = TF.lpf.compute_total_model(pv_50,t1_mod)
+
+    plt.close('all')
+    mpl.rcParams.update(mpl.rcParamsDefault)
+    set_style()
+    fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(4,5), sharex=True)
+
+    ax = axs[0]
+
+    # first data
+    ax.errorbar(
+        scale_x(TF.lpf.data['x']), TF.lpf.data['y'], TF.lpf.data['error'],
+        marker='o', elinewidth=0.5, capsize=4, lw=0, mew=0.5, color='k',
+        markersize=3, zorder=5
+    )
+
+    ax.plot(scale_x(t1_mod), rv_50, color="crimson", lw=1., zorder=4)
+
+    # then models
+    mmodel1 = []
+    for i in range(NUMMODELS):
+        if i%100 == 0: print("Sampling, i=",i)
+        idx = np.random.randint(0, flatchain.shape[0])
+        m1 = TF.lpf.compute_total_model(flatchain[idx],times=t1_mod)
+        mmodel1.append(m1)
+    mmodel1 = np.array(mmodel1)
+
+    ax.fill_between(scale_x(t1_mod), np.quantile(mmodel1,0.16,axis=0),
+                    np.quantile(mmodel1,0.84,axis=0), alpha=0.1,
+                    color=shadecolor, lw=0, label='1$\sigma$',zorder=-1)
+    ax.fill_between(scale_x(t1_mod), np.quantile(mmodel1,0.02,axis=0),
+                    np.quantile(mmodel1,0.98,axis=0), alpha=0.1,
+                    color=shadecolor, lw=0, label='2$\sigma$', zorder=-1)
+    ax.fill_between(scale_x(t1_mod), np.quantile(mmodel1,0.0015,axis=0),
+                    np.quantile(mmodel1,0.9985,axis=0), alpha=0.1,
+                    color=shadecolor, lw=0, label='3$\sigma$', zorder=-1)
+
+    sdf = df_medvals[df_medvals.Labels == 'lam_p1']
+    #from rudolf.helpers import ORIENTATIONTRUTHDICT
+    txt = (
+        #'$\lambda_\mathrm{inj}=$'+f'{ORIENTATIONTRUTHDICT[orientation]:.1f}'+'$\!^\circ$'
+        '$\lambda_\mathrm{fit}=$'+f'{str(sdf["values"].iloc[0])}'+'$^\circ$'
+    )
+    props = dict(boxstyle='square', facecolor='white', alpha=0.95, pad=0.15,
+                 linewidth=0)
+    ax.text(0.03,0.03,txt,
+            transform=ax.transAxes, bbox=props,
+            ha='left',va='bottom', color='crimson', zorder=1)
+
+    ax.set_ylabel('RV [m/s]')
+    ax.set_ylim([-400,600])
+
+    #
+    # NEXT: the photometry 
+    #
+    ax = axs[1]
+
+    from rudolf.paths import PHOTDIR
+
+    bandpasses = 'g,r,i,z'.split(',')
+    colors = 'blue,green,orange,red'.split(',')
+
+    shift = 0
+    delta = 0.007
+    for bp, c in zip(bandpasses,colors):
+        lcpath = glob(
+            os.path.join(PHOTDIR, 'MUSCAT3', f'*muscat3_{bp}_*csv')
+        )[0]
+        df = pd.read_csv(lcpath)
+
+        _time, _flux = nparr(df.BJD_TDB), nparr(df.Flux)
+
+        bintime = 600
+        bd = time_bin_magseries(_time, _flux, binsize=bintime, minbinelems=2)
+        _bintime, _binflux = bd['binnedtimes'], bd['binnedmags']
+
+        ax.scatter(scale_x(_time),
+                   _flux - shift,
+                   c='darkgray', zorder=3, s=7, rasterized=False,
+                   linewidths=0, alpha=0.5)
+
+        ax.scatter(scale_x(_bintime),
+                   _binflux - shift,
+                   c=c, zorder=4, s=18, rasterized=False,
+                   linewidths=0)
+
+        props = dict(boxstyle='square', facecolor='white', alpha=0.7, pad=0.15,
+                     linewidth=0)
+        txt = f'{bp}-band'
+        ax.text(0.80, 2e-3 + np.nanmedian(_flux) - shift, txt,
+                ha='left', va='top', bbox=props, zorder=6, color=c,
+                fontsize='x-small')
+
+        shift += delta
+
+    ax.set_xlabel(f'JD - {int(tmid)}')
+    ax.set_ylabel(f'Relative flux')
+    ax.set_xlim([0.79,1.06])
+
+    for _t in [t_ing, t_egr]:
+        for ix, ax in enumerate(axs):
+            ylim = ax.get_ylim()
+            ax.vlines(
+                scale_x(_t), min(ylim), max(ylim), ls='--', lw=0.5, colors='k',
+                alpha=0.5, zorder=-2
+            )
+            ax.set_ylim(ylim)
+            if ix == 0:
+                props = dict(boxstyle='square', facecolor='white', alpha=0.95,
+                             pad=0.15, linewidth=0)
+                txt = 'Expected\nIngress' if _t < tmid else 'Expected\nEgress'
+                ax.text(scale_x(_t), 500, txt,
+                        bbox=props,
+                        ha='center',va='top', color='gray', zorder=1,
+                        fontsize='xx-small')
+
+
+    fig.tight_layout(h_pad=0.2, w_pad=0.2)
+
+    outpath = os.path.join(outdir, f'rm_RV_and_phot.png')
+    savefig(fig, outpath, dpi=400)
+    plt.close('all')
 
 
 
