@@ -251,9 +251,9 @@ def collect_isochrone_data():
 
     # NOTE: need to assume hard-coded ages for the reference clusters
     age_dict = {
-        'UCL': 15e6,
+        'UCL': 16e6, # Preibisch & Mamajek 2008, Table 11, UCL
         'IC 2602': 35e6,
-        'Pleiades': 120e6
+        'Pleiades': 112e6 # Dahn 2015
     }
 
     # now make the grid!
