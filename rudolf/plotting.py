@@ -1,11 +1,14 @@
 """
 plot_TEMPLATE
 
-plot_ruwe_vs_apparentmag
-plot_skychart
-plot_XYZvtang
-plot_hr
-plot_rotationperiod_vs_color
+Gaia (CMDs, RUWEs)
+    plot_ruwe_vs_apparentmag
+    plot_skychart
+    plot_XYZvtang
+    plot_hr
+
+Gaia + TESS + Kepler:
+    plot_rotationperiod_vs_color
 
 Kepler phot:
     plot_keplerlc
@@ -19,7 +22,7 @@ Kepler phot:
 RM:
     plot_simulated_RM
     plot_RM
-
+    plot_RM_and_phot
 """
 import os, corner, pickle, inspect
 from glob import glob
@@ -2210,13 +2213,29 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
 
 
 
-def plot_RM(outdir, N_mcmc=20000):
+def plot_RM(outdir, N_mcmc=20000, model=None):
 
     import rmfit # Gudmundur Stefansson's RM fitting package
+    assert isinstance(model, str)
+    outdir = os.path.join(outdir, model)
+    if not os.path.exists(outdir):
+        os.mkdir(outdir)
+
+    if model == 'quadratic':
+        k = 7
+    elif model == 'linear':
+        k = 6
+    elif model == 'trendonly':
+        k = 3 # sigma_rv, gammadot, gammadotdot
+    else:
+        raise NotImplementedError
+    # 10 free parameters in the quadratic case
+    # 9 in the linear
 
     rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs.csv')
-    outdir = os.path.join(RESULTSDIR, 'RM')
     df = pd.read_csv(rvpath)
+
+    n = len(df) # number of data points
 
     # quick check
     plt.close('all')
@@ -2256,7 +2275,7 @@ def plot_RM(outdir, N_mcmc=20000):
         L = rmfit.rmfit.LPFunction(df.bjd.values, df.rv.values, df.e_rv.values, priorpath)
         TF = rmfit.rmfit.RMFit(L)
         # max likelihood fit
-        TF.minimize_PyDE(mcmc=False)
+        TF.minimize_PyDE(mcmc=False, k=k, n=n)
 
         # plot best-fit
         outpath = os.path.join(outdir, f'rmfit_maxlikelihood.pdf')
@@ -2267,7 +2286,7 @@ def plot_RM(outdir, N_mcmc=20000):
         # N=1000 mcmc iterations
         L = rmfit.rmfit.LPFunction(df.bjd.values,df.rv.values,df.e_rv.values, priorpath)
         TF = rmfit.rmfit.RMFit(L)
-        TF.minimize_PyDE(mcmc=True, mc_iter=N_mcmc)
+        TF.minimize_PyDE(mcmc=True, mc_iter=N_mcmc, k=k, n=n)
 
         # Plot the median MCMC fit
         outpath = os.path.join(outdir, f'rmfit_mcmcbest.pdf')
@@ -2306,14 +2325,15 @@ def plot_RM(outdir, N_mcmc=20000):
         savefig(fig, outpath, dpi=100)
         plt.close('all')
 
-        # Narrow down on the lambda and vsini
-        import corner
-        fig = corner.corner(df_post[['lam_p1','vsini']],show_titles=True,quantiles=[0.18,0.5,0.84])
-        outpath = os.path.join(
-            outdir, f'rmfit_corner_lambda_vsini.png'
-        )
-        savefig(fig, outpath, dpi=300)
-        plt.close('all')
+        if model != 'trendonly':
+            # Narrow down on the lambda and vsini
+            import corner
+            fig = corner.corner(df_post[['lam_p1','vsini']],show_titles=True,quantiles=[0.18,0.5,0.84])
+            outpath = os.path.join(
+                outdir, f'rmfit_corner_lambda_vsini.png'
+            )
+            savefig(fig, outpath, dpi=300)
+            plt.close('all')
 
         # Print median values
         df_medvals = TF.get_mean_values_mcmc_posteriors(df_post.values)
@@ -2324,6 +2344,7 @@ def plot_RM(outdir, N_mcmc=20000):
 
     with open(cachepath, "rb") as f:
         d = pickle.load(f)
+
     TF = d['TF']
     flatchain = d['flatchain']
     df_medvals = pd.read_csv(medpath)
@@ -2382,13 +2403,14 @@ def plot_RM(outdir, N_mcmc=20000):
 
     sdf = df_medvals[df_medvals.Labels == 'lam_p1']
     #from rudolf.helpers import ORIENTATIONTRUTHDICT
-    txt = (
-        #'$\lambda_\mathrm{inj}=$'+f'{ORIENTATIONTRUTHDICT[orientation]:.1f}'+'$\!^\circ$'
-        '$\lambda_\mathrm{fit}=$'+f'{str(sdf["values"].iloc[0])}'+'$^\circ$'
-    )
-    ax.text(0.03,0.03,txt,
-            transform=ax.transAxes,
-            ha='left',va='bottom', color='crimson')
+    if model != 'trendonly':
+        txt = (
+            #'$\lambda_\mathrm{inj}=$'+f'{ORIENTATIONTRUTHDICT[orientation]:.1f}'+'$\!^\circ$'
+            '$\lambda_\mathrm{fit}=$'+f'{str(sdf["values"].iloc[0])}'+'$^\circ$'
+        )
+        ax.text(0.03,0.03,txt,
+                transform=ax.transAxes,
+                ha='left',va='bottom', color='crimson')
 
     ax.set_xlabel(f'JD - {int(tmid)}')
     #ax.set_xlabel(f'Time from transit [hours]')
@@ -2399,13 +2421,14 @@ def plot_RM(outdir, N_mcmc=20000):
     plt.close('all')
 
 
-def plot_RM_and_phot(outdir):
+def plot_RM_and_phot(outdir, model=None):
     # NOTE: assumes plot_RM has been run
 
     import rmfit # Gudmundur Stefansson's RM fitting package
+    assert isinstance(model, str)
 
     rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs.csv')
-    outdir = os.path.join(RESULTSDIR, 'RM')
+    outdir = os.path.join(RESULTSDIR, 'RM', model)
     df = pd.read_csv(rvpath)
 
     cachepath = os.path.join(outdir, f'rmfit_cache_Kepler1627.pkl')
@@ -2474,15 +2497,16 @@ def plot_RM_and_phot(outdir):
 
     sdf = df_medvals[df_medvals.Labels == 'lam_p1']
     #from rudolf.helpers import ORIENTATIONTRUTHDICT
-    txt = (
-        #'$\lambda_\mathrm{inj}=$'+f'{ORIENTATIONTRUTHDICT[orientation]:.1f}'+'$\!^\circ$'
-        '$\lambda_\mathrm{fit}=$'+f'{str(sdf["values"].iloc[0])}'+'$^\circ$'
-    )
-    props = dict(boxstyle='square', facecolor='white', alpha=0.95, pad=0.15,
-                 linewidth=0)
-    ax.text(0.03,0.03,txt,
-            transform=ax.transAxes, bbox=props,
-            ha='left',va='bottom', color='crimson', zorder=1)
+    if model != 'trendonly':
+        txt = (
+            #'$\lambda_\mathrm{inj}=$'+f'{ORIENTATIONTRUTHDICT[orientation]:.1f}'+'$\!^\circ$'
+            '$\lambda_\mathrm{fit}=$'+f'{str(sdf["values"].iloc[0])}'+'$^\circ$'
+        )
+        props = dict(boxstyle='square', facecolor='white', alpha=0.95, pad=0.15,
+                     linewidth=0)
+        ax.text(0.03,0.03,txt,
+                transform=ax.transAxes, bbox=props,
+                ha='left',va='bottom', color='crimson', zorder=1)
 
     ax.set_ylabel('RV [m/s]')
     ax.set_ylim([-400,600])
