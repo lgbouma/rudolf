@@ -32,3 +32,5 @@ cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Ly
 cp /Users/luke/Dropbox/proj/rudolf/results/rotation/deltaLyrCluster_rotation_vs_BpmRp_talkaspect_kinematicspatialselected_linear_curtiscleaning_overplotkep1627.pdf f15c.pdf
 
 cp /Users/luke/Dropbox/proj/rudolf/results/rotation/deltaLyrCluster_rotation_vs_BpmRp_emphbinaries_talkaspect_kinematicspatialselected_linear_curtiscleaning.pdf f15supp.pdf
+
+cp /Users/luke/Dropbox/proj/rudolf/results/RM/rm_RV_and_phot.pdf f16.pdf

@@ -1669,7 +1669,7 @@ def plot_hr(
         if cleanhrcut:
             _df = _df[get_clean_gaia_photometric_sources(_df)]
         if reddening_corr:
-            print('Pleaides')
+            print('Pleiades')
             print(_df['reddening[mag][stilism]'].describe())
 
         ax.scatter(
@@ -2017,7 +2017,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
         l = '$\delta$ Lyr cluster'
     else:
         raise NotImplementedError
-    labels = ['Pleaides', 'Praesepe', l]
+    labels = ['Pleiades', 'Praesepe', l]
 
     # plot vals
     for _cls, _col, z, m, l, _lw, s, mew in zip(
