@@ -626,15 +626,15 @@ def get_autorotation_dataframe(runid='deltaLyrCluster', verbose=1,
 
     rotdir = os.path.join(DATADIR, 'rotation')
 
-    #FIXME need to create this file for the deltaLyrCluster...
-    # contains all the GAIA 
     rotpath = os.path.join(rotdir, f'{runid}_rotation_periods.csv')
+    # make the deltaLyrCluster auto-rotation dict... every version this needs
+    # to be deleted and remade
     if runid=='deltaLyrCluster' and not os.path.exists(rotpath):
 
         # NOTE: this is the file provided by Jason Curtis, with the
         # rotation periods he measured for KC19 cluster members.
         df = pd.read_csv(
-            os.path.join(rotdir,'Theia73-Prot_Auto_Results.csv')
+            os.path.join(rotdir, 'Theia73-Prot_Results-Prelim-v2.csv')
         )
 
         #
@@ -717,30 +717,49 @@ def get_autorotation_dataframe(runid='deltaLyrCluster', verbose=1,
         df = append_phot_membershipexclude_column(df)
         # rename from Jason's column names
         COLDICT = {
-            'Prot_LS_Auto': 'period',
+            'Prot_Adopted': 'period',
             'Power_LS_Auto': 'lspval'
         }
         df = df.rename(columns=COLDICT)
 
-
-    if cleaning in ['defaultcleaning', 'periodogram_match',
+    if cleaning in ['defaultcleaning', 'periodogram_match', 'curtiscleaning',
                     'match234_alias','harderlsp', 'defaultcleaning_cutProtColor']:
         # automatic selection criteria for viable rotation periods
         NEQUAL_CUTOFF = 0 # could also do 1
         NCLOSE_CUTOFF = 1
         LSP_CUTOFF = 0.10 # standard
         if cleaning == 'harderlsp':
-            LSP_CUTOFF = 0.15
-        sel = (
-            (df.period < 15)
-            &
-            (df.lspval > LSP_CUTOFF)
-            &
-            (df.nequal <= NEQUAL_CUTOFF)
-            &
-            (df.nclose <= NCLOSE_CUTOFF)
-        )
-        if cleaning == 'defaultcleaning_cutProtColor':
+            LSP_CUTOFF = 0.20
+
+        sel = (df.period < 100)
+
+        if cleaning in ['defaultcleaning', 'harderlsp']:
+            sel &= (
+                (df.nequal <= NEQUAL_CUTOFF)
+                &
+                (df.nclose <= NCLOSE_CUTOFF)
+                &
+                (df.period < 15)
+                &
+                (df.lspval > LSP_CUTOFF)
+            )
+
+        elif cleaning in ['curtiscleaning']:
+            # Jason already applied LS Prot < 11 days, and LS Power > 0.2 for
+            # TESS... with visual validation values replacing LS auto values
+            # ... and Kepler periods replacing TESS periods.
+            # So just apply the binarity check.
+            sel &= (
+                (df.nequal <= NEQUAL_CUTOFF)
+                &
+                (df.nclose <= NCLOSE_CUTOFF)
+                &
+                (df.period < 15)
+                &
+                (df.lspval > 0.20)
+            )
+
+        elif cleaning == 'defaultcleaning_cutProtColor':
             assert 0
             #FIXME
             from earhart.priors import AVG_EBpmRp
@@ -763,7 +782,7 @@ def get_autorotation_dataframe(runid='deltaLyrCluster', verbose=1,
         raise ValueError(f'Got cleaning == {cleaning}, not recognized.')
 
     if cleaning in ['defaultcleaning', 'nocleaning', 'harderlsp',
-                    'defaultcleaning_cutProtColor']:
+                    'defaultcleaning_cutProtColor', 'curtiscleaning']:
         pass
 
     elif cleaning == 'periodogram_match':

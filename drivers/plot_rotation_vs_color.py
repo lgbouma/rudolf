@@ -33,15 +33,17 @@ rp.plot_rotationperiod_vs_color(
     emph_binaries=0, talk_aspect=1, kinematic_selection=1,
     overplotkep1627=1
 )
+# add kep1627
+rp.plot_rotationperiod_vs_color(
+    PLOTDIR, runid, yscale='linear', cleaning='curtiscleaning',
+    emph_binaries=0, talk_aspect=1, kinematic_selection=1,
+    overplotkep1627=1
+)
 
-assert 0
-
-for c in ['defaultcleaning', 'harderlsp', 'nocleaning']:
+for c in ['defaultcleaning', 'curtiscleaning', 'harderlsp', 'nocleaning']:
     for k in [1,0]:
         for e in [0,1]:
             rp.plot_rotationperiod_vs_color(
                 PLOTDIR, runid, yscale='linear', cleaning=c,
                 emph_binaries=e, talk_aspect=1, kinematic_selection=k
             )
-
-# TODO: what about the binaries?
