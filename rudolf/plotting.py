@@ -1273,7 +1273,7 @@ def _linear_model(xdata, m, b):
 def plot_ttv_vs_local_slope(outdir):
 
     # get data
-    datadir = os.path.join(DATADIR, 'ttv', 'Bouma', 'K05245.01/')
+    datadir = os.path.join(DATADIR, 'ttv', 'Masuda', 'K05245.01/')
     tnum, tc, tc_err, tc_lin = np.loadtxt(datadir+"tc.dat").T
 
     ttv = tc - tc_lin
@@ -1301,7 +1301,7 @@ def plot_ttv_vs_local_slope(outdir):
     # ignore the error bars... because they are probably wrong.
     p_opt, p_cov = curve_fit(
         _linear_model, slopes[sel], ttv[sel],
-        p0=(slope_guess, intercept_guess)
+        p0=(slope_guess, intercept_guess), #sigma=tc_err[sel]
     )
     lsfit_slope = p_opt[0]
     lsfit_slope_err = p_cov[0,0]**0.5
