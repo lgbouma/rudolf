@@ -26,8 +26,9 @@
 \newcommand{\nwithtess}{924} % How many stars have TESS data?
 \newcommand{\nkinwithtess}{391} % How many kinematically selected stars have TESS data?
 \newcommand{\nkinwithtessandcrowding}{192} % How many kinematically selected stars have TESS data and meeting the crowding cutoff (nequal<=0, nclose<=1)?
-\newcommand{\nkindefaultcleaning}{157} % How many of these meet the "defaultcleaning" criteria (LSP>0.1, Prot<15, and crowding cut)?
-\newcommand{\nrotgood}{147} % nkindefaultcleaning, minus outliers.
+\newcommand{\nkindefaultcleaning}{145} % How many of these meet the "defaultcleaning" criteria (LSP>0.1, Prot<15, and crowding cut)?
+\newcommand{\nrotgood}{135} % nkindefaultcleaning, minus outliers.
+\newcommand{\nfracprot}{70} % fraction nrotgood/nkinwithtessandcrowding
 
 
 %
@@ -314,40 +315,41 @@ the \cn\ could help clarify the issue, but both are beyond our scope.
 
 Of the \noriginal\ candidate \cn\ members reported by
 \citet{kounkel_untangling_2019}, TESS data were available for
-\nwithtess\ stars.  We extracted light curves using the nearest pixel
-to each star, and regressed them against systematics using the causal
-pixel model implemented in the \texttt{unpopular} package
-\citep{hattorio_2021_cpm}.  We then measured candidate rotation
-periods using a Lomb-Scargle periodogram
+\nwithtess\ stars.  \footnote{Kepler rotation periods were derived by
+\citet{mcquillan_rotation_2014} for 56 stars; in these cases, we
+adopted the Kepler rotation period.  } We extracted light curves from
+the TESS images using the nearest pixel to each star, and regressed
+them against systematics with the causal pixel model implemented in
+the \texttt{unpopular} package \citep{hattorio_2021_cpm}.  We then
+measured candidate rotation periods using a Lomb-Scargle periodogram
 \citep{lomb_1976,scargle_studies_1982,astropy_2018}.  To enable cuts
 on crowding, we queried the Gaia source catalog for stars within a
 $21\farcs0$ radius of the target star (1 TESS pixel).  We recorded the
 number of stars within the aperture with greater brightness than the
 target star, and with brightness within 1.25 and 2.5 TESS magnitudes
-of the target star.  {\bf We then supplemented these measurements with XXX Kepler
-rotation periods (CITEP MCQUILLAN2014)}.
+of the target star.  
 
 We cleaned the candidate TESS rotation period measurements through a
 combination of automated and manual steps.  As a matter of scope, we
-restricted our attention to the \nkinwithtess\ stars in
-the spatial and kinematic proximity of Kepler\,1627, as discussed in
-Appendix~\ref{app:kinematicselection}.  We also only focused on
-stars for which no companions were known with a brightness exceeding one-tenth of
-the target star within a $21\farcs0$ radius: there were 
+restricted our attention to the \nkinwithtess\ stars in the spatial
+and kinematic proximity of Kepler\,1627, as discussed in
+Appendix~\ref{app:kinematicselection}.  We also only focused on stars
+for which no companions were known with a brightness exceeding
+one-tenth of the target star within a $21\farcs0$ radius: there were
 \nkinwithtessandcrowding\ stars that met these requirements, and that
-had TESS data available.
-For plotting purposes we then imposed a selection based on the strength of the
-rotation period signal itself: we required the Lomb Scargle power to
-exceed 0.1, and the period to be below 15\,days.
+had TESS data available.  For plotting purposes we then imposed a
+selection based on the strength of the rotation period signal itself:
+we required the Lomb Scargle power to exceed 0.2, and the period to be
+below 15\,days.
 
 The lower panel of Figure~\ref{fig:age} shows the resulting
 \nkindefaultcleaning\ stars.  The majority of these stars fall below
 the ``slow sequence'' of the Pleiades, consistent with a
-gyrochronological age for the \cn\ below 100\,Myr.  Approximately 10 stars 
-appear as outliers above the ``slow sequence''.  Assuming that they
-are all false positives ({\it i.e.}, field interlopers), the rotation
-period detection fraction would be
-\nrotgood/\nkinwithtessandcrowding$\approx 77\%$.
+gyrochronological age for the \cn\ below 100\,Myr.  Approximately 10
+stars appear as outliers above the ``slow sequence''.  Assuming that
+they are all false positives ({\it i.e.}, field interlopers), the
+rotation period detection fraction would be
+\nrotgood/\nkinwithtessandcrowding$\approx \nfracprot\%$.
 
 Binarity is known to be an important factor in the density of stars
 falling underneath the ``slow sequence''
@@ -360,33 +362,33 @@ discussed in the literature.
 
 To summarize, the age of the \cn\ cluster based on the empirical
 fitting procedure described in Section~\ref{sec:cmd} is
-$35^{+6}_{-5}$\, Myr.  This procedure hinges on the age adopted
-for IC\,2602, since it is the closest reference cluster in the color-magnitude diagram.
-Gyrochronologically, while most of the G and K
-dwarfs in the \cn\ have not yet converged to form a slow sequence,
-their rotation distribution and that of the F dwarfs is consistent
-with the same age.  The rotation periods of other
-30\,Myr to 50\,Myr clusters ({\it e.g.}, IC\,2602, Collinder 135)
-are indistinguishable
+$35^{+6}_{-5}$\,Myr.  This procedure hinges on the age adopted for
+IC\,2602, since it is the closest reference cluster in the
+color-magnitude diagram.  Gyrochronologically, while most of the G and
+K dwarfs in the \cn\ have not yet converged to a slow sequence, their
+rotation distribution and that of the F dwarfs is consistent with the
+same age.  The rotation periods of other 30\,Myr to 50\,Myr clusters
+({\it e.g.}, IC\,2602 and Collinder 135) are indistinguishable
 (S.~Douglas, priv{.}~comm{.}).  The most precise age for \sn\ and its
-planet are therefore also $35^{+6}_{-5}$\, Myr, based on the star's spatial,
-kinematic, and rotational connection to this larger ensemble, and the assumption that
-\pn\ formed very quickly after the star itself.
+planet are therefore also $35^{+6}_{-5}$\, Myr, based on the star's
+spatial, kinematic, and rotational connection to this larger ensemble,
+and the assumption that the planet formed very quickly after the star.
 
-% TODO:  update this based on HIRES instead of TRES
-% TODO:  cite Stephanie instead of priv comm? Send her your Prot
-Beyond the kinematic and rotational lines of evidence for the youth of \sn,
-there is a final consistency check: the abundance of Li\,\textsc{I} as
-inferred from the 6708\,\AA\ doublet.  This connection of this element
-to age measurements for young stars has been reviewed by
-\citet{soderblom_ages_2014}.  Following the equivalent width
-measurement procedure described by \citet{bouma_2021_ngc2516}, we find
-${\rm EW}_{\rm Li} = 232^{+23}_{-13}\,$m\AA, which does not
-correct for the Fe\,\textsc{I} blend at 6707.44\AA\.  Given $T_{\rm eff} \approx
-5500\,{\rm K}$, this measurement is also in agreement with an age for
-the star between 30\,Myr and 50\,Myr (see {\it e.g.}, Figure~9 of
-\citealt{bouma_2021_ngc2516}, or the data
-from \citealt{randich_gaiaeso_2018}).
+Beyond the kinematic and rotational lines of evidence for the youth of
+\sn, there is a final consistency check: the abundance of
+Li\,\textsc{I} as inferred from the 6708\,\AA\ doublet.  The utility
+of this element for age dating young stars has been reviewed by
+\citet{soderblom_ages_2014}.  We acquired an iodine-free spectrum from
+Keck/HIRES on the night of 26 March 2021 using the standard setup and
+reduction techniques of the California Planet Survey
+\citep{howard_cps_2010}.  Following the equivalent width measurement
+procedure described by \citet{bouma_2021_ngc2516}, we measure ${\rm
+EW}_{\rm Li} = 233^{+5}_{-7}\,$m\AA.   Note that this value does not
+correct for the Fe\,\textsc{I} blend at 6707.44\AA\.  Given $T_{\rm
+eff} \approx 5500\,{\rm K}$, this measurement is also in agreement
+with an age for the star between 30\,Myr and 50\,Myr (see {\it e.g.},
+Figure~9 of \citealt{bouma_2021_ngc2516}, or the data from
+\citealt{randich_gaiaeso_2018}).
 
 
 \section{The Planet}
