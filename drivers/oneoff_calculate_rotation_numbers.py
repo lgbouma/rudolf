@@ -7,11 +7,11 @@ from rudolf.helpers import (
 from rudolf.paths import DATADIR, RESULTSDIR
 
 auto_df, base_df = get_autorotation_dataframe(
-    'deltaLyrCluster', cleaning='defaultcleaning'
+    'deltaLyrCluster', cleaning='curtiscleaning'
 )
 
 csvpath = os.path.join(DATADIR, 'rotation',
-                       'Theia73-Prot_Auto_Results.csv')
+                       'Theia73-Prot_Results-Prelim-v2.csv')
 curtis_df = pd.read_csv(csvpath)
 
 # kinematic bit
@@ -60,7 +60,7 @@ N_kin_with_tess_data_and_crowding = len(mdf[
 ])
 print(f'N_kin_with_tess_data_and_crowding: {N_kin_with_tess_data_and_crowding}')
 
-print('How many of these meet the "defaultcleaning" criteria (LSP>0.1, Prot<15, and crowding cut)?')
+print('How many of these meet the "defaultcleaning" criteria (LSP>0.2, Prot<15, and crowding cut)?')
 N_kin_defaultcleaning = len(mdf1)
 print(f'N_kin_defaultcleaning: {N_kin_defaultcleaning}')
 
@@ -70,3 +70,4 @@ N_outliers = 10 # TODO FIXME MANUAL NUMBEr
 N_rot_good = len(mdf1) - N_outliers
 print(f'N_rot_good: {N_rot_good}')
 
+print(f'frac: {N_rot_good/N_kin_with_tess_data_and_crowding}')
