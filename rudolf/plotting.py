@@ -2223,10 +2223,12 @@ def plot_RM(outdir, N_mcmc=20000, model=None):
 
     if model == 'quadratic':
         k = 7
+    elif model in ['quadraticprograde', 'quadraticretrograde']:
+        k = 6
     elif model == 'linear':
         k = 6
     elif model == 'trendonly':
-        k = 3 # sigma_rv, gammadot, gammadotdot
+        k = 4 # sigma_rv, gamma, gammadot, gammadotdot
     else:
         raise NotImplementedError
     # 10 free parameters in the quadratic case
@@ -2325,7 +2327,9 @@ def plot_RM(outdir, N_mcmc=20000, model=None):
         savefig(fig, outpath, dpi=100)
         plt.close('all')
 
-        if model != 'trendonly':
+        if model not in [
+            'trendonly','quadraticprograde','quadraticretrograde'
+        ]:
             # Narrow down on the lambda and vsini
             import corner
             fig = corner.corner(df_post[['lam_p1','vsini']],show_titles=True,quantiles=[0.18,0.5,0.84])
@@ -2403,7 +2407,9 @@ def plot_RM(outdir, N_mcmc=20000, model=None):
 
     sdf = df_medvals[df_medvals.Labels == 'lam_p1']
     #from rudolf.helpers import ORIENTATIONTRUTHDICT
-    if model != 'trendonly':
+    if model not in [
+        'trendonly','quadraticprograde','quadraticretrograde'
+    ]:
         txt = (
             #'$\lambda_\mathrm{inj}=$'+f'{ORIENTATIONTRUTHDICT[orientation]:.1f}'+'$\!^\circ$'
             '$\lambda_\mathrm{fit}=$'+f'{str(sdf["values"].iloc[0])}'+'$^\circ$'
@@ -2497,7 +2503,9 @@ def plot_RM_and_phot(outdir, model=None):
 
     sdf = df_medvals[df_medvals.Labels == 'lam_p1']
     #from rudolf.helpers import ORIENTATIONTRUTHDICT
-    if model != 'trendonly':
+    if model not in [
+        'trendonly','quadraticprograde','quadraticretrograde'
+    ]:
         txt = (
             #'$\lambda_\mathrm{inj}=$'+f'{ORIENTATIONTRUTHDICT[orientation]:.1f}'+'$\!^\circ$'
             '$\lambda_\mathrm{fit}=$'+f'{str(sdf["values"].iloc[0])}'+'$^\circ$'
@@ -2581,6 +2589,3 @@ def plot_RM_and_phot(outdir, model=None):
     outpath = os.path.join(outdir, f'rm_RV_and_phot.png')
     savefig(fig, outpath, dpi=400)
     plt.close('all')
-
-
-

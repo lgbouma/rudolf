@@ -69,7 +69,7 @@
   cluster.  To our knowledge, Kepler\,1627Ab is the youngest planet
   with a precise age yet found by the main Kepler mission.  From both
   unresolved starspot-crossing events in the Kepler photometry and
-  from a ground-based Keck/HIRES transit we find that the planet is
+  from a Keck/HIRES transit we find that the planet is
   likely on an orbit nearly aligned with the stellar spin axis.  We
   also find from the short-cadence Kepler photometry that although the
   flare arrival time distribution is probably Poissonian, there may be
@@ -455,10 +455,11 @@ of \citealt{bouma_2021_ngc2516}, or the data from
     units along the abscissa are most easily understood by considering
     that the flux from the star changes by $\sim$60\,ppt per half
     rotation period ($\sim$1.3\,days).
-        {\it Bottom:} Keck/HIRES transit of 7 Aug 2021 UT,
-    observed simultaneously with MUSCAT3.  A quadratic baseline trend was allowed
-    in the fit.
-    The resulting best-fit sky-projected obliquity is listed in red.
+    {\it Bottom:} Keck/HIRES transit of 7 Aug 2021 UT, observed
+    simultaneously with MUSCAT3.  A quadratic baseline trend was
+    allowed in the fit.  The best-fit sky-projected obliquity in this
+    model is listed in red; the detection however has marginal
+    statistical significance compared to a ``trend-only'' model.
     \label{fig:obliquity}
 	}
 \end{figure}
@@ -514,6 +515,8 @@ enabling a more precise measurement of the transit impact parameter
 \citep{kipping_binning_2010}.  The planet transits with $b<0.YY$
 (3-$\sigma$) from the 1-minute cadenced data, compared to $<0.XX$
 (3-$\sigma$) from the 30-minute data.
+This implies an even stronger constraint on the transit shape in an
+analysis of the false positive probability.
 
 % TODO: Kento Masuda, please verify
 The second line of evidence comes from our transit timing analysis. We
@@ -538,19 +541,6 @@ variability from spot to faculae-dominated regimes, we expect this
 inference to be reasonably secure
 \citep{shapiro_are_2016,montet_long-term_2017,reinhold_stellar_2020}.
 
-% from /drivers/logs/rm.log
-% quad: 
-% chi2red 4.45
-% BIC 272.4
-%
-% linear:
-% chi2red 17.1
-% BIC 291.8
-%
-% trendonly:
-% chi2red 13.8
-% BIC 271.3
-
 The final line of evidence confirming \pn\ comes from a spectroscopic
 transit we measured from Keck/HIRES during the night of 7 Aug 2021
 (UT), using the iodine cell for the wavelength calibration.  We
@@ -563,33 +553,66 @@ photometry shows the expected starspot trend, along with the transit
 and a likely starspot crossing event at ${\rm JD} - 2459433 = 0.955$.
 The radial velocities show significant scatter, though a significant
 increase in RV is seen shortly after the expected ingress.  The
-internal uncertainties on the RVs ($\approx 15\,{\rm m\,s}^{-1}$)is
+internal uncertainties on the RVs ($\approx 15\,{\rm m\,s}^{-1}$) is
 dominated by the $v\sin i$ broadening.
 
-We fitted the RVs using the \citet{hirano_analytic_2010,hirano_2011}
-models for the Rossiter-McLaughlin (RM) effect, and allowed for a
-linear and optionally quadratic trend, along with a white-noise jitter
-term.  We found $\chi^2_{\rm red} = 17.1$ for the best-fitting linear
-case, and $\chi^2_{\rm red} = 16.7$ for the best-fitting quadratic,
-with a $\Delta {\rm BIC} = {\rm BIC}_{\rm lin} - {\rm BIC}_{\rm quad}
-= 19.3$.  Nominally, this provides strong statistical evidence to
-prefer the quadratic model over the linear one.  However the
-$\chi^2_{\rm red}$ indicate that neither fit is particularly good.
-Considering a quadratic trend alone without any RM effect yields
-$\chi^2_{\rm red} = 13.8$, and $\Delta {\rm BIC} = {\rm BIC}_{\rm
-trend} - {\rm BIC}_{\rm quad} = 1.2$; from a model-comparison
-standpoint, there is no statistical justification to prefer the
-best-fitting ``RM + quadratic trend'' model over the best-fitting
-``quadratic trend'' model, or vice-versa.  Given the expected
-semi-amplitude of the velocity anomaly ($\Delta v_{\rm RM}\approx
-20\,{\rm m\,s}^{-1}$) and the achieved internal precision, the claim
-of having ``detected the Doppler transit'' is perhaps not yet
-justified.  Observationally however, we know from the MUSCAT3 data
-that the transit was observed, and the increase in radial velocity
-seen shortly after ingress also seems consistent with a prograde or
-polar orbit, and not a retrograde one.  More precise data will likely
-be required to make a more precise measurement of the obliquity.
+% from /drivers/logs/rm.log
+% quad: 
+% chi2red: 4.452
+% BIC: 272.434
+% AIC: 264.796
+%
+% linear:
+% chi2red: 5.425
+% BIC: 291.987
+% AIC: 285.441
+%
+% trendonly:
+% chi2red: 4.256
+% BIC: 274.383
+% AIC: 270.018
+%
+% retrograde:
+% chi2red: 5.439
+% BIC: 292.415
+% AIC: 285.869
+% 
+% prograde:
+% chi2red: 4.320
+% BIC: 272.039
+% AIC: 265.493
 
+We fitted the RVs using the \citet{hirano_analytic_2010,hirano_2011}
+models for the Rossiter-McLaughlin (RM) effect, which we parametrized
+with three parameters: the sky-projected obliquity, the stellar
+equatorial velocity, and the gaussian dispersion of spectral lines.
+We then allowed for a linear and optionally quadratic trend, along
+with a white-noise jitter term.  The quadratic model with the RM
+effect is shown in Figure~\ref{fig:obliquity}.  We found $\chi^2_{\rm
+red} = 5.4$ for the best-fitting linear case, and $\chi^2_{\rm red} =
+4.4$ for the best-fitting quadratic, with a $\Delta {\rm BIC} = {\rm
+BIC}_{\rm lin} - {\rm BIC}_{\rm quad} = 19.6$ and $\Delta {\rm AIC} =
+{\rm AIC}_{\rm lin} - {\rm AIC}_{\rm quad} = 20.6$.  While this
+provides strong statistical evidence to prefer the quadratic model
+over the linear one, the $\chi^2_{\rm red}$ indicate that neither fit
+is particularly good.  Considering a quadratic trend alone without any
+RM effect yields $\chi^2_{\rm red} = 4.3$, and $\Delta {\rm BIC} =
+{\rm BIC}_{\rm trend} - {\rm BIC}_{\rm quad} = 1.9$ (similarly $\Delta
+{\rm AIC}=5.2$); from a model-comparison standpoint, there is only
+weak statistical evidence to prefer the best-fitting ``RM and
+quadratic trend'' model over the best-fitting ``quadratic trend only''
+model.  Given the expected semi-amplitude of the velocity anomaly
+($\Delta v_{\rm RM}\approx 20\,{\rm m\,s}^{-1}$) and the actual achieved
+precision, the claim of having ``detected the Doppler
+transit'' is therefore marginal.  Observationally however, we
+know from the MUSCAT3 data that the transit was observed, and the
+increase in radial velocity observed shortly after ingress is more
+consistent with a prograde or polar orbit than a retrograde one.
+Fixing the orbit to be either exactly prograde or exactly retrograde
+and allowing for a quadratic trend, we find $\Delta {\rm BIC} = {\rm
+BIC}_{\rm retrograde} - {\rm BIC}_{\rm prograde} = 20.4$; the
+retrograde case is ruled out on this basis.  More precise data will
+however still be useful to make a more precise obliquity measurement.
 
 
 \section{Discussion \& Conclusions}

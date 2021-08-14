@@ -6,7 +6,9 @@ PLOTDIR = os.path.join(RESULTSDIR, 'RM')
 if not os.path.exists(PLOTDIR):
     os.mkdir(PLOTDIR)
 
-models = ['quadratic','linear','trendonly']
+#models = ['quadratic','linear','trendonly','quadraticretrograde','quadraticprograde']
+#models = ['quadraticretrograde', 'quadraticprograde']
+models = ['trendonly']
 
 for model in models:
     rp.plot_RM(PLOTDIR, model=model)
