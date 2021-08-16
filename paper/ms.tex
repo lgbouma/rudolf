@@ -383,7 +383,7 @@ of this element for age dating young stars has been reviewed by
 Keck/HIRES on the night of 26 March 2021 using the standard setup and
 reduction techniques of the California Planet Survey
 \citep{howard_cps_2010}.  Following the equivalent width measurement
-procedure described by \citet{bouma_2021_ngc2516}, we measure ${\rm
+procedure described by \citet{bouma_2021_ngc2516}, we find ${\rm
 EW}_{\rm Li} = 233^{+5}_{-7}\,$m\AA.   Note that this value does not
 correct for the Fe\,\textsc{I} blend at 6707.44\AA.  Given the stellar
 parameters of \sn\ (Table~\ref{tab:starparams}), most notably its
@@ -455,9 +455,10 @@ of \citealt{bouma_2021_ngc2516}, or the data from
     units along the abscissa are most easily understood by considering
     that the flux from the star changes by $\sim$60\,ppt per half
     rotation period ($\sim$1.3\,days).
-    {\it Bottom:} Keck/HIRES transit of 7 Aug 2021 UT, observed
-    simultaneously with MUSCAT3.  A quadratic baseline trend was
-    allowed in the fit.  The best-fit sky-projected obliquity in this
+    {\it Bottom:} Radial velocities from
+    Keck/HIRES during a transit on 7 Aug 2021 UT, observed
+    simultaneously with MUSCAT3 ({\it griz} photometry).  A quadratic baseline trend was
+    allowed in the RV fit.  The best-fit sky-projected obliquity in this
     model is listed in red; the detection however has marginal
     statistical significance compared to a ``trend-only'' model.
     \label{fig:obliquity}
@@ -583,30 +584,30 @@ dominated by the $v\sin i$ broadening.
 % AIC: 265.493
 
 We fitted the RVs using the \citet{hirano_analytic_2010,hirano_2011}
-models for the Rossiter-McLaughlin (RM) effect, which we parametrized
-with three parameters: the sky-projected obliquity, the stellar
-equatorial velocity, and the gaussian dispersion of spectral lines.
-We then allowed for a linear and optionally quadratic trend, along
-with a white-noise jitter term.  The quadratic model with the RM
+models for the Rossiter-McLaughlin (RM) effect, and allowed three parameters
+to vary: the sky-projected obliquity, the stellar
+equatorial velocity, and the Gaussian dispersion of spectral lines.
+We also allowed for an optional linear and quadratic trend, and
+a white-noise jitter term.  The quadratic model with the RM
 effect is shown in Figure~\ref{fig:obliquity}.  We found $\chi^2_{\rm
 red} = 5.4$ for the best-fitting linear case, and $\chi^2_{\rm red} =
 4.4$ for the best-fitting quadratic, with a $\Delta {\rm BIC} = {\rm
-BIC}_{\rm lin} - {\rm BIC}_{\rm quad} = 19.6$ and $\Delta {\rm AIC} =
-{\rm AIC}_{\rm lin} - {\rm AIC}_{\rm quad} = 20.6$.  While this
+BIC}_{\rm line} - {\rm BIC}_{\rm quad} = 19.6$ and $\Delta {\rm AIC} =
+{\rm AIC}_{\rm line} - {\rm AIC}_{\rm quad} = 20.6$.  While this
 provides strong statistical evidence to prefer the quadratic model
 over the linear one, the $\chi^2_{\rm red}$ indicate that neither fit
 is particularly good.  Considering a quadratic trend alone without any
 RM effect yields $\chi^2_{\rm red} = 4.3$, and $\Delta {\rm BIC} =
 {\rm BIC}_{\rm trend} - {\rm BIC}_{\rm quad} = 1.9$ (similarly $\Delta
-{\rm AIC}=5.2$); from a model-comparison standpoint, there is only
+{\rm AIC}=5.2$); from a model-comparison standpoint, there is therefore only
 weak statistical evidence to prefer the best-fitting ``RM and
 quadratic trend'' model over the best-fitting ``quadratic trend only''
 model.  Given the expected semi-amplitude of the velocity anomaly
 ($\Delta v_{\rm RM}\approx 20\,{\rm m\,s}^{-1}$) and the actual achieved
-precision, the claim of having ``detected the Doppler
-transit'' is therefore marginal.  Observationally however, we
-know from the MUSCAT3 data that the transit was observed, and the
-increase in radial velocity observed shortly after ingress is more
+precision, the claim of having detected the Doppler
+transit is therefore marginal.  
+From the MUSCAT3 data however, we do know that the transit was observed, and the
+increase in radial velocity seen shortly after ingress is more
 consistent with a prograde or polar orbit than a retrograde one.
 Fixing the orbit to be either exactly prograde or exactly retrograde
 and allowing for a quadratic trend, we find $\Delta {\rm BIC} = {\rm
