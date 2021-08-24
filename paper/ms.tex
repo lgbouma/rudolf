@@ -19,6 +19,8 @@
 \newcommand{\sn}{Kepler\,1627} % star system name (binary)
 \newcommand{\pn}{Kepler\,1627Ab} % planet name
 
+\newcommand{\clusterage}{$38^{+6}_{-5}$\,Myr} % 
+
 % gaia target sample numbers
 \newcommand{\nkinematic}{1{,}201} % deltalyr_kc19_cleansubset_withreddening.csv
 % all from oneoff_calculate_rotation_numbers.py
@@ -50,7 +52,8 @@
 \begin{document}
 
 \title{
-  An Adolescent Mini-Neptune in the Kepler Field
+  %Kepler 1627Ab: A 38 Million Year Old
+  Kepler 1627 Ab: A 38$\,$Myr Mini-Neptune in the Kepler Field
 }
 
 %\suppressAffiliations
@@ -65,7 +68,7 @@
   ($d=329\pm3\,{\rm pc}$) and it resembles the Sun.  Combining
   kinematic information from Gaia, stellar rotation periods from TESS,
   and Li abundances from ground-based spectra, we show that
-  Kepler\,1627 is a member of the $35^{+6}_{-5}$\,Myr old $\delta$~Lyr
+  Kepler\,1627 is a member of the \clusterage\ old $\delta$~Lyr
   cluster.  To our knowledge, Kepler\,1627Ab is the youngest planet
   with a precise age yet found by the main Kepler mission.  From both
   unresolved starspot-crossing events in the Kepler photometry and
@@ -76,11 +79,10 @@
   an excess of flares separated by the orbital and synodic periods,
   and linear combinations thereof.  The $\delta$~Lyr cluster is one of
   many stellar groups whose properties have been clarified using the
-  Gaia data; many of the other new clusters also overlap with
-  confirmed and candidate exoplanets.  Further studies that combine
-  Gaia kinematics and TESS rotation periods are poised to expand the
-  census of age-dated planets, and our understanding of planetary
-  evolution.
+  Gaia data; many other new clusters also overlap with confirmed and
+  candidate exoplanets.  Further studies that combine Gaia kinematics
+  and TESS rotation periods are poised to expand the census of
+  age-dated planets, and our understanding of planetary evolution.
 \end{abstract}
 
 \keywords{
@@ -158,7 +160,7 @@ validation the close-in mini-Neptune Kepler 1627b
 \citep{2012ApJS..199...24T,morton_false_2016,thompson_planetary_2018},
 we examined the age of the star and its putative host cluster more
 closely (Section~\ref{sec:cluster}).  We find that the $\delta$ Lyr
-cluster is $35^{+6}_{-5}$\,Myr old, and that \sn\ is indeed a member
+cluster is \clusterage\ old, and that \sn\ is indeed a member
 of the cluster.  Focusing on the planet itself,
 we confirm that despite the presence of a previously unreported binary companion,
 the planet orbits the G-dwarf primary star on an orbit that appears aligned
@@ -206,7 +208,7 @@ statistical sample of planets (Section~\ref{sec:conc}).
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-    {\bf The \cn\ is $35^{+6}_{-5}$\,Myr old.}  {\it Top:}
+    {\bf The \cn\ is \clusterage\ old.}  {\it Top:}
     Color-magnitude diagram of the \cn, IC\,2602 ($\approx35$\,Myr),
     the Pleiades ($\approx 115$\,Myr; \citealt{dahm_2015}), and the
     field (gray).  The right panel provides a zoomed
@@ -291,24 +293,30 @@ piecewise grid of hybrid isochrones spanning the ages between UCL to
 the Pleiades following Equations~6 and~7 from
 \citet{gagne_mutau_2020}.  
 
+% Randich+18: 43.7 +4.3 - 3.9 LDB, for E(B-V) = 0.068 +/- 0.025
+% Dobbie+10: 46 +6 -5 LDB, for 
+
 The ages returned by this procedure depend on the ages assumed for
 each reference cluster.  We adopted a 115\,Myr age for the Pleiades,
-and a 16\,Myr age for UCL \citep{dahm_2015,pecaut_star_2016}.
-The age of IC\,2602 however is the most important
-ingredient, since it receives the most weight in the interpolation.
-Plausible ages for IC\,2602
-span 30\,Myr to 46\,Myr, with slightly older ages being preferred by
-the lithium-depletion-boundary (LDB) measurements and younger ages by
-the main-sequence turn-off
+and a 16\,Myr age for UCL \citep{dahm_2015,pecaut_star_2016}.  The age
+of IC\,2602 however is the most important ingredient, since it
+receives the most weight in the interpolation.  Plausible ages for
+IC\,2602 span 30\,Myr to 46\,Myr, with slightly older ages being
+preferred by the lithium-depletion-boundary (LDB) measurements and
+younger ages by the main-sequence turn-off
 \citep{stauffer_rotational_1997,dobbie_ic_2010,david_ages_2015,randich_gaiaeso_2018,bossini_age_2019,bouma_cluster_2020}.
 If we were to adopt the 30\,Myr age for IC\,2602, then the \cn\ would
 be $31^{+5}_{-4}$\,Myr old.  For the converse case of 46\,Myr, the
 \cn\ would be $44^{+8}_{-7}$\,Myr old.  We adopt an intermediate
-35\,Myr age as our reference, yielding an age for the \cn\ of
-$35^{+6}_{-5}$\, Myr, though it should be understood based on the
-systematic uncertainties that an age of up to $\approx50$\,Myr remains
-plausible.  Detailed analyses of the LDB or main-sequence turn-off in
-the \cn\ could help resolve the issue, but both are beyond our scope.
+38\,Myr age as our reference, yielding an age for the \cn\ of
+\clusterage.\footnote{Our own exploration of the PARSEC and MIST
+isochrone models over a grid of ages, metallicities, and
+reddenings, we yielded the best agreement for this $\approx 38\,$Myr age
+as well, given ${\rm [Fe/H] = +0.1}$ and $A_V=0.2$
+\citep{bressan_parsec_2012,choi_mesa_2016}.
+} While detailed analyses of the LDB or main-sequence turn-off in the
+\cn\ could help resolve the tension between the LDB and isochrone
+ages, these are beyond our scope.
 
 
 
@@ -363,7 +371,7 @@ discussed in the literature.
 
 In brief, the age of the \cn\ cluster based on the empirical
 fitting procedure described in Section~\ref{sec:cmd} is
-$35^{+6}_{-5}$\,Myr.  This procedure hinges on the age adopted for
+\clusterage.  This procedure hinges on the age adopted for
 IC\,2602, since it is the closest reference cluster in the
 color-magnitude diagram.  Gyrochronologically, while most of the G and
 K dwarfs in the \cn\ have not yet converged to a slow sequence, their
@@ -371,7 +379,7 @@ rotation distribution and that of the F dwarfs is consistent with the
 same age.  The rotation periods of other 30\,Myr to 50\,Myr clusters
 ({\it e.g.}, IC\,2602 and IC\,2391) are indistinguishable
 \citep{douglas_stephanie_t_2021_5131306}.  The most precise age for \sn\ and its
-planet are therefore also $35^{+6}_{-5}$\, Myr, based on the star's
+planet are therefore also \clusterage\ Myr, based on the star's
 spatial, kinematic, and rotational connection to this larger ensemble,
 and the assumption that the planet formed very quickly after the star.
 
@@ -589,31 +597,32 @@ to vary: the sky-projected obliquity, the stellar
 equatorial velocity, and the Gaussian dispersion of spectral lines.
 We also allowed for an optional linear and quadratic trend, and
 a white-noise jitter term.  The quadratic model with the RM
-effect is shown in Figure~\ref{fig:obliquity}.  We found $\chi^2_{\rm
+effect is shown in Figure~\ref{fig:obliquity}, where the 
+prior on $v\sin i$ has been assumed from Table~\ref{tab:starparams}.  We found $\chi^2_{\rm
 red} = 5.4$ for the best-fitting linear case, and $\chi^2_{\rm red} =
 4.4$ for the best-fitting quadratic, with a $\Delta {\rm BIC} = {\rm
 BIC}_{\rm line} - {\rm BIC}_{\rm quad} = 19.6$ and $\Delta {\rm AIC} =
 {\rm AIC}_{\rm line} - {\rm AIC}_{\rm quad} = 20.6$.  While this
 provides strong statistical evidence to prefer the quadratic model
 over the linear one, the $\chi^2_{\rm red}$ indicate that neither fit
-is particularly good.  Considering a quadratic trend alone without any
-RM effect yields $\chi^2_{\rm red} = 4.3$, and $\Delta {\rm BIC} =
+is particularly good.  Considering a quadratic trend alone {\it without any
+RM effect} yields $\chi^2_{\rm red} = 4.3$, and $\Delta {\rm BIC} =
 {\rm BIC}_{\rm trend} - {\rm BIC}_{\rm quad} = 1.9$ (similarly $\Delta
-{\rm AIC}=5.2$); from a model-comparison standpoint, there is therefore only
+{\rm AIC}=5.2$).  From a model-comparison standpoint, there is therefore only
 weak statistical evidence to prefer the best-fitting ``RM and
 quadratic trend'' model over the best-fitting ``quadratic trend only''
 model.  Given the expected semi-amplitude of the velocity anomaly
 ($\Delta v_{\rm RM}\approx 20\,{\rm m\,s}^{-1}$) and the actual achieved
 precision, the claim of having detected the Doppler
-transit is therefore marginal.  
+transit is marginal at best.  
 From the MUSCAT3 data however, we do know that the transit was observed, and the
 increase in radial velocity seen shortly after ingress is more
-consistent with a prograde or polar orbit than a retrograde one.
-Fixing the orbit to be either exactly prograde or exactly retrograde
-and allowing for a quadratic trend, we find $\Delta {\rm BIC} = {\rm
-BIC}_{\rm retrograde} - {\rm BIC}_{\rm prograde} = 20.4$; the
+consistent with a prograde or polar orbit than a retrograde orbit.
+Fixing the orbit to be either exactly prograde or exactly retrograde,
+we find $\Delta {\rm BIC} = {\rm
+BIC}_{\rm retrograde} - {\rm BIC}_{\rm trend} = 18.0$; the
 retrograde case is ruled out on this basis.  More precise data will
-however still be useful to make a more precise obliquity measurement.
+however still be needed to make a precise obliquity measurement.
 
 
 \section{Discussion \& Conclusions}
