@@ -53,7 +53,8 @@
 
 \title{
   %Kepler 1627Ab: A 38 Million Year Old
-  Kepler 1627 Ab: A 38$\,$Myr Mini-Neptune in the Kepler Field
+  %Kepler 1627 Ab:
+  A 38 Million Year Old Mini-Neptune in the Kepler Field
 }
 
 %\suppressAffiliations
@@ -309,11 +310,12 @@ If we were to adopt the 30\,Myr age for IC\,2602, then the \cn\ would
 be $31^{+5}_{-4}$\,Myr old.  For the converse case of 46\,Myr, the
 \cn\ would be $44^{+8}_{-7}$\,Myr old.  We adopt an intermediate
 38\,Myr age as our reference, yielding an age for the \cn\ of
-\clusterage.\footnote{Our own exploration of the PARSEC and MIST
+\clusterage.\footnote{Our exploration of the PARSEC and MIST
 isochrone models over a grid of ages, metallicities, and
-reddenings, we yielded the best agreement for this $\approx 38\,$Myr age
+reddenings, yielded the best agreement for this $\approx 38\,$Myr age
 as well, given ${\rm [Fe/H] = +0.1}$ and $A_V=0.2$
-\citep{bressan_parsec_2012,choi_mesa_2016}.
+\citep{bressan_parsec_2012,choi_mesa_2016};  this preferred CMD reddening
+is higher than the \citet{lallement_threedimensional_2018} value by a factor of two.
 } While detailed analyses of the LDB or main-sequence turn-off in the
 \cn\ could help resolve the tension between the LDB and isochrone
 ages, these are beyond our scope.
@@ -485,17 +487,23 @@ slightly younger systems: K2-33b
 \citep{david_four_2019}}  A portion of the light curve is shown with
 the phase-folded transit in Figure~\ref{fig:lc}.  The dominant signal
 in the \texttt{PDCSAP} photometry is a quasi-periodic starspot signal
-with a peak-to-peak amplitude that varies between roughly 2\% and 8\%,
+with a peak-to-peak amplitude that varies between 2\% and 8\%,
 depending on the degree of asymmetry in spot coverage between the
 stellar hemispheres.  The starspot signal repeats every
 $2.642\pm0.042$\,days, where we have adopted an uncertainty based on
-the scatter observed between different portions (quarters) of the
-time-series data.  The details of how we model this starspot signal to
+the scatter observed between different Kepler quarters.
+The details of how we model this starspot signal to
 derive the parameters of the planet are discussed in
-Appendix~\ref{app:gptransit}.  The results, given in
+Appendix~\ref{app:gptransit}.  The stellar parameters are listed
+in Table~\ref{tab:starparams}; the stellar mass, radius, and effective
+temperature are found by interpolating against a 38$\,$Myr MIST
+isochrone.  The systematic uncertainties are taken to be the
+difference in parameters from the PARSEC isochrones, and the reported
+uncertainties are a quadrature sum of the statistical and systematic
+components.  The transit-fitting results, given in
 Table~\ref{tab:posterior}, are consistent with a mini-Neptune sized
 planet ($3.56\pm 0.04\,R_\oplus$) on a circular 7.2\,day orbit
-($e<0.XX$), around a G8V star ($0.91 \pm 0.05 R_\odot$).  {\bf TODO
+($e<0.XX$), around a G8V star ($0.88 \pm 0.02 R_\odot$).  {\bf TODO
 quote the eccentricity limit}
 
 Could the transit signal be produced by anything other than a planet
@@ -642,10 +650,11 @@ however still be needed to make a precise obliquity measurement.
     \pn\ is shown with a star.
     The abnormally large radii of the youngest transiting planets
     could be explained by their primordial atmospheres not yet
-    having evaporated.
-    Selection effects could also be important.
-    Parameters were acquired from the NASA Exoplanet Archive on July
-    2, 2021.
+    having evaporated; direct measurements of the atmospheric outflows
+    or planetary masses would help to confirm this picture.
+    Selection effects may also be important.
+    Parameters are from the NASA Exoplanet Archive (July
+    2, 2021).
 		\label{fig:rp_period_age}
 	}
 \end{figure*}
@@ -788,7 +797,16 @@ Hawaiian community, and are deeply grateful to
 have the opportunity to conduct observations from this
 mountain.
 %
-
+This paper is based in part on observations made with the MuSCAT3
+instrument, developed by the Astrobiology Center and under financial
+supports by JSPS KAKENHI (JP18H05439) and JST PRESTO (JPMJPR1775), at
+Faulkes Telescope North on Maui, HI, operated by the Las Cumbres
+Observatory.
+%
+This work is partly supported by JSPS KAKENHI Grant Numbers 22000005,
+JP15H02063, JP17H04574, JP18H05439, JP18H05442, JST PRESTO Grant
+Number JPMJPR1775, the Astrobiology Center of National Institutes of
+Natural Sciences (NINS) (Grant Number AB031010).
 %
 % The Digitized Sky Survey was produced at the Space Telescope Science
 % Institute under U.S. Government grant NAG W-2166.
