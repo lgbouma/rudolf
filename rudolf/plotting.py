@@ -1495,7 +1495,8 @@ def plot_flare_pair_time_distribution(uniq_dists, outpath, ylim=[0,18],
 def plot_hr(
     outdir, isochrone=None, color0='phot_bp_mean_mag', rasterized=False,
     show100pc=0, clusters=['$\delta$ Lyr cluster'], reddening_corr=0,
-    cleanhrcut=1, extinctionmethod='gaia2018', smalllims=0, overplotkep1627=0
+    cleanhrcut=1, extinctionmethod='gaia2018', smalllims=0,
+    overplotkep1627=0, getstellarparams=0
 ):
     """
     clusters: ['$\delta$ Lyr cluster', 'IC 2602', 'Pleiades']
@@ -1524,28 +1525,32 @@ def plot_hr(
         df_bkgd = get_gaia_catalog_of_nearby_stars()
 
     if isochrone in ['mist', 'parsec']:
+		# see /doc/20210816_isochrone_selection_notes.txt
         if isochrone == 'mist':
-            # see /doc/20210226_isochrones_theory.txt
             from timmy.read_mist_model import ISOCMD
             isocmdpath = os.path.join(DATADIR, 'isochrones',
-                                      'MIST_iso_6039374449e9d.iso.cmd')
+                                      #'MIST_iso_611aab73dae40.iso.cmd'
+                                      #'MIST_iso_611a9964c4fe7.iso.cmd'
+                                      #'MIST_iso_611ab68ad5d3c.iso.cmd'
+                                      'MIST_iso_611b0094a1199.iso.cmd'
+                                     )
             # relevant params: star_mass log_g log_L log_Teff Gaia_RP_DR2Rev
             # Gaia_BP_DR2Rev Gaia_G_DR2Rev
             isocmd = ISOCMD(isocmdpath)
             assert len(isocmd.isocmds) > 1
 
         elif isochrone == 'parsec':
-            #
-            # see /doc/20210226_isochrones_theory.txt
-            #
-            # v4
+            # v0, v1, v2, v3......
             isopath = os.path.join(DATADIR, 'isochrones',
-                                   'output360587063784.dat')
-            nored_iso_df = pd.read_csv(isopath, delim_whitespace=True, comment='#')
-
-            # v5
-            isopath = os.path.join(DATADIR, 'isochrones',
-                                   'output813364732851.dat')
+                                   #'output200759820480.dat'
+                                   #'output108191896536.dat'
+                                   #'output412021529701.dat'
+                                   #'output511503265080.dat'
+                                   #'output830354854305.dat'
+                                   #'output841190949156.dat'
+                                   #'output225137455229.dat'
+                                    'output32383660626.dat'
+                                  )
             iso_df = pd.read_csv(isopath, delim_whitespace=True, comment='#')
 
     ##########
@@ -1750,24 +1755,30 @@ def plot_hr(
 
     if isochrone:
 
-        from earhart.priors import AVG_AG, AVG_EBpmRp
-
         if isochrone == 'mist':
 
-            ages = [100, 178, 316]
+            ages = [31.6,39.8,50.1]
+            logages = [7.5,7.6,7.7]
             N_ages = len(ages)
             colors = plt.cm.cool(np.linspace(0,1,N_ages))[::-1]
 
             for i, (a, c) in enumerate(zip(ages, colors)):
                 mstar = isocmd.isocmds[i]['star_mass']
-                sel = (mstar < 7)
+                sel = (mstar < 8)
 
-                corr = 7.85
+                __sel = df.parallax_over_error > 40
+                avg_distance = (
+                    parallax_to_distance_highsn(np.mean(df[__sel].parallax))
+                )
+
+                corr = 5*np.log10(avg_distance) - 5
+                offset = 0.05
                 _yval = (
                     isocmd.isocmds[i]['Gaia_G_DR2Rev'][sel] +
-                    5*np.log10(np.nanmedian(core_df['parallax']/1e3)) + 5
-                    + AVG_AG
+                    5*np.log10(np.nanmedian(df['parallax']/1e3)) + 5
+                    #+ AVG_AG
                     + corr
+                    + offset
                 )
 
                 if color0 == 'phot_bp_mean_mag':
@@ -1779,19 +1790,69 @@ def plot_hr(
 
                 _xval = (
                     isocmd.isocmds[i][_c0][sel]-isocmd.isocmds[i]['Gaia_RP_DR2Rev'][sel]
-                    + AVG_EBpmRp
+                    #+ AVG_EBpmRp
                 )
+
+                # from rudolf.extinction import given_EBmV_and_BpmRp_get_A_X
+                # AG = given_EBmV_and_BpmRp_get_A_X(
+                #     AVG_EBmV, _xval, bandpass='G'
+                # )
+                # ABP = given_EBmV_and_BpmRp_get_A_X(
+                #     AVG_EBmV, _xval, bandpass='BP'
+                # )
+                # ARP = given_EBmV_and_BpmRp_get_A_X(
+                #     AVG_EBmV, _xval, bandpass='RP'
+                # )
+                # (Bp-Rp)corr = (Bp-A_Bp) - (Rp-A_Rp)
+                # so
+                # (Bp-Rp)corr = (Bp-Rp) - A_Bp + A_Rp
+                #EBpmRP = -ABP + ARP
 
                 ax.plot(
                     _xval,
                     _yval,
-                    c=c, alpha=1., zorder=7, label=f'{a} Myr', lw=0.5
+                    c=c, alpha=1., zorder=9001, label=f'{a} Myr', lw=0.5
                 )
+
+                if getstellarparams and i ==1:
+
+                    print("MIST")
+                    sel = (mstar > 0.93) & (mstar < 1.0)
+                    print(f'Mstar {mstar[sel]}')
+                    teff = 10**isocmd.isocmds[i]['log_Teff']
+                    print(f'Teff {teff[sel]}')
+                    logg = isocmd.isocmds[i]['log_g']
+                    print(f'logg {logg[sel]}')
+                    rstar = ((( (10**logg)*u.cm/(u.s*u.s)) /
+                              (const.G*mstar*u.Msun))**(-1/2)).to(u.Rsun)
+                    print(f'Rstar {rstar[sel]}')
+                    rho = (mstar*u.Msun/(4/3*np.pi*rstar**3)).cgs
+                    print(f'Rho [cgs] {rho[sel]}')
+
+                    _xval = (
+                        isocmd.isocmds[i][_c0][sel]-isocmd.isocmds[i]['Gaia_RP_DR2Rev'][sel]
+                        #+ AVG_EBpmRp
+                    )
+                    _yval = (
+                        isocmd.isocmds[i]['Gaia_G_DR2Rev'][sel] +
+                        5*np.log10(np.nanmedian(df['parallax']/1e3)) + 5
+                        #+ AVG_AG
+                        + corr
+                        + offset
+                    )
+
+                    ax.scatter(
+                        _xval,
+                        _yval,
+                        color='k', alpha=1., zorder=9009, s=0.5, marker=".", linewidths=0
+                    )
 
         elif isochrone == 'parsec':
 
-            ages = [100, 178, 316]
-            logages = [8, 8.25, 8.5]
+            #ages = [25.1,31.6,39.8]
+            #logages = [7.4,7.5,7.6]
+            ages = [31.6,39.8,50.1]
+            logages = [7.5,7.6,7.7]
             N_ages = len(ages)
             #colors = plt.cm.cividis(np.linspace(0,1,N_ages))
             colors = plt.cm.spring(np.linspace(0,1,N_ages))
@@ -1804,16 +1865,21 @@ def plot_hr(
                     (iso_df.Mass < 7)
                 )
 
-                corr = 7.80
-                #corr = 7.65
-                #corr = 7.60
+                __sel = df.parallax_over_error > 40
+                avg_distance = (
+                    parallax_to_distance_highsn(np.mean(df[__sel].parallax))
+                )
+                corr = 5*np.log10(avg_distance) - 5
+                offset = 0.0
+
                 _yval = (
                     iso_df[sel]['Gmag'] +
-                    5*np.log10(np.nanmedian(core_df['parallax']/1e3)) + 5
-                    + AVG_AG
+                    5*np.log10(np.nanmedian(df['parallax']/1e3)) + 5
+                    #+ AVG_AG
                     + corr
+                    + offset
                 )
-                sel2 = (_yval < 15) # numerical issue
+                sel2 = (_yval < 12) # numerical issue
                 _yval = _yval[sel2]
 
                 if color0 == 'phot_bp_mean_mag':
@@ -1834,46 +1900,52 @@ def plot_hr(
                 late_mdwarfs = (_xval > 2.2) & (_yval > 5)
                 ax.plot(
                     _xval[~late_mdwarfs], _yval[~late_mdwarfs],
-                    c=c, ls='-', alpha=1., zorder=7, label=f'{a} Myr', lw=0.5
+                    c=c, ls='-', alpha=1., zorder=9001, label=f'{a} Myr', lw=0.5
                 )
                 ax.plot(
                     _xval, _yval,
-                    c=c, ls='--', alpha=1., zorder=6, lw=0.5
+                    c=c, ls='--', alpha=9000, zorder=6, lw=0.5
                 )
 
-                nored_y = (
-                    nored_iso_df[sel]['Gmag'] +
-                    5*np.log10(np.nanmedian(core_df['parallax']/1e3)) + 5
-                    + AVG_AG
-                    + corr
-                )
-                nored_y = nored_y[sel2] # same jank numerical issue
-                nored_x = (
-                    nored_iso_df[sel][sel2][_c0] - nored_iso_df[sel][sel2]['G_RPmag']
-                )
+                if getstellarparams and i == 1:
 
-                diff_x = -(nored_x - _xval)
-                diff_y = -(nored_y - _yval)
-
-                # SED-dependent reddening check, usually off.
-                print(42*'*')
-                print(f'Median Bp-Rp difference: {np.median(diff_x):.4f}')
-                print(42*'*')
-                if i == 0:
-                    sep = 2
-                    # # NOTE: to show EVERYTHING
-                    # ax.quiver(
-                    #     nored_x[::sep], nored_y[::sep], diff_x[::sep], diff_y[::sep], angles='xy',
-                    #     scale_units='xy', scale=1, color='magenta',
-                    #     width=1e-3, linewidths=1, headwidth=5, zorder=9
-                    # )
-
-                    ax.quiver(
-                        2.6, 3.5, np.nanmedian(diff_x[::sep]),
-                        np.nanmedian(diff_y[::sep]), angles='xy',
-                        scale_units='xy', scale=1, color='black',
-                        width=3e-3, linewidths=2, headwidth=5, zorder=9
+                    sel = (
+                        (np.abs(iso_df.logAge - la) < 0.01) &
+                        (iso_df.Mass < 1.0) &
+                        (iso_df.Mass > 0.90)
                     )
+                    mstar = np.array(iso_df.Mass)
+
+                    print(42*'#')
+                    print("PARSEC")
+                    print(f'{_c0} - Rp')
+                    print(f'Mstar {mstar[sel]}')
+                    teff = np.array(10**iso_df['logTe'])
+                    print(f'Teff {teff[sel]}')
+                    logg = np.array(iso_df['logg'])
+                    print(f'logg {logg[sel]}')
+                    rstar = ((( (10**logg)*u.cm/(u.s*u.s)) /
+                              (const.G*mstar*u.Msun))**(-1/2)).to(u.Rsun)
+                    print(f'Rstar {rstar[sel]}')
+                    rho = (mstar*u.Msun/(4/3*np.pi*rstar**3)).cgs
+                    print(f'Rho [cgs] {rho[sel]}')
+
+                    _yval = (
+                        iso_df[sel]['Gmag'] +
+                        5*np.log10(np.nanmedian(df['parallax']/1e3)) + 5
+                        #+ AVG_AG
+                        + corr
+                        + offset
+                    )
+
+                    ax.scatter(
+                        iso_df[sel][_c0]-iso_df[sel]['G_RPmag'],
+                        _yval,
+                        c='k', alpha=1., zorder=9009, s=2, marker=".", linewidths=0
+                    )
+
+
+
 
     ax.set_ylabel('Absolute $\mathrm{M}_{G}$ [mag]', fontsize='medium')
     if reddening_corr:
@@ -1926,7 +1998,7 @@ def plot_hr(
     #
     # append SpTypes (ignoring reddening)
     #
-    from rudolf.priors import AVG_EBpmRp, AVG_EGmRp
+    from rudolf.priors import AVG_EBpmRp
     tax = ax.twiny()
     tax.set_xlabel('Spectral Type')
 
@@ -1982,7 +2054,7 @@ def plot_hr(
 
     outpath = os.path.join(outdir, f'hr{s}{c0s}.png')
 
-    savefig(f, outpath, dpi=400)
+    savefig(f, outpath, dpi=500)
 
 
 def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,

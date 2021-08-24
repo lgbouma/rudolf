@@ -63,6 +63,10 @@ def plot_rp_vs_period_scatter(
         hardexclude = (
             (ea_df.pl_name == 'CoRoT-18 b') # this is an isochrone age? G9V? wat?
             |
+            (ea_df.pl_name == 'Qatar-3 b') # age uncertainties understated.
+            |
+            (ea_df.pl_name == 'Qatar-5 b') # age uncertainties understated.
+            |
             (ea_df.pl_name == 'Qatar-4 b') # age uncertainties understated. Rotn good. Li is not. isochrones who knows.
         )
 
