@@ -2,8 +2,16 @@
 Tools for working out the extinction.
 
 General-purpose:
+
+    given_EBmV_and_BpmRp_get_A_X
+
     retrieve_stilism_reddening
-    get_corrected_gaia_phot_Gagne2020
+
+    append_corrected_gaia_phot_Gaia2018:
+            given STILISM reddening, append *_corr photometry columns.
+
+    append_corrected_gaia_phot_Gagne2020;
+            as above, but with the Gagne+20 corrections, instead of Gaia+18
 """
 
 import numpy as np, pandas as pd
@@ -15,6 +23,47 @@ from datetime import datetime
 from scipy.interpolate import interp1d
 
 from rudolf.paths import DATADIR
+
+def given_EBmV_and_BpmRp_get_A_X(EBmV, BpmRp, bandpass='G'):
+    """
+    Assuming GaiaCollaboration_2018_table1 coefficients, convert an E(B-V)
+    value to a A_G, A_BP, or A_RP value.
+
+    bandpass: 'G','BP', or 'RP'
+    """
+    assert bandpass in ['G','BP','RP']
+
+    corr_path = os.path.join(DATADIR, 'extinction',
+                             'GaiaCollaboration_2018_table1.csv')
+    cdf = pd.read_csv(corr_path, sep=',')
+
+    A_0 = 3.1 * E_BmV
+
+    c1 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c1'])
+    c2 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c2'])
+    c3 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c3'])
+    c4 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c4'])
+    c5 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c5'])
+    c6 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c6'])
+    c7 = float(cdf.loc[cdf.bandpass==f'k{bp}', 'c7'])
+
+    # nb Eq 1 of the paper has BpmRp0 ... which presents a bit of
+    # a self-consistency issue
+    k_X = (
+        c1
+        + c2*(BpmRp)
+        + c3*(BpmRp)**2
+        + c4*(BpmRp)**3
+        + c5*A_0
+        + c6*A_0**2
+        + c7*A_0*BpmRp
+    )
+
+    A_X = k_X * A_0
+
+    return A_X
+
+
 
 def append_corrected_gaia_phot_Gaia2018(df):
     """
@@ -31,7 +80,7 @@ def append_corrected_gaia_phot_Gaia2018(df):
         Same DataFrame, with 'phot_g_mean_mag_corr', 'phot_rp_mean_mag_corr',
         'phot_bp_mean_mag_corr' columns.
     """
-    #FIXME
+
     corr_path = os.path.join(DATADIR, 'extinction',
                              'GaiaCollaboration_2018_table1.csv')
     cdf = pd.read_csv(corr_path, sep=',')
