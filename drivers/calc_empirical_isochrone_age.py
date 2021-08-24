@@ -85,7 +85,16 @@ def collect_isochrone_data():
     extinctionmethod = 'gaia2018'
     color0 = 'phot_bp_mean_mag'
 
-    # getters
+    # NOTE: need to assume hard-coded ages for the reference clusters
+    age_dict = {
+        'UCL': 16e6, # Preibisch & Mamajek 2008, Table 11, UCL
+        'IC 2602': 38e6,
+        'Pleiades': 112e6 # Dahn 2015
+    }
+
+    #
+    # begin by defining "getters"
+    #
     cstr = '_corr' if reddening_corr else ''
     get_yval = (
         lambda _df: np.array(
@@ -248,13 +257,6 @@ def collect_isochrone_data():
         hr_dict[c]['x_eval'] = x_eval
         hr_dict[c]['y_eval'] = y_eval
         hr_dict[c]['fn_BpmRp_to_AbsG'] = fn_BpmRp_to_AbsG
-
-    # NOTE: need to assume hard-coded ages for the reference clusters
-    age_dict = {
-        'UCL': 16e6, # Preibisch & Mamajek 2008, Table 11, UCL
-        'IC 2602': 35e6,
-        'Pleiades': 112e6 # Dahn 2015
-    }
 
     # now make the grid!
     alpha = np.linspace(0,1,1000)
