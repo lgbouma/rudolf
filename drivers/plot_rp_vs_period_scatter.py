@@ -136,16 +136,18 @@ def plot_rp_vs_period_scatter(
                    alpha=1, rasterized=True)
 
         # draw the colored points
-        axins1 = inset_axes(ax, width="3%", height="33%", loc='lower right')
+        axins1 = inset_axes(ax, width="3%", height="33%", loc='lower right',
+                            borderpad=0.7)
 
         cmapname = 'viridis'
         cmap = mpl.cm.viridis
         bounds = np.arange(6.9,9.1,0.01)
-        norm = mpl.colors.BoundaryNorm(bounds, cmap.N, extend='neither')
+        norm = mpl.colors.LogNorm(vmin=1e7, vmax=1e9)
+        #norm = mpl.colors.BoundaryNorm(bounds, cmap.N, extend='neither')
 
         _p = ax.scatter(
             period[s1], rp[s1],
-            c=np.log10(age[s1]), alpha=1, zorder=2, s=13, edgecolors='k',
+            c=age[s1], alpha=1, zorder=2, s=13, edgecolors='k',
             marker='o', cmap=cmap, linewidths=0.3, norm=norm
         )
 
@@ -167,7 +169,7 @@ def plot_rp_vs_period_scatter(
 
                 ax.scatter(
                     _per, _rp,
-                    c=np.log10(_age), alpha=1, zorder=2, s=110, edgecolors='k',
+                    c=_age, alpha=1, zorder=2, s=110, edgecolors='k',
                     marker='*', cmap=cmap, linewidths=0.3, norm=norm
                 )
 
@@ -176,8 +178,10 @@ def plot_rp_vs_period_scatter(
             # Kepler-52 and Kepler-968
             namelist = ['Kepler-52', 'Kepler-968', 'Kepler-1627']
             ages = [3.5e8, 3.5e8, 3.5e7]
+            markers = ['o','d','*']
+            sizes = [70, 70, 110]
 
-            for n, a in zip(namelist, ages):
+            for n, a, m, _s in zip(namelist, ages, markers, sizes):
                 sel = ea_df.hostname == n
 
                 _sdf = ea_df[sel]
@@ -190,21 +194,25 @@ def plot_rp_vs_period_scatter(
 
                 ax.scatter(
                     _per, _rp,
-                    c=np.log10(_age), alpha=1, zorder=2, s=110, edgecolors='k',
-                    marker='*', cmap=cmap, linewidths=0.3, norm=norm
+                    c=_age, alpha=1, zorder=2, s=_s, edgecolors='k',
+                    marker=m, cmap=cmap, linewidths=0.3, norm=norm
                 )
 
         cb = fig.colorbar(_p, cax=axins1, orientation="vertical",
-                          extend="neither", ticks=[7,7.5,8,8.5,9],
+                          extend="neither", #ticks=[7,7.5,8,8.5,9],
                           norm=norm)
-        cb.ax.set_yticklabels([7,7.5,8,8.5,9])
+        #cb.ax.set_yticklabels([7,7.5,8,8.5,9])
+
+        cb.set_ticks([1e7,1e8,1e9])
+        cb.set_ticklabels(['$10^7$','$10^8$','$10^9$'])
+
         cb.ax.tick_params(labelsize='x-small')
         cb.ax.tick_params(size=0, which='both') # remove the ticks
 
         cb.ax.yaxis.set_ticks_position('left')
         cb.ax.yaxis.set_label_position('left')
 
-        cb.set_label("log$_{10}$(age [years])", fontsize='x-small')
+        cb.set_label("Age [years]", fontsize='x-small')
 
     if colorbydisc:
         dmethods = np.unique(discoverymethod)
