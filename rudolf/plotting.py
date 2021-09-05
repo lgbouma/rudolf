@@ -479,7 +479,7 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
         xmin,xmax = np.max(x)+1, np.min(x)-1
         ymin,ymax = np.min(y)-1, np.max(y)+1
         ax.set_xlim([xmin,xmax])
-        ax.set_ylim([ymin,ymax])
+        ax.set_ylim([np.min([ymin,8]),ymax])
 
 
     if shownakedeye:
@@ -507,7 +507,7 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
         bbox = dict(facecolor='white', alpha=0.9, pad=0, edgecolor='white')
         if plot_starnames:
             #stars_names = stars[pd.notnull(stars['proper'])]
-            sel_names = ['Vega', 'Albireo', 'Deneb', '12Del2Lyr']
+            sel_names = ['Vega', 'Altair', 'Deneb', '12Del2Lyr']
             stars_names = stars[
                 (stars.proper.astype(str).str.contains('|'.join(sel_names)))
                 |
