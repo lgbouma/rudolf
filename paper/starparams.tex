@@ -2,16 +2,15 @@
 \scriptsize
 \setlength{\tabcolsep}{2pt}
 \centering
-\caption{Literature and Measured Properties for Kepler$\,$1627 A}
+\caption{Literature and Measured Properties for Kepler$\,$1627}
 \label{tab:starparams}
 %\tablenum{2}
 \begin{tabular}{llcc}
   \hline
   \hline
-Other identifiers\dotfill & \\
+Primary Star\dotfill & \\
 \multicolumn{3}{c}{TIC 120105470} \\
-\multicolumn{3}{c}{GAIADR2 2103737241426734336} \\
-\multicolumn{3}{c}{GAIAEDR3 2103737241426734336} \\
+\multicolumn{3}{c}{GAIADR2$^\dagger$ 2103737241426734336} \\
 \hline
 \hline
 Parameter & Description & Value & Source\\
@@ -23,7 +22,6 @@ $\delta_{J2015.5}$\dotfill	&Declination (dd:mm:ss)\dotfill & +41:34:36.22 & 1	\\
 %\\
 %$NUV$\dotfill           & GALEX $NUV$ mag.\dotfill & 13.804 $\pm$ 0.004 & 2 \\
 %$FUV$\dotfill           & GALEX $FUV$ mag.\dotfill & 18.466 $\pm$ 0.056 & 2 \\
-\\
 %B\dotfill			&Johnson B mag.\dotfill & 11.119 $\pm$ 0.107		& 2	\\
 V\dotfill			&Johnson V mag.\dotfill & 13.11 $\pm$ 0.08		& 2	\\
 %$B$\tablenote{The uncertainties of the photometry have a systematic error floor applied. Even still, the global fit requires a significant scaling of the uncertainties quoted here to be consistent with our model, suggesting they are still significantly underestimated for one or more of the broad band magnitudes}\dotfill		& APASS Johnson $B$ mag.\dotfill	& 13.001 $\pm$	0.02& 2	\\
@@ -46,7 +44,6 @@ K$_{\rm S}$\dotfill			& 2MASS ${\rm K_S}$ mag.\dotfill & 11.19 $\pm$ 0.02 &  3	\
 %W2\dotfill		& WISE2 mag.\dotfill & 8.875 $\pm$ 0.021 &  4 \\
 %W3\dotfill		& WISE3 mag.\dotfill &  8.875 $\pm$ 0.020& 4	\\
 %W4\dotfill		& WISE4 mag.\dotfill & 8.936 $\pm$ N/A &  4	\\
-\\
 $\pi$\dotfill & Gaia EDR3 parallax (mas) \dotfill & 3.009 $\pm$ 0.032 &  1 \\
 $d$\dotfill & Distance (pc)\dotfill & $329.5 \pm 3.5$ & 1, 4 \\
 $\mu_{\alpha}$\dotfill		& Gaia EDR3 proper motion\dotfill & 1.716 $\pm$ 0.034 & 1 \\
@@ -55,8 +52,6 @@ $\mu_{\delta}$\dotfill		& Gaia EDR3 proper motion\dotfill 	&  -1.315 $\pm$ 0.034
                     & \hspace{3pt} in DEC (mas yr$^{-1}$) &  \\
 RUWE\dotfill		& Gaia EDR3 renormalized\dotfill 	&  2.899 &  1 \\
                     & \hspace{3pt} unit weight error &  \\
-%
-\\
 RV\dotfill & Systemic radial \hspace{9pt}\dotfill  & $-14.3 \pm 1.0$ & 5 \\
                     & \hspace{3pt} velocity (\kms)  & \\
 Spec. Type\dotfill & Spectral Type\dotfill & 	G8V & 5 \\
@@ -82,6 +77,15 @@ ${\rm [Fe/H]}$\dotfill &   Metallicity\dotfill & 0.1 $\pm$ 0.1 & 6 \\
 %
 $P_{\rm rot}$\dotfill & Rotation period (d)\dotfill & $2.642\pm 0.042$  & 7 \\
 Age & Adopted stellar age (Myr)\dotfill & $38^{+6}_{-5}$  &  8 \\
+\hline 
+$\rho_{\rm B}$ & Apparent separation of \dotfill & 0.16 $\pm 0.02$ &  9 \\
+                    & \hspace{3pt} primary and secondary (as) &  \\
+$\theta_{\rm B}$ & Separation angle (deg)\dotfill & 91.9 $\pm 2.5$ & 9 \\
+$\Delta m_{832}$ & Mag difference (`Alopeke 832\,nm)\dotfill & 3.1 $\pm 0.1$ & 9 \\
+$\Delta m_{Kp}$ & Mag difference (NIRC2 Kp)\dotfill & 2.5 $\pm 0.2$ & 10 \\
+$\rho_{\rm B}$ & Apparent separation of \dotfill & 53 $\pm 7$ &  1,4,9 \\
+                    & \hspace{3pt} primary and secondary (AU) &  \\
+%$t_{\rm `Alopeke}$ & Epoch of `Alopeke observation & 2021-06-24 & 9
 % $U^{*}$\dotfill & Space Velocity (\kms)\dotfill & $26.24 \pm 0.46$  & \S\ref{sec:uvw} \\
 % $V$\dotfill       & Space Velocity (\kms)\dotfill & $-71.52 \pm 1.68$ & \S\ref{sec:uvw} \\
 % $W$\dotfill       & Space Velocity (\kms)\dotfill & $ -1.31 \pm 0.27$ & \S\ref{sec:uvw} \\
@@ -89,6 +93,8 @@ Age & Adopted stellar age (Myr)\dotfill & $38^{+6}_{-5}$  &  8 \\
 \end{tabular}
 \begin{flushleft}
  \footnotesize{ \textsc{NOTE}---
+ $^\dagger$ The GAIADR2 and GAIAEDR3 identifiers for Kepler 1627A are identical.  The secondary
+ is not resolved in the Gaia point source catalog.
 Provenances are:
 $^1$\citet{gaia_collaboration_gaia_2018},
 $^2$\citet{stassun_TIC8_2019},
@@ -100,7 +106,9 @@ $^6$Cluster isochrone (MIST adopted; PARSEC compared for quoted
 %$^7$FEROS spectra,
 %$^7$\citet{capitanio_threedimensional_2017} and \citet{lallement_threedimensional_2018},
 $^7$Kepler light curve,
-$^8$Pre-main-sequence CMD interpolation (Section~\ref{sec:cmd}).
+$^8$Pre-main-sequence CMD interpolation (Section~\ref{sec:cmd}),
+$^9$`Alopeke imaging 2021-06-24,
+$^{10}$NIRC2 imaging 2015-07-22.
 %$*$ $U$ is in the direction of the Galactic center. \\
 %$^{10}$Method~1 (photometric SED fit, Section~\ref{subsec:starparams}).}
 }

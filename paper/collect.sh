@@ -4,6 +4,8 @@ cp /Users/luke/Dropbox/proj/rudolf/results/skychart/skychart_showkepler_showtess
 
 cp /Users/luke/Dropbox/proj/rudolf/results/keplerlc/keplerlc_Nsample500_xlim0500_0600.pdf f4.pdf
 
+cp /Users/luke/Dropbox/proj/rudolf/results/keplerlc/*.pdf FigureSetKeplerLC/.
+
 cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_posterior_phaseplot.pdf f5.pdf
 
 cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_cornerplot.png dontinclude0.png
