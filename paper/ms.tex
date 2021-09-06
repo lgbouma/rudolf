@@ -75,7 +75,7 @@
   starspot-crossing events in the Kepler photometry and
   a Keck/HIRES transit we find that the planet is likely on an
   orbit aligned with the stellar spin axis.  We also briefly explore the flare
-  arrival time distribution in the short-cadence Kepler
+  arrival time distribution in the short cadence Kepler
   photometry.
   The $\delta$~Lyr cluster is one of many stellar groups whose
   properties have been clarified using the Gaia data; many other new
@@ -649,7 +649,7 @@ however to make a more precise obliquity measurement.
     exoplanets}.  Planets older than $10^9$ years are shown with gray
     markers.  Planets younger than a gigayear with ${\rm
     Age}/\sigma_{\rm Age} > 3$
-    are shown in color.  \pn\ is shown with a star.  The large radii
+    are emphasized.  \pn\ is shown with a star.  The large radii
     of the youngest transiting planets could be explained by their
     primordial atmospheres not yet having evaporated; direct
     measurements of the atmospheric outflows or planetary masses would
@@ -689,7 +689,7 @@ flare timing coincidence that may be worthy of further examination.
 
 In the context of the known transiting planets, \pn\ is among the
 youngest known (Figure~\ref{fig:rp_period_age}).  Comparable systems
-with precisely measured ages below 100\,Myr include K2-33b, DS~Tuc~Ab,
+with precise ages below 100\,Myr include K2-33b, DS~Tuc~Ab,
 HIP~67522b, TOI~837b, AU~Mic~b, and the four-planet V1298~Tau system
 \citep{Mann_K2_33b_2016,David_et_al_2017,newton_tess_2019,david_four_2019,bouma_cluster_2020,plavchan_planet_2020}.
 \pn\ is currently the smallest of these systems ($\approx
@@ -703,17 +703,17 @@ atmospheres that are shed over the first gigayear
 suggestion of an aligned orbit differs from observed misalignments in
 number of other close-in
 mini-Neptunes~\citep{sanchis-ojeda_starspots_2011,albrecht_obliquities_2012,dalal_2019_hd3167,rubenzahl_tess-keck_2021}.
-Unlike these older planets, the properties of \pn\ seem to be
+Unlike these older planets, \pn\ seems to have properties
 consistent with a quiescent disk-driven migration history.  The
 alternative scenario of in-situ formation is disfavored on theoretical
 grounds: the required disk mass would likely drive migration, and so
 lacks internal consistency
 \citep{inamdar_formation_2015,ogihara_reassessment_2015}.
 
-Ultimately though, the main advance of this work was a precise measurement of
-the age of \pn.   The age measurement was enabled by identifying the
+Ultimately, the main advance of this work was a precise measurement of
+the age of \pn.   This age measurement was enabled by identifying the
 connection of the star to the \cn\ using the Gaia data.  Table~\ref{tab:v05}
-enables similar crossmatches to
+should enable similar crossmatches to
 already known planets, as well as forthcoming planets from the TESS
 mission \citep{ricker_transiting_2015,guerrero_tess_2021}.  An
 alternative path toward age-dating more planets could be to identify kinematic associations
@@ -959,8 +959,6 @@ opportunity to conduct observations from this mountain.
 \section{Young, Age-Dated, and Age-Dateable Star Compilation}
 \label{app:targetlist}
 
-\input{t1_appendix.tex}
-\input{t2_appendix.tex}
 
 The \texttt{v0.5} CDIPS target catalog (Table~\ref{tab:v05}) includes
 some important updates from previous versions.  As in
@@ -1093,13 +1091,14 @@ field star interlopers), our aim is to verify the existence of the
 cluster in the vicinity of Kepler\,1627, and to measure its age.  The
 procedure we have adopted enables both tasks.
 
+
 \section{Binarity and Stellar Rotation for $\delta$\,Lyr Cluster Members}
 \label{app:rotationbinarity}
 
-\begin{figure*}[t]
+\begin{figure}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.9\textwidth]{f15supp.pdf}
+		\includegraphics[width=0.49\textwidth]{f15supp.pdf}
 	\end{center}
 	\vspace{-0.7cm}
   \caption{ {\bf Binarity indicators for rotators in \cn.} 
@@ -1117,7 +1116,7 @@ procedure we have adopted enables both tasks.
 		% \replaced{56\% (40/71)}{51\% (68/134)}, respectively.
 		\label{fig:binarity}
 	}
-\end{figure*}
+\end{figure}
 
 Figure~\ref{fig:binarity} shows the rotation-color diagram for \cn\
 members, with the points colored according to indicators of binarity.
@@ -1146,94 +1145,107 @@ periods than possible for single stars
 \label{app:gptransit}
 
 \subsection{Long Cadence Data}
-\begin{figure*}[t]
+\begin{figure}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=1\textwidth]{f9.pdf}
+		\includegraphics[width=0.49\textwidth]{f9.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-		{\bf Transit model residuals through time}.  
+		{\bf Transit model residuals through time (binned by Kepler quarter)}.  
     {\it Left:}
-		Phase-folded transit of Kepler 1627b, with stellar
-    variability removed, binned by Kepler quarter.
-    Black points are binned to 20 minute intervals.
-    The 1-$\sigma$ model uncertainties and the maximum {\it a
-    posteriori} model are shown as the faint purple band, and the dark
-    purple line.
+    Phase-folded transit of Kepler 1627b, with stellar variability
+    removed.  Black points are binned to 20
+    minute intervals.  The 2-$\sigma$ model uncertainties and the
+    maximum {\it a posteriori} model are shown as the faint purple
+    band, and the dark purple line.
     {\it Right:}
-    As on the left, with the transit removed.
-    Quarters 6 and 7 show a consistent deviation in the second half of
-    the transit.
+    As on the left, with the transit removed.  Quarters 6 and 7 show a
+    consistent deviation in the second half of the transit.
 		\label{fig:phasequarter}
 	}
-\end{figure*}
+\end{figure}
 
-\begin{figure*}[t]
+\begin{figure}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=1\textwidth]{f10.pdf}
+		\includegraphics[width=0.49\textwidth]{f10.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-    {\bf Transit model residuals through time (Part 2)}.  
+    {\bf Transit model residuals through time (binned by year of observation)}.  
     {\it Left:}
-		Phase-folded transit of Kepler 1627b, with stellar
-    variability removed, binned by year of observation.
-    Points and models are as in Figure~\ref{fig:phasequarter}.
+    Phase-folded transit of Kepler 1627b, with stellar variability
+    removed.  Points and models are as
+    in Figure~\ref{fig:phasequarter}.
     {\it Right:}
     As on the left, with the transit removed.
 		\label{fig:phaseyear}
 	}
-\end{figure*}
+\end{figure}
 
+We fitted the Kepler nce time series with a model that
+simultaneously included the planetary transit and the stellar
+variability.  The stellar variability was modelled with the
+\texttt{RotationTerm} Gaussian Process kernel in \texttt{exoplanet}
+\citep{exoplanet:exoplanet}.  This kernel assumes that the variability
+is generated by a mixture of two damped simple harmonic oscillators
+with characteristic frequencies set by 1/$P_{\rm rot}$ and its first
+harmonic.  We additionally incorporated a ``jitter'' term to inflate
+the flux uncertainties in a manner that accounted for otherwise
+unmodelled excess white noise, and let the eccentricity float.  For
+the limb-darkening, we assumed a quadratic law, and sampled using the
+uninformative prior suggested by \citet{exoplanet:kipping13}.
 
+Our adopted model therefore included 10 free parameters for the
+transit ($\{P,t_0,\log R_{\rm p}/R_\star,b,u_1,u_2,R_\star, \log g,
+e\cos\omega, e\sin\omega \}$), 2 parameters for the light curve
+normalization and uncertainty calibration ($\{\langle f \rangle,  \log
+\sigma_f \}$), and 5 hyperparameters for the GP
+($\{\sigma_{\mathrm{rot}}, \log P_{\mathrm{rot}}, \log Q_0, \log
+\mathrm{d}Q, f \}$).  We also considered including an additive
+\texttt{SHOTerm} kernel to account for stochastic noise, but found
+that this did not significantly affect the results, and so opted for
+the simpler GP kernel.  We fitted the models using \texttt{PyMC3}
+\citep{salvatier_2016_PyMC3,exoplanet:theano}.  After initializing
+each model with the parameters of the maximum {\it a posteriori}
+model, we assumed a Gaussian likelihood, and sampled using
+\texttt{PyMC3}'s gradient-based No-U-Turn Sampler
+\citep{hoffman_no-u-turn_2014}. We used $\hat{R}$ as our convergence
+diagnostic \citep{gelman_inference_1992}.
 
-We assumed a quadratic limb-darkening law, with the uninformative prior
-advocated by CITET Kipping2013.
+Figure~\ref{fig:lc} shows the resulting model in orange (top) and
+purple (bottom).  While the fit appears reasonably good, an asymmetry
+is present during the transit: the measured flux is systematically
+high during the first half, and low in the second half.  We verified
+that this effect is not caused by our stellar variability model by
+exploring an alternative approach in which we isolated each transit
+window and locally fitted out polynomial trends, and then binned all
+the observed transits; the asymmetry was still present, at a
+comparable amplitude.
 
-% In the first approach, we adopted uniform priors centered on the
-% interpolated CITET Claret+2011 coefficients in the Kepler-band, with
-% with $\pm 0.2$ in either parameter.  The fit was not as good.
-
-Our default stellar variability model (RotGPtransit) allows for a
-\texttt{RotTerm} GP kernel, with a logjitter term to inflate the
-uncertainties to account for excess white noise.  (This results in an
-inflation of the uncertainties by a factor of about three).
-
-We considered including an additive \texttt{SHOTerm} kernel to account
-for stochastic noise (RotStochGPtransit).  This didn't seem to affect
-the results much, so we opted for the simpler model.
-
-Figure~\ref{fig:phasefold} shows X, Y, Z.  The residuals during the
-transit may hint at some small degree of unfitted signal -- in the
-sense that the observations are systematically high in the first half
-of transit, and low in the second half.  This is the phase of maximal
-scatter during each orbital period (TODO: in vs out of transit
-scatter).  The amplitude of the anomaly is $\approx$30\,ppm.
-
-To explore the origin of the anomaly, we binned the Kepler data over
-quarters (Figure~\ref{fig:phasequarter}) and years
-(Figure~\ref{fig:phaseyear}).  In Figure~\ref{fig:phasequarter}
-Quarter 6 shows the strongest asymmetry out of any of the quarters: a
-deviation of about 3\,ppt from expectation.  Quarter 7 shows an
-anomaly at roughly the same transit phase.  Year 2 correspondingly
-shows the strongest anomaly out of any year in
-Figure~\ref{fig:phaseyear}.
+Figures~\ref{fig:phasequarter} and~~\ref{fig:phaseyear} show the
+Kepler data binned over quarters and years.  In
+Figure~\ref{fig:phasequarter} Quarter 6 shows the strongest asymmetry
+out of any of the quarters: a deviation of about 3\,ppt from
+expectation.  Quarter 7 shows an anomaly at roughly the same transit
+phase.  Year 2 correspondingly shows the strongest anomaly out of any
+year in Figure~\ref{fig:phaseyear}.
 
 We considered three possible explanations for the anomaly: gravity
 darkening, transit timing variations, and spot-crossing events.
-
-Gravity darkening (e.g., CITE Masuda 2015) is based on the premise
-that the rapidly rotating star becomes oblate, and brighter near the
-poles than the equator.  The fractional shape change due to gravity
-darkening is on the order of $(P_{\rm break}/P_{\rm rot})^2$, for
-$P_{\rm break}$ the break-up rotation period, and $P_{\rm rot}$ the
-rotation period.  Using the parameters from Table~\ref{tab:posterior},
-this yields an expected 1.6\% distortion of the $\approx$1.8\,ppt
-transit depth: {\it i.e.}, an absolute deviation of $\approx$3\,ppm.
-This is smaller than the observed anomaly by an order of magnitude,
-and therefore seems unlikely.
+Gravity darkening is based on the premise that the rapidly rotating
+star becomes oblate, and brighter near the poles than the equator
+\citep[{\it e.g.},][]{masuda_spin-orbit_2015}.  The fractional shape
+change due to gravity darkening is on the order of $(P_{\rm
+break}/P_{\rm rot})^2$, for $P_{\rm break}$ the break-up rotation
+period, and $P_{\rm rot}$ the rotation period.  Using the parameters
+from Table~\ref{tab:posterior}, this yields an expected 1.6\%
+distortion of the $\approx$1.8\,ppt transit depth: {\it i.e.}, an
+absolute deviation of $\approx$3\,ppm.  The observed residual has an
+amplitude of $\approx 30\,{\rm ppm}$.  Since the expected signal is
+smaller than the observed anomaly by an order of magnitude, gravity
+darkening seems to be an unlikely explanation.
 
 The scenario of transit timing variations (TTVs) producing the
 asymmetry seems unlikely, since the analysis by
@@ -1242,46 +1254,52 @@ need to be less than of order minutes.  Figures~\ref{fig:phasequarter}
 and~\ref{fig:phaseyear} also provide little evidence in support of
 this possibility.
 
-The final possibility is that of starspot crossings.  Given the high
-expected spot-covering fractions for young stars ({\it e.g.},
-\citealt{morris_relationship_2020}, \citealt{plavchan_planet_2020}),
-\pn\ may cross spot groups on the stellar surface in projection.
-Spot-crossing anomalies often reach amplitudes exceeding 100\,ppm
-({\it e.g.}, CITE Dai 2018, maybe Southworth's recent stuff).  For our
-system,  $P_{\rm orb}/P_{\rm rot} \approx 2.76$.  This means that
-every 4 transits (and 11 stellar rotations), the planet crosses over
-roughly the same stellar longitude.  Over a given quarter, this could
-occur at most three times, assuming the spot groups are persistent.  
+The final possibility is that of starspot crossings.  Young stars are
+thought to have higher spot-covering fractions than old stars ({\it
+e.g.}, \citealt{morris_relationship_2020},
+\citealt{plavchan_planet_2020}).  Young solar-type stars may also host
+dark starspots at high stellar latitudes \citep[{\it e.g.},
+EK~Dra][]{strassmeier_starspots_2009}, though interferometric imaging
+of spotted giant stars has found different starspot latitude distributions than
+those inferred from Doppler imaging
+\citep{roettenbacher_contemporaneous_2017}.  Regardless, for any
+spot-crossing anomalies to add coherently over the 144 Kepler
+transits, it seems likely that we would need either for spots to be
+persistent at a particular latitude (and for a slightly misaligned
+orbit), or for a ``stroboscopic'' longitudinal phasing \citep[{\it
+e.g.},][]{dai_stellar_2018}.  For our system, $P_{\rm orb}/P_{\rm rot}
+\approx 2.76$, which means that every 4 transits and 11 stellar
+rotations, the planet crosses over roughly the same stellar longitude,
+which could enable the necessary phasing if the spot-groups are
+long-lived.  Unforunately, the typical S/N per Kepler transit is
+$\approx8$, which renders individual spot-crossing events unresolved.
+Therefore, although among the possible ideas starspot crossings seem
+the most likely to provide the additional photometric scatter observed
+during transits, our reasoning is essentially that the expected
+spot-crossing anomaly amplitudes ($\approx 100\,{\rm ppm}$) could be
+correct; we are not able to definitely show that this is the correct
+explanation, and the issue could deserve further exploration.
 
-This could provide a plausible path to creating the distorted transit
-signal, based on the amplitudes involved.  However, the typical S/N
-per Kepler transit is $\approx8$, making individual spot-crossing
-unresolved, and this scenario challenging to test.  {\it A priori},
-one would also expect the spot-crossing events to not have a preferred
-orbital phase, so that they would average out over the $\approx200$
-Kepler transits.  Nonetheless, given the available data, it is our
-best explanation for what we believe is real additional photometric
-scatter observed during the transits.
 
-\subsection{Short Cadence Data}
-
-\begin{figure*}[t]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=1\textwidth]{f12.pdf}
-	\end{center}
-	\vspace{-0.7cm}
-	\caption{
-		{\bf Phase-folded short cadence transit of Kepler\,1627 Ab}.  
-    The precision with which the impact parameter can be measured is
-    higher than from the long cadence data.
-		\label{fig:phase_slc}
-	}
-\end{figure*}
-
-Figure~\ref{fig:phase_slc} shows the result from analyzing 100 days of
-short cadence (1-minute) data acquired during Quarter 15.
-%TODO: get quantitative on better impact parameter...
+%  \subsection{Short Cadence Data}
+%  
+%  \begin{figure*}[t]
+%  	\begin{center}
+%  		\leavevmode
+%  		\includegraphics[width=1\textwidth]{f12.pdf}
+%  	\end{center}
+%  	\vspace{-0.7cm}
+%  	\caption{
+%  		{\bf Phase-folded short cadence transit of Kepler\,1627 Ab}.  
+%      The precision with which the impact parameter can be measured is
+%      higher than from the long cadence data.
+%  		\label{fig:phase_slc}
+%  	}
+%  \end{figure*}
+%  
+%  Figure~\ref{fig:phase_slc} shows the result from analyzing 100 days of
+%  short cadence (1-minute) data acquired during Quarter 15.
+%  %TODO: get quantitative on better impact parameter...
 
 
 
@@ -1290,33 +1308,32 @@ short cadence (1-minute) data acquired during Quarter 15.
 \section{Companion Star and False Positive Assessment}
 \label{app:companionstar}
 
-\begin{figure*}[t]
+\begin{figure*}[tp]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.6\textwidth]{Kepler1627_20210624_562_832_final.pdf}
-	\end{center}
-	\vspace{-0.7cm}
-	\caption{
-    {\bf Keck NIRC2 AO image of Kepler 1627A and Kepler 1627B.}  
-    {\bf SCALEBAR DENOTES...}
-    {\bf North is up, East is left}.
-    \label{fig:ao}
-	}
-\end{figure*}
+		\subfloat{
+			\includegraphics[width=0.49\textwidth]{f17a.pdf}
+			\includegraphics[width=0.37\textwidth]{f17b.jpg}
+		}
 
-\begin{figure*}[t]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=0.6\textwidth]{f6.pdf}
+		\vspace{-0.1cm}
+		\subfloat{
+			\includegraphics[width=0.55\textwidth]{f6.pdf}
+		}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-    {\bf Gaia EDR3 renormalized unit weight error (RUWE) point
-    estimates for Kepler\,1627A and other members of the $\delta$\,Lyr
-    cluster.}  Since other members of the cluster with similar colors
-    have comparable degrees of photometric variability, the high RUWE
-    suggests that Kepler\,1627A is an astrometric binary. 
-		\label{fig:ruwe}
+    {\bf Kepler 1627 is a binary.} {\it Top:} High-resolution imaging
+    from Gemini-North/`Alopeke ({\it left}) and Keck/NIRC2 ({\it
+    right}) shows an $\approx$M2V companion at $\rho \approx
+    0\farcs16$, which corresponds to a projected separation of
+    $53\pm7$\,AU.  {\it Bottom:} Gaia EDR3 renormalized unit weight
+    error (RUWE) point estimates for Kepler\,1627A and other members
+    of the $\delta$\,Lyr cluster.  Since other members of the cluster
+    with similar colors have comparable degrees of photometric
+    variability, the high RUWE suggests that Kepler\,1627 is an
+    astrometric binary. 
+    \label{fig:kep1627binary}
 	}
 \end{figure*}
 
@@ -1325,18 +1342,18 @@ Keck/NIRC2 Kp-band adaptive optics imaging (2.12\,$\mu $m), from the
 Spring semesters of both 2015 and 2019.  We acquired additional
 Gemini-North/`Alopeke speckle imaging on 24 June 2021, which showed
 the same companion in the 0.83\,$\mu$m notch filter, but not the
-$0.56\,\mu$m filter.  Figure~\ref{fig:ao} summarizes the results of
-the high-resolution imaging.  Although the companion is unresolved in
-the Gaia source catalog, its existence was also suggested by the
-primary star's large RUWE, relative to other members of the \cn.  The
-images yield a projected separation $\rho \approx 0\farcs16$, with
-$\Delta m_{832} \approx 3.1$ and $\Delta m_{\rm Kp} = 2.5$.  Using the
-measured Gaia EDR3 parallax for the system, this implies a projected
-separation of $53 \pm 7$.  Given the low geometric probably of a star
-imaged within $\rho \approx 0\farcs16$ to be a chance companion along
-the line of sight, and the large observed RUWE, we proceed under the
-assumption that the companion is bound, and that the Kepler\,1627
-system is binary.  Based on the
+$0.56\,\mu$m filter.  Figure~\ref{fig:kep1627binary} summarizes the
+results of the high-resolution imaging.  Although the companion is
+unresolved in the Gaia source catalog, its existence was also
+suggested by the primary star's large RUWE, relative to other members
+of the \cn.  The images yield a projected separation $\rho \approx
+0\farcs16$, with $\Delta m_{832} \approx 3.1$ and $\Delta m_{\rm Kp} =
+2.5$.  Using the measured Gaia EDR3 parallax for the system, this
+implies a projected separation of $53 \pm 7$.  Given the low geometric
+probably of a star imaged within $\rho \approx 0\farcs16$ to be a
+chance companion along the line of sight, and the large observed RUWE,
+we proceed under the assumption that the companion is bound, and that
+the Kepler\,1627 system is binary.  Based on the
 tabulation\footnote{\url{http://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt},
 version \texttt{2021/03/02}.} by \citet{pecaut_mamajek_2013}, the
 measured magnitude differences for a G8V primary correspond to a
@@ -1378,7 +1395,7 @@ transit signal.
 	\caption{
 		{\bf Flares in Kepler\,1627}.  
     {\it Top:}
-    The full short-cadence Kepler dataset, acquired at 1-minute
+    The full short cadence Kepler dataset, acquired at 1-minute
     sampling (black points) is shown with a stellar variability model
     (blue line).
     {\it Middle:}
@@ -1407,7 +1424,7 @@ transit signal.
     Fitted flare amplitudes and orbital phases -- each point
     represents one flare.
     Colors indicate relative time, from the beginning of the
-    98-day short-cadence Quarter 15 dataset (dark blue) to the end (light
+    98-day short cadence Quarter 15 dataset (dark blue) to the end (light
     yellow).
     Lower amplitude flares likely exist in the data, and were not
     examined.
@@ -1439,49 +1456,54 @@ transit signal.
 	}
 \end{figure*}
 
-The short cadence (1-minute) Kepler observations span 97.7 days.
-The light curve shows a significant number of flares
-(Figure~\ref{fig:flarezoom}).
-To quantify clean the light curve and identify the flares, we
-performed the following procedure.
+In addition to the 3.9 years of long cadence data, short cadence
+(1-minute) Kepler observations were acquired over 97.7 days during
+Quarter 15.  The short cadence light curve shows a higher rate of
+flaring than visible in the long cadence data
+(Figure~\ref{fig:flarezoom}).  We analyzed the short cadence light
+curve and its flares according to the following procedure.
+
 For cleaning, we performed the following iterative detrending procedure.
-\begin{itemize}
-  \item Step 1: Build a two-term mixed SHOTerm GP model with
-    quasi-periodic kernels at Prot and 0.5$\times$Prot. Fit the model
-    to the time, flux, and flux uncertainty.
-  \item Step 2: Select points more than twice the median absolute
+\begin{enumerate}
+  \item Model the starspot-induced variability using a
+    Gaussian Process with a \texttt{SHOTerm} kernel (see
+    Section~\ref{app:gptransit}), a white-noise jitter term, and the
+    mean flux.  Fit the model to the time, flux, and flux uncertainty.
+  \item Select points more than twice the median absolute
     deviation from the residual, and exclude them from the light
-    curve.  Repeat Step 1.
-  \item Step 3: On the residual from Step 2, identify all flares,
+    curve (these points include the flares).  Repeat Step~1.
+  \item Using the residual from Step 2, identify all flares,
     requiring them to be at least 20 cadences apart, at least 7 median
-    absolute deviations above the median baseline, and lasting at least
-    2 cadences in duration.  Build the mask spanning these times, from
-    5 minutes before each flare begins to 2.5 minutes after the final
-    flare cadence.  Repeat Step 1 a final time.
-\end{itemize}
-The flares were then identified and fitted using ALTAIPONY (CITE CITE).
-The fitted model is that of CITE XXX, which parametrizes the flare
-with a start time, a lag time, and an amplitude (CHECK).
+    absolute deviations above the median baseline, and lasting at
+    least 2 cadences in duration.  Build the mask spanning these
+    times, from 5 minutes before each flare begins to 2.5 minutes
+    after the final flare cadence.  Repeat Step 1 a final time.
+\end{enumerate}
+The flares were identified and fitted using \texttt{altaipony}
+\citep{davenport_2016,ilin_flares_2021}.  The analytic flare model is
+from \citet{davenport_2014} and it parametrizes the flare with a start
+time, an exponential lag time, and an amplitude.
 Figure~\ref{fig:flarephase} shows the resulting flares, amplitudes,
 and phases.
 
-There were $N_{\rm f}=24$ flares exceeding $0.5\%$ in relative flux during the
-short-cadence observations.  These 24 flares spanned a total of 6.5
-hours ($\sim$15 minutes per flare).  For better or worse, we noticed a
-coincidence in the flare arrival times.  The coincidence is that
-despite the low flare duty cycle, one orbital period after the
-brightest flare, a second flare followed.  This and a similar event
-are shown in Figure~\ref{fig:flarezoom}.  The timing error is good to
-a $\approx0.2\%$ difference from the orbital period, which seems {\it
-a priori} unlikely.  If we consider flares falling within 2\% of the
-planet's orbital period after a previous flare, then 4 of the 24 flare
-events have candidate ``successors''.
+There were $N_{\rm f}=24$ flares that exceeded $0.5\%$ in relative
+flux during the short cadence observations.  These 24 flares spanned a
+total of 6.5 hours ($\sim$15 minutes per flare).  Whether it is
+meaningful or not, we noticed a coincidence in the flare arrival
+times.  The coincidence is that despite the low flare duty cycle, one
+orbital period after the brightest flare, a second flare followed.
+This and a similar event are shown in Figure~\ref{fig:flarezoom}.  The
+timing error is good to a $\approx0.2\%$ difference from the orbital
+period, which given the duty cycle seems {\it a priori} unlikely.  If
+we consider flares falling within 2\% of the planet's orbital period
+after a previous flare, then 4 of the 24 flare events have candidate
+``successors''.
 
-As with any coincidence, when one does not have a firm prediction, it
-is difficult to assess the statistical significance of a surprise.
-Since our surprise was specifically at the inter-arrival time of
-certain flares coinciding with special time intervals, we performed
-the following analysis.  First, we considered all unordered pairs of
+As with any coincidence, if one does not have a firm prediction, it is
+difficult to assess the statistical significance of a surprise.  Since
+our surprise was specifically at the inter-arrival time of certain
+flares coinciding with special time intervals, we performed the
+following analysis.  First, we considered all unordered pairs of
 flares.  For $N$ flares there are ${n \choose 2}$ such pairs (for our
 case, 276 pairs).  We then compared the distribution of the pair
 separations against that from a Poisson distribution.  Specifically,
@@ -1500,18 +1522,17 @@ express the range of values observed from the Poissonian draws.  While
 it does seem like a rather odd coincidence for peaks in the observed
 flare arrival time distribution to coincide with the locations of
 these ``special intervals'', the statistical evidence for a
-non-Poissonian process driving the flares does not seem particularly
+non-Poissonian process driving the flares does not seem especially
 strong.  More quantitatively, the peaks observed at the orbital and
-synodic periods are within the $\pm 2$-$\sigma$ range of a
-Poissonian process, and those at $P_{\rm orb}+P_{\rm syn}$ and $P_{\rm
-orb}+2P_{\rm syn}$ are only slightly above this range. 
-With that said,
-future analyses of these data by investigators more versed in the
-topic than ourselves could very well yield new insights.
+synodic periods are within the $\pm 2$-$\sigma$ range of a Poissonian
+process, and those at $P_{\rm orb}+P_{\rm syn}$ and $P_{\rm
+orb}+2P_{\rm syn}$ are only slightly above this range.  With that
+said, future analyses of these data by investigators more versed in
+this topic than ourselves could very well yield more detailed insights.
 
 
-
-
+\input{t1_appendix.tex}
+\input{t2_appendix.tex}
 
 \listofchanges
 
