@@ -9,6 +9,7 @@ Data getters:
         get_kep1627_kepler_lightcurve
         get_keplerfieldfootprint_dict
         get_flare_df
+        get_becc_limits
 
     Get other stellar and cluster datasets:
         get_gaia_catalog_of_nearby_stars
@@ -926,3 +927,17 @@ def append_phot_membershipexclude_column(df):
     df['is_phot_nonmember'] = sel_phot_nonmember
 
     return df
+
+
+def get_becc_limits(datasets, soln):
+
+    ecc = soln["ecc"]
+    b = soln["b"]
+
+    fn = lambda x: np.nanpercentile(x, 95)
+    print(f'e < {fn(ecc):.3f} at 2-sigma (95th)')
+    print(f'b < {fn(b):.3f} at 2-sigma (95th)')
+
+    fn = lambda x: np.nanpercentile(x, 99.7)
+    print(f'e < {fn(ecc):.3f} at 3-sigma (99.7th)')
+    print(f'b < {fn(b):.3f} at 3-sigma (99.7th)')

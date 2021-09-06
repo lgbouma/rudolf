@@ -15,7 +15,6 @@ for iso in [None, 'mist', 'parsec']:
     rp.plot_hr(PLOTDIR, isochrone=iso, color0='phot_bp_mean_mag', show100pc=1,
                clusters=['δ Lyr cluster', 'IC 2602', 'Pleiades'],
                reddening_corr=1, overplotkep1627=1, getstellarparams=1)
-assert 0
 
 # subsets actually used in paper with & w/out reddening
 for r in [1,0]:

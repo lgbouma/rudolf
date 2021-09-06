@@ -26,8 +26,8 @@ from betty.paths import BETTYDIR
 
 # NOTE: change starid as desired based on the dataset to use.
 # Kepler_1627_Q15slc, or Kepler_1627
-#def run_RotGPtransit(starid='Kepler_1627_Q15slc', N_samples=1000):
-def run_RotGPtransit(starid='Kepler_1627', N_samples=1000):
+#def run_RotGPtransit(starid='Kepler_1627_Q15slc', N_samples=2000):
+def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
 
     assert starid in ['Kepler_1627', 'Kepler_1627_Q15slc']
 
@@ -65,9 +65,16 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=1000):
     if not os.path.exists(PLOTDIR):
         os.mkdir(PLOTDIR)
 
+    # #works
+    # map_optimization_method = 'RotationTerm_transit'
+    # #does not work (produces grazing transit)
+    # map_optimization_method = 'transit_gpJitterMean_FullOptimize'
+    # #works
+    map_optimization_method = 'RotationTerm_transit_FullOptimize'
     m = ModelFitter(modelid, datasets, priordict, plotdir=PLOTDIR,
                     pklpath=pklpath, overwrite=0, N_samples=N_samples,
-                    N_cores=os.cpu_count())
+                    N_cores=os.cpu_count(),
+                    map_optimization_method=map_optimization_method)
 
     var_names = [
         'mean','logg_star','t0','period','log_r','log_jitter',
@@ -86,6 +93,14 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=1000):
     cornerplot = 1
     posttable = 1
     phasedsubsets = 1
+    getbecclimits = 1
+
+    if getbecclimits:
+        from rudolf.helpers import get_becc_limits
+        get_becc_limits(
+            datasets, m.trace.posterior
+        )
+        assert 0 #FIXME
 
     if phasedsubsets:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_phasedsubsets_yearchunk.png')
@@ -111,9 +126,6 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=1000):
             map_estimate=m.map_estimate, yoffsetNsigma=3.5, ylimd=ylimd,
             inch_per_subset=0.35
         )
-        #FIXME
-        assert 0
-
 
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')

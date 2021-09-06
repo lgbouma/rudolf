@@ -147,7 +147,7 @@ def plot_rp_vs_period_scatter(
 
         _p = ax.scatter(
             period[s1], rp[s1],
-            c=age[s1], alpha=1, zorder=2, s=13, edgecolors='k',
+            c=age[s1], alpha=1, zorder=2, s=17, edgecolors='k',
             marker='o', cmap=cmap, linewidths=0.3, norm=norm
         )
 
@@ -169,7 +169,7 @@ def plot_rp_vs_period_scatter(
 
                 ax.scatter(
                     _per, _rp,
-                    c=_age, alpha=1, zorder=2, s=110, edgecolors='k',
+                    c=_age, alpha=1, zorder=2, s=150, edgecolors='k',
                     marker='*', cmap=cmap, linewidths=0.3, norm=norm
                 )
 
@@ -179,7 +179,7 @@ def plot_rp_vs_period_scatter(
             namelist = ['Kepler-52', 'Kepler-968', 'Kepler-1627']
             ages = [3.5e8, 3.5e8, 3.5e7]
             markers = ['o','d','*']
-            sizes = [70, 70, 110]
+            sizes = [80, 80, 150]
 
             for n, a, m, _s in zip(namelist, ages, markers, sizes):
                 sel = ea_df.hostname == n
