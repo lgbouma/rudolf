@@ -17,8 +17,8 @@ priordict = {
 'u_star': ('QuadLimbDark',),
 #'u[0]': ('Uniform', 0.51-0.2, 0.51+0.2, 0.51), # Claret+2011, Teff 5500K, logg 4.5, solar metallicity, V-band
 #'u[1]': ('Uniform', 0.24-0.2, 0.24+0.2, 0.240),
-'r_star': ('TruncatedNormal', 0.910, 0.052), # HIRES recon spec
-'logg_star': ('Normal', 4.6, 0.10), # HIRES recon spec
+'r_star': ('TruncatedNormal', 0.881, 0.018), # Cluster isochrone (MIST+PARSEC)
+'logg_star': ('Normal', 4.53, 0.05), # Cluster isochrone (MIST+PARSEC)
 'mean': ('Normal', 0.5, 0.1),
 'ecc': ('EccentricityVanEylen19',),
 'omega': ('Uniform', 0, 2*np.pi),
