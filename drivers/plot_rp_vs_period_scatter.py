@@ -132,22 +132,21 @@ def plot_rp_vs_period_scatter(
         s1 = (has_factorN_age) & (age <= 1e9)
 
         ax.scatter(period[s0], rp[s0],
-                   color='darkgray', s=1.5, zorder=1, marker='o', linewidth=0,
+                   color='darkgray', s=2.5, zorder=1, marker='o', linewidth=0,
                    alpha=1, rasterized=True)
 
         # draw the colored points
         axins1 = inset_axes(ax, width="3%", height="33%", loc='lower right',
                             borderpad=0.7)
 
-        cmapname = 'viridis'
-        cmap = mpl.cm.viridis
-        bounds = np.arange(6.9,9.1,0.01)
+        cmap = mpl.cm.magma_r
+        bounds = np.arange(7.0,9.0,0.01)
         norm = mpl.colors.LogNorm(vmin=1e7, vmax=1e9)
         #norm = mpl.colors.BoundaryNorm(bounds, cmap.N, extend='neither')
 
         _p = ax.scatter(
             period[s1], rp[s1],
-            c=age[s1], alpha=1, zorder=2, s=17, edgecolors='k',
+            c=age[s1], alpha=1, zorder=2, s=24, edgecolors='k',
             marker='o', cmap=cmap, linewidths=0.3, norm=norm
         )
 
@@ -169,7 +168,7 @@ def plot_rp_vs_period_scatter(
 
                 ax.scatter(
                     _per, _rp,
-                    c=_age, alpha=1, zorder=2, s=150, edgecolors='k',
+                    c=_age, alpha=1, zorder=2, s=170, edgecolors='k',
                     marker='*', cmap=cmap, linewidths=0.3, norm=norm
                 )
 
@@ -179,7 +178,7 @@ def plot_rp_vs_period_scatter(
             namelist = ['Kepler-52', 'Kepler-968', 'Kepler-1627']
             ages = [3.5e8, 3.5e8, 3.5e7]
             markers = ['o','d','*']
-            sizes = [80, 80, 150]
+            sizes = [80, 80, 170]
 
             for n, a, m, _s in zip(namelist, ages, markers, sizes):
                 sel = ea_df.hostname == n
