@@ -789,12 +789,12 @@ def plot_keplerlc(outdir, N_samples=500, xlim=[200,300]):
     """
 
     ##########################################
-    # BEGIN-COPYPASTE FROM RUN_GPTRANSIT.PY
+    # BEGIN-COPYPASTE FROM run_RotGPtransit.PY
     from betty.paths import BETTYDIR
     from betty.modelfitter import ModelFitter
 
     # get data
-    modelid, starid = 'gptransit', 'Kepler_1627'
+    modelid, starid = 'RotGPtransit', 'Kepler_1627'
     datasets = OrderedDict()
     if starid == 'Kepler_1627':
         time, flux, flux_err, qual, texp = get_kep1627_kepler_lightcurve()
@@ -807,7 +807,7 @@ def plot_keplerlc(outdir, N_samples=500, xlim=[200,300]):
 
     datasets['keplerllc'] = [time[sel], flux[sel], flux_err[sel], texp]
 
-    priorpath = os.path.join(DATADIR, 'priors', f'{starid}_priors.py')
+    priorpath = os.path.join(DATADIR, 'priors', f'{starid}_{modelid}_priors.py')
     assert os.path.exists(priorpath)
     priormod = SourceFileLoader('prior', priorpath).load_module()
     priordict = priormod.priordict
@@ -819,7 +819,7 @@ def plot_keplerlc(outdir, N_samples=500, xlim=[200,300]):
                     pklpath=pklpath, overwrite=0, N_samples=N_samples,
                     N_cores=os.cpu_count())
 
-    # END-COPYPASTE FROM RUN_GPTRANSIT.PY
+    # END-COPYPASTE FROM run_RotGPtransit.PY
     ##########################################
 
     # make plot
@@ -1733,13 +1733,28 @@ def plot_hr(
             (1, '#fde624'),
         ], N=256)
 
-        get_xval_no_corr = lambda _df: np.array(_df[color0] - _df['phot_rp_mean_mag'])
-        get_yval_no_corr = lambda _df: np.array(_df['phot_g_mean_mag'] + 5*np.log10(_df['parallax']/1e3) + 5)
+        get_xval_no_corr = (
+            lambda _df: np.array(_df[color0] - _df['phot_rp_mean_mag'])
+        )
+        get_yval_no_corr = (
+            lambda _df: np.array(
+                _df['phot_g_mean_mag'] + 5*np.log10(_df['parallax']/1e3) + 5
+            )
+        )
 
         _x = get_xval_no_corr(df_bkgd)
         _y = get_yval_no_corr(df_bkgd)
         s = np.isfinite(_x) & np.isfinite(_y)
-        density = ax.scatter_density(_x[s], _y[s], cmap='Greys')
+
+        # add log stretch...
+        from astropy.visualization import LogStretch
+        from astropy.visualization.mpl_normalize import ImageNormalize
+        norm = ImageNormalize(vmin=1., vmax=1000,
+                              stretch=LogStretch())
+
+        density = ax.scatter_density(_x[s], _y[s], cmap='Greys', norm=norm)
+
+        ax.scatter(-99,-99,marker='s',c='gray',label='Field',s=5)
 
         # NOTE: looks fine, but really not needed.
         # # default is 72 dots per inch on the map.
@@ -1986,7 +2001,7 @@ def plot_hr(
         ax.set_ylim((16, -3))
 
     if smalllims and 'phot_bp_mean_mag' in color0:
-        ax.set_xlim([1,3.6])
+        ax.set_xlim([0.95,3.45])
         ax.set_ylim([12.5,5.5])
     elif smalllims and 'phot_bp_mean_mag' not in color0:
         raise NotImplementedError
