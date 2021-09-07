@@ -17,7 +17,7 @@
 %% this value.
 
 %% This is the title of the table.
-\tablecaption{Provenances of Young and Age-Dateable Stars.}
+\tablecaption{Provenances of Young and Age-dateable Stars.}
 \label{tab:metadata}
 
 %% This command over-rides LaTeX's natural table count
@@ -56,18 +56,19 @@
                            \citet{Zari2018} PMS &              43719 &                 0 &                 38435 \\
 \citet{GaiaCollaboration2018} $d>250\,{\rm pc}$ &              35506 &             31182 &                 18830 \\
                       \citet{CastroGinard2020}  &              33635 &             24834 &                 31662 \\
+                              \citet{Kerr2021}  &              30518 &             25324 &                 27307 \\
                   \citet{SIMBAD} $\texttt{Y*O}$ &              28406 &                 0 &                 16205 \\
                         \citet{VillaVelez2018}  &              14459 &             14459 &                 13866 \\
                      \citet{CantatGaudin2019a}  &              11843 &             11843 &                  9246 \\
-                        \citet{Damiani2019} PMS  &              10839 &             10839 &                  9901 \\
+                        \citet{Damiani2019} PMS &              10839 &             10839 &                  9901 \\
                                 \citet{Oh2017}  &              10379 &                 0 &                 10370 \\
                           \citet{Meingast2021}  &               7925 &              7925 &                  5878 \\
                  \citet{SIMBAD} $\texttt{pMS*}$ &               5901 &                 0 &                  3006 \\
-\citet{GaiaCollaboration2018} $d>250\,{\rm pc}$ &               5378 &               817 &                  3968 \\
+\citet{GaiaCollaboration2018} $d<250\,{\rm pc}$ &               5378 &               817 &                  3968 \\
                            \citet{Kounkel2018}  &               5207 &              3740 &                  5207 \\
                         \citet{Ratzenbock2020}  &               4269 &              4269 &                  2662 \\
                   \citet{SIMBAD} $\texttt{TT*}$ &               4022 &                 0 &                  3344 \\
-                        \citet{Damiani2019} UMS  &               3598 &              3598 &                  3598 \\
+                        \citet{Damiani2019} UMS &               3598 &              3598 &                  3598 \\
                            \citet{Rizzuto2017}  &               3294 &              3294 &                  2757 \\
             \citet{NASAExoArchive_ps_20210506}  &               3107 &               868 &                  3098 \\
                               \citet{Tian2020}  &               1989 &              1989 &                  1394 \\
@@ -97,16 +98,16 @@
 %% General table comment marker
 \tablecomments{
 Table~\ref{tab:metadata} describes the provenances for the young and
-age-dateable stars in Table~\ref{tab:v05}.  $N_{\rm Gaia}$: number of
+age-dateable stars in Table~\ref{tab:v06}.  $N_{\rm Gaia}$: number of
 Gaia stars we parsed from the literature source.  $N_{\rm Age}$:
 number of stars in the literature source with ages reported.
 $N_{G_{\rm RP}<16}$: number of Gaia stars we parsed from the
 literature source with either $G_{\rm RP}<16$, or a parallax S/N
 exceeding 5 and a distance closer than 100\,pc.  The latter criterion
 included a few hundred white dwarfs that would have otherwise been
-neglected.  Some studies appear multiple times when multiple tables
-from the analysis were included in the concatenation.
-{\bf todo: add Kerr2021, fix the $>$ $<$ signs}
+neglected.  Some studies are listed multiple times if they contain
+multiple tables.  \citet{SIMBAD} refers to the \texttt{SIMBAD}
+database.
 }
 \vspace{-0.5cm}
 \end{deluxetable*}

@@ -8,7 +8,7 @@ import numpy as np, pandas as pd
 from cdips.utils.catalogs import get_cdips_pub_catalog
 from rudolf.paths import RESULTSDIR
 
-df = get_cdips_pub_catalog(ver=0.5)
+df = get_cdips_pub_catalog(ver=0.6)
 
 #
 # make the header table for the paper
@@ -55,7 +55,7 @@ df_totex = pd.DataFrame({
     'Description': descrs
 })
 
-outpath = os.path.join(RESULTSDIR, 'tables', 'v05_main_tableheader.tex')
+outpath = os.path.join(RESULTSDIR, 'tables', 'v06_main_tableheader.tex')
 
 pd.set_option('display.max_colwidth',100)
 # escape=False fixes "textbackslash"

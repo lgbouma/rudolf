@@ -3,9 +3,9 @@ import re, os
 # https://ads.readthedocs.io/en/latest/#getting-started
 import ads
 
-from rudolf.paths import RESULTSDIR
+from rudolf.paths import RESULTSDIR, PAPERDIR
 
-csvpath = '/Users/luke/Dropbox/proj/cdips/data/cluster_data/list_of_lists_keys_paths_assembled_v0.5_gaiasources.csv'
+csvpath = '/Users/luke/Dropbox/proj/cdips/data/cluster_data/list_of_lists_keys_paths_assembled_v0.6_gaiasources.csv'
 df = pd.read_csv(csvpath)
 
 outcols = (
@@ -37,7 +37,7 @@ MAPDICT = {
     'TTS':r'$\texttt{TT*}$',
     'candTTS':r'$\texttt{TT?}$',
     'gt250':r'$d>250\,{\rm pc}$',
-    'lt250':r'$d>250\,{\rm pc}$',
+    'lt250':r'$d<250\,{\rm pc}$',
     'ums':'UMS',
     'pms':'PMS',
     'PscEri': 'Psc-Eri',
