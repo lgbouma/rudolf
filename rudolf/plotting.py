@@ -2560,9 +2560,17 @@ def plot_RM_and_phot(outdir, model=None):
 
     ax = axs[0]
 
-    # first data
+    ## first data
+    # ax.errorbar(
+    #     scale_x(TF.lpf.data['x']), TF.lpf.data['y'], TF.lpf.data['error'],
+    #     marker='o', elinewidth=0.5, capsize=4, lw=0, mew=0.5, color='k',
+    #     markersize=3, zorder=5
+    # )
+    # NOTE: just show the jitter included
+    sigma_rv = float(df_medvals[df_medvals.Labels == 'sigma_rv'].medvals)
     ax.errorbar(
-        scale_x(TF.lpf.data['x']), TF.lpf.data['y'], TF.lpf.data['error'],
+        scale_x(TF.lpf.data['x']), TF.lpf.data['y'],
+        np.sqrt(TF.lpf.data['error']**2 + sigma_rv**2),
         marker='o', elinewidth=0.5, capsize=4, lw=0, mew=0.5, color='k',
         markersize=3, zorder=5
     )

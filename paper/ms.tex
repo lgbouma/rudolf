@@ -145,7 +145,7 @@ age-dated stars (see Appendix~\ref{app:targetlist}).
 Comparing our young star list against the Kepler field yielded two
 discoveries.  The first, to be discussed in an upcoming analysis by
 J.~Curtis et al{.}, is that Kepler observed the $\approx$350\,Myr open
-cluster Theia\,520 (UBC\,1).  At least six Kepler planets are known in
+cluster Theia~520 (UBC~1).  At least six Kepler planets are known in
 the cluster from the Kepler-52 and Kepler-968 systems
 \citep{rowe_validation_2014,jontof-hutter_following_2021}.  The second
 discovery, and the focus of this work, is that Kepler observed a
@@ -163,7 +163,7 @@ closely (Section~\ref{sec:cluster}).  We find that the $\delta$ Lyr
 cluster is \clusterage\ old, and that \sn\ is indeed a member of the
 cluster.  Focusing on the planet itself, we confirm that despite the
 presence of a previously unreported binary companion, the planet
-orbits the G-dwarf primary on an orbit that appears aligned with the
+orbits the G-dwarf primary on an orbit that is likely aligned with the
 stellar rotation axis (Section~\ref{sec:planet}).  We conclude by
 highlighting broader implications for our ability to age-date a
 statistical sample of planets (Section~\ref{sec:conc}).
@@ -561,19 +561,17 @@ stellar variability from spot to faculae-dominated regimes, we expect
 this inference to be reasonably secure
 \citep{shapiro_are_2016,montet_long-term_2017,reinhold_stellar_2020}.
 
-The final piece of evidence \pn\ comes from a spectroscopic
-transit we measured from Keck/HIRES during the night of 7 Aug 2021
-(UT), using the iodine cell for the wavelength calibration.  We
-scheduled the transit using the ephemeris of
-\citet{holczer_transit_2016}, which we verified using the available
-TESS data.  We also acquired simultaneous multi-band photometry using
-MuSCAT3 to help interpret the radial velocities \citep{Narita_2020}.
+The final piece of evidence comes from a spectroscopic transit we
+observed using Keck/HIRES during the night of 7 Aug 2021 (UT).  We
+used the iodine cell for the wavelength calibration, and scheduled the
+transit using the ephemeris of \citet{holczer_transit_2016}.  We also acquired
+simultaneous multi-band photometry using MuSCAT3 \citep{Narita_2020}.
 The lower panels in Figure~\ref{fig:obliquity} show the results.  The
 photometry shows the expected starspot trend, along with the transit
 and a likely starspot crossing event at ${\rm JD} - 2459433 = 0.955$.
-The radial velocities show significant scatter, and a significant
-increase in RV is seen shortly after the expected ingress.  The
-internal uncertainties on the RVs ($\approx 15\,{\rm m\,s}^{-1}$) is
+The radial velocities show significant scatter, and an
+increase in RV is seen shortly after the expected ingress time.  The
+internal uncertainty on the RVs ($\approx 15\,{\rm m\,s}^{-1}$) is
 dominated by the $v\sin i$ broadening.
 
 % from /drivers/logs/rm.log
@@ -608,31 +606,32 @@ sky-projected obliquity, the stellar equatorial velocity, and the
 Gaussian dispersion of the spectral lines to vary.  We also allowed
 for an optional linear and quadratic trend, and a white-noise jitter
 term.  The quadratic model with the RM effect is shown in
-Figure~\ref{fig:obliquity}; the prior on $v\sin i$ has been
-assumed from Table~\ref{tab:starparams}.  We found $\chi^2_{\rm red} =
+Figure~\ref{fig:obliquity}; the prior on $v\sin i$ has been assumed
+from Table~\ref{tab:starparams}, and the jitter term is included.
+We found $\chi^2_{\rm red} =
 5.4$ for the best-fitting linear case, and $\chi^2_{\rm red} = 4.4$
 for the best-fitting quadratic, with a $\Delta {\rm BIC} = {\rm
 BIC}_{\rm line} - {\rm BIC}_{\rm quad} = 19.6$ and $\Delta {\rm AIC} =
 {\rm AIC}_{\rm line} - {\rm AIC}_{\rm quad} = 20.6$.  While this
 provides strong statistical evidence to prefer the quadratic model
 over the linear one, the $\chi^2_{\rm red}$ indicate that neither fit
-is very good.  Considering a quadratic trend alone without any RM
+is very good.  Considering a quadratic trend without any RM
 effect yields $\chi^2_{\rm red} = 4.3$, and $\Delta {\rm BIC} = {\rm
 BIC}_{\rm trend} - {\rm BIC}_{\rm quad} = 1.9$ ($\Delta {\rm
 AIC}=5.2$).  From a model-comparison standpoint, there is therefore
-only weak statistical evidence to prefer the best-fitting ``RM and
+only marginal statistical evidence to prefer the best-fitting ``RM and
 quadratic trend'' model over the best-fitting ``quadratic trend only''
 model.  Given the expected semi-amplitude of the velocity anomaly
-($\Delta v_{\rm RM}\approx 20\,{\rm m\,s}^{-1}$) and the actual
-achieved precision, the claim of having detected the Doppler transit
-is marginal at best.  From the MuSCAT3 data however, we do know that
-the transit was observed, and the increase in radial velocity seen
-shortly after ingress is more consistent with a prograde or polar
-orbit than a retrograde orbit.  Fixing the orbit to be either exactly
-prograde or exactly retrograde, we find $\Delta {\rm BIC} = {\rm
-BIC}_{\rm retrograde} - {\rm BIC}_{\rm trend} = 18.0$; the retrograde
-case is ruled out on this basis.  More precise data will be needed
-however to make a more precise obliquity measurement.
+($\Delta v_{\rm RM}\approx 20\,{\rm m\,s}^{-1}$) and the achieved precision,
+we cannot claim a detection of the Doppler transit.
+From the MuSCAT3 data however, we do know that the transit
+was observed, and the increase in radial velocity seen shortly after
+ingress is more consistent with a prograde or polar orbit than a
+retrograde orbit.  Fixing the orbit to be either exactly prograde or
+exactly retrograde, we find $\Delta {\rm BIC} = {\rm BIC}_{\rm
+retrograde} - {\rm BIC}_{\rm trend} = 18.0$; the retrograde case is
+ruled out on this basis.  More data will be needed however to
+make a more precise measurement of the stellar obliquity.
 
 
 \section{Discussion \& Conclusions}
@@ -648,14 +647,13 @@ however to make a more precise obliquity measurement.
     {\bf Radii, orbital periods, and ages of known transiting
     exoplanets}.  Planets older than $10^9$ years are shown with gray
     markers.  Planets younger than a gigayear with ${\rm
-    Age}/\sigma_{\rm Age} > 3$
-    are emphasized.  \pn\ is shown with a star.  The large radii
-    of the youngest transiting planets could be explained by their
-    primordial atmospheres not yet having evaporated; direct
-    measurements of the atmospheric outflows or planetary masses would
-    help to confirm this expectation.  Selection effects may also be
-    important.  Parameters are from the NASA Exoplanet Archive (July
-    2, 2021).
+    Age}/\sigma_{\rm Age} > 3$ are emphasized.  \pn\ is shown with a
+    star.  The large radii of the youngest transiting planets could be
+    explained by their primordial atmospheres not yet having
+    evaporated; direct measurements of the atmospheric outflows or
+    planetary masses would help to confirm this expectation.
+    Selection effects may also be important.  Parameters are from the
+    NASA Exoplanet Archive (July 2, 2021).
 		\label{fig:rp_period_age}
 	}
 \end{figure}
@@ -666,21 +664,24 @@ however to make a more precise obliquity measurement.
 %e.g.},][]{owen_constraining_2020}.  
 
 Kepler\,1627Ab provides a new extremum in the ages of the Kepler
-planets, and opens multiple avenues for further study.  More precise
-observations of the Doppler transit could yield a more precise stellar
-obliquity, and a means for verifying the expected prograde orbit.
-Similarly, transit spectroscopy aimed at detecting either hydrogen or
-helium absorption could yield insight into the stability of the
-planet's atmosphere \citep[{\it
-e.g.},][]{spake_helium_2018,vissapragada_2020}.  A more challenging
-measurement would be to determine the planet's mass, either through
-detailed timing analyses of the Kepler data, or through a high-cadence
-multi-color radial velocity campaign.  Measured at
-sufficient precision, the mass could yield constraints on both the
-planet's composition as well as its initial entropy
-\citep{owen_constraining_2020}.
+planets, and opens multiple avenues for further study.  Further
+observations of Doppler transits could yield a more precise stellar
+obliquity, and could confirm or refute the expected prograde orbital
+geometry.  Similarly, transit spectroscopy aimed at detecting outflows
+of hydrogen or helium could yield insight into the evolutionary state
+of the atmosphere \citep[{\it
+e.g.},][]{spake_helium_2018,vissapragada_2020}.  Determining the
+precise level of high-energy irradiation incident on the planet would
+also help in clarifying the expected outflow rate \citep[{\it
+e.g.},][]{poppenhaeger_2021}.  Finally, perhaps the most challenging,
+but also the most informative measurement would be to determine the
+planet's mass.  This might be possible either through detailed timing
+analyses of the Kepler data, or through a high-cadence multi-color
+radial velocity campaign.  Measured at sufficient precision, the mass
+could yield constraints on both the planet's composition and its
+initial entropy \citep{owen_constraining_2020}.
 
-Separately, the Kepler data may still contain further information.
+Separately, the Kepler data may yet contain further information.
 Although our transit timing study did not yield the detection of any
 clearly significant planet-planet TTVs, the star's flaring may be
 suggestive of star-planet interactions.  Appendix~\ref{app:flare}
@@ -695,31 +696,32 @@ HIP~67522b, TOI~837b, AU~Mic~b, and the four-planet V1298~Tau system
 \pn\ is currently the smallest of these systems ($\approx
 3.3\,R_\oplus$), which may hint at selection effects in the young
 planet sample \citep{zhou_2021_tois}.  Assuming that these planets
-have masses between $\approx$5$\,M_\oplus$ and 20$\,M_\oplus$, their
+have masses between $\approx$5$\,M_\oplus$ and 10$\,M_\oplus$, their
 large sizes and presumed low densities would be in accord with the
 expectation that mini-Neptunes start their lives with large primordial
 atmospheres that are shed over the first gigayear
 \citep{Owen_Wu_2013,Fulton_et_al_2017,ginzburg_corepowered_2018}.  Our
 suggestion of an aligned orbit differs from observed misalignments in
-number of other close-in
+number of close-in
 mini-Neptunes~\citep{sanchis-ojeda_starspots_2011,albrecht_obliquities_2012,dalal_2019_hd3167,rubenzahl_tess-keck_2021}.
-Unlike these older planets, \pn\ seems to have properties
-consistent with a quiescent disk-driven migration history.  The
-alternative scenario of in-situ formation is disfavored on theoretical
-grounds: the required disk mass would likely drive migration, and so
-lacks internal consistency
+Unlike these older planets, \pn\ seems to have properties consistent
+with a quiescent disk-driven migration history.  The alternative
+scenario of in-situ formation is disfavored on theoretical grounds:
+the required disk mass would likely drive migration, and so lacks
+internal consistency
 \citep{inamdar_formation_2015,ogihara_reassessment_2015}.
 
 Ultimately, the main advance of this work was a precise measurement of
-the age of \pn.   This age measurement was enabled by identifying the
-connection of the star to the \cn\ using the Gaia data.  Table~\ref{tab:v06}
-should enable similar cross-matches to
-already known planets, as well as forthcoming planets from the TESS
-mission \citep{ricker_transiting_2015,guerrero_tess_2021}.  An
-alternative path toward age-dating more planets could be to identify kinematic associations
-around known exoplanet host stars using positions and tangential velocities
-from Gaia, and to then verify these associations with ancilliary
-rotation periods and spectroscopy \citep[{\it e.g.},][]{tofflemire_tess_2021}.
+the age of \pn.   The age measurement was enabled by identifying the
+connection of the star to the \cn\ using the Gaia data.
+Table~\ref{tab:v06} should enable similar cross-matches to already
+known planets, as well as forthcoming planets from the TESS mission
+\citep{ricker_transiting_2015,guerrero_tess_2021}.  An alternative
+path toward age-dating more planets could be to identify kinematic
+associations around known exoplanet host stars using positions and
+tangential velocities from Gaia, and to then verify these associations
+with ancilliary rotation periods and spectroscopy \citep[{\it
+e.g.},][]{tofflemire_tess_2021}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -729,9 +731,11 @@ rotation periods and spectroscopy \citep[{\it e.g.},][]{tofflemire_tess_2021}.
 \acknowledgements
 \raggedbottom
 
-L.G.B{.} and J.L.C{.} are grateful to T{.}~David for help with the
-transit fitting, to R{.}~Kerr for kindly providing us with the
-\citet{Kerr2021} membership list prior to its publication.
+The authors are grateful to T{.}~David for help with the transit
+fitting, to R{.}~Kerr for kindly providing us with the
+\citet{Kerr2021} membership list prior to its publication, and to
+J{.}~Winn for helpful discussions on the RM observations and flare
+timing.
 L.G.B{.}, L.H{.}, and N.N{.} are also grateful to K{.}~Collins for
 helping resolve the scheduling conflict that would have otherwise
 prevented the MuSCAT3 observations.
@@ -918,7 +922,7 @@ opportunity to conduct observations from this mountain.
     %SOAR~(HRCam; \citealt{tokovinin_ten_2018}).
  	Keck:II~(NIRC2; \url{www2.keck.hawaii.edu/inst/nirc2}).
  	%Gemini:South~(Zorro; \citealt{scott_nessi_2018}.
- 	Gemini:North~(`Alopeke; \citealt{scott_nessi_2018}.
+ 	Gemini:North~(`Alopeke; \citealt{scott_nessi_2018,scott_twin_2021}.
  	{\it Spectroscopy}:
 	%CTIO1.5$\,$m~(CHIRON; \citealt{tokovinin_chironfiber_2013}),
   %PFS ({\bf CITE}),
@@ -1338,12 +1342,12 @@ explanation, and the issue could deserve further exploration.
     from Gemini-North/`Alopeke ({\it left}) and Keck/NIRC2 ({\it
     right}) shows an $\approx$M2V companion at $\rho \approx
     0\farcs16$, which corresponds to a projected separation of
-    $53\pm7$\,AU.  {\it Bottom:} Gaia EDR3 renormalized unit weight
+    $53\pm4$\,AU.  {\it Bottom:} Gaia EDR3 renormalized unit weight
     error (RUWE) point estimates for Kepler\,1627A and other members
-    of the $\delta$\,Lyr cluster reported by \citet{KounkelCovey2019}.  Since other members of the cluster
-    with similar colors have comparable degrees of photometric
-    variability, the high RUWE suggests that Kepler\,1627 is an
-    astrometric binary. 
+    of the $\delta$\,Lyr cluster reported by \citet{KounkelCovey2019}.
+    Since other members of the cluster with similar colors have
+    comparable degrees of photometric variability, the high RUWE
+    suggests that Kepler\,1627 is an astrometric binary. 
     \label{fig:kep1627binary}
 	}
 \end{figure*}
@@ -1360,11 +1364,12 @@ suggested by the primary star's large RUWE, relative to other members
 of the \cn.  The images yield a projected separation $\rho \approx
 0\farcs16$, with $\Delta m_{832} \approx 3.1$ and $\Delta m_{\rm Kp} =
 2.5$.  Using the measured Gaia EDR3 parallax for the system, this
-implies a projected separation of $53 \pm 7$.  Given the low geometric
-probably of a star imaged within $\rho \approx 0\farcs16$ to be a
-chance companion along the line of sight, and the large observed RUWE,
-we proceed under the assumption that the companion is bound, and that
-the Kepler\,1627 system is binary.  Based on the
+implies a projected separation of $53 \pm 4$.  Given the large
+observed RUWE of the primary, and the low geometric probability that a
+companion imaged within $\rho \approx 0\farcs16$ is a chance
+line-of-sight companion, we proceed under the assumption that the
+companion is bound, and that Kepler\,1627 system is a binary.  Based
+on the
 tabulation\footnote{\url{http://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt},
 version \texttt{2021/03/02}.} by \citet{pecaut_mamajek_2013}, the
 measured magnitude differences for a G8V primary correspond to a

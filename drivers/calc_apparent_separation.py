@@ -1,6 +1,6 @@
 import numpy as np
 rho_arcsec = 0.16
-e_rho_arcsec = 0.02
+e_rho_arcsec = 0.01
 d_pc = 329.5
 e_d_pc = 3.5
 
