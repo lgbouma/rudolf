@@ -58,7 +58,7 @@
 }
 
 %\suppressAffiliations
-%\NewPageAfterKeywords
+\NewPageAfterKeywords
 \input{authors.tex}
 
 % 208 words (250 max)
@@ -208,17 +208,17 @@ statistical sample of planets (Section~\ref{sec:conc}).
 	\vspace{-0.7cm}
 	\caption{
     {\bf The \cn\ is \clusterage\ old.}  {\it Top:}
-    Color-magnitude diagram of the \cn, IC\,2602 ($\approx38$\,Myr),
-    the Pleiades ($\approx 115$\,Myr; \citealt{dahm_2015}), and the
-    Gaia EDR3 Catalog of Nearby Stars (gray background;
-    log-stretch).  The right panel is a zoomed view of 
-    the pre-main-sequence.  The \cn\ and IC\,2602 are approximately
-    the same isochronal age.  {\it Bottom:} TESS and Kepler stellar
-    rotation periods versus dereddened Gaia colors, with the Pleiades
-    and Praesepe (650\,Myr) shown for reference
-    \citep{rebull_rotation_2016a,douglas_poking_2017}.  Most of the
+    Color-absolute magnitude diagram of candidate \cn\ members, in addition to
+    stars in IC\,2602 ($\approx38$\,Myr), the Pleiades ($\approx
+    115$\,Myr; \citealt{dahm_2015}), and the Gaia EDR3 Catalog of
+    Nearby Stars (gray background).  The right panel is a
+    zoomed view of the pre-main-sequence.  The \cn\ and IC\,2602 are
+    approximately the same isochronal age.  {\it Bottom:} TESS and
+    Kepler stellar rotation periods versus dereddened Gaia colors,
+    with the Pleiades and Praesepe (650\,Myr) shown for reference
+    \citep{rebull_rotation_2016a,douglas_poking_2017}.  Most
     candidate \cn\ members are gyrochronally younger than the
-    Pleiades.
+    Pleiades; outliers are probably field interlopers.
    \label{fig:age}
 	}
 \end{figure*}
@@ -227,11 +227,12 @@ To assess the age of the cluster and our star of interest, we used a
 combination of isochronal, gyrochronal, and lithium-based
 age-dating.
 
-\subsection{Color-Magnitude Diagram}
-\label{sec:cmd}
+\subsection{Color-Absolute Magnitude Diagram}
+\label{sec:camd}
 
 We measured the isochrone age through an empirical approach.  The left
-panel of Figure~\ref{fig:age} shows the color-magnitude diagram (CMD)
+panel of Figure~\ref{fig:age} shows the color-absolute magnitude
+diagram (CAMD)
 of stars in the \cn, IC\,2602, the Pleiades, and the field.  The
 candidate \cn\ members shown are
 selected based on their positions and
@@ -288,8 +289,8 @@ members of UCL, IC\,2602, and the Pleiades from
 respectively.  We removed binaries by requiring $\texttt{RUWE}<1.3$,
 $\texttt{radial\_velocity\_error}$ below the 80$^{\rm th}$ percentile
 of each cluster's distribution, and manually excluded stars that
-were obvious photometric binaries in the CMD.  We then passed a moving
-box average and standard deviation across the CMD in 0.10\,mag bins,
+were obvious photometric binaries in the CAMD.  We then passed a moving
+box average and standard deviation across the CAMD in 0.10\,mag bins,
 fitted a univariate spline to the binned values, and assembled a
 piecewise grid of hybrid isochrones spanning the ages between UCL to
 the Pleiades following Equations~6 and~7 from
@@ -315,7 +316,7 @@ be $31^{+5}_{-4}$\,Myr old.  For the converse case of 46\,Myr, the
 isochrone models over a grid of ages, metallicities, and
 reddenings, yielded the best agreement for this $\approx 38\,$Myr age
 as well, given ${\rm [Fe/H] = +0.1}$ and $A_V=0.2$
-\citep{bressan_parsec_2012,choi_mesa_2016};  this preferred CMD reddening
+\citep{bressan_parsec_2012,choi_mesa_2016};  this preferred CAMD reddening
 is higher than the \citet{lallement_threedimensional_2018} value by a factor of two.
 } While detailed analyses of the LDB or main-sequence turn-off in the
 \cn\ could help resolve the tension between the LDB and isochrone
@@ -365,7 +366,6 @@ $\nrotgood/\nkinwithtessandcrowding \approx \nfracprot\%$.
 The rotation periods of other 30\,Myr to 50\,Myr clusters
 ({\it e.g.}, IC\,2602 and IC\,2391) are indistinguishable
 \citep{douglas_stephanie_t_2021_5131306}. 
-
 Binarity is known to be an important factor in the density of stars
 falling underneath the slow sequence
 \citep{meibom_effect_2007,gillen_ngts_2020,bouma_2021_ngc2516}.
@@ -375,32 +375,32 @@ noted in the literature.
 
 \subsection{Age of Kepler\,1627}
 
-To summarize, the age of the \cn\ cluster based on the empirical
-pre-main-sequence interpolation is \clusterage.  This procedure hinges
-on the age adopted for IC\,2602, since it is the closest reference
-cluster in the color-magnitude diagram.  Gyrochronologically, while
-most of the G and K dwarfs in the \cn\ have not yet converged to a
-slow sequence, their rotation periods and those of the F dwarfs are
-also consistent with a 30 to 50\,Myr age. The most precise age for
-\sn\ and its planet are therefore also \clusterage\ Myr, based on the
-star's spatial, kinematic, and rotational connection to the cluster,
-and the assumption that the planet formed very quickly after the star.
+In summary, the age of the \cn\ cluster based on the empirical
+pre-main-sequence interpolation method is \clusterage.  This method
+hinges on the age adopted for IC\,2602, since it is the closest
+reference cluster in the color-absolute magnitude diagram.
+Gyrochronologically, while most of the FGK dwarfs in the \cn\ have
+not yet converged to a slow sequence, their rotation periods 
+are generally consistent with an $\approx$38\,Myr age. The most
+precise age for \sn\ and its planet are therefore identical to the cluster,
+based on the star's spatial and kinematic association with the
+cluster, and the assumption that the planet formed shortly after
+the star.
 
 Beyond the kinematic and rotational lines of evidence for the youth of
 \sn, there is a final consistency check: the abundance of
-Li\,\textsc{I} as inferred from the 6708\,\AA\ doublet
-\citep[see {\it e.g.},][]{soderblom_ages_2014}.
-We acquired an iodine-free spectrum from
-Keck/HIRES on the night of 26 March 2021 using the standard setup and
-reduction techniques of the California Planet Survey
+Li\,\textsc{I} as inferred from the 6708\,\AA\ doublet \citep[see {\it
+e.g.},][]{soderblom_ages_2014}.  We acquired an iodine-free spectrum
+from Keck/HIRES on the night of 26 March 2021 using the standard setup
+and reduction techniques of the California Planet Survey
 \citep{howard_cps_2010}.  Following the equivalent width measurement
 procedure described by \citet{bouma_2021_ngc2516}, we find ${\rm
 EW}_{\rm Li} = 233^{+5}_{-7}$\,m\AA.   Note that this value does not
-correct for the Fe\,\textsc{I} blend at 6707.44\AA.  Given the stellar
-parameters of \sn\ (Table~\ref{tab:starparams}), most notably its
-effective temperature, this measurement is also in agreement with an
-age for the star between 30\,Myr and 50\,Myr ({\it e.g.}, 
-\citealt{randich_gaiaeso_2018}; \citealt{bouma_2021_ngc2516}).
+correct for the Fe\,\textsc{I} blend at 6707.44\AA.  Given the
+effective temperature of \sn\ (Table~\ref{tab:starparams}), this
+measurement is also in line with expectations for a $\approx$38\,Myr
+star ({\it e.g.}, \citealt{randich_gaiaeso_2018};
+\citealt{bouma_2021_ngc2516}).
 
 
 \section{The Planet}
@@ -510,8 +510,8 @@ orbiting this near-solar analog?  \citet{morton_false_2016} validated
 the planet based on the transit shape, arguing that the most probable 
 false positive scenario was that of a background eclipsing binary,
 which had a model-dependent probability of $\approx10^{-5}$.
-As discussed in Appendix~\ref{app:companionstar},
-we discovered a low-mass stellar companion ($M_{\rm B}\approx
+As we describe in Appendix~\ref{app:companionstar} however,
+the system has a low-mass stellar companion ($M_{\rm B}\approx
 0.44\,M_\odot$), and so we reconsidered this false positive scenario
 in some detail. 
 
@@ -519,14 +519,14 @@ in some detail.
 % larger than when it is fully contracted on the main sequence
 % (0.40\,$R_\odot$ vs{.} 0.50\,$R_\odot$; ).
 
-We identified three new lines of evidence that support the planetary
+There are three new lines of evidence that support the planetary
 interpretation.  First, the transit duration and the orbital period
 are inconsistent with an eclipsing body around the M-dwarf companion:
 we find $\rho_\star = 2.00 \pm 0.24\,{\rm g\,cm}^{-3}$, while the
 theoretically expected density for the companion is
 $\approx 3.2\,{\rm g\,cm}^{-3}$ (Table~\ref{tab:posterior};
 \citealt{choi_mesa_2016}).  The transit duration is therefore too long
-to explained by a star eclipsing the M dwarf secondary at
+to be explained by a star eclipsing the M dwarf secondary at
 $\approx$$5$-$\sigma$.
 
 %NOTE to the arxiv readers:, the $\approx$100 days of short-cadence
@@ -543,7 +543,7 @@ individual Kepler transit times. We isolated each of the
 fitted each window with both {\it i)} a local second-order polynomial
 and transit, and {\it ii)} a local linear trend.  We let the mid-time
 of each transit float, and then calculated the residual between the
-measured mid-time and that of a perfectly periodic orbit.  This
+measured mid-time and that of a periodic orbit.  This
 residual, the transit timing variation (TTV), is plotted in
 Figure~\ref{fig:obliquity} against the local linear slope.  A
 significant correlation of $-0.0564 \pm 0.0098\ {\rm ppt\,day}^{-1}$
@@ -562,7 +562,7 @@ this inference to be reasonably secure
 \citep{shapiro_are_2016,montet_long-term_2017,reinhold_stellar_2020}.
 
 The final piece of evidence comes from a spectroscopic transit we
-observed using Keck/HIRES during the night of 7 Aug 2021 (UT).  We
+observed using Keck/HIRES during the night of 7 Aug 2021.  We
 used the iodine cell for the wavelength calibration, and scheduled the
 transit using the ephemeris of \citet{holczer_transit_2016}.  We also acquired
 simultaneous multi-band photometry using MuSCAT3 \citep{Narita_2020}.
@@ -607,7 +607,8 @@ Gaussian dispersion of the spectral lines to vary.  We also allowed
 for an optional linear and quadratic trend, and a white-noise jitter
 term.  The quadratic model with the RM effect is shown in
 Figure~\ref{fig:obliquity}; the prior on $v\sin i$ has been assumed
-from Table~\ref{tab:starparams}, and the jitter term is included.
+from Table~\ref{tab:starparams}, and the jitter term has been
+incorpoarted.
 We found $\chi^2_{\rm red} =
 5.4$ for the best-fitting linear case, and $\chi^2_{\rm red} = 4.4$
 for the best-fitting quadratic, with a $\Delta {\rm BIC} = {\rm
@@ -630,8 +631,9 @@ ingress is more consistent with a prograde or polar orbit than a
 retrograde orbit.  Fixing the orbit to be either exactly prograde or
 exactly retrograde, we find $\Delta {\rm BIC} = {\rm BIC}_{\rm
 retrograde} - {\rm BIC}_{\rm trend} = 18.0$; the retrograde case is
-ruled out on this basis.  More data will be needed however to
-make a more precise measurement of the stellar obliquity.
+ruled out on this basis.
+% More data will be needed however to
+% make a more precise measurement of the stellar obliquity.
 
 
 \section{Discussion \& Conclusions}
@@ -671,30 +673,30 @@ geometry.  Similarly, transit spectroscopy aimed at detecting outflows
 of hydrogen or helium could yield insight into the evolutionary state
 of the atmosphere \citep[{\it
 e.g.},][]{spake_helium_2018,vissapragada_2020}.  Determining the
-precise level of high-energy irradiation incident on the planet would
+precise amount of high-energy irradiation incident on the planet would
 also help in clarifying the expected outflow rate \citep[{\it
-e.g.},][]{poppenhaeger_2021}.  Finally, perhaps the most challenging,
-but also the most informative measurement would be to determine the
-planet's mass.  This might be possible either through detailed timing
-analyses of the Kepler data, or through a high-cadence multi-color
-radial velocity campaign.  Measured at sufficient precision, the mass
-could yield constraints on both the planet's composition and its
-initial entropy \citep{owen_constraining_2020}.
+e.g.},][]{poppenhaeger_2021}.  Finally, a challenging but informative
+quantity to measure would be the planet's mass.  This might be
+possible either through detailed timing analyses of the Kepler data,
+or through a high-cadence multi-color radial velocity campaign.
+Measured at sufficient precision, the mass could yield constraints on
+both the planet's composition and its initial entropy
+\citep{owen_constraining_2020}.
 
 Separately, the Kepler data may yet contain further information.
 Although our transit timing study did not yield the detection of any
-clearly significant planet-planet TTVs, the star's flaring may be
-suggestive of star-planet interactions.  Appendix~\ref{app:flare}
-highlights an odd flare timing coincidence that may be worthy of
-further examination.
+clearly significant planet-planet TTVs, Appendix~\ref{app:flare}
+highlights an odd flare timing coincidence that may be suggestive of
+star-planet interactions.  We mention it here to encourage its
+exploration by investigators more versed in the topic than ourselves.
 
-In the context of the known transiting planets, \pn\ is among the
+In the context of the transiting planet population, \pn\ is among the
 youngest known (Figure~\ref{fig:rp_period_age}).  Comparable systems
 with precise ages below 100\,Myr include K2-33b, DS~Tuc~Ab,
 HIP~67522b, TOI~837b, AU~Mic~b, and the four-planet V1298~Tau system
 \citep{Mann_K2_33b_2016,David_et_al_2017,newton_tess_2019,david_four_2019,bouma_cluster_2020,plavchan_planet_2020}.
-\pn\ is currently the smallest of these systems ($\approx
-3.3\,R_\oplus$), which may hint at selection effects in the young
+\pn\ is currently the smallest of these systems ($3.34\pm
+0.18\,R_\oplus$), which may hint at selection effects in the young
 planet sample \citep{zhou_2021_tois}.  Assuming that these planets
 have masses between $\approx$5$\,M_\oplus$ and 10$\,M_\oplus$, their
 large sizes and presumed low densities would be in accord with the
@@ -711,8 +713,8 @@ the required disk mass would likely drive migration, and so lacks
 internal consistency
 \citep{inamdar_formation_2015,ogihara_reassessment_2015}.
 
-Ultimately, the main advance of this work was a precise measurement of
-the age of \pn.   The age measurement was enabled by identifying the
+Ultimately, the main advance of this work is a precise measurement of
+the age of \pn.   This age measurement was enabled by identifying the
 connection of the star to the \cn\ using the Gaia data.
 Table~\ref{tab:v06} should enable similar cross-matches to already
 known planets, as well as forthcoming planets from the TESS mission
@@ -720,7 +722,7 @@ known planets, as well as forthcoming planets from the TESS mission
 path toward age-dating more planets could be to identify kinematic
 associations around known exoplanet host stars using positions and
 tangential velocities from Gaia, and to then verify these associations
-with ancilliary rotation periods and spectroscopy \citep[{\it
+with ancillary rotation periods and spectroscopy \citep[{\it
 e.g.},][]{tofflemire_tess_2021}.
 
 
@@ -736,7 +738,7 @@ fitting, to R{.}~Kerr for kindly providing us with the
 \citet{Kerr2021} membership list prior to its publication, and to
 J{.}~Winn for helpful discussions on the RM observations and flare
 timing.
-L.G.B{.}, L.H{.}, and N.N{.} are also grateful to K{.}~Collins for
+The authors are also grateful to K{.}~Collins for
 helping resolve the scheduling conflict that would have otherwise
 prevented the MuSCAT3 observations.
 % is grateful to G.~Zhou, B{.}~Tofflemire, A{.}~McWilliam,
@@ -744,14 +746,13 @@ prevented the MuSCAT3 observations.
 % K{.}~Hawkins for the discussions on young stars, rotation, and lithium
 % that encouraged this analysis.
 %
-L.G.B{.} acknowledges support by the TESS GI Program, programs
+L.G.B{.} acknowledges support from a Charlotte Elizabeth Procter
+Fellowship from Princeton University, as well as from the TESS GI Program, programs
 G011103 and G022117, through NASA grants 80NSSC19K0386 and
 80NSSC19K1728.
 %
-L.G.B{.} was also supported by a Charlotte Elizabeth Procter
-Fellowship from Princeton University.
 %
-The archival Keck/NIRC2 imaging was acquired by programs 2015A/N301N2L
+Keck/NIRC2 imaging was acquired by programs 2015A/N301N2L
 (PI: A.~Kraus) and 2019A/N069 (PI: E.~Petigura).
 %
 In addition, this paper is based in part on observations made with the
@@ -973,13 +974,13 @@ precision than a typical FGK field star.
 As in
 \citet{bouma_cdipsI_2019}, we collected stars that met these criteria
 from across the literature.  Table~\ref{tab:metadata} gives a list of
-the studies included, and some brief summary statistics.
-The age measurement approaches adopted by each study differ: in many,
+the studies included, and brief summary statistics.
+The age measurement methodologies adopted by each study differ: in many,
 spatial and kinematic clustering has been performed on the Gaia data,
-and ensemble isochrone fitting of the cluster has been performed
+and ensemble isochrone fitting of the resulting clusters has been performed
 (typically focusing on the turn-off).
-In others however, the claim of youth is based on the location of a
-single star in the color-magnitude diagram, or on spectroscopic
+In other studies however, the claim of youth is based on the location of a
+single star in the color-absolute magnitude diagram, or on spectroscopic
 information.
 
 One major change in Table~\ref{tab:v06} relative to the analogous
@@ -1004,15 +1005,15 @@ the problem of determining homogeneous ages, which we do not attempt
 to resolve.  Instead, we simply merged the cluster names and ages
 reported by various authors into a comma-separated string.
 
-This means that our \texttt{age} column can be null, for cases in
-which the original authors did not report an age, and a reference
+This means that the \texttt{age} column can be null, for cases in
+which the original authors did not report an age, or for which a reference
 literature age was not readily available.  Nonetheless, since we do
 generally prefer stars with known ages, we made a few additional
 efforts to populate this column.  When available, the age provenance
 is from the original analysis of the cluster.  In a few cases
-however we adopted other ages when string-based cross-matches on the
+however we adopted other ages when string-based cross-matching on the
 cluster name was straightforward.  In particular, we used the ages
-determined by \citet{CantatGaudin2020b} to assign ages to the catalogs
+determined by \citet{CantatGaudin2020b} to assign ages to the clusters
 from \citet{GaiaCollaboration2018}, \citet{CantatGaudin2018a},
 \citet{CastroGinard2020}, and \citet{CantatGaudin2020a}.
 
@@ -1022,14 +1023,14 @@ were those of \citet{CottenSong2016}, \citet{Oh2017},
 \citet{Gagne2018a}, \citet{Gagne2018c}, and \citet{Ujjwal2020}.  While
 in principle the moving group members discussed by
 \citet{Gagne2018b,Gagne2018a,Gagne2018c} and \citet{Ujjwal2020} have
-easily associated ages, our SIMBAD cross-match lost the moving group
+easily associated ages, our SIMBAD cross-match did not retain the moving group
 identifiers given by those studies, which should therefore be recovered
 tools such as BANYAN
 $\Sigma$.\footnote{\url{http://www.exoplanetes.umontreal.ca/banyan/banyansigma.php}}.
 We also included the SIMBAD object identifiers $\texttt{TT*}$,
 $\texttt{Y*O}, $\texttt{Y*?}, $\texttt{TT?}$, and $\texttt{pMS*}$.
 Finally, we  included every star in the NASA Exoplanet Archive
-$\texttt{ps}$ table that had a Gaia identifier available
+planetary system ($\texttt{ps}$) table that had a Gaia identifier available
 \citep{NASAExoArchive_ps_20210506}.  If the age had finite
 uncertainties, we also included it, since stellar ages determined
 through the combination of isochrone-fitting and transit-derived
@@ -1093,8 +1094,8 @@ stars in the immediate kinematic and spatial vicinity of \sn.  The
 tangential velocities relative to \sn\ are shown in the bottom right
 panel.  These are computed by assuming that every star has the same
 three-dimensional spatial velocity as \sn, where we assume a systemic
-radial velocity of $-16.7 \pm 0.2$\,\kms\ based on the reconnaissance
-spectra obtained by A.~Howard on HIRES and D.~Latham on TRES.  The
+radial velocity of $-16.7 \pm 0.2$\,\kms\ based on the HIRES
+spectra.  The
 relevant projection effects are then taken into account, as discussed
 by {\it e.g.}, \citet{Meingast2021} and \citet{bouma_2021_ngc2516}.
 We performed the actual selection by then manually drawing lassos with
@@ -1199,14 +1200,14 @@ periods than possible for single stars
 	}
 \end{figure}
 
-We fitted the Kepler nce time series with a model that
+We fitted the Kepler long cadence time series with a model that
 simultaneously included the planetary transit and the stellar
 variability.  The stellar variability was modelled with the
 \texttt{RotationTerm} Gaussian Process kernel in \texttt{exoplanet}
 \citep{exoplanet:exoplanet}.  This kernel assumes that the variability
 is generated by a mixture of two damped simple harmonic oscillators
 with characteristic frequencies set by 1/$P_{\rm rot}$ and its first
-harmonic.  We additionally incorporated a ``jitter'' term to inflate
+harmonic.  We additionally included a jitter term to inflate
 the flux uncertainties in a manner that accounted for otherwise
 unmodelled excess white noise, and let the eccentricity float.  For
 the limb-darkening, we assumed a quadratic law, and sampled using the
@@ -1214,7 +1215,7 @@ uninformative prior suggested by \citet{exoplanet:kipping13}.
 
 Our model therefore included 10 free parameters for the
 transit ($\{P, t_0, R_{\rm p}/R_\star, b, u_1 ,u_2 ,R_\star, \log g,
-e, \omega \}$), 2 parameters for the light curve
+e, \omega \}$), 2 free parameters for the light curve
 normalization and uncertainty calibration ($\{\langle f \rangle, 
 \sigma_f \}$), and 5 hyperparameters for the GP
 ($\{\sigma_{\mathrm{rot}}, P_{\mathrm{rot}}, Q_0,
@@ -1222,9 +1223,11 @@ normalization and uncertainty calibration ($\{\langle f \rangle,
 \texttt{SHOTerm} kernel to account for stochastic noise, but found
 that this did not significantly affect the results, and so opted for
 the simpler GP kernel.  We fitted the models using \texttt{PyMC3}
-\citep{salvatier_2016_PyMC3,exoplanet:theano}.  After initializing
+\citep{salvatier_2016_PyMC3,exoplanet:theano}.  
+We assumed a Gaussian likelihood, and
+after initializing
 each model with the parameters of the maximum {\it a posteriori}
-model, we assumed a Gaussian likelihood, and sampled using
+model, we sampled using
 \texttt{PyMC3}'s gradient-based No-U-Turn Sampler
 \citep{hoffman_no-u-turn_2014} in these bases indicated in Table~\ref{tab:posterior}.
 We used $\hat{R}$ as our convergence
@@ -1233,14 +1236,14 @@ diagnostic \citep{gelman_inference_1992}.
 Figure~\ref{fig:lc} shows the resulting model in orange (top) and
 purple (bottom).  While the fit appears reasonably good, an asymmetry
 is present during the transit: the measured flux is systematically
-high during the first half, and low in the second half.  We verified
-that this effect is not caused by our stellar variability model by
-exploring an alternative approach in which we isolated each transit
+high during the first half, and low in the second half.  To determine
+whether this effect was not caused by our stellar variability model, we 
+explored an alternative approach in which we isolated each transit
 window and locally fitted out polynomial trends, and then binned all
 the observed transits; the asymmetry was still present, at a
 comparable amplitude.
 
-Figures~\ref{fig:phasequarter} and~~\ref{fig:phaseyear} show the
+Figures~\ref{fig:phasequarter} and~\ref{fig:phaseyear} show the
 Kepler data binned over quarters and years.  In
 Figure~\ref{fig:phasequarter}, Quarter 6 shows the strongest asymmetry
 out of the quarters: a deviation of about 3\,ppt from
@@ -1266,7 +1269,9 @@ darkening seems to be an unlikely explanation.
 The scenario of transit timing variations (TTVs) producing the
 asymmetry seems unlikely, since the analysis by
 \citet{holczer_transit_2016} implies that any such variations in \sn\
-need to be less than of order minutes.  Figures~\ref{fig:phasequarter}
+need to be less than of order minutes.  
+Our independent TTV analysis found similar results.
+Figures~\ref{fig:phasequarter}
 and~\ref{fig:phaseyear} also provide little evidence in support of
 this possibility.
 
@@ -1286,14 +1291,14 @@ e.g.},][]{dai_stellar_2018}.  For our system, $P_{\rm orb}/P_{\rm rot}
 \approx 2.76$, which means that every 4 transits and 11 stellar
 rotations, the planet crosses over roughly the same stellar longitude,
 which could enable the necessary phasing if the spot-groups are
-long-lived.  Unforunately, the typical S/N per Kepler transit is
+large and long-lived.  Unfortunately, the  S/N per Kepler transit is
 $\approx8$, which renders individual spot-crossing events unresolved.
-Therefore, although among the possible ideas starspot crossings seem
-the most likely to provide the additional photometric scatter observed
+Therefore, although starspot crossings seem to be
+the most likely source of additional photometric scatter
 during transits, our reasoning is that the expected
 spot-crossing anomaly amplitudes ($\approx 100\,{\rm ppm}$) could be
-correct; we have not been able to definitely show that this is the correct
-explanation, and the issue could deserve further exploration.
+correct; we have not been able to definitely show that this is the case, and 
+the issue could deserve further exploration.
 
 
 %  \subsection{Short Cadence Data}
@@ -1407,7 +1412,7 @@ density, and the TTV-local slope correlation -- confirm this point.
 \begin{figure*}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=1\textwidth]{f7.pdf}
+		\includegraphics[width=0.9\textwidth]{f7.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -1430,7 +1435,7 @@ density, and the TTV-local slope correlation -- confirm this point.
 \begin{figure*}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=1.0\textwidth]{f8.pdf}
+		\includegraphics[width=0.9\textwidth]{f8.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -1453,7 +1458,7 @@ density, and the TTV-local slope correlation -- confirm this point.
 \begin{figure*}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=1.0\textwidth]{f13.pdf}
+		\includegraphics[width=0.9\textwidth]{f13.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -1481,10 +1486,10 @@ flaring than visible in the long cadence data
 (Figure~\ref{fig:flarezoom}).  We analyzed the short cadence light
 curve and its flares according to the following procedure.
 \begin{enumerate}
-  \item Model the starspot-induced variability using a
+  \item Fit the starspot-induced variability using a
     Gaussian Process with a \texttt{SHOTerm} kernel (see
     Section~\ref{app:gptransit}), a white-noise jitter term, and the
-    mean flux.  Fit the model to the time, flux, and flux uncertainty.
+    mean flux.
   \item Select points more than twice the median absolute
     deviation from the residual, and exclude them from the light
     curve (these points include the flares).  Repeat Step~1.
@@ -1495,7 +1500,7 @@ curve and its flares according to the following procedure.
     times, from 5 minutes before each flare begins to 2.5 minutes
     after the final flare cadence.  Repeat Step 1 a final time.
 \end{enumerate}
-The flares were identified and fitted using \texttt{altaipony}
+The final step of flare identification and fitting was performed using \texttt{altaipony}
 \citep{davenport_2016,ilin_flares_2021}.  The analytic flare model is
 from \citet{davenport_2014} and it parametrizes the flare with a start
 time, an exponential lag time, and an amplitude.
@@ -1504,8 +1509,8 @@ and phases.
 
 There were $N_{\rm f}=24$ flares that exceeded $0.5\%$ in relative
 flux during the short cadence observations.  These 24 flares spanned a
-total of 6.5 hours ($\sim$15 minutes per flare).  Whether it is
-meaningful or not, we noticed a coincidence in the flare arrival
+total of 6.5 hours ($\sim$15 minutes per flare).  Inspecting the data,
+we noticed a coincidence in the flare arrival
 times.  The coincidence is that despite the low flare duty cycle, one
 orbital period after the brightest flare, a second flare followed.
 This and a similar event are shown in Figure~\ref{fig:flarezoom}.  The
@@ -1516,16 +1521,16 @@ after a previous flare, then 4 of the 24 flare events have candidate
 ``successors''.
 
 As with any coincidence, if one does not have a firm prediction, it is
-difficult to assess the statistical significance of a surprise.  Since
+difficult to assess whether a surprise is statistically significant.  Since
 our surprise was specifically at the inter-arrival time of certain
 flares coinciding with special time intervals, we performed the
 following analysis.  First, we considered all unordered pairs of
 flares.  For $N$ flares there are ${n \choose 2}$ such pairs (for our
 case, 276 pairs).  We then compared the distribution of the pair
-separations against that from a Poisson distribution.  Specifically,
+separations against that of a Poisson distribution.  Specifically,
 we drew $N_{\rm f}=24$ samples from a Poisson distribution with
 $\lambda = \Delta t / N_{\rm f}$, for $\Delta t=97.7\,{\rm days}$ the
-duration of the observations, and repeated the draw $10^3$ times with
+total duration of the observations, and repeated the draw $10^3$ times with
 unique random seeds.
 
 Figure~\ref{fig:flarestats} shows the results.  The vertical lines in
@@ -1535,16 +1540,17 @@ combinations thereof.  Note that the tidal period (half the synodic
 period) is not shown.  The bins are logarithmically spaced to give 100
 bins between the minimum and maximum ordinate values.  The gray bands
 express the range of values observed from the Poissonian draws.  While
-it does seem like a rather odd coincidence for peaks in the observed
+it does seem like an odd coincidence for peaks in the observed
 flare arrival time distribution to coincide with the locations of
 these ``special intervals'', the statistical evidence for a
 non-Poissonian process driving the flares does not seem especially
-strong.  More quantitatively, the peaks observed at the orbital and
+overwhelming.  More quantitatively, the peaks observed at the orbital and
 synodic periods are within the $\pm 2$-$\sigma$ range of a Poissonian
 process, and those at $P_{\rm orb}+P_{\rm syn}$ and $P_{\rm
 orb}+2P_{\rm syn}$ are only slightly above this range.  With that
-said, future analyses of these data by investigators more versed in
-this topic than ourselves could very well yield more quantitative insights.
+said, future analyses of these data by investigators with more
+knowledge of this topic could very well yield more quantitative
+insights.
 
 
 
