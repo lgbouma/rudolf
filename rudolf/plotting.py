@@ -23,6 +23,11 @@ RM:
     plot_simulated_RM
     plot_RM
     plot_RM_and_phot
+    plot_rvactivitypanel
+    plot_rv_checks
+
+General for re-use:
+    multiline: iterate through a colormap with many lines.
 """
 import os, corner, pickle, inspect
 from glob import glob
@@ -35,6 +40,8 @@ from importlib.machinery import SourceFileLoader
 import matplotlib as mpl
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+from matplotlib.collections import LineCollection
+from matplotlib.ticker import FormatStrFormatter
 
 from scipy.optimize import curve_fit
 
@@ -1580,7 +1587,7 @@ def plot_hr(
         s = 4
 
     # mixed rasterizing along layers b/c we keep the loading times nice
-    l0 = '$\delta$ Lyr cluster'
+    l0 = '$\delta$ Lyr candidates'
     ax.scatter(
         get_xval(df), get_yval(df), c='k', alpha=1, zorder=3,
         s=s, rasterized=False, linewidths=0.1, label=l0, marker='o',
@@ -2104,7 +2111,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     _s = 3 if runid != 'VelaOB2' else 1.2
     ss = [15, 12, 8]
     if runid == 'deltaLyrCluster':
-        l = '$\delta$ Lyr cluster'
+        l = '$\delta$ Lyr candidates'
     else:
         raise NotImplementedError
     labels = ['Pleiades', 'Praesepe', l]
@@ -2308,7 +2315,7 @@ def plot_RM(outdir, N_mcmc=20000, model=None):
     if not os.path.exists(outdir):
         os.mkdir(outdir)
 
-    if model == 'quadratic':
+    if model in ['quadratic', 'quadraticfreejitter']:
         k = 7
     elif model in ['quadraticprograde', 'quadraticretrograde']:
         k = 6
@@ -2387,7 +2394,7 @@ def plot_RM(outdir, N_mcmc=20000, model=None):
         print(TF.min_pv_mcmc)
 
         # plot chains
-        rmfit.mcmc_help.plot_chains(TF.sampler.chain,labels=TF.lpf.ps_vary.labels)
+        rmfit.mcmc_help.plot_chains(TF.sampler.chain, labels=TF.lpf.ps_vary.labels)
         outpath = os.path.join(outdir, f'rmfit_chains.pdf')
         plt.savefig(outpath)
         plt.close('all')
@@ -2399,17 +2406,23 @@ def plot_RM(outdir, N_mcmc=20000, model=None):
         df_post = pd.DataFrame(flatchain,columns=TF.lpf.ps_vary.labels)
         print(df_post)
 
-        # Assess convergence, should be close to 1 (usually within a few percent, if not, then rerun MCMC with more steps)
-        # This example for example would need a lot more steps, but keeping steps fewer for a quick minimal example
-        # Usually good to let it run for 10000 - 20000 steps for a 'production run'
+        # Assess convergence, should be close to 1 (usually within a
+        # few percent, if not, then rerun MCMC with more steps) This
+        # example for example would need a lot more steps, but keeping
+        # steps fewer for a quick minimal example Usually good to let
+        # it run for 10000 - 20000 steps for a 'production run'
         print(42*'.')
         print('Gelman Rubin statistic, Rhat. Near 1?')
         print(rmfit.mcmc_help.gelman_rubin(chains_after_burnin))
         print(42*'.')
 
         # Plot corner plot
-        fig = rmfit.mcmc_help.plot_corner(chains_after_burnin,
-                                          show_titles=True,labels=np.array(TF.lpf.ps_vary.descriptions),title_fmt='.1f',xlabcord=(0.5, -0.2))
+        fig = rmfit.mcmc_help.plot_corner(
+            chains_after_burnin, show_titles=True,
+            labels=np.array(TF.lpf.ps_vary.descriptions),
+            title_fmt='.1f', xlabcord=(0.5, -0.2)
+        )
+
         outpath = os.path.join(outdir, f'rmfit_corner_full.png')
         savefig(fig, outpath, dpi=100)
         plt.close('all')
@@ -2684,3 +2697,184 @@ def plot_RM_and_phot(outdir, model=None):
     outpath = os.path.join(outdir, f'rm_RV_and_phot.png')
     savefig(fig, outpath, dpi=400)
     plt.close('all')
+
+
+def multiline(xs, ys, c, ax=None, **kwargs):
+    """Plot lines with different colorings
+    Copy-pasted from
+    https://stackoverflow.com/questions/38208700/matplotlib-plot-lines-with-colors-through-colormap
+
+    Parameters
+    ----------
+    xs : iterable container of x coordinates
+    ys : iterable container of y coordinates
+    c : iterable container of numbers mapped to colormap
+    ax (optional): Axes to plot on.
+    kwargs (optional): passed to LineCollection
+
+    Notes:
+        len(xs) == len(ys) == len(c) is the number of line segments
+        len(xs[i]) == len(ys[i]) is the number of points for each line (indexed by i)
+
+    Returns
+    -------
+    lc : LineCollection instance.
+    """
+
+    # find axes
+    ax = plt.gca() if ax is None else ax
+
+    # create LineCollection
+    segments = [np.column_stack([x, y]) for x, y in zip(xs, ys)]
+    lc = LineCollection(segments, **kwargs)
+
+    # set coloring of line segments
+    #    Note: I get an error if I pass c as a list here... not sure why.
+    lc.set_array(np.asarray(c))
+
+    # add lines to axes and rescale 
+    #    Note: adding a collection doesn't autoscalee xlim/ylim
+    ax.add_collection(lc)
+    ax.autoscale()
+    return lc
+
+
+def plot_rvactivitypanel(outdir):
+
+    # get data
+    lines = ['Ca K', 'Ca H', 'Hα']
+    globs = ['Kep*bj*order07*', 'Kep*bj*order07*', 'Kep*ij*order00*']
+    deltawav = 5
+    xlims = [
+        [3933.66-deltawav, 3933.66+deltawav], # Ca K
+        [3968.47-deltawav, 3968.47+deltawav], # Ca H
+        [6562.8-deltawav, 6562.8+deltawav], # Halpa
+    ]
+
+
+    rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs.csv')
+    rvdf = pd.read_csv(rvpath)
+
+    # make plot
+    plt.close('all')
+    set_style()
+
+    #fig, ax = plt.subplots(figsize=(4,3))
+    fig = plt.figure(figsize=(5*1.3,3*1.3))
+    axd = fig.subplot_mosaic(
+        """
+        012
+        345
+        """,
+        gridspec_kw={
+            #"width_ratios": [1, 1, 1, 1]
+            "height_ratios": [1, 3]
+        },
+    )
+
+    from scipy.ndimage import gaussian_filter1d
+
+    for ix, (l,g,xlim) in enumerate(zip(lines, globs, xlims)):
+
+        csvpaths = glob(os.path.join(DATADIR, 'rvactivity', g))
+        assert len(csvpaths) > 0
+
+        _df = pd.read_csv(csvpaths[0])
+        axd[str(ix)].plot(
+            _df.wav, _df.model_flx, c='k', zorder=3, lw=0.2
+        )
+
+        colors = plt.cm.viridis(np.linspace(0,1,len(csvpaths)))
+
+        times, diff_flxs, wavs = [], [], []
+
+        for c_ix, csvpath in enumerate(csvpaths):
+            expindex = int(os.path.basename(csvpath).split("_")[1].split(".")[1])
+            bjd = float(rvdf.loc[rvdf.expindex==expindex, 'bjd'])
+            df = pd.read_csv(csvpath)
+            times.append(bjd)
+
+            if ix == 2:
+                # mask cosmic
+                sel = df.diff_flx > 0.15
+                df.loc[sel, 'diff_flx'] = 0
+
+            # smoothed
+            fn = lambda x: gaussian_filter1d(x, sigma=6)
+            diff_flxs.append(fn(nparr(df.diff_flx)))
+
+            wavs.append(nparr(df.wav))
+
+        lc = multiline(
+            wavs, diff_flxs, 24*(nparr(times)-np.min(times)), cmap='Spectral',
+            ax=axd[str(ix+3)], lw=1
+        )
+
+        axd[str(ix)].set_title(l)
+        axd[str(ix)].set_xticklabels([])
+
+        axd[str(ix)].set_xlim(xlim)
+        axd[str(ix+3)].set_xlim(xlim)
+        if ix in [0,1]:
+            axd[str(ix+3)].set_ylim([-0.3, 0.3])
+        elif ix == 2:
+            axd[str(ix+3)].set_ylim([-0.1, 0.1])
+
+        if ix == 2:
+            axd[str(ix+3)].set_yticks([-0.1,0,0.1])
+
+    axins1 = inset_axes(axd['5'], width="40%", height="5%", loc='lower right',
+                        borderpad=1.5)
+    cb = fig.colorbar(lc, cax=axins1, orientation="horizontal")
+    cb.ax.tick_params(labelsize='xx-small')
+    cb.ax.set_title('Time [hours]', fontsize='xx-small')
+    # axd['B'].text(0.725,0.955, '$t$ [days]',
+    #         transform=axd['B'].transAxes,
+    #         ha='right',va='top', color='k', fontsize='xx-small')
+    cb.ax.tick_params(size=0, which='both') # remove the ticks
+    axins1.xaxis.set_ticks_position("bottom")
+
+    fig.text(-0.01,0.5, 'Relative flux', va='center',
+             rotation=90)
+    fig.text(0.5,-0.01, 'Wavelength [$\AA$]', va='center', ha='center', rotation=0)
+
+    fig.tight_layout()
+
+    # set naming options
+    s = ''
+
+    bn = inspect.stack()[0][3].split("_")[1]
+    outpath = os.path.join(outdir, f'{bn}{s}.png')
+    savefig(fig, outpath, dpi=400)
+
+
+def plot_rv_checks(outdir):
+
+    # get data
+
+    # make plot
+    plt.close('all')
+    set_style()
+
+    fig, ax = plt.subplots(figsize=(4,3))
+    fig = plt.figure(figsize=(4,3))
+    axd = fig.subplot_mosaic(
+        """
+        AB
+        CD
+        """#,
+        #gridspec_kw={
+        #    "width_ratios": [1, 1, 1, 1]
+        #}
+    )
+
+
+    # set naming options
+    s = ''
+
+    bn = inspect.stack()[0][3].split("_")[1]
+    outpath = os.path.join(outdir, f'{bn}{s}.png')
+    savefig(fig, outpath, dpi=400)
+
+
+
