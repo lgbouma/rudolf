@@ -2751,7 +2751,6 @@ def plot_rvactivitypanel(outdir):
         [6562.8-deltawav, 6562.8+deltawav], # Halpa
     ]
 
-
     rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs.csv')
     rvdf = pd.read_csv(rvpath)
 
@@ -2848,29 +2847,29 @@ def plot_rvactivitypanel(outdir):
     savefig(fig, outpath, dpi=400)
 
 
-def plot_rv_checks(outdir):
+def plot_rvchecks(outdir):
 
     # get data
+    rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs.csv')
+    df = pd.read_csv(rvpath)
 
     # make plot
     plt.close('all')
     set_style()
 
     fig, ax = plt.subplots(figsize=(4,3))
-    fig = plt.figure(figsize=(4,3))
-    axd = fig.subplot_mosaic(
-        """
-        AB
-        CD
-        """#,
-        #gridspec_kw={
-        #    "width_ratios": [1, 1, 1, 1]
-        #}
+
+    ax.errorbar(
+        df.svalue, df.rv, df.e_rv,
+        marker='o', elinewidth=0.5, capsize=4, lw=0, mew=0.5, color='k',
+        markersize=3, zorder=5
     )
 
+    ax.set_xlabel('S-value')
+    ax.set_ylabel('RV [m/s]')
 
     # set naming options
-    s = ''
+    s = '_rv_vs_svalue'
 
     bn = inspect.stack()[0][3].split("_")[1]
     outpath = os.path.join(outdir, f'{bn}{s}.png')
