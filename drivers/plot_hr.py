@@ -11,6 +11,15 @@ PLOTDIR = os.path.join(RESULTSDIR, 'hr')
 if not os.path.exists(PLOTDIR):
     os.mkdir(PLOTDIR)
 
+# actually used in manuscript
+rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
+           clusters=['δ Lyr cluster', 'IC 2602', 'Pleiades'], reddening_corr=1,
+           overplotkep1627=1)
+rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
+           clusters=['δ Lyr cluster', 'IC 2602', 'Pleiades'], reddening_corr=1,
+           smalllims=1, overplotkep1627=1)
+
+# useful isochrone fitting tests
 for iso in [None, 'mist', 'parsec']:
     rp.plot_hr(PLOTDIR, isochrone=iso, color0='phot_bp_mean_mag', show100pc=1,
                clusters=['δ Lyr cluster', 'IC 2602', 'Pleiades'],

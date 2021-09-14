@@ -29,7 +29,7 @@ cp ~/Dropbox/proj/rudolf/results/rp_vs_period_scatter/rp_vs_period_scatter_20210
 
 
 cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_IC_2602_Pleiades_cleanhrcut_gaia2018_overplotkep1627.pdf f15a.pdf
-cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_IC_2602_Pleiades_cleanhrcut_gaia2018_smalllims.pdf f15b.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_IC_2602_Pleiades_cleanhrcut_gaia2018_smalllims_overplotkep1627.pdf f15b.pdf
 
 cp /Users/luke/Dropbox/proj/rudolf/results/rotation/deltaLyrCluster_rotation_vs_BpmRp_talkaspect_kinematicspatialselected_linear_curtiscleaning_overplotkep1627.pdf f15c.pdf
 

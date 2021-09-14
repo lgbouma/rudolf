@@ -2008,8 +2008,8 @@ def plot_hr(
         ax.set_ylim((16, -3))
 
     if smalllims and 'phot_bp_mean_mag' in color0:
-        ax.set_xlim([0.95,3.45])
-        ax.set_ylim([12.5,5.5])
+        ax.set_xlim([0.85,3.45])
+        ax.set_ylim([12.5,5.0])
     elif smalllims and 'phot_bp_mean_mag' not in color0:
         raise NotImplementedError
 

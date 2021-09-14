@@ -27,7 +27,7 @@ namedesc_dict = {
 'cluster': "Comma-separated cluster or group name.",
 'age': r"Comma-separated logarithm (base-10) of reported$^{\rm a}$ age in years.",
 'mean_age': r"Mean (ignoring NaNs) of $\texttt{age}$ column.",
-'reference_id': "Comma-separted provenance of group membership.",
+'reference_id': "Comma-separated provenance of group membership.",
 'reference_bibcode': r"ADS bibcode corresponding to $\texttt{reference\_id}$.",
 }
 
