@@ -68,21 +68,20 @@
   observed by the Kepler satellite because it is nearby
   ($d=329\pm3\,{\rm pc}$) and it resembles the Sun.  Here we show that
   Kepler\,1627 is a member of the \clusterage\ old $\delta$~Lyr
-  cluster, based on Gaia kinematics, TESS stellar rotation
-  periods, and spectroscopic lithium abundances.  To
-  our knowledge, Kepler\,1627Ab is the youngest planet with a precise
-  age yet found by the main Kepler mission.  From unresolved
-  starspot-crossing events in the Kepler photometry and
-  a Keck/HIRES transit we find that the planet is likely on an
-  orbit aligned with the stellar spin axis.  We also briefly explore the flare
-  arrival time distribution in the short cadence Kepler
-  photometry.
-  The $\delta$~Lyr cluster is one of many stellar groups whose
-  properties have been clarified using Gaia; many other new
-  clusters also overlap with confirmed and candidate exoplanets.
-  Verifying the results of Gaia clustering analyses using TESS rotation
-  periods seems to be a promising path toward expanding the census of
-  age-dated planets, and our corresponding understanding of planetary evolution.
+  cluster, based on Gaia kinematics, TESS stellar rotation periods,
+  and spectroscopic lithium abundances.  To our knowledge,
+  Kepler\,1627Ab is the youngest planet with a precise age yet found
+  by the main Kepler mission.  From unresolved starspot-crossing
+  events in the Kepler photometry and a Keck/HIRES transit we find
+  that the planet is likely on an orbit aligned with the stellar spin
+  axis.  We also briefly explore the flare arrival time distribution
+  in the short cadence Kepler photometry.  The $\delta$~Lyr cluster is
+  one of many stellar groups whose properties have been clarified
+  using Gaia; many other new clusters also overlap with confirmed and
+  candidate exoplanets.  Verifying the results of Gaia clustering
+  analyses using TESS rotation periods offers a promising path toward
+  expanding the census of age-dated planets, and our corresponding
+  understanding of planetary evolution.
 \end{abstract}
 
 \keywords{
@@ -108,20 +107,20 @@ on timescales of less than 100 million years.
 For instance, the ``mini-Neptunes'', thought to be made of molten
 rocky cores \citep{kite_atmosphere_2020} and extended atmospheric
 envelopes of hydrogen and helium, are expected to shrink in size by
-factors of several over their first $10^8$ years
-\citep{owen_atmospheres_2016,owen_constraining_2020}.  Specifically,
-they start with sizes of 4--12\,$R_\oplus$ shortly after the time of disk
+factors of several over their first $10^8$ years.  Specifically, in
+the models of \citet{owen_atmospheres_2016} and
+\citet{owen_constraining_2020}, the $\approx5\,M_\oplus$ planets start
+with sizes of 4--12\,$R_\oplus$ shortly after the time of disk
 dispersal ($\lesssim$$10^7$\,years), and shrink to sizes of
 2--4\,$R_\oplus$ by 10$^8$ years.  While the majority of this change
 is expected to occur within the first few million years of disk
 dispersal \citep{owen_atmospheres_2016}, the combination of stellar
-irradiation and internal heat may also power a more
-gradual outflow which can eventually deplete or entirely strip the
-envelope from the rocky core
-\citep{Owen_Wu_2013,ginzburg_corepowered_2018}.  Discovering young
-planets, measuring their masses, and detecting their atmospheric
-outflows are key steps toward testing this paradigm, which is often
-invoked to explain the observed radius distribution of mature
+irradiation and internal heat may also power a more gradual outflow
+which can eventually deplete or entirely strip the envelope from the
+rocky core \citep{Owen_Wu_2013,ginzburg_corepowered_2018}.
+Discovering young planets, measuring their masses, and detecting their
+atmospheric outflows are key steps toward testing this paradigm, which
+is often invoked to explain the observed radius distribution of mature
 exoplanets \citep{Fulton_et_al_2017}.
 
 The K2 and TESS missions have now enabled the detection of about ten
@@ -156,7 +155,7 @@ the overlap between the Kepler field and the cluster.
 A previous clustering analysis of the Gaia data reported that
 Kepler\,1627 (KIC 6184894; KOI 5245; TIC 120105470) is a member of the
 \cn\ \citep{kounkel_untangling_2019}.  Given the previous statistical
-validation the close-in mini-Neptune Kepler 1627b
+validation of the close-in mini-Neptune Kepler 1627b
 \citep{2012ApJS..199...24T,morton_false_2016,thompson_planetary_2018},
 we examined the age of the star and its putative host cluster more
 closely (Section~\ref{sec:cluster}).  We find that the $\delta$ Lyr
@@ -181,14 +180,13 @@ planets (Section~\ref{sec:conc}).
 	\vspace{-0.7cm}
 	\caption{
     {\bf Kepler and TESS views of the $\delta$\,Lyr cluster.} Colored
-    points are kinematically selected members of the $\delta$\,Lyr
-    cluster.  Both Kepler (gray squares) and TESS observed portions of
-    the cluster.  Naked-eye stars ($m_{\rm V}<6.5$) are shown in gray;
-    four of them (orange circles) are annotated.
+    points are kinematically selected candidate $\delta$\,Lyr
+    cluster members.  Both Kepler (gray panels) and TESS observed portions of
+    the cluster.  Naked-eye stars ($m_{\rm V}<6.5$) are shown in gray or orange.
     Kepler\,1627 (green star) was observed during the entirety of the
-    Kepler mission, and has been observed by TESS for two lunar months
-    to date.  The colors of the other cluster members indicate the
-    number of TESS sectors during which they have been observed.
+    Kepler mission.  Colors of candidate cluster members indicate the
+    duration of TESS observations to date.  So far, Kepler\,1627 has been
+    observed by TESS for two lunar months.
     \label{fig:skychart}
 	}
 \end{figure}
@@ -602,9 +600,12 @@ dominated by the $v\sin i$ broadening.
 % AIC: 265.493
 
 We fitted the RVs using the \citet{hirano_analytic_2010,hirano_2011}
-models for the Rossiter-McLaughlin (RM) effect, and allowed the
-sky-projected obliquity, the stellar equatorial velocity, and the
-Gaussian dispersion of the spectral lines to vary.  We also allowed
+models for the Rossiter-McLaughlin (RM) effect, 
+following the methodology developed by \citet{stefansson_2020}.
+We allowed the sky-projected obliquity, the projected stellar equatorial
+velocity, and the Gaussian dispersion of the spectral lines to vary, and fixed the limb-darkening
+using the $V$-band tabulation from \citet{claret_gravity_2011}.  We also
+allowed
 for an optional linear and quadratic trend, and a white-noise jitter
 term.  The quadratic model with the RM effect is shown in
 Figure~\ref{fig:obliquity}; the prior on $v\sin i$ has been assumed
@@ -623,8 +624,8 @@ BIC}_{\rm trend} - {\rm BIC}_{\rm quad} = 1.9$ ($\Delta {\rm
 AIC}=5.2$).  From a model-comparison standpoint, there is therefore
 only marginal statistical evidence to prefer the best-fitting ``RM and
 quadratic trend'' model over the best-fitting ``quadratic trend only''
-model.  Given the expected semi-amplitude of the velocity anomaly
-($\Delta v_{\rm RM}\approx 20\,{\rm m\,s}^{-1}$) and the achieved precision,
+model.  Comparing the expected semi-amplitude of the velocity anomaly
+for a well-aligned orbit ($\Delta v_{\rm RM}\approx 20\,{\rm m\,s}^{-1}$) with the achieved precision,
 we cannot claim a detection of the Doppler transit.
 From the MuSCAT3 data however, we do know that the transit
 was observed, and the increase in radial velocity seen shortly after
@@ -895,13 +896,13 @@ opportunity to conduct observations from this mountain.
    	exoplanet:theano},
 	%\texttt{gala} \citep{gala,PriceWhelan_2017_gala_zenodo},
 	%\texttt{IDL Astronomy User's Library} \citep{landsman_1995},
-  \texttt{IPython} \citep{perez_2007},
+  %\texttt{IPython} \citep{perez_2007},
 	%\texttt{isochrones} \citep{morton_2015_isochrones},
 	%\texttt{lightkurve} \citep{lightkurve_2018},
-  \texttt{matplotlib} \citep{hunter_matplotlib_2007}, 
+  %\texttt{matplotlib} \citep{hunter_matplotlib_2007}, 
   %\texttt{MESA} \citep{paxton_modules_2011,paxton_modules_2013,paxton_modules_2015}
-  \texttt{numpy} \citep{walt_numpy_2011}, 
-  \texttt{pandas} \citep{mckinney-proc-scipy-2010},
+  %\texttt{numpy} \citep{walt_numpy_2011}, 
+  %\texttt{pandas} \citep{mckinney-proc-scipy-2010},
   %\texttt{pyGAM} \citep{serven_pygam_2018_1476122},
   \texttt{PyMC3} \citep{salvatier_2016_PyMC3},
   %\texttt{radvel} \citep{fulton_radvel_2018},
@@ -967,10 +968,10 @@ opportunity to conduct observations from this mountain.
 \label{app:targetlist}
 
 
-The \texttt{v0.6} CDIPS target catalog (Table~\ref{tab:v06}) includes
-stars that are young, age-dated, and age-dateable.  By ``age-dateable'',
-we mean that the age should be measurable at greater
-precision than a typical FGK field star.
+The \texttt{v0.6} CDIPS target catalog (Table~\ref{tab:v06}) includes stars
+that are young, age-dated, and age-dateable.  By ``age-dateable'', we mean that
+the age should be measurable at greater precision than a typical FGK field star
+using isochronal, gyrochronal, or spectroscopic techniques.
 As in
 \citet{bouma_cdipsI_2019}, we collected stars that met these criteria
 from across the literature.  Table~\ref{tab:metadata} gives a list of
@@ -1101,7 +1102,7 @@ by {\it e.g.}, \citet{Meingast2021} and \citet{bouma_2021_ngc2516}.
 We performed the actual selection by then manually drawing lassos with
 the interactive \texttt{glue} visualization tool
 \citep{beaumont_2014_13866} in the four projections shown in
-Figure~\ref{fig:XYZvtang}.  While cluster members likely exist
+Figure~\ref{fig:XYZvtang}.  While other cluster members likely exist
 outside of our selection region (and our selection also includes some
 field star interlopers), our aim is to verify the existence of the
 cluster in the vicinity of Kepler\,1627, and to measure its age.  The
@@ -1350,7 +1351,7 @@ the issue could deserve further exploration.
     $53\pm4$\,au.  {\it Bottom:} Gaia EDR3 renormalized unit weight
     error (RUWE) point estimates for Kepler\,1627A and other members
     of the $\delta$\,Lyr cluster reported by \citet{KounkelCovey2019}.
-    Since other members of the cluster with similar colors have
+    Since other members of the cluster with similar brightnesses have
     comparable degrees of photometric variability, the high RUWE
     suggests that Kepler\,1627 is an astrometric binary. 
     \label{fig:kep1627binary}
@@ -1508,7 +1509,8 @@ Figure~\ref{fig:flarephase} shows the resulting flares, amplitudes,
 and phases.
 
 There were $N_{\rm f}=24$ flares that exceeded $0.5\%$ in relative
-flux during the short cadence observations.  These 24 flares spanned a
+flux during the short cadence observations.  
+These 24 flares spanned a
 total of 6.5 hours ($\sim$15 minutes per flare).  Inspecting the data,
 we noticed a coincidence in the flare arrival
 times.  The coincidence is that despite the low flare duty cycle, one
@@ -1536,7 +1538,7 @@ unique random seeds.
 Figure~\ref{fig:flarestats} shows the results.  The vertical lines in
 the figure show the planetary orbital period, the synodic period
 $P_{\rm syn} = (P_{\rm rot}^{-1} - P_{\rm orb}^{-1})^{-1}$, and linear
-combinations thereof.  Note that the tidal period (half the synodic
+combinations thereof.  The tidal period (half the synodic
 period) is not shown.  The bins are logarithmically spaced to give 100
 bins between the minimum and maximum ordinate values.  The gray bands
 express the range of values observed from the Poissonian draws.  While
@@ -1551,6 +1553,16 @@ orb}+2P_{\rm syn}$ are only slightly above this range.  With that
 said, future analyses of these data by investigators with more
 knowledge of this topic could very well yield more quantitative
 insights.
+Such analyses should keep in mind an important caveat:
+the amplitude
+distribution of M-dwarf flares extends up to many times the quiescent
+flux \citep[see Figure~7 of][]{gunther_2020}.  A flare on
+Kepler\,1627B producing double its quiescent white-light flux would yield
+a $\approx$1\% apparent amplitude.
+Such flares could represent a significant fraction
+of those in the Kepler observations.
+
+
 
 
 

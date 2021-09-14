@@ -28,6 +28,7 @@ RM:
 
 General for re-use:
     multiline: iterate through a colormap with many lines.
+    truncate_colormap: extract a subset of a colormap
 """
 import os, corner, pickle, inspect
 from glob import glob
@@ -420,8 +421,9 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
         mdf = pd.read_csv(outcsv)
 
         cmap = mpl.cm.viridis
-        bounds = np.arange(-0.5, 4.5, 1)
-        ticks = (np.arange(-1,4)+1)
+        cmap = truncate_colormap(cmap, 0., 0.75)
+        bounds = np.arange(-0.5, 3.5, 1)
+        ticks = (np.arange(-1,3)+1)
         norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
 
         cax = ax.scatter(
@@ -435,9 +437,15 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
 
         _p = ax.scatter(
             trgt_mdf.ra, trgt_mdf.dec, c=trgt_mdf.n_tess_sector, cmap=cmap,
-            alpha=1, zorder=42, s=60, linewidths=0.2,
+            alpha=1, zorder=42, s=80, linewidths=0.2,
             marker='*', norm=norm, edgecolors='k'
         )
+
+        bbox = dict(facecolor='white', alpha=0.9, pad=0, edgecolor='white')
+        deltay=1.2
+        ax.text(trgt_mdf.ra, trgt_mdf.dec+deltay, 'Kepler 1627', ha='center',
+                va='bottom', fontsize='xx-small', bbox=bbox, zorder=49)
+
 
         # standard colorbar...
         # cb = f.colorbar(cax, extend='max', ticks=ticks)
@@ -452,7 +460,7 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
                             loc='lower left',
                             bbox_transform=ax.transAxes)
         cb = f.colorbar(_p, cax=axins1, orientation="vertical",
-                        extend='max', ticks=ticks)
+                        ticks=ticks)
         cb.ax.minorticks_off()
         cb.ax.tick_params(labelsize='x-small')
         cb.ax.set_title("$N_{\mathrm{TESS}}$", fontsize='x-small')
@@ -487,6 +495,7 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
         ymin,ymax = np.min(y)-1, np.max(y)+1
         ax.set_xlim([xmin,xmax])
         ax.set_ylim([np.min([ymin,8]),ymax])
+        ax.set_ylim([15,55])
 
 
     if shownakedeye:
@@ -514,7 +523,8 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
         bbox = dict(facecolor='white', alpha=0.9, pad=0, edgecolor='white')
         if plot_starnames:
             #stars_names = stars[pd.notnull(stars['proper'])]
-            sel_names = ['Vega', 'Altair', 'Deneb', '12Del2Lyr']
+            #sel_names = ['Vega', 'Altair', 'Deneb', '12Del2Lyr']
+            sel_names = ['Vega', 'Deneb', '12Del2Lyr']
             stars_names = stars[
                 (stars.proper.astype(str).str.contains('|'.join(sel_names)))
                 |
@@ -1532,7 +1542,7 @@ def plot_hr(
         df_bkgd = get_gaia_catalog_of_nearby_stars()
 
     if isochrone in ['mist', 'parsec']:
-		# see /doc/20210816_isochrone_selection_notes.txt
+        # see /doc/20210816_isochrone_selection_notes.txt
         if isochrone == 'mist':
             from timmy.read_mist_model import ISOCMD
             isocmdpath = os.path.join(DATADIR, 'isochrones',
@@ -2699,46 +2709,6 @@ def plot_RM_and_phot(outdir, model=None):
     plt.close('all')
 
 
-def multiline(xs, ys, c, ax=None, **kwargs):
-    """Plot lines with different colorings
-    Copy-pasted from
-    https://stackoverflow.com/questions/38208700/matplotlib-plot-lines-with-colors-through-colormap
-
-    Parameters
-    ----------
-    xs : iterable container of x coordinates
-    ys : iterable container of y coordinates
-    c : iterable container of numbers mapped to colormap
-    ax (optional): Axes to plot on.
-    kwargs (optional): passed to LineCollection
-
-    Notes:
-        len(xs) == len(ys) == len(c) is the number of line segments
-        len(xs[i]) == len(ys[i]) is the number of points for each line (indexed by i)
-
-    Returns
-    -------
-    lc : LineCollection instance.
-    """
-
-    # find axes
-    ax = plt.gca() if ax is None else ax
-
-    # create LineCollection
-    segments = [np.column_stack([x, y]) for x, y in zip(xs, ys)]
-    lc = LineCollection(segments, **kwargs)
-
-    # set coloring of line segments
-    #    Note: I get an error if I pass c as a list here... not sure why.
-    lc.set_array(np.asarray(c))
-
-    # add lines to axes and rescale 
-    #    Note: adding a collection doesn't autoscalee xlim/ylim
-    ax.add_collection(lc)
-    ax.autoscale()
-    return lc
-
-
 def plot_rvactivitypanel(outdir):
 
     # get data
@@ -2874,6 +2844,60 @@ def plot_rvchecks(outdir):
     bn = inspect.stack()[0][3].split("_")[1]
     outpath = os.path.join(outdir, f'{bn}{s}.png')
     savefig(fig, outpath, dpi=400)
+
+
+def truncate_colormap(cmap, minval=0.0, maxval=1.0, n=100):
+    """
+    usage:
+        cmap = mpl.cm.viridis
+        new_cmap = truncate_colormap(cmap, 0., 0.7)
+    """
+    new_cmap = mpl.colors.LinearSegmentedColormap.from_list(
+        'trunc({n},{a:.2f},{b:.2f})'.
+        format(n=cmap.name, a=minval, b=maxval),
+        cmap(np.linspace(minval, maxval, n))
+    )
+    return new_cmap
+
+
+def multiline(xs, ys, c, ax=None, **kwargs):
+    """Plot lines with different colorings
+    Copy-pasted from
+    https://stackoverflow.com/questions/38208700/matplotlib-plot-lines-with-colors-through-colormap
+
+    Parameters
+    ----------
+    xs : iterable container of x coordinates
+    ys : iterable container of y coordinates
+    c : iterable container of numbers mapped to colormap
+    ax (optional): Axes to plot on.
+    kwargs (optional): passed to LineCollection
+
+    Notes:
+        len(xs) == len(ys) == len(c) is the number of line segments
+        len(xs[i]) == len(ys[i]) is the number of points for each line (indexed by i)
+
+    Returns
+    -------
+    lc : LineCollection instance.
+    """
+
+    # find axes
+    ax = plt.gca() if ax is None else ax
+
+    # create LineCollection
+    segments = [np.column_stack([x, y]) for x, y in zip(xs, ys)]
+    lc = LineCollection(segments, **kwargs)
+
+    # set coloring of line segments
+    #    Note: I get an error if I pass c as a list here... not sure why.
+    lc.set_array(np.asarray(c))
+
+    # add lines to axes and rescale 
+    #    Note: adding a collection doesn't autoscalee xlim/ylim
+    ax.add_collection(lc)
+    ax.autoscale()
+    return lc
 
 
 
