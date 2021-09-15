@@ -14,14 +14,14 @@ from cdips.utils import today_YYYYMMDD
 from cdips.utils.catalogs import get_nasa_exoplanet_archive_pscomppars
 from aesthetic.plot import savefig, format_ax, set_style
 
-VER = '20210702' # could be today_YYYYMMDD()
+VER = '20210915' # could be today_YYYYMMDD()
 
 def arr(x):
     return np.array(x)
 
 def plot_rp_vs_period_scatter(
     showlegend=1, colorbydisc=1, showarchetypes=1, showss=1, colorbyage=0,
-    verbose=0, add_kep1627=0, add_allkep=0
+    verbose=0, add_kep1627=0, add_allkep=0, add_plnames=0
 ):
 
     set_style()
@@ -114,6 +114,7 @@ def plot_rp_vs_period_scatter(
     age = sdf['st_age']*1e9
     period = sdf['pl_orbper']
     discoverymethod = sdf['discoverymethod']
+    pl_name = sdf['pl_name']
 
     #
     # plot age vs rp. (age is on y axis b/c it has the error bars, and I at
@@ -150,6 +151,14 @@ def plot_rp_vs_period_scatter(
             marker='o', cmap=cmap, linewidths=0.3, norm=norm
         )
 
+        if add_plnames:
+            bbox = dict(facecolor='white', alpha=0.7, pad=0, edgecolor='white',
+                       lw=0)
+            for _x,_y,_s in zip(period[s1],rp[s1],pl_name[s1]):
+                ax.text(_x, _y, _s, ha='right', va='bottom', fontsize=2,
+                        bbox=bbox, zorder=49)
+
+
         if add_kep1627:
             namelist = ['Kepler-1627']
             ages = [3.5e7]
@@ -172,6 +181,10 @@ def plot_rp_vs_period_scatter(
                     marker='*', cmap=cmap, linewidths=0.3, norm=norm
                 )
 
+                if add_plnames:
+                    ax.text(_per, _rp, 'Kepler-1627 b', ha='right',
+                            va='bottom', fontsize=2, bbox=bbox, zorder=49)
+
 
         if add_allkep:
             # Kepler-52 and Kepler-968
@@ -189,13 +202,23 @@ def plot_rp_vs_period_scatter(
                 _age = np.ones(len(_sdf))*a
 
                 if n == 'Kepler-1627':
-                    _rp = (0.298*u.Rjup).to(u.Rearth).value
+                    _rp = [(0.298*u.Rjup).to(u.Rearth).value]
 
                 ax.scatter(
                     _per, _rp,
                     c=_age, alpha=1, zorder=2, s=_s, edgecolors='k',
                     marker=m, cmap=cmap, linewidths=0.3, norm=norm
                 )
+
+                if add_plnames:
+                    print(np.array(_sdf.pl_name), np.array(_per),
+                          np.array(_rp))
+                    for __n, __per, __rp in zip(
+                        np.array(_sdf.pl_name), np.array(_per), np.array(_rp)
+                    ):
+                        ax.text(__per, __rp, __n, ha='right', va='bottom',
+                                fontsize=2, bbox=bbox, zorder=49)
+
 
         cb = fig.colorbar(_p, cax=axins1, orientation="vertical",
                           extend="neither", #ticks=[7,7.5,8,8.5,9],
@@ -313,6 +336,8 @@ def plot_rp_vs_period_scatter(
         s += '_showkep1627'
     if add_allkep:
         s += '_showallkep'
+    if add_plnames:
+        s += '_showplnames'
 
     outdir = '../results/rp_vs_period_scatter/'
     if not os.path.exists(outdir):
@@ -328,6 +353,15 @@ def plot_rp_vs_period_scatter(
 
 
 if __name__=='__main__':
+
+    plot_rp_vs_period_scatter(
+        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+        verbose=1, add_kep1627=1, add_plnames=1
+    )
+    plot_rp_vs_period_scatter(
+        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+        verbose=1, add_kep1627=0, add_allkep=1, add_plnames=1
+    )
 
     for showss in [0,1]:
         plot_rp_vs_period_scatter(
