@@ -185,8 +185,7 @@ planets (Section~\ref{sec:conc}).
     the cluster.  Naked-eye stars ($m_{\rm V}<6.5$) are shown in gray or orange.
     Kepler\,1627 (green star) was observed during the entirety of the
     Kepler mission.  Colors of candidate cluster members indicate the
-    duration of TESS observations to date.  So far, Kepler\,1627 has been
-    observed by TESS for two lunar months.
+    duration of TESS observations to date, in units of lunar months.
     \label{fig:skychart}
 	}
 \end{figure}
@@ -201,7 +200,7 @@ planets (Section~\ref{sec:conc}).
 
 		\vspace{-0.5cm}
 		\subfloat{
-			\includegraphics[width=0.8\textwidth]{f15c.pdf}
+			\includegraphics[width=0.7\textwidth]{f15c.pdf}
 		}
 	\end{center}
 	\vspace{-0.7cm}
@@ -426,7 +425,7 @@ star ({\it e.g.}, \citealt{randich_gaiaeso_2018};
     signal is induced by starspots.  The model for the stellar
     variability (orange line) is subtracted below, revealing the
     transits of \pn, as well as other deviations from the model.  The
-    Figure Set online shows the entire 3.9 years of observations.
+    online Figure Set shows the entire 3.9 years of observations.
     {\it Bottom}:
     Phase-folded transit of Kepler 1627Ab, with stellar variability
     removed.  The 2-$\sigma$ model uncertainties and the maximum {\it
@@ -468,7 +467,7 @@ star ({\it e.g.}, \citealt{randich_gaiaeso_2018};
     the transit of 2021 Aug 7, observed simultaneously with MuSCAT3
     ({\it griz} photometry).  A quadratic baseline trend was allowed
     in the RV fit.  The best-fit sky-projected obliquity in this model
-    is listed in red; the detection however has marginal statistical
+    is listed in red; the spectroscopic detection however has marginal statistical
     significance compared to a ``trend-only'' model.
     \label{fig:obliquity}
 	}
@@ -532,8 +531,12 @@ false positive scenario was that of a background eclipsing binary,
 which had a model-dependent probability of $\approx10^{-5}$.
 As we describe in Appendix~\ref{app:companionstar} however,
 Kepler\,1627A is accompanied by a low-mass stellar companion ($M_{\rm
-B}\approx 0.44\,M_\odot$).  We therefore reconsidered this false
+B}\approx 0.33\,M_\odot$).  We therefore reconsidered this false
 positive scenario in some detail. 
+
+% Baraffe+15: M_B 0.33 Mdot
+% Rstar = 0.455 --> 0.465 Rsun
+% 
 
 % At 30 Myr, a 0.44\,$M_\odot$ solar-metallicity dwarf is $\approx 26\%$
 % larger than when it is fully contracted on the main sequence
@@ -544,10 +547,10 @@ interpretation.  First, the transit duration and the orbital period
 are inconsistent with an eclipsing body around the M-dwarf companion:
 we find $\rho_\star = 2.00 \pm 0.24\,{\rm g\,cm}^{-3}$, while the
 theoretically expected density for the companion is
-$\approx 3.2\,{\rm g\,cm}^{-3}$ (Table~\ref{tab:posterior};
+$\approx 4.6\,{\rm g\,cm}^{-3}$ (Table~\ref{tab:posterior};
 \citealt{choi_mesa_2016}).  The transit duration is therefore too long
 to be explained by a star eclipsing the M dwarf secondary at
-$\approx$$5$-$\sigma$.
+$10$-$\sigma$.
 
 %NOTE to the arxiv readers:, the $\approx$100 days of short-cadence
 %Kepler observations also mitigate the cadence-induced smearing, and
@@ -1334,7 +1337,7 @@ the issue could deserve further exploration.
 	\vspace{-0.5cm}
 	\caption{
     {\bf Kepler 1627 is a binary.} {\it Left:} High-resolution imaging
-    from Gemini-North/`Alopeke and Keck/NIRC2 shows an $\approx$M2V
+    from Gemini-North/`Alopeke and Keck/NIRC2 shows an $\approx$M2.5V
     companion at $\rho \approx 0\farcs16$, which corresponds to a
     projected separation of $53\pm4$\,AU.  The inset shows a cutout of
     the NIRC2 image (North is up, East is left, scale is set by the
@@ -1427,7 +1430,8 @@ produce a signal with the appropriate depth.  The shape of the
 observed signal requires the impact parameter to be below 0.74
 (Table~\ref{tab:posterior}); the body transiting the secondary would
 therefore need to be non-grazing with $R_3/R_2 \approx 0.42$.
-Assuming a $\approx 0.42R_\odot$ radius of the imaged secondary, this
+Assuming a $\approx 0.46R_\odot$ radius of the imaged secondary
+from the \citet{baraffe_new_2015} models, this
 would imply a tertiary stellar radius of $\approx 0.2R_\odot$.  This
 yields a contradiction:  this scenario would require an ingress and
 egress phase that each span $\approx$40\% of the transit duration
