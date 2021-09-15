@@ -1119,18 +1119,12 @@ procedure we have adopted enables both tasks.
 	\end{center}
 	\vspace{-0.7cm}
   \caption{ {\bf Binarity indicators for rotators in \cn.} 
-    Data are as in the lower panel of
-    Figure~\ref{fig:age}.  Astrometric binaries ($\mathrm{RUWE}>1.2$)
-    appear in red; photometric binaries ($>$0.3\,mag above an
-    empirical isochrone; 20\% of stars) are orange.  
-    Over $0.6<\bpmrpo<1.5$, the detected rotation periods in binaries tend to 
-    fall below the slow sequence.
-    %FIXME!
-		% Over $0.5<\bpmrpo<1.3$, Set $\mathcal{B}$ has \replaced{281}{523} stars.
-		% Dividing these stars into ``slow'' and ``fast'' sequences by eye,
-		% the fraction of stars showing signs of binarity in the slow and fast
-		% subsamples are \replaced{30\% (63/210)}{27\% (106/289)} and
-		% \replaced{56\% (40/71)}{51\% (68/134)}, respectively.
+    Data are as in the lower panel of Figure~\ref{fig:age}.  Sources
+    with $\mathrm{RUWE}>1.2$ appear in red; these include astrometric binaries as well
+    as sources poorly fit by a single-star PSF.  Photometric binaries
+    ($>$0.3\,mag above an empirical isochrone; 20\% of stars) are
+    orange.  Over $0.6<\bpmrpo<1.5$, the detected rotation periods in
+    binaries tend to fall below the slow sequence.
 		\label{fig:binarity}
 	}
 \end{figure}
@@ -1337,7 +1331,7 @@ the issue could deserve further exploration.
 			\includegraphics[width=0.48\textwidth]{f6.pdf}
 		}
 	\end{center}
-	\vspace{-0.7cm}
+	\vspace{-0.5cm}
 	\caption{
     {\bf Kepler 1627 is a binary.} {\it Left:} High-resolution imaging
     from Gemini-North/`Alopeke and Keck/NIRC2 shows an $\approx$M2V
@@ -1351,8 +1345,8 @@ the issue could deserve further exploration.
     other members of the $\delta$\,Lyr cluster reported by
     \citet{KounkelCovey2019}.  Since other members of the cluster with
     similar brightnesses have comparable degrees of photometric
-    variability, the high RUWE suggests that Kepler\,1627 is an
-    astrometric binary. 
+    variability, the high RUWE suggests that Kepler\,1627 is a
+    binary. 
     \label{fig:kep1627binary}
 	}
 \end{figure*}
@@ -1399,25 +1393,28 @@ exposures during good seeing (0.45$''$), and used the autocorrelation
 function of these images to reconstruct a single image and 5-$\sigma$
 detection limits (see \citealt{howell_speckle_2011}).  This procedure
 yielded a detection of the companion in the 0.83\,$\mu$m notch filter,
-but not the $0.56\,\mu$m filter.
-The measured projected separation and magnitude difference
-are given in Table~\ref{tab:starparams}.
+but not the $0.56\,\mu$m filter.  The measured projected separation
+and magnitude difference are given in Table~\ref{tab:starparams}.
 
 Figure~\ref{fig:kep1627binary} summarizes the results of the
-high-resolution imaging.  
-The Gaia EDR3 parallax for the primary implies a projected separation
-of $53 \pm 4$\,AU, assuming the companion is bound. 
-Although the companion is unresolved in the
-Gaia source catalog (there are no candidates brighter than $G < 20.5$ mag within $\rho < 120\arcsec$), its existence was also suggested by the primary
-star's large RUWE, relative to other members of the \cn.  Given the
-large observed RUWE of the primary, and the low geometric probability
-that a companion imaged at $\rho \approx 0\farcs16$ is a chance
-line-of-sight companion, we proceed under the assumption that the
-companion is bound, and that Kepler\,1627 is a binary. 
-Given the distance and age, the models of \citet{baraffe_new_2015} imply
-a companion mass of $M_{\rm B} \approx 0.33 M_{\odot}$ and companion
-temperature of $T_{\rm eff,B} \approx 3450$ K.
-The corresponding spectral type is roughly M2.5V \citep{pecaut_mamajek_2013}.
+high-resolution imaging.  The Gaia EDR3 parallax for the primary
+implies a projected separation of $53 \pm 4$\,AU, assuming the
+companion is bound.  Although the companion is unresolved in the Gaia
+source catalog (there are no candidates brighter than $G < 20.5$ mag
+within $\rho < 120\arcsec$), its existence was also suggested by the
+primary star's large RUWE, relative to other members of the \cn.
+Based on the apparent separation, the binary orbital period is of
+order hundreds of years.  The large RUWE is therefore more likely to
+be caused by a PSF-mismatch skewing the Gaia centroiding during
+successive scans, rather than true astrometric motion.  Regardless,
+given the large observed RUWE of the primary, and the low geometric
+probability that a companion imaged at $\rho \approx 0\farcs16$ is a
+chance line-of-sight companion, we proceed under the assumption that
+the companion is bound, and that Kepler\,1627 is a binary.  Given the
+distance and age, the models of \citet{baraffe_new_2015} imply a
+companion mass of $M_{\rm B} \approx 0.33 M_{\odot}$ and companion
+temperature of $T_{\rm eff,B} \approx 3450$ K.  The corresponding
+spectral type is roughly M2.5V \citep{pecaut_mamajek_2013}.
 % \footnote{\url{http://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt}, version \texttt{2021/03/02}.}
 
 % (0.7-2.0\% V-band to G-band dmag difference from EEM table; NOTE

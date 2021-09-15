@@ -2226,7 +2226,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                 nparr(xval)[nparr(df.is_astrometric_binary)],
                 df[nparr(df.is_astrometric_binary)][ykey],
                 c='red', alpha=1, zorder=9, s=s, edgecolors='k',
-                marker='o', linewidths=_lw, label="Astrometric binary"
+                marker='o', linewidths=_lw, label="RUWE>1.2"
             )
 
     if overplotkep1627:
