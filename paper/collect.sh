@@ -38,5 +38,7 @@ cp /Users/luke/Dropbox/proj/rudolf/results/rotation/deltaLyrCluster_rotation_vs_
 cp /Users/luke/Dropbox/proj/rudolf/results/RM/quadratic/rm_RV_and_phot.pdf f16.pdf
 
 
+cp /Users/luke/Dropbox/proj/rudolf/results/imaging/imaging_summary.pdf f17.pdf
+
 cp /Users/luke/Dropbox/proj/rudolf/data/imaging/Kepler1627_20210624_562_832_final.pdf f17a.pdf
 cp /Users/luke/Dropbox/proj/rudolf/data/imaging/KOA_104524/NIRC2/calibrated/N2.20150722.39302_drp.jpg f17b.jpg
