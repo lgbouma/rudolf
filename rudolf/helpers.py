@@ -7,6 +7,7 @@ Data getters:
         get_autorotation_dataframe
     Kepler 1627:
         get_kep1627_kepler_lightcurve
+        get_kep1627_muscat_lightcuve
         get_keplerfieldfootprint_dict
         get_flare_df
         get_becc_limits
@@ -37,6 +38,7 @@ import numpy as np, pandas as pd
 from glob import glob
 from copy import deepcopy
 from datetime import datetime
+from collections import OrderedDict
 
 from numpy import array as nparr
 
@@ -59,7 +61,7 @@ from cdips.utils.gaiaqueries import (
     given_dr2_sourceids_get_edr3_xmatch
 )
 
-from rudolf.paths import DATADIR, RESULTSDIR
+from rudolf.paths import DATADIR, RESULTSDIR, PHOTDIR
 
 def get_flare_df():
 
@@ -152,6 +154,41 @@ def get_kep1627_kepler_lightcurve(lctype='longcadence'):
         qual,
         texp
     )
+
+
+def get_kep1627_muscat_lightcuve():
+    """
+    Collect MuSCAT data. Return an ordered dict with keys 'muscat_b' and values
+    time, flux, flux_err.
+    """
+
+    datasets = OrderedDict()
+
+    bandpasses = 'g,r,i,z'.split(',')
+
+    # nb. the files from the team contain airmass, dx, dy, FWHM, and peak ADU
+    # too. not needed in our approach
+    for bp in bandpasses:
+
+        lcpath = glob(
+            os.path.join(PHOTDIR, 'MUSCAT3', f'*muscat3_{bp}_*csv')
+        )[0]
+        df = pd.read_csv(lcpath)
+
+        # converting b/c theano only understands float64
+        _time, _flux, _fluxerr = (
+            nparr(df.BJD_TDB).astype(np.float64),
+            nparr(df.Flux).astype(np.float64),
+            nparr(df.Err).astype(np.float64)
+        )
+
+        _texp = np.nanmedian(np.diff(_time))
+
+        key = f'muscat3_{bp}'
+
+        datasets[key] = [_time, _flux, _fluxerr, _texp]
+
+    return datasets
 
 
 def get_candidate_stephenson1_member_list():
