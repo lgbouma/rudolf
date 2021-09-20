@@ -2562,6 +2562,7 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
     # The Money Figure
     # needs: TF, flatchain, df_medvals
     ##########################################
+    np.random.seed(42)
     NUMMODELS = 400
     shadecolor="black"
 
@@ -2593,7 +2594,8 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
     sigma_rv = float(df_medvals[df_medvals.Labels == 'sigma_rv'].medvals)
     ax.errorbar(
         scale_x(TF.lpf.data['x']), TF.lpf.data['y'],
-        np.sqrt(TF.lpf.data['error']**2 + sigma_rv**2),
+        np.sqrt(TF.lpf.data['error']**2),
+        #np.sqrt(TF.lpf.data['error']**2 + sigma_rv**2),
         marker='o', elinewidth=0.5, capsize=4, lw=0, mew=0.5, color='k',
         markersize=3, zorder=5
     )
@@ -2671,8 +2673,8 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
 
         ax.scatter(scale_x(_time),
                    _flux - shift,
-                   c='darkgray', zorder=3, s=7, rasterized=False,
-                   linewidths=0, alpha=0.5)
+                   c='darkgray', zorder=3, s=5, rasterized=False,
+                   linewidths=0, alpha=0.4)
 
         ax.scatter(scale_x(_bintime),
                    _binflux - shift,
@@ -2694,12 +2696,13 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
             if showmodelbands:
                 # now it's ncores.nchains X time
                 shadecolor = c
-                ax.fill_between(scale_x(_time),
-                                np.quantile(mod_tr,0.16,axis=0)-shift,
-                                np.quantile(mod_tr,0.84,axis=0)-shift, alpha=0.5,
-                                color=shadecolor, lw=0, label='1$\sigma$',zorder=40)
+                #ax.fill_between(scale_x(_time),
+                #                np.quantile(mod_tr,0.16,axis=0)-shift,
+                #                np.quantile(mod_tr,0.84,axis=0)-shift, alpha=0.5,
+                #                color=shadecolor, lw=0, label='1$\sigma$',zorder=40)
                 ax.fill_between(scale_x(_time), np.quantile(mod_tr,0.02,axis=0)-shift,
-                                np.quantile(mod_tr,0.98,axis=0)-shift, alpha=0.5,
+                                np.quantile(mod_tr,0.98,axis=0)-shift,
+                                alpha=0.4,
                                 color=shadecolor, lw=0, label='2$\sigma$',
                                 zorder=40)
 

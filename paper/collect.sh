@@ -35,7 +35,7 @@ cp /Users/luke/Dropbox/proj/rudolf/results/rotation/deltaLyrCluster_rotation_vs_
 
 cp /Users/luke/Dropbox/proj/rudolf/results/rotation/deltaLyrCluster_rotation_vs_BpmRp_emphbinaries_talkaspect_kinematicspatialselected_linear_curtiscleaning.pdf f15supp.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/RM/quadratic/rm_RV_and_phot.pdf f16.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/RM/quadraticfreejitter/rm_RV_and_phot_showmodelbands.pdf f16.pdf
 
 
 cp /Users/luke/Dropbox/proj/rudolf/results/imaging/imaging_summary.pdf f17.pdf

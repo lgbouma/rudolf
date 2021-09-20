@@ -56,7 +56,7 @@ def run_QuadMulticolorTransit(starid='Kepler_1627', N_samples=2000):
                     map_optimization_method=map_optimization_method)
 
     var_names = [
-        'logg_star','t0','period','log_r', 'r_star','rho_star','u_star', 'r',
+        'logg_star','t0','period','log_r', 'r_star','rho_star', 'r',
         'b', 'r_planet', 'a_Rs', 'cosi', 'sini','T_14','T_13'
     ]
     bandpasses = 'g,r,i,z'.split(',')
@@ -65,6 +65,7 @@ def run_QuadMulticolorTransit(starid='Kepler_1627', N_samples=2000):
         var_names.append(f'muscat3_{bandpass}_a1')
         var_names.append(f'muscat3_{bandpass}_a2')
         var_names.append(f'muscat3_{bandpass}_log_jitter')
+        var_names.append(f'muscat3_{bandpass}_u_star')
 
     print(pm.summary(m.trace, var_names=var_names))
 
