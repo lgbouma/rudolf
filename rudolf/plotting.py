@@ -2537,7 +2537,7 @@ def plot_RM(outdir, N_mcmc=20000, model=None):
     plt.close('all')
 
 
-def plot_RM_and_phot(outdir, model=None):
+def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
     # NOTE: assumes plot_RM has been run
 
     import rmfit # Gudmundur Stefansson's RM fitting package
@@ -2642,6 +2642,14 @@ def plot_RM_and_phot(outdir, model=None):
     #
     ax = axs[1]
 
+    if showmodelbands or showmodel:
+        pklpath = '/Users/luke/.betty/run_Kepler_1627_QuadMulticolorTransit.pkl'
+        if os.path.exists(pklpath):
+            d = pickle.load(open(pklpath, 'rb'))
+            m = d['model']
+            trace = d['trace']
+            map_estimate = d['map_estimate']
+
     from rudolf.paths import PHOTDIR
 
     bandpasses = 'g,r,i,z'.split(',')
@@ -2670,6 +2678,31 @@ def plot_RM_and_phot(outdir, model=None):
                    _binflux - shift,
                    c=c, zorder=4, s=18, rasterized=False,
                    linewidths=0)
+
+        if showmodel or showmodelbands:
+            name = f"muscat3_{bp}"
+            mod = map_estimate[f"{name}_mu_transit"]
+            ax.plot(scale_x(_time), mod - shift, color=c, zorder=41, lw=0.5)
+
+            mod_tr = np.array(trace.posterior[f"{name}_mu_transit"])
+
+            # begin w/ (4, 2000, 345), ncores X nchains X time
+            mod_tr = mod_tr.reshape(
+                mod_tr.shape[0]*mod_tr.shape[1], mod_tr.shape[2]
+            )
+
+            if showmodelbands:
+                # now it's ncores.nchains X time
+                shadecolor = c
+                ax.fill_between(scale_x(_time),
+                                np.quantile(mod_tr,0.16,axis=0)-shift,
+                                np.quantile(mod_tr,0.84,axis=0)-shift, alpha=0.5,
+                                color=shadecolor, lw=0, label='1$\sigma$',zorder=40)
+                ax.fill_between(scale_x(_time), np.quantile(mod_tr,0.02,axis=0)-shift,
+                                np.quantile(mod_tr,0.98,axis=0)-shift, alpha=0.5,
+                                color=shadecolor, lw=0, label='2$\sigma$',
+                                zorder=40)
+
 
         props = dict(boxstyle='square', facecolor='white', alpha=0.7, pad=0.15,
                      linewidth=0)
@@ -2704,7 +2737,13 @@ def plot_RM_and_phot(outdir, model=None):
 
     fig.tight_layout(h_pad=0.2, w_pad=0.2)
 
-    outpath = os.path.join(outdir, f'rm_RV_and_phot.png')
+    s = ''
+    if showmodel:
+        s += "_showmodel"
+    if showmodelbands:
+        s += "_showmodelbands"
+
+    outpath = os.path.join(outdir, f'rm_RV_and_phot{s}.png')
     savefig(fig, outpath, dpi=400)
     plt.close('all')
 
