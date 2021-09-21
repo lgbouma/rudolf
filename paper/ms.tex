@@ -1502,19 +1502,20 @@ present on the exposure timescale (15 minutes), which is only 0.4\% of
 the stellar rotation period; it is not obvious that starspots could be
 the culprit.
 
-The amplitude of both the spot-induced trend and
-the jitter are larger than recent comparable measurements
-in systems such as AU~Mic
+The amplitude of both the spot-induced trend and the jitter are larger
+than recent comparable measurements in systems such as AU~Mic
 \citep{palle_transmission_2020}, DS~Tuc
 \citep{montet_young_2020,zhou_well_2020} and TOI~942
-\citep{wirth_2021_toi942}.  One possible explanation for the jitter is that it is
-astrophysical in origin, and that it is caused by some novel process
-operating on the surface of Kepler 1627A.  Another possibility is that our RV
-analysis underestimates the measurement uncertainties; the S/N per
-resolution element for each of our spectra (70 to 80) was somewhat low
-due to the observing requirements, and the star is a rapid rotator.
-We currently favor the latter possibility.  Observations at higher
-precision remain worthwhile to clarify the orbital geometry of \pn.
+\citep{wirth_2021_toi942}.  One possible explanation for the jitter is
+that it is astrophysical in origin, and that it is caused by some
+novel process operating on the surface of Kepler 1627A.  Another
+possibility is that our RV analysis underestimates the measurement
+uncertainties; the S/N per resolution element for each of our spectra
+(70 to 80) was moderated by the observing requirements, and the rapid
+rotation of the star could affect the velocity extraction.
+Observations at higher precision are necessary to distinguish these
+two possibilities, and remain worthwhile as a means toward clarifying
+the orbital geometry of \pn.
 
 
 
@@ -1606,76 +1607,71 @@ time, an exponential lag time, and an amplitude.
 	\vspace{-0.7cm}
 	\caption{
 		{\bf Statistics of inter-flare arrival times}.  
-		24 flares were recorded with amplitudes exceeding 0.5\% over the
-		97.7 days of short cadence observations.  The histogram of the
-		time intervals between every possible pair of flares is shown in
-		black.  Some plausibly important timescales for star-planet
-		interactions, namely the planetary orbital period and synodic
-		period (the orbital period as seen from the rotating stellar frame) are
-		shown along with their linear combinations.  Monte Carlo
-		draws from a Poisson distribution are shown
-		with the gray bands.  While peaks in the observed distribution do
-		coincide with some of the ``special periods'', the
-		statistical evidence for a non-Poissonian process driving the
-		flares does not reach the $5$-$\sigma$ threshold.
+    24 flares were recorded with amplitudes exceeding 0.5\% over the
+    97.7 days of short cadence observations.  The histogram of the
+    time intervals between every possible pair of flares is shown in
+    black.  Some plausibly important timescales for star-planet
+    interactions, namely the planetary orbital period and synodic
+    period (the orbital period as seen from the rotating stellar
+    frame) are shown along with their linear combinations.  Monte
+    Carlo draws from a Poisson distribution are shown with the gray
+    bands.  While peaks in the observed distribution do coincide with
+    some of the ``special periods'', the statistical evidence for a
+    non-Poissonian process driving the flares does not reach the
+    $5$-$\sigma$ threshold.
 		\label{fig:flarestats}
 	}
 \end{figure*}
 
 
 There were $N_{\rm f}=24$ flares that exceeded $0.5\%$ in relative
-flux during the short cadence observations.  
-These 24 flares spanned a
+flux during the short cadence observations.  These 24 flares spanned a
 total of 6.5 hours ($\sim$15 minutes per flare).  Inspecting the data,
-we noticed a coincidence in the flare arrival
-times.  The coincidence is that despite the low flare duty cycle, one
-orbital period after the brightest flare, a second flare followed.
-This and a similar event are shown in Figure~\ref{fig:flarezoom}.  The
-timing error is good to a $\approx0.2\%$ difference from the orbital
-period, which given the duty cycle seems {\it a priori} unlikely.  If
-we consider flares falling within 2\% of the planet's orbital period
-after a previous flare, then 4 of the 24 flare events have candidate
-``successors''.
+we noticed a coincidence in the flare arrival times.  The coincidence
+is that despite the low flare duty cycle, one orbital period after the
+brightest flare, a second flare followed.  This and a similar event
+are shown in Figure~\ref{fig:flarezoom}.  The timing error is good to
+a $\approx0.2\%$ difference from the orbital period, which given the
+duty cycle seems {\it a priori} unlikely.  If we consider flares
+falling within 2\% of the planet's orbital period after a previous
+flare, then 4 of the 24 flare events have candidate ``successors''.
 
 As with any coincidence, if one does not have a firm prediction, it is
-difficult to assess whether a surprise is statistically significant.  Since
-our surprise was specifically at the inter-arrival time of certain
-flares coinciding with special time intervals, we performed the
-following analysis.  First, we considered all unordered pairs of
+difficult to assess whether a surprise is statistically significant.
+Since our surprise was specifically at the inter-arrival time of
+certain flares coinciding with special time intervals, we performed
+the following analysis.  First, we considered all unordered pairs of
 flares.  For $N$ flares there are ${n \choose 2}$ such pairs (for our
 case, 276 pairs).  We then compared the distribution of the pair
-separations against that of a Poisson distribution.  Specifically,
-we drew $N_{\rm f}=24$ samples from a Poisson distribution with
-$\lambda = \Delta t / N_{\rm f}$, for $\Delta t=97.7\,{\rm days}$ the
-total duration of the observations, and repeated the draw $10^3$ times with
+separations against that of a Poisson distribution.  Specifically, we
+drew $N_{\rm f}=24$ samples from a Poisson distribution with $\lambda
+= \Delta t / N_{\rm f}$, for $\Delta t=97.7\,{\rm days}$ the total
+duration of the observations, and repeated the draw $10^3$ times with
 unique random seeds.
 
 Figure~\ref{fig:flarestats} shows the results.  The vertical lines in
 the figure show the planetary orbital period, the synodic period
 $P_{\rm syn} = (P_{\rm rot}^{-1} - P_{\rm orb}^{-1})^{-1}$, and linear
-combinations thereof.  The tidal period (half the synodic
-period) is not shown.  The bins are logarithmically spaced to give 100
-bins between the minimum and maximum ordinate values.  The gray bands
+combinations thereof.  The tidal period (half the synodic period) is
+not shown.  The bins are logarithmically spaced to give 100 bins
+between the minimum and maximum ordinate values.  The gray bands
 express the range of values observed from the Poissonian draws.  While
-it does seem like an odd coincidence for peaks in the observed
-flare arrival time distribution to coincide with the locations of
-these ``special intervals'', the statistical evidence for a
-non-Poissonian process driving the flares does not seem especially
-overwhelming.  More quantitatively, the peaks observed at the orbital and
-synodic periods are within the $\pm 2$-$\sigma$ range of a Poissonian
-process, and those at $P_{\rm orb}+P_{\rm syn}$ and $P_{\rm
-orb}+2P_{\rm syn}$ are only slightly above this range.  With that
-said, future analyses of these data by investigators with more
-knowledge of this topic could very well yield more quantitative
-insights.
-Such analyses should keep in mind an important caveat:
-the amplitude
-distribution of M-dwarf flares extends up to many times the quiescent
-flux \citep[see Figure~7 of][]{gunther_2020}.  A flare on
-Kepler\,1627B producing double its quiescent white-light flux would yield
-a $\approx$1\% apparent amplitude.
-Such flares could represent a significant fraction
-of those in the Kepler observations.
+it does seem like an odd coincidence for peaks in the observed flare
+arrival time distribution to coincide with the locations of these
+``special intervals'', the statistical evidence for a non-Poissonian
+process driving the flares does not seem especially overwhelming.
+More quantitatively, the peaks observed at the orbital and synodic
+periods are within the $\pm 2$-$\sigma$ range of a Poissonian process,
+and those at $P_{\rm orb}+P_{\rm syn}$ and $P_{\rm orb}+2P_{\rm syn}$
+are only slightly above this range.  With that said, future analyses
+of these data by investigators with more knowledge of this topic could
+very well yield more quantitative insights.  Such analyses should keep
+in mind an important caveat: the amplitude distribution of M-dwarf
+flares extends up to many times the quiescent flux \citep[see Figure~7
+of][]{gunther_2020}.  A flare on Kepler\,1627B producing double its
+quiescent white-light flux would yield a $\approx$1\% apparent
+amplitude.  Such flares could represent a significant fraction of
+those in the Kepler observations.
 
 
 
