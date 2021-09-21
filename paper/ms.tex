@@ -1478,29 +1478,32 @@ the RM effect.  The reason can be understood through a
 model-comparison analysis.  If we compare the model with a quadratic trend and
 the RM effect (Figure~\ref{fig:obliquity}) against a model with a
 linear trend and the RM effect, or even a model with no RM effect at
-all, then the usual goodness of fit diagnostics are as follows.
+all, then the respective Bayesian Information Criterion (BIC) values
+are as follows.
 % from logs/rm_freejitter.log
-\begin{align}
-  \chi^2_{\rm red} &= 1.45 \quad ({\rm Quadratic+RM}) \nonumber \\
-  \chi^2_{\rm red} &= 1.37 \quad ({\rm Linear+RM}) \nonumber \\
-  \chi^2_{\rm red} &= 1.22 \quad ({\rm Only\ Quadratic}),
-\end{align}
-and
+% \begin{align}
+%   \chi^2_{\rm red} &= 1.45 \quad ({\rm Quadratic+RM}) \nonumber \\
+%   \chi^2_{\rm red} &= 1.37 \quad ({\rm Linear+RM}) \nonumber \\
+%   \chi^2_{\rm red} &= 1.22 \quad ({\rm Only\ Quadratic}),
+% \end{align}
+% and
 \begin{align}
   {\rm BIC} &= 251.7  \quad ({\rm Quadratic+RM}) \nonumber \\
   {\rm BIC} &= 257.7  \quad ({\rm Linear+RM}) \nonumber \\
   {\rm BIC} &= 242.8  \quad ({\rm Only\ Quadratic}).
 \end{align}
-The ``only quadratic'' model does well in these metrics
-because it can inflate the jitter term to account for any additional
-scatter during the transit.  However, we cannot justify a physical
-prior on the jitter term, because we do not understand the origin of
-the exposure-to-exposure scatter.  As noted above, the velocity
-deviations from starspots are expected to have contributions at the
-stellar rotation frequency, or harmonics thereof.  This jitter is
-present on the exposure timescale (15 minutes), which is only 0.4\% of
-the stellar rotation period; it is not obvious that starspots could be
-the culprit.
+There is therefore no evidence to prefer the model with the RM effect
+against a model that only accounts for the stellar variability.
+The ``only quadratic'' model does particularly well because it can
+inflate the jitter term to account for any additional scatter during
+the transit, and it has fewer free parameters.  However, we cannot
+justify a physical prior on the jitter term, because we do not
+understand the origin of the exposure-to-exposure scatter.  As noted
+above, the velocity deviations from starspots are expected to have
+contributions at the stellar rotation frequency, or harmonics thereof.
+This jitter is present on the exposure timescale (15 minutes), which
+is only 0.4\% of the stellar rotation period; it is not obvious that
+starspots could be the culprit.
 
 The amplitude of both the spot-induced trend and the jitter are larger
 than recent comparable measurements in systems such as AU~Mic
