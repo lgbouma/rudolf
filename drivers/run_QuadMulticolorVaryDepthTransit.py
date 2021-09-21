@@ -1,6 +1,7 @@
 """
-Fit a single transit + quadratic trend with multiple simultaneous bandpasses
-(presumably a ground-based transit).
+Fit a single transit + quadratic trend with multiple simultaneous
+bandpasses (presumably a ground-based transit).  Let the transit depth
+vary across bandpasses.
 """
 import numpy as np, matplotlib.pyplot as plt, pandas as pd, pymc3 as pm
 import pickle, os, corner, pytest
@@ -24,14 +25,15 @@ from betty.paths import BETTYDIR
 from rudolf.helpers import get_kep1627_muscat_lightcuve
 from rudolf.paths import DATADIR, RESULTSDIR
 
-def run_QuadMulticolorTransit(starid='Kepler_1627', N_samples=2000):
+def run_QuadMulticolorVaryDepthTransit(starid='Kepler_1627',
+                                       N_samples=1000):
 
     assert starid in ['Kepler_1627']
 
     # this line ensures I use the right python environment on my system
     assert os.environ['CONDA_DEFAULT_ENV'] == 'py38'
 
-    modelid = 'QuadMulticolorTransit'
+    modelid = 'QuadMulticolorVaryDepthTransit'
     datasets = get_kep1627_muscat_lightcuve()
 
     priorpath = join(DATADIR, 'priors', f'{starid}_{modelid}_priors.py')
@@ -53,8 +55,8 @@ def run_QuadMulticolorTransit(starid='Kepler_1627', N_samples=2000):
                     map_optimization_method=map_optimization_method)
 
     var_names = [
-        'logg_star','t0','period','log_r', 'r_star','rho_star', 'r',
-        'b', 'r_planet', 'a_Rs', 'cosi', 'sini','T_14','T_13'
+        'logg_star','t0','period','r_star','rho_star',
+        'b', 'a_Rs', 'cosi', 'sini','T_14','T_13'
     ]
     bandpasses = 'g,r,i,z'.split(',')
     for bandpass in bandpasses:
@@ -63,6 +65,9 @@ def run_QuadMulticolorTransit(starid='Kepler_1627', N_samples=2000):
         var_names.append(f'muscat3_{bandpass}_a2')
         var_names.append(f'muscat3_{bandpass}_log_jitter')
         var_names.append(f'muscat3_{bandpass}_u_star')
+        var_names.append(f'muscat3_{bandpass}_log_r')
+        var_names.append(f'muscat3_{bandpass}_r')
+        var_names.append(f'muscat3_{bandpass}_r_planet')
 
     print(pm.summary(m.trace, var_names=var_names))
 
@@ -99,4 +104,4 @@ def run_QuadMulticolorTransit(starid='Kepler_1627', N_samples=2000):
 
 
 if __name__ == "__main__":
-    run_QuadMulticolorTransit()
+    run_QuadMulticolorVaryDepthTransit()
