@@ -38,9 +38,14 @@ mdf1 = pd.DataFrame(kinematic_df[selcols]).merge(
 print('How many stars are there?')
 print(f'N_KC19_deltaLyrCluster: {len(base_df)}')
 
-print('How many stars have TESS data?')
+print('How many stars have TESS data? (G<17, [Bp-Rp]0>0.5)')
 N_TESS = len(base_df[base_df.TESS_Data == 'Yes'])
 print(f'N_with_TESS: {N_TESS}')
+
+print('How many stars have G<17, [Bp-Rp]0>0.5?')
+sel = (base_df.Gmag < 17) & (base_df['BP-RP'] > 0.5)
+N = len(base_df[sel])
+print(f'N_Glt17_bpmrp0gt0p5: {N}')
 
 print('How many stars have finite rotation periods?')
 N_finite_Prot = len(base_df[base_df.period > 0])

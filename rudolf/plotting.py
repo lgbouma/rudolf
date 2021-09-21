@@ -2327,11 +2327,13 @@ def plot_RM(outdir, N_mcmc=20000, model=None):
 
     if model in ['quadratic', 'quadraticfreejitter']:
         k = 7
-    elif model in ['quadraticprograde', 'quadraticretrograde']:
+    elif model in ['quadraticprograde', 'quadraticretrograde',
+                   'quadraticprogradefreejitter',
+                   'quadraticretrogradefreejitter']:
         k = 6
-    elif model == 'linear':
+    elif model in ['linear', 'linearfreejitter']:
         k = 6
-    elif model == 'trendonly':
+    elif model in ['trendonly', 'trendonlyfreejitter']:
         k = 4 # sigma_rv, gamma, gammadot, gammadotdot
     else:
         raise NotImplementedError
@@ -2438,7 +2440,8 @@ def plot_RM(outdir, N_mcmc=20000, model=None):
         plt.close('all')
 
         if model not in [
-            'trendonly','quadraticprograde','quadraticretrograde'
+            'trendonly','quadraticprograde','quadraticretrograde',
+            'trendonlyfreejitter','quadraticprogradefreejitter','quadraticretrogradefreejitter'
         ]:
             # Narrow down on the lambda and vsini
             import corner
@@ -2518,7 +2521,8 @@ def plot_RM(outdir, N_mcmc=20000, model=None):
     sdf = df_medvals[df_medvals.Labels == 'lam_p1']
     #from rudolf.helpers import ORIENTATIONTRUTHDICT
     if model not in [
-        'trendonly','quadraticprograde','quadraticretrograde'
+        'trendonly','quadraticprograde','quadraticretrograde',
+        'trendonlyfreejitter','quadraticprogradefreejitter','quadraticretrogradefreejitter'
     ]:
         txt = (
             #'$\lambda_\mathrm{inj}=$'+f'{ORIENTATIONTRUTHDICT[orientation]:.1f}'+'$\!^\circ$'
@@ -2624,7 +2628,8 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
     sdf = df_medvals[df_medvals.Labels == 'lam_p1']
     #from rudolf.helpers import ORIENTATIONTRUTHDICT
     if model not in [
-        'trendonly','quadraticprograde','quadraticretrograde'
+        'trendonly','quadraticprograde','quadraticretrograde',
+        'trendonlyfreejitter','quadraticprogradefreejitter','quadraticretrogradefreejitter'
     ]:
         txt = (
             #'$\lambda_\mathrm{inj}=$'+f'{ORIENTATIONTRUTHDICT[orientation]:.1f}'+'$\!^\circ$'
