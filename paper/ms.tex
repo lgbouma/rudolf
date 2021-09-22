@@ -74,14 +74,16 @@
   Kepler\,1627Ab is the youngest planet with a precise age yet found
   by the main Kepler mission.  From unresolved starspot-crossing
   events in the Kepler photometry and a Keck/HIRES transit we find
-  that the planet is likely on a prograde orbit.  We also briefly
-  explore the flare arrival time distribution in the short cadence
-  Kepler photometry.  The $\delta$~Lyr cluster is one of many stellar
-  groups whose properties have been clarified using Gaia; many other
-  exoplanet hosts belong to these new clusters.  Verifying the results
-  of Gaia clustering analyses using TESS rotation periods offers a
-  promising path toward expanding the census of age-dated planets, and
-  our corresponding understanding of planetary evolution.
+  that the planet is likely on a prograde orbit.  The average Kepler
+  transit profile also appears asymmetric; our current best
+  explanation is that of a dusty atmospheric outflow being present,
+  but this remains to be confirmed.  Broadly speaking, the
+  $\delta$~Lyr cluster is one of many stellar groups whose properties
+  have been clarified using Gaia; many other exoplanet hosts belong to
+  these new clusters.  Verifying the results of Gaia clustering
+  analyses using TESS rotation periods offers a promising path toward
+  expanding the census of age-dated planets, and our corresponding
+  understanding of planetary evolution.
 \end{abstract}
 
 \keywords{
@@ -137,7 +139,7 @@ with ages spanning 0.7\,Gyr to 9\,Gyr
 analyses suggest that younger Kepler planets do exist
 \citep{berger_identifying_2018,david_sizes_2021}, accurate and precise
 age measurements typically require an ensemble of stars.  Fortunately,
-recent analyses of the kinematic, photometric, and astrometric Gaia
+recent analyses of the Gaia
 data have since expanded our knowledge of cluster memberships
 \citep[{\it
 e.g.},][]{cantatgaudin_gaia_2018,zari_3d_2018,kounkel_untangling_2019,Meingast2021,Kerr2021}.
@@ -165,11 +167,11 @@ age-dated stars (see Appendix~\ref{app:targetlist}).
 	}
 \end{figure}
 
-Comparing our young star list against the Kepler field yielded two
-discoveries.  The first, to be discussed in an upcoming analysis by
-J.~Curtis et al{.}, is that Kepler observed the $\approx$350\,Myr open
-cluster Theia~520 (UBC~1).  At least six Kepler planets are known in
-the cluster from the Kepler-52 and Kepler-968 systems
+Matching our young star list against stars observed by Kepler yielded
+two discoveries.  The first, to be discussed in an upcoming analysis
+by J.~Curtis et al{.}, is that Kepler observed the $\approx$350\,Myr
+open cluster Theia~520 (UBC~1).  At least six Kepler planets are known
+in the cluster from the Kepler-52 and Kepler-968 systems
 \citep{rowe_validation_2014,jontof-hutter_following_2021}.  The second
 discovery, and the focus of this work, is that Kepler observed a
 portion of the $\delta$\,Lyr cluster (Stephenson-1; Theia~73;
@@ -400,7 +402,7 @@ EW}_{\rm Li} = 233^{+5}_{-7}$\,m\AA.   %Note that this value does not
 Given the effective temperature of \sn\ (Table~\ref{tab:starparams}),
 this measurement is also in line with expectations for a 38\,Myr star
 ({\it e.g.}, \citealt{randich_gaiaeso_2018};
-\citealt{bouma_2021_ngc2516}).
+\citealt{bouma_cluster_2020}).
 
 
 \section{The Planet}
@@ -427,18 +429,18 @@ this measurement is also in line with expectations for a 38\,Myr star
     units of parts-per-thousand ($\times 10^{-3}$).  The dominant
     signal is induced by starspots.  The stellar
     variability model (orange line) is subtracted below, revealing the
-    transits of \pn, as well as other deviations from the model.  The
+    transits of \pn.  The
     online Figure Set spans the entire 3.9 years of observations.
     {\it Bottom}:
     Phase-folded transit of Kepler 1627Ab with stellar variability
     removed.  Windows over 20 hours ({\it left}) and the entire orbit
-    ({\it right}) are shown.  The 2-$\sigma$ uncertainties and the
-    maximum best-fit model are the faint purple band, and the dark
-    purple line.  Gray points are individual flux measurements; black
-    points bin these every 20 minutes, and have a representative error bar
-    shown.  The asymmetric residual during transit appears to be robust when using
-    different
-    detrending methods.
+    ({\it right}) are shown.  The 2-$\sigma$ model uncertainties and
+    the best-fit model are the light purple band and the dark purple
+    line.  Gray points are individual flux measurements; black points
+    bin these to 20 minute intervals, and have a representative
+    1-$\sigma$ error bar in the lower right of each panel.  The
+    asymmetric residual during transit appears to be robust to
+    different detrending methods.
     \label{fig:lc}
   }
 \end{figure*}
@@ -450,6 +452,7 @@ this measurement is also in line with expectations for a 38\,Myr star
 			\includegraphics[width=0.49\textwidth]{f11.pdf}
 		}
 		
+		\vspace{-0.1cm}
 		\subfloat{
 			\includegraphics[width=0.49\textwidth]{f16.pdf}
 		}
@@ -465,14 +468,16 @@ this measurement is also in line with expectations for a 38\,Myr star
     positive (negative) TTV, provided that the orbit is prograde
     \citep{mazeh_time_2015}.  The units along the abscissa are most
     easily understood by considering that the stellar flux changes by
-    $\sim$60\,ppt per half rotation period
-    ($\sim$1.3\,days).
-    {\it Bottom:} Radial velocities acquired using Keck/HIRES during
-    the transit of 2021 Aug 7, observed simultaneously with MuSCAT3.
-    The best-fit sky-projected obliquity for this model is listed in
-    red.  While the intra-exposure RV scatter precludes a detection of
-    the RM effect, the photometric transit depths are consistent
-    across the {\it griz} bandpasses.
+    $\sim$60\,ppt per half rotation period ($\sim$1.3\,days).
+    {\it Bottom:}
+    Radial velocities acquired using Keck/HIRES during the transit of
+    2021 Aug 7, observed simultaneously with MuSCAT3.  Shaded bands
+    show 2-$\sigma$ model uncertainties.  The photometric transit
+    depths are consistent across the {\it griz} bandpasses.  The
+    best-fitting model including the RM effect and a quadratic trend
+    in time is shown with the red line.  The radial velocity scatter
+    between exposures prevents a significant detection of the RM
+    effect.
     \label{fig:obliquity}
 	}
 \end{figure}
@@ -485,14 +490,15 @@ this measurement is also in line with expectations for a 38\,Myr star
 	\caption{
     {\bf Radii, orbital periods, and ages of transiting exoplanets}.
     %Planets older than $10^9$ years are shown with gray markers.
-    Planets younger than a gigayear with ${\rm \tau}/\sigma_{\rm \tau}
-    > 3$ are emphasized, for $\tau$ the age.  \pn\ is shown with a
-    star.  The large sizes of the youngest transiting planets could be
-    explained by their primordial atmospheres not yet having
-    evaporated; direct measurements of the atmospheric outflows or
-    planetary masses would help to confirm this expectation.
-    Selection effects may also be important.  Parameters are from the
-    NASA Exoplanet Archive (2021 Sept 15).
+    Planets younger than a gigayear with ${\rm \tau}/\sigma_{\tau} >
+    3$ are emphasized, where $\tau$ is the age and $\sigma_{\tau}$ is
+    its uncertainty.  \pn\ is shown with a star.  The large sizes of
+    the youngest transiting planets could be explained by their
+    primordial atmospheres not yet having evaporated; direct
+    measurements of the atmospheric outflows or planetary masses would
+    help to confirm this expectation.  Selection effects may also be
+    important.  Parameters are from the NASA Exoplanet Archive (2021
+    Sept 15).
 		\label{fig:rp_period_age}
 	}
 \end{figure*}
@@ -516,12 +522,12 @@ Our model for the starspot signal is discussed in detail
 in Appendix~\ref{app:gptransit}, and the adopted stellar
 parameters are listed in Table~\ref{tab:starparams}.  The stellar mass,
 radius, and effective temperature are found by interpolating against a
-38$\,$Myr MIST isochrone.  The systematic uncertainties are taken
+38$\,$Myr MIST isochrone.  Their systematic uncertainties are taken
 to be the difference between the PARSEC and MIST isochrones, and the
 reported uncertainties are a quadrature sum of the statistical and
 systematic components. 
 The transit fitting results, given in
-Table~\ref{tab:posterior}, are consistent with a mini-Neptune sized
+Table~\ref{tab:posterior}, are broadly consistent with a mini-Neptune sized
 planet ($3.34\pm 0.18\,R_\oplus$) on a close-in circular\footnote{Our
 transit fitting yields $e<0.48$ at 2-$\sigma$; the constraints on the
 eccentricity are not particularly strong.} orbit around a G8V star
@@ -571,18 +577,18 @@ transit float, and then calculated the residual between the measured
 mid-time and that of a periodic orbit.  This residual, the transit
 timing variation (TTV), is plotted in Figure~\ref{fig:obliquity}
 against the local linear slope.  A significant correlation of $-0.0564
-\pm 0.0098\ {\rm ppt\,day}^{-1}$ is observed.  Less than ten Kepler
+\pm 0.0098\ {\rm ppt\,day}^{-1}$ is observed.  Fewer than ten Kepler
 Objects of Interest have shown this correlation
 \citep{holczer_time_2015}, which is most readily interpreted as a TTV
 induced by unresolved starspot crossings \citep{mazeh_time_2015}.
 This is only possible if the planet transits the primary star, which
 excludes a background eclipsing binary scenario, and therefore
 confirms that \pn\ is a planet.  It also implies that the planet's
-orbit is prograde.  The latter interpretation assumes that the
-dominant photometric variability is induced by dark spots, rather than
-bright faculae.  Given the observed transition of Sun-like stellar
+orbit is prograde.  The latter point assumes that the dominant
+photometric variability is induced by dark spots, and not bright
+faculae.  Given the observed transition of Sun-like stellar
 variability from spot to faculae-dominated regimes, we expect this
-inference to be reasonably secure
+assumption to be reasonably secure
 \citep{shapiro_are_2016,montet_long-term_2017,reinhold_stellar_2020}.
 
 A third supporting line of evidence for the planetary interpretation
@@ -592,22 +598,21 @@ density and TTV-local slope correlation.  We observed a transit of
 MuSCAT3.  We scheduled the observations using the ephemeris of
 \citet{holczer_transit_2016}.  Although we did not detect the
 Rossiter-McLaughlin (RM) anomaly, the multi-band MuSCAT3 light curves
-show the transit, and it appears to be achromatic
-(Figure~\ref{fig:obliquity}, lower panels).  Fitting the MuSCAT3
-photometry with a model that lets the transit depths vary across
-bandpasses, we find {\it griz} depths consistent with the Kepler depth
-at 0.6, 0.3, 0.3, and 1.1-$\sigma$ respectively.  The MuSCAT3
-observations also suggest a transit duration $17.4\pm3.6\,{\rm
+show the transit (Figure~\ref{fig:obliquity}, lower panels).  Fitting
+the MuSCAT3 photometry with a model that lets the transit depths vary
+across each bandpass, we find {\it griz} depths consistent with the
+Kepler depth at 0.6, 0.3, 0.3, and 1.1-$\sigma$ respectively.  The
+MuSCAT3 observations also suggest a transit duration $17.4\pm3.6\ {\rm
 minutes}$ shorter than the Kepler transits; further photometric
-follow-up could help confirm whether such changes are indeed
-happening.  For the RM analysis, the details are discussed in
-Appendix~\ref{app:rm}.  While our RM data are marginally more
-consistent with a prograde or polar orbit than a retrograde orbit,
-the expected velocity anomaly ($\Delta v_{\rm RM}\approx
-20\,{\rm m\,s}^{-1}$) is a factor of two smaller than the
-spot-corrected exposure-to-exposure scatter.  We are therefore not in
-a position to claim a spectroscopic detection of the RM effect, nor a
-precise quantification of the stellar obliquity.
+follow-up could help confirm whether the transit duration is indeed
+changing.  For our RM analysis, the details are discussed in
+Appendix~\ref{app:rm}.  While the velocities are marginally more
+consistent with a prograde or polar orbit than a retrograde orbit, the
+spot-corrected exposure-to-exposure scatter ($\sigma_{\rm RV}\approx
+50$\ms) is significantly larger than the expected velocity anomaly
+($\Delta v_{\rm RM}\approx 20\,{\rm m\,s}^{-1}$).  We are therefore
+not in a position to claim a spectroscopic detection of the RM effect,
+nor a precise quantification of the stellar obliquity.
 
 
 \section{Discussion \& Conclusions}
@@ -615,32 +620,40 @@ precise quantification of the stellar obliquity.
 
 Kepler\,1627Ab provides a new extremum in the ages of the Kepler
 planets, and opens multiple avenues for further study.  Further
-observations of spectroscopic transits could yield a more precise
-stellar obliquity, and could confirm or refute the expected prograde
-orbital geometry.  Similarly, transit spectroscopy aimed at detecting
-outflows of hydrogen or helium could yield insight into the
-evolutionary state of the atmosphere
-\citep{spake_helium_2018,vissapragada_2020}.  Determining the precise
-amount of high-energy irradiation incident on the planet would also
-help in clarifying the expected outflow rate \citep[{\it
-e.g.},][]{poppenhaeger_2021}.  Finally, a challenging but informative
-quantity to measure would be the planet's mass.  This might be
-possible through long-term monitoring of the transit times and
-durations, or through a high-cadence multi-color radial velocity
-campaign.  Measured at sufficient precision, the mass could yield
-constraints on both the planet's composition and its initial entropy
+observations of spectroscopic transits could yield a quantification of
+the stellar obliquity, and would confirm or refute the expected
+prograde orbital geometry.  Similarly, transit spectroscopy aimed at
+detecting atmospheric outflows could yield insight into the
+evolutionary state of the atmosphere \citep[{\it
+e.g.},][]{ehrenreich_giant_2015,spake_helium_2018,vissapragada_2020}.
+Observations aimed at quantifying the amount of high-energy
+irradiation incident on the planet would also help in clarifying the
+expected outflow rate \citep[{\it e.g.},][]{poppenhaeger_2021}.
+Finally, a challenging but informative quantity to measure would be
+the planet's mass.  This might be possible through long-term
+monitoring of the transit times and durations, or through a
+high-cadence multi-color radial velocity campaign.  Measured at
+sufficient precision, the mass could yield constraints on both the
+planet's composition and its initial entropy
 \citep{owen_constraining_2020}.
 
-Separately, the Kepler data may yet contain further information.
-Although our transit timing study did not yield the detection of any
-planet-induced transit timing or duration variations,
-Appendix~\ref{app:flare} highlights an odd flare timing coincidence
-that may be suggestive of star-planet interactions.  We encourage its
-exploration by investigators more versed in the topic than ourselves.
+Separately, the Kepler data may yet contain additional information.
+For instance, one possible explanation for the transit asymmetry shown
+in Figure~\ref{fig:lc} is that of a dusty asymmetric outflow.  Other
+possible explanations such as favored longitudes for starspot
+crossings seem strained, for reasons discussed in
+Appendix~\ref{app:gptransit}.  Dusty outflows are theoretically
+expected for young mini-Neptunes, and the amplitude of the observed
+asymmetry is also roughly consistent with predictions
+\citep{wang_dai_2019}.  Beyond the planetary transits,
+Appendix~\ref{app:flare} highlights a separate odd coincidence in the
+Kepler data, in the arrival time distribution of stellar flares.  We
+encourage its exploration by investigators more versed in the topic
+than ourselves.
 
 In the context of the transiting planet population, \pn\ is among the
 youngest known (Figure~\ref{fig:rp_period_age}).  Comparable systems
-with precise ages below 100\,Myr include K2-33, DS~Tuc, HIP~67522,
+with precise ages include K2-33, DS~Tuc, HIP~67522,
 TOI~837, the two-planet AU~Mic system, and the four-planet V1298~Tau
 system
 \citep{Mann_K2_33b_2016,David_et_al_2017,newton_tess_2019,david_four_2019,bouma_cluster_2020,plavchan_planet_2020,martioli_aumicbc_2021}.
@@ -653,7 +666,7 @@ their large sizes and presumed low densities would be in accord with
 the expectation that mini-Neptunes start their lives with large
 primordial atmospheres that are shed over the first gigayear
 \citep{Owen_Wu_2013,Fulton_et_al_2017,ginzburg_corepowered_2018}.  Our
-suggestion of a prograde is consistent with a quiescent
+suggestion of a prograde orbit is consistent with a quiescent
 disk-driven migration history, and differs from misalignments that
 have been observed for some older
 mini-Neptunes~\citep{sanchis-ojeda_starspots_2011,albrecht_obliquities_2012,dalal_2019_hd3167,rubenzahl_tess-keck_2021}.
@@ -666,12 +679,14 @@ correct orbital geometry.
 %likely drive migration, and so lacks internal consistency
 %\citep{inamdar_formation_2015,ogihara_reassessment_2015}.
 
-Ultimately, the main advance of this work is a precise measurement of
-the age of \pn.   This age measurement was enabled by identifying the
-connection of the star to the \cn\ using the Gaia data.
+Ultimately, the main advance from this work is a precise measurement of
+the age of \pn.   This measurement was enabled by identifying the
+connection of the star to the \cn\ using Gaia kinematics, and then by
+using the Gaia HR diagram and TESS stellar rotation periods to verify the
+cluster's existence.
 Table~\ref{tab:v06} should enable similar cross-matches to already
-known planets, as well as forthcoming planets from the TESS mission
-\citep{ricker_transiting_2015,guerrero_tess_2021}.  An alternative
+known planets, as well as forthcoming planets from TESS
+\citep{guerrero_tess_2021}.  An alternative
 approach for age-dating more planets could be to identify kinematic
 associations around known exoplanet host stars using positions and
 tangential velocities from Gaia, and to then verify these associations
@@ -686,8 +701,8 @@ e.g.},][]{tofflemire_tess_2021}.
 \acknowledgements
 \raggedbottom
 
-The authors are grateful to T{.}~David, A{.}~Howard, J{.}~Spake, and
-J{.}~Winn for illuminating discussions and suggestions, and to
+The authors are grateful to J{.}~Winn, J{.}~Spake, A{.}~Howard, and
+T{.}~David for illuminating discussions and suggestions, and to
 R{.}~Kerr for kindly providing us with the \citet{Kerr2021} membership
 list prior to its publication.
 The authors are also grateful to K{.}~Collins for helping resolve the
@@ -1159,92 +1174,118 @@ unmodelled excess white noise, and let the eccentricity float.  For
 the limb-darkening, we assumed a quadratic law, and sampled using the
 uninformative prior suggested by \citet{exoplanet:kipping13}.
 
-Our model therefore included 10 free parameters for the
-transit ($\{P, t_0, R_{\rm p}/R_\star, b, u_1 ,u_2 ,R_\star, \log g,
-e, \omega \}$), 2 free parameters for the light curve
-normalization and uncertainty calibration ($\{\langle f \rangle, 
-\sigma_f \}$), and 5 hyperparameters for the GP
-($\{\sigma_{\mathrm{rot}}, P_{\mathrm{rot}}, Q_0,
-\mathrm{d}Q, f \}$).  We also considered including an additive
-\texttt{SHOTerm} kernel to account for stochastic noise, but found
-that this did not significantly affect the results, and so opted for
-the simpler GP kernel.  We fitted the models using \texttt{PyMC3}
-\citep{salvatier_2016_PyMC3,exoplanet:theano}.  
-We assumed a Gaussian likelihood, and
-after initializing
-each model with the parameters of the maximum {\it a posteriori}
-model, we sampled using
-\texttt{PyMC3}'s gradient-based No-U-Turn Sampler
-\citep{hoffman_no-u-turn_2014} in these bases indicated in Table~\ref{tab:posterior}.
-We used $\hat{R}$ as our convergence
+Our model therefore included 10 free parameters for the transit ($\{P,
+t_0, R_{\rm p}/R_\star, b, u_1 ,u_2 ,R_\star, \log g, e, \omega \}$),
+2 free parameters for the light curve normalization and uncertainty
+calibration ($\{\langle f \rangle, \sigma_f \}$), and 5
+hyperparameters for the GP ($\{\sigma_{\mathrm{rot}},
+P_{\mathrm{rot}}, Q_0, \mathrm{d}Q, f \}$).  We also considered
+including an additive \texttt{SHOTerm} kernel to account for
+stochastic noise, but found that this did not significantly affect the
+results, and so opted for the simpler GP kernel.  We fitted the models
+using \texttt{PyMC3} \citep{salvatier_2016_PyMC3,exoplanet:theano}.
+We assumed a Gaussian likelihood, and after initializing each model
+with the parameters of the maximum {\it a posteriori} model, we
+sampled using \texttt{PyMC3}'s gradient-based No-U-Turn Sampler
+\citep{hoffman_no-u-turn_2014} in these bases indicated in
+Table~\ref{tab:posterior}.  We used $\hat{R}$ as our convergence
 diagnostic \citep{gelman_inference_1992}.
 
 Figure~\ref{fig:lc} shows the resulting model in orange (top) and
 purple (bottom).  While the fit appears reasonably good, an asymmetry
 is present during the transit: the measured flux is systematically
 high during the first half, and low in the second half.  To determine
-whether this effect was not caused by our stellar variability model, we 
+whether this effect was caused by our stellar variability model, we 
 explored an alternative approach in which we isolated each transit
 window and locally fitted out polynomial trends, and then binned all
 the observed transits; the asymmetry was still present, at a
 comparable amplitude.
 
-Figures~\ref{fig:phasequarter} and~\ref{fig:phaseyear} show the
-Kepler data binned over quarters and years.  In
+Figures~\ref{fig:phasequarter} and~\ref{fig:phaseyear} show the Kepler
+data binned over quarters and years.  In
 Figure~\ref{fig:phasequarter}, Quarter 6 shows the strongest asymmetry
-out of the quarters: a deviation of about 3\,ppt from
-expectation.  Quarter 7 shows an anomaly at roughly the same transit
-phase.  Year 2 correspondingly shows the strongest anomaly out of any
-year in Figure~\ref{fig:phaseyear}.
+out of the quarters: a deviation of about 3\,ppt from expectation.
+Quarter 7 shows an anomaly at roughly the same transit phase.  Year 2
+correspondingly shows the strongest anomaly out of any year in
+Figure~\ref{fig:phaseyear}; the asymmetry is visually apparent however
+in each of Years 2, 3, and 4.
 
-We considered three possible explanations for the anomaly: gravity
-darkening, transit timing variations, and spot-crossing events.
+We therefore considered four possible explanations for the anomaly:
+gravity darkening, transit timing variations, spot-crossing events,
+and a persistent asymmetric dusty outflow.  
+
 Gravity darkening is based on the premise that the rapidly rotating
-star becomes oblate, and brighter near the poles than the equator
-\citep[{\it e.g.},][]{masuda_spin-orbit_2015}.  The fractional shape
-change due to gravity darkening is on the order of $(P_{\rm
+star is oblate, and brighter near the poles than the equator
+\citep[{\it e.g.},][]{masuda_spin-orbit_2015}.  The fractional transit
+shape change due to gravity darkening is on the order of $(P_{\rm
 break}/P_{\rm rot})^2$, for $P_{\rm break}$ the break-up rotation
 period, and $P_{\rm rot}$ the rotation period.  Using the parameters
-from Table~\ref{tab:posterior}, this yields an expected 1.4\%
+from Table~\ref{tab:posterior}, this yields an expected 0.14\%
 distortion of the $\approx$1.8\,ppt transit depth: {\it i.e.}, an
 absolute deviation of $\approx$2.5\,ppm.  The observed residual has a
-semi-amplitude of $\approx 50\,{\rm ppm}$.  Since the expected signal is
-smaller than the observed anomaly by over an order of magnitude, gravity
-darkening seems to be an unlikely explanation.
+semi-amplitude of $\approx 50\,{\rm ppm}$.  Since the expected signal
+is smaller than the observed anomaly by over an order of magnitude,
+gravity darkening seems to be an unlikely explanation.
 
 The scenario of transit timing variations (TTVs) producing the
-asymmetry seems unlikely, since the analysis by
-\citet{holczer_transit_2016} implies that any such variations in \sn\
-need to be less than of order minutes.  
-Our independent TTV analysis found similar results.
-Figures~\ref{fig:phasequarter}
-and~\ref{fig:phaseyear} also provide little evidence in support of
-this possibility.
+asymmetry seems unlikely because our analysis showed that transit
+timing variations in \sn\ have amplitudes smaller than $\approx$10
+minutes (see Figure~\ref{fig:obliquity}).  This is consistent with
+previous results from \citet{holczer_transit_2016}.  Moreover, the
+transit timing variations we do observe are correlated with the local
+light curve slope, which on average increases as much as it decreases.
+From our analysis, the mean TTV and its standard deviation are
+$0.00\pm12.05$ minutes; similarly the mean local slope and its
+standard deviation are $0.49\pm44.49$\,ppt\,day$^{-1}$.  There is
+therefore no expectation for TTVs to produce the asymmetry.
 
-The final possibility is that of starspot crossings.  Young stars are
-thought to have higher spot-covering fractions than old stars ({\it
-e.g.}, \citealt{morris_relationship_2020}).  Young solar-type stars may also host
-dark starspots at high stellar latitudes \citep[{\it e.g.},
-EK~Dra;][]{strassmeier_starspots_2009}, though interferometric imaging
-of spotted giant stars has found different starspot latitude distributions than
-those inferred from Doppler imaging
+The third possibility is that of starspot crossings.  Young stars 
+have higher spot-covering fractions than old stars ({\it
+e.g.}, \citealt{morris_relationship_2020}).  Young solar-type stars
+may also host dark starspots at high stellar latitudes \citep[{\it
+e.g.}, EK~Dra;][]{strassmeier_starspots_2009}, though interferometric
+imaging of spotted giant stars has shown different starspot latitude
+distributions than those inferred from Doppler imaging
 \citep{roettenbacher_contemporaneous_2017}.  Regardless, for any
 spot-crossing anomalies to add coherently over the 144 Kepler
 transits, it seems likely that we would need either for spots to be
-persistent at a particular latitude (and for a slightly misaligned
-orbit), or for a ``stroboscopic'' longitudinal phasing \citep[{\it
-e.g.},][]{dai_stellar_2018}.  For our system, $P_{\rm orb}/P_{\rm rot}
-\approx 2.76$, which means that every 4 transits and 11 stellar
-rotations, the planet crosses over roughly the same stellar longitude,
-which could enable the necessary phasing if the spot-groups are
-large and long-lived.  Unfortunately, the  S/N per Kepler transit is
-$\approx8$, which renders individual spot-crossing events unresolved.
-Therefore, although starspot crossings seem to be
-the most likely source of additional photometric scatter
-during transits, our reasoning is that the expected
-spot-crossing anomaly amplitudes ($\approx 100\,{\rm ppm}$) could be
-correct; we have not been able to definitely show that this is the case, and 
-the issue could deserve further exploration.
+persistent at a particular latitude (and for the planetary orbit to be
+quite misaligned), or for a ``stroboscopic'' longitudinal phasing
+\citep[{\it e.g.},][]{dai_stellar_2018}.  For our system, $P_{\rm
+orb}/P_{\rm rot} \approx 2.76$, which means that every 4 transits and
+11 stellar rotations, the planet crosses over roughly the same stellar
+longitude, which might enable the necessary phasing if the spot-groups
+are large and long-lived.  Unfortunately, the  S/N per Kepler transit
+is $\approx8$, which renders individual spot-crossing events
+unresolved.  This explanation seems marginally plausible, because the
+expected spot-crossing anomaly amplitudes ($\approx 100\,{\rm ppm}$)
+resemble the observed amplitude of the asymmetry ($\approx 50\,{\rm
+ppm}$).  We ultimately disfavor it though, because {\it a)} it seems
+implausible that the starspot crossings could add coherently, and {\it
+b)} there is no reason to expect starspot crossing events to last
+exactly half the transit
+duration.
+
+A persistent feature of the planet itself might therefore be needed to
+explain the transit asymmetry.  An asymmetric outflow from the
+planet's atmosphere could at least geometrically meet the requirements
+\citep[{\it e.g.},][]{mccann_2019}.  To explain the asymmetric
+transit, a small, dense component would lead the planet, and a long,
+more rarefied (and variable) component would trail it.  This might
+also explain the slight flux decrement visible for $\sim$1 hour
+pre-ingress (Figure~\ref{fig:lc}).  The amplitude of the asymmetry is
+roughly in line with theoretical expectations for dusty outflows
+\citep{wang_dai_2019}, and based on the planet's size, its mass is
+likely in a regime where such outflows are possible.  Out of the four
+explanations discussed, this one currently seems the most plausible.
+By composition, the expectation would be that the envelope is mostly
+hydrogen and helium gas, with a dust or haze component providing the
+broadband opacity in the Kepler bandpass.  A natural path
+toward confirming or refuting this idea would be to observe additional
+transits of the planet in hydrogen absorption, 
+metastable helium absorption, or across a broad wavelength range in
+the near-infrared.
+
 
 
 %  \subsection{Short Cadence Data}

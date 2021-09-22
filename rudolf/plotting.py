@@ -1308,6 +1308,9 @@ def plot_ttv_vs_local_slope(outdir):
 
     ttv_mean, ttv_std = np.mean(ttv), np.std(ttv)
 
+    import IPython; IPython.embed()
+    assert 0
+
     ttv_cut = 0.02 # doesn't mean match
 
     z1 = np.poly1d(
@@ -2615,15 +2618,15 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
         mmodel1.append(m1)
     mmodel1 = np.array(mmodel1)
 
-    ax.fill_between(scale_x(t1_mod), np.quantile(mmodel1,0.16,axis=0),
-                    np.quantile(mmodel1,0.84,axis=0), alpha=0.1,
-                    color=shadecolor, lw=0, label='1$\sigma$',zorder=-1)
+    #ax.fill_between(scale_x(t1_mod), np.quantile(mmodel1,0.16,axis=0),
+    #                np.quantile(mmodel1,0.84,axis=0), alpha=0.1,
+    #                color=shadecolor, lw=0, label='1$\sigma$',zorder=-1)
     ax.fill_between(scale_x(t1_mod), np.quantile(mmodel1,0.02,axis=0),
                     np.quantile(mmodel1,0.98,axis=0), alpha=0.1,
                     color=shadecolor, lw=0, label='2$\sigma$', zorder=-1)
-    ax.fill_between(scale_x(t1_mod), np.quantile(mmodel1,0.0015,axis=0),
-                    np.quantile(mmodel1,0.9985,axis=0), alpha=0.1,
-                    color=shadecolor, lw=0, label='3$\sigma$', zorder=-1)
+    #ax.fill_between(scale_x(t1_mod), np.quantile(mmodel1,0.0015,axis=0),
+    #                np.quantile(mmodel1,0.9985,axis=0), alpha=0.1,
+    #                color=shadecolor, lw=0, label='3$\sigma$', zorder=-1)
 
     sdf = df_medvals[df_medvals.Labels == 'lam_p1']
     #from rudolf.helpers import ORIENTATIONTRUTHDICT
@@ -2663,7 +2666,7 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
     colors = 'blue,green,orange,red'.split(',')
 
     shift = 0
-    delta = 0.007
+    delta = 0.0055
     for bp, c in zip(bandpasses,colors):
         lcpath = glob(
             os.path.join(PHOTDIR, 'MUSCAT3', f'*muscat3_{bp}_*csv')
@@ -2724,6 +2727,7 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
     ax.set_xlabel(f'JD - {int(tmid)}')
     ax.set_ylabel(f'Relative flux')
     ax.set_xlim([0.79,1.06])
+    ax.set_ylim([0.978,1.009])
 
     for _t in [t_ing, t_egr]:
         for ix, ax in enumerate(axs):
