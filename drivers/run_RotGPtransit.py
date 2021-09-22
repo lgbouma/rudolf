@@ -95,25 +95,27 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
     phasedsubsets = 1
     getbecclimits = 1
 
+    if phaseplot:
+        outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
+        ylimd = {'A':[-3.5, 2.5], 'B':[-0.2,0.2]}
+        bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
+                                   from_trace=True, ylimd=ylimd,
+                                   map_estimate=m.map_estimate,
+                                   do_hacky_reprerror=True)
+        outpath = join(PLOTDIR,
+                       f'{starid}_{modelid}_posterior_phaseplot_fullxlim.png')
+        ylimd = {'A':[-3.5, 2.5], 'B':[-0.2,0.2]}
+        bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
+                                   from_trace=True, ylimd=ylimd,
+                                   map_estimate=m.map_estimate, fullxlim=True,
+                                   BINMS=0.5, do_hacky_reprerror=True)
+        assert 0
+
     if posttable:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')
         make_posterior_table(pklpath, priordict, outpath, modelid, makepdf=1,
                              var_names=var_names)
         assert 0
-
-    if phaseplot:
-        outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
-        ylimd = {'A':[-3.5, 2.5], 'B':[-0.5,0.5]}
-        bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
-                                   from_trace=True, ylimd=ylimd,
-                                   map_estimate=m.map_estimate)
-        outpath = join(PLOTDIR,
-                       f'{starid}_{modelid}_posterior_phaseplot_fullxlim.png')
-        ylimd = {'A':[-3.5, 2.5], 'B':[-1,1]}
-        bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
-                                   from_trace=True, ylimd=ylimd,
-                                   map_estimate=m.map_estimate, fullxlim=True,
-                                   BINMS=0.5)
 
     if phasedsubsets:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_phasedsubsets_yearchunk.png')

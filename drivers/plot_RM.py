@@ -6,10 +6,10 @@ PLOTDIR = os.path.join(RESULTSDIR, 'RM')
 if not os.path.exists(PLOTDIR):
     os.mkdir(PLOTDIR)
 
-# models = ['quadraticfreejitter', 'linearfreejitter', 'trendonlyfreejitter',
-#           'quadraticretrogradefreejitter','quadraticprogradefreejitter']
-models = ['trendonlyfreejitter',
+models = ['quadraticfreejitter', 'linearfreejitter', 'trendonlyfreejitter',
           'quadraticretrogradefreejitter','quadraticprogradefreejitter']
+#models = ['trendonlyfreejitter',
+#          'quadraticretrogradefreejitter','quadraticprogradefreejitter']
 
 
 #models = ['quadraticfreejitter', 'quadratic']

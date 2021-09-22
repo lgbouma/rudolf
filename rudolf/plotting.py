@@ -843,7 +843,7 @@ def plot_keplerlc(outdir, N_samples=500, xlim=[200,300]):
     plt.close('all')
     set_style()
 
-    fig = plt.figure(figsize=(5,3))
+    fig = plt.figure(figsize=(1.22*5,1.22*3))
     axd = fig.subplot_mosaic(
         """
         B

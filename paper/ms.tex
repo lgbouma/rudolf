@@ -86,9 +86,9 @@
 
 \keywords{
   exoplanet evolution (491),
-  stellar associations (1582),
+  %stellar associations (1582),
   open star clusters (1160),
-	stellar ages (1581),
+	stellar ages (1581)
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -130,20 +130,40 @@ Jupiter
 The Kepler mission however has not yielded any planets with precise
 ages below one gigayear \citep{Meibom_et_al_2013}.  The reason is that
 during the main Kepler mission (2009--2013), only four open clusters
-were known in the Kepler field: NGC\,6866, NGC\,6811, NGC\,6819, and
-NGC\,6791, with ages spanning 0.7\,Gyr to 9\,Gyr
-\citep{meibom_kepler_2011}.  Though isochronal and gyrochronal
+were known in the Kepler field,
+%: NGC\,6866, NGC\,6811, NGC\,6819, and NGC\,6791,
+with ages spanning 0.7\,Gyr to 9\,Gyr
+\citep{meibom_kepler_2011}.  Though isochronal, gyrochronal, and lithium-based
 analyses suggest that younger Kepler planets do exist
 \citep{berger_identifying_2018,david_sizes_2021}, accurate and precise
 age measurements typically require an ensemble of stars.  Fortunately,
 recent analyses of the kinematic, photometric, and astrometric Gaia
-data have significantly expanded our knowledge of cluster memberships
+data have since expanded our knowledge of cluster memberships
 \citep[{\it
 e.g.},][]{cantatgaudin_gaia_2018,zari_3d_2018,kounkel_untangling_2019,Meingast2021,Kerr2021}.
 As part of our Cluster Difference Imaging Photometric Survey (CDIPS,
 \citealt{bouma_cdipsI_2019}), we concatenated the available analyses
 from the literature, which yielded a list of candidate young and
 age-dated stars (see Appendix~\ref{app:targetlist}).
+
+\begin{figure}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.5\textwidth]{f2.pdf}
+	\end{center}
+	\vspace{-0.6cm}
+	\caption{
+		{\bf Kepler and TESS views of the $\delta$~Lyr cluster.} Colored
+		points are kinematically selected candidate $\delta$\,Lyr cluster
+		members.  Both Kepler (gray panels) and TESS observed portions of
+		the cluster.  Naked-eye stars ($m_{\rm V}<6.5$) are shown in gray;
+		Deneb, Vega, and $\delta$~Lyr are orange.  Kepler\,1627 (green star) was observed during the
+		entirety of the Kepler mission.  Colors of candidate cluster
+		members indicate the duration of TESS observations to date, in
+		units of lunar months.
+		\label{fig:skychart}
+	}
+\end{figure}
 
 Comparing our young star list against the Kepler field yielded two
 discoveries.  The first, to be discussed in an upcoming analysis by
@@ -175,25 +195,6 @@ planets (Section~\ref{sec:conc}).
 
 \section{The Cluster}
 \label{sec:cluster}
-
-\begin{figure}[t]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=0.48\textwidth]{f2.pdf}
-	\end{center}
-	\vspace{-0.7cm}
-	\caption{
-    {\bf Kepler and TESS views of the $\delta$\,Lyr cluster.} Colored
-    points are kinematically selected candidate $\delta$\,Lyr cluster
-    members.  Both Kepler (gray panels) and TESS observed portions of
-    the cluster.  Naked-eye stars ($m_{\rm V}<6.5$) are shown in gray
-    or orange.  Kepler\,1627 (green star) was observed during the
-    entirety of the Kepler mission.  Colors of candidate cluster
-    members indicate the duration of TESS observations to date, in
-    units of lunar months.
-    \label{fig:skychart}
-	}
-\end{figure}
 
 \begin{figure*}[tp]
 	\begin{center}
@@ -413,29 +414,31 @@ this measurement is also in line with expectations for a 38\,Myr star
 		}
 	
 		\subfloat{
-			\includegraphics[width=\textwidth]{f5.pdf}
+			\includegraphics[width=0.5\textwidth]{f5a.pdf}
+			\includegraphics[width=0.5\textwidth]{f5b.pdf}
 		}
 	\end{center}
 	\vspace{-0.7cm}
   \caption{ {\bf The light curve of Kepler\,1627.}
     {\it Top}: 
-    The full Kepler dataset spans 1{,}437 days (3.9 years), sampled at
-    30 minute cadence.  A one hundred day segment is shown here.  The
+    The Kepler data span 1{,}437 days (3.9 years), sampled at
+    30 minute cadence;  a 100 day segment is shown.  The
     top panel shows the \texttt{PDCSAP} median-subtracted flux in
     units of parts-per-thousand ($\times 10^{-3}$).  The dominant
-    signal is induced by starspots.  The model for the stellar
-    variability (orange line) is subtracted below, revealing the
+    signal is induced by starspots.  The stellar
+    variability model (orange line) is subtracted below, revealing the
     transits of \pn, as well as other deviations from the model.  The
-    online Figure Set shows the entire 3.9 years of observations.
+    online Figure Set spans the entire 3.9 years of observations.
     {\it Bottom}:
-    Phase-folded transit of Kepler 1627Ab, with stellar variability
-    removed.  The 2-$\sigma$ model uncertainties and the maximum {\it
-    a posteriori} model are shown as the faint purple band, and the
-    dark purple line.  Gray points are individual \texttt{PDCSAP} flux
-    measurements; black points are binned to 20 minutes, with a
-    representative error bar shown.  The asymmetric residual visible
-    during the transit is robust against detrending methods; we
-    believe that it is caused by starspot crossings.
+    Phase-folded transit of Kepler 1627Ab with stellar variability
+    removed.  Windows over 20 hours ({\it left}) and the entire orbit
+    ({\it right}) are shown.  The 2-$\sigma$ uncertainties and the
+    maximum best-fit model are the faint purple band, and the dark
+    purple line.  Gray points are individual flux measurements; black
+    points bin these every 20 minutes, and have a representative error bar
+    shown.  The asymmetric residual during transit appears to be robust when using
+    different
+    detrending methods.
     \label{fig:lc}
   }
 \end{figure*}
@@ -481,7 +484,7 @@ this measurement is also in line with expectations for a 38\,Myr star
 	\vspace{-0.7cm}
 	\caption{
     {\bf Radii, orbital periods, and ages of transiting exoplanets}.
-    Planets older than $10^9$ years are shown with gray markers.
+    %Planets older than $10^9$ years are shown with gray markers.
     Planets younger than a gigayear with ${\rm \tau}/\sigma_{\rm \tau}
     > 3$ are emphasized, for $\tau$ the age.  \pn\ is shown with a
     star.  The large sizes of the youngest transiting planets could be
@@ -502,37 +505,37 @@ our knowledge its age would make it the youngest planet yet found by
 the main Kepler mission.\footnote{The re-purposed K2 mission however
 has found two younger systems containing five planets: K2-33b
 ($9\pm1\,{\rm Myr}$; \citealt{Mann_K2_33b_2016,David_et_al_2017}) and
-V1298 Tau ($23\pm4\,{\rm Myr}$; \citealt{david_four_2019}).}  A
-portion of the light curve is shown with the phase-folded transit in
-Figure~\ref{fig:lc}.  The \texttt{PDCSAP} photometry is dominated by a
+V1298 Tau ($23\pm4\,{\rm Myr}$; \citealt{david_four_2019}).}  The light
+curve and the phase-folded transit are shown in
+Figure~\ref{fig:lc}.  The photometry is dominated by a
 quasi-periodic starspot signal with a peak-to-peak amplitude that
-varies between 2\% and 8\%, depending on the degree of asymmetry in
-spot coverage between the stellar hemispheres.  The starspot signal
-repeats every $2.642\pm0.042$\,days, where the uncertainty is based on
-the scatter observed between different Kepler quarters.  The details
-of how we model the starspot signal to derive the parameters of the
-planet are discussed in Appendix~\ref{app:gptransit}.  The stellar
-parameters are listed in Table~\ref{tab:starparams}; the stellar mass,
+varies between 2\% and 8\%.  The signal
+repeats every $2.642\pm0.042$\,days, where the quoted uncertainty is based on
+the scatter in rotation periods measured from each individual Kepler quarter. 
+Our model for the starspot signal is discussed in detail
+in Appendix~\ref{app:gptransit}, and the adopted stellar
+parameters are listed in Table~\ref{tab:starparams}.  The stellar mass,
 radius, and effective temperature are found by interpolating against a
-38$\,$Myr MIST isochrone.  The systematic uncertainties are taken to
-be the difference in parameters from the PARSEC isochrones, and the
+38$\,$Myr MIST isochrone.  The systematic uncertainties are taken
+to be the difference between the PARSEC and MIST isochrones, and the
 reported uncertainties are a quadrature sum of the statistical and
-systematic components.  The transit-fitting results, given in
+systematic components. 
+The transit fitting results, given in
 Table~\ref{tab:posterior}, are consistent with a mini-Neptune sized
 planet ($3.34\pm 0.18\,R_\oplus$) on a close-in circular\footnote{Our
 transit fitting yields $e<0.48$ at 2-$\sigma$; the constraints on the
 eccentricity are not particularly strong.} orbit around a G8V star
 ($0.88 \pm 0.02 R_\odot$).
 
-Could the transit signal be produced by anything other than a planet
+Could this transit signal be produced by anything other than a planet
 orbiting this near-solar analog?  \citet{morton_false_2016} validated
 the planet based on the transit shape, arguing that the most probable
 false positive scenario was that of a background eclipsing binary,
 which had a model-dependent probability of $\approx10^{-5}$.  As we
 describe in Appendix~\ref{app:companionstar} however, Kepler\,1627A is
 accompanied by a low-mass stellar companion ($M_{\rm B}\approx
-0.33\,M_\odot$).  We therefore reconsidered this false positive
-scenario in some detail. 
+0.33\,M_\odot$).  We therefore reassessed false positive
+scenarios in some detail. 
 
 % Baraffe+15: M_B 0.33 Mdot
 % Rstar = 0.455 --> 0.465 Rsun
@@ -1448,12 +1451,12 @@ intensity over the course of the six hour sequence.
 The overall RVs are also heavily correlated against the S-indices
 derived from the Ca HK lines.
 
-The expectation however is for the spot-induced signals to be smooth,
+The expectation however is for the starspot-induced signals to be smooth,
 at worst with contributions at $0.5\,P_{\rm rot}$ or $0.25\,P_{\rm
 rot}$ \citep{klein_simulated_2020}.  We therefore fitted the RVs using
 the \citet{hirano_analytic_2010,hirano_2011} models for the
 Rossiter-McLaughlin (RM) effect, and allowed for an optional linear
-and quadratic trend in time to fit the spot-induced signal.  We
+and quadratic trend in time to fit the 800\ms\ spot-induced trend.  We
 followed the methodology developed by \citet{stefansson_2020}.  We
 allowed the sky-projected obliquity, the projected stellar equatorial
 velocity, and the Gaussian dispersion of the spectral lines to vary,
@@ -1477,8 +1480,8 @@ larger than the expected RM anomaly of $\Delta v_{\rm RM}
 \approx 20\,{\rm m\,s}^{-1}$.
 
 The presence of this additional scatter prevents a clear detection of
-the RM effect.  The reason can be understood through a
-model-comparison analysis.  If we compare the model with a quadratic trend and
+the RM effect.  The reason can be understood via
+model comparison.  If we compare the model with a quadratic trend and
 the RM effect (Figure~\ref{fig:obliquity}) against a model with a
 linear trend and the RM effect, or even a model with no RM effect at
 all, then the respective Bayesian Information Criterion (BIC) values
@@ -1492,15 +1495,15 @@ are as follows.
 There is therefore no evidence to prefer the model with the RM effect
 against a model that only accounts for the stellar variability.
 The ``only quadratic'' model does particularly well because it can
-inflate the jitter term to account for any additional scatter during
-the transit, and it has fewer free parameters.  However, we cannot
+inflate the jitter term to account for scatter during
+the transit (even if the scatter contains astrophysics!), and it has fewer free parameters.  However, we cannot
 justify a physical prior on the jitter term, because we do not
 understand the origin of the exposure-to-exposure scatter.  As noted
 above, the velocity deviations from starspots are expected to have
 contributions at the stellar rotation frequency, or harmonics thereof.
 This jitter is present on the exposure timescale (15 minutes), which
 is only 0.4\% of the stellar rotation period; it is not obvious that
-starspots could be the culprit.
+starspots would be the culprit.
 
 The amplitude of both the spot-induced trend and the jitter are larger
 than recent comparable measurements in systems such as AU~Mic
@@ -1511,13 +1514,11 @@ that it is astrophysical in origin, and that it is caused by some
 novel process operating on the surface of Kepler 1627A.  Another
 possibility is that our RV analysis underestimates the measurement
 uncertainties; the S/N per resolution element for each of our spectra
-(70 to 80) was moderated by the observing requirements, and the rapid
-rotation of the star could affect the velocity extraction.
-Observations at higher precision are necessary to distinguish these
-two possibilities, and remain worthwhile as a means toward clarifying
-the orbital geometry of \pn.
-
-
+was moderated by the observing requirements to 70 to 80, and the rapid
+rotation of the star could affect accuracy of the uncertainties from
+the velocity extraction.  Observations at higher precision are
+necessary to distinguish these two possibilities, and remain
+worthwhile as a means toward clarifying the orbital geometry of \pn.
 
 
 
