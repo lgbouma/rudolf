@@ -31,9 +31,23 @@ def plot_zorro_speckle():
 
     for d,l,c in zip(datapaths, labels, colors):
         df = pd.read_csv(d)
+        sel = df.sep>0.15
         ax.plot(
-            df.sep, df.deltamag, color=c, label=l
+            df[sel].sep, df[sel].deltamag, color=c, label=l
         )
+        ax.plot(
+            df[~sel].sep, df[~sel].deltamag, color=c, ls=':'
+        )
+
+    xf = np.linspace(0,0.15,100)
+    ylim = ax.get_ylim()
+
+    ax.fill_between(xf, min(ylim),
+                    max(ylim), alpha=0.3,
+                    color='gray', lw=0,
+                    label=r'Diffraction limit',zorder=-10)
+    ax.set_ylim(ylim[::-1])
+
 
     leg = ax.legend(
         loc='upper center', handletextpad=0.2, fontsize='x-small',
@@ -42,7 +56,7 @@ def plot_zorro_speckle():
 
     img = mpimg.imread(
         os.path.join(DATADIR, 'imaging',
-                     'NIRC2_img_20150722_39302_rot.png')
+                     'NIRC2_img_2015stack_rot.png')
     )
 
     # [left, bottom, width, height]
@@ -54,8 +68,6 @@ def plot_zorro_speckle():
     ax.set_ylabel('$\Delta$mag')
     ax.set_xlabel('Angular separation [arcsec]')
 
-    ylim = ax.get_ylim()
-    ax.set_ylim(ylim[::-1])
 
     ax.set_xlim([0,1.25])
 

@@ -140,7 +140,8 @@ def plot_ruwe_vs_apparentmag(outdir):
 
     ax.scatter(
         get_xval(df_edr3), get_yval(df_edr3), c='k', alpha=0.9,
-        zorder=4, s=5, rasterized=True, linewidths=0, label='$\delta$ Lyr cluster', marker='.'
+        zorder=4, s=5, rasterized=True, linewidths=0,
+        label='$\delta$ Lyr candidates', marker='.'
     )
     ax.plot(
         get_xval(trgt_df), get_yval(trgt_df), alpha=1, mew=0.5,

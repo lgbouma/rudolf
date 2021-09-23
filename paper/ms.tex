@@ -115,7 +115,7 @@ the models of \citet{owen_atmospheres_2016} and
 with sizes of 4--12\,$R_\oplus$ shortly after the time of disk
 dispersal ($\lesssim$$10^7$\,years), and shrink to sizes of
 2--4\,$R_\oplus$ by 10$^8$ years.  While the majority of this change
-is expected to occur within the first few million years of disk
+is expected to occur within the first few million years after disk
 dispersal \citep{owen_atmospheres_2016}, the combination of stellar
 irradiation and internal heat may also power a more gradual outflow
 which can eventually deplete or entirely strip the envelope from the
@@ -400,9 +400,11 @@ procedure described by \citet{bouma_2021_ngc2516}, we find ${\rm
 EW}_{\rm Li} = 233^{+5}_{-7}$\,m\AA.   %Note that this value does not
 %correct for the Fe\,\textsc{I} blend at 6707.44\AA. 
 Given the effective temperature of \sn\ (Table~\ref{tab:starparams}),
-this measurement is also in line with expectations for a 38\,Myr star
-({\it e.g.}, \citealt{randich_gaiaeso_2018};
-\citealt{bouma_cluster_2020}).
+this measurement is in agreement with expectations for a 38\,Myr star
+({\it e.g.}, as measured in IC~2602 by
+\citealt{randich_gaiaeso_2018}).  It is also larger than any ${\rm
+EW}_{\rm Li}$ found by \citet{berger_identifying_2018} in their
+analysis of 1{,}301 Kepler spectra.
 
 
 \section{The Planet}
@@ -434,10 +436,11 @@ this measurement is also in line with expectations for a 38\,Myr star
     {\it Bottom}:
     Phase-folded transit of Kepler 1627Ab with stellar variability
     removed.  Windows over 20 hours ({\it left}) and the entire orbit
-    ({\it right}) are shown.  The 2-$\sigma$ model uncertainties and
-    the best-fit model are the light purple band and the dark purple
-    line.  Gray points are individual flux measurements; black points
-    bin these to 20 minute intervals, and have a representative
+    ({\it right}) are shown, and the residual after subtracting the
+    transit in the bottom-most row.  The 2-$\sigma$ model uncertainties
+    and the best-fit model are the light purple band and the dark
+    purple line.  Gray points are individual flux measurements; black
+    points bin these to 20 minute intervals, and have a representative
     1-$\sigma$ error bar in the lower right of each panel.  The
     asymmetric residual during transit appears to be robust to
     different detrending methods.
@@ -587,8 +590,8 @@ confirms that \pn\ is a planet.  It also implies that the planet's
 orbit is prograde.  The latter point assumes that the dominant
 photometric variability is induced by dark spots, and not bright
 faculae.  Given the observed transition of Sun-like stellar
-variability from spot to faculae-dominated regimes, we expect this
-assumption to be reasonably secure
+variability from spot to faculae-dominated regimes between young and
+old ages, we expect this assumption to be reasonably secure
 \citep{shapiro_are_2016,montet_long-term_2017,reinhold_stellar_2020}.
 
 A third supporting line of evidence for the planetary interpretation
@@ -630,12 +633,11 @@ Observations aimed at quantifying the amount of high-energy
 irradiation incident on the planet would also help in clarifying the
 expected outflow rate \citep[{\it e.g.},][]{poppenhaeger_2021}.
 Finally, a challenging but informative quantity to measure would be
-the planet's mass.  This might be possible through long-term
-monitoring of the transit times and durations, or through a
-high-cadence multi-color radial velocity campaign.  Measured at
-sufficient precision, the mass could yield constraints on both the
-planet's composition and its initial entropy
-\citep{owen_constraining_2020}.
+the planet's mass.  This might be possible through a high-cadence
+multi-color radial velocity campaign, or through long-term monitoring
+of the transit times and durations.  Measured at sufficient precision,
+the mass could yield constraints on both the planet's composition and
+its initial entropy \citep{owen_constraining_2020}.
 
 Separately, the Kepler data may yet contain additional information.
 For instance, one possible explanation for the transit asymmetry shown
@@ -646,8 +648,8 @@ Appendix~\ref{app:gptransit}.  Dusty outflows are theoretically
 expected for young mini-Neptunes, and the amplitude of the observed
 asymmetry is also roughly consistent with predictions
 \citep{wang_dai_2019}.  Beyond the planetary transits,
-Appendix~\ref{app:flare} highlights a separate odd coincidence in the
-Kepler data, in the arrival time distribution of stellar flares.  We
+Appendix~\ref{app:flare} highlights a separate oddity in the Kepler
+data, in the arrival time distribution of stellar flares.  We
 encourage its exploration by investigators more versed in the topic
 than ourselves.
 
@@ -1329,16 +1331,17 @@ the near-infrared.
     from Gemini-North/`Alopeke and Keck/NIRC2 shows an $\approx$M2.5V
     companion at $\rho \approx 0\farcs16$, which corresponds to a
     projected separation of $53\pm4$\,AU.  The inset shows a cutout of
-    the NIRC2 image (North is up, East is left, scale is set by the
+    the stacked NIRC2 image (North is up, East is left, scale is set by the
     separation of the binary).  The lines show 5-$\sigma$ contrast
     limits for the `Alopeke filters, and 6-$\sigma$ contrast limits
-    for NIRC2.  {\it Left:} Gaia EDR3 renormalized
-    unit weight error (RUWE) point estimates for Kepler\,1627A and
-    other members of the $\delta$\,Lyr cluster reported by
-    \citet{KounkelCovey2019}.  Since other members of the cluster with
-    similar brightnesses have comparable degrees of photometric
-    variability, the high RUWE suggests that Kepler\,1627 is a
-    binary. 
+    for NIRC2.  Inside the diffraction limit (estimated as the gray
+    band), the detection limits are less reliable.  {\it Left:} Gaia
+    EDR3 renormalized unit weight error (RUWE) point estimates for
+    Kepler\,1627A and other members of the $\delta$\,Lyr cluster
+    reported by \citet{KounkelCovey2019}.  Since other members of the
+    cluster with similar brightnesses have comparable degrees of
+    photometric variability, the high RUWE suggests that Kepler\,1627
+    is a binary. 
     \label{fig:kep1627binary}
 	}
 \end{figure*}
@@ -1392,7 +1395,7 @@ Figure~\ref{fig:kep1627binary} summarizes the results of the
 high-resolution imaging.  The Gaia EDR3 parallax for the primary
 implies a projected separation of $53 \pm 4$\,AU, assuming the
 companion is bound.  Although the companion is unresolved in the Gaia
-source catalog (there are no candidates brighter than $G < 20.5$ mag
+source catalog (there are no comoving, codistant candidate companions brighter than $G < 20.5$ mag
 within $\rho < 120\arcsec$), its existence was also suggested by the
 primary star's large RUWE, relative to other members of the \cn.
 Based on the apparent separation, the binary orbital period is of

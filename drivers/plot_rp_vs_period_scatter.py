@@ -140,7 +140,10 @@ def plot_rp_vs_period_scatter(
         axins1 = inset_axes(ax, width="3%", height="33%", loc='lower right',
                             borderpad=0.7)
 
-        cmap = mpl.cm.magma_r
+        #cmap = mpl.cm.magma_r
+        cmap = mpl.cm.Spectral
+        cmap = mpl.cm.get_cmap('magma_r', 8)
+        #cmap = mpl.cm.get_cmap('Spectral', 8)
         bounds = np.arange(7.0,9.0,0.01)
         norm = mpl.colors.LogNorm(vmin=1e7, vmax=1e9)
         #norm = mpl.colors.BoundaryNorm(bounds, cmap.N, extend='neither')
@@ -177,8 +180,8 @@ def plot_rp_vs_period_scatter(
 
                 ax.scatter(
                     _per, _rp,
-                    c=_age, alpha=1, zorder=2, s=170, edgecolors='k',
-                    marker='*', cmap=cmap, linewidths=0.3, norm=norm
+                    c=_age, alpha=1, zorder=2, s=260, edgecolors='k',
+                    marker='*', cmap=cmap, linewidths=0.8, norm=norm
                 )
 
                 if add_plnames:
