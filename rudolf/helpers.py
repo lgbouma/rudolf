@@ -5,6 +5,7 @@ Data getters:
         get_deltalyr_kc19_comovers
         get_deltalyr_kc19_cleansubset
         get_autorotation_dataframe
+
     Kepler 1627:
         get_kep1627_kepler_lightcurve
         get_kep1627_muscat_lightcuve
@@ -12,9 +13,13 @@ Data getters:
         get_flare_df
         get_becc_limits
 
-    Get other stellar and cluster datasets:
+    Get cluster datasets (useful for HR diagrams!):
         get_gaia_catalog_of_nearby_stars
         get_clustermembers_cg18_subset
+        get_mutau_members
+        get_ScoOB2_members
+        get_BPMG_members
+        get_gaia_catalog_of_nearby_stars
 
     Supplement a set of Gaia stars with extinctions and corrected photometry:
         supplement_gaia_stars_extinctions_corrected_photometry
@@ -372,6 +377,32 @@ def get_clustermembers_cg18_subset(clustername):
         csdf['b'] = _c.galactic.b.value
 
     return csdf
+
+
+def get_BPMG_members():
+    """
+    BPMG = beta pic moving group
+
+    This retrieves BPMG members from Ujjwal+2020.  I considered also requiring
+    Gagne+18 matches, but this yielded only 25 stars.
+    """
+
+    csvpath = '/Users/luke/local/cdips/catalogs/cdips_targets_v0.6_nomagcut_gaiasources.csv'
+    df = pd.read_csv(csvpath, sep=',')
+
+    sel0 = (
+        df.cluster.str.contains('BPMG')
+        &
+        df.reference_id.str.contains('Ujjwal2020')
+    )
+    sdf = df[sel0]
+
+    if 'l' not in sdf:
+        _c = SkyCoord(ra=nparr(sdf.ra)*u.deg, dec=nparr(sdf.dec)*u.deg)
+        sdf['l'] = _c.galactic.l.value
+        sdf['b'] = _c.galactic.b.value
+
+    return sdf
 
 
 def get_mutau_members():

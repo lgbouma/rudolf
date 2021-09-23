@@ -37,3 +37,9 @@ for r in [1,0]:
     rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
                clusters=['δ Lyr cluster', 'IC 2602', 'Pleiades', 'UCL'],
                reddening_corr=r, smalllims=1)
+
+#BPMG checks
+for r in [1,0]:
+    rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
+               clusters=['δ Lyr cluster', 'IC 2602', 'Pleiades', 'UCL', 'BPMG'],
+               reddening_corr=r, smalllims=1)

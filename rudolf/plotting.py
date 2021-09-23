@@ -80,6 +80,7 @@ from rudolf.helpers import (
     get_deltalyr_kc19_cleansubset, get_kep1627_kepler_lightcurve,
     get_gaia_catalog_of_nearby_stars, get_clustermembers_cg18_subset,
     get_mutau_members, get_ScoOB2_members,
+    get_BPMG_members,
     supplement_gaia_stars_extinctions_corrected_photometry,
     get_clean_gaia_photometric_sources
 )
@@ -1640,6 +1641,38 @@ def plot_hr(
         ax.scatter(
             get_xval(_df), get_yval(_df), c='purple', alpha=1, zorder=10,
             s=s, rasterized=False, label='UCL', marker='o',
+            edgecolors='k', linewidths=0.1
+        )
+
+    if 'BPMG' in clusters:
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', f'BPMG_withreddening_{extinctionmethod}.csv'
+        )
+        if not os.path.exists(outpath):
+            _df = get_BPMG_members()
+            _gdf = given_source_ids_get_gaia_data(
+                nparr(_df['source_id']).astype(np.int64), 'BPMG_rudolf',
+                n_max=10000, overwrite=False,
+                enforce_all_sourceids_viable=True, savstr='', whichcolumns='*',
+                gaia_datarelease='gaiadr2'
+            )
+            assert len(_df) == len(_gdf)
+            del _df
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(
+                _gdf, extinctionmethod=extinctionmethod,
+                savpath=os.path.join(RESULTSDIR,'tables','BPMG_stilism.csv')
+            )
+            _df.to_csv(outpath, index=False)
+        _df = pd.read_csv(outpath)
+        if cleanhrcut:
+            _df = _df[get_clean_gaia_photometric_sources(_df)]
+        if reddening_corr:
+            print('BPMG')
+            print(_df['reddening[mag][stilism]'].describe())
+
+        ax.scatter(
+            get_xval(_df), get_yval(_df), c='yellow', alpha=1, zorder=11,
+            s=s, rasterized=False, label='BPMG', marker='o',
             edgecolors='k', linewidths=0.1
         )
 
