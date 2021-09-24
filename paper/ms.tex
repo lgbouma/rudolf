@@ -72,18 +72,24 @@
   spectroscopic lithium abundances that Kepler\,1627 is a member of
   the \clusterage\ old $\delta$~Lyr cluster.  To our knowledge,
   Kepler\,1627Ab is the youngest planet with a precise age yet found
-  by the main Kepler mission.  From unresolved starspot-crossing
-  events in the Kepler photometry and a Keck/HIRES transit we find
-  that the planet is likely on a prograde orbit.  The average Kepler
-  transit profile also appears asymmetric; our current best
-  explanation is that of a dusty atmospheric outflow being present,
-  but this remains to be confirmed.  Broadly speaking, the
-  $\delta$~Lyr cluster is one of many stellar groups whose properties
-  have been clarified using Gaia; many other exoplanet hosts belong to
-  these new clusters.  Verifying the results of Gaia clustering
-  analyses using TESS rotation periods offers a promising path toward
-  expanding the census of age-dated planets, and our corresponding
-  understanding of planetary evolution.
+  by the main Kepler mission.  The Kepler data show two notable
+  anomalies.  First, after removal of the stellar variability, the
+  average Kepler transit profile appears to be asymmetric.  One
+  possible explanation is that a dusty atmospheric outflow is present,
+  but this remains to be confirmed.  Second, the individual transits
+  show a correlation between the transit time and the local slope of
+  the light curve.  Interpreted in a framework in which unresolved
+  starspot-crossing events cause the transit timing variations, this
+  suggests that the planet is on a prograde orbit.  We present
+  Keck/HIRES observations that are consistent with the latter point, though
+  the data do not have the precision necessary to claim a detection of the
+  spectroscopic transit.  More broadly, the $\delta$~Lyr cluster
+  is one of many stellar groups whose properties have been clarified
+  using Gaia; many other exoplanet hosts belong to these new clusters.
+  Verifying the results of Gaia clustering analyses using TESS
+  rotation periods offers a promising path toward expanding the census
+  of age-dated planets, and our corresponding understanding of
+  planetary evolution.
 \end{abstract}
 
 \keywords{
@@ -148,24 +154,25 @@ As part of our Cluster Difference Imaging Photometric Survey (CDIPS,
 from the literature, which yielded a list of candidate young and
 age-dated stars (see Appendix~\ref{app:targetlist}).
 
-\begin{figure}[t]
+\begin{figure*}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.5\textwidth]{f2.pdf}
+		\includegraphics[width=0.8\textwidth]{f2.pdf}
 	\end{center}
-	\vspace{-0.6cm}
+	\vspace{-0.7cm}
 	\caption{
 		{\bf Kepler and TESS views of the $\delta$~Lyr cluster.} Colored
 		points are kinematically selected candidate $\delta$\,Lyr cluster
 		members.  Both Kepler (gray panels) and TESS observed portions of
-		the cluster.  Naked-eye stars ($m_{\rm V}<6.5$) are shown in gray;
+		the cluster.  Stars visible by eye ($m_{\rm V}<6.5$) are shown in gray;
 		Deneb, Vega, and $\delta$~Lyr are orange.  Kepler\,1627 (green star) was observed during the
-		entirety of the Kepler mission.  Colors of candidate cluster
-		members indicate the duration of TESS observations to date, in
-		units of lunar months.
+		entirety of the Kepler mission, and to date has been observed for
+		two lunar months by TESS.%.  Colors of candidate cluster
+		%members indicate the duration of TESS observations to date, in
+		%units of lunar months.
 		\label{fig:skychart}
 	}
-\end{figure}
+\end{figure*}
 
 Matching our young star list against stars observed by Kepler yielded
 two discoveries.  The first, to be discussed in an upcoming analysis
@@ -206,7 +213,7 @@ planets (Section~\ref{sec:conc}).
 			\includegraphics[width=0.469\textwidth]{f15b.pdf}
 		}
 
-		\vspace{-0.5cm}
+		\vspace{-0.6cm}
 		\subfloat{
 			\includegraphics[width=0.7\textwidth]{f15c.pdf}
 		}
@@ -416,7 +423,8 @@ analysis of 1{,}301 Kepler spectra.
 		\subfloat{
 			\includegraphics[width=\textwidth]{f4.pdf}
 		}
-	
+
+		\vspace{-0.2cm}	
 		\subfloat{
 			\includegraphics[width=0.5\textwidth]{f5a.pdf}
 			\includegraphics[width=0.5\textwidth]{f5b.pdf}
@@ -1163,6 +1171,29 @@ periods than possible for single stars
 	}
 \end{figure}
 
+\begin{figure}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=\textwidth]{f19.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+    {\bf Transit models and residuals, binned by local slope of the
+    raw light curve}.  Local linear slopes are measured over each
+    transit window (144 transits total).  Four outlier transits were
+    removed, leaving 140 transits.  These were then divided into
+    quartiles, so that each panel shows 35 transits binned together.
+    The exact light curve slopes are listed in the lower left panels.
+    Representative uncertainties for the black points (binned at 20
+    minute intervals) are shown in the lower right of each panel.  A
+    similar transit asymmetry to that shown in Figure~\ref{fig:lc}
+    seems to be present in three of the four bins.
+		\label{fig:phaseslope}
+	}
+\end{figure}
+
+
+
 We fitted the Kepler long cadence time series with a model that
 simultaneously included the planetary transit and the stellar
 variability.  The stellar variability was modelled with the
@@ -1206,16 +1237,22 @@ window and locally fitted out polynomial trends, and then binned all
 the observed transits; the asymmetry was still present, at a
 comparable amplitude.
 
-Figures~\ref{fig:phasequarter} and~\ref{fig:phaseyear} show the Kepler
-data binned over quarters and years.  In
-Figure~\ref{fig:phasequarter}, Quarter 6 shows the strongest asymmetry
-out of the quarters: a deviation of about 3\,ppt from expectation.
+As a means of exploring the robustness of the asymmetry,
+Figures~\ref{fig:phasequarter},~\ref{fig:phaseyear},
+and~\ref{fig:phaseslope} show the Kepler data binned in three ways:
+over quarters, years, and local slope quartiles.  Over quarters
+(Figure~\ref{fig:phasequarter}), Quarter 6 shows the strongest asymmetry
+out of any quarter: a deviation of about 3\,ppt from expectation.
 Quarter 7 shows an anomaly at roughly the same transit phase.  Year 2
 correspondingly shows the strongest anomaly out of any year in
 Figure~\ref{fig:phaseyear}; the asymmetry is visually apparent however
 in each of Years 2, 3, and 4.
+Binned by local slope quartiles (Figure~\ref{fig:phaseslope}), the
+asymmetry is visually present in three of the four quartiles: the only
+bin for which it appears to not be present is ${\rm d}f/{\rm
+d}t\in[0.001,0.033]\,{\rm ppt\,day}^{-1}$.
 
-We therefore considered four possible explanations for the anomaly:
+We considered four possible interpretations of the transit asymmetry:
 gravity darkening, transit timing variations, spot-crossing events,
 and a persistent asymmetric dusty outflow.  
 
@@ -1242,10 +1279,16 @@ light curve slope, which on average increases as much as it decreases.
 From our analysis, the mean TTV and its standard deviation are
 $0.00\pm12.05$ minutes; similarly the mean local slope and its
 standard deviation are $0.49\pm44.49$\,ppt\,day$^{-1}$.  There is
-therefore no expectation for TTVs to produce the asymmetry.
+therefore no expectation for TTVs to produce the asymmetry.  A
+separate line of argument comes from Figure~\ref{fig:phaseslope}.  If
+the local slope were essential to producing the transit asymmetry, we
+would expect that in the largest ${\rm d}f/{\rm d}t$ bin, ${\rm
+d}f/{\rm d}t\in[0.033,0.092]\,{\rm ppt\,day}^{-1}$, the sign of the
+asymmetry would reverse.  We do not see evidence for that being the
+case.
 
-The third possibility is that of starspot crossings.  Young stars 
-have higher spot-covering fractions than old stars ({\it
+The third and related possibility is that of starspot crossings.
+Young stars have higher spot-covering fractions than old stars ({\it
 e.g.}, \citealt{morris_relationship_2020}).  Young solar-type stars
 may also host dark starspots at high stellar latitudes \citep[{\it
 e.g.}, EK~Dra;][]{strassmeier_starspots_2009}, though interferometric
@@ -1268,8 +1311,7 @@ resemble the observed amplitude of the asymmetry ($\approx 50\,{\rm
 ppm}$).  We ultimately disfavor it though, because {\it a)} it seems
 implausible that the starspot crossings could add coherently, and {\it
 b)} there is no reason to expect starspot crossing events to last
-exactly half the transit
-duration.
+exactly half the transit duration.
 
 A persistent feature of the planet itself might therefore be needed to
 explain the transit asymmetry.  An asymmetric outflow from the

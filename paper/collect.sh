@@ -21,6 +21,7 @@ cp /Users/luke/Dropbox/proj/rudolf/results/flares/flare_pair_separation_histogra
 
 cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_phasedsubsets_quarterchunk.pdf f9.pdf
 cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_phasedsubsets_yearchunk.pdf f10.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/phasedlc_slope_quartiles/Kepler_1627_RotGPtransit_phasedlc_slope_quartiles.pdf f19.pdf
 
 cp /Users/luke/Dropbox/proj/rudolf/results/ttv_vs_local_slope/ttv_vs_local_slope.pdf f11.pdf
 
