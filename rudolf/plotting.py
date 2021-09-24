@@ -1312,9 +1312,6 @@ def plot_ttv_vs_local_slope(outdir):
 
     ttv_mean, ttv_std = np.mean(ttv), np.std(ttv)
 
-    import IPython; IPython.embed()
-    assert 0
-
     ttv_cut = 0.02 # doesn't mean match
 
     z1 = np.poly1d(
@@ -1384,7 +1381,7 @@ def plot_ttv_vs_local_slope(outdir):
 
 
     ax.set_ylim([-0.03*24*60,0.03*24*60])
-    ax.set_xlim([-0.15*XMULT,0.15*XMULT])
+    ax.set_xlim([-0.149*XMULT,0.149*XMULT])
 
     ax.legend(fontsize='x-small')
 
