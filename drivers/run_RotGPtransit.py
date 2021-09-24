@@ -97,25 +97,20 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
 
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
-        ylimd = {'A':[-3.5, 2.5], 'B':[-0.2,0.2]}
+        ylimd = {'A':[-3.5, 2.5], 'B':[-0.19,0.19]}
         bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
                                    from_trace=True, ylimd=ylimd,
                                    map_estimate=m.map_estimate,
-                                   do_hacky_reprerror=True)
+                                   do_hacky_reprerror=True,
+                                   rebinthemodel=False, binsize_minutes=20)
         outpath = join(PLOTDIR,
                        f'{starid}_{modelid}_posterior_phaseplot_fullxlim.png')
-        ylimd = {'A':[-3.5, 2.5], 'B':[-0.2,0.2]}
+        ylimd = {'A':[-3.5, 2.5], 'B':[-0.19,0.19]}
         bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
                                    from_trace=True, ylimd=ylimd,
                                    map_estimate=m.map_estimate, fullxlim=True,
-                                   BINMS=0.5, do_hacky_reprerror=True)
-        assert 0
-
-    if posttable:
-        outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')
-        make_posterior_table(pklpath, priordict, outpath, modelid, makepdf=1,
-                             var_names=var_names)
-        assert 0
+                                   BINMS=0.5, do_hacky_reprerror=True,
+                                   rebinthemodel=False, binsize_minutes=20)
 
     if phasedsubsets:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_phasedsubsets_yearchunk.png')
@@ -125,7 +120,7 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
         bp.plot_phased_subsets(
             datasets, m.trace.posterior, outpath, timesubsets, from_trace=True,
             map_estimate=m.map_estimate, yoffsetNsigma=5, ylimd=ylimd,
-            inch_per_subset=0.75
+            inch_per_subset=0.75, binsize_minutes=20
         )
 
         timepath = os.path.join(
@@ -139,8 +134,13 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
         bp.plot_phased_subsets(
             datasets, m.trace.posterior, outpath, timesubsets, from_trace=True,
             map_estimate=m.map_estimate, yoffsetNsigma=3.5, ylimd=ylimd,
-            inch_per_subset=0.35
+            inch_per_subset=0.35, binsize_minutes=20
         )
+
+    if posttable:
+        outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')
+        make_posterior_table(pklpath, priordict, outpath, modelid, makepdf=1,
+                             var_names=var_names)
 
     if cornerplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_cornerplot.png')
