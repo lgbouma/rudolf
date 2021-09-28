@@ -31,21 +31,21 @@ def plot_zorro_speckle():
 
     for d,l,c in zip(datapaths, labels, colors):
         df = pd.read_csv(d)
-        sel = df.sep>0.15
+        #sel = df.sep>0.15
         ax.plot(
-            df[sel].sep, df[sel].deltamag, color=c, label=l
+            df.sep, df.deltamag, color=c, label=l
         )
-        ax.plot(
-            df[~sel].sep, df[~sel].deltamag, color=c, ls=':'
-        )
+        #ax.plot(
+        #    df[~sel].sep, df[~sel].deltamag, color=c, ls=':'
+        #)
 
     xf = np.linspace(0,0.15,100)
     ylim = ax.get_ylim()
 
-    ax.fill_between(xf, min(ylim),
-                    max(ylim), alpha=0.3,
-                    color='gray', lw=0,
-                    label=r'Diffraction limit',zorder=-10)
+    #ax.fill_between(xf, min(ylim),
+    #                max(ylim), alpha=0.3,
+    #                color='gray', lw=0,
+    #                label=r'Diffraction limit',zorder=-10)
     ax.set_ylim(ylim[::-1])
 
 

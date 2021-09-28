@@ -341,16 +341,17 @@ def plot_simulated_RM(outdir, orientation, N_mcmc=10000):
 
 
 def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
-                  shownakedeye=0, showcomovers=0):
+                  shownakedeye=0, showcomovers=0, showkepstars=0):
 
     set_style()
 
     df_dr2, df_edr3, trgt_df = get_deltalyr_kc19_gaia_data()
     if showcomovers:
-        df_edr3 = get_deltalyr_kc19_comovers()
+        df_edr3 = get_deltalyr_kc19_cleansubset()
+        #df_edr3 = get_deltalyr_kc19_comovers()
 
     plt.close('all')
-    f, ax = plt.subplots(figsize=(4,3), constrained_layout=True)
+    f, ax = plt.subplots(figsize=(3,2.5), constrained_layout=True)
 
     xkey, ykey = 'ra', 'dec'
     get_yval = (
@@ -367,14 +368,27 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
     if not showtess:
         ax.scatter(
             get_xval(df_edr3), get_yval(df_edr3), c='k', alpha=0.9,
-            zorder=4, s=5, rasterized=True, linewidths=0,
-            label='$\delta$ Lyr Comovers', marker='.'
+            zorder=4, s=8, rasterized=True, linewidths=0,
+            label='$\delta$ Lyr candidates', marker='.'
         )
         ax.plot(
             get_xval(trgt_df), get_yval(trgt_df), alpha=1, mew=0.5,
             zorder=8, label='Kepler 1627', markerfacecolor='yellow',
-            markersize=10, marker='*', color='black', lw=0
+            markersize=15, marker='*', color='black', lw=0
         )
+    if showkepstars:
+        _df = pd.read_csv('/Users/luke/Dropbox/proj/cdips_followup/results/KNOWNPLANET_YOUNGSTAR_XMATCH/20210916_kepgaiafun_X_cdips0pt6/20210916_kepgaiafun_X_cdipsv0pt6_short.csv')
+        sel = ~pd.isnull(_df.cluster)
+        _sdf = _df[sel]
+        sel = (_sdf.cluster.str.contains('Stephenson'))
+        _sdf0 = _sdf[sel]
+        sel = (df_edr3.source_id.astype(str).isin(_sdf0.source_id.astype(str)))
+        ax.scatter(
+            get_xval(df_edr3[sel]), get_yval(df_edr3[sel]), c='yellow', alpha=1,
+            zorder=5, s=4, rasterized=True, linewidths=0.1,
+            label='... with Kepler data', marker='o', edgecolors='k'
+        )
+        print(f'N comovers with Kepler data: {len(df_edr3[sel])}')
 
     if showkepler:
         kep_d = get_keplerfieldfootprint_dict()
@@ -498,8 +512,9 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
         xmin,xmax = np.max(x)+1, np.min(x)-1
         ymin,ymax = np.min(y)-1, np.max(y)+1
         ax.set_xlim([xmin,xmax])
+        ax.set_xlim([304,274])
         ax.set_ylim([np.min([ymin,8]),ymax])
-        ax.set_ylim([15,55])
+        ax.set_ylim([26,49])
 
 
     if shownakedeye:
@@ -566,7 +581,7 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
             )
 
     if not showtess:
-        leg = ax.legend(loc='upper left', handletextpad=0.1,
+        leg = ax.legend(loc='lower left', handletextpad=0.1,
                         fontsize='x-small', framealpha=0.9)
 
     ax.set_xlabel(r'$\alpha$ [deg]', fontsize='large')
@@ -577,6 +592,8 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
         s += '_narrowlims'
     if showkepler:
         s += '_showkepler'
+    if showkepstars:
+        s += '_showkepstars'
     if showtess:
         s += '_showtess'
     if shownakedeye:
@@ -690,7 +707,7 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
             axd[k].plot(
                 trgt_df[xv], trgt_df[yv], alpha=1, mew=0.5,
                 zorder=42, label='Kepler 1627', markerfacecolor='yellow',
-                markersize=7, marker='*', color='black', lw=0
+                markersize=14, marker='*', color='black', lw=0
             )
 
         if show_sun and '_pc' in xv:
@@ -1596,9 +1613,9 @@ def plot_hr(
         )
     )
 
-    s = 2
+    s = 4
     if smalllims:
-        s = 4
+        s = 6.5
 
     # mixed rasterizing along layers b/c we keep the loading times nice
     l0 = '$\delta$ Lyr candidates'

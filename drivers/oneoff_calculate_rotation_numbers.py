@@ -19,6 +19,7 @@ csvpath = os.path.join(
     RESULTSDIR, 'tables', 'deltalyr_kc19_cleansubset_withreddening.csv'
 )
 kinematic_df = pd.read_csv(csvpath)
+N_kin = len(kinematic_df)
 
 mdf0 = curtis_df.merge(base_df, how='inner', left_on='Gaia_DR2_Source',
                       right_on='dr2_source_id')
@@ -50,6 +51,15 @@ print(f'N_Glt17_bpmrp0gt0p5: {N}')
 print('How many stars have finite rotation periods?')
 N_finite_Prot = len(base_df[base_df.period > 0])
 print(f'N_finite_Prot: {N_finite_Prot}')
+
+print('How many kinematically selected stars were there?')
+print(f'N_kin: {N_kin}')
+
+print('How many kinematically selected stars were there after cleaning Gaia photometric sources?')
+print(f'N_kin: {len(kinematic_df)}')
+
+print('How many kinematically selected stars have Kepler rotation periods?')
+print(f'N_kin_w_kepler: {len(mdf[~pd.isnull(mdf.Prot_Kepler_y)])}')
 
 print('How many kinematically selected stars have TESS data?')
 N_kin_with_tess_data = len(mdf[mdf['TESS_Data_x']=='Yes'])

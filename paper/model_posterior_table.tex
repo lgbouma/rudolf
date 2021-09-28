@@ -48,7 +48,7 @@ $f$ & -- & $\mathcal{U}(0.010; 1.000)$ & 0.01 & 0.01 & 0.0 & 0.01 & 0.01 & 5097 
 $R_{\rm p}/R_\star$ & -- & -- & 0.035 & 0.035 & 0.001 & 0.032 & 0.037 & 2217 & 0.001 \\
 $\rho_\star$ & g$\ $cm$^{-3}$ & -- & 1.984 & 2.001 & 0.236 & 1.573 & 2.45 & 7248 & 0.0 \\
 $R_{\rm p}$ & $R_{\mathrm{Jup}}$ & -- & 0.297 & 0.298 & 0.016 & 0.269 & 0.33 & 3047 & 0.001 \\
-$R_{\rm p}$ & $R_{\mathrm{Earth}}$ & -- & 3.329 & 3.34 & 0.179 & 3.015 & 3.699 & 3047 & 0.001 \\
+$R_{\rm p}^{(3)}$ & $R_{\mathrm{Earth}}$ & -- & 3.329 & 3.34 & 0.179 & 3.015 & 3.699 & 3047 & 0.001 \\
 $a/R_\star$ & -- & -- & 17.589 & 17.611 & 0.691 & 16.28 & 18.87 & 7247 & 0.0 \\
 $\cos i$ & -- & -- & 0.027 & 0.025 & 0.01 & 0.003 & 0.039 & 1435 & 0.002 \\
 $T_{14}$ & hr & -- & 2.825 & 2.826 & 0.057 & 2.717 & 2.927 & 4099 & 0.001 \\
@@ -58,13 +58,18 @@ $T_{13}$ & hr & -- & 2.575 & 2.562 & 0.086 & 2.415 & 2.71 & 2190 & -0.0 \\
 \tablecomments{
   ESS refers to the number of effective samples.
   $\hat{R}$ is the Gelman-Rubin convergence diagnostic.
-  Logarithms through this table are in base-$e$.
+  Logarithms in this table are in base-$e$.
   $\mathcal{U}$ denotes a uniform distribution,
   $\mathcal{N}$ a normal distribution, and
   $\mathcal{T}$ a truncated normal bounded between zero and an upper limit much larger than the mean.
   (1) The ephemeris is in units of BJDTDB - 2454833.
   (2) The eccentricity vectors are sampled in the $(e\cos\omega,
   e\sin\omega)$ basis.
+  (3) The true planet size is a factor of $((F_1+F_2)/F_1)^{1/2}$
+  larger than that reported here because of dilution from Kepler
+  1627B, for $F_1$ the flux from the primary, and $F_2$ that from the
+  secondary; the value of $R_{\rm p}=3.4\pm0.2$ quoted in the text
+  accounts for this, assuming $(F_1+F_2)/F_1\approx 1.01$.
 %
 % (2) Uninformative quadratic limb-darkening prior from \citet{exoplanet:kipping13}, implemented by \citet{exoplanet:exoplanet}.
 % The precision achieved in the ground-based data did not appear to

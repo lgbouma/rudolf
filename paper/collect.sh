@@ -1,4 +1,4 @@
-cp /Users/luke/Dropbox/proj/rudolf/results/skychart/skychart_showkepler_showtess_shownakedeye_showcomovers.pdf f1.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/skychart/skychart_showkepler_showcomovers.pdf f1.pdf
 
 cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_IC_2602_Pleiades_cleanhrcut_gaia2018_overplotkep1627.pdf f2a.pdf
 cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_IC_2602_Pleiades_cleanhrcut_gaia2018_smalllims_overplotkep1627.pdf f2b.pdf
@@ -23,21 +23,21 @@ cp /Users/luke/Dropbox/proj/rudolf/results/keplerlc/*.pdf FigureSetKeplerLC/.
 
 cp /Users/luke/Dropbox/proj/rudolf/results/XYZvtang/XYZvtang_show1627_showcomovers_showsun.pdf f6.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/rotation/deltaLyrCluster_rotation_vs_BpmRp_emphbinaries_talkaspect_kinematicspatialselected_linear_curtiscleaning.pdf f7.pdf
+# cp /Users/luke/Dropbox/proj/rudolf/results/rotation/deltaLyrCluster_rotation_vs_BpmRp_emphbinaries_talkaspect_kinematicspatialselected_linear_curtiscleaning.pdf f7.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_phasedsubsets_quarterchunk.pdf f8.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_phasedsubsets_quarterchunk.pdf f7.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_phasedsubsets_yearchunk.pdf f9.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_phasedsubsets_yearchunk.pdf f8.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/phasedlc_slope_quartiles/Kepler_1627_RotGPtransit_phasedlc_slope_quartiles.pdf f10.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/phasedlc_slope_quartiles/Kepler_1627_RotGPtransit_phasedlc_slope_quartiles.pdf f9.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/imaging/imaging_summary.pdf f11a.pdf
-cp /Users/luke/Dropbox/proj/rudolf/results/gaia_ruwe_vs_apparentmag/ruwe_vs_apparentmag.pdf f11b.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/imaging/imaging_summary.pdf f10a.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/gaia_ruwe_vs_apparentmag/ruwe_vs_apparentmag.pdf f10b.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/rvactivitypanel/rvactivitypanel.pdf f12.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/rvactivitypanel/rvactivitypanel.pdf f11.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/flares/flarezoom_itergp.pdf f13.pdf
-cp /Users/luke/Dropbox/proj/rudolf/results/flares/flare_pair_separation_histogram_poisson_real_and_1000sample_average.pdf f14.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/flares/flarezoom_itergp.pdf f12.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/flares/flare_pair_separation_histogram_poisson_real_and_1000sample_average.pdf f13.pdf
 
 ##########
 

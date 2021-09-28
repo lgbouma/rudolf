@@ -64,9 +64,8 @@
 
 % 208 words (250 max)
 \begin{abstract}
-  % VERSION A
   Kepler\,1627A is a G8V star previously known to host a
-  $3.3\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  The star was
+  $3.4\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  The star was
   observed by the Kepler space telescope because it is nearby
   ($d=329\pm3\,{\rm pc}$) and it resembles the Sun.  Here we show
   using Gaia kinematics, TESS stellar rotation periods, and
@@ -86,39 +85,10 @@
   rotation periods offers a promising path toward expanding the census
   of age-dated planets, and our corresponding understanding of
   planetary evolution.
-  %
-  % % VERSION B
-  % Kepler\,1627A is a G8V star previously known to host a
-  % $3.3\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  The star was
-  % observed by the Kepler space telescope because it is nearby
-  % ($d=329\pm3\,{\rm pc}$) and it resembles the Sun.  Here we show
-  % using Gaia kinematics, TESS stellar rotation periods, and
-  % spectroscopic lithium abundances that Kepler\,1627 is a member of
-  % the \clusterage\ old $\delta$~Lyr cluster.  To our knowledge,
-  % Kepler\,1627Ab is the youngest planet with a precise age yet found
-  % by the main Kepler mission.  The Kepler data show two notable
-  % anomalies.  First, after removal of the stellar variability, the
-  % average Kepler transit profile appears to be asymmetric.  One
-  % possible explanation is that a dusty atmospheric outflow is present,
-  % but this remains to be confirmed.  Second, the individual transits
-  % show a correlation between the transit time and the local slope of
-  % the light curve.  Interpreted in a framework in which unresolved
-  % starspot-crossing events cause the transit timing variations, this
-  % suggests that the planet is on a prograde orbit.  We present
-  % Keck/HIRES observations that are consistent with the latter point, though
-  % the data do not have the precision necessary to claim a detection of the
-  % spectroscopic transit.  More broadly, the $\delta$~Lyr cluster
-  % is one of many stellar groups whose properties have been clarified
-  % using Gaia; many other exoplanet hosts belong to these new clusters.
-  % Verifying the results of Gaia clustering analyses using TESS
-  % rotation periods offers a promising path toward expanding the census
-  % of age-dated planets, and our corresponding understanding of
-  % planetary evolution.
 \end{abstract}
 
 \keywords{
   exoplanet evolution (491),
-  %stellar associations (1582),
   open star clusters (1160),
 	stellar ages (1581)
 }
@@ -170,7 +140,7 @@ analyses suggest that younger Kepler planets do exist
 \citep{berger_identifying_2018,david_sizes_2021}, accurate and precise
 age measurements typically require an ensemble of stars.  Fortunately,
 recent analyses of the Gaia
-data have since expanded our knowledge of cluster memberships
+data have greatly expanded our knowledge of cluster memberships
 \citep[{\it
 e.g.},][]{cantatgaudin_gaia_2018,zari_3d_2018,kounkel_untangling_2019,Meingast2021,Kerr2021}.
 As part of our Cluster Difference Imaging Photometric Survey (CDIPS,
@@ -178,25 +148,22 @@ As part of our Cluster Difference Imaging Photometric Survey (CDIPS,
 from the literature, which yielded a list of candidate young and
 age-dated stars (see Appendix~\ref{app:targetlist}).
 
-\begin{figure*}[t]
+\begin{figure}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.8\textwidth]{f1.pdf}
+		\includegraphics[width=0.49\textwidth]{f1.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-		{\bf Kepler and TESS views of the $\delta$~Lyr cluster.} Colored
-		points are kinematically selected candidate $\delta$\,Lyr cluster
-		members.  Both Kepler (gray panels) and TESS observed portions of
-		the cluster.  Stars visible by eye ($m_{\rm V}<6.5$) are shown in gray;
-		Deneb, Vega, and $\delta$~Lyr are orange.  Kepler\,1627 (green star) was observed during the
-		entirety of the Kepler mission, and to date has been observed for
-		two lunar months by TESS.%.  Colors of candidate cluster
-		%members indicate the duration of TESS observations to date, in
-		%units of lunar months.
+    {\bf Kepler's view of the $\delta$~Lyr cluster.} Each black circle is a
+    candidate cluster member, selected from the catalog of \citet{KounkelCovey2019} based on its
+    position and kinematics (see Appendix~\ref{app:kinematicselection}).
+    Of the \nkinematic\ candidate cluster members, 58 have at least one
+    quarter of Kepler data.  TESS has also observed most of the
+    cluster, for one to two lunar months to date.
 		\label{fig:skychart}
 	}
-\end{figure*}
+\end{figure}
 
 Matching our young star list against stars observed by Kepler yielded
 two discoveries.  The first, to be discussed in an upcoming analysis
@@ -219,11 +186,11 @@ closely (Section~\ref{sec:cluster}).  We find that the $\delta$ Lyr
 cluster is \clusterage\ old, and that \sn\ is indeed a member of the
 cluster.  Focusing on the planet itself, we confirm that despite the
 presence of a previously unreported binary companion, hereafter
-Kepler\,1627B, the planet orbits the G-dwarf primary on an orbit that
-is likely prograde
-(Section~\ref{sec:planet}).  We conclude by highlighting broader
-implications for our ability to age-date a statistical sample of
-planets (Section~\ref{sec:conc}).
+Kepler\,1627B, the planet orbits the G-dwarf primary, Kepler\,1627A (Section~\ref{sec:planet}).
+Based on a correlation between the planetary transit times and the local
+light curve slope, the orbit also seems to be prograde.  We
+conclude by highlighting broader implications for our ability to
+age-date a larger sample of planets (Section~\ref{sec:conc}).
 
 
 \section{The Cluster}
@@ -281,7 +248,7 @@ precision requirement to $\varpi/\sigma_\varpi>5$.  These filters were
 designed to include genuine binaries while omitting instrumental
 artifacts.  We then corrected for extinction by querying the
 3-dimensional maps of \citet{capitanio_threedimensional_2017} and
-\citet{lallement_threedimensional_2018}\footnote{\url{https://stilism.obspm.fr/}},
+\citet{lallement_threedimensional_2018}\footnote{\url{https://stilism.obspm.fr/}, 2021/09/25},
 and then applied the extinction coefficients $k_X\equiv A_X/A_0$
 computed by \citet{GaiaCollaboration2018} and assumed that $A_0 = 3.1
 E(B-V)$.  For IC\,2602, the Pleiades, and the \cn, this procedure
@@ -352,9 +319,9 @@ best agreement for this $\approx 38\,$Myr age as well, given ${\rm
 [Fe/H] = +0.1}$ and $A_V=0.2$
 \citep{bressan_parsec_2012,choi_mesa_2016};  this preferred CAMD
 reddening is higher than the \citet{lallement_threedimensional_2018}
-value by a factor of two.  } While detailed analyses of the LDB or
-main-sequence turn-off in the \cn\ could help resolve the tension
-between the LDB and isochrone ages, these are beyond our scope.
+value by a factor of two.  } Follow-up studies of the LDB or
+main-sequence turn-off in the \cn\ could help determine a more precise
+and accurate age for the cluster, however these are beyond our scope.
 
 
 
@@ -362,9 +329,9 @@ between the LDB and isochrone ages, these are beyond our scope.
 
 Of the \noriginal\ candidate \cn\ members reported by
 \citet{kounkel_untangling_2019}, \nwithtess\ stars were amenable to
-rotation period measurements ($G<17$ and $\bpmrpo>0.5$) and had TESS
-data available.\footnote{Kepler rotation periods were derived by
-\citet{mcquillan_rotation_2014} for 56 stars; in these cases, we
+rotation period measurements ($G<17$ and $\bpmrpo>0.5$) using the TESS
+full frame image data.\footnote{Kepler rotation periods were derived
+by \citet{mcquillan_rotation_2014} for 28 stars; for these cases, we
 adopted the Kepler rotation period.  } We extracted light curves from
 the TESS images using the nearest pixel to each star, and regressed
 them against systematics with the causal pixel model implemented in
@@ -399,13 +366,21 @@ rotation period detection fraction would be
 $\nrotgood/\nkinwithtessandcrowding \approx \nfracprot\%$.  The
 rotation period distributions of other 30\,Myr to 50\,Myr clusters
 ({\it e.g.}, IC\,2602 and IC\,2391) are indistinguishable
-\citep{douglas_stephanie_t_2021_5131306}.  Binarity is known to be an
-important factor in the density of stars falling underneath the slow
-sequence
-\citep{meibom_effect_2007,gillen_ngts_2020,bouma_2021_ngc2516}.
-Appendix~\ref{app:rotationbinarity} discusses this topic, and finds
-evidence for similar effects to those previously noted in the
-literature.
+\citep{douglas_stephanie_t_2021_5131306}.  While binarity is known to
+affect the density of stars that fall beneath the slow sequence
+\citep{meibom_effect_2007,gillen_ngts_2020,bouma_2021_ngc2516}, it is
+not expected to change the central conclusion regarding the cluster's
+age.
+%%VERSION1
+%Based on an analysis of photometric binaries and stars with high RUWE,
+%we found evidence for similar effects to those previously noted in the
+%literature.  However, since the purpose of our rotation period
+%analysis is to determine the age of the \cn, we do not dwell on this
+%topic.
+% %VERSION0
+% Appendix~\ref{app:rotationbinarity} discusses this topic, and finds
+% evidence for similar effects to those previously noted in the
+% literature.
 
 \subsection{Age of Kepler\,1627}
 
@@ -415,7 +390,7 @@ hinges on the age adopted for IC\,2602, since it is the closest
 reference cluster in the color-absolute magnitude diagram.
 Gyrochronologically, while most of the FGK dwarfs in the \cn\ have not
 yet converged to a slow sequence, their rotation periods are generally
-consistent with a 38\,Myr age. The most precise age for \sn\ and its
+consistent with a $\approx40$\,Myr age. The most precise age for \sn\ and its
 planet are therefore identical to the cluster, based on the star's
 spatial and kinematic association with the cluster, and the assumption
 that the planet formed shortly after the star.
@@ -431,7 +406,7 @@ procedure described by \citet{bouma_2021_ngc2516}, we find ${\rm
 EW}_{\rm Li} = 233^{+5}_{-7}$\,m\AA.   %Note that this value does not
 %correct for the Fe\,\textsc{I} blend at 6707.44\AA. 
 Given the effective temperature of \sn\ (Table~\ref{tab:starparams}),
-this measurement is in agreement with expectations for a 38\,Myr star
+this measurement is in agreement with expectations for a $\approx40$\,Myr star
 ({\it e.g.}, as measured in IC~2602 by
 \citealt{randich_gaiaeso_2018}).  It is also larger than any
 lithium equivalent widths measured by \citet{berger_identifying_2018}
@@ -541,41 +516,47 @@ in their analysis of 1{,}301 Kepler-star spectra.
 % rotation period from plot_rotation_period_windowslider.py
 
 If the \pn\ transit signal is created by a genuine planet,  then to
-our knowledge its age would make it the youngest planet yet found by
-the main Kepler mission.\footnote{The re-purposed K2 mission however
-has found two younger systems containing five planets: K2-33b
-($9\pm1\,{\rm Myr}$; \citealt{Mann_K2_33b_2016,David_et_al_2017}) and
-V1298 Tau ($23\pm4\,{\rm Myr}$; \citealt{david_four_2019}).}  The
-light curve and the phase-folded transit are shown in
-Figure~\ref{fig:lc}.  The photometry is dominated by a quasi-periodic
-starspot signal with a peak-to-peak amplitude that varies between 2\%
-and 8\%.  The signal repeats every $2.642\pm0.042$\,days, where the
-quoted uncertainty is based on the scatter in rotation periods
-measured from each individual Kepler quarter.  Our model for the
-starspot signal is discussed in detail in
-Appendix~\ref{app:gptransit}, and the adopted stellar parameters are
-listed in Table~\ref{tab:starparams}.  The stellar mass, radius, and
-effective temperature are found by interpolating against a 38$\,$Myr
-MIST isochrone.  Their systematic uncertainties are taken to be the
-difference between the PARSEC and MIST isochrones, and the reported
-uncertainties are a quadrature sum of the statistical and systematic
-components.  The transit fitting results, given in
-Table~\ref{tab:posterior}, are broadly consistent with a mini-Neptune
-sized planet ($3.34\pm 0.18\,R_\oplus$) on a close-in
-circular\footnote{Our transit fitting yields $e<0.48$ at 2-$\sigma$;
-the constraints on the eccentricity are not particularly strong.}
-orbit around a G8V star
-($0.88 \pm 0.02 R_\odot$).
+our knowledge it would be the youngest planet yet found by the main
+Kepler mission.\footnote{The re-purposed K2 mission however has found
+two younger systems containing five planets: K2-33b ($9\pm1\,{\rm
+Myr}$; \citealt{Mann_K2_33b_2016,David_et_al_2017}) and V1298 Tau
+($23\pm4\,{\rm Myr}$; \citealt{david_four_2019}).}  The light curve
+and the phase-folded transit are shown in Figure~\ref{fig:lc}.  The
+photometry is dominated by a quasi-periodic starspot signal with a
+peak-to-peak amplitude that varies between 2\% and 8\%.  The signal
+repeats every $2.642\pm0.042$\,days, where the quoted uncertainty is
+based on the scatter in rotation periods measured from each individual
+Kepler quarter.  Our model for the starspot and transit signals is
+discussed in detail in Appendix~\ref{app:gptransit}, and the adopted
+stellar parameters are listed in Table~\ref{tab:starparams}.  The
+stellar mass, radius, and effective temperature are found by
+interpolating against a 38$\,$Myr MIST isochrone.  Their systematic
+uncertainties are taken to be the difference between the PARSEC and
+MIST isochrones, and the reported uncertainties are a quadrature sum
+of the statistical and systematic components.
 
-Could this transit signal be produced by anything other than a planet
+The transit fitting results, given in Table~\ref{tab:posterior}, are
+broadly consistent with a mini-Neptune sized planet ($3.4\pm
+0.2\,R_\oplus$) on a close-in circular\footnote{ Our transit fitting
+yields $e<0.48$ at 2-$\sigma$; the constraints on the eccentricity are
+not particularly strong.} orbit around a G8V host star ($0.88 \pm 0.02
+R_\odot$).  Our best-fit planet size is smaller than those
+previously reported by \citet{morton_false_2016} and
+\citet{berger_identifying_2018}, at 0.7-$\sigma$ and 1.2-$\sigma$
+confidence respectively.  The former is explained by differing
+assumptions about the stellar radius; the latter appears to be due to
+differences in the measured transit depth, which could be linked to
+the different methods used to remove the stellar rotation signal.
+
+Could the transit be produced by anything other than a planet
 orbiting this near-solar analog?  \citet{morton_false_2016} validated
 the planet based on the transit shape, arguing that the most probable
 false positive scenario was that of a background eclipsing binary,
 which had a model-dependent probability of $\approx10^{-5}$.  As we
 describe in Appendix~\ref{app:companionstar} however, Kepler\,1627A is
 accompanied by a low-mass stellar companion ($M_{\rm B}\approx
-0.33\,M_\odot$).  We therefore reassessed false positive
-scenarios in some detail. 
+0.33\,M_\odot$; $\rho\approx0\farcs16$).  We therefore reassessed
+false positive scenarios in some detail. 
 
 % Baraffe+15: M_B 0.33 Mdot
 % Rstar = 0.455 --> 0.465 Rsun
@@ -692,8 +673,8 @@ with precise ages include K2-33, DS~Tuc, HIP~67522,
 TOI~837, the two-planet AU~Mic system, and the four-planet V1298~Tau
 system
 \citep{Mann_K2_33b_2016,David_et_al_2017,newton_tess_2019,david_four_2019,bouma_cluster_2020,plavchan_planet_2020,martioli_aumicbc_2021}.
-\pn\ is one of the smallest planets in this sample ($3.34\pm
-0.18\,R_\oplus$), which could be linked to the selection effects
+\pn\ is one of the smallest planets in this sample ($3.4\pm
+0.2\,R_\oplus$), which could be linked to the selection effects
 imposed by the spot-induced photometric variability at very young ages
 \citep[{\it e.g.},][]{zhou_2021_tois}.  Assuming that these young
 planets have masses between $\approx$5$\,M_\oplus$ and 10$\,M_\oplus$,
@@ -969,10 +950,11 @@ opportunity to conduct observations from this mountain.
 \label{app:targetlist}
 
 
-The \texttt{v0.6} CDIPS target catalog (Table~\ref{tab:v06}) includes stars
-that are young, age-dated, and age-dateable.  By ``age-dateable'', we mean that
-the age should be measurable at greater precision than a typical FGK field star
-using isochronal, gyrochronal, or spectroscopic techniques.
+The \texttt{v0.6} CDIPS target catalog (Table~\ref{tab:v06}) includes
+stars that are young, age-dated, and age-dateable.  By
+``age-dateable'', we mean that the stellar age should be measurable at
+greater precision than that of a typical FGK field star, through
+either isochronal, gyrochronal, or spectroscopic techniques.
 As in
 \citet{bouma_cdipsI_2019}, we collected stars that met these criteria
 from across the literature.  Table~\ref{tab:metadata} gives a list of
@@ -985,16 +967,16 @@ In other studies however, the claim of youth is based on the location of a
 single star in the color-absolute magnitude diagram, or on spectroscopic
 information.
 
-One major change in Table~\ref{tab:v06} relative to the analogous
-table from \citet{bouma_cdipsI_2019} is that the extent of Gaia-based
+One major change in Table~\ref{tab:v06} relative to the earlier
+iteration from \citet{bouma_cdipsI_2019} is that the extent of Gaia-based
 analyses has now matured to the point that we can neglect pre-Gaia
 cluster memberships, except for a few cases with spectroscopically
 confirmed samples of age-dated stars.  The membership lists for
 instance of \citet{Kharchenko_et_al_2013} and \citet{dias_proper_2014}
 (MWSC and DAML) are no longer required.  This is helpful for various
-post-processing projects,  since the field-star contamination rates
-were typically much higher than analogous Gaia-based cluster membership
-catalogs.
+post-processing projects,  since the field star contamination rates
+were typically much higher in these catalogs than in the newer
+Gaia-based catalogs.
 
 The most crucial parameters of a given star for our purposes are the
 Gaia DR2 $\texttt{source\_id}$, the cluster or
@@ -1052,7 +1034,7 @@ were performed using $\texttt{pandas}$
 \citep{mckinney-proc-scipy-2010}.  The eventual cross-match (using the
 Gaia DR2 $\texttt{source\_id}$) against the Gaia DR2 archive was
 performed asychronously on the Gaia archive
-website\footnote{\url{https://gea.esac.esa.int/archive/}}.
+website.\footnote{\url{https://gea.esac.esa.int/archive/}}
 
 
 \section{Kinematic Selection of $\delta$\,Lyr Cluster Members}
@@ -1110,46 +1092,46 @@ cluster in the vicinity of Kepler\,1627, and to measure its age.  The
 procedure we have adopted enables both tasks.
 
 
-\section{Binarity and Stellar Rotation for $\delta$\,Lyr Cluster Members}
-\label{app:rotationbinarity}
-
-\begin{figure}[t]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=0.7\textwidth]{f7.pdf}
-	\end{center}
-	\vspace{-0.7cm}
-  \caption{ {\bf Binarity indicators for rotators in \cn.} 
-    Data are as in the lower panel of Figure~\ref{fig:age}.  Sources
-    with $\mathrm{RUWE}>1.2$ appear in red; these include astrometric binaries as well
-    as sources poorly fit by a single-star PSF.  Photometric binaries
-    ($>$0.3\,mag above an empirical isochrone; 20\% of stars) are
-    orange.  Over $0.6<\bpmrpo<1.5$, the detected rotation periods in
-    binaries tend to fall below the slow sequence.
-		\label{fig:binarity}
-	}
-\end{figure}
-
-Figure~\ref{fig:binarity} shows the rotation-color diagram for \cn\
-members, with the points colored according to indicators of binarity.
-The binaries tend to be redder and have shorter rotation periods.  We
-know of two possible explanations based on selection effects, and two
-based on physics.
-
-Possible selection effects include {\it i)} binaries have a component
-that contributes additional red light to the system, which could skew
-the color measurement of the primary; and {\it ii)} the unresolved
-binary companions could contaminate the rotation period measurement
-\citep[{\it e.g.},][Section~5.1]{stauffer_rotation_2016}.
-
-The two possible physical effects that could be relevant are tidal
-locking and pre-main-sequence disk locking.  Tidal locking has been
-argued to be an unlikely explanation for the frequency of rapid
-rotators due to the population statistics; a more likely scenario
-would be that the presence of the binary leads to faster disk
-dispersal, enabling the primary to contract to more rapid rotation
-periods than possible for single stars
-\citep{meibom_effect_2007,bouma_cluster_2020}.
+% \section{Binarity and Stellar Rotation for $\delta$\,Lyr Cluster Members}
+% \label{app:rotationbinarity}
+% 
+% \begin{figure}[t]
+% 	\begin{center}
+% 		\leavevmode
+% 		\includegraphics[width=0.7\textwidth]{f7.pdf}
+% 	\end{center}
+% 	\vspace{-0.7cm}
+%   \caption{ {\bf Binarity indicators for rotators in \cn.} 
+%     Data are as in the lower panel of Figure~\ref{fig:age}.  Sources
+%     with $\mathrm{RUWE}>1.2$ appear in red; these include astrometric binaries as well
+%     as sources poorly fit by a single-star PSF.  Photometric binaries
+%     ($>$0.3\,mag above an empirical isochrone; 20\% of stars) are
+%     orange.  Over $0.6<\bpmrpo<1.5$, the detected rotation periods in
+%     binaries tend to fall below the slow sequence.
+% 		\label{fig:binarity}
+% 	}
+% \end{figure}
+% 
+% Figure~\ref{fig:binarity} shows the rotation-color diagram for \cn\
+% members, with the points colored according to indicators of binarity.
+% The binaries tend to be redder and have shorter rotation periods.  We
+% know of two possible explanations based on selection effects, and two
+% based on physics.
+% 
+% Possible selection effects include {\it i)} binaries have a component
+% that contributes additional red light to the system, which could skew
+% the color measurement of the primary; and {\it ii)} the unresolved
+% binary companions could contaminate the rotation period measurement
+% \citep[{\it e.g.},][Section~5.1]{stauffer_rotation_2016}.
+% 
+% The two possible physical effects that could be relevant are tidal
+% locking and pre-main-sequence disk locking.  Tidal locking has been
+% argued to be an unlikely explanation for the frequency of rapid
+% rotators due to the population statistics; a more likely scenario
+% would be that the presence of the binary leads to faster disk
+% dispersal, enabling the primary to contract to more rapid rotation
+% periods than possible for single stars
+% \citep{meibom_effect_2007,bouma_cluster_2020}.
 
 
 
@@ -1159,7 +1141,7 @@ periods than possible for single stars
 \begin{figure}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.64\textwidth]{f8.pdf}
+		\includegraphics[width=0.64\textwidth]{f7.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -1180,7 +1162,7 @@ periods than possible for single stars
 \begin{figure}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.64\textwidth]{f9.pdf}
+		\includegraphics[width=0.64\textwidth]{f8.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -1198,7 +1180,7 @@ periods than possible for single stars
 \begin{figure}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=\textwidth]{f10.pdf}
+		\includegraphics[width=\textwidth]{f9.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -1254,12 +1236,21 @@ diagnostic \citep{gelman_inference_1992}.
 Figure~\ref{fig:lc} shows the resulting model in orange (top) and
 purple (bottom).  While the fit appears reasonably good, an asymmetry
 is present during the transit: the measured flux is systematically
-high during the first half, and low in the second half.  To determine
+high during the first half, and low in the second half.  
+To determine
 whether this effect was caused by our stellar variability model, we 
 explored an alternative approach in which we isolated each transit
 window and locally fitted out polynomial trends, and then binned all
 the observed transits; the asymmetry was still present, at a
 comparable amplitude.
+An important note is that even though this asymmetric feature is
+within the plotted 2-$\sigma$ model uncertainties, this is within a
+model that has a jitter term that grows to account for otherwise unmodelled 
+white noise in the flux.
+The significance of the asymmetry is therefore better assessed in
+comparison against the intrinsic out-of-transit scatter, rather than the
+model uncertainties.
+
 
 As a means of exploring the robustness of the asymmetry,
 Figures~\ref{fig:phasequarter},~\ref{fig:phaseyear},
@@ -1390,8 +1381,8 @@ the near-infrared.
 	\begin{center}
 		\leavevmode
 		\subfloat{
-			\includegraphics[width=0.49\textwidth]{f11a.pdf}
-			\includegraphics[width=0.48\textwidth]{f11b.pdf}
+			\includegraphics[width=0.49\textwidth]{f10a.pdf}
+			\includegraphics[width=0.48\textwidth]{f10b.pdf}
 		}
 	\end{center}
 	\vspace{-0.5cm}
@@ -1403,10 +1394,9 @@ the near-infrared.
     the stacked NIRC2 image (North is up, East is left, scale is set by the
     separation of the binary).  The lines show 5-$\sigma$ contrast
     limits for the `Alopeke filters, and 6-$\sigma$ contrast limits
-    for NIRC2.  Inside the diffraction limit (estimated as the gray
-    band), the detection limits are less reliable.  {\it Left:} Gaia
+    for NIRC2 outside of $0\farcs15$. {\it Right:} Gaia
     EDR3 renormalized unit weight error (RUWE) point estimates for
-    Kepler\,1627A and other members of the $\delta$\,Lyr cluster
+    Kepler\,1627A and all members of the $\delta$\,Lyr cluster
     reported by \citet{KounkelCovey2019}.  Since other members of the
     cluster with similar brightnesses have comparable degrees of
     photometric variability, the high RUWE suggests that Kepler\,1627
@@ -1464,21 +1454,22 @@ Figure~\ref{fig:kep1627binary} summarizes the results of the
 high-resolution imaging.  The Gaia EDR3 parallax for the primary
 implies a projected separation of $53 \pm 4$\,AU, assuming the
 companion is bound.  Although the companion is unresolved in the Gaia
-source catalog (there are no comoving, codistant candidate companions brighter than $G < 20.5$ mag
-within $\rho < 120\arcsec$), its existence was also suggested by the
-primary star's large RUWE, relative to other members of the \cn.
-Based on the apparent separation, the binary orbital period is of
-order hundreds of years.  The large RUWE is therefore more likely to
-be caused by a PSF-mismatch skewing the Gaia centroiding during
-successive scans, rather than true astrometric motion.  Regardless,
-given the large observed RUWE of the primary, and the low geometric
-probability that a companion imaged at $\rho \approx 0\farcs16$ is a
-chance line-of-sight companion, we proceed under the assumption that
-the companion is bound, and that Kepler\,1627 is a binary.  Given the
-distance and age, the models of \citet{baraffe_new_2015} imply a
-companion mass of $M_{\rm B} \approx 0.33 M_{\odot}$ and companion
-temperature of $T_{\rm eff,B} \approx 3450$ K.  The corresponding
-spectral type is roughly M2.5V \citep{pecaut_mamajek_2013}.
+source catalog (there are no comoving, codistant candidate companions
+brighter than $G < 20.5$ mag within $\rho < 120\arcsec$), its
+existence was also suggested by the primary star's large RUWE,
+relative to other members of the \cn.  Based on the apparent
+separation, the binary orbital period is of order hundreds of years.
+The large RUWE is therefore more likely to be caused by a PSF-mismatch
+skewing the Gaia centroiding during successive scans, rather than true
+astrometric motion.  Regardless, given the large observed RUWE of the
+primary, and the low geometric probability that a companion imaged at
+$\rho \approx 0\farcs16$ is a chance line-of-sight companion, we
+proceed under the assumption that the companion is bound, and that
+Kepler\,1627 is a binary.  Given the distance and age, the models of
+\citet{baraffe_new_2015} imply a companion mass of $M_{\rm B} \approx
+0.33 M_{\odot}$ and companion temperature of $T_{\rm eff,B} \approx
+3450$ K.  The corresponding spectral type is roughly M2.5V
+\citep{pecaut_mamajek_2013}.
 % \footnote{\url{http://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt}, version \texttt{2021/03/02}.}
 
 % (0.7-2.0\% V-band to G-band dmag difference from EEM table; NOTE
@@ -1504,7 +1495,6 @@ transit signal.  Two other arguments presented in the main text -- the
 inferred stellar density, and the TTV-local slope correlation --
 confirm this point.
 
-
 \section{Spectroscopic Transit Analysis}
 \label{app:rm}
 
@@ -1512,7 +1502,7 @@ confirm this point.
 	\begin{center}
 		\leavevmode
 		\subfloat{
-			\includegraphics[width=\textwidth]{f12.pdf}
+			\includegraphics[width=\textwidth]{f11.pdf}
 		}
 	\end{center}
 	\vspace{-0.5cm}
@@ -1670,7 +1660,7 @@ time, an exponential lag time, and an amplitude.
 \begin{figure*}[tp]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.9\textwidth]{f13.pdf}
+		\includegraphics[width=0.9\textwidth]{f12.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -1716,7 +1706,7 @@ time, an exponential lag time, and an amplitude.
 \begin{figure*}[tp]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.8\textwidth]{f14.pdf}
+		\includegraphics[width=0.8\textwidth]{f13.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{

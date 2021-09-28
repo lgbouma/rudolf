@@ -296,6 +296,7 @@ def get_deltalyr_kc19_comovers():
         )
 
     """
+    raise NotImplementedError('this is deprecated. use get_deltalyr_kc19_cleansubset.')
     csvpath = os.path.join(RESULTSDIR, 'tables',
                            'stephenson1_edr3_XYZvtang_candcomovers.csv')
 
