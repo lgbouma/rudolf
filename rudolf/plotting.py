@@ -123,7 +123,8 @@ def plot_ruwe_vs_apparentmag(outdir):
 
     set_style()
 
-    df_dr2, df_edr3, trgt_df = get_deltalyr_kc19_gaia_data()
+    _, _, trgt_df = get_deltalyr_kc19_gaia_data()
+    df_edr3 = get_deltalyr_kc19_cleansubset()
 
     plt.close('all')
 
@@ -143,21 +144,22 @@ def plot_ruwe_vs_apparentmag(outdir):
 
     ax.scatter(
         get_xval(df_edr3), get_yval(df_edr3), c='k', alpha=0.9,
-        zorder=4, s=5, rasterized=True, linewidths=0,
+        zorder=4, s=12, rasterized=True, linewidths=0,
         label='$\delta$ Lyr candidates', marker='.'
     )
     ax.plot(
-        get_xval(trgt_df), get_yval(trgt_df), alpha=1, mew=0.5,
+        get_xval(trgt_df), get_yval(trgt_df), alpha=1, mew=0.7,
         zorder=8, label='Kepler 1627A', markerfacecolor='yellow',
-        markersize=12, marker='*', color='black', lw=0
+        markersize=16, marker='*', color='black', lw=0
     )
 
-    leg = ax.legend(loc='upper left', handletextpad=0.1, fontsize='x-small',
+    leg = ax.legend(loc='upper left', handletextpad=0.1, fontsize='small',
                     framealpha=0.9)
 
-    ax.set_xlabel('G [mag]', fontsize='large')
-    ax.set_ylabel('EDR3 RUWE', fontsize='large')
+    ax.set_xlabel('G [mag]')
+    ax.set_ylabel('RUWE')
     ax.set_yscale('log')
+    ax.set_xlim([4.9,19.1])
 
     s = ''
     outpath = os.path.join(outdir, f'ruwe_vs_apparentmag{s}.png')
@@ -657,16 +659,24 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
 
     plt.close('all')
 
-    factor=1.2
-    fig = plt.figure(figsize=(factor*6,factor*4))
+    factor=1
+    fig = plt.figure(figsize=(factor*7,factor*3))
     axd = fig.subplot_mosaic(
         """
-        AB
-        CD
-        """#,
-        #gridspec_kw={
-        #    "width_ratios": [1, 1, 1, 1]
-        #}
+        ABBCC
+        A.DD.
+        """,
+        gridspec_kw={
+            "width_ratios": [6,1,1,1,1],
+        }
+
+        #"""
+        #ABCD
+        #"""
+        #"""
+        #AB
+        #CD
+        #"""
     )
 
     xydict = {
@@ -707,7 +717,7 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
             axd[k].plot(
                 trgt_df[xv], trgt_df[yv], alpha=1, mew=0.5,
                 zorder=42, label='Kepler 1627', markerfacecolor='yellow',
-                markersize=14, marker='*', color='black', lw=0
+                markersize=12, marker='*', color='black', lw=0
             )
 
         if show_sun and '_pc' in xv:
@@ -743,21 +753,22 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
 
         elif k == 'B':
             delta_x = 0.1
-            axd['B'].arrow(0.73, 0.07, delta_x, 0, length_includes_head=True,
+            axd['B'].arrow(0.18, 0.69, delta_x, 0, length_includes_head=True,
                            head_width=1e-2, head_length=1e-2,
                            transform=axd['B'].transAxes)
-            axd['B'].text(0.73+delta_x/2, 0.085, 'Galactic center',
+            axd['B'].text(0.18+delta_x/2, 0.71, 'Galactic\ncenter',
                           va='bottom', ha='center',
                           transform=axd['B'].transAxes, fontsize='xx-small')
 
         elif k == 'C':
             delta_x = 0.1
-            axd['C'].arrow(0.73, 0.07, delta_x, 0,
+            axd['C'].arrow(0.18, 0.69, delta_x, 0,
                          length_includes_head=True, head_width=1e-2,
                          head_length=1e-2,
                          transform=axd['C'].transAxes)
-            axd['C'].text(0.73+delta_x/2, 0.085, 'Galactic rotation', va='bottom',
-                        ha='center', transform=axd['C'].transAxes, fontsize='xx-small')
+            axd['C'].text(0.18+delta_x/2, 0.71, 'Galactic\nrotation',
+                          va='bottom', ha='center',
+                          transform=axd['C'].transAxes, fontsize='xx-small')
 
 
     # quiver option..
@@ -794,12 +805,14 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
     #    width=6e-3, linewidths=4, headwidth=8, zorder=9
     #)
 
-    #axd['C'].update({'xlabel': 'Y [pc]', 'ylabel': 'Z [pc]'})
+    #axd['C'].update({'ylabel': '', 'yticklabels':[]})
+    axd['A'].update({'xlim': [-8275, -7450], 'ylim': [-25, 525]})
 
     for _,ax in axd.items():
         format_ax(ax)
 
-    fig.tight_layout()
+    #fig.tight_layout()
+    fig.tight_layout(w_pad=0.2)
 
     s = ''
     if show_1627:

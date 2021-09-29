@@ -26,8 +26,8 @@ def plot_zorro_speckle():
         'darkred'
     ]
 
-    fig, ax = plt.subplots(figsize=(4,3))
     set_style()
+    fig, ax = plt.subplots(figsize=(4,3))
 
     for d,l,c in zip(datapaths, labels, colors):
         df = pd.read_csv(d)
@@ -50,7 +50,7 @@ def plot_zorro_speckle():
 
 
     leg = ax.legend(
-        loc='upper center', handletextpad=0.2, fontsize='x-small',
+        loc='upper center', handletextpad=0.2, fontsize='small',
         framealpha=0.9, bbox_to_anchor=(0.4,0.9)
     )
 
@@ -68,10 +68,11 @@ def plot_zorro_speckle():
     ax.set_ylabel('$\Delta$mag')
     ax.set_xlabel('Angular separation [arcsec]')
 
-
     ax.set_xlim([0,1.25])
 
-    fig.tight_layout(h_pad=0, w_pad=0)
+    format_ax(ax)
+
+    fig.tight_layout()
 
     figpath = (
         os.path.join(RESULTSDIR, 'imaging', 'imaging_summary.png')
