@@ -233,7 +233,7 @@ parallax signal-to-noise exceeding 20.  The reported cluster members
 cluster previously identified by \citet{stephenson_possible_1959} and
 later corroborated by \citet{eggen_photometric_1968}.  While the
 non-uniform ``clumps'' of stars might comprise a {\it bona fide}
-cluster of identically-aged stars, they could also be significantly
+cluster of identically-aged stars, they could also be heavily
 contaminated by field stars.  We therefore considered stars only in
 the immediate kinematic and spatial vicinity of \sn\ as candidate
 cluster members.  We performed the selection cuts manually, by
@@ -630,7 +630,7 @@ M_{\rm Jup}$ at $\rho = 50$\,AU, $M_{\rm ter} < 20 M_{\rm Jup}$ at $\rho =
     purple line.  Gray points are individual flux measurements; black
     points bin these to 20 minute intervals, and have a representative
     1-$\sigma$ error bar in the lower right of each panel.  The asymmetric
-    residual during transit is significantly larger than the out-of-transit scatter.
+    residual during transit is larger than the out-of-transit scatter.
     \label{fig:lc}
   }
 \end{figure*}
@@ -680,7 +680,7 @@ jitter ($\{\langle f \rangle, \sigma_f \}$), and 5
 hyperparameters for the GP ($\{\sigma_{\mathrm{rot}},
 P_{\mathrm{rot}}, Q_0, \mathrm{d}Q, f \}$).  We also considered
 including an additive \texttt{SHOTerm} kernel to account for
-stochastic noise, but found that this did not significantly affect the
+stochastic noise, but found that this did not affect the
 results, and so opted for the simpler GP kernel.  We fitted the models
 using \texttt{PyMC3} \citep{salvatier_2016_PyMC3,exoplanet:theano},
 and accounted for the finite integration time of each exposure in the
@@ -1688,7 +1688,7 @@ followed the methodology developed by \citet{stefansson_2020}.  We
 allowed the sky-projected obliquity, the projected stellar equatorial
 velocity, and the Gaussian dispersion of the spectral lines to vary,
 and fixed the limb-darkening using the $V$-band tabulation from
-\citet{claret_gravity_2011}.  We assumed a prior on $v\sin i$ and
+\citet{claret_gravity_2011}.  We assumed a Gaussian prior on $v\sin i$ and
 $a/R_\star$ from Table~\ref{tab:starparams}, and also allowed for a
 white-noise jitter term to be added in quadrature to the measurement
 uncertainties.
@@ -1739,13 +1739,14 @@ than recent comparable measurements in systems such as AU~Mic
 \citep{wirth_2021_toi942}.  One possible explanation for the jitter is
 that it is astrophysical in origin, and that it is caused by some
 novel process operating on the surface of Kepler 1627A.  Another
-possibility is that our RV analysis underestimates the measurement
+possibility is that our RV analysis underestimates our measurement
 uncertainties; the S/N per resolution element for each of our spectra
-was moderated by the observing requirements to 70 to 80, and the rapid
-rotation of the star could affect accuracy of the uncertainties from
-the velocity extraction.  Observations at higher precision are
-necessary to distinguish these two possibilities, and remain
-worthwhile as a means toward clarifying the orbital geometry of \pn.
+was 70 to 80, which is somewhat low for deriving high-precision
+velocities.  In addition, the rapid rotation of the star could affect
+accuracy of the uncertainties from the velocity extraction.
+Observations at higher precision are necessary to distinguish these
+two possibilities, and remain worthwhile as a means toward clarifying
+the orbital geometry of \pn.
 
 
 
