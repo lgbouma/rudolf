@@ -18,7 +18,7 @@ Kepler phot:
     plot_ttv_vs_local_slope
     plot_rotation_period_windowslider
     plot_flare_pair_time_distribution
-    plot_phasedlc_slope_quartiles
+    plot_phasedlc_quartiles
 
 RM:
     plot_simulated_RM
@@ -2708,7 +2708,7 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
                 ha='left',va='bottom', color='crimson', zorder=1)
 
     ax.set_ylabel('RV [m/s]')
-    ax.set_ylim([-250,250])
+    ax.set_ylim([-220,270])
 
     #
     # NEXT: S-value
@@ -2721,6 +2721,8 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
         markersize=3, zorder=5
     )
     ax.set_ylabel('S-value')
+    ax.set_ylim([0.64,0.76])
+    ax.set_yticks([0.65,0.7,0.75])
 
     #
     # NEXT: the photometry 
@@ -3155,17 +3157,17 @@ def plot_phasedlc_quartiles(
     plt.close('all')
     set_style()
     #fig = plt.figure(figsize=(0.66*10,0.66*12)) #standard
-    fig = plt.figure(figsize=(0.66*9,0.66*8))
+    fig = plt.figure(figsize=(0.66*9,0.66*6.5))
     axd = fig.subplot_mosaic(
         """
         01
         45
         23
         67
-        """
-        #gridspec_kw={
-        #    "height_ratios": [1,1]
-        #}
+        """,
+        gridspec_kw={
+            "height_ratios": [1,2,1,2]
+        }
     )
 
     if from_trace==True:
@@ -3276,13 +3278,6 @@ def plot_phasedlc_quartiles(
         #
         ax = axd[str(q_ix)]
         #ax.set_title(txt)
-        props = dict(boxstyle='square', facecolor='white', alpha=0.5,
-                     pad=0.15, linewidth=0)
-
-        ax.text(0.03,0.07,txt,
-                transform=ax.transAxes,
-                ha='left',va='bottom', color='k', fontsize='xx-small', bbox=props)
-
         ax.errorbar(scale_x(x_fold[mask]), 1e3*(y[mask]-gp_mod[mask]),
                     yerr=1e3*_yerr[mask], color="darkgray", label="data",
                     fmt='.', elinewidth=0.2, capsize=0, markersize=1,
@@ -3336,6 +3331,12 @@ def plot_phasedlc_quartiles(
             s=BINMS, alpha=1, zorder=1002#, linewidths=0.2, edgecolors='white'
         )
         ax.axhline(0, color="C4", lw=1, ls='-', zorder=1000)
+
+        props = dict(boxstyle='square', facecolor='white', alpha=0.5,
+                     pad=0.15, linewidth=0)
+        ax.text(0.03,0.07,txt,
+                transform=ax.transAxes,
+                ha='left',va='bottom', color='k', fontsize='xx-small', bbox=props)
 
         if from_trace==True:
             sigma = 30

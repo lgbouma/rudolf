@@ -70,12 +70,21 @@ def plot_rp_vs_period_scatter(
             (ea_df.pl_name == 'Qatar-4 b') # age uncertainties understated. Rotn good. Li is not. isochrones who knows.
         )
 
+        # no age uncertainty on exoplanet archive, but good age.
+        EXCEPTIONS = (
+            ea_df.pl_name.str.contains('TOI-451')
+        )
+
         sel &= (~hardexclude)
 
         has_factorN_age = (
-            (ea_df['st_age'] / np.abs(ea_df['st_ageerr1']) > 3)
-            &
-            (ea_df['st_age'] / np.abs(ea_df['st_ageerr2']) > 3)
+            (
+                (ea_df['st_age'] / np.abs(ea_df['st_ageerr1']) > 3)
+                &
+                (ea_df['st_age'] / np.abs(ea_df['st_ageerr2']) > 3)
+            )
+            |
+            (EXCEPTIONS)
         )
 
         #sel &= has_factorN_age
@@ -191,10 +200,10 @@ def plot_rp_vs_period_scatter(
 
         if add_allkep:
             # Kepler-52 and Kepler-968
-            namelist = ['Kepler-52', 'Kepler-968', 'Kepler-1627']
-            ages = [3.5e8, 3.5e8, 3.5e7]
-            markers = ['o','d','*']
-            sizes = [80, 80, 170]
+            namelist = ['Kepler-52', 'Kepler-968', 'Kepler-1627', 'KOI-7368']
+            ages = [3.5e8, 3.5e8, 3.5e7, 3.5e7]
+            markers = ['o','d','*', '*']
+            sizes = [80, 80, 120, 120]
 
             for n, a, m, _s in zip(namelist, ages, markers, sizes):
                 sel = ea_df.hostname == n
@@ -202,6 +211,11 @@ def plot_rp_vs_period_scatter(
                 _sdf = ea_df[sel]
                 _rp = _sdf.pl_rade
                 _per= _sdf.pl_orbper
+                if n == 'KOI-7368':
+                    del _sdf
+                    _rp = [2.67]
+                    _per = [6.84]
+                    _sdf = pd.DataFrame({'pl_name':'KOI-7368'}, index=[0])
                 _age = np.ones(len(_sdf))*a
 
                 if n == 'Kepler-1627':
@@ -359,11 +373,15 @@ if __name__=='__main__':
 
     plot_rp_vs_period_scatter(
         showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-        verbose=1, add_kep1627=1, add_plnames=1
+        verbose=1, add_kep1627=0, add_allkep=1, add_plnames=1
     )
     plot_rp_vs_period_scatter(
         showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-        verbose=1, add_kep1627=0, add_allkep=1, add_plnames=1
+        verbose=1, add_kep1627=0, add_plnames=1
+    )
+    plot_rp_vs_period_scatter(
+        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+        verbose=1, add_kep1627=1, add_plnames=1
     )
 
     for showss in [0,1]:
