@@ -2406,7 +2406,7 @@ def plot_RM(outdir, N_mcmc=20000, model=None):
     # 10 free parameters in the quadratic case
     # 9 in the linear
 
-    rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs.csv')
+    rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs_template_V1298TAU.csv')
     df = pd.read_csv(rvpath)
 
     n = len(df) # number of data points
@@ -2613,7 +2613,7 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
     import rmfit # Gudmundur Stefansson's RM fitting package
     assert isinstance(model, str)
 
-    rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs.csv')
+    rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs_template_V1298TAU.csv')
     outdir = os.path.join(RESULTSDIR, 'RM', model)
     df = pd.read_csv(rvpath)
 
@@ -2650,7 +2650,7 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
     plt.close('all')
     mpl.rcParams.update(mpl.rcParamsDefault)
     set_style()
-    fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(4,5), sharex=True)
+    fig, axs = plt.subplots(nrows=3, ncols=1, figsize=(4,5), sharex=True)
 
     ax = axs[0]
 
@@ -2708,12 +2708,24 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
                 ha='left',va='bottom', color='crimson', zorder=1)
 
     ax.set_ylabel('RV [m/s]')
-    ax.set_ylim([-400,600])
+    ax.set_ylim([-250,250])
+
+    #
+    # NEXT: S-value
+    #
+    ax = axs[1]
+    df = pd.read_csv(rvpath)
+    ax.errorbar(
+        scale_x(df.bjd), df.svalue, df.svalue_err,
+        marker='o', elinewidth=0.5, capsize=4, lw=0, mew=0.5, color='k',
+        markersize=3, zorder=5
+    )
+    ax.set_ylabel('S-value')
 
     #
     # NEXT: the photometry 
     #
-    ax = axs[1]
+    ax = axs[2]
 
     if showmodelbands or showmodel:
         pklpath = '/Users/luke/.betty/run_Kepler_1627_QuadMulticolorTransit.pkl'
@@ -2804,7 +2816,7 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
                 props = dict(boxstyle='square', facecolor='white', alpha=0.95,
                              pad=0.15, linewidth=0)
                 txt = 'Expected\nIngress' if _t < tmid else 'Expected\nEgress'
-                ax.text(scale_x(_t), 500, txt,
+                ax.text(scale_x(_t), 200, txt,
                         bbox=props,
                         ha='center',va='top', color='gray', zorder=1,
                         fontsize='xx-small')
@@ -2835,7 +2847,7 @@ def plot_rvactivitypanel(outdir):
         [6562.8-deltawav, 6562.8+deltawav], # Halpa
     ]
 
-    rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs.csv')
+    rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs_template_V1298TAU.csv')
     rvdf = pd.read_csv(rvpath)
 
     # make plot
@@ -2934,7 +2946,7 @@ def plot_rvactivitypanel(outdir):
 def plot_rvchecks(outdir):
 
     # get data
-    rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs.csv')
+    rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs_template_V1298TAU.csv')
     df = pd.read_csv(rvpath)
 
     # make plot
@@ -3014,13 +3026,16 @@ def multiline(xs, ys, c, ax=None, **kwargs):
     return lc
 
 
-def plot_phasedlc_slope_quartiles(
-    outdir, mask=None, from_trace=False,
+def plot_phasedlc_quartiles(
+    outdir, whichtype='slope', mask=None, from_trace=False,
     ylimd=None, binsize_minutes=20, map_estimate=None, fullxlim=False, BINMS=3,
     do_hacky_reprerror=True, N_samples=2000
 ):
     """
     Args:
+
+        whichtype (str): "slope" or "ttv", for either "slope_quartiles" or
+        "ttv_quartiles".  This is the quantity that is being binned by.
 
         data (OrderedDict): data['tess'] = (time, flux, flux_err, t_exp)
 
@@ -3080,7 +3095,7 @@ def plot_phasedlc_slope_quartiles(
 
     data = datasets
     soln = m.trace.posterior
-    outpath = os.path.join(outdir, f'{starid}_{modelid}_phasedlc_slope_quartiles.png')
+    outpath = os.path.join(outdir, f'{starid}_{modelid}_phasedlc_{whichtype}_quartiles.png')
 
     if not fullxlim:
         scale_x = lambda x: x*24
@@ -3119,10 +3134,20 @@ def plot_phasedlc_slope_quartiles(
     tc_err = tc_err[sel]
 
     # get quartiles...
-    quartiles = [0,25,50,75,100]
-    slopes_percentiles = [np.percentile(slopes, q) for q in quartiles ]
-    for q,s in zip(quartiles,slopes_percentiles):
-        print(f'{q}%: {s:.4f} ppt/day')
+    if whichtype == 'slope':
+        quartiles = [0,25,50,75,100]
+        slopes_percentiles = [np.percentile(slopes, q) for q in quartiles ]
+        for q,s in zip(quartiles,slopes_percentiles):
+            print(f'{q}%: {s:.4f} ppt/day')
+    elif whichtype == 'ttv':
+        quartiles = [0,25,50,75,100]
+        ttv_percentiles = [np.percentile(ttv, q) for q in quartiles ]
+        for q,s in zip(quartiles,ttv_percentiles):
+            print(f'{q}%: {s*24*60:.4f} minutes')
+    else:
+        raise NotImplementedError(
+            'Got unknown `whichtype`. TTV and slope only cases rn.'
+        )
 
     ##########################################
     # make the plot
@@ -3196,7 +3221,10 @@ def plot_phasedlc_slope_quartiles(
     #
 
     quartiles = [0,25,50,75,100]
-    slopes_percentiles = [np.percentile(slopes, q) for q in quartiles ]
+    if whichtype == 'slope':
+        slopes_percentiles = [np.percentile(slopes, q) for q in quartiles ]
+    elif whichtype == 'ttv':
+        ttv_percentiles = [np.percentile(ttv, q) for q in quartiles ]
 
     for q_ix in range(0,4):
 
@@ -3205,22 +3233,37 @@ def plot_phasedlc_slope_quartiles(
         #
         x_fold = (x - _t0 + 0.5 * _per) % _per - 0.5 * _per
 
-        slope_lower = slopes_percentiles[q_ix]
-        slope_upper = slopes_percentiles[q_ix+1]
+        # NOTE: if you use start to use other variabiles, you should generalize
+        # the following block of code rather than doing many elifs...
+        if whichtype == 'slope':
+            slope_lower = slopes_percentiles[q_ix]
+            slope_upper = slopes_percentiles[q_ix+1]
+            sel = (
+                (slopes >= slope_lower) &
+                (slopes <= slope_upper)
+            )
+            txt = (
+                #'$N_\mathrm{tra}=$'f'{len(these_tc)}\n'+
+                '$\mathrm{d}f/\mathrm{d}t \in$'+
+                f'[{slope_lower:.3f}, {slope_upper:.3f}] ppt/day'
+            )
 
-        sel = (
-            (slopes >= slope_lower) &
-            (slopes <= slope_upper)
-        )
+        elif whichtype == 'ttv':
+            ttv_lower = ttv_percentiles[q_ix]
+            ttv_upper = ttv_percentiles[q_ix+1]
+            sel = (
+                (ttv >= ttv_lower) &
+                (ttv <= ttv_upper)
+            )
+            txt = (
+                #'$N_\mathrm{tra}=$'f'{len(these_tc)}\n'+
+                'TTV$\in$'+
+                f'[{ttv_lower*24*60:.1f}, {ttv_upper*24*60:.1f}] min'
+            )
+
         these_tc = tc[sel]
 
-        txt = (
-            #'$N_\mathrm{tra}=$'f'{len(these_tc)}\n'+
-            '$\mathrm{d}f/\mathrm{d}t \in$'+
-            f'[{slope_lower:.3f}, {slope_upper:.3f}] ppt/day'
-        )
         print(txt)
-
 
         mask = np.zeros(len(x), dtype=bool)
         WINDOW = 10/24 # days
