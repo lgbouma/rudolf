@@ -860,9 +860,10 @@ old ages, we expect this assumption to be reasonably secure
 		show 2-$\sigma$ model uncertainties.  The photometric transit
 		depths are consistent across the {\it griz} bandpasses.  The
 		best-fitting model in the top panel includes the RM effect and a quadratic trend
-		in time.  The radial velocity scatter
-		between exposures ($\sigma_{\rm RV}\approx50$\ms) prevented us from detecting the RM
+		in time to model the spot-induced $\approx$\,$250$\ms\ trend (see Appendix~\ref{app:rm}).  The radial velocity jitter
+		over the 15~minute exposure timescale ($\sigma_{\rm RV}\approx30$\ms) prevented us from detecting the RM
 		effect.
+		The RV variations are strongly correlated with varying emission in the Ca H and K lines (middle panel).
 		\label{fig:ground}
 	}
 \end{figure}
@@ -885,10 +886,10 @@ changing.  For our RM analysis, the details are discussed in
 Appendix~\ref{app:rm}.  While the velocities are marginally more
 consistent with a prograde or polar orbit than a retrograde orbit, the
 spot-corrected exposure-to-exposure scatter ($\sigma_{\rm RV}\approx
-50$\ms) is larger than the expected velocity anomaly
-($\Delta v_{\rm RM}\approx 20\,{\rm m\,s}^{-1}$).  We are therefore
-not in a position to claim a spectroscopic detection of the RM effect,
-nor to quantify the stellar obliquity.
+30$\ms) is comparable to the expected velocity anomaly assuming an
+aligned orbit ($\Delta v_{\rm RM}\approx 20\,{\rm m\,s}^{-1}$).  We
+are therefore not in a position to claim a spectroscopic detection of
+the RM effect, nor to quantify the stellar obliquity.
 
 
 \section{Discussion \& Conclusions}
@@ -897,7 +898,7 @@ nor to quantify the stellar obliquity.
 \begin{figure*}[tp]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.7\textwidth]{f5.pdf}
+		\includegraphics[width=0.75\textwidth]{f5.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -1475,46 +1476,92 @@ website.\footnote{\url{https://gea.esac.esa.int/archive/}}
 	}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[tp]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=\textwidth]{f9.pdf}
+		\includegraphics[width=0.9\textwidth]{f9.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-    {\bf Transit models and residuals, binned by local slope of the
-    raw light curve}.  Local linear slopes are measured over each
-    transit window (144 transits total).  Four outlier transits were
-    removed, leaving 140 transits.  These were then divided into
-    quartiles, so that each panel shows 35 transits binned together.
-    The exact light curve slopes are listed in the lower left panels.
+    {\bf Transit models and residuals, binned by quartiles in the local slope of the
+    light curve}.  
     Representative uncertainties for the black points (binned at 20
     minute intervals) are shown in the lower right of each panel.  A
     similar transit asymmetry to that shown in Figure~\ref{fig:lc}
     seems to be present in three of the four bins.
+    \vspace{-0.5cm}
 		\label{fig:phaseslope}
 	}
 \end{figure}
+\begin{figure}[tp]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.9\textwidth]{f9b.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+    {\bf Transit models and residuals, binned by quartiles of transit
+    timing variations}.  The data are otherwise the same as in
+    Figure~\ref{fig:phaseslope}.
+		\label{fig:phasettv}
+	}
+\end{figure}
 
+\subsection{Is the Transit Asymmetry Robust?}
 
 As a means of exploring the robustness of the transit asymmetry,
-Figures~\ref{fig:phasequarter},~\ref{fig:phaseyear},
-and~\ref{fig:phaseslope} show the Kepler data binned in three ways:
-over quarters, years, and local slope quartiles.  Over quarters
-(Figure~\ref{fig:phasequarter}), Quarter 6 shows the strongest asymmetry
-out of any quarter: a deviation of about 3\,ppt from expectation.
+Figures~\ref{fig:phasequarter},~\ref{fig:phaseyear},~\ref{fig:phaseslope},
+and~\ref{fig:phasettv} show the Kepler data binned in four ways:
+over Kepler quarters, Julian years, quartiles of local slope, and quartiles of
+transit timing variation.  Over Kepler quarters
+(Figure~\ref{fig:phasequarter}), Quarter 6 shows the strongest asymmetry: a deviation of about 3\,ppt from expectation.
 Quarter 7 shows an anomaly at roughly the same transit phase.  Year 2
 correspondingly shows the strongest anomaly out of any year in
 Figure~\ref{fig:phaseyear}; the asymmetry is visually apparent however
 in each of Years 2, 3, and 4.
-Binned by local slope quartiles (Figure~\ref{fig:phaseslope}), the
-asymmetry is visually present in three of the four quartiles: the only
-bin for which it appears to not be present is ${\rm d}f/{\rm
-d}t\in[0.001,0.033]\,{\rm ppt\,day}^{-1}$.
 
-We considered four possible interpretations of the transit asymmetry:
-gravity darkening, transit timing variations, spot-crossing events,
-and a persistent asymmetric dusty outflow.  
+To bin by quartiles in local slope and TTV, we used our measurements
+of the local linear slopes in each of the observed transit windows
+(144 transits total).  Four outlier transits were removed, leaving 140
+transits.  These were then divided into quartiles, so that each panel
+shows 35 transits binned together.  The exact light curve slope and
+TTV intervals are listed in the lower left panels of
+Figures~\ref{fig:phaseslope} and~\ref{fig:phasettv}.  Binned by local
+slope quartiles (Figure~\ref{fig:phaseslope}), the asymmetry is
+visually present in three of the four quartiles: the only bin in
+which it does not appear is ${\rm d}f/{\rm
+d}t\in[0.001,0.033]\,{\rm ppt\,day}^{-1}$.  The corresponding bins in TTV
+(largest TTV corresponding to smallest ${\rm d}f/{\rm d}t$)
+show the same asymmetries, though with somewhat greater scatter
+(Figure~\ref{fig:phasettv}).
+
+Within the theory presented by \citet{mazeh_time_2015}, unresolved
+starspot crossings cause the correlation between TTVs and the local
+light curve slope (Figure~\ref{fig:corr}).  In this model, we would
+expect the light curves with the most negative local slopes
+to have the largest positive TTVs, due to spot crossing events during the latter
+half of transit.  The lower-right panel of Figure~\ref{fig:phasettv}
+and upper-left panel of Figure~\ref{fig:phaseslope} agree with this
+expectation.  However, we would also expect the sign of the effect to
+reverse when considering the most positive local slopes, and the most
+negative TTVs.  The upper-left panel of Figure~\ref{fig:phasettv} and
+lower-right panel of Figure~\ref{fig:phaseslope} contradict this
+expectation: the residual in both cases maintains the same
+parity!  On the one hand, this shows us that the residual is not
+strongly dependent on the local light curve slope, which mitigates the
+possibility that it might be an artifact of our detrending methods.
+On the other, it raises the question of whether
+unresolved starspot crossings are indeed the root cause of the correlation shown in
+Figure~\ref{fig:corr}.
+
+% FIXME: KM to discuss injection recovery...
+
+\subsection{Possible Explanations}
+
+Since the transit asymmetry seems robust against most methods of
+binning the data, we considered four possible astrophysical
+interpretations: gravity darkening, transit timing variations,
+spot-crossing events, and a persistent asymmetric dusty outflow.  
 
 Gravity darkening is based on the premise that the rapidly rotating
 star is oblate, and brighter near the poles than the equator
@@ -1647,22 +1694,37 @@ We monitored \sn\ with Keck/HIRES before, during, and after transit on
 the night of 2021 Aug 7.  We used the iodine cell for wavelength
 calibration\footnote{We considered a line-profile based analysis in
 the regions without iodine, but the line profile stability of HIRES
-precludes such an approach.}, extracted the 1-D spectra using the
-standard California Planet Survey pipeline \citep{howard_cps_2010},
-and measured the velocities by cross-correlating against a template
-found via spectral classification with \texttt{SpecMatch-Emp}
-\citep{yee_SM_2017}.  The airmass ranged between 1.1 and 2.2 from the
+precludes such an approach.}, and extracted the 1-D spectra using the
+standard California Planet Survey pipeline \citep{howard_cps_2010}.
+The airmass ranged between 1.1 and 2.2 from the
 start through the end of observations; the seeing ranged from
 $1\farcs1$ at the beginning to $1\farcs5$ at the end.  We also
 simultaneously observed across {\it griz} bands using MuSCAT3 at
 Faulkes Telescope North on Maui, HI.
 
+We considered two approaches to measuring the velocities: in the
+first, hereafter ``Method 1'', we cross-correlated against a template found via
+spectral classification with \texttt{SpecMatch-Emp}
+\citep{yee_SM_2017}.  In ``Method 2'', we used a high S/N template of
+V1298~Tau.  Although V1298 Tau is cooler than Kepler~1627A by
+$\approx$500\,K, it has a comparable amount of line-broadening ($v\sin
+i = 23$\kms), and a comparable level of stellar activity.  The mean
+and standard deviation of the internal RV uncertainties averaged over
+all epochs were $16.2\pm1.1$\ms\ from Method 1, and $12.6\pm0.6$\ms\ from Method 2.
+The corresponding time-averaged reduced $\chi^2$ from the template
+match was $1.57\pm0.04$ (Method 1) and $1.30\pm0.02$ (Method 2).
+Given these diagnostics, we adopted the velocities from the second
+approach.
+
 Figure~\ref{fig:ground} shows the results.  The
 MuSCAT3 photometry shows the expected starspot trend, along with the
 transit and what is likely a chromatic starspot crossing event at
 ${\rm JD} - 2459433 = 0.955$.  The radial velocities decrease by
-800\ms\ over the six hour window.  A $\approx50$\ms\  increase in RV
-is seen shortly after the expected ingress time. 
+$\approx$250\ms\ over the six hour window.  
+This decrease in RV is heavily with a decrease in the S-indices
+derived from the Ca HK lines.
+One outlying RV point is apparent shortly before egress; it is
+temporally coincident with an outlying value in the S-index time series.
 
 Overall, we expect the dominant trends in both the photometry and
 radial velocities to be caused by starspots on the stellar photosphere
@@ -1671,19 +1733,17 @@ limbs of the stellar disk has an apparent line-of-sight velocity of
 $\pm 20$\kms.  Over 10\% of a rotation cycle ($P_{\rm
 rot}=2.6\,{\rm days}$), spots near these limbs come into and out of
 view, modulate the stellar velocity profile, and can thereby produce
-the overall 800\ms\ trend.  The Ca HK and H$\alpha$ emission
+the overall $\approx$250\ms\ trend.  The Ca HK and H$\alpha$ emission
 profiles support this interpretation;
 Figure~\ref{fig:rvactivity} shows that each line gradually decreases in
 intensity over the course of the six hour sequence.
-The overall RVs are also heavily correlated against the S-indices
-derived from the Ca HK lines.
 
 The expectation however is for the starspot-induced signals to be smooth,
 at worst with contributions at $0.5\,P_{\rm rot}$ or $0.25\,P_{\rm
 rot}$ \citep{klein_simulated_2020}.  We therefore fitted the RVs using
 the \citet{hirano_analytic_2010,hirano_2011} models for the
 Rossiter-McLaughlin (RM) effect, and allowed for an optional linear
-and quadratic trend in time to fit the 800\ms\ spot-induced trend.  We
+and quadratic trend in time to fit the $\approx$250\ms\ spot-induced trend.  We
 followed the methodology developed by \citet{stefansson_2020}.  We
 allowed the sky-projected obliquity, the projected stellar equatorial
 velocity, and the Gaussian dispersion of the spectral lines to vary,
@@ -1692,19 +1752,21 @@ and fixed the limb-darkening using the $V$-band tabulation from
 $a/R_\star$ from Table~\ref{tab:starparams}, and also allowed for a
 white-noise jitter term to be added in quadrature to the measurement
 uncertainties.
+We used the 15\,minute exposure time when numerically evaluating the
+model.
 
 The quadratic model with the RM effect is shown in
 Figure~\ref{fig:ground}; the jitter term is incorporated in the
 model uncertainties, but not the plotted measurement uncertainties.
 The plotted measurement uncertainties are the internal uncertainties
-on the RVs ($\approx 15\,{\rm m\,s}^{-1}$), and are dominated by the
+on the RVs ($\approx 13\,{\rm m\,s}^{-1}$), and are dominated by the
 $v\sin i$ broadening.  However, between exposures, the RVs show
 significant additional scatter that is not captured by the slow quadratic
 trend.  The white-noise jitter for this
-particular model is $\sigma_{\rm RV} = 50^{+11}_{-8}$\ms, which is
-larger than the expected RM anomaly of $\Delta v_{\rm RM}
+particular model is $\sigma_{\rm RV} = 27^{+6}_{-5}$\ms, which is
+comparable to the expected RM anomaly of $\Delta v_{\rm RM}
 \approx f_{\rm LD} \cdot \delta \cdot v\sin i \cdot \sqrt{1-b^2}
-\approx 20\,{\rm m\,s}^{-1}$.
+\approx 20\,{\rm m\,s}^{-1}$, assuming a perfectly aligned orbit.
 
 The presence of this additional scatter prevents a convincing detection of
 the RM effect.  The reason can be understood via
@@ -1713,40 +1775,44 @@ the RM effect against a model with a
 linear trend and the RM effect, or even a model with no RM effect at
 all, then the respective Bayesian Information Criterion (BIC) values
 are as follows.
-% from logs/rm_freejitter_FINAL.log
+% from rm_TEMPLATE_V1298TAU_quadraticfreejitter_v0.log and
+% rm_TEMPLATE_V1298TAU_v1_linearfreejitter_trendonlyfreejitter.log
 \begin{align}
-  {\rm BIC} &= 251.7  \quad ({\rm Quadratic+RM}) \nonumber \\
-  {\rm BIC} &= 257.7  \quad ({\rm Linear+RM}) \nonumber \\
-  {\rm BIC} &= 247.1  \quad ({\rm Only\ Quadratic}).
+  {\rm BIC} &= 227.1  \quad ({\rm Quadratic+RM}) \nonumber \\
+  {\rm BIC} &= 231.1  \quad ({\rm Linear+RM}) \nonumber \\
+  {\rm BIC} &= 221.4  \quad ({\rm Only\ Quadratic}).
 \end{align}
 There is therefore no evidence to prefer the model with the RM effect
-against a model that only accounts for the stellar variability.
-The ``only quadratic'' model does particularly well because it can
-inflate the jitter term to account for scatter during
-the transit (even if the scatter contains astrophysics!), and it has fewer free parameters.  However, we cannot
-justify a physical prior on the jitter term, because we do not
-understand the origin of the exposure-to-exposure scatter.  As noted
-above, the velocity deviations from starspots are expected to have
-contributions at the stellar rotation frequency, or harmonics thereof.
-This jitter is present on the exposure timescale (15 minutes), which
-is only 0.4\% of the stellar rotation period; it is not obvious that
-starspots would be the culprit.
+against a model that only accounts for the stellar variability.  The
+``only quadratic'' model does particularly well because it can inflate
+the jitter term to account for scatter during the transit (even if the
+scatter contains astrophysics!), and it has fewer free parameters.
+However, we cannot justify a physical prior on the jitter term,
+because we do not understand the origin of the exposure-to-exposure
+scatter.  As noted above, the velocity deviations from starspots are
+expected to have contributions at the stellar rotation frequency, or
+harmonics thereof.  This jitter is present on the exposure timescale
+(15 minutes), which is only 0.4\% of the stellar rotation period; it
+is not obvious that starspots would be the culprit.
 
-The amplitude of both the spot-induced trend and the jitter are larger
-than recent comparable measurements in systems such as AU~Mic
-\citep{palle_transmission_2020}, DS~Tuc
+The amplitude of both the spot-induced trend and the jitter are
+somewhat larger than recent comparable measurements in systems such as
+AU~Mic \citep{palle_transmission_2020}, DS~Tuc
 \citep{montet_young_2020,zhou_well_2020} and TOI~942
 \citep{wirth_2021_toi942}.  One possible explanation for the jitter is
 that it is astrophysical in origin, and that it is caused by some
 novel process operating on the surface of Kepler 1627A.  Another
 possibility is that our RV analysis underestimates our measurement
-uncertainties; the S/N per resolution element for each of our spectra
-was 70 to 80, which is somewhat low for deriving high-precision
-velocities.  In addition, the rapid rotation of the star could affect
-accuracy of the uncertainties from the velocity extraction.
-Observations at higher precision are necessary to distinguish these
-two possibilities, and remain worthwhile as a means toward clarifying
-the orbital geometry of \pn.
+uncertainties; in order to achieve the requisite time-sampling the S/N
+per resolution element in our spectra was 70 to 80, which is lower
+than desired for deriving high-precision velocities.  In addition, the
+rapid rotation of the star could affect accuracy of the uncertainties
+from the velocity extraction.  Observations at higher S/N are
+necessary to distinguish these two possibilities, and remain
+worthwhile in order to clarify the orbital geometry of \pn.  Useful
+next steps would include transit observations with a stabilized
+optical spectrograph, or potentially also observations in the
+near-infrared \citep[{\it e.g.},][]{feinstein_halpha_2021}.
 
 
 

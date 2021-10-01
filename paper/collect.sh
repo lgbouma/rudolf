@@ -29,7 +29,9 @@ cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtra
 
 cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtransit_phasedsubsets_yearchunk.pdf f8.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/phasedlc_slope_quartiles/Kepler_1627_RotGPtransit_phasedlc_slope_quartiles.pdf f9.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/phasedlc_quartiles/Kepler_1627_RotGPtransit_phasedlc_slope_quartiles.pdf f9.pdf
+
+cp /Users/luke/Dropbox/proj/rudolf/results/phasedlc_quartiles/Kepler_1627_RotGPtransit_phasedlc_ttv_quartiles.pdf f9b.pdf
 
 cp /Users/luke/Dropbox/proj/rudolf/results/imaging/imaging_summary.pdf f10a.pdf
 cp /Users/luke/Dropbox/proj/rudolf/results/gaia_ruwe_vs_apparentmag/ruwe_vs_apparentmag.pdf f10b.pdf
