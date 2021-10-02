@@ -164,8 +164,7 @@ reported that Kepler~1627 (KIC 6184894; KOI 5245; TIC 120105470) is a
 previous statistical validation of the close-in mini-Neptune Kepler
 1627b
 \citep{2012ApJS..199...24T,morton_false_2016,thompson_planetary_2018},
-we begin by examining the properties of the cluster more
-closely (Section~\ref{sec:cluster}).  We find that the $\delta$ Lyr
+we begin by examining the properties of the cluster (Section~\ref{sec:cluster}).  We find that the $\delta$ Lyr
 cluster is \clusterage\ old, and 
 in 
 Section~\ref{sec:stars} show
@@ -357,7 +356,7 @@ IC\,2602, and the Pleiades from \citet{damiani_stellar_2019} and
 \cite{CantatGaudin2018a} respectively.  We removed binaries by
 requiring $\texttt{RUWE}<1.3$, $\texttt{radial\_velocity\_error}$
 below the 80$^{\rm th}$ percentile of each cluster's distribution, and
-manually excluded stars that were obvious photometric binaries in the
+excluded stars that were obvious photometric binaries in the
 CAMD.  We then passed a moving box average and standard deviation
 across the CAMD in 0.10\,mag bins, fitted a univariate spline to the
 binned values, and assembled a piecewise grid of hybrid isochrones
@@ -372,7 +371,7 @@ each reference cluster.  We adopted a 115\,Myr age for the Pleiades \citep{dahm_
 and a 16\,Myr age for UCL \citep{pecaut_star_2016}.  The age
 of IC\,2602 however is the most important ingredient, since it
 receives the most weight in the interpolation.  Plausible ages for
-IC\,2602 span 30\,Myr to 46\,Myr, with slightly older ages being
+IC\,2602 span 30\,Myr to 46\,Myr, with older ages being
 preferred by the lithium-depletion-boundary (LDB) measurements 
 \citep{dobbie_ic_2010,randich_gaiaeso_2018}
 and
@@ -484,7 +483,7 @@ Table~\ref{tab:starparams}.  The stellar mass, radius, and effective
 temperature are found by interpolating against a 38$\,$Myr MIST
 isochrone \citep{choi_mesa_2016}.  
 The statistical uncertainties are propagated from the absolute
-magnitude (mostly originating from the the parallax uncertainty) and the color; the systematic
+magnitude (mostly originating from the parallax uncertainty) and the color; the systematic
 uncertainties are taken to be the difference between the PARSEC
 \citep{bressan_parsec_2012} and MIST isochrones.  Reported
 uncertainties are a quadrature sum of the statistical and systematic
@@ -587,7 +586,7 @@ Given the distance and age, the models of
 3450$ K.  The corresponding spectral type is roughly M2.5V
 \citep{pecaut_mamajek_2013}.
 % \footnote{\url{http://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt}, version \texttt{2021/03/02}.}
-These models combined with the NIRC2 contrast limits similarly imply
+These models combined with the NIRC2 contrast limits imply
 physical limits on tertiary companions of $M_{\rm ter} < 50
 M_{\rm Jup}$ at $\rho = 50$\,AU, $M_{\rm ter} < 20 M_{\rm Jup}$ at $\rho =
 100$\,AU, and $M_{\rm ter} < 10 M_{\rm Jup}$ at $\rho = 330$\,AU.
@@ -709,7 +708,7 @@ the different methods used to account for the stellar rotation signal.
 
 The transit fit however is not perfect: the lower panels of
 Figure~\ref{fig:lc} show an asymmetric
-residual in the data relative to the model: the measured flux is systematically
+residual in the data relative to the model: the measured flux is 
 high during the first half of transit, and low in the second half.  The
 semi-amplitude of this deviation is $\approx50\,{\rm ppm}$, which
 represents a $\approx 3\%$ distortion of the transit depth
@@ -729,7 +728,8 @@ out polynomial trends, and then binned all the observed transits; the
 asymmetry was still present at a comparable amplitude.  
 Appendix~\ref{app:asymmetry} includes a deeper analysis, and
 finds that the asymmetry also seems to be robust to different methods of
-data binning.  Plausible astrophysical explanations are given in
+data binning.  The most likely astrophysical explanations are
+discussed in
 Section~\ref{sec:conc}.
 
 
@@ -951,7 +951,7 @@ Other possibilities such as gravity darkening or TTVs causing
 the asymmetry are disfavored
 (see Appendix~\ref{app:asymmetry}).  Dusty outflows are theoretically
 expected for young mini-Neptunes, and the amplitude of the observed
-asymmetry is also roughly consistent with predictions
+asymmetry is also consistent with predictions
 \citep{wang_dai_2019}.  Beyond the asymmetric transits,
 Appendix~\ref{app:flare} highlights an additional abnormality in the Kepler
 data, in the arrival time distribution of stellar flares.  We
@@ -1018,7 +1018,7 @@ measured ages over the coming years.
 
 The authors are grateful to J{.}~Winn, J{.}~Spake, A{.}~Howard, and
 T{.}~David for illuminating discussions and suggestions, and to
-R{.}~Kerr for kindly providing us with the \citet{Kerr2021} membership
+R{.}~Kerr for providing us with the \citet{Kerr2021} membership
 list prior to its publication.
 The authors are also grateful to K{.}~Collins for helping resolve the
 scheduling conflict that would have otherwise prevented the MuSCAT3
@@ -1291,7 +1291,7 @@ reported by various authors into a comma-separated string.
 This means that the \texttt{age} column can be null, for cases in
 which the original authors did not report an age, or for which a reference
 literature age was not readily available.  Nonetheless, since we do
-generally prefer stars with known ages, we made a few additional
+prefer stars with known ages, we made a few additional
 efforts to populate this column.  When available, the age provenance
 is from the original analysis of the cluster.  In a few cases
 however we adopted other ages when string-based cross-matching on the
@@ -1321,7 +1321,7 @@ stellar densities typically have higher precision than from isochrones
 alone.
 
 For any of the catalogs for which Gaia DR2 identifiers were not
-immediately available, we either followed the spatial (plus
+available, we either followed the spatial (plus
 proper-motion) cross-matching procedures described in
 \citet{bouma_cdipsI_2019}, or else we pulled the Gaia DR2 source
 identifiers associated with the catalog from SIMBAD.  We consequently
@@ -1548,7 +1548,7 @@ negative TTVs.  The upper-left panel of Figure~\ref{fig:phasettv} and
 lower-right panel of Figure~\ref{fig:phaseslope} contradict this
 expectation: the residual in both cases maintains the same
 parity!  On the one hand, this shows us that the residual is not
-strongly dependent on the local light curve slope, which mitigates the
+dependent on the local light curve slope, which mitigates the
 possibility that it might be an artifact of our detrending methods.
 On the other, it raises the question of whether
 unresolved starspot crossings are indeed the root cause of the correlation shown in
@@ -1703,25 +1703,25 @@ simultaneously observed across {\it griz} bands using MuSCAT3 at
 Faulkes Telescope North on Maui, HI.
 
 We considered two approaches to measuring the velocities: in the
-first, hereafter ``Method 1'', we cross-correlated against a template found via
-spectral classification with \texttt{SpecMatch-Emp}
+first, hereafter ``Method 1'', we cross-correlated against a template
+found via spectral classification with \texttt{SpecMatch-Emp}
 \citep{yee_SM_2017}.  In ``Method 2'', we used a high S/N template of
 V1298~Tau.  Although V1298 Tau is cooler than Kepler~1627A by
 $\approx$500\,K, it has a comparable amount of line-broadening ($v\sin
 i = 23$\kms), and a comparable level of stellar activity.  The mean
 and standard deviation of the internal RV uncertainties averaged over
-all epochs were $16.2\pm1.1$\ms\ from Method 1, and $12.6\pm0.6$\ms\ from Method 2.
-The corresponding time-averaged reduced $\chi^2$ from the template
-match was $1.57\pm0.04$ (Method 1) and $1.30\pm0.02$ (Method 2).
-Given these diagnostics, we adopted the velocities from the second
-approach.
+all epochs were $16.2\pm1.1$\ms\ from Method 1, and $12.6\pm0.6$\ms\
+from Method 2.  The corresponding time-averaged reduced $\chi^2$ from
+the template match was $1.57\pm0.04$ (Method 1) and $1.30\pm0.02$
+(Method 2).  Given these diagnostics, we adopted the velocities from
+the second approach.
 
 Figure~\ref{fig:ground} shows the results.  The
 MuSCAT3 photometry shows the expected starspot trend, along with the
 transit and what is likely a chromatic starspot crossing event at
 ${\rm JD} - 2459433 = 0.955$.  The radial velocities decrease by
 $\approx$250\ms\ over the six hour window.  
-This decrease in RV is heavily with a decrease in the S-indices
+This decrease in RV is correlated with a decrease in the S-indices
 derived from the Ca HK lines.
 One outlying RV point is apparent shortly before egress; it is
 temporally coincident with an outlying value in the S-index time series.
