@@ -14,6 +14,7 @@ Kepler phot:
     plot_keplerlc
         _plot_zoom_light_curve
     plot_flare_checker
+        _get_detrended_flare_data
     plot_ttv
     plot_ttv_vs_local_slope
     plot_rotation_period_windowslider
@@ -1004,12 +1005,12 @@ def _get_detrended_flare_data(cachepath, method):
             )
         elif method == 'gp':
             from betty.mapfitroutines import flatten_starspots
-            flat_flux, trend_flux = flatten_starspots(
+            flat_flux, trend_flux, _ = flatten_starspots(
                 time, flux, flux_err, P_rotation
             )
         elif method == 'itergp':
             from betty.mapfitroutines import flatten_starspots
-            flat_flux, trend_flux = flatten_starspots(
+            flat_flux, trend_flux, _ = flatten_starspots(
                 time, flux, flux_err, P_rotation, flare_iterate=True
             )
         else:

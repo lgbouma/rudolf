@@ -85,14 +85,3 @@ uniq_dists = np.unique(np.round(dists,4).flatten())
 
 outpath = f'../results/flares/flare_pair_separation_histogram_poisson_real_and_{N_samples}sample_average.png'
 plot_flare_pair_time_distribution(uniq_dists, outpath, hists=(avg_hist, std_hist, x_i))
-
-
-
-
-
-
-# TODO OKAY, NOW MAKE IT BIGGER. REPEAT THIS ACROSS LIKE SAY 1000 RANDOM SEEDS.
-# HOW OFTEN DO YOU GET YOUR COINCIDENCE?
-
-# FIXME FIXME FIXME VECTORIZE!
-
