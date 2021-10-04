@@ -1,39 +1,71 @@
-'''
+"""
 Make scatter plot of mass versus period. Optionally, color by discovery method.
 Optionally, overplot archetype names.
-'''
+"""
 
+# Standard imports
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-
 import pandas as pd, numpy as np
 import os
-
 from astropy import units as u
+
+# If you want to run the code, you'll need to do:
+# `git clone https://github.com/lgbouma/cdips; cd cdips; python setup.py install`
+# `git clone https://github.com/lgbouma/aesthetic; cd aesthetic; python setup.py install`
 from cdips.utils import today_YYYYMMDD
 from cdips.utils.catalogs import get_nasa_exoplanet_archive_pscomppars
 from aesthetic.plot import savefig, format_ax, set_style
 
+# This "VER" string caches the NASA exoplanet archive `ps` table at a
+# particular date, in the YYYYMMDD format.
 VER = '20210915' # could be today_YYYYMMDD()
-
-def arr(x):
-    return np.array(x)
 
 def plot_rp_vs_period_scatter(
     showlegend=1, colorbydisc=1, showarchetypes=1, showss=1, colorbyage=0,
     verbose=0, add_kep1627=0, add_allkep=0, add_plnames=0
 ):
+    """
+    Plot planetary parameters versus ages. By default, it writes the plots to
+    '../results/rp_vs_period_scatter/' from wherever you put this script.
+    (See `outdir` parameter below).
+
+    Options (all boolean):
+
+        showlegend: whether to overplot a legend.
+
+        colorbydisc: whether to color by the discovery method.
+
+        showarchetypes: whether to show "Hot Jupiter", "Cold Jupiter" etc
+        labels for talks.
+
+        showss: whether to show the solar system planets.
+
+        colorbyage: whether to color the points by their ages.
+
+        verbose: if True, prints out more information about the youngest
+        planets from the NASA exoplanet archive.
+
+        add_kep1627: adds a special star for Kepler 1627.
+
+        add_allkep: adds special symbols for the recent Kepler systems in open
+        clusters: 'Kepler-52', 'Kepler-968', 'Kepler-1627', 'KOI-7368'
+
+        add_plnames: if True, shows tiny texts for the age-dated planets.
+    """
 
     set_style()
 
     #
-    # columns described at
+    # Columns are described at
     # https://exoplanetarchive.ipac.caltech.edu/docs/API_exoplanet_columns.html
     #
     ea_df = get_nasa_exoplanet_archive_pscomppars(VER)
 
     #
-    # get systems with finite ages (has a value, and +/- error bar)
+    # In most cases, we will select systems with finite ages (has a value, and
+    # +/- error bar). We may also want to select on "is transiting", "has
+    # mass", etc.
     #
     has_rp_value = ~pd.isnull(ea_df['pl_rade'])
     has_rp_errs  = (~pd.isnull(ea_df['pl_radeerr1'])) & (~pd.isnull(['pl_radeerr2']))
@@ -50,17 +82,21 @@ def plot_rp_vs_period_scatter(
     has_age_errs  = (~pd.isnull(ea_df['st_ageerr1'])) & (~pd.isnull(ea_df['st_ageerr2']))
 
     if not colorbyage:
+
         sel = (
-            # has_mp_value & has_mp_errs & mp_gt_0
             has_rp_value & has_rp_errs & transits & rp_gt_0
         )
+
     else:
-        # NOTE: not requiring age uncertainties, b/c TOI451 doesn't quote them.
+
+        # We will be coloring the points by their ages.
+
         sel = (
-            has_age_value & has_rp_value & has_rp_errs & transits
-            & rp_gt_0
+            has_age_value & has_rp_value & has_rp_errs & transits & rp_gt_0
         )
-        hardexclude = (
+
+        # Do not show these planets.
+        HARDEXCLUDE = (
             (ea_df.pl_name == 'CoRoT-18 b') # this is an isochrone age? G9V? wat?
             |
             (ea_df.pl_name == 'Qatar-3 b') # age uncertainties understated.
@@ -70,13 +106,15 @@ def plot_rp_vs_period_scatter(
             (ea_df.pl_name == 'Qatar-4 b') # age uncertainties understated. Rotn good. Li is not. isochrones who knows.
         )
 
-        # no age uncertainty on exoplanet archive, but good age.
+        # Show these planets, because they have good ages.
         EXCEPTIONS = (
             ea_df.pl_name.str.contains('TOI-451')
         )
 
-        sel &= (~hardexclude)
+        sel &= (~HARDEXCLUDE)
 
+        # This additional selection on the age uncertainties will be imposed
+        # further below.
         has_factorN_age = (
             (
                 (ea_df['st_age'] / np.abs(ea_df['st_ageerr1']) > 3)
@@ -87,11 +125,13 @@ def plot_rp_vs_period_scatter(
             (EXCEPTIONS)
         )
 
-        #sel &= has_factorN_age
-
+    # Impose the selection function defined above.
     sdf = ea_df[sel]
 
     if verbose:
+
+        # Print stuff about the young transiting planet sample.
+
         sdf_young = (
             sdf[(sdf['st_age']*u.Gyr < 0.3*u.Gyr) & (sdf['st_age']*u.Gyr > 0*u.Gyr)]
         )
@@ -116,7 +156,7 @@ def plot_rp_vs_period_scatter(
 
 
     #
-    # read params
+    # Read parameters.
     #
     mp = sdf['pl_bmasse']
     rp = sdf['pl_rade']
@@ -126,8 +166,8 @@ def plot_rp_vs_period_scatter(
     pl_name = sdf['pl_name']
 
     #
-    # plot age vs rp. (age is on y axis b/c it has the error bars, and I at
-    # least skimmed the footnotes of Hogg 2010)
+    # Plot age vs rp. (age is on y axis b/c it has the error bars, and I at
+    # least skimmed the footnotes of Hogg 2010).
     #
     fig,ax = plt.subplots(figsize=(1.3*4,1.3*3))
 
@@ -152,10 +192,8 @@ def plot_rp_vs_period_scatter(
         #cmap = mpl.cm.magma_r
         cmap = mpl.cm.Spectral
         cmap = mpl.cm.get_cmap('magma_r', 8)
-        #cmap = mpl.cm.get_cmap('Spectral', 8)
         bounds = np.arange(7.0,9.0,0.01)
         norm = mpl.colors.LogNorm(vmin=1e7, vmax=1e9)
-        #norm = mpl.colors.BoundaryNorm(bounds, cmap.N, extend='neither')
 
         _p = ax.scatter(
             period[s1], rp[s1],
@@ -238,9 +276,7 @@ def plot_rp_vs_period_scatter(
 
 
         cb = fig.colorbar(_p, cax=axins1, orientation="vertical",
-                          extend="neither", #ticks=[7,7.5,8,8.5,9],
-                          norm=norm)
-        #cb.ax.set_yticklabels([7,7.5,8,8.5,9])
+                          extend="neither", norm=norm)
 
         cb.set_ticks([1e7,1e8,1e9])
         cb.set_ticklabels(['$10^7$','$10^8$','$10^9$'])
@@ -308,12 +344,6 @@ def plot_rp_vs_period_scatter(
                        marker='o', edgecolors='k',
                        linewidth=0.2, alpha=1)
 
-            #bbox = dict(facecolor='white', alpha=0., pad=0, edgecolor='white')
-            #ax.text(_x, _y, txt, va='top', ha='center',
-            #        color='k', bbox=bbox,
-            #        fontsize='xx-small')
-
-
     # flip default legend order
     if showlegend:
         handles, labels = ax.get_legend_handles_labels()
@@ -330,8 +360,6 @@ def plot_rp_vs_period_scatter(
         ax.set_xlim([0.1, 110000])
     else:
         ax.set_xlim([0.1, 1100])
-    #ax.set_ylim([0.0001*318, 100*318])
-    #ax.set_ylim([0.0001*318, 100*318])
     format_ax(ax)
 
     ax.set_yscale('log')
