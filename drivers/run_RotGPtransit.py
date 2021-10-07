@@ -103,17 +103,6 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
     phasedsubsets = 1
     getbecclimits = 1
 
-    if getbecclimits:
-        from rudolf.helpers import get_becc_limits
-        get_becc_limits(
-            datasets, m.trace.posterior
-        )
-
-    if posttable:
-        outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')
-        make_posterior_table(pklpath, priordict, outpath, modelid, makepdf=1,
-                             var_names=var_names)
-
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
         ylimd = {'A':[-3.5, 2.5], 'B':[-0.19,0.19]}
@@ -130,6 +119,19 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
                                    map_estimate=m.map_estimate, fullxlim=True,
                                    BINMS=0.5, do_hacky_reprerror=True,
                                    binsize_minutes=20)
+
+        assert 0
+
+    if getbecclimits:
+        from rudolf.helpers import get_becc_limits
+        get_becc_limits(
+            datasets, m.trace.posterior
+        )
+
+    if posttable:
+        outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')
+        make_posterior_table(pklpath, priordict, outpath, modelid, makepdf=1,
+                             var_names=var_names)
 
     if phasedsubsets:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_phasedsubsets_yearchunk.png')
