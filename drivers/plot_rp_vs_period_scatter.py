@@ -223,7 +223,7 @@ def plot_rp_vs_period_scatter(
                 _age = np.ones(len(_sdf))*a
 
                 if n == 'Kepler-1627':
-                    _rp = (0.298*u.Rjup).to(u.Rearth).value
+                    _rp = (0.338*(1.015)**(0.5)*u.Rjup).to(u.Rearth).value
 
                 ax.scatter(
                     _per, _rp,
@@ -257,7 +257,7 @@ def plot_rp_vs_period_scatter(
                 _age = np.ones(len(_sdf))*a
 
                 if n == 'Kepler-1627':
-                    _rp = [(0.298*u.Rjup).to(u.Rearth).value]
+                    _rp = [(0.338*(1.015)**(0.5)*u.Rjup).to(u.Rearth).value]
 
                 ax.scatter(
                     _per, _rp,

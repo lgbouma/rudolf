@@ -115,7 +115,7 @@ def get_kep1627_kepler_lightcurve(lctype='longcadence'):
         yval = 'PDCSAP_FLUX'
         time = d['TIME']
         _f, _f_err = d[yval], d[yval+'_ERR']
-        flux = _f/np.nanmedian(_f)
+        flux = (_f/np.nanmedian(_f) - 1) # normalize around zero for GP regression
         flux_err = _f_err/np.nanmedian(_f)
         qual = d['SAP_QUALITY']
 

@@ -65,6 +65,10 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
     if not os.path.exists(PLOTDIR):
         os.mkdir(PLOTDIR)
 
+    #
+    # values: transit, gpJitterMean,  RotationTerm, JitterMean, LimbDark,
+    # bonus, FullOptimize.
+    #
     # #works
     # map_optimization_method = 'RotationTerm_transit'
     # #does not work (produces grazing transit)
@@ -77,9 +81,13 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
                     map_optimization_method=map_optimization_method)
 
     var_names = [
-        'mean','logg_star','t0','period','log_r','log_jitter',
-        'log_prot','log_Q0','log_dQ','r_star','rho_star','u_star', 'r',
-        'b', 'ecc', 'omega', 'sigma_rot', 'prot', 'f',
+        'mean','logg_star','r_star','t0','period','log_depth', 'b',
+        'ecc', 'omega','u_star',
+        'log_jitter',
+        'log_prot','log_Q0','log_dQ',
+        'sigma_rot', 'prot', 'f',
+        'rho_star',
+        'depth','ror',
         'r_planet', 'a_Rs', 'cosi', 'sini','T_14','T_13'
     ]
 
@@ -95,6 +103,17 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
     phasedsubsets = 1
     getbecclimits = 1
 
+    if getbecclimits:
+        from rudolf.helpers import get_becc_limits
+        get_becc_limits(
+            datasets, m.trace.posterior
+        )
+
+    if posttable:
+        outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')
+        make_posterior_table(pklpath, priordict, outpath, modelid, makepdf=1,
+                             var_names=var_names)
+
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
         ylimd = {'A':[-3.5, 2.5], 'B':[-0.19,0.19]}
@@ -102,7 +121,7 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
                                    from_trace=True, ylimd=ylimd,
                                    map_estimate=m.map_estimate,
                                    do_hacky_reprerror=True,
-                                   rebinthemodel=False, binsize_minutes=20)
+                                   binsize_minutes=20)
         outpath = join(PLOTDIR,
                        f'{starid}_{modelid}_posterior_phaseplot_fullxlim.png')
         ylimd = {'A':[-3.5, 2.5], 'B':[-0.19,0.19]}
@@ -110,7 +129,7 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
                                    from_trace=True, ylimd=ylimd,
                                    map_estimate=m.map_estimate, fullxlim=True,
                                    BINMS=0.5, do_hacky_reprerror=True,
-                                   rebinthemodel=False, binsize_minutes=20)
+                                   binsize_minutes=20)
 
     if phasedsubsets:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_phasedsubsets_yearchunk.png')
@@ -137,20 +156,9 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
             inch_per_subset=0.35, binsize_minutes=20
         )
 
-    if posttable:
-        outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')
-        make_posterior_table(pklpath, priordict, outpath, modelid, makepdf=1,
-                             var_names=var_names)
-
     if cornerplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_cornerplot.png')
         bp.plot_cornerplot(var_names, m, outpath)
-
-    if getbecclimits:
-        from rudolf.helpers import get_becc_limits
-        get_becc_limits(
-            datasets, m.trace.posterior
-        )
 
 
 if __name__ == "__main__":
