@@ -1,0 +1,57 @@
+%% \begin{deluxetable}{} command tell LaTeX how many columns
+%% there are and how to align them.
+\startlongtable
+\begin{deluxetable*}{llll}
+    
+%% Keep a portrait orientation
+
+%% Over-ride the default font size
+%% Use Default (12pt)
+\tabletypesize{\scriptsize}
+
+%% Use \tablewidth{?pt} to over-ride the default table width.
+%% If you are unhappy with the default look at the end of the
+%% *.log file to see what the default was set at before adjusting
+%% this value.
+
+%% This is the title of the table.
+\tablecaption{\sn\ radial velocities.}
+\label{tab:rv}
+
+%% This command over-rides LaTeX's natural table count
+%% and replaces it with this number.  LaTeX will increment 
+%% all other tables after this table based on this number
+%\tablenum{4}
+
+%% The \tablehead gives provides the column headers.  It
+%% is currently set up so that the column labels are on the
+%% top line and the units surrounded by ()s are in the 
+%% bottom line.  You may add more header information by writing
+%% another line between these lines. For each column that requries
+%% extra information be sure to include a \colhead{text} command
+%% and remember to end any extra lines with \\ and include the 
+%% correct number of &s.
+\tablehead{
+  \colhead{Time [BJD$_\mathrm{TDB}$]} &
+  \colhead{RV [m$\,$s$^{-1}$]} &
+  \colhead{$\sigma_{\rm RV}$ [m$\,$s$^{-1}$]} & 
+  \colhead{S-value}
+}
+
+%% All data must appear between the \startdata and \enddata commands
+\startdata
+ 2459433.801306 & 152.97 & 12.29 & 0.7355 \\
+ 2459433.812255 & 100.5 & 13.23 & 0.7434 \\
+\enddata
+
+%% Include any \tablenotetext{key}{text}, \tablerefs{ref list},
+%% or \tablecomments{text} between the \enddata and 
+%% \end{deluxetable} commands
+
+%% General table comment marker
+\tablecomments{
+Table~\ref{tab:rv} is published in its entirety in a
+machine-readable format. 
+Example entries are shown for guidance regarding form and content.
+}
+\end{deluxetable*}
