@@ -2651,7 +2651,8 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
     plt.close('all')
     mpl.rcParams.update(mpl.rcParamsDefault)
     set_style()
-    fig, axs = plt.subplots(nrows=3, ncols=1, figsize=(4,5), sharex=True)
+    factor = 1.2
+    fig, axs = plt.subplots(nrows=3, ncols=1, figsize=(factor*2.75,factor*5.5), sharex=True)
 
     ax = axs[0]
 
@@ -2737,6 +2738,8 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
             m = d['model']
             trace = d['trace']
             map_estimate = d['map_estimate']
+        else:
+            raise NotImplementedError(f'did not find {pklpath}')
 
     from rudolf.paths import PHOTDIR
 
@@ -2760,11 +2763,11 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
         ax.scatter(scale_x(_time),
                    _flux - shift,
                    c='darkgray', zorder=3, s=5, rasterized=False,
-                   linewidths=0, alpha=0.4)
+                   linewidths=0, alpha=0.1)
 
         ax.scatter(scale_x(_bintime),
                    _binflux - shift,
-                   c=c, zorder=4, s=18, rasterized=False,
+                   c=c, zorder=4, s=14, rasterized=False,
                    linewidths=0)
 
         if showmodel or showmodelbands:
@@ -2795,8 +2798,8 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
 
         props = dict(boxstyle='square', facecolor='white', alpha=0.7, pad=0.15,
                      linewidth=0)
-        txt = f'{bp}-band'
-        ax.text(0.80, 2e-3 + np.nanmedian(_flux) - shift, txt,
+        txt = f'{bp}'
+        ax.text(0.815, 1e-3 + np.nanmedian(_flux) - shift, txt,
                 ha='left', va='top', bbox=props, zorder=6, color=c,
                 fontsize='x-small')
 
@@ -3279,14 +3282,15 @@ def plot_phasedlc_quartiles(
         #
         ax = axd[str(q_ix)]
         #ax.set_title(txt)
-        ax.errorbar(scale_x(x_fold[mask]), 1e3*(y[mask]-gp_mod[mask]),
+        y0 = (y[mask]-gp_mod[mask]) - np.nanmedian(y[mask]-gp_mod[mask])
+        ax.errorbar(scale_x(x_fold[mask]), 1e3*(y0),
                     yerr=1e3*_yerr[mask], color="darkgray", label="data",
                     fmt='.', elinewidth=0.2, capsize=0, markersize=1,
                     rasterized=True, zorder=-1)
 
         binsize_days = (binsize_minutes / (60*24))
         orb_bd = phase_bin_magseries(
-            x_fold[mask], y[mask]-gp_mod[mask], binsize=binsize_days, minbinelems=3
+            x_fold[mask], y0, binsize=binsize_days, minbinelems=3
         )
         ax.scatter(
             scale_x(orb_bd['binnedphases']), 1e3*(orb_bd['binnedmags']), color='k',
@@ -3324,8 +3328,12 @@ def plot_phasedlc_quartiles(
         #            markersize=1, rasterized=True)
 
         binsize_days = (binsize_minutes / (60*24))
+        y1 = (
+            y[mask]-gp_mod[mask]-lc_mod[mask] -
+            np.nanmedian(y[mask]-gp_mod[mask]-lc_mod[mask])
+        )
         orb_bd = phase_bin_magseries(
-            x_fold[mask], y[mask]-gp_mod[mask]-lc_mod[mask], binsize=binsize_days, minbinelems=3
+            x_fold[mask], y1, binsize=binsize_days, minbinelems=3
         )
         ax.scatter(
             scale_x(orb_bd['binnedphases']), 1e3*(orb_bd['binnedmags']), color='k',
