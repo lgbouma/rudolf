@@ -53,7 +53,7 @@ def run_QuadMulticolorTransit(starid='Kepler_1627', N_samples=2000):
                     map_optimization_method=map_optimization_method)
 
     var_names = [
-        'logg_star','t0','period','log_r', 'r_star','rho_star', 'r',
+        'logg_star','t0','period','dur', 'log_dur', 'log_ror', 'r_star','rho_star', 'ror',
         'b', 'r_planet', 'a_Rs', 'cosi', 'sini','T_14','T_13'
     ]
     bandpasses = 'g,r,i,z'.split(',')
@@ -83,7 +83,7 @@ def run_QuadMulticolorTransit(starid='Kepler_1627', N_samples=2000):
 
     if cornerplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_cornerplot.png')
-        bp.plot_cornerplot(list(priordict), m, outpath)
+        bp.plot_cornerplot(var_names, m, outpath)
 
     if posttable:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')

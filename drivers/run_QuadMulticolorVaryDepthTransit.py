@@ -88,7 +88,7 @@ def run_QuadMulticolorVaryDepthTransit(starid='Kepler_1627',
 
     if cornerplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_cornerplot.png')
-        bp.plot_cornerplot(list(priordict), m, outpath)
+        bp.plot_cornerplot(var_names, m, outpath)
 
     if posttable:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')
