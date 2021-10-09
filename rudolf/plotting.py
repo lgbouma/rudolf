@@ -3040,8 +3040,8 @@ def plot_phasedlc_quartiles(
     """
     Args:
 
-        whichtype (str): "slope" or "ttv", for either "slope_quartiles" or
-        "ttv_quartiles".  This is the quantity that is being binned by.
+        whichtype (str): "slope", "ttv", "p2p", or "sd" for
+        "{whichtype}_quartiles".  This is the quantity that is being binned by.
 
         data (OrderedDict): data['tess'] = (time, flux, flux_err, t_exp)
 
@@ -3117,43 +3117,77 @@ def plot_phasedlc_quartiles(
 
     ####################
     # begin get TTV data
-    datadir = os.path.join(DATADIR, 'ttv', 'Masuda', 'K05245.01/')
-    tnum, tc, tc_err, tc_lin = np.loadtxt(datadir+"tc.dat").T
-    ttv = tc - tc_lin
-    slopes = []
-    for _tnum in tnum:
-        _t, _f, _ferr, _fmodel = np.loadtxt(datadir+"transit_%04d.dat"%int(_tnum)).T
-        coeffs = np.polyfit(_t, _f, deg=1)
-        slopes.append(coeffs[0])
-    slopes = np.array(slopes)
-    ttv_mean, ttv_std = np.mean(ttv), np.std(ttv)
-    ttv_cut = 0.02 # doesn't mean match
 
-    sel = (np.abs(ttv)<ttv_cut)
+    DO_METHOD1 = 0
+    DO_METHOD2 = 1
 
-    print(f'N_transits originally: {len(ttv)}')
-    print(f'N_transits after |TTV| < 0.02 days: {len(ttv[sel])}')
+    if DO_METHOD1:
+        datadir = os.path.join(DATADIR, 'ttv', 'Masuda', 'K05245.01/')
+        tnum, tc, tc_err, tc_lin = np.loadtxt(datadir+"tc.dat").T
+        ttv = tc - tc_lin
+        slopes = []
+        for _tnum in tnum:
+            _t, _f, _ferr, _fmodel = np.loadtxt(datadir+"transit_%04d.dat"%int(_tnum)).T
+            coeffs = np.polyfit(_t, _f, deg=1)
+            slopes.append(coeffs[0])
+        slopes = np.array(slopes)
+        ttv_mean, ttv_std = np.mean(ttv), np.std(ttv)
+        ttv_cut = 0.02 # doesn't mean match
+        sel = (np.abs(ttv)<ttv_cut)
 
-    ttv = ttv[sel]
-    slopes = slopes[sel]
-    tc = tc[sel]
-    tc_err = tc_err[sel]
+        print(f'N_transits originally: {len(ttv)}')
+        print(f'N_transits after |TTV| < 0.02 days: {len(ttv[sel])}')
+
+        ttv = ttv[sel]
+        slopes = slopes[sel]
+        tc = tc[sel]
+        tc_err = tc_err[sel]
+
+    elif DO_METHOD2:
+
+        datadir = os.path.join(DATADIR, 'ttv', 'Masuda_20211009')
+        _df = pd.read_csv(os.path.join(datadir, 'coeffs_w_variability.csv'))
+
+        slopes = nparr(_df.dfdt) # ppt/day already
+        ttv = nparr(_df.ttv)
+        tc_err = nparr(_df.tc_err)
+        tc = nparr(_df.tc)
+        sd = nparr(_df.localSD)
+        p2p = nparr(_df.localP2P)
+
+        ttv_cut = 0.02*24*60 # 4 outliers > 30 minutes out
+        sel = (np.abs(ttv)<ttv_cut)
+
+        print(f'N_transits originally: {len(ttv)}')
+        print(f'N_transits after |TTV| < 0.02 days: {len(ttv[sel])}')
+
+        slopes = slopes[sel]
+        ttv = ttv[sel]
+        tc_err = tc_err[sel]
+        tc = tc[sel]
+        sd = sd[sel]
+        p2p = p2p[sel]
 
     # get quartiles...
-    if whichtype == 'slope':
-        quartiles = [0,25,50,75,100]
-        slopes_percentiles = [np.percentile(slopes, q) for q in quartiles ]
-        for q,s in zip(quartiles,slopes_percentiles):
-            print(f'{q}%: {s:.4f} ppt/day')
-    elif whichtype == 'ttv':
-        quartiles = [0,25,50,75,100]
-        ttv_percentiles = [np.percentile(ttv, q) for q in quartiles ]
-        for q,s in zip(quartiles,ttv_percentiles):
-            print(f'{q}%: {s*24*60:.4f} minutes')
-    else:
-        raise NotImplementedError(
-            'Got unknown `whichtype`. TTV and slope only cases rn.'
-        )
+    quartiles = [0,25,50,75,100]
+    paramdict = {
+        'slope': [slopes, 'ppt/day', "\mathrm{d}f/\mathrm{d}t"],
+        'ttv': [ttv, 'minutes', "\mathrm{TTV}"],
+        'p2p': [p2p, 'ppt', "\mathrm{P2P}"],
+        'sd': [sd, 'ppt', "\mathrm{STDEV}"]
+    }
+
+    allowed_types = list(paramdict.keys())
+    assert whichtype in nparr(allowed_types)
+
+    param = paramdict[whichtype][0] # e.g., "slopes"
+    unit = paramdict[whichtype][1]
+    paramstr = paramdict[whichtype][2]
+
+    param_percentiles = [np.percentile(param, q) for q in quartiles ]
+    print(whichtype)
+    for q,s in zip(quartiles, param_percentiles):
+        print(f'{q}%: {s:.4f} {unit}')
 
     ##########################################
     # make the plot
@@ -3226,12 +3260,6 @@ def plot_phasedlc_quartiles(
     # begin the plot!
     #
 
-    quartiles = [0,25,50,75,100]
-    if whichtype == 'slope':
-        slopes_percentiles = [np.percentile(slopes, q) for q in quartiles ]
-    elif whichtype == 'ttv':
-        ttv_percentiles = [np.percentile(ttv, q) for q in quartiles ]
-
     for q_ix in range(0,4):
 
         #
@@ -3239,33 +3267,16 @@ def plot_phasedlc_quartiles(
         #
         x_fold = (x - _t0 + 0.5 * _per) % _per - 0.5 * _per
 
-        # NOTE: if you use start to use other variabiles, you should generalize
-        # the following block of code rather than doing many elifs...
-        if whichtype == 'slope':
-            slope_lower = slopes_percentiles[q_ix]
-            slope_upper = slopes_percentiles[q_ix+1]
-            sel = (
-                (slopes >= slope_lower) &
-                (slopes <= slope_upper)
-            )
-            txt = (
-                #'$N_\mathrm{tra}=$'f'{len(these_tc)}\n'+
-                '$\mathrm{d}f/\mathrm{d}t \in$'+
-                f'[{slope_lower:.3f}, {slope_upper:.3f}] ppt/day'
-            )
-
-        elif whichtype == 'ttv':
-            ttv_lower = ttv_percentiles[q_ix]
-            ttv_upper = ttv_percentiles[q_ix+1]
-            sel = (
-                (ttv >= ttv_lower) &
-                (ttv <= ttv_upper)
-            )
-            txt = (
-                #'$N_\mathrm{tra}=$'f'{len(these_tc)}\n'+
-                'TTV$\in$'+
-                f'[{ttv_lower*24*60:.1f}, {ttv_upper*24*60:.1f}] min'
-            )
+        param_lower = param_percentiles[q_ix]
+        param_upper = param_percentiles[q_ix+1]
+        sel = (
+            (param >= param_lower) &
+            (param <= param_upper)
+        )
+        txt = (
+            '$'+paramstr+' \in$'+
+            f'[{param_lower:.1f}, {param_upper:.1f}] {unit}'
+        )
 
         these_tc = tc[sel]
 
