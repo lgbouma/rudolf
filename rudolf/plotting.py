@@ -1295,6 +1295,12 @@ def plot_ttv(outdir, narrowylim=0):
     d = hl[1].data
     df = Table(d).to_pandas()
 
+    # print
+    sdf = df[np.abs(df["O-C"]<30)]
+    print(f'Mean stdev TTV: {np.mean(sdf["O-C"]):.3f} +/- {np.std(sdf["O-C"]):.3f} min')
+    # TDV is fractional, they found 3.2 hour (!) transit, convert to minutes
+    print(f'Mean stdev TDV: {3.229*60*np.mean(sdf["TDV"]):.3f} +/- {3.229*60*np.std(sdf["TDV"]):.3f} min')
+
     # make plot
     plt.close('all')
     set_style()
@@ -1327,42 +1333,80 @@ def _linear_model(xdata, m, b):
 
 def plot_ttv_vs_local_slope(outdir):
 
-    # get data
-    datadir = os.path.join(DATADIR, 'ttv', 'Masuda', 'K05245.01/')
-    tnum, tc, tc_err, tc_lin = np.loadtxt(datadir+"tc.dat").T
+    DO_METHOD1 = 0
+    DO_METHOD2 = 1
 
-    ttv = tc - tc_lin
+    if DO_METHOD1:
+        datadir = os.path.join(DATADIR, 'ttv', 'Masuda', 'K05245.01/')
+        tnum, tc, tc_err, tc_lin = np.loadtxt(datadir+"tc.dat").T
+        ttv = tc - tc_lin
+        slopes = []
+        for _tnum in tnum:
+            _t, _f, _ferr, _fmodel = np.loadtxt(datadir+"transit_%04d.dat"%int(_tnum)).T
+            coeffs = np.polyfit(_t, _f, deg=1)
+            slopes.append(coeffs[0])
+        slopes = np.array(slopes)
+        ttv_mean, ttv_std = np.mean(ttv), np.std(ttv)
+        ttv_cut = 0.02 # doesn't mean match
+        sel = (np.abs(ttv)<ttv_cut)
 
-    slopes = []
-    for _tnum in tnum:
-        _t, _f, _ferr, _fmodel = np.loadtxt(datadir+"transit_%04d.dat"%int(_tnum)).T
-        coeffs = np.polyfit(_t, _f, deg=1)
-        slopes.append(coeffs[0])
+        print(f'N_transits originally: {len(ttv)}')
+        print(f'N_transits after |TTV| < 0.02 days: {len(ttv[sel])}')
 
-    slopes = np.array(slopes)
+        ttv = ttv[sel]
+        slopes = slopes[sel]
+        tc = tc[sel]
+        tc_err = tc_err[sel]
 
-    ttv_mean, ttv_std = np.mean(ttv), np.std(ttv)
+        # 1000 will give ppt per day...
+        # for context, the light curve changes by ~50 ppt per half rotation period
+        # (which is ~1.3 days).
+        XMULT = 1e3
+        YMULT = 24*60
 
-    ttv_cut = 0.02 # doesn't mean match
+    elif DO_METHOD2:
 
-    z1 = np.poly1d(
-        np.polyfit(slopes[np.abs(ttv)<ttv_cut],
-                   ttv[np.abs(ttv)<ttv_cut], deg=1)
-    )
+        datadir = os.path.join(DATADIR, 'ttv', 'Masuda_20211009')
+        _df = pd.read_csv(os.path.join(datadir, 'coeffs_w_variability.csv'))
+
+        slopes = nparr(_df.dfdt) # ppt/day already
+        ttv = nparr(_df.ttv)
+        tc_err = nparr(_df.tc_err)
+        tc = nparr(_df.tc)
+        sd = nparr(_df.localSD)
+        p2p = nparr(_df.localP2P)
+
+        ttv_cut = 0.02*24*60 # 4 outliers > 30 minutes out
+        sel = (np.abs(ttv)<ttv_cut)
+
+        print(f'N_transits originally: {len(ttv)}')
+        print(f'N_transits after |TTV| < 0.02 days: {len(ttv[sel])}')
+
+        slopes = slopes[sel]
+        ttv = ttv[sel]
+        tc_err = tc_err[sel]
+        tc = tc[sel]
+        sd = sd[sel]
+        p2p = p2p[sel]
+
+        print(f'Mean stdev TTV: {np.mean(ttv):.3f} +/- {np.std(ttv):.3f} min')
+        print(f'Mean stdev df/dt: {np.mean(slopes):.3f} +/- {np.std(slopes):.3f} ppt/day')
+
+        XMULT = 1
+        YMULT = 1
 
     slope_guess = -5e-2
     intercept_guess = 0
-    sel = np.abs(ttv)<ttv_cut
+
     # ignore the error bars... because they are probably wrong.
     p_opt, p_cov = curve_fit(
-        _linear_model, slopes[sel], ttv[sel],
-        p0=(slope_guess, intercept_guess), #sigma=tc_err[sel]
+        _linear_model, slopes, ttv,
+        p0=(slope_guess, intercept_guess)#, sigma=tc_err
     )
     lsfit_slope = p_opt[0]
     lsfit_slope_err = p_cov[0,0]**0.5
     lsfit_int = p_opt[1]
     lsfit_int_err = p_cov[1,1]**0.5
-
 
     # make plot
     plt.close('all')
@@ -1373,46 +1417,46 @@ def plot_ttv_vs_local_slope(outdir):
     ax.set_ylabel("TTV [minutes]")
     ax.set_xlabel("Local light curve slope [ppt$\,$day$^{-1}$]")
 
-    # 1000 will give ppt per day...
-    # for context, the light curve changes by ~50 ppt per half rotation period
-    # (which is ~1.3 days).
-    XMULT = 1e3
-
-    sel = np.abs(ttv)<ttv_cut
-    slopes,ttv,tc_err = slopes[sel],ttv[sel],tc_err[sel]
-
     ax.errorbar(
-        XMULT*slopes, ttv*24*60, tc_err*24*60,
-        marker='o', elinewidth=0.5, capsize=4, lw=0, mew=0.5, color='k',
-        markersize=3, zorder=5
+        XMULT*slopes, ttv*YMULT, tc_err*YMULT,
+        marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color='k',
+        markersize=3, zorder=5, alpha=1
     )
+    ax.axhline(0, color="C4", lw=1, ls='--', zorder=-5)
 
-    t0 = np.linspace(-0.2, 0.2, 100)
+    if DO_METHOD1:
+        t0 = np.linspace(-0.2, 0.2, 100)
+    elif DO_METHOD2:
+        t0 = np.linspace(-0.2*1e3, 0.2*1e3, 100)
 
     #ax.plot(24*t0, z1(t0)*24*60, '-', label='linear fit', color='C1', alpha=0.6)
 
-    ax.plot(XMULT*t0, _linear_model(t0, lsfit_slope, lsfit_int)*24*60, '-',
+    ax.plot(XMULT*t0, _linear_model(t0, lsfit_slope, lsfit_int)*YMULT, '-',
             label='Best fit', color='C2', alpha=1, lw=1)
 
     ax.fill_between(XMULT*t0,
-                    _linear_model(t0, lsfit_slope-lsfit_slope_err, lsfit_int)*24*60,
-                    _linear_model(t0, lsfit_slope+lsfit_slope_err, lsfit_int)*24*60,
+                    _linear_model(t0, lsfit_slope-lsfit_slope_err,
+                                  lsfit_int)*YMULT,
+                    _linear_model(t0, lsfit_slope+lsfit_slope_err,
+                                  lsfit_int)*YMULT,
                     alpha=0.6,
                     color='C2', lw=0, label='1$\sigma$',zorder=-1)
 
     ax.fill_between(XMULT*t0,
-                    _linear_model(t0, lsfit_slope-3*lsfit_slope_err, lsfit_int)*24*60,
-                    _linear_model(t0, lsfit_slope+3*lsfit_slope_err, lsfit_int)*24*60,
+                    _linear_model(t0, lsfit_slope-2*lsfit_slope_err,
+                                  lsfit_int)*YMULT,
+                    _linear_model(t0, lsfit_slope+2*lsfit_slope_err,
+                                  lsfit_int)*YMULT,
                     alpha=0.2,
-                    color='C2', lw=0, label='3$\sigma$',zorder=-2)
+                    color='C2', lw=0, label='2$\sigma$',zorder=-2)
 
     print(f'Slope: {lsfit_slope:.4f} +/- {lsfit_slope_err:.4f} ppt/day')
     print(f'implies {abs(lsfit_slope/lsfit_slope_err):.2f}σ different from zero.')
-    print(f'Intercept: {lsfit_int*24*60:.5f} +/- {lsfit_int_err*24*60:.5f} minutes')
+    print(f'Intercept: {lsfit_int*YMULT:.5f} +/- {lsfit_int_err*YMULT:.5f} minutes')
 
-
-    ax.set_ylim([-0.03*24*60,0.03*24*60])
-    ax.set_xlim([-0.149*XMULT,0.149*XMULT])
+    #ax.set_ylim([-0.03*24*60,0.03*24*60])
+    ax.set_ylim([-29,29])
+    ax.set_xlim([-0.149*1e3,0.149*1e3])
 
     ax.legend(fontsize='x-small')
 
