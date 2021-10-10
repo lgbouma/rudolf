@@ -35,12 +35,12 @@ cp /Users/luke/Dropbox/proj/rudolf/results/run_RotGPtransit/Kepler_1627_RotGPtra
 
 cp /Users/luke/Dropbox/proj/rudolf/results/phasedlc_quartiles/Kepler_1627_RotGPtransit_phasedlc_slope_quartiles.pdf f11.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/phasedlc_quartiles/Kepler_1627_RotGPtransit_phasedlc_ttv_quartiles.pdf f12.pdf
+#cp /Users/luke/Dropbox/proj/rudolf/results/phasedlc_quartiles/Kepler_1627_RotGPtransit_phasedlc_ttv_quartiles.pdf f12.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/rvactivitypanel/rvactivitypanel.pdf f13.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/rvactivitypanel/rvactivitypanel.pdf f12.pdf
 
-cp /Users/luke/Dropbox/proj/rudolf/results/flares/flarezoom_itergp.pdf f14.pdf
-cp /Users/luke/Dropbox/proj/rudolf/results/flares/flare_pair_separation_histogram_poisson_real_and_1000sample_average.pdf f15.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/flares/flarezoom_itergp.pdf f13.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/flares/flare_pair_separation_histogram_poisson_real_and_1000sample_average.pdf f14.pdf
 
 ##########
 

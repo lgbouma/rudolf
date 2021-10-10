@@ -71,9 +71,9 @@
   Kepler\,1627Ab the youngest planet with a precise age yet found by
   the main Kepler mission.  The Kepler photometry shows two
   peculiarities: the average transit profile is asymmetric, and the
-  individual transit times are correlated with the local light curve
+  individual transit times might be correlated with the local light curve
   slope.  We discuss possible explanations for each anomaly.  More
-  broadly, the $\delta$~Lyr cluster
+  importantly, the $\delta$~Lyr cluster
   is one of $\sim$10$^3$ coeval groups whose properties have been clarified
   by Gaia.  Many other exoplanet hosts are potentially kinematic members
   of these clusters; their candidate memberships can be verified by
@@ -152,10 +152,11 @@ both a binary and also a member of the cluster.  Focusing on the
 planet (Section~\ref{sec:planet}), we confirm that despite the
 existence of the previously unreported M2.5V companion, hereafter
 Kepler\,1627B, the planet orbits the G-dwarf primary, Kepler\,1627A.
-Based on a correlation between the planetary transit times and the
-local light curve slope, the orbit may also be prograde.  We conclude
-by highlighting broader implications for our ability to age-date a
-larger sample of planets (Section~\ref{sec:conc}).
+We also analyze an asymmetry in the average transit profile, and a
+possible correlation between the individual transit times and the
+local light curve slope.  We conclude by discussing broader
+implications for our ability to age-date a larger sample of planets
+(Section~\ref{sec:conc}).
 
 
 \section{The Cluster}
@@ -559,6 +560,8 @@ at $\rho = 330$\,AU.
 \section{The Planet}
 \label{sec:planet}
 
+\subsection{Kepler Light Curve}
+
 \begin{figure*}[tp]
 	\begin{center}
 		\leavevmode
@@ -596,7 +599,6 @@ at $\rho = 330$\,AU.
   }
 \end{figure*}
 
-\subsection{Kepler Light Curve}
 
 The Kepler space telescope observed \sn\ at a 30-minute cadence from
 2009 May 2 until 2013 April 8.  Data gaps during quarters 4, 9, and 13
@@ -618,6 +620,7 @@ Nonetheless, since the cluster membership provides us with more
 precise stellar parameters than those previously available, we opted
 to reanalyze the light curve.
 
+\subsubsection{Transit and Stellar Variability Model}
 We fitted the Kepler long cadence time series with a model that
 simultaneously included the planetary transit and the stellar
 variability.  The stellar variability was modeled with the
@@ -661,30 +664,34 @@ planet size is consistent with those previously reported by
 \citet{morton_false_2016} and \citet{berger_identifying_2018}, and
 corrects for the small amount of flux dilution from Kepler\,1627B.
 
+\subsubsection{Transit Asymmetry}
+\label{subsec:asymmetry}
 The transit fit however is not perfect: the lower panels of
 Figure~\ref{fig:lc} show an asymmetric residual in the data relative
 to the model: the measured flux is high during the first half of
 transit, and low in the second half.  The semi-amplitude of this
 deviation is $\approx50\,{\rm ppm}$, which represents a $\approx 3\%$
-distortion of the transit depth ($1759\pm62\,{\rm ppm}$).  Note that
-while this asymmetry is within the 2-$\sigma$ model uncertainties, the
+distortion of the transit depth ($\delta=1759\pm62\,{\rm ppm}$).  Note that
+although this asymmetry is within the 2-$\sigma$ model uncertainties, the
 model has a jitter term that grows to account for otherwise unmodeled
 white noise in the flux.  The significance of the asymmetry is
 therefore best assessed in comparison against the intrinsic
-out-of-transit scatter in the data, not the model uncertainties.
+out-of-transit scatter in the data ($\approx16\,{\rm ppm}$), not the model uncertainties.  The
+lower right panel of Figure~\ref{fig:lc} demonstrates that the scatter during
+transit is higher than during all other phases of the planet's orbit.
 
-To determine whether the asymmetry is a systematic caused by our
+To determine whether the asymmetry could be a systematic caused by our
 stellar variability model, we explored an alternative approach in
-which we isolated each transit window and locally fitted out
+which we isolated each transit window, locally fitted out
 polynomial trends, and then binned all the observed transits; the
 asymmetry was still present at a comparable amplitude.
-Appendix~\ref{app:asymmetry} includes a deeper analysis, and finds
+Appendix~\ref{app:asymmetry} describes a more detailed analysis, which finds
 that the asymmetry also seems to be robust to different methods of
 data binning in time and by local light curve slope.  Possible
 astrophysical explanations are discussed in Section~\ref{sec:conc}.
 
-
-\subsection{Planet Confirmation}
+\subsubsection{Transit Timing and the Local Slope}
+\label{subsec:ttvslope}
 
 \begin{figure}[tp]
 	\begin{center}
@@ -693,9 +700,10 @@ astrophysical explanations are discussed in Section~\ref{sec:conc}.
 	\end{center}
 	\vspace{-0.6cm}
 	\caption{
-    {\bf Evidence for a prograde orbit of Kepler 1627 Ab.} The time of
+    {\bf Possible evidence for a prograde orbit of Kepler 1627 Ab.} The time of
     each Kepler transit was measured, along with the local slope of
-    the light curve.  The two quantities appear anti-correlated, which
+    the light curve.  The two quantities are weakly anti-correlated
+    ($\approx$2-$\sigma$), which
     could be explained by starspot crossings during the first
     (second) half of transit inducing a positive (negative) TTV,
     provided that the orbit is prograde \citep{mazeh_time_2015}.  The
@@ -703,6 +711,81 @@ astrophysical explanations are discussed in Section~\ref{sec:conc}.
     stellar flux changes by $\sim$60\,ppt per half rotation period
     ($\sim$1.3\,days).
 		\label{fig:corr}
+	}
+\end{figure}
+
+
+The previous analysis by \citet{holczer_transit_2016} did not
+find any significant long-term transit timing or duration variations
+for \sn\ (TTVs or TDVs).  Quantitatively, the mean and standard deviation of the
+TTVs and TDVs they measured were $-1.1\pm13.8\,{\rm
+min}$ and $-3.3\pm22.1\,{\rm min}$.  In an
+earlier analysis however, \citet{holczer_time_2015} studied correlations
+between TTVs and local light curve slopes, and for \sn\
+found a weak correlation of $-29\pm13\,{\rm min}\,{\rm day}^{-1}$
+between the two quantities.  While this constitutes only weak
+statistical evidence, given the possible connection between such
+correlations and the unresolved starspot crossings that we expect to
+be present in the data for \sn\ \citep{mazeh_time_2015}, we opted to re-examine the
+individual transit times.
+
+We therefore isolated each of the 144 observed transits to within
+$\pm4.5$\,hr of each transit, and fitted each window with both {\it
+i)} a local polynomial baseline plus the transit, and {\it ii)} a local linear
+trend.  We considered the results both for a second and fourth-order
+time-dependence in the local baseline.  We let the mid-time of each
+transit float, and then calculated the residual between the measured
+mid-time and that of a periodic orbit.  This residual, the transit
+timing variation, is plotted in Figure~\ref{fig:corr} against
+the local linear slope for the fourth-order polynomial baseline.  The
+slope of $-21 \pm 10\,{\rm min\,day}^{-1}$ is similar to that
+found by \citet{holczer_time_2015}.
+
+One concern we had in this analysis was whether our transit fitting
+procedure might induce spurious correlations between the slope and
+transit time.  In particular, using the second-order polynomial
+baseline yielded a larger anti-correlation between the TTVs and local
+slopes, of $-79 \pm 14\,{\rm min\,day}^{-1}$.  We therefore
+performed an injection-recovery procedure in which we injected
+transits at different phases in the \sn\ light curve and repeated the
+TTV analysis.  This was done at $\approx$50 phases, each separated by
+$0.02\,P_{\rm orb}$ while omitting the phases in transit.  For
+the second-order polynomial baseline, this procedure yielded
+similar anti-correlations in the injected transits to that present in the real
+transit;
+using this baseline would therefore bias the
+result.  However for the fourth-order baseline, the correlation
+present in the data was stronger than in all but one of the injected
+transits.
+Possible interpretations are discussed below, however given the
+statistical significance, this analysis should be interpreted as
+suggestive at best.
+
+
+\subsection{Planet Confirmation}
+
+\begin{figure}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.45\textwidth]{f7.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf Keck/HIRES radial velocities and MuSCAT3 photometry from the transit of 2021 Aug 7.}
+		{\it Top:} 
+		The radial velocity jitter across the 15~minute exposures
+		($\sigma_{\rm RV}\approx30$\ms) prevented us from detecting the RM
+		effect;
+		a model including the RM anomaly and a quadratic trend in time to
+		fit the spot-induced $\approx$\,$250$\ms\ trend is shown (see
+		Appendix~\ref{app:rm}).  Shaded bands show 2-$\sigma$ model
+		uncertainties.  
+		{\it Middle:} The RV variations are strongly correlated with varying
+		emission in the Ca H and K lines.
+		{\it Bottom}: The photometric transit depths are consistent across
+		the {\it griz} bandpasses. The photometry is binned at 10~minute
+		intervals.
+		\label{fig:ground}
 	}
 \end{figure}
 
@@ -743,87 +826,58 @@ Kepler 1627B might host the transit signal.
 % Baraffe+15: M_B 0.33 Mdot
 % Rstar = 0.455 --> 0.465 Rsun
 
-There are two other new lines of evidence that confirm the planetary
-interpretation.  First, the stellar density implied by the transit duration and orbital period
-is inconsistent with an eclipsing body around the M-dwarf companion:
-we find $\rho_\star = 2.00 \pm 0.24\,{\rm g\,cm}^{-3}$, while the
+Beyond this simple test, a line of evidence that
+effectively confirms the planetary interpretation is that the stellar density
+implied by the transit duration and orbital period is inconsistent
+with an eclipsing body around the M-dwarf companion.  We find
+$\rho_\star = 2.00 \pm 0.24\,{\rm g\,cm}^{-3}$, while the
 theoretically expected density for Kepler\,1627B is $\approx 4.6\,{\rm
 g\,cm}^{-3}$ (Table~\ref{tab:posterior}; \citealt{choi_mesa_2016}).
 The transit duration is therefore too long to be explained by a star
 eclipsing the M dwarf secondary at $10$-$\sigma$.  While the planet
 might hypothetically still orbit a hidden close and bright companion,
-this possibility is implausible given {\it i)} the lack of secondary lines in
-the HIRES spectra and {\it ii)} the lack of secondary rotation signals
-in the Kepler photometry.
+this possibility is implausible given {\it i)} the lack of secondary
+lines in the HIRES spectra and {\it ii)} the lack of secondary
+rotation signals in the Kepler photometry.
 
 %NOTE to the arxiv readers:, the $\approx$100 days of short-cadence
 %Kepler observations also mitigate the cadence-induced smearing, and
 %enable a more precise measurement of the transit impact parameter.
 
-The second line of confirming evidence comes by analyzing the
-individual Kepler transit times. We isolated each of the 144 observed
-transits to within $\pm4.5$\,hr of each transit, and fitted each
-window with both {\it i)} a local second-order polynomial and transit,
-and {\it ii)} a local linear trend.  We let the mid-time of each
-transit float, and then calculated the residual between the measured
-mid-time and that of a periodic orbit.  This residual, the transit
-timing variation (TTV), is plotted in Figure~\ref{fig:corr} against
-the local linear slope.  A significant correlation of $-0.0564 \pm
-0.0098\ {\rm ppt\,day}^{-1}$ is observed.  Fewer than ten Kepler
-Objects of Interest have shown this correlation
-\citep{holczer_time_2015}, which can be explained as a TTV
-induced by unresolved starspot crossings \citep{mazeh_time_2015}.
-This is only possible if the planet transits the primary star, which
-excludes a background eclipsing binary scenario, and therefore
-confirms that \pn\ is a planet.  It also suggests that the planet's
+The correlation noted in Section~\ref{subsec:ttvslope} between the
+TTVs and the local light curve slope could be a further line of evidence
+in support of the planetary interpretation.  Unless it is a
+statistical fluke (a $\approx$5\% possibility), then its most likely
+cause is unresolved starspot
+crossings \citep{mazeh_time_2015}.  This would only be possible if the
+planet transits the primary star, which excludes a background
+eclipsing binary scenario.  It would also suggest that the planet's
 orbit is prograde.  The latter point assumes that the dominant
 photometric variability is induced by dark spots, and not bright
 faculae.  Given the observed transition of Sun-like stellar
 variability from spot to faculae-dominated regimes between young and
-old ages, we expect this assumption to be reasonably secure
+old ages, we expect this latter assumption to be reasonably secure
 \citep{shapiro_are_2016,montet_long-term_2017,reinhold_stellar_2020}.
 
-
-\begin{figure}[t]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=0.47\textwidth]{f7.pdf}
-	\end{center}
-	\vspace{-0.7cm}
-	\caption{
-    {\bf Keck/HIRES radial velocities and MuSCAT3 photometry from the transit of 2021 Aug 7.}
-    {\it Top:} 
-    The radial velocity jitter across the 15~minute exposures
-    ($\sigma_{\rm RV}\approx30$\ms) prevented us from detecting the RM
-    effect;
-    a model including the RM anomaly and a quadratic trend in time to
-    fit the spot-induced $\approx$\,$250$\ms\ trend is shown (see
-    Appendix~\ref{app:rm}).  Shaded bands show 2-$\sigma$ model
-    uncertainties.  
-    {\it Middle:} The RV variations are strongly correlated with varying
-    emission in the Ca H and K lines.
-    {\it Bottom}: The photometric transit depths are consistent across
-    the {\it griz} bandpasses. The photometry is binned at 10~minute
-    intervals.
-		\label{fig:ground}
-	}
-\end{figure}
-
 A third supporting line of evidence for the planetary interpretation
-exists, though we consider it less definitive than the stellar density
-and TTV-local slope correlation.  We observed a transit of \pn\ on the
+also exists.  We observed a transit of \pn\ on the
 night of 2021 Aug 7 simultaneously with Keck/HIRES and MuSCAT3.  We
 scheduled the observations using the ephemeris of
 \citet{holczer_transit_2016}.  Although we did not detect the
 Rossiter-McLaughlin (RM) anomaly, the multi-band MuSCAT3 light curves
-show the transit (Figure~\ref{fig:ground}).  Fitting the MuSCAT3
+show that the transit is achromatic (Figure~\ref{fig:ground}).
+Quantitatively, when we fitted the MuSCAT3
 photometry with a model that lets the transit depths vary across each
-bandpass, we find {\it griz} depths consistent with the Kepler depth
+bandpass, we found {\it griz} depths consistent with the Kepler depth
 at 0.6, 0.3, 0.3, and 1.1-$\sigma$ respectively.  Conditioned on the
-Kepler ephemeris and transit depth, the MuSCAT3 observations may also
-suggest a transit duration $17.3\pm4.3\ {\rm minutes}$ shorter than the
-Kepler transits; further photometric follow-up could help confirm
-whether the transit duration is indeed changing.  For our RM analysis,
+Kepler ephemeris and transit depth, the MuSCAT3 observations also
+suggested a transit duration $17.3\pm4.3\ {\rm minutes}$ shorter than the
+Kepler transits.
+However, given both the lack of transit duration variations in the Kepler data
+and the relatively low signal-to-noise of the MuSCAT3 transit,
+further photometric follow-up would be necessary to determine
+whether the transit duration is indeed changing.  
+For our RM analysis,
 the details are discussed in Appendix~\ref{app:rm}.  While the
 velocities are marginally more consistent with a prograde or polar
 orbit than a retrograde orbit, the spot-corrected exposure-to-exposure
@@ -837,10 +891,10 @@ obliquity.
 \section{Discussion \& Conclusions}
 \label{sec:conc}
 
-\begin{figure*}[tp]
+\begin{figure}[tp]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.8\textwidth]{f8.pdf}
+		\includegraphics[width=0.48\textwidth]{f8.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -856,7 +910,7 @@ obliquity.
     Sept 15).
 		\label{fig:rp_period_age}
 	}
-\end{figure*}
+\end{figure}
 
 
 Kepler\,1627Ab provides a new extremum in the ages of the Kepler
@@ -883,17 +937,22 @@ initial entropy \citep{owen_constraining_2020}.
 More immediately, the Kepler data may yet contain additional
 information.  For instance, one possible explanation for the transit
 asymmetry shown in Figure~\ref{fig:lc} is that of a dusty asymmetric
-outflow.  A second possibility is that the planetary orbit is slightly
-misaligned from the stellar spin axis, and tends to transit starspot
-groups at favored stellar latitudes.  Other possibilities such as
-gravity darkening or TTVs causing the asymmetry are disfavored (see
-Appendix~\ref{app:asymmetry}).  Dusty outflows are theoretically
+outflow.  
+Dusty outflows are theoretically
 expected for young mini-Neptunes, and the amplitude of the observed
 asymmetry is also consistent with predictions \citep{wang_dai_2019}.
-Beyond the asymmetric transits, Appendix~\ref{app:flare} highlights an
-additional abnormality in the Kepler data, in the arrival time
-distribution of stellar flares.  We encourage its exploration by
-investigators more versed in the topic than ourselves.
+A second possibility is that the planetary orbit is slightly
+misaligned from the stellar spin axis, and tends to transit starspot
+groups at favored stellar latitudes.  
+This somewhat contrived geometry would be necessary in order to
+explain why the starspot crossings would add up coherently.
+Other possible explanations such as
+gravity darkening or TTVs causing the asymmetry are disfavored (see
+Appendix~\ref{app:asymmetry}).  
+Aside from the asymmetric transits, Appendix~\ref{app:flare}
+highlights an additional abnormality in the short-cadence Kepler data, in the
+arrival time distribution of stellar flares.  We encourage its
+exploration by investigators more versed in the topic than ourselves.
 
 In the context of the transiting planet population, \pn\ is among the
 youngest known (Figure~\ref{fig:rp_period_age}).  Comparable systems
@@ -1367,79 +1426,63 @@ website.\footnote{\url{https://gea.esac.esa.int/archive/}}
 		\label{fig:phaseslope}
 	}
 \end{figure}
-\begin{figure}[tp]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=0.9\textwidth]{f12.pdf}
-	\end{center}
-	\vspace{-0.7cm}
-	\caption{
-    {\bf Transit models and residuals, binned by quartiles of transit
-    timing variations}.  The data are otherwise the same as in
-    Figure~\ref{fig:phaseslope}.
-		\label{fig:phasettv}
-	}
-\end{figure}
 
 \subsection{How Robust is the Asymmetric Transit?}
 
 As a means of exploring the robustness of the transit asymmetry,
-Figures~\ref{fig:phasequarter},~\ref{fig:phaseyear},~\ref{fig:phaseslope},
-and~\ref{fig:phasettv} show the Kepler data binned in four ways: over
-Kepler quarters, Julian years, quartiles of local slope, and quartiles
-of transit timing variation.  Over Kepler quarters
+Figures~\ref{fig:phasequarter},~\ref{fig:phaseyear}, and~\ref{fig:phaseslope}
+show the Kepler data binned in three ways: over
+Kepler quarters, Julian years, and quartiles of local slope.  Over Kepler quarters
 (Figure~\ref{fig:phasequarter}), Quarter 6 shows the strongest
 asymmetry: a deviation of about 3\,ppt from expectation.  Quarter 7
 shows an anomaly at roughly the same transit phase.  Year 2
 correspondingly shows the strongest anomaly out of any year in
 Figure~\ref{fig:phaseyear}; the asymmetry is visually apparent however
-in each of Years 2, 3, and 4.
+in each of the four years.
 
-To bin by quartiles in local slope and TTV, we used our measurements
+To bin by quartiles in local slope, we used our measurements
 of the local linear slopes in each of the observed transit windows
 (144 transits total).  Four outlier transits were removed, leaving 140
 transits.  These were then divided into quartiles, so that each panel
-shows 35 transits binned together.  The exact light curve slope and
-TTV intervals are listed in the lower left panels of
-Figures~\ref{fig:phaseslope} and~\ref{fig:phasettv}.  Binned by local
+shows 35 transits binned together.  The exact light curve slope intervals are listed in the lower left panels of
+Figure~\ref{fig:phaseslope}.  Binned by local
 slope quartiles (Figure~\ref{fig:phaseslope}), the asymmetry is
 visually present in three of the four quartiles: the only bin in which
-it does not appear is ${\rm d}f/{\rm d}t\in[0.001,0.033]\,{\rm
-ppt\,day}^{-1}$.  The corresponding bins in TTV (largest TTV
-corresponding to smallest ${\rm d}f/{\rm d}t$) show the same
-asymmetries, though with somewhat greater scatter
-(Figure~\ref{fig:phasettv}).
+it does not appear is ${\rm d}f/{\rm d}t\in[3.0,32.5]\,{\rm
+ppt\,day}^{-1}$.
 
 Within the theory presented by \citet{mazeh_time_2015}, unresolved
-starspot crossings cause the correlation between TTVs and the local
+starspot crossings cause the weak correlation between TTVs and the local
 light curve slope (Figure~\ref{fig:corr}).  In this model, we would
 expect the light curves with the most negative local slopes to have
 the largest positive TTVs, due to spot crossing events during the
-latter half of transit.  The lower-right panel of
-Figure~\ref{fig:phasettv} and upper-left panel of
-Figure~\ref{fig:phaseslope} agree with this expectation.  However, we
+latter half of transit.  The upper-left panel of
+Figure~\ref{fig:phaseslope} agrees with this expectation.  However, we
 would also expect the sign of the effect to reverse when considering
-the most positive local slopes, and the most negative TTVs.  The
-upper-left panel of Figure~\ref{fig:phasettv} and lower-right panel of
-Figure~\ref{fig:phaseslope} contradict this expectation: the residual
+the most positive local slopes (most negative TTVs).  The
+lower-right panel of
+Figure~\ref{fig:phaseslope} contradicts this expectation: the residual
 in both cases maintains the same parity!  On the one hand, this shows
 that the residual is not dependent on the local light curve slope,
-which mitigates the possibility that it might be an artifact of our
+which lowers the likelihood that it might be an artifact of our
 detrending methods.  On the other, it raises the question of whether
 unresolved starspot crossings are indeed the root cause of the
 correlation shown in Figure~\ref{fig:corr}.
+While we do not have a solution to this contradiction, 
+the injection-recovery tests discussed in
+Section~\ref{subsec:ttvslope} provide some assurance that the
+TTV-slope correlation is not simply a systematic artifact.
 
-% FIXME: KM to discuss injection recovery...
 
 \subsection{Interpretation}
 
 The transit asymmetry seems robust against most methods of binning the
 data, though with some caveats ({\it e.g.}, the ``middle quartile'' in
-local flux (${\rm d}f/{\rm d}t\in[0.001,0.033]\,{\rm ppt\,day}^{-1}$),
-where the asymmetry does not appear).  Nonetheless, if the effect were
-entirely systematic we would expect to see it change as a function of
-the sign of the local slope or TTV.  We therefore considered four
-possible astrophysical interpretations: gravity darkening, transit
+local flux, ${\rm d}f/{\rm d}t\in[3.0,32.5]\,{\rm ppt\,day}^{-1}$,
+where the asymmetry does not appear).  Nonetheless, if the asymmetric were
+systematic we might expect its parity to reverse as a function of
+the sign of the local slope, and it does not.  We therefore entertained four
+possible astrophysical explanations: gravity darkening, transit
 timing variations, spot-crossing events, and a persistent asymmetric
 dusty outflow.  
 
@@ -1457,20 +1500,17 @@ is smaller than the observed anomaly by over an order of magnitude,
 gravity darkening seems to be an unlikely explanation.
 
 The scenario of transit timing variations (TTVs) producing the
-asymmetry seems unlikely because our analysis showed that transit
-timing variations in \sn\ have amplitudes smaller than $\approx$10
-minutes (see Figure~\ref{fig:corr}).  This is consistent with previous
-results from \citet{holczer_transit_2016}.  Moreover, the transit
+asymmetry seems unlikely because the transit
 timing variations we do observe are correlated with the local light
-curve slope, which on average increases as much as it decreases.  From
+curve slope, which increases roughly as much as it decreases.  From
 our analysis, the mean TTV and its standard deviation are
-$0.00\pm12.05$ minutes; similarly the mean local slope and its
-standard deviation are $0.49\pm44.49$\,ppt\,day$^{-1}$.  There is
-therefore no expectation for TTVs to produce the asymmetry.  A
+$0.66\pm5.53$ minutes; similarly the mean local slope and its
+standard deviation are $0.59\pm45.50$\,ppt\,day$^{-1}$.  There is
+therefore little expectation for TTVs to produce the asymmetry.  A
 separate line of argument comes from Figure~\ref{fig:phaseslope}.  If
 the local slope were essential to producing the transit asymmetry, we
 would expect that in the largest ${\rm d}f/{\rm d}t$ bin, ${\rm
-d}f/{\rm d}t\in[0.033,0.092]\,{\rm ppt\,day}^{-1}$, the sign of the
+d}f/{\rm d}t\in[3.0,32.5]\,{\rm ppt\,day}^{-1}$, the sign of the
 asymmetry would reverse.  We do not see evidence for this being the
 case.
 
@@ -1482,7 +1522,7 @@ e.g.}, EK~Dra;][]{strassmeier_starspots_2009}, though interferometric
 imaging of spotted giant stars has shown different starspot latitude
 distributions than those inferred from Doppler imaging
 \citep{roettenbacher_contemporaneous_2017}.  Regardless, for any
-spot-crossing anomalies to add coherently over the 144 Kepler
+spot-crossing anomalies to add coherently over the 140 Kepler
 transits, it seems likely that we would need either for spots to be
 persistent at a particular latitude (and for the planetary orbit to be
 somewhat misaligned), or for a ``stroboscopic'' longitudinal phasing
@@ -1514,7 +1554,7 @@ explanations discussed, this one at least theoretically seems the most
 plausible.  By composition, the expectation would be that the envelope
 is mostly hydrogen and helium gas, with a dust or haze component
 providing the broadband opacity in the Kepler bandpass.  A natural
-path toward confirming or refuting this idea would be to observe
+path for testing this idea would be to observe
 additional transits of the planet in hydrogen absorption, metastable
 helium absorption, or across a broad wavelength range in the
 near-infrared.
@@ -1552,7 +1592,7 @@ near-infrared.
 	\begin{center}
 		\leavevmode
 		\subfloat{
-			\includegraphics[width=\textwidth]{f13.pdf}
+			\includegraphics[width=\textwidth]{f12.pdf}
 		}
 	\end{center}
 	\vspace{-0.5cm}
@@ -1728,7 +1768,7 @@ an amplitude.
 \begin{figure*}[tp]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.9\textwidth]{f14.pdf}
+		\includegraphics[width=0.9\textwidth]{f13.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -1774,7 +1814,7 @@ an amplitude.
 \begin{figure*}[tp]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.8\textwidth]{f15.pdf}
+		\includegraphics[width=0.8\textwidth]{f14.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
