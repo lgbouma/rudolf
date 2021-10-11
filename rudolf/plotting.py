@@ -674,15 +674,23 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
         )
     elif orientation == 'portrait':
         factor=1
-        fig = plt.figure(figsize=(factor*3,factor*5.5))
+        fig = plt.figure(figsize=(factor*3,factor*6.5))
         axd = fig.subplot_mosaic(
             """
-            AAAA
-            BBCC
-            DDDD
-            """,
+            A
+            B
+            C
+            D
+            """
+            #"""
+            #AAAA
+            #BBCC
+            #DDDD
+            #"""
+            ,
             gridspec_kw={
-                "height_ratios": [2,1,1],
+                #"height_ratios": [2,1,1],
+                "height_ratios": [2.5,1,1,2.5],
             }
         )
 
@@ -760,32 +768,36 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
 
         elif k == 'B':
             delta_x = 0.1
-            axd['B'].arrow(0.20, 0.69, delta_x, 0, length_includes_head=True,
-                           head_width=1e-2, head_length=1e-2,
+            x0 = 0.15
+            axd['B'].arrow(x0, 0.69, delta_x, 0, length_includes_head=True,
+                           head_width=3e-2, head_length=1e-2,
                            transform=axd['B'].transAxes)
-            axd['B'].text(0.20+delta_x/2, 0.71, 'Galactic\ncenter',
+            axd['B'].text(x0+delta_x/2, 0.71, 'Galactic center',
                           va='bottom', ha='center',
                           transform=axd['B'].transAxes, fontsize='xx-small')
 
         elif k == 'C':
             delta_x = 0.1
-            axd['C'].arrow(0.20, 0.69, delta_x, 0,
-                         length_includes_head=True, head_width=1e-2,
+            x0 = 0.15
+            axd['C'].arrow(x0, 0.69, delta_x, 0,
+                         length_includes_head=True, head_width=3e-2,
                          head_length=1e-2,
                          transform=axd['C'].transAxes)
-            axd['C'].text(0.20+delta_x/2, 0.71, 'Galactic\nrotation',
+            axd['C'].text(x0+delta_x/2, 0.71, 'Galactic rotation',
                           va='bottom', ha='center',
                           transform=axd['C'].transAxes, fontsize='xx-small')
 
     #axd['C'].update({'ylabel': '', 'yticklabels':[]})
     axd['A'].update({'xlim': [-8275, -7450], 'ylim': [-25, 525]})
+    axd['B'].update({'xlim': [-8275, -7450]})
+    axd['C'].update({'xlim': [-25, 525]})
 
     for _,ax in axd.items():
         format_ax(ax)
 
     if orientation == 'portrait':
-        axd['C'].set_ylabel('')
-        axd['C'].set_yticklabels([])
+        #axd['C'].set_ylabel('')
+        #axd['C'].set_yticklabels([])
         fig.tight_layout(w_pad=0.4, h_pad=0.4)
     else:
         fig.tight_layout(w_pad=0.2)

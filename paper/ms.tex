@@ -169,7 +169,7 @@ implications for our ability to age-date a larger sample of planets
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-    {\bf Galactic positions  and tangential velocities of stars in the
+    {\bf Galactic positions  and tangential velocities   of stars in the
     $\delta$\,Lyr cluster.} Points are reported cluster members from
     \citet{KounkelCovey2019}.  The tangential velocities relative to
     \sn\ (bottom row) are computed assuming that every star has the
@@ -370,9 +370,8 @@ and accurate age for the cluster, and are left for future work.
 Of the \noriginal\ candidate \cn\ members reported by
 \citet{KounkelCovey2019}, \nwithtess\ stars were amenable to rotation
 period measurements ($G<17$ and $\bpmrpo>0.5$) using the TESS full
-frame image data.\footnote{Kepler rotation periods were derived by
-\citet{mcquillan_rotation_2014} for 28 stars; for these cases, we
-adopted the Kepler rotation period.  } We extracted light curves from
+frame image data. 
+We extracted light curves from
 the TESS images using the nearest pixel to each star, and regressed
 them against systematics with the causal pixel model implemented in
 the \texttt{unpopular} package \citep{hattorio_2021_cpm}.  We then
@@ -381,23 +380,28 @@ measured candidate rotation periods using a Lomb-Scargle periodogram
 on crowding, we queried the Gaia source catalog for stars within a
 $21\farcs0$ radius of the target star (a radius of 1 TESS pixel).
 Within this radius, we recorded the number of stars with greater
-brightness than the target star, and with brightness within 1.25 and
-2.5 TESS magnitudes of the target star.  
+brightness than the target star, and with brightness within 1.25 TESS magnitudes of the target star.  
 
 We then cleaned the candidate TESS rotation period measurements
 through a combination of automated and manual steps.  As a matter of
 scope, we restricted our attention to the \nkinwithtess\ stars
 discussed in Section~\ref{sec:kinematicselection} in the spatial and
-kinematic proximity of Kepler\,1627.  To avoid blending, we also only
-focused on stars for which no companions were known with a brightness
+kinematic proximity of Kepler\,1627.  
+Kepler rotation periods were derived by
+\citet{mcquillan_rotation_2014} for 28 of these stars; for these cases, we
+simply adopted the Kepler rotation period.
+For the remaining stars with only TESS data, we
+focused only on the stars for which no companions were known with a brightness
 exceeding one-tenth of the target star in a $21\farcs0$ radius.  There
-were \nkinwithtessandcrowding\ stars that met these requirements, and
+were \nkinwithtessandcrowding\ stars that met these crowding requirements, and
 that had TESS data available.  For plotting purposes we then imposed a
 selection based on the strength of the signal itself: we required the
 Lomb Scargle power to exceed 0.2, and the period to be below 15\,days.
 
+
 The lower panel of Figure~\ref{fig:age} shows the resulting
-\nkindefaultcleaning\ stars.  The majority of these stars fall below
+\nkindefaultcleaning\ stars.  
+The majority of these stars fall below
 the ``slow sequence'' of the Pleiades, consistent with a gyrochronal
 age for the \cn\ below 100\,Myr.  In fact, the rotation-color
 distributions of other 30\,Myr to 50\,Myr clusters ({\it e.g.},
@@ -417,6 +421,33 @@ age.
 
 \section{The Stars}
 \label{sec:stars}
+
+\begin{figure*}[tp]
+	\begin{center}
+		\leavevmode
+		\subfloat{
+			\includegraphics[width=0.49\textwidth]{f4a.pdf}
+			\includegraphics[width=0.48\textwidth]{f4b.pdf}
+		}
+	\end{center}
+	\vspace{-0.5cm}
+	\caption{
+		{\bf Kepler 1627 is a binary.} {\it Left:} High-resolution imaging
+		from Gemini-North/`Alopeke and Keck/NIRC2 shows an $\approx$M2.5V
+		companion at $\rho \approx 0\farcs16$, which corresponds to a
+		projected separation of $53\pm4$\,AU.  The inset shows a cutout of
+		the stacked NIRC2 image (North is up, East is left, scale is set
+		by the separation of the binary).  The lines show 5-$\sigma$
+		contrast limits for the `Alopeke filters, and 6-$\sigma$ contrast
+		limits for NIRC2 outside of $0\farcs15$. {\it Right:} Gaia EDR3
+		renormalized unit weight error (RUWE) point estimates for
+		candidate $\delta$\,Lyr cluster members.  Since other members of
+		the cluster with similar brightnesses have comparable degrees of
+		photometric variability, the high RUWE independently suggests that
+		Kepler\,1627 is a binary. 
+		\label{fig:kep1627binary}
+	}
+\end{figure*}
 
 \subsection{Kepler\,1627A}
 \subsubsection{Age}
@@ -470,33 +501,6 @@ from the isochrone interpolation.
 
 
 \subsection{Kepler\,1627B}
-
-\begin{figure*}[tp]
-	\begin{center}
-		\leavevmode
-		\subfloat{
-			\includegraphics[width=0.49\textwidth]{f4a.pdf}
-			\includegraphics[width=0.48\textwidth]{f4b.pdf}
-		}
-	\end{center}
-	\vspace{-0.5cm}
-	\caption{
-    {\bf Kepler 1627 is a binary.} {\it Left:} High-resolution imaging
-    from Gemini-North/`Alopeke and Keck/NIRC2 shows an $\approx$M2.5V
-    companion at $\rho \approx 0\farcs16$, which corresponds to a
-    projected separation of $53\pm4$\,AU.  The inset shows a cutout of
-    the stacked NIRC2 image (North is up, East is left, scale is set
-    by the separation of the binary).  The lines show 5-$\sigma$
-    contrast limits for the `Alopeke filters, and 6-$\sigma$ contrast
-    limits for NIRC2 outside of $0\farcs15$. {\it Right:} Gaia EDR3
-    renormalized unit weight error (RUWE) point estimates for
-    candidate $\delta$\,Lyr cluster members.  Since other members of
-    the cluster with similar brightnesses have comparable degrees of
-    photometric variability, the high RUWE independently suggests that
-    Kepler\,1627 is a binary. 
-    \label{fig:kep1627binary}
-	}
-\end{figure*}
 
 We first noted the presence of a close neighbor in the \sn\ system on
 2015 July 22 when we acquired adaptive optics imaging using the NIRC2
@@ -1008,7 +1012,7 @@ of exoplanet evolution.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% \clearpage
+\clearpage
 \acknowledgements
 \raggedbottom
 
@@ -1299,7 +1303,7 @@ moving group members discussed by
 easily associated ages, our SIMBAD cross-match did not retain the
 moving group identifiers given by those studies, which should
 therefore be recovered using tools such as BANYAN
-$\Sigma$.\footnote{\url{http://www.exoplanetes.umontreal.ca/banyan/banyansigma.php}}.
+$\Sigma$ \citep{Gagne2018a}.
 We also included the SIMBAD object identifiers $\texttt{TT*}$,
 $\texttt{Y*O}, $\texttt{Y*?}, $\texttt{TT?}$, and $\texttt{pMS*}$.
 Finally, we  included every star in the NASA Exoplanet Archive
@@ -1422,7 +1426,6 @@ website.
     minute intervals) are shown in the lower right of each panel.  A
     similar transit asymmetry to that shown in Figure~\ref{fig:lc}
     seems to be present in three of the four bins.
-    \vspace{-0.5cm}
 		\label{fig:phaseslope}
 	}
 \end{figure}
@@ -1732,36 +1735,10 @@ near-infrared \citep[{\it e.g.},][]{feinstein_halpha_2021}.
 \input{phot_table.tex}
 \input{rv_table.tex}
 
+
 \section{Flare Analysis}
 \label{app:flare}
 
-In addition to the 3.9 years of long cadence data, short cadence
-(1-minute) Kepler observations were acquired over 97.7 days during
-Quarter 15.  The short cadence light curve shows a higher rate of
-flaring than visible in the long cadence data
-(Figure~\ref{fig:flarezoom}).  We analyzed the short cadence light
-curve and its flares according to the following procedure.
-\begin{enumerate}
-  \item Fit the starspot-induced variability using a Gaussian Process
-    with a \texttt{SHOTerm} kernel, a white-noise jitter term, and the
-    mean flux.
-  \item Select points more than twice the median absolute
-    deviation from the residual, and exclude them from the light
-    curve (these points include the flares).  Repeat Step~1.
-  \item Using the residual from Step 2, identify all flares, requiring
-    them to be at least 20 cadences apart, at least 7 median absolute
-    deviations above the median baseline, and lasting at least 2
-    cadences in duration.  Build the mask spanning these times, from 5
-    minutes before each flare begins to 2.5 minutes after the final
-    flare cadence.  Repeat Step 1 a final time.
-\end{enumerate}
-The final step of flare identification and fitting was performed using
-\texttt{altaipony} \citep{davenport_2016,ilin_flares_2021}.  The
-analytic flare model is from \citet{davenport_2014} and it
-parametrizes the flare with a start time, an exponential lag time, and
-an amplitude.
-%Figure~\ref{fig:flarephase} shows the resulting flares, amplitudes,
-%and phases.
 
 \begin{figure*}[tp]
 	\begin{center}
@@ -1817,22 +1794,50 @@ an amplitude.
 	\vspace{-0.7cm}
 	\caption{
 		{\bf Statistics of inter-flare arrival times}.  
-    24 flares were recorded with amplitudes exceeding 0.5\% over the
-    97.7 days of short cadence observations.  The histogram of the
-    time intervals between every possible pair of flares is shown in
-    black.  Some plausibly important timescales for star-planet
-    interactions, namely the planetary orbital period and synodic
-    period (the orbital period as seen from the rotating stellar
-    frame) are shown along with their linear combinations.  Monte
-    Carlo draws from a Poisson distribution are shown with the gray
-    bands.  While peaks in the observed distribution do coincide with
-    some of the ``special periods'', the statistical evidence for a
-    non-Poissonian process driving the flares does not reach the
-    $5$-$\sigma$ threshold.
+		24 flares were recorded with amplitudes exceeding 0.5\% over the
+		97.7 days of short cadence observations.  The histogram of the
+		time intervals between every possible pair of flares is shown in
+		black.  Some plausibly important timescales for star-planet
+		interactions, namely the planetary orbital period and synodic
+		period (the orbital period as seen from the rotating stellar
+		frame) are shown along with their linear combinations.  Monte
+		Carlo draws from a Poisson distribution are shown with the gray
+		bands.  While peaks in the observed distribution do coincide with
+		some of the ``special periods'', the statistical evidence for a
+		non-Poissonian process driving the flares does not reach the
+		$5$-$\sigma$ threshold.
 		\label{fig:flarestats}
 	}
 \end{figure*}
 
+
+In addition to the 3.9 years of long cadence data, short cadence
+(1-minute) Kepler observations were acquired over 97.7 days during
+Quarter 15.  The short cadence light curve shows a higher rate of
+flaring than visible in the long cadence data
+(Figure~\ref{fig:flarezoom}).  We analyzed the short cadence light
+curve and its flares according to the following procedure.
+\begin{enumerate}
+  \item Fit the starspot-induced variability using a Gaussian Process
+    with a \texttt{SHOTerm} kernel, a white-noise jitter term, and the
+    mean flux.
+  \item Select points more than twice the median absolute
+    deviation from the residual, and exclude them from the light
+    curve (these points include the flares).  Repeat Step~1.
+  \item Using the residual from Step 2, identify all flares, requiring
+    them to be at least 20 cadences apart, at least 7 median absolute
+    deviations above the median baseline, and lasting at least 2
+    cadences in duration.  Build the mask spanning these times, from 5
+    minutes before each flare begins to 2.5 minutes after the final
+    flare cadence.  Repeat Step 1 a final time.
+\end{enumerate}
+The final step of flare identification and fitting was performed using
+\texttt{altaipony} \citep{davenport_2016,ilin_flares_2021}.  The
+analytic flare model is from \citet{davenport_2014} and it
+parametrizes the flare with a start time, an exponential lag time, and
+an amplitude.
+%Figure~\ref{fig:flarephase} shows the resulting flares, amplitudes,
+%and phases.
 
 There were $N_{\rm f}=24$ flares that exceeded $0.5\%$ in relative
 flux during the short cadence observations.  These 24 flares spanned a
