@@ -610,7 +610,7 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
 
 
 def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
-                  show_comovers=0, show_sun=0):
+                  show_comovers=0, show_sun=0, orientation=None):
 
     plt.close('all')
     set_style()
@@ -660,25 +660,31 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
 
     plt.close('all')
 
-    factor=1
-    fig = plt.figure(figsize=(factor*7,factor*3))
-    axd = fig.subplot_mosaic(
-        """
-        ABBCC
-        A.DD.
-        """,
-        gridspec_kw={
-            "width_ratios": [6,1,1,1,1],
-        }
-
-        #"""
-        #ABCD
-        #"""
-        #"""
-        #AB
-        #CD
-        #"""
-    )
+    if orientation is None:
+        factor=1
+        fig = plt.figure(figsize=(factor*7,factor*3))
+        axd = fig.subplot_mosaic(
+            """
+            ABBCC
+            A.DD.
+            """,
+            gridspec_kw={
+                "width_ratios": [6,1,1,1,1],
+            }
+        )
+    elif orientation == 'portrait':
+        factor=1
+        fig = plt.figure(figsize=(factor*3,factor*5.5))
+        axd = fig.subplot_mosaic(
+            """
+            AAAA
+            BBCC
+            DDDD
+            """,
+            gridspec_kw={
+                "height_ratios": [2,1,1],
+            }
+        )
 
     xydict = {
         "A":('x_pc', 'y_pc'),
@@ -754,57 +760,22 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
 
         elif k == 'B':
             delta_x = 0.1
-            axd['B'].arrow(0.18, 0.69, delta_x, 0, length_includes_head=True,
+            axd['B'].arrow(0.20, 0.69, delta_x, 0, length_includes_head=True,
                            head_width=1e-2, head_length=1e-2,
                            transform=axd['B'].transAxes)
-            axd['B'].text(0.18+delta_x/2, 0.71, 'Galactic\ncenter',
+            axd['B'].text(0.20+delta_x/2, 0.71, 'Galactic\ncenter',
                           va='bottom', ha='center',
                           transform=axd['B'].transAxes, fontsize='xx-small')
 
         elif k == 'C':
             delta_x = 0.1
-            axd['C'].arrow(0.18, 0.69, delta_x, 0,
+            axd['C'].arrow(0.20, 0.69, delta_x, 0,
                          length_includes_head=True, head_width=1e-2,
                          head_length=1e-2,
                          transform=axd['C'].transAxes)
-            axd['C'].text(0.18+delta_x/2, 0.71, 'Galactic\nrotation',
+            axd['C'].text(0.20+delta_x/2, 0.71, 'Galactic\nrotation',
                           va='bottom', ha='center',
                           transform=axd['C'].transAxes, fontsize='xx-small')
-
-
-    # quiver option..
-
-    #factor=2
-    #x0,y0 = -7980, -220
-    #axd['A'].quiver(
-    #    x0, y0, factor*vdiff_median.d_x.value,
-    #    factor*vdiff_median.d_y.value, angles='xy',
-    #    scale_units='xy', scale=1, color='C0',
-    #    width=6e-3, linewidths=4, headwidth=8, zorder=9
-    #)
-    ## NOTE the galactic motion is dominant!!!!
-    # axd['A'].quiver(
-    #     x0, y0, factor*c_median.v_x.value,
-    #     factor*c_median.v_y.value, angles='xy',
-    #     scale_units='xy', scale=1, color='gray',
-    #     width=6e-3, linewidths=4, headwidth=10, zorder=9
-    # )
-
-    #x0,y0 = -8160, -50
-    #axd['B'].quiver(
-    #    x0, y0, factor*vdiff_median.d_x.value,
-    #    factor*vdiff_median.d_z.value, angles='xy',
-    #    scale_units='xy', scale=1, color='C0',
-    #    width=6e-3, linewidths=4, headwidth=8, zorder=9
-    #)
-
-    #x0,y0 = -600, -50
-    #axd['C'].quiver(
-    #    x0, y0, factor*vdiff_median.d_y.value,
-    #    factor*vdiff_median.d_z.value, angles='xy',
-    #    scale_units='xy', scale=1, color='C0',
-    #    width=6e-3, linewidths=4, headwidth=8, zorder=9
-    #)
 
     #axd['C'].update({'ylabel': '', 'yticklabels':[]})
     axd['A'].update({'xlim': [-8275, -7450], 'ylim': [-25, 525]})
@@ -812,8 +783,12 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
     for _,ax in axd.items():
         format_ax(ax)
 
-    #fig.tight_layout()
-    fig.tight_layout(w_pad=0.2)
+    if orientation == 'portrait':
+        axd['C'].set_ylabel('')
+        axd['C'].set_yticklabels([])
+        fig.tight_layout(w_pad=0.4, h_pad=0.4)
+    else:
+        fig.tight_layout(w_pad=0.2)
 
     s = ''
     if show_1627:
@@ -822,6 +797,8 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
         s += "_showcomovers"
     if show_sun:
         s += "_showsun"
+    if orientation:
+        s += f"_{orientation}"
 
     bn = inspect.stack()[0][3].split("_")[1]
     outpath = os.path.join(outdir, f'{bn}{s}.png')

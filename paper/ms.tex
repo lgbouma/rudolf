@@ -162,17 +162,17 @@ implications for our ability to age-date a larger sample of planets
 \section{The Cluster}
 \label{sec:cluster}
 
-\begin{figure*}[t]
+\begin{figure}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=1\textwidth]{f1.pdf}
+		\includegraphics[width=0.48\textwidth]{f1.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-    {\bf Galactic positions and tangential velocities of stars in the
+    {\bf Galactic positions  and tangential velocities of stars in the
     $\delta$\,Lyr cluster.} Points are reported cluster members from
     \citet{KounkelCovey2019}.  The tangential velocities relative to
-    \sn\ (lower-right) are computed assuming that every star has the
+    \sn\ (bottom row) are computed assuming that every star has the
     same three-dimensional spatial velocity as \sn.  Our analysis
     considers stars (black points) in the spatial and kinematic
     vicinity of Kepler\,1627 (yellow star).  The question of whether
@@ -181,7 +181,7 @@ implications for our ability to age-date a larger sample of planets
     ($\odot$) is shown.
 		\label{fig:XYZvtang}
 	}
-\end{figure*}
+\end{figure}
 
 To measure the age of the $\delta$ Lyr cluster, we first selected a
 set of candidate cluster members
@@ -198,8 +198,7 @@ to Gaia DR2 on-sky positions, proper motions, and parallaxes for stars
 within the nearest kiloparsec.  For the \cn\ (Theia 73), they reported
 \noriginal\ candidate members.  We matched these stars against the
 latest Gaia EDR3 observations using the \texttt{dr2\_neighbourhood}
-table from the ESA archive,\footnote{See
-\url{https://gea.esac.esa.int/archive/documentation/GEDR3/Gaia_archive/chap_datamodel/sec_dm_auxiliary_tables/ssec_dm_dr2_neighbourhood.html}.}
+table from the ESA archive,
 taking the stars closest in proper motion and epoch-corrected angular
 distance as the presumed match \citep{gaia_collaboration_2021_edr3}.
 In Figure~\ref{fig:XYZvtang}, have shown galactic positions only for
@@ -228,7 +227,8 @@ cluster in the vicinity of \sn.
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-    {\bf Kepler's view of the $\delta$~Lyr cluster.} Each black circle
+    {\bf Kepler's view of the $\delta$~Lyr cluster, shown in equatorial
+    	coordinates.} Each black circle
     is a candidate cluster member selected from the catalog of
     \citet{KounkelCovey2019} based on its position and kinematics.  Of
     the \nkinematic\ candidate cluster members, 58 have at least one
@@ -717,14 +717,13 @@ astrophysical explanations are discussed in Section~\ref{sec:conc}.
 
 The previous analysis by \citet{holczer_transit_2016} did not
 find any significant long-term transit timing or duration variations
-for \sn\ (TTVs or TDVs).  Quantitatively, the mean and standard deviation of the
+(TTVs or TDVs) for \sn.  Quantitatively, the mean and standard deviation of the
 TTVs and TDVs they measured were $-1.1\pm13.8\,{\rm
 min}$ and $-3.3\pm22.1\,{\rm min}$.  In an
 earlier analysis however, \citet{holczer_time_2015} studied correlations
 between TTVs and local light curve slopes, and for \sn\
 found a weak correlation of $-29\pm13\,{\rm min}\,{\rm day}^{-1}$
-between the two quantities.  While this constitutes only weak
-statistical evidence, given the possible connection between such
+between the two quantities.  Given the possible connection between such
 correlations and the unresolved starspot crossings that we expect to
 be present in the data for \sn\ \citep{mazeh_time_2015}, we opted to re-examine the
 individual transit times.
@@ -751,20 +750,20 @@ transits at different phases in the \sn\ light curve and repeated the
 TTV analysis.  This was done at $\approx$50 phases, each separated by
 $0.02\,P_{\rm orb}$ while omitting the phases in transit.  For
 the second-order polynomial baseline, this procedure yielded
-similar anti-correlations in the injected transits to that present in the real
+a similar anti-correlation in the injected transits as that present in the real
 transit;
 using this baseline would therefore bias the
 result.  However for the fourth-order baseline, the correlation
 present in the data was stronger than in all but one of the injected
 transits.
-Possible interpretations are discussed below, however given the
+Possible interpretations are discussed below. Given the
 statistical significance, this analysis should be interpreted as
 suggestive at best.
 
 
 \subsection{Planet Confirmation}
 
-\begin{figure}[t]
+\begin{figure}[tp]
 	\begin{center}
 		\leavevmode
 		\includegraphics[width=0.45\textwidth]{f7.pdf}
@@ -815,7 +814,7 @@ therefore be needed to produce a signal with the appropriate depth.
 The shape of the transit signal however requires the impact parameter
 to be below 0.77 (2-$\sigma$); the tertiary transiting the secondary
 would therefore need to be non-grazing with $R_3/R_2 \approx 0.4$.
-This yields a contradiction:  this scenario would require an ingress
+This yields a contradiction:  this scenario requires an ingress
 and egress phase that each span $\approx$40\% of the transit duration
 ($\approx 68\,{\rm minutes}$).  The actual measured ingress and egress
 duration is $\approx 17\,{\rm minutes}$, a factor of four times too
@@ -837,21 +836,22 @@ The transit duration is therefore too long to be explained by a star
 eclipsing the M dwarf secondary at $10$-$\sigma$.  While the planet
 might hypothetically still orbit a hidden close and bright companion,
 this possibility is implausible given {\it i)} the lack of secondary
-lines in the HIRES spectra and {\it ii)} the lack of secondary
-rotation signals in the Kepler photometry.
+lines in the HIRES spectra, {\it ii)} the lack of secondary
+rotation signals in the Kepler photometry, and {\it iii)} the proximity
+of \sn\ to the main cluster isochrone on the Gaia CAMD (Figure~\ref{fig:age}).
 
 %NOTE to the arxiv readers:, the $\approx$100 days of short-cadence
 %Kepler observations also mitigate the cadence-induced smearing, and
 %enable a more precise measurement of the transit impact parameter.
 
 The correlation noted in Section~\ref{subsec:ttvslope} between the
-TTVs and the local light curve slope could be a further line of evidence
+TTVs and the local light curve slope might be an additional line of evidence
 in support of the planetary interpretation.  Unless it is a
-statistical fluke (a $\approx$5\% possibility), then its most likely
-cause is unresolved starspot
-crossings \citep{mazeh_time_2015}.  This would only be possible if the
+statistical fluke (a $\approx$5\% possibility), then the most likely
+cause of the correlation is unresolved starspot
+crossings \citep{mazeh_time_2015}.  These would only be possible if the
 planet transits the primary star, which excludes a background
-eclipsing binary scenario.  It would also suggest that the planet's
+eclipsing binary scenario.  The correlation would also suggest that the planet's
 orbit is prograde.  The latter point assumes that the dominant
 photometric variability is induced by dark spots, and not bright
 faculae.  Given the observed transition of Sun-like stellar
@@ -870,7 +870,7 @@ Quantitatively, when we fitted the MuSCAT3
 photometry with a model that lets the transit depths vary across each
 bandpass, we found {\it griz} depths consistent with the Kepler depth
 at 0.6, 0.3, 0.3, and 1.1-$\sigma$ respectively.  Conditioned on the
-Kepler ephemeris and transit depth, the MuSCAT3 observations also
+ephemeris and transit depth from the Kepler data, the MuSCAT3 observations also
 suggested a transit duration $17.3\pm4.3\ {\rm minutes}$ shorter than the
 Kepler transits.
 However, given both the lack of transit duration variations in the Kepler data
@@ -891,10 +891,10 @@ obliquity.
 \section{Discussion \& Conclusions}
 \label{sec:conc}
 
-\begin{figure}[tp]
+\begin{figure*}[tp]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.48\textwidth]{f8.pdf}
+		\includegraphics[width=0.8\textwidth]{f8.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -910,7 +910,7 @@ obliquity.
     Sept 15).
 		\label{fig:rp_period_age}
 	}
-\end{figure}
+\end{figure*}
 
 
 Kepler\,1627Ab provides a new extremum in the ages of the Kepler
@@ -926,12 +926,11 @@ Observations that quantify the amount of high-energy
 irradiation incident on the planet would complement these efforts, by
 helping to clarify the expected outflow rate \citep[{\it
 e.g.},][]{poppenhaeger_2021}.  Finally, a challenging but informative
-quantity to measure would be the planet's mass.  The most feasible
-approach would likely be long-term monitoring of the transit times and
-durations, given the technical difficulty of performing a multi-color
-radial velocity campaign on a $V=13$ star.  Measured at
-sufficient precision though, the mass, combined with the known age and
-size, would yield constraints on both the planet's composition and its
+quantity to measure would be the planet's mass. Measured at
+sufficient precision,
+for instance through a multi-wavelength radial velocity campaign,
+the combination of the size, mass, and age 
+would yield constraints on both the planet's composition and its
 initial entropy \citep{owen_constraining_2020}.
 
 More immediately, the Kepler data may yet contain additional
@@ -944,12 +943,13 @@ asymmetry is also consistent with predictions \citep{wang_dai_2019}.
 A second possibility is that the planetary orbit is slightly
 misaligned from the stellar spin axis, and tends to transit starspot
 groups at favored stellar latitudes.  
-This somewhat contrived geometry would be necessary in order to
-explain why the starspot crossings would add up coherently.
-Other possible explanations such as
+This fairly contrived geometry would be needed in order to
+explain why the starspot crossings could add up coherently.
+Other possibilities including
 gravity darkening or TTVs causing the asymmetry are disfavored (see
 Appendix~\ref{app:asymmetry}).  
-Aside from the asymmetric transits, Appendix~\ref{app:flare}
+
+Beyond the asymmetric transits, Appendix~\ref{app:flare}
 highlights an additional abnormality in the short-cadence Kepler data, in the
 arrival time distribution of stellar flares.  We encourage its
 exploration by investigators more versed in the topic than ourselves.
@@ -1322,7 +1322,7 @@ cleaning, and joining were performed using $\texttt{pandas}$
 \citep{mckinney-proc-scipy-2010}.  The eventual cross-match (using the
 Gaia DR2 $\texttt{source\_id}$) against the Gaia DR2 archive was
 performed asychronously on the Gaia archive
-website.\footnote{\url{https://gea.esac.esa.int/archive/}}
+website.
 
 
 % \section{Binarity and Stellar Rotation for $\delta$\,Lyr Cluster Members}
@@ -1610,9 +1610,7 @@ near-infrared.
 
 We monitored \sn\ with Keck/HIRES before, during, and after transit on
 the night of 2021 Aug 7.  We used the iodine cell for wavelength
-calibration\footnote{We considered a line-profile based analysis in
-the regions without iodine, but the line profile stability of HIRES
-precludes such an approach.}, and extracted the 1-D spectra using the
+calibration, and extracted the 1-D spectra using the
 standard California Planet Survey pipeline \citep{howard_cps_2010}.
 The airmass ranged between 1.1 and 2.2 from the start through the end
 of observations; the seeing ranged from $1\farcs1$ at the beginning to
