@@ -770,9 +770,9 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
             delta_x = 0.1
             x0 = 0.15
             axd['B'].arrow(x0, 0.69, delta_x, 0, length_includes_head=True,
-                           head_width=3e-2, head_length=1e-2,
+                           head_width=1e-2, head_length=1e-2,
                            transform=axd['B'].transAxes)
-            axd['B'].text(x0+delta_x/2, 0.71, 'Galactic center',
+            axd['B'].text(x0+delta_x/2, 0.71, 'Galactic\ncenter',
                           va='bottom', ha='center',
                           transform=axd['B'].transAxes, fontsize='xx-small')
 
@@ -780,10 +780,10 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
             delta_x = 0.1
             x0 = 0.15
             axd['C'].arrow(x0, 0.69, delta_x, 0,
-                         length_includes_head=True, head_width=3e-2,
+                         length_includes_head=True, head_width=1e-2,
                          head_length=1e-2,
                          transform=axd['C'].transAxes)
-            axd['C'].text(x0+delta_x/2, 0.71, 'Galactic rotation',
+            axd['C'].text(x0+delta_x/2, 0.71, 'Galactic\nrotation',
                           va='bottom', ha='center',
                           transform=axd['C'].transAxes, fontsize='xx-small')
 

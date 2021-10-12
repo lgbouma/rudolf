@@ -1,4 +1,5 @@
-\documentclass[12pt,modern,twocolumn,tighten]{aastex63}
+%\documentclass[12pt,modern,twocolumn,tighten]{aastex63}
+\documentclass[12pt,modern,twocolumn,tighten,linenumbers]{aastex63}
 %\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
 %\documentclass[12pt,twocolumn,tighten,trackchanges]{aastex63}
 \usepackage{amsmath,amstext,amssymb}
@@ -43,7 +44,7 @@
 
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2.
 %% Add "Submitted to " argument.
-\received{---}
+\received{2021 Oct 12}
 \revised{---}
 \accepted{---}
 \submitjournal{AAS Journals}
@@ -75,9 +76,9 @@
   slope.  We discuss possible explanations for each anomaly.  More
   importantly, the $\delta$~Lyr cluster
   is one of $\sim$10$^3$ coeval groups whose properties have been clarified
-  by Gaia.  Many other exoplanet hosts are potentially kinematic members
-  of these clusters; their candidate memberships can be verified by
-  measuring stellar rotation periods in the TESS full frame images.
+  by Gaia.  Many other exoplanet hosts are candidate members
+  of these clusters; these memberships can be verified with the
+  trifecta of Gaia, TESS, and ground-based spectroscopy.
 \end{abstract}
 
 \keywords{
@@ -102,19 +103,18 @@ cores, silicate mantles \citep{kite_atmosphere_2020}, and extended
 hydrogen-dominated atmospheres, are expected to shrink
 in size by factors of several over their first $10^8$ years.
 Specifically, in the models of \citet{owen_atmospheres_2016} and
-\citet{owen_constraining_2020}, the $\approx5\,M_\oplus$ planets start
-with sizes of 4--12\,$R_\oplus$ shortly after the time of disk
+\citet{owen_constraining_2020}, the $\approx$$5\,M_\oplus$ planets start
+with sizes of 4\,--\,12\,$R_\oplus$ shortly after the time of disk
 dispersal ($\lesssim$$10^7$\,years), and shrink to sizes of
-2--4\,$R_\oplus$ by 10$^8$ years.  While the majority of this change
+2\,--\,4\,$R_\oplus$ by 10$^8$ years.  While the majority of this change
 is expected to occur within the first few million years after the disk
 disperses \citep{ikoma_situ_2012}, stellar
 irradiation and internal heat can also power gradual outflows
-which, if strong enough, can deplete or entirely strip the atmospheric
-envelope \citep{Owen_Wu_2013,ginzburg_corepowered_2018}.
+which, if strong enough, can deplete or entirely strip the atmosphere \citep{Owen_Wu_2013,ginzburg_corepowered_2018}.
 Discovering young planets, measuring their masses, and detecting their
 atmospheric outflows are key steps toward testing this paradigm, which
 is often invoked to explain the observed radius distribution of mature
-exoplanets \citep{Fulton_et_al_2017}.
+exoplanets \citep{Fulton_et_al_2017,van_eylen_asteroseismic_2018}.
 
 The K2 and TESS missions have now enabled the detection of about ten
 close-in planets younger than 100 million years, all smaller than
@@ -142,10 +142,10 @@ Matching our young star list against stars observed by Kepler revealed
 that Kepler observed a portion of the \cn\ (Stephenson-1; Theia~73).
 More specifically, a clustering analysis of the Gaia data by
 \citet{KounkelCovey2019} reported that Kepler~1627 (KIC 6184894; KOI
-5245; TIC 120105470) is a \cn\ member.  Given the previous statistical
+5245) is a \cn\ member.  Given the previous statistical
 validation of the close-in mini-Neptune Kepler 1627b
 \citep{2012ApJS..199...24T,morton_false_2016,thompson_planetary_2018},
-we begin by examining the properties of the cluster
+we begin by scrutinizing the properties of the cluster
 (Section~\ref{sec:cluster}).  We find that the $\delta$ Lyr cluster is
 \clusterage\ old, and in Section~\ref{sec:stars} show that \sn\ is
 both a binary and also a member of the cluster.  Focusing on the
@@ -162,17 +162,17 @@ implications for our ability to age-date a larger sample of planets
 \section{The Cluster}
 \label{sec:cluster}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.48\textwidth]{f1.pdf}
+		\includegraphics[width=0.95\textwidth]{f1.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
     {\bf Galactic positions  and tangential velocities   of stars in the
     $\delta$\,Lyr cluster.} Points are reported cluster members from
     \citet{KounkelCovey2019}.  The tangential velocities relative to
-    \sn\ (bottom row) are computed assuming that every star has the
+    \sn\ (bottom right) are computed assuming that every star has the
     same three-dimensional spatial velocity as \sn.  Our analysis
     considers stars (black points) in the spatial and kinematic
     vicinity of Kepler\,1627 (yellow star).  The question of whether
@@ -181,7 +181,7 @@ implications for our ability to age-date a larger sample of planets
     ($\odot$) is shown.
 		\label{fig:XYZvtang}
 	}
-\end{figure}
+\end{figure*}
 
 To measure the age of the $\delta$ Lyr cluster, we first selected a
 set of candidate cluster members
@@ -229,8 +229,7 @@ cluster in the vicinity of \sn.
 	\caption{
     {\bf Kepler's view of the $\delta$~Lyr cluster, shown in equatorial
     	coordinates.} Each black circle
-    is a candidate cluster member selected from the catalog of
-    \citet{KounkelCovey2019} based on its position and kinematics.  Of
+    is a candidate cluster member selected based on its position and kinematics (Figure~\ref{fig:XYZvtang}).  Of
     the \nkinematic\ candidate cluster members, 58 have at least one
     quarter of Kepler data.  TESS has also observed most of the
     cluster, for one to two lunar months to date.
@@ -665,7 +664,7 @@ circular\footnote{ Our transit fitting yields $e<0.48$ at 2-$\sigma$;
 the constraints on the eccentricity are not particularly strong.}
 orbit around a G8V host star ($0.88 \pm 0.02 R_\odot$).  This best-fit
 planet size is consistent with those previously reported by
-\citet{morton_false_2016} and \citet{berger_identifying_2018}, and
+\citet{morton_false_2016} and \citet{berger_2018_radii}, and
 corrects for the small amount of flux dilution from Kepler\,1627B.
 
 \subsubsection{Transit Asymmetry}
@@ -677,7 +676,7 @@ transit, and low in the second half.  The semi-amplitude of this
 deviation is $\approx50\,{\rm ppm}$, which represents a $\approx 3\%$
 distortion of the transit depth ($\delta=1759\pm62\,{\rm ppm}$).  Note that
 although this asymmetry is within the 2-$\sigma$ model uncertainties, the
-model has a jitter term that grows to account for otherwise unmodeled
+model has a jitter term that grows to account for excess
 white noise in the flux.  The significance of the asymmetry is
 therefore best assessed in comparison against the intrinsic
 out-of-transit scatter in the data ($\approx16\,{\rm ppm}$), not the model uncertainties.  The
@@ -708,7 +707,7 @@ astrophysical explanations are discussed in Section~\ref{sec:conc}.
     each Kepler transit was measured, along with the local slope of
     the light curve.  The two quantities are weakly anti-correlated
     ($\approx$2-$\sigma$), which
-    could be explained by starspot crossings during the first
+    might be caused by starspot crossings during the first
     (second) half of transit inducing a positive (negative) TTV,
     provided that the orbit is prograde \citep{mazeh_time_2015}.  The
     units along the abscissa can be understood by considering that the
@@ -729,7 +728,7 @@ between TTVs and local light curve slopes, and for \sn\
 found a weak correlation of $-29\pm13\,{\rm min}\,{\rm day}^{-1}$
 between the two quantities.  Given the possible connection between such
 correlations and the unresolved starspot crossings that we expect to
-be present in the data for \sn\ \citep{mazeh_time_2015}, we opted to re-examine the
+be present in the \sn\ light curve \citep{mazeh_time_2015}, we opted to re-examine the
 individual transit times.
 
 We therefore isolated each of the 144 observed transits to within
@@ -791,6 +790,26 @@ suggestive at best.
 		\label{fig:ground}
 	}
 \end{figure}
+\begin{figure*}[!t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.9\textwidth]{f8.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf Radii, orbital periods, and ages of transiting exoplanets}.
+		Planets younger than a gigayear with ${\rm \tau}/\sigma_{\tau} >
+		3$ are emphasized, where $\tau$ is the age and $\sigma_{\tau}$ is
+		its uncertainty.  \pn\ is shown with a star.  The large sizes of
+		the youngest transiting planets could be explained by their
+		primordial atmospheres not yet having evaporated; direct
+		measurements of the atmospheric outflows or planetary masses would
+		help to confirm this expectation.  Selection effects may also be
+		important.  Parameters are from the NASA Exoplanet Archive (2021
+		Sept 15).
+		\label{fig:rp_period_age}
+	}
+\end{figure*}
 
 If the \pn\ transit signal is created by a genuine planet,  then to
 our knowledge it would be the youngest planet yet found by the main
@@ -820,8 +839,8 @@ to be below 0.77 (2-$\sigma$); the tertiary transiting the secondary
 would therefore need to be non-grazing with $R_3/R_2 \approx 0.4$.
 This yields a contradiction:  this scenario requires an ingress
 and egress phase that each span $\approx$40\% of the transit duration
-($\approx 68\,{\rm minutes}$).  The actual measured ingress and egress
-duration is $\approx 17\,{\rm minutes}$, a factor of four times too
+($\approx 68\,{\rm min}$).  The actual measured ingress and egress
+duration is $\approx 17\,{\rm min}$, a factor of four times too
 short.  The combination of Kepler 1627B's brightness, the transit
 depth, and the ingress duration therefore disfavor the scenario that
 Kepler 1627B might host the transit signal.  
@@ -842,7 +861,7 @@ might hypothetically still orbit a hidden close and bright companion,
 this possibility is implausible given {\it i)} the lack of secondary
 lines in the HIRES spectra, {\it ii)} the lack of secondary
 rotation signals in the Kepler photometry, and {\it iii)} the proximity
-of \sn\ to the main cluster isochrone on the Gaia CAMD (Figure~\ref{fig:age}).
+of \sn\ to the \cn\ locus on the Gaia CAMD (Figure~\ref{fig:age}).
 
 %NOTE to the arxiv readers:, the $\approx$100 days of short-cadence
 %Kepler observations also mitigate the cadence-induced smearing, and
@@ -875,9 +894,9 @@ photometry with a model that lets the transit depths vary across each
 bandpass, we found {\it griz} depths consistent with the Kepler depth
 at 0.6, 0.3, 0.3, and 1.1-$\sigma$ respectively.  Conditioned on the
 ephemeris and transit depth from the Kepler data, the MuSCAT3 observations also
-suggested a transit duration $17.3\pm4.3\ {\rm minutes}$ shorter than the
+suggested a transit duration $17.3\pm4.3\ {\rm min}$ shorter than the
 Kepler transits.
-However, given both the lack of transit duration variations in the Kepler data
+However, given both the lack of TDVs in the Kepler data
 and the relatively low signal-to-noise of the MuSCAT3 transit,
 further photometric follow-up would be necessary to determine
 whether the transit duration is indeed changing.  
@@ -894,27 +913,6 @@ obliquity.
 
 \section{Discussion \& Conclusions}
 \label{sec:conc}
-
-\begin{figure*}[tp]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=0.8\textwidth]{f8.pdf}
-	\end{center}
-	\vspace{-0.7cm}
-	\caption{
-		{\bf Radii, orbital periods, and ages of transiting exoplanets}.
-    Planets younger than a gigayear with ${\rm \tau}/\sigma_{\tau} >
-    3$ are emphasized, where $\tau$ is the age and $\sigma_{\tau}$ is
-    its uncertainty.  \pn\ is shown with a star.  The large sizes of
-    the youngest transiting planets could be explained by their
-    primordial atmospheres not yet having evaporated; direct
-    measurements of the atmospheric outflows or planetary masses would
-    help to confirm this expectation.  Selection effects may also be
-    important.  Parameters are from the NASA Exoplanet Archive (2021
-    Sept 15).
-		\label{fig:rp_period_age}
-	}
-\end{figure*}
 
 
 Kepler\,1627Ab provides a new extremum in the ages of the Kepler
@@ -943,12 +941,12 @@ asymmetry shown in Figure~\ref{fig:lc} is that of a dusty asymmetric
 outflow.  
 Dusty outflows are theoretically
 expected for young mini-Neptunes, and the amplitude of the observed
-asymmetry is also consistent with predictions \citep{wang_dai_2019}.
+asymmetry is consistent with predictions \citep{wang_dai_2019}.
 A second possibility is that the planetary orbit is slightly
 misaligned from the stellar spin axis, and tends to transit starspot
 groups at favored stellar latitudes.  
-This fairly contrived geometry would be needed in order to
-explain why the starspot crossings could add up coherently.
+This geometry would be necessary in order to
+explain how the starspot crossings could add up coherently.
 Other possibilities including
 gravity darkening or TTVs causing the asymmetry are disfavored (see
 Appendix~\ref{app:asymmetry}).  
@@ -992,7 +990,7 @@ atmosphere over its first gigayear
 
 Ultimately, the main advance of this work is a precise measurement of
 the age of \pn.   This measurement was enabled by identifying the
-connection of the star to the \cn\ using Gaia kinematics, and then by
+connection of the star to the \cn\ using Gaia kinematics, and by then 
 using the Gaia color-absolute magnitude diagram and TESS stellar
 rotation periods to verify the cluster's existence.
 Table~\ref{tab:v06} enables similar cross-matches for both known and
@@ -1012,7 +1010,7 @@ of exoplanet evolution.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\clearpage
+%\clearpage
 \acknowledgements
 \raggedbottom
 
@@ -1025,8 +1023,9 @@ have otherwise prevented the MuSCAT3 observations.
 %
 L.G.B{.} acknowledges support from a Charlotte Elizabeth Procter
 Fellowship from Princeton University, as well as from the TESS GI
-Program, programs G011103 and G022117, through NASA grants
-80NSSC19K0386 and 80NSSC19K1728.
+Program (NASA grants 80NSSC19K0386 and 80NSSC19K1728) and the
+Heising-Simons Foundation (51 Pegasi~b Fellowship).
+% programs G011103 and G022117, through 
 %
 %
 Keck/NIRC2 imaging was acquired by program 2015A/N301N2L
@@ -1389,8 +1388,7 @@ website.
     model are shown as the faint purple band, and the dark purple
     line.
     {\it Right:}
-    As on the left, with the transit removed.  Quarters 6 and 7 show a
-    consistent deviation in the second half of the transit.
+    As on the left, with the transit removed.  
 		\label{fig:phasequarter}
 	}
 \end{figure}
@@ -1507,7 +1505,7 @@ asymmetry seems unlikely because the transit
 timing variations we do observe are correlated with the local light
 curve slope, which increases roughly as much as it decreases.  From
 our analysis, the mean TTV and its standard deviation are
-$0.66\pm5.53$ minutes; similarly the mean local slope and its
+$0.66\pm5.53$\,min; similarly the mean local slope and its
 standard deviation are $0.59\pm45.50$\,ppt\,day$^{-1}$.  There is
 therefore little expectation for TTVs to produce the asymmetry.  A
 separate line of argument comes from Figure~\ref{fig:phaseslope}.  If
@@ -1749,8 +1747,7 @@ near-infrared \citep[{\it e.g.},][]{feinstein_halpha_2021}.
 	\caption{
 		{\bf Flares in Kepler\,1627}.  
 		{\it Top:}
-		The full short cadence Kepler dataset, acquired at 1-minute
-		sampling (black points) is shown with a stellar variability model
+		The 1-minute cadence Kepler data (black points) is shown with a stellar variability model superposed
 		(blue line).
 		{\it Middle:}
 		Residual after subtracting the stellar variability model.  Flares
@@ -1804,7 +1801,7 @@ near-infrared \citep[{\it e.g.},][]{feinstein_halpha_2021}.
 		Carlo draws from a Poisson distribution are shown with the gray
 		bands.  While peaks in the observed distribution do coincide with
 		some of the ``special periods'', the statistical evidence for a
-		non-Poissonian process driving the flares does not reach the
+		non-Poissonian process driving the flares does not clear the
 		$5$-$\sigma$ threshold.
 		\label{fig:flarestats}
 	}
