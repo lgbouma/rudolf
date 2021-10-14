@@ -81,6 +81,7 @@ from rudolf.helpers import (
     get_deltalyr_kc19_gaia_data, get_simulated_RM_data,
     get_keplerfieldfootprint_dict, get_deltalyr_kc19_comovers,
     get_deltalyr_kc19_cleansubset, get_kep1627_kepler_lightcurve,
+    get_set1_koi7368,
     get_gaia_catalog_of_nearby_stars, get_clustermembers_cg18_subset,
     get_mutau_members, get_ScoOB2_members,
     get_BPMG_members,
@@ -610,7 +611,7 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
 
 
 def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
-                  show_comovers=0, show_sun=0, orientation=None):
+                  show_comovers=0, show_sun=0, orientation=None, show_7368=0):
 
     plt.close('all')
     set_style()
@@ -619,6 +620,9 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
     df_sel = get_deltalyr_kc19_cleansubset()
 
     _, df_edr3, trgt_df = get_deltalyr_kc19_gaia_data()
+    if show_7368:
+        _, _, _, koi_df = get_deltalyr_kc19_gaia_data(return_7368=1)
+        set1_df = get_set1_koi7368()
     # set "dr2_radial_velocity" according to Andrew Howard HIRES recon
     # spectrum. agrees with -16.9km/s+/-0.5km/s TRES.
     trgt_df.dr2_radial_velocity = -16.7
@@ -627,6 +631,9 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
     df_edr3 = append_physicalpositions(df_edr3, trgt_df)
     df_sel = append_physicalpositions(df_sel, trgt_df)
     trgt_df = append_physicalpositions(trgt_df, trgt_df)
+    if show_7368:
+        koi_df = append_physicalpositions(koi_df, trgt_df)
+        set1_df = append_physicalpositions(set1_df, trgt_df)
 
     if save_candcomovers:
 
@@ -735,6 +742,18 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
                 markersize=12, marker='*', color='black', lw=0
             )
 
+        if show_7368:
+            axd[k].plot(
+                koi_df[xv], koi_df[yv], alpha=1, mew=0.5,
+                zorder=42, label='KOI 7368', markerfacecolor='lime',
+                markersize=12, marker='*', color='black', lw=0
+            )
+            axd[k].scatter(
+                set1_df[set1_df.parallax_over_error>20][xv],
+                set1_df[set1_df.parallax_over_error>20][yv], c='lime', alpha=1,
+                zorder=8, s=2, edgecolors='none', rasterized=True, marker='.'
+            )
+
         if show_sun and '_pc' in xv:
             axd[k].scatter(
                 sun[xv], sun[yv], c='k', alpha=1, zorder=10, s=10,
@@ -805,6 +824,8 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
     s = ''
     if show_1627:
         s += "_show1627"
+    if show_7368:
+        s += "_show7368"
     if show_comovers:
         s += "_showcomovers"
     if show_sun:
@@ -1706,6 +1727,33 @@ def plot_hr(
             s=s, rasterized=False, label='UCL', marker='o',
             edgecolors='k', linewidths=0.1
         )
+
+    if 'Set1' in clusters:
+        # KOI 7368 alternative cluster definition
+        outpath = os.path.join(
+            RESULTSDIR, 'tables',
+            'set1_koi7368_kc19_cleansubset_{extinctionmethod}.csv'
+        )
+        if not os.path.exists(outpath):
+            _df = get_set1_koi7368()
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(
+                _df, extinctionmethod=extinctionmethod,
+                savpath=os.path.join(RESULTSDIR,'tables','set1_stilism.csv')
+            )
+            _df.to_csv(outpath, index=False)
+        _df = pd.read_csv(outpath)
+        if cleanhrcut:
+            _df = _df[get_clean_gaia_photometric_sources(_df)]
+        if reddening_corr:
+            print('Set 1')
+            print(_df['reddening[mag][stilism]'].describe())
+
+        ax.scatter(
+            get_xval(_df), get_yval(_df), c='lime', alpha=1, zorder=100000,
+            s=s, rasterized=False, label='KOI 7368 vicinity (Set 1)', marker='D',
+            edgecolors='k', linewidths=0.1
+        )
+
 
     if 'BPMG' in clusters:
         outpath = os.path.join(

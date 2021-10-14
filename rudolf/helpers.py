@@ -12,6 +12,7 @@ Data getters:
         get_keplerfieldfootprint_dict
         get_flare_df
         get_becc_limits
+        get_koi7368_lightcurve
 
     Get cluster datasets (useful for HR diagrams!):
         get_gaia_catalog_of_nearby_stars
@@ -94,13 +95,17 @@ def get_kep1627_kepler_lightcurve(lctype='longcadence'):
     each quater.
     """
 
-    assert lctype in ['longcadence', 'shortcadence', 'longcadence_byquarter']
+    assert lctype in ['longcadence', 'shortcadence',
+                      'longcadence_byquarter', 'koi7368']
 
     if lctype in ['longcadence', 'longcadence_byquarter']:
         lcfiles = glob(os.path.join(DATADIR, 'phot', 'kplr*_llc.fits'))
     elif lctype == 'shortcadence':
         lcfiles = glob(os.path.join(DATADIR, 'phot', 'full_MAST_sc', 'MAST_*',
                                     'Kepler', 'kplr006184894*', 'kplr*_slc.fits'))
+    elif lctype in ['koi7368']:
+        lcfiles = glob(os.path.join(DATADIR, 'KOI_7368', 'phot',
+                                    'kplr010736489*_llc.fits'))
     else:
         raise NotImplementedError('could do short cadence here too')
     assert len(lcfiles) > 1
@@ -255,7 +260,7 @@ def supplement_sourcelist_with_gaiainfo(df):
     dr2_x_edr3_df.to_csv(outpath_dr2xedr3, index=False)
 
 
-def get_deltalyr_kc19_gaia_data():
+def get_deltalyr_kc19_gaia_data(return_7368=0):
     """
     Get all Kounkel & Covey 2019 "Stephenson 1" members.
     """
@@ -275,7 +280,13 @@ def get_deltalyr_kc19_gaia_data():
     trgt_id = "2103737241426734336" # Kepler 1627
     trgt_df = df_edr3[df_edr3.source_id.astype(str) == trgt_id]
 
-    return df_dr2, df_edr3, trgt_df
+    if not return_7368:
+        return df_dr2, df_edr3, trgt_df
+
+    trgt_id = "2128840912955018368" # KOI 7368
+    koi_df = df_edr3[df_edr3.source_id.astype(str) == trgt_id]
+
+    return df_dr2, df_edr3, trgt_df, koi_df
 
 
 def get_deltalyr_kc19_comovers():
@@ -316,6 +327,18 @@ def get_deltalyr_kc19_cleansubset():
                            'set0_select_kinematic_YX_ZX.csv')
 
     return pd.read_csv(csvpath)
+
+
+def get_set1_koi7368():
+    """
+    As for get_deltalyr_kc19_cleansubset, but for the KOI 7368 neighbors.
+    """
+    csvpath = os.path.join(RESULTSDIR,
+                           'glue_stephenson1_edr3_XYZvtang_allphysical',
+                           'set1_select_kinematic_YX_ZX.csv')
+
+    return pd.read_csv(csvpath)
+
 
 
 def get_gaia_catalog_of_nearby_stars():
