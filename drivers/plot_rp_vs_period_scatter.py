@@ -23,7 +23,7 @@ VER = '20210915' # could be today_YYYYMMDD()
 
 def plot_rp_vs_period_scatter(
     showlegend=1, colorbydisc=1, showarchetypes=1, showss=1, colorbyage=0,
-    verbose=0, add_kep1627=0, add_allkep=0, add_plnames=0
+    verbose=0, add_kep1627=0, add_allkep=0, add_delLyr=0, add_plnames=0
 ):
     """
     Plot planetary parameters versus ages. By default, it writes the plots to
@@ -211,7 +211,7 @@ def plot_rp_vs_period_scatter(
 
         if add_kep1627:
             namelist = ['Kepler-1627']
-            ages = [3.5e7]
+            ages = [3.8e7]
 
             # NOTE: Rp is a bit off in this...
             for n, a in zip(namelist, ages):
@@ -239,7 +239,7 @@ def plot_rp_vs_period_scatter(
         if add_allkep:
             # Kepler-52 and Kepler-968
             namelist = ['Kepler-52', 'Kepler-968', 'Kepler-1627', 'KOI-7368']
-            ages = [3.5e8, 3.5e8, 3.5e7, 3.5e7]
+            ages = [3.5e8, 3.5e8, 3.8e7, 3.8e7]
             markers = ['o','d','*', '*']
             sizes = [80, 80, 120, 120]
 
@@ -273,6 +273,46 @@ def plot_rp_vs_period_scatter(
                     ):
                         ax.text(__per, __rp, __n, ha='right', va='bottom',
                                 fontsize=2, bbox=bbox, zorder=49)
+
+
+        if add_delLyr:
+            # Kepler-52 and Kepler-968
+            namelist = ['Kepler-1627', 'KOI-7368']
+            ages = [3.8e7, 3.8e7]
+            markers = ['*', '*']
+            sizes = [120, 120]
+
+            for n, a, m, _s in zip(namelist, ages, markers, sizes):
+                sel = ea_df.hostname == n
+
+                _sdf = ea_df[sel]
+                _rp = _sdf.pl_rade
+                _per= _sdf.pl_orbper
+                if n == 'KOI-7368':
+                    del _sdf
+                    _rp = [2.32]
+                    _per = [6.843]
+                    _sdf = pd.DataFrame({'pl_name':'KOI-7368'}, index=[0])
+                _age = np.ones(len(_sdf))*a
+
+                if n == 'Kepler-1627':
+                    _rp = [(0.338*(1.015)**(0.5)*u.Rjup).to(u.Rearth).value]
+
+                ax.scatter(
+                    _per, _rp,
+                    c=_age, alpha=1, zorder=2, s=_s, edgecolors='k',
+                    marker=m, cmap=cmap, linewidths=0.3, norm=norm
+                )
+
+                if add_plnames:
+                    print(np.array(_sdf.pl_name), np.array(_per),
+                          np.array(_rp))
+                    for __n, __per, __rp in zip(
+                        np.array(_sdf.pl_name), np.array(_per), np.array(_rp)
+                    ):
+                        ax.text(__per, __rp, __n, ha='right', va='bottom',
+                                fontsize=2, bbox=bbox, zorder=49)
+
 
 
         cb = fig.colorbar(_p, cax=axins1, orientation="vertical",
@@ -381,6 +421,8 @@ def plot_rp_vs_period_scatter(
         s += '_showkep1627'
     if add_allkep:
         s += '_showallkep'
+    if add_delLyr:
+        s += '_showdelLyr'
     if add_plnames:
         s += '_showplnames'
 
@@ -398,6 +440,16 @@ def plot_rp_vs_period_scatter(
 
 
 if __name__=='__main__':
+
+    plot_rp_vs_period_scatter(
+        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+        verbose=1, add_kep1627=0, add_delLyr=1, add_plnames=0
+    )
+    plot_rp_vs_period_scatter(
+        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+        verbose=1, add_kep1627=0, add_delLyr=1, add_plnames=1
+    )
+
 
     plot_rp_vs_period_scatter(
         showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,

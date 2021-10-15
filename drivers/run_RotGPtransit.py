@@ -21,15 +21,18 @@ from betty.posterior_table import make_posterior_table
 from betty.modelfitter import ModelFitter
 from betty.paths import BETTYDIR
 
-from rudolf.helpers import get_kep1627_kepler_lightcurve
+from rudolf.helpers import (
+    get_kep1627_kepler_lightcurve
+)
 from rudolf.paths import DATADIR, RESULTSDIR
 
 # NOTE: change starid as desired based on the dataset to use.
 # Kepler_1627_Q15slc, or Kepler_1627
 #def run_RotGPtransit(starid='Kepler_1627_Q15slc', N_samples=2000):
-def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
+#def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
+def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
 
-    assert starid in ['Kepler_1627', 'Kepler_1627_Q15slc']
+    assert starid in ['Kepler_1627', 'Kepler_1627_Q15slc', 'KOI_7368']
 
     # this line ensures I use the right python environment on my system
     assert os.environ['CONDA_DEFAULT_ENV'] == 'py38'
@@ -44,6 +47,10 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
     elif starid == 'Kepler_1627_Q15slc':
         time, flux, flux_err, qual, texp = (
             get_kep1627_kepler_lightcurve(lctype='shortcadence')
+        )
+    elif starid == 'KOI_7368':
+        time, flux, flux_err, qual, texp = (
+            get_kep1627_kepler_lightcurve(lctype='koi7368')
         )
     else:
         raise NotImplementedError
@@ -100,27 +107,28 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
     phaseplot = 1
     cornerplot = 1
     posttable = 1
-    phasedsubsets = 1
+    phasedsubsets = 0
     getbecclimits = 1
 
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
-        ylimd = {'A':[-3.5, 2.5], 'B':[-0.19,0.19]}
+        if starid == 'KOI_7368':
+            ylimd = {'A':[-2, 1.5], 'B':[-0.19,0.19]}
+        else:
+            ylimd = {'A':[-3.5, 2.5], 'B':[-0.19,0.19]}
         bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
                                    from_trace=True, ylimd=ylimd,
                                    map_estimate=m.map_estimate,
                                    do_hacky_reprerror=True,
-                                   binsize_minutes=20)
+                                   binsize_minutes=20, alpha=3e-1)
         outpath = join(PLOTDIR,
                        f'{starid}_{modelid}_posterior_phaseplot_fullxlim.png')
-        ylimd = {'A':[-3.5, 2.5], 'B':[-0.19,0.19]}
         bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
                                    from_trace=True, ylimd=ylimd,
                                    map_estimate=m.map_estimate, fullxlim=True,
                                    BINMS=0.5, do_hacky_reprerror=True,
-                                   binsize_minutes=20)
+                                   binsize_minutes=20, alpha=2e-2)
 
-        assert 0
 
     if getbecclimits:
         from rudolf.helpers import get_becc_limits

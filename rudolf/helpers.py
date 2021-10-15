@@ -96,14 +96,14 @@ def get_kep1627_kepler_lightcurve(lctype='longcadence'):
     """
 
     assert lctype in ['longcadence', 'shortcadence',
-                      'longcadence_byquarter', 'koi7368']
+                      'longcadence_byquarter', 'koi7368', 'koi7368_byquarter']
 
     if lctype in ['longcadence', 'longcadence_byquarter']:
         lcfiles = glob(os.path.join(DATADIR, 'phot', 'kplr*_llc.fits'))
     elif lctype == 'shortcadence':
         lcfiles = glob(os.path.join(DATADIR, 'phot', 'full_MAST_sc', 'MAST_*',
                                     'Kepler', 'kplr006184894*', 'kplr*_slc.fits'))
-    elif lctype in ['koi7368']:
+    elif lctype in ['koi7368', 'koi7368_byquarter']:
         lcfiles = glob(os.path.join(DATADIR, 'KOI_7368', 'phot',
                                     'kplr010736489*_llc.fits'))
     else:
@@ -134,13 +134,16 @@ def get_kep1627_kepler_lightcurve(lctype='longcadence'):
         qual_list.append(qual[sel])
         texp_list.append(texp)
 
-    if lctype == 'longcadence' or 'shortcadence':
+    if (
+        lctype == 'longcadence' or lctype == 'shortcadence' or
+        lctype == 'koi7368'
+    ):
         time = np.hstack(timelist)
         flux = np.hstack(f_list)
         flux_err = np.hstack(ferr_list)
         qual = np.hstack(qual_list)
         texp = np.nanmedian(texp_list)
-    elif lctype == 'longcadence_byquarter':
+    elif lctype == 'longcadence_byquarter' or lctype == 'koi7368_byquarter':
         return (
             timelist,
             f_list,

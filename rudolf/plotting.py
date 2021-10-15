@@ -1477,16 +1477,22 @@ def plot_ttv_vs_local_slope(outdir):
     savefig(fig, outpath, dpi=400)
 
 
-def plot_rotation_period_windowslider(outdir):
+def plot_rotation_period_windowslider(outdir, koi7368=0):
 
     from timmy.rotationperiod import measure_rotation_period_and_unc
 
     # get data
-    modelid, starid = 'gptransit', 'Kepler_1627'
     datasets = OrderedDict()
-    time, flux, flux_err, qual, texp = (
-        get_kep1627_kepler_lightcurve(lctype='longcadence_byquarter')
-    )
+    if not koi7368:
+        modelid, starid = 'gptransit', 'Kepler_1627'
+        time, flux, flux_err, qual, texp = (
+            get_kep1627_kepler_lightcurve(lctype='longcadence_byquarter')
+        )
+    else:
+        modelid, starid = 'gptransit', 'KOI_7368'
+        time, flux, flux_err, qual, texp = (
+            get_kep1627_kepler_lightcurve(lctype='koi7368_byquarter')
+        )
 
     N_quarters = len(time)
 
@@ -1496,7 +1502,7 @@ def plot_rotation_period_windowslider(outdir):
 
         t,f = time[i],flux[i]
 
-        plotpath = os.path.join(outdir, f'kep1627_rotationperiodslider_quarter_ix{i}.png')
+        plotpath = os.path.join(outdir, f'{starid}_rotationperiodslider_quarter_ix{i}.png')
         p, p_unc = measure_rotation_period_and_unc(t, f, 1, 10,
                                                    period_fit_cut=0.5, nterms=1,
                                                    samples_per_peak=50,
@@ -1508,7 +1514,7 @@ def plot_rotation_period_windowslider(outdir):
     outdf = pd.DataFrame(
         {'period': periods, 'period_unc': period_uncs}
     )
-    outpath = os.path.join(outdir, 'rotation_period_windowslider_QUARTERS.csv')
+    outpath = os.path.join(outdir, f'{starid}_rotation_period_windowslider_QUARTERS.csv')
     outdf.to_csv(outpath, index=False)
 
     print(42*'-')
@@ -1602,7 +1608,7 @@ def plot_hr(
     outdir, isochrone=None, color0='phot_bp_mean_mag', rasterized=False,
     show100pc=0, clusters=['$\delta$ Lyr cluster'], reddening_corr=0,
     cleanhrcut=1, extinctionmethod='gaia2018', smalllims=0,
-    overplotkep1627=0, getstellarparams=0
+    overplotkep1627=0, overplotkoi7368=0, getstellarparams=0
 ):
     """
     clusters: ['$\delta$ Lyr cluster', 'IC 2602', 'Pleiades']
@@ -1753,6 +1759,17 @@ def plot_hr(
             s=s, rasterized=False, label='KOI 7368 vicinity (Set 1)', marker='D',
             edgecolors='k', linewidths=0.1
         )
+
+        if overplotkoi7368:
+            sel = (_df.source_id == 2128840912955018368)
+            _sdf = _df[sel]
+            ax.plot(
+                get_xval(_sdf), get_yval(_sdf),
+                alpha=1, mew=0.5,
+                zorder=9001, label='KOI 7368',
+                markerfacecolor='lime', markersize=11, marker='*',
+                color='black', lw=0
+            )
 
 
     if 'BPMG' in clusters:
@@ -1994,10 +2011,14 @@ def plot_hr(
                     c=c, alpha=1., zorder=9001, label=f'{a} Myr', lw=0.5
                 )
 
-                if getstellarparams and i ==1:
+                if getstellarparams and i == 1:
 
                     print("MIST")
-                    sel = (mstar > 0.93) & (mstar < 1.0)
+                    if overplotkoi7368:
+                        sel = (mstar > 0.83) & (mstar < 0.93)
+                    else:
+                        sel = (mstar > 0.93) & (mstar < 1.0)
+
                     print(f'Mstar {mstar[sel]}')
                     teff = 10**isocmd.isocmds[i]['log_Teff']
                     print(f'Teff {teff[sel]}')
@@ -2024,7 +2045,7 @@ def plot_hr(
                     ax.scatter(
                         _xval,
                         _yval,
-                        color='k', alpha=1., zorder=9009, s=0.5, marker=".", linewidths=0
+                        color='k', alpha=1., zorder=9000000009, s=0.5, marker=".", linewidths=0
                     )
 
         elif isochrone == 'parsec':
@@ -2089,15 +2110,23 @@ def plot_hr(
 
                 if getstellarparams and i == 1:
 
-                    sel = (
-                        (np.abs(iso_df.logAge - la) < 0.01) &
-                        (iso_df.Mass < 1.0) &
-                        (iso_df.Mass > 0.90)
-                    )
+                    if overplotkoi7368:
+                        sel = (
+                            (np.abs(iso_df.logAge - la) < 0.01) &
+                            (iso_df.Mass > 0.83) &
+                            (iso_df.Mass < 0.93)
+                        )
+                    else:
+                        sel = (
+                            (np.abs(iso_df.logAge - la) < 0.01) &
+                            (iso_df.Mass < 1.0) &
+                            (iso_df.Mass > 0.90)
+                        )
                     mstar = np.array(iso_df.Mass)
 
                     print(42*'#')
                     print("PARSEC")
+
                     print(f'{_c0} - Rp')
                     print(f'Mstar {mstar[sel]}')
                     teff = np.array(10**iso_df['logTe'])
@@ -2121,7 +2150,7 @@ def plot_hr(
                     ax.scatter(
                         iso_df[sel][_c0]-iso_df[sel]['G_RPmag'],
                         _yval,
-                        c='k', alpha=1., zorder=9009, s=2, marker=".", linewidths=0
+                        c='k', alpha=1., zorder=9000000009, s=2, marker=".", linewidths=0
                     )
 
 
@@ -2231,6 +2260,8 @@ def plot_hr(
         c0s += '_smalllims'
     if overplotkep1627:
         c0s += '_overplotkep1627'
+    if overplotkoi7368:
+        c0s += '_overplotkoi7368'
 
     outpath = os.path.join(outdir, f'hr{s}{c0s}.png')
 
