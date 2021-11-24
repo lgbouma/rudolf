@@ -1,0 +1,106 @@
+========================================================
+Reviewer #1:
+This paper presents the discovery that Kepler 1627 is a member of a very young association, the delta Lyra association, and characterizes that association. The paper also dives into irregularities in the Kepler data, of which I will defer review to another referee. The results interesting and are clearly and concisely presented. I recommend the paper for publication with only minor suggestions for changes.
+
+Comments refer to the line and page numbers in the two column merged pdf.
+
+Line 57 (evaporation): Consider adding citation to Lopez et al. (2012) or similar
+
+Line 78 (Kepler ages): Consider adding citation to Walkowicz & Basri (2013)
+
+Line 93: Clarify origin of name delta Lyr, given there are two pre-existing names, and how they overlap. It might also be worth mentioning Kerr's Cep-Her association as in prep just to save future readers the headache of cross-identifying them, either here or in Sec 2.1
+
+Line 165: Consider mentioning the axes on which data was cleaned (e.g. color precision)
+
+Line 179 (reddening): What does "reasonably well" mean? Something like 1-2 sigma?
+
+Fig 3: It may be helpful to include one of the even younger clusters on the CMD (i.e. to bracket delta Lyra), though perhaps it makes the plot too busy.
+
+Page 3: Consider re-organizing. Based on the 1st paragraph, I thought the quantitative analysis would only deal with Pleiades and IC 2602 and one might infer reddening was only calculated for these clusters (whereas I assume the latter are also corrected for reddening prior to the analysis described). My suggestion would be to introduce all the clusters first. It would also be helpful to list the age of IC 2602 at some point in the text.
+
+Line 202 (binaries): Add RUWE citation(s). Nice approach to remove radial_velocity_error based on each cluster's distribution. It should be noted somewhere in this discussion that the target itself does *not* meet the RUWE limit and so wouldn't appear on the plot by default.
+
+Line 209: I don't follow starting "assembled a piecewise grid of hybrid isochrones..." What does "hybrid" mean here? Once the splines for each cluster are defined, how does one interpolate between them? Are the ages then determined for each star and combined?
+
+Line 230 (age): Consider adopting a systematic error (perhaps corresponding to the range noted for the extremes of the ages) in addition to the random (assumed to be the quoted +6/-5 error). Relatedly, how are the quoted errors derived?
+
+Line 235: May be worth mentioning the restriction to the 391 stars in the beginning of sec 2.2.2.
+
+Line 278: "Indistinguishable" -- from each other or from the Pleiades?
+
+Line 286: I thought I remember Curtis or Douglas citing binarity as a possibility for stars above to slow sequence as well, but I don't have a reference on-hand.
+
+Section 3.2: The text mentions statistical and systematic uncertainties but I only see one set of errors listed in Table 1. Were these uncertainties combined or was only one adopted in the end?
+
+Line 391: It would be helpful to state the star's RUWE in the text here. Additionally, I believe RUWE acornym was already defined previously.
+
+Section 3.2: Comment on whether the binary companion should effect the rotation measurement of the host star (either here, or in the rotation section).
+
+One note about the transit analysis: The MuSCAT3 data was introduced as supporting evidence but the conclusion (that the transits appear achromatic) was never explicitly stated.
+
+Line 725: The fast rotation period and flares could plausibly effect the completeness.
+
+Line 729: Considering Owen 2020, contraction could also contribute to some extent to the larger radii of small planets; might this be significant?
+
+Appendix A paragraph beginning at line 1158: May be worth mentioning that delta Lyr may also be part of one of these heirarchical associations.
+
+Figure 13 caption: Specify planetary orbital period since technically there is also a stellar orbital period involved.
+
+Reviewer #2:
+In this manuscript, the authors revisit the previously confirmed Kepler transiting planet system, Kepler-1627, this time equipped with information that it is a member of the young (30-40 Myr) Delta Lyrid cluster. The paper's primary contribution is point out that Kepler 1627 is a member of the Delta-Lyrid cluster, refining the age of that cluster based on empirical comparison to other clusters, and refining the stellar and planet parameters, particularly in light of the discovery that the star also has a close stellar companion. The paper is a worthy contribution to the "young planet" literature, it is, for the most-part, well writen and organized and I have only a modest list of minor changes which I recommend the authors consider in a revised version.
+
+Abstract
+line 24: Kepl-1627Ab cannot be a "mini-Neptune" if it is same size of Neptune. Replace with "Neptune-size" Yes, it falls within a distribution of objects in a period-radius diagram with an average that is smaller than Neptune, but claiming affiliation with smaller objects implies more than we know about this planet, e.g. its mass.
+
+line 25: Kepler target stars were chosen for their suitability for transiting detection of planets in general, and for planets that are Earth-analogs in paraticular. That involves radius, brightess. Distance and spectral types were not direct selection criteria; this was before Gaia.
+
+line 28: "main" --> "prime"
+
+Intro
+
+Line 47: (First paragraph on p 2) the time-scale of 1e8 is associated with one particular set of photoevaporation models; core-powered mass loss proposes timescales of Gyr(s) (see the Ginzburg paper that was cited). More recent photoevaporation models also propose 1 Gyr timescales. It would be good to revise/update this paragraph.
+
+Section 2
+
+Line 65: it is convention to italicize names of space missions like TESS and K2
+
+Lines 142-144: perhaps rephrasing this would clarify that the authors did not use Kepler-1627 as a fiducial star about which to select cluster members, and that they restricted the analysis to one of several sub-clusters or clumps which contained Kepler-1627.
+
+Figure 1: the first three panels would be more effective if they were plotted at the same scale and with appropriately aligned axes. As such the upper right panels are too small to be useful. Consider leaving out the Sun (which is irrelevant) so as to have a more appropriate choice of scale to how the details of the cluster. The purpose of the fourth panel (tangential velocities) and the second line in the caption are unclear to me. Aren't the tangential velocities known from Gaia proper motions and parallaxes? Why calculate them with the assumption of common space motion? If that is done, what does it show, anyway?
+
+Figure 3 bottom: Can the IC 2602 and 2391 rotation periods be added to this plot? Lines 276-278 mention that these and cite Douglas et al. 2021 (although the reference does not seem to be complete). Isn't it interesting that the interlopers all fall on the Praesepe rotation sequence?
+
+p 5 lines 258-261: rather than simply throw the TESS values out in favor of the Kepler ones, the authors should compare them to evaluate the accuracy and reliability of the TESS values.
+
+
+Section 3
+
+page 7 line 391: report the RUWE value (yes its in the Table but don't make the reader work)
+
+Section 4.1.3 and Figure 6
+
+The significance of this slope is unclear and a sigma is not a good way to evaluate it. Perform a ratio of chi-squared or F-test to evaluate it vs. a flat line.
+
+Lines 530-542: does option (ii) include a transit fit as well? I assume it does but it would be good to clarify. And is option (i) the 2nd and 4th order polynomial? Perhaps just state this?
+
+Line 561-562: do the authors mean "lack of statistical significance"?
+
+Section 4.2
+
+Analysis of the motion of the photocentroid has been widely used to help validate Kepler planets. Can this be used here to distinguish between the possible A and B host stars?
+
+Line 604-608: The statement that the density from the transit duration is inconsistent with that expected for the M dwarf "B" cites Table 2 and Choi+2016, but that Table does not appear to provide any information on "B", and the Choi+2016 reference is just for the Mesa models. A density of 2 g/cm3 (or lower) is possible for an M dwarf on the pre-main sequence, depending on the mass, age and model used.
+
+Lines 613-614: it would be good to quantify this, i.e. how faint an unresolved companion or background star must be based on the star's position in the CMD.
+
+Lines 635-638: Here, new observations appear for the first time but are not described. While the details are given in the appendix, and the outcome of the observations doesn't define this work, the authors need to give some basic description of the observations, e.g. passbands, SNR, resolution, observation times, etc. The authors should not assume the reader actually know what HIRES and MuSCAT are!
+
+Section
+
+line 670: assuming that SNR is not to blame, the problem is not precision, the problem is either measuremnt systematics or astrophysical noise.
+
+line 678-683: The Ca II HK activity indicator "S" as well as the H-alpha equivalent width could be obtained from the HIRES spectrum. Have the authors checked fora X-ray or UV (Galex) detection of this star? The star is likely not detected but its worth a look. In the same vein, the authors may wish to comment on whether the star's infrared emission indicates or rule out a substantial debris disk -- the star is detected in WISE (and perhaps Spitzer?)
+
+lines 699-701 It could be mentioned here that the planet orbital period and stellar rotational period are not a rational combination.
+
+line 723-726: The caveat that should be mentioned here is that this is for older, main sequence stars.
