@@ -29,8 +29,8 @@ from rudolf.paths import DATADIR, RESULTSDIR
 # NOTE: change starid as desired based on the dataset to use.
 # Kepler_1627_Q15slc, or Kepler_1627
 #def run_RotGPtransit(starid='Kepler_1627_Q15slc', N_samples=2000):
-#def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
-def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
+def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
+#def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
 
     assert starid in ['Kepler_1627', 'Kepler_1627_Q15slc', 'KOI_7368']
 
@@ -107,7 +107,7 @@ def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
     phaseplot = 1
     cornerplot = 1
     posttable = 1
-    phasedsubsets = 0
+    phasedsubsets = 1
     getbecclimits = 1
 
     if phaseplot:
@@ -116,18 +116,20 @@ def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
             ylimd = {'A':[-2, 1.5], 'B':[-0.19,0.19]}
         else:
             ylimd = {'A':[-3.5, 2.5], 'B':[-0.19,0.19]}
+        alpha = 1 # 3e-1 looks good
         bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
                                    from_trace=True, ylimd=ylimd,
                                    map_estimate=m.map_estimate,
                                    do_hacky_reprerror=True,
-                                   binsize_minutes=20, alpha=3e-1)
+                                   binsize_minutes=15, alpha=alpha)
         outpath = join(PLOTDIR,
                        f'{starid}_{modelid}_posterior_phaseplot_fullxlim.png')
+        alpha = 1 #2e-2 looked good
         bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
                                    from_trace=True, ylimd=ylimd,
                                    map_estimate=m.map_estimate, fullxlim=True,
                                    BINMS=0.5, do_hacky_reprerror=True,
-                                   binsize_minutes=20, alpha=2e-2)
+                                   binsize_minutes=15, alpha=alpha)
 
 
     if getbecclimits:
