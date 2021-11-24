@@ -1,5 +1,6 @@
 %\documentclass[12pt,modern,twocolumn,tighten]{aastex63}
-\documentclass[12pt,modern,twocolumn,tighten,linenumbers]{aastex63}
+%\documentclass[12pt,modern,twocolumn,tighten,linenumbers]{aastex63}
+\documentclass[12pt,modern,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 %\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
 %\documentclass[12pt,twocolumn,tighten,trackchanges]{aastex63}
 \usepackage{amsmath,amstext,amssymb}
@@ -77,7 +78,7 @@
   importantly, the $\delta$~Lyr cluster
   is one of $\sim$10$^3$ coeval groups whose properties have been clarified
   by Gaia.  Many other exoplanet hosts are candidate members
-  of these clusters; these memberships can be verified with the
+  of these clusters; their ages can be verified \replaced{through}{with} the
   trifecta of Gaia, TESS, and ground-based spectroscopy.
 \end{abstract}
 
@@ -110,7 +111,7 @@ dispersal ($\lesssim$$10^7$\,years), and shrink to sizes of
 is expected to occur within the first few million years after the disk
 disperses \citep{ikoma_situ_2012}, stellar
 irradiation and internal heat can also power gradual outflows
-which, if strong enough, can deplete or entirely strip the atmosphere \citep{Owen_Wu_2013,ginzburg_corepowered_2018}.
+which, if strong enough, can deplete or entirely strip the atmosphere \citep{lopez_how_2012,Owen_Wu_2013,ginzburg_corepowered_2018}.
 Discovering young planets, measuring their masses, and detecting their
 atmospheric outflows are key steps toward testing this paradigm, which
 is often invoked to explain the observed radius distribution of mature
@@ -128,7 +129,7 @@ were known in the Kepler field,
 with ages spanning 0.7\,Gyr to 9\,Gyr \citep{meibom_kepler_2011}.
 Though isochronal, gyrochronal, and lithium-based analyses suggest
 that younger Kepler planets do exist
-\citep{berger_identifying_2018,david_sizes_2021}, accurate and precise
+\citep{walkowicz_rotation_2013,berger_identifying_2018,david_sizes_2021}, accurate and precise
 age measurements typically require an ensemble of stars.  Fortunately,
 recent analyses of the Gaia data have greatly expanded our knowledge
 of cluster memberships \citep[{\it
@@ -219,6 +220,7 @@ is shown in Figure~\ref{fig:skychart}.  While this method will include
 some field interlopers in the ``cluster star'' sample, and vice-versa,
 it should suffice for our aim of verifying the existence of the
 cluster in the vicinity of \sn.
+%\added{The application of a more careful membership selection procedure to the $\delta$\ Lyr\ cluster (as part of a larger complex spanning Cepheus and Hercules) is a topic under current investigation by by R.~Kerr and collaborators.}
 
 \begin{figure}[t]
 	\begin{center}
@@ -283,7 +285,10 @@ the field.  The stars from the Pleiades and IC\,2602 were adopted from
 Catalog of Nearby Stars \citep{gaia_gcns_2021}.  We cleaned these
 following the data filtering criteria from \citet[][Appendix
 B]{GaiaCollaboration2018}, except that we weakened the parallax
-precision requirement to $\varpi/\sigma_\varpi>5$.  These filters were
+precision requirement to $\varpi/\sigma_\varpi>5$.  \added{This also involved cuts
+on the photometric signal to noise ratio, the number of visibility
+periods used, the astrometric $\chi^2$ of the single-source solution, and the
+$G_{\rm BP}-G_{\rm RP}$ color excess factor.} These filters were
 designed to include genuine binaries while omitting instrumental
 artifacts.  We then corrected for extinction by querying the
 3-dimensional maps of \citet{capitanio_threedimensional_2017} and
@@ -293,9 +298,12 @@ A_X/A_0$ computed by \citet{GaiaCollaboration2018} assuming that $A_0
 = 3.1 E(B-V)$.  For IC\,2602, the Pleiades, and the \cn, this
 procedure yielded a respective mean and standard deviation for the
 reddening of $E(B-V)=\{0.020\pm0.003, 0.045\pm0.008, 0.032\pm0.006\}$.
-These values agree reasonably well with previously reported values
-from the literature \citep[{\it
-e.g.},][]{GaiaCollaboration2018,KounkelCovey2019,bossini_age_2019}.
+These values \replaced{agree reasonably well with}{are within a
+factor of two of} previously reported values
+\replaced{from}{in} the literature \citep[{\it
+e.g.},][]{GaiaCollaboration2018,KounkelCovey2019,bossini_age_2019}\added{,
+and are all small enough that the choice of whether to use them {\it vs.} other
+extinction estimates does not affect our primary conclusions}.
 
 % Gaia+2018 E(B-V):
 % Pleiades 0.045, IC2602 0.031
@@ -329,12 +337,22 @@ IC\,2602, and the Pleiades from \citet{Damiani2019} and
 \cite{CantatGaudin2018a} respectively.  We removed binaries by
 requiring $\texttt{RUWE}<1.3$, $\texttt{radial\_velocity\_error}$
 below the 80$^{\rm th}$ percentile of each cluster's distribution, and
-excluded stars that were obvious photometric binaries in the CAMD.  We
-then passed a moving box average and standard deviation across the
-CAMD in 0.10\,mag bins, fitted a univariate spline to the binned
-values, and assembled a piecewise grid of hybrid isochrones spanning
-the ages between UCL to the Pleiades using Equations~6 and~7 from
+excluded stars that were obvious photometric binaries in the CAMD.\footnote{
+  For a description of the renormalized unit weight error (RUWE), see the GAIA DPAC technical note
+  \url{http://www.rssd.esa.int/doc_fetch.php?id=3757412}.}  We then passed a
+moving box average and standard deviation across the CAMD in 0.10\,mag bins,
+fitted a univariate spline to the binned values, and assembled a
+piecewise grid
+of \deleted{hybrid }isochrones spanning the ages between UCL \replaced{to}{and} the Pleiades using
+Equation\replaced{s~6 and~7}{6} from
 \citet{gagne_mutau_2020}.  
+\added{To derive a probability distribution function for the age of \cn, we
+then assumed a Gaussian likelihood that treated the interpolated isochrones as
+the ``model'' and the $\delta$\ Lyr\ cluster's isochrone as the ``data''
+(Equation~7 from \citealt{gagne_mutau_2020}).  The cluster's age and its
+statistical uncertainty are then quoted as the the mean and standard deviation
+of this age posterior.}
+
 
 % Randich+18: 43.7 +4.3 - 3.9 LDB
 % Dobbie+10: 46 +6 -5 LDB
@@ -370,6 +388,10 @@ Of the \noriginal\ candidate \cn\ members reported by
 \citet{KounkelCovey2019}, \nwithtess\ stars were amenable to rotation
 period measurements ($G<17$ and $\bpmrpo>0.5$) using the TESS full
 frame image data. 
+\added{As a matter of
+scope, we restricted our attention to the \nkinwithtess\ stars
+discussed in Section~\ref{sec:kinematicselection} in the spatial and
+kinematic proximity of Kepler\,1627. }
 We extracted light curves from
 the TESS images using the nearest pixel to each star, and regressed
 them against systematics with the causal pixel model implemented in
@@ -382,12 +404,12 @@ Within this radius, we recorded the number of stars with greater
 brightness than the target star, and with brightness within 1.25 TESS magnitudes of the target star.  
 
 We then cleaned the candidate TESS rotation period measurements
-through a combination of automated and manual steps.  As a matter of
+through a combination of automated and manual steps.  \deleted{As a matter of
 scope, we restricted our attention to the \nkinwithtess\ stars
 discussed in Section~\ref{sec:kinematicselection} in the spatial and
-kinematic proximity of Kepler\,1627.  
+kinematic proximity of Kepler\,1627.}  
 Kepler rotation periods were derived by
-\citet{mcquillan_rotation_2014} for 28 of these stars; for these cases, we
+\citet{mcquillan_rotation_2014} for 28 of \replaced{these }{our \nkinwithtess\ }stars; for these cases, we
 simply adopted the Kepler rotation period.
 For the remaining stars with only TESS data, we
 focused only on the stars for which no companions were known with a brightness
@@ -397,20 +419,22 @@ that had TESS data available.  For plotting purposes we then imposed a
 selection based on the strength of the signal itself: we required the
 Lomb Scargle power to exceed 0.2, and the period to be below 15\,days.
 
-
 The lower panel of Figure~\ref{fig:age} shows the resulting
 \nkindefaultcleaning\ stars.  
 The majority of these stars fall below
 the ``slow sequence'' of the Pleiades, consistent with a gyrochronal
 age for the \cn\ below 100\,Myr.  In fact, the rotation-color
 distributions of other 30\,Myr to 50\,Myr clusters ({\it e.g.},
-IC\,2602 and IC\,2391) are indistinguishable
+IC\,2602 and IC\,2391) are indistinguishable\added{ from each other}
 \citep{douglas_stephanie_t_2021_5131306}.  Approximately 10 of the
 \cn\ stars appear as outliers above the ``slow sequence''.  Assuming
 that they are all false positives ({\it i.e.}, field interlopers), our
 rotation period detection fraction would be
-$\nrotgood/\nkinwithtessandcrowding \approx \nfracprot\%$.   The other
-stars are likely to be field contaminants.  A final possible
+$\nrotgood/\nkinwithtessandcrowding \approx \nfracprot\%$.   \replaced{The other
+stars are likely to be field contaminants.}{Although some of these outlier stars might be
+unresolved F+K binaries that are in the cluster
+\citep{stauffer_rotation_2016}, assuming that they are field contaminants
+provides a more secure lower bound of the rotation period detection fraction.}  A final possible
 confounding factor -- binarity -- is known to affect the ``fast
 sequence'' of stars beneath the slow sequence
 \citep{meibom_effect_2007,gillen_ngts_2020,bouma_2021_ngc2516}.  We do
@@ -539,8 +563,10 @@ implies a projected separation of $53 \pm 4$\,AU, assuming the
 companion is bound.  Although the companion is unresolved in the Gaia
 source catalog (there are no comoving, codistant candidate companions
 brighter than $G < 20.5$ mag within $\rho < 120\arcsec$), its
-existence was also suggested by the primary star's large renormalized
-unit weight error (RUWE), relative to other members of the \cn.  Based
+existence was also suggested by the primary star's large \replaced{renormalized
+unit weight error (RUWE),}{RUWE} relative to other members of the \cn\
+\added{(RUWE$\approx$2.9; roughly the $98^{\rm th}$ percentile of the cluster's
+distribution)}.  Based
 on the apparent separation, the binary orbital period is of order
 hundreds of years.  The large RUWE is therefore more likely to be
 caused by a PSF-mismatch skewing the Gaia centroiding during
@@ -595,7 +621,7 @@ at $\rho = 330$\,AU.
     transit is in the bottom-most row.  The 2-$\sigma$ model uncertainties
     and the best-fit model are the light purple band and the dark
     purple line.  Gray points are individual flux measurements; black
-    points bin these to 20 minute intervals, and have a representative
+    points bin these to 15 minute intervals, and have a representative
     1-$\sigma$ error bar in the lower right of each panel.  The asymmetric
     residual during transit is larger than the out-of-transit scatter.
     \label{fig:lc}
@@ -614,7 +640,11 @@ variability has been removed using the methods discussed by
 assumed \citep{smith_finding_2016}.  Cadences with non-zero quality
 flags (9\% of the data) have been omitted.  The resulting photometry
 is dominated by a quasi-periodic starspot signal with a peak-to-peak
-amplitude that varies between 2\% and 8\%.  Previous analyses have
+amplitude that varies between 2\% and 8\%.  \added{Given that the secondary
+companion's brightness in the Kepler band is $\approx$1.5\% that of the primary,
+source confusion for the rotation signal is not expected to be
+an issue.}
+Previous analyses have
 identified and characterized the smaller transit signal
 \citep{2012ApJS..199...24T,thompson_planetary_2018}, validated its
 planetary nature \citep{morton_false_2016}, and even searched the
@@ -1276,7 +1306,8 @@ Gaia DR2 $\texttt{source\_id}$, the cluster or group name
 nature of many stellar associations, we do not attempt to resolve the
 cluster names to a single unique string.  The Orion complex for
 instance can be divided into almost one hundred kinematic subgroups
-\citep{kounkel_apogee2_2018}.  Similar complexity applies to the
+\citep{kounkel_apogee2_2018}.  \added{Based on Figure~\ref{fig:XYZvtang}, the
+\cn\ may also be part of a similar hierarchical association.} Similar complexity applies to the
 problem of determining homogeneous ages, which we do not attempt to
 resolve.  Instead, we simply merged the cluster names and ages
 reported by various authors into a comma-separated string.
@@ -1755,7 +1786,7 @@ near-infrared \citep[{\it e.g.},][]{feinstein_halpha_2021}.
 		{\it Bottom:}
 		Zooms of the brightest, and third-brightest flares.  A timing
 		coincidence -- that both flares have ``successors'' approximately
-		one orbital period after the initial event -- is emphasized.
+		one \added{planetary }orbital period after the initial event -- is emphasized.
 		\label{fig:flarezoom}
 	}
 \end{figure*}
