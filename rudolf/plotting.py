@@ -154,6 +154,17 @@ def plot_ruwe_vs_apparentmag(outdir):
         zorder=8, label='Kepler 1627A', markerfacecolor='yellow',
         markersize=16, marker='*', color='black', lw=0
     )
+    print('Kepler 1627A RUWE')
+    print(get_yval(trgt_df))
+    print('Delta Lyr cluster RUWE mean+/-stdev')
+    print(f'{np.nanmean(get_yval(df_edr3)):.3f} +/- {np.nanstd(get_yval(df_edr3)):.3f}')
+    print('80,90,95,98,99 pctile')
+    print(f'{np.nanpercentile(get_yval(df_edr3),80):.3f}, '+
+          f'{np.nanpercentile(get_yval(df_edr3),90):.3f}, '+
+          f'{np.nanpercentile(get_yval(df_edr3),95):.3f}, '+
+          f'{np.nanpercentile(get_yval(df_edr3),98):.3f}, '+
+          f'{np.nanpercentile(get_yval(df_edr3),99):.3f}, '
+         )
 
     leg = ax.legend(loc='upper left', handletextpad=0.1, fontsize='small',
                     framealpha=0.9)
