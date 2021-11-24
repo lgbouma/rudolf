@@ -187,7 +187,7 @@ def collect_isochrone_data():
         ax.update({'xlabel': '(Bp-Rp)0 [mag]', 'ylabel': '(MG)0'})
         savefig(f, outpath, dpi=400)
 
-        # step 4: moving box average and stdevn in 0.05 mag bins, as suggested
+        # step 4: moving box average and stdevn in 0.10 mag bins, as suggested
         # by Gagne+2020
         xs, ys = xval[sel], yval[sel]
 
@@ -217,12 +217,9 @@ def collect_isochrone_data():
 
         _s = np.isfinite(ymean)
 
-        #fn_BpmRp_to_AbsG = interp1d(binmids[_s], ymean[_s], kind='quadratic',
-        #                            bounds_error=False, fill_value=np.nan)
-
         # cubic spline
-        fn_BpmRp_to_AbsG = UnivariateSpline(binmids[_s], ymean[_s], k=3,
-                                            s=1e-2, ext=1)
+        fn_BpmRp_to_AbsG = UnivariateSpline(binmids[_s], ymean[_s],
+                                            k=3, s=1e-2, ext=1)
 
         # this is the (Bp-Rp)0 component
         x_interp = np.linspace(0.8, 2.9, 1001) #NOTE: for clean plots
@@ -276,6 +273,41 @@ def collect_isochrone_data():
     # isochrone grid: (N_yeval, 2*N_age_spaced_grid)  (~50 X 2000)
     I_grid = np.hstack((I_step1, I_step2))
 
+    # make evaluation plot
+    outpath = os.path.join(RESULTSDIR, 'empirical_isochrone_age',
+                           f"all_clusters_CMD_binning_interp.png")
+    set_style()
+    f,ax = plt.subplots(figsize=(1.5*6,1.5*4))
+
+    colors = 'k,orange,deepskyblue,C3'.split(',')
+
+    for ix, c, color in zip(range(len(clusters)), clusters, colors):
+
+        ax.scatter(hr_dict[c]['(Bp-Rp)0'], hr_dict[c]['(MG)0'], s=1,
+                   c=color, label=c, zorder=ix)
+        #ax.errorbar(hr_dict[c]['binmids'], hr_dict[c]['ymean'],
+        #            hr_dict[c]['ystdev'], marker='o', elinewidth=0.5,
+        #            capsize=4, lw=0, mew=0.5, color=f'k', markersize=3,
+        #            zorder=5)
+        ax.plot(hr_dict[c]['x_interp'], hr_dict[c]['y_interp'], lw=1,
+                c=color, zorder=42, label=c+' spline')
+
+    for i in range(0,I_grid.shape[1],200):
+        if i == 0:
+            ax.plot(x_eval, I_grid[:,i], color='gray', lw=0.5,
+                    label='Interpolated splines')
+        else:
+            ax.plot(x_eval, I_grid[:,i], color='gray', lw=0.5)
+
+    ax.update({'xlabel': '$(G_{\mathrm{BP}}-G_{\mathrm{RP}})_0$ [mag]',
+               'ylabel': '$M_{\mathrm{G},0}$ [mag]'})
+    ax.legend(loc='best')
+    ax.set_ylim([12.5,3.5])
+    ax.set_xlim([0.5,3.5])
+    savefig(f, outpath, dpi=400)
+
+    # calculate implied ages
+
     log10_A_step1 = (
         (1-alpha) * np.log10(age_dict['UCL']) +
         (alpha)*np.log10(age_dict['IC 2602'])
@@ -286,7 +318,7 @@ def collect_isochrone_data():
     )
     log10_A_grid = np.hstack((log10_A_step1, log10_A_step2))
 
-
+    # calculate the age probabilities assuming a gaussian likelihood
     JITTER = 0.30
 
     for c in ['δ Lyr cluster', 'IC 2602']:
@@ -336,9 +368,5 @@ def collect_isochrone_data():
 
     print(f'Wrote {cachepath}')
 
-def calc_empirical_isochrone_age():
-    pass
-
 if __name__ == "__main__":
     collect_isochrone_data()
-    calc_empirical_isochrone_age()
