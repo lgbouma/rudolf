@@ -54,7 +54,7 @@
 \begin{document}
 
 \title{
-  A 38 Million Year Old Mini-Neptune in the Kepler Field
+  A 38 Million Year Old Neptune-Sized Planet in the Kepler Field
 }
 
 %\suppressAffiliations
@@ -64,14 +64,14 @@
 % 208 words (250 max)
 \begin{abstract}
   Kepler\,1627A is a G8V star previously known to host a
-  $3.8\,R_\oplus$ mini-Neptune on a 7.2\,day orbit.  The star was
+  $3.8\,R_\oplus$ \replaced{mini-Neptune}{planet} on a 7.2\,day orbit.  The star was
   observed by the Kepler space telescope because it is nearby
   ($d=329\,{\rm pc}$) and it resembles the Sun.  Here we show using
   Gaia kinematics, TESS stellar rotation periods, and spectroscopic
   lithium abundances that Kepler\,1627 is a member of the \clusterage\
   old $\delta$~Lyr cluster.  To our knowledge, this makes
   Kepler\,1627Ab the youngest planet with a precise age yet found by
-  the main Kepler mission.  The Kepler photometry shows two
+  the \replaced{main}{prime} Kepler mission.  The Kepler photometry shows two
   peculiarities: the average transit profile is asymmetric, and the
   individual transit times might be correlated with the local light curve
   slope.  We discuss possible explanations for each anomaly.  More
@@ -123,7 +123,7 @@ Jupiter
 \citep{Mann_K2_33b_2016,David_et_al_2017,david_four_2019,newton_tess_2019,bouma_cluster_2020,plavchan_planet_2020,rizzuto_tess_2020,martioli_aumicbc_2021}.
 The Kepler mission however has not yielded any planets with precise
 ages below one gigayear \citep{Meibom_et_al_2013}.  The reason is that
-during the main Kepler mission (2009--2013), only four open clusters
+during the \replaced{main}{prime} Kepler mission (2009--2013), only four open clusters
 were known in the Kepler field,
 %: NGC\,6866, NGC\,6811, NGC\,6819, and NGC\,6791,
 with ages spanning 0.7\,Gyr to 9\,Gyr \citep{meibom_kepler_2011}.
@@ -144,7 +144,8 @@ that Kepler observed a portion of the \cn\ (Stephenson-1; Theia~73).
 More specifically, a clustering analysis of the Gaia data by
 \citet{KounkelCovey2019} reported that Kepler~1627 (KIC 6184894; KOI
 5245) is a \cn\ member.  Given the previous statistical
-validation of the close-in mini-Neptune Kepler 1627b
+validation of the close-in \replaced{mini-Neptune}{Neptune-sized
+planet} Kepler 1627b
 \citep{2012ApJS..199...24T,morton_false_2016,thompson_planetary_2018},
 we begin by scrutinizing the properties of the cluster
 (Section~\ref{sec:cluster}).  We find that the $\delta$ Lyr cluster is
@@ -179,7 +180,9 @@ implications for our ability to age-date a larger sample of planets
     vicinity of Kepler\,1627 (yellow star).  The question of whether
     the other candidate cluster members (gray points) are part of the
     cluster is outside our scope.  The location of the Sun is
-    ($\odot$) is shown.
+    ($\odot$) is shown \added{to clarify the direction along which
+    parallax uncertainties are expected to produce erroneous
+    clusters}.
 		\label{fig:XYZvtang}
 	}
 \end{figure*}
@@ -202,17 +205,25 @@ latest Gaia EDR3 observations using the \texttt{dr2\_neighbourhood}
 table from the ESA archive,
 taking the stars closest in proper motion and epoch-corrected angular
 distance as the presumed match \citep{gaia_collaboration_2021_edr3}.
-In Figure~\ref{fig:XYZvtang}, have shown galactic positions only for
-the stars with parallax signal-to-noise exceeding 20.  The reported
+In Figure~\ref{fig:XYZvtang}, \added{we }have shown galactic positions only for
+the stars with parallax signal-to-noise exceeding 20.  \added{We
+calculated the tangential velocities for each of these stars relative to \sn\
+($\Delta \mu^{*}$) by subtracting the observed proper motion from what the proper motion at the star's
+position would be if it were co-moving with \sn. }The reported
 cluster members (gray and black points) extend over a much larger
-volume than the cluster previously identified by
+volume \added{in both physical and kinematic space }than the cluster previously identified by
 \citet{stephenson_possible_1959} and later corroborated by
 \citet{eggen_photometric_1968}.  While the non-uniform ``clumps'' of
 stars might comprise a {\it bona fide} cluster of identically-aged
-stars, they could also be heavily contaminated by field stars.  We
+stars, they could also be heavily contaminated by field stars.
+\added{One reason to suspect this is that the spread in tangential
+velocities exceeds typical limits for kinematic coherence
+\citep{Meingast2021}}.
+We
 therefore considered stars only in the immediate kinematic and spatial
-vicinity of \sn\ as candidate cluster members.  We performed the
-selection cuts manually, by drawing lassos with the interactive
+vicinity of \sn\ as candidate cluster members.  We performed
+\replaced{the}{this}
+selection cut\deleted{s} manually, by drawing lassos with the interactive
 \texttt{glue} visualization tool \citep{beaumont_2014_13866} in the
 four projections shown in Figure~\ref{fig:XYZvtang}.  The overlap
 between the Kepler field and the resulting candidate cluster members
@@ -404,13 +415,22 @@ Within this radius, we recorded the number of stars with greater
 brightness than the target star, and with brightness within 1.25 TESS magnitudes of the target star.  
 
 We then cleaned the candidate TESS rotation period measurements
-through a combination of automated and manual steps.  \deleted{As a matter of
-scope, we restricted our attention to the \nkinwithtess\ stars
-discussed in Section~\ref{sec:kinematicselection} in the spatial and
-kinematic proximity of Kepler\,1627.}  
-Kepler rotation periods were derived by
-\citet{mcquillan_rotation_2014} for 28 of \replaced{these }{our \nkinwithtess\ }stars; for these cases, we
-simply adopted the Kepler rotation period.
+through a combination of automated and manual steps.  \deleted{As a
+matter of scope, we restricted our attention to the \nkinwithtess\
+stars discussed in Section~\ref{sec:kinematicselection} in the spatial
+and kinematic proximity of Kepler\,1627.}  \deleted{Kepler rotation
+periods were derived by \citet{mcquillan_rotation_2014} for 28 of
+\replaced{these }{our \nkinwithtess\ }stars; for these cases, we
+simply adopted the Kepler rotation period.} \added{First, to validate
+the TESS rotation periods, we compared against 28 stars
+from \citet{mcquillan_rotation_2014} that were also observed by Kepler.  Of the 23 stars with Kepler
+periods below 10 days, 21 of the TESS periods agreed with the Kepler
+rotation periods; the other 2 were measured at the double-period
+harmonic.  Of the remaining 5 stars with Kepler rotation periods above
+10 days, none were correctly recovered by TESS (3 were near the
+half-period harmonic).  We therefore adopted a general stance of
+caution for TESS rotation periods exceeding 10 days, and used the
+Kepler rotation periods for the stars for which they were available.}
 For the remaining stars with only TESS data, we
 focused only on the stars for which no companions were known with a brightness
 exceeding one-tenth of the target star in a $21\farcs0$ radius.  There
@@ -689,7 +709,7 @@ diagnostic \citep{gelman_inference_1992}.
 Figure~\ref{fig:lc} shows the resulting best-fit model in orange (top)
 and purple (bottom).  The model parameters and their uncertainties,
 given in Table~\ref{tab:posterior}, are broadly consistent with a
-mini-Neptune sized planet ($3.82\pm0.16\,R_\oplus$) on a close-in
+\replaced{mini-Neptune }{Neptune-}sized planet ($3.82\pm0.16\,R_\oplus$) on a close-in
 circular\footnote{ Our transit fitting yields $e<0.48$ at 2-$\sigma$;
 the constraints on the eccentricity are not particularly strong.}
 orbit around a G8V host star ($0.88 \pm 0.02 R_\odot$).  This best-fit
@@ -763,9 +783,9 @@ individual transit times.
 
 We therefore isolated each of the 144 observed transits to within
 $\pm4.5$\,hr of each transit, and fitted each window with both {\it
-i)} a local polynomial baseline plus the transit, and {\it ii)} a local linear
-trend.  We considered the results both for a second and fourth-order
-time-dependence in the local baseline.  We let the mid-time of each
+i)} a local \added{second or fourth-order }polynomial baseline plus the transit, and {\it ii)} a local linear
+trend\added{ plus the transit}.  \deleted{We considered the results both for a second and fourth-order
+time-dependence in the local baseline.  }We let the mid-time of each
 transit float, and then calculated the residual between the measured
 mid-time and that of a periodic orbit.  This residual, the transit
 timing variation, is plotted in Figure~\ref{fig:corr} against
@@ -790,7 +810,7 @@ result.  However for the fourth-order baseline, the correlation
 present in the data was stronger than in all but one of the injected
 transits.
 Possible interpretations are discussed below. Given the
-statistical significance, this analysis should be interpreted as
+\added{lack of }statistical significance, this analysis should be interpreted as
 suggestive at best.
 
 
@@ -842,7 +862,8 @@ suggestive at best.
 \end{figure*}
 
 If the \pn\ transit signal is created by a genuine planet,  then to
-our knowledge it would be the youngest planet yet found by the main
+our knowledge it would be the youngest planet yet found by the
+\replaced{main}{prime}
 Kepler mission.\footnote{The re-purposed K2 mission however has found
 two younger systems containing five planets: K2-33b ($9\pm1\,{\rm
 Myr}$; \citealt{Mann_K2_33b_2016,David_et_al_2017}) and V1298 Tau
@@ -1006,6 +1027,10 @@ in which the typical $5\,M_\oplus$ to 10$\,M_\oplus$ mini-Neptune
 \citep{wu_mass_2019} loses a significant fraction of its primordial
 atmosphere over its first gigayear
 \citep{Owen_Wu_2013,ginzburg_corepowered_2018}.  
+\added{This of course depends on the mass of \pn; an alternative
+explanation for its large size could simply be that it is more massive
+than the typical Kepler mini-Neptune, or that it has an abnormally
+large envelope to core mass ratio.}
 
 % The prograde orbit, if confirmed, would be consistent with a
 % quiescent disk-driven migration history, and would differ from

@@ -409,9 +409,10 @@ planet, e.g. its mass.
 
 RESPONSE
 ----------
-> Point well-taken. 
-> R_p = 3.79 +/- 0.16 R_earth, so yes, this is the same size as
-> Neptune within 1-sigma.
+> Point well-taken.  R_p = 3.82 +/- 0.16 R_earth, so yes, Kepler-1627 Ab is the
+> same size as Neptune within 1-sigma.  All instances in the text that referred
+> to Kepler-1627 Ab as a mini-Neptune have been modified to call it a
+> "Neptune-sized planet" (including the manuscript's title).
 
 REVIEWER COMMENT
 ----------
@@ -422,7 +423,22 @@ not direct selection criteria; this was before Gaia.
 
 RESPONSE
 ----------
->
+> Indeed.  Batalha+2010 (ApJL) discuss the selection function, which favored
+> stars that were both small and bright since these stars enable the detection
+> of Earth-size planets.  M dwarfs thus were generally excluded unless they
+> happened to be very close.  F, G, and K stars were favored, particularly when
+> they were nearby.  The sentence in L25 currently states that "The star was
+> observed by the Kepler space telescope because it is nearby (d=329pc) and it
+> resembles the Sun".  More directly, yes, the star was chosen because it was
+> thought that it might enable the detection of small planets in the habitable
+> zone.  However the underlying reason for this given how the transit S/N
+> scales is that the star was relatively bright, and it also fell within a
+> particular color range.  That color range (given the Batalha+2010 logg cuts)
+> corresponds to Sun-like stars.  And the brightness range for Sun-like stars
+> corresponds to stars within a particular distance limit.  Our claim therefore
+> holds, albeit indirectly.  It also serves the more important purpose of
+> informing the reader what kind of star this paper is about: a star that is at
+> a distance of ~330 parsecs, and that resembles the Sun (except for its age!).
 
 REVIEWER COMMENT
 ----------
@@ -430,7 +446,7 @@ line 28: "main" --> "prime"
 
 RESPONSE
 ----------
->
+> Done here and throughout the manuscript, thank you.
 
 REVIEWER COMMENT
 ----------
@@ -444,7 +460,7 @@ revise/update this paragraph.
 
 RESPONSE
 ----------
->
+> FIXME FIXME TODO
 
 REVIEWER COMMENT
 ----------
@@ -454,7 +470,8 @@ Line 65: it is convention to italicize names of space missions like TESS and K2
 
 RESPONSE
 ----------
->
+> Yes, and we leave the imposition of this convention to the copy-editors at
+> the journal. 
 
 REVIEWER COMMENT
 ----------
@@ -465,7 +482,8 @@ which contained Kepler-1627.
 
 RESPONSE
 ----------
->
+> We have slightly rephrased Lines 142-144 to clarify the meaning, which is
+> indeed what the reviewer has stated.
 
 REVIEWER COMMENT
 ----------
@@ -480,7 +498,41 @@ assumption of common space motion? If that is done, what does it show, anyway?
 
 RESPONSE
 ----------
+> Thank you for these important points of feedback.
 >
+> The Sun has been included to clarify the direction along which parallax
+> uncertainties are expected to produce erroneous clusterings (analogous to the
+> "Fingers of God" effect in the extragalactic literature).  This is relevant
+> because the HDBScan clustering method used by Kounkel & Covey in their 2019
+> paper likely was susceptible to this systematic effect.  A sentence has been
+> added to the caption of Figure 1 to clarify this point.
+> 
+> The {X,Y}, {Z,X}, and {Z,Y} panels are plotted at different scales in order
+> to keep the aspect ratios roughly correct.  The reported KC2019 cluster
+> members span {ΔX, ΔY, ΔZ} of roughly {400, 600, 200} parsecs,  which grows to
+> ~{600, 600, 200} parsecs when including the Sun.  The {Z,X} and {Z,Y}
+> panels should therefore roughly have aspect ratios of 1:3 in order for the
+> parsec to not be stretched too much in either dimension.  The top-down {X,Y}
+> view is the most informative dimension, which is why it is enlarged related
+> to the edge-on views (and its 1:1 aspect ratio is set by the same
+> consideration).
+>
+> Finally, the tangential velocities are important because they tell us whether
+> the structures are kinematically coherent.  Open clusters typically have
+> velocity dispersions of order ~1km/s.  Meingast et al. 2021 (A&A 645 84) for
+> instance suggest tangential velocities <2 km/s (from the mean cluster
+> velocity) as a plausible cutoff for selecting candidate cluster members.  One
+> needs to compute these as relative tangential velocities instead of just
+> looking at the proper motions because the proper motions are changed by
+> line-of-sight projection effects, especially when the clusters appear
+> stretched over tens of degrees on-sky.  See for instance Figure 2 of
+> Meingast+2021, or Figure 14 of Bouma+2021 (AJ, 162, 197).  In our case, the
+> tangential velocities indicate that the spread in Kounkel & Covey 2019's
+> reported cluster members is ~10km/s, which is large enough that it does not
+> make obvious kinematic sense to consider all of these stars to be part of the
+> same structure.  We've added a few sentences in the manuscript to clarify
+> these latter points.
+
 
 REVIEWER COMMENT
 ----------
@@ -491,7 +543,17 @@ interlopers all fall on the Praesepe rotation sequence?
 
 RESPONSE
 ----------
+> Thank you for pointing out the missing link in the reference to Douglas et
+> al. 2021, which should have pointed to
+> https://ui.adsabs.harvard.edu/abs/2021tsc2.confE.157D/abstract, and has been
+> updated in the revision.  The rotation periods from this work, which includes
+> IC 2602, IC 2391, and a few other 30-50 Myr clusters, are not yet public.  
 >
+> The interlopers falling on the Praesepe sequence is indeed a bit odd, but
+> it's really only ~3-5 stars. A much bigger set of interlopers didn't have
+> detected rotation periods at all! (See final paragraph of Section 2.2.2).
+> At the other reviewer's request, we've also added a sentence noting that some
+> of these stars might be unresolved F+K binaries.
 
 REVIEWER COMMENT
 ----------
@@ -501,7 +563,16 @@ reliability of the TESS values.
 
 RESPONSE
 ----------
+> Thank you for this point -- please see kepler_vs_tess_prot.png in the
+> attached, which shows the 28 referenced stars that overlap.  5 of the 28
+> stars have Kepler rotation periods above 10 days, of which none were
+> correctly recovered by TESS (3 are chosen at the half-period harmonic).  Of
+> the 23 stars with periods below 10 days, 21 of the TESS periods agree with
+> the Kepler rotation periods, and 2 are at the double-period harmonic.
 >
+> We've updated the text to reflect this point, which doesn't affect any of the
+> conclusions given that almost all the δ Lyr cluster stars have rotation
+> periods below below 10 days.
 
 REVIEWER COMMENT
 ----------
@@ -512,7 +583,7 @@ reader work)
 
 RESPONSE
 ----------
->
+> Done, thank you.
 
 REVIEWER COMMENT
 ----------
@@ -524,7 +595,7 @@ line.
 
 RESPONSE
 ----------
->
+> TODO ??? WHY ISN'T SIGMA OK?  THE POINT IS THAT IT'S 2-SIGMA...
 
 REVIEWER COMMENT
 ----------
@@ -534,7 +605,11 @@ polynomial? Perhaps just state this?
 
 RESPONSE
 ----------
+> Yes, option (ii) includes the transit -- we've updated this in the text for
+> clarity.
 >
+> Yes, option (i) is the 2nd or 4th order polynomial.  We've updated the text
+> to state this more directly as well.  Thank you!
 
 REVIEWER COMMENT
 ----------
@@ -542,7 +617,7 @@ Line 561-562: do the authors mean "lack of statistical significance"?
 
 RESPONSE
 ----------
->
+> Yes -- we've clarified this in the text.  Thank you!
 
 REVIEWER COMMENT
 ----------
