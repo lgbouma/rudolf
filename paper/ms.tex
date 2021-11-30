@@ -420,7 +420,7 @@ matter of scope, we restricted our attention to the \nkinwithtess\
 stars discussed in Section~\ref{sec:kinematicselection} in the spatial
 and kinematic proximity of Kepler\,1627.}  \deleted{Kepler rotation
 periods were derived by \citet{mcquillan_rotation_2014} for 28 of
-\replaced{these }{our \nkinwithtess\ }stars; for these cases, we
+our \nkinwithtess\ stars; for these cases, we
 simply adopted the Kepler rotation period.} \added{First, to validate
 the TESS rotation periods, we compared against 28 stars
 from \citet{mcquillan_rotation_2014} that were also observed by Kepler.  Of the 23 stars with Kepler
@@ -830,7 +830,7 @@ suggestive at best.
 		effect;
 		a model including the RM anomaly and a quadratic trend in time to
 		fit the spot-induced $\approx$\,$250$\ms\ trend is shown (see
-		Appendix~\ref{app:rm}).  Shaded bands show 2-$\sigma$ model
+		Appendix~\ref{app:groundobs}).  Shaded bands show 2-$\sigma$ model
 		uncertainties.  
 		{\it Middle:} The RV variations are strongly correlated with varying
 		emission in the Ca H and K lines.
@@ -905,7 +905,7 @@ implied by the transit duration and orbital period is inconsistent
 with an eclipsing body around the M-dwarf companion.  We find
 $\rho_\star = 2.00 \pm 0.24\,{\rm g\,cm}^{-3}$, while the
 theoretically expected density for Kepler\,1627B is $\approx 4.6\,{\rm
-g\,cm}^{-3}$ (Table~\ref{tab:posterior}; \citealt{choi_mesa_2016}).
+g\,cm}^{-3}$ \citep{baraffe_new_2015}.
 The transit duration is therefore too long to be explained by a star
 eclipsing the M dwarf secondary at $10$-$\sigma$.  While the planet
 might hypothetically still orbit a hidden close and bright companion,
@@ -935,15 +935,23 @@ old ages, we expect this latter assumption to be reasonably secure
 
 A third supporting line of evidence for the planetary interpretation
 also exists.  We observed a transit of \pn\ on the
-night of 2021 Aug 7 simultaneously with Keck/HIRES and MuSCAT3.  We
+night of 2021 Aug 7 \replaced{simultaneously with Keck/HIRES and
+MuSCAT3}{spectroscopically with HIRES at the Keck-I telescope and photometrically in
+$griz$ bands with MuSCAT3 at Haleakal\=a Observatory}.  \added{
+Details of the observation sequence are discussed in
+Appendix~\ref{app:groundobs}; Figure~\ref{fig:ground} shows the
+results.}\deleted{.  We
 scheduled the observations using the ephemeris of
-\citet{holczer_transit_2016}.  Although we did not detect the
+\citet{holczer_transit_2016}.}  Although we did not detect the
 Rossiter-McLaughlin (RM) anomaly, the multi-band MuSCAT3 light curves
-show that the transit is achromatic (Figure~\ref{fig:ground}).
+show that the transit is achromatic\deleted{
+  (Figure~\ref{fig:ground})}.
 Quantitatively, when we fitted the MuSCAT3
 photometry with a model that lets the transit depths vary across each
 bandpass, we found {\it griz} depths consistent with the Kepler depth
-at 0.6, 0.3, 0.3, and 1.1-$\sigma$ respectively.  Conditioned on the
+at 0.6, 0.3, 0.3, and 1.1-$\sigma$ respectively.  \added{The
+achromatic transits strongly favor Kepler\ 1627A as the transit host,
+since Kepler\ 1627B is much redder.}  Conditioned on the
 ephemeris and transit depth from the Kepler data, the MuSCAT3 observations also
 suggested a transit duration $17.3\pm4.3\ {\rm min}$ shorter than the
 Kepler transits.
@@ -952,7 +960,7 @@ and the relatively low signal-to-noise of the MuSCAT3 transit,
 further photometric follow-up would be necessary to determine
 whether the transit duration is indeed changing.  
 For our RM analysis,
-the details are discussed in Appendix~\ref{app:rm}.  While the
+the details are discussed in Appendix~\ref{app:groundobs}.  While the
 velocities are marginally more consistent with a prograde or polar
 orbit than a retrograde orbit, the spot-corrected exposure-to-exposure
 scatter ($\sigma_{\rm RV}\approx 30$\ms) is comparable to the expected
@@ -968,7 +976,8 @@ obliquity.
 
 Kepler\,1627Ab provides a new extremum in the ages of the Kepler
 planets, and opens multiple avenues for further study.  Observations
-of spectroscopic transits at greater precision should yield a
+of spectroscopic transits at greater
+\replaced{precision}{signal-to-noise} should yield a
 measurement of the stellar obliquity, which would confirm or refute
 the prograde orbital geometry suggested by the TTV-local slope
 correlation.  Separately, transit spectroscopy aimed at detecting
@@ -979,7 +988,7 @@ Observations that quantify the amount of high-energy
 irradiation incident on the planet would complement these efforts, by
 helping to clarify the expected outflow rate \citep[{\it
 e.g.},][]{poppenhaeger_2021}.  Finally, a challenging but informative
-quantity to measure would be the planet's mass. Measured at
+quantity to measure would be the planet's mass.  Measured at
 sufficient precision,
 for instance through a multi-wavelength radial velocity campaign,
 the combination of the size, mass, and age 
@@ -997,7 +1006,9 @@ A second possibility is that the planetary orbit is slightly
 misaligned from the stellar spin axis, and tends to transit starspot
 groups at favored stellar latitudes.  
 This geometry would be necessary in order to
-explain how the starspot crossings could add up coherently.
+explain how the starspot crossings could add up coherently\added{,
+given that the planetary orbital period (7.203\,days) and the stellar
+rotation period (2.642\,days) are not a rational combination}.
 Other possibilities including
 gravity darkening or TTVs causing the asymmetry are disfavored (see
 Appendix~\ref{app:asymmetry}).  
@@ -1011,25 +1022,31 @@ In the context of the transiting planet population, \pn\ is among the
 youngest known (Figure~\ref{fig:rp_period_age}).  Comparable systems
 with precise ages include K2-33
 \citep{Mann_K2_33b_2016,David_et_al_2017}, DS~Tuc
-\citep{benatti_possibly_2019,newton_tess_2019} , HIP~67522
+\citep{benatti_possibly_2019,newton_tess_2019}, HIP~67522
 \citep{rizzuto_tess_2020}, TOI~837 \citep{bouma_cluster_2020}, the
 two-planet AU~Mic \citep{plavchan_planet_2020,martioli_aumicbc_2021}
 and the four-planet V1298~Tau \citep{david_four_2019}.  \pn\ is one of
 the smaller planets in this sample ($3.82\pm0.16\,R_\oplus$), which
 could be linked to the selection effects imposed by spot-induced
 photometric variability at very young ages \citep[{\it
-e.g.},][]{zhou_2021_tois}.  However, smaller planets could have been
-detected: the Kepler pipeline's median completeness extended to
+e.g.},][]{zhou_2021_tois}.  \replaced{However,}{However, it seems that} smaller planets could have been
+detected: \added{based on the per-target detection contours, }the Kepler pipeline's median completeness extended to
 $1.6\,R_\oplus$ at 10~day orbital periods, and $3.3\,R_\oplus$ at
-100~days \citep{2021ascl.soft07027B}.  The large size of \pn\ relative
+100~days
+\citep{2021ascl.soft07027B}.
+\added{These limits account for the spot-induced variability in the
+system through
+a correction based on the Combined Differential Photometric Precision
+(CDPP) in the \sn\ light curve over the relevant transit timescales
+\citep{2017ksci.rept...19B}.} The large size of \pn\ relative
 to most Kepler mini-Neptunes might therefore support a picture
-in which the typical $5\,M_\oplus$ to 10$\,M_\oplus$ mini-Neptune
+in which the typical $5\,M_\oplus$ \deleted{to 10$\,M_\oplus$} mini-Neptune
 \citep{wu_mass_2019} loses a significant fraction of its primordial
 atmosphere over its first gigayear
 \citep{Owen_Wu_2013,ginzburg_corepowered_2018}.  
-\added{This of course depends on the mass of \pn; an alternative
-explanation for its large size could simply be that it is more massive
-than the typical Kepler mini-Neptune, or that it has an abnormally
+\added{This of course would need to be confirmed through a measurement
+of the planetary mass; alternative explanations for its large size
+could be that it is abnormally massive, or that it has an abnormally
 large envelope to core mass ratio.}
 
 % The prograde orbit, if confirmed, would be consistent with a
@@ -1643,7 +1660,7 @@ near-infrared.
 
 
 \section{Spectroscopy and Photometry During the Transit of 2021 Aug 7}
-\label{app:rm}
+\label{app:groundobs}
 
 \begin{figure*}[tp]
 	\begin{center}
@@ -1665,16 +1682,33 @@ near-infrared.
 	}
 \end{figure*}
 
-We monitored \sn\ with Keck/HIRES before, during, and after transit on
-the night of 2021 Aug 7.  We used the iodine cell for wavelength
-calibration, and extracted the 1-D spectra using the
-standard California Planet Survey pipeline \citep{howard_cps_2010}.
-The airmass ranged between 1.1 and 2.2 from the start through the end
-of observations; the seeing ranged from $1\farcs1$ at the beginning to
-$1\farcs5$ at the end.  We also simultaneously observed across {\it
-griz} bands using MuSCAT3 at Haleakal\=a Observatory on Maui, HI.
-Performing aperture photometry on the latter image stack yielded the
-data given in Table~\ref{tab:phot}.
+
+\added{We used the ephemeris of \citet{holczer_transit_2016} to
+observe a transit of \pn\ on the night of 2021 Aug 7 both
+spectroscopically and photometrically.  We used the HIRES echelle
+spectrograph at the Keck-I telescope and MuSCAT3 at Haleakal\=a
+Observatory on Maui, HI \citep{Narita_2020}.} \deleted{ We monitored
+\sn\ with Keck/HIRES before, during, and after transit on the night of
+2021 Aug 7.} \replaced{We used the iodine cell for wavelength
+calibration}{For the HIRES wavelength calibration, we used the iodine
+cell}, and extracted the 1-D spectra using the standard California
+Planet Survey pipeline \citep{howard_cps_2010}.  \added{Given the
+faintness of the target ($V=13.1$), we observed using the C2 decker,
+which yielded an instrument resolution of $\approx$50{,}000.} The
+airmass ranged between 1.1 and 2.2 from the start through the end of
+observations; the seeing ranged from $1\farcs1$ at the beginning to
+$1\farcs5$ at the end.  \added{The HIRES exposure time was set at
+$\approx$15 minutes in order to resolve the 2.8 hour transit event,
+which yielded a S/N per resolution element of $\approx 75$ (low for
+precision radial velocity standards).} \replaced{We also
+simultaneously observed across {\it griz} bands using MuSCAT3 at
+Haleakal\=a Observatory on Maui, HI.}{For the MuSCAT3 observations, we
+observed simultaneously across the {\it griz} bands.} \added{The
+exposure times in each bandpass ranged between 23 and 46 seconds, and
+were chosen in order to yield a S/N in the peak pixel that exceeded
+130 while also preventing saturation.} Performing aperture photometry
+on the latter image stack yielded the data given in
+Table~\ref{tab:phot}.
 
 We considered two approaches to measuring the velocities: in the
 first, hereafter ``Method 1'', we cross-correlated against a template

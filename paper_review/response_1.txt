@@ -356,15 +356,30 @@ completeness.
 
 RESPONSE
 ----------
-> These completeness statistics were computed using KeplerPORTS (the
-> Burke & Catanzarite 2021 citation).  KeplerPORTS does correct for
-> the red noise in the light curves by using the CDPP over different
-> timescales -- see Section 3.3 of Burke, C. J. & Catanzarite, J.
-> 2017, Planet Detection Metrics: Per-Target Detection Contours for
-> Data Release 25, KSCI-19111-002.  Nonetheless, we do agree that this
-> is a worry -- perhaps a full injection-recovery analysis of the
-> light curve with a pipeline of our own might help verify whether
-> these detection limits are plausible.  This effort is outside our
+> These completeness statistics were computed using KeplerPORTS (the Burke &
+> Catanzarite 2021 citation).  KeplerPORTS corrects for red noise in the light
+> curves by using the CDPP over different timescales -- see Section 3.3 of
+> Burke, C. J. & Catanzarite, J.  2017, Planet Detection Metrics: Per-Target
+> Detection Contours for Data Release 25, KSCI-19111-002.  This correction is
+> performed using both a) the slope of the RMS CDPP versus transit duration for
+> for "long" transit durations (the average of 7.5, 9.0, 10.5, 12.0, 12.5, and
+> 15.0 hours) and b) the same slope for "short" transit durations (2.0, 2.5,
+> 3.0, 3.5, and 4.5 hours). We retrieved these values from the DR25 Kepler
+> occurrence rate products hosted on the NASA Exoplanet Archive.  For Kepler
+> 1627, they were CDPP_long = 0.25478 and CDPP_short=0.79505.  Per Figure 2 of
+> the KSCI-19111-002 memo, these do indeed indicate a noisy star -- no
+> surprises.
+>
+> We've added a sentence to the manuscript to clarify that we are talking about
+> per-target detection contours, which should correct for the impact of at
+> least the fast rotation period, inasmuch as it manifests in the slope of the
+> CDPP versus transit duration.  We have also modified the wording for clarity,
+> and have added a citation to Burke & Catanzarite's 2017 KSCI-19111-002 memo.
+>
+> To determine whether this CDPP-based detection efficiency correction is
+> *accurate* given the exact red-noise properties of Kepler-1627 (i.e., the
+> rotation and flares), a full injection-recovery analysis of the light curve
+> with a pipeline of our own would be necessary. This effort is outside our
 > scope, for now.
 
 REVIEWER COMMENT
@@ -617,7 +632,7 @@ Line 561-562: do the authors mean "lack of statistical significance"?
 
 RESPONSE
 ----------
-> Yes -- we've clarified this in the text.  Thank you!
+> Yes -- we've added this to the text.  Thank you.
 
 REVIEWER COMMENT
 ----------
@@ -629,7 +644,36 @@ possible A and B host stars?
 
 RESPONSE
 ----------
+> Kepler-1627B is ~0.16 arcseconds East of Kepler-1627A.  For the sake of
+> argument, assume it contributes 2% of the flux to the aperture (an
+> overestimate), and neglect other stars in the scene. 
 >
+> Taking the origin at Kepler-1627A, the center of light outside of transit is
+> then roughly (0.98*0 arcsec + 0.02*0.16 arcsec) = 0.0032 arcsec due East of
+> the primary.
+>
+> During transit, if the transit happens on the primary, the center of light is
+> roughly ( (0.98-0.002)*0 arcsec + (1-(0.98-0.002))*0.16 arcsec ) = 0.0035
+> arcsec due East of the primary -- i.e., it is closer to the secondary by 0.3
+> milliarcseconds, since the primary is getting fainter.
+>
+> If the transit instead happened on the secondary, the center of light would
+> be roughly (0.98*0 arcsec + (0.9*0.02)*0.16 arcsec) ~= 0.00288 arcsec due
+> East of the primary, where a 10% intrinsic eclipse depth on the secondary is
+> required to fit the observed transit depth.  In this scenario, the centroid
+> would shift closer to the *primary* by 0.3 milliarcseconds.
+>
+> Examining the NASA SPOC Data Validation Report (DVR), there are two available
+> photocentroid tests, the first based on the flux-weighted centroid analysis,
+> and the second based on the difference image centroid offset test.  The
+> latter test yields offset uncertainties of ~100 milliarcsec for Kepler-1627,
+> which is far above the relevant signal.  The former test yields centroid peak
+> RA and DEC offsets consistent with zero, with uncertainties of 0.9 and 1.1
+> milliarcsec respectively (page 19 of 552 in the DR25 DVR).  So, given that
+> the quoted centroid precision uncertainties are a factor of ~3 larger than
+> the expected shift, it is not possible to use the test in a way that
+> distinguishes the two host stars in a statistically convincing way.
+
 
 REVIEWER COMMENT
 ----------
@@ -642,7 +686,59 @@ the mass, age and model used.
 
 RESPONSE
 ----------
+> Thank you for catching this -- this citation is indeed deprecated and
+> erroneously was not updated during the writing process.  The final adopted
+> calculation was based on the masses and radii from the Baraffe+2015 models,
+> rather than the MESA models (Choi+2016).  The Baraffe models are available
+> from
+> http://perso.ens-lyon.fr/isabelle.baraffe/BHAC15dir/BHAC15_tracks+structure.
 >
+> We believe that the companion's mass is roughly between 0.3 and 0.4 Msun, and
+> that the age of the system is ~38 +/- 6 Myr.  The Baraffe models give:
+>
+>    32 Myr 0.300 Msun, 0.481 Rsun, 3.80 g / cm3
+>    35 Myr 0.300 Msun, 0.465 Rsun, 4.21 g / cm3
+>    40 Myr 0.300 Msun, 0.443 Rsun, 4.86 g / cm3
+>    32 Myr 0.400 Msun, 0.555 Rsun, 3.30 g / cm3
+>    35 Myr 0.400 Msun, 0.537 Rsun, 3.64 g / cm3
+>    40 Myr 0.400 Msun, 0.514 Rsun, 4.15 g / cm3
+>    32 Myr 0.330 Msun, 0.506 Rsun, 3.60 g / cm3
+>    35 Myr 0.330 Msun, 0.489 Rsun, 3.98 g / cm3
+>    40 Myr 0.330 Msun, 0.467 Rsun, 4.58 g / cm3
+>
+> i.e., our default assumption was 40 Myr and 0.33 Msun.  The age is adopted
+> for the reasons discussed in the text.  The mass is based off
+> the observed deltaMag in 832nm and K' (3.14 +/- 0.15 and 2.37 +/- 0.02
+> respectively), which implies absolute magnitudes for the secondary of K'=XXX and
+> [832]=YYY.  Based on a set of absolute magnitude and color relations from a
+> submitted paper by A. Kraus, these gave ~=0.33 Msun.  (TODO: NEED TO BEEF
+> THIS UP!)
+>
+> The plausible range of companion densities is therefore 3.30 g/cc to
+> 4.86 g/cc.  We've updated the text to reflect this uncertainty, but
+> it doesn't change the overall point that our measured stellar
+> density (2.00+/-0.24 g/cc) is still a fair bit lower than the
+> expected range.
+
+TODO TODO REMOVE THIS
+> As a sanity check, these calibrations find that for a companion spectral type
+> of M2.5, one expects colors of G-K'=3.39 mag and G-[832] = 1.51 mag, though
+> we cannot test this since Gaia DR2/EDR3 does not resolve the secondary.
+>
+> For the primary spectral type of G8, one expects G-K'=1.58 mag and G-[832] =
+> 0.71 mag (i.e., K'=13.02-1.58=11.44, and [832]=G-0.71=12.31 for the primary).
+> So it holds together (bolstering the case for it being a bound companion) to
+> find DeltaK' = 2.37 mag and Delta[832] = 3.14 mag.
+
+G8V: M_G = 5.098
+M2.5V: M_G = 9.67 (ZAMS).
+-> delta G = 9.67 - 5.098 = 4.57, so G =13.02+4.57= 17.592 for secondary
+-> G-K'=3.39mag implies K' = 14.20 for secondary
+-> G-[832]=1.51mag implies [832] = 16.08 for secondary
+->
+-> expected delta K' = 2.76
+-> expected delta 832 = 3.78
+.. (both are observed a bit lower!  i.e., it's not red enough)
 
 REVIEWER COMMENT
 ----------
@@ -651,7 +747,17 @@ companion or background star must be based on the star's position in the CMD.
 
 RESPONSE
 ----------
->
+> Visually, one can see that the width of the single-star sequence of δ Lyr
+> candidates (black points) in the upper-right panel of Figure 3 is <~0.2 mag.
+> So, if we saw a star with the same (BP-RP) color as Kepler 1627 that were
+> >~0.3 mag brighter in M_G, we would classify it as a likely photometric
+> binary.  This means we are able to exclude stars ~0.32* as bright as the
+> primary (in Gaia G-band). This corresponds to excluding bound companions more
+> massive than ~0.85 Msun (the primary's mass is ~0.95 Msun).  The SB2 tests do
+> much better if the velocity separation exceeds the CCF width (down to 1% as
+> bright as the primary;
+> https://ui.adsabs.harvard.edu/abs/2015AJ....149...18K/abstract).  For
+> brevity, we would prefer to not present this information in the text.
 
 REVIEWER COMMENT
 ----------
@@ -664,7 +770,20 @@ and MuSCAT are!
 
 RESPONSE
 ----------
+> Thank you for this suggestion.  The main text now reads
 >
+> "We observed a transit of Kepler-1627 Ab on the night of 2021 Aug 7
+> spectroscopically with HIRES at the Keck-I telescope and photometrically in
+> $griz$ bands with MuSCAT3 at Haleakal\=a Observatory.  Details of the
+> observation sequence are discussed in Appendix C; Figure 7 shows the
+> results."
+>
+> The first paragraph of Appendix C has been significantly modified to include
+> the requested additional information, including the passbands, exposure
+> times, S/N, and instrument resolution.  Regarding observation times, "the
+> night of 2021 Aug 7" is sufficiently precise for the purposes of the text;
+> Tables 5 and 6 have the BJD-TDB timestamps for those who desire greater
+> precision.
 
 REVIEWER COMMENT
 ----------
@@ -675,7 +794,8 @@ problem is either measuremnt systematics or astrophysical noise.
 
 RESPONSE
 ----------
->
+> Thank you for this point; we've updated the text to say "signal-to-noise"
+> rather than "precision".
 
 REVIEWER COMMENT
 ----------
@@ -688,7 +808,35 @@ substantial debris disk -- the star is detected in WISE (and perhaps Spitzer?)
 
 RESPONSE
 ----------
+> Regarding the S-values, they are shown in the second panel of Figure 7, and
+> are also reported in Table 6.  The line profile changes shown in Figure 12
+> suggested that the majority of the RV variation observed was due to
+> starspot-induced variations.  Quantitative measurements of the H-alpha EWs
+> are not expected to change this picture, and so we opt to not include them.
 >
+> Regarding the NIR, UV, and X-ray detections, we searched Vizier within a
+> radius of 4 arcseconds.
+>
+> For the NIR and the possibility of a debris disk, Kepler-1627 is detected in
+> W1, W2, W3, and W4 (see kepler1627_vizier_photometry.png attached).  While W4
+> might be in excess of the usual Rayleigh-Jeans tail (and this could be
+> quantified by fitting synthetic stellar atmospheres), quantifying this excess
+> is best done at the population level, especially given the calibration
+> uncertainties that are present in W4 (e.g., Cotten & Song 2016, ApJS 225 15).
+> Since Kepler-1627 has not been identified as even a candidate debris disk
+> host in the previous literature, we opt to not speculate on this topic.
+>
+> For the UV, Olmedo+2015 reported a coincident source with NUVmag of 19.052
+> +/- 0.017 [AB mags], with a NUV S/N of 65 (2015, ApJ, 813, 100). Loyd et al
+> 2020 report a NUV flux of 4e-13 +/- 4e-15 mW/m^2.  We can use this detection
+> as a youth indicator (e.g., Figure 9 of Newton+2021, which Newton et al
+> attribute from the idea in Shkolnik+2011, ApJ 727 6. Since for Kepler 1627
+> 2MASS J = 11.690+/-0.021 (Cutri+2003), we have m_NUV-m_J = 7.36.  Given the
+> (BP-RP)0 of ~0.95... FIXME TODO ARE YOU GOING TO MAKE A WHOLE NEW PLOT FOR
+> THIS DAMN THING?  MIGHT BE WORTHWHILE... QUICK VETTING CHECK FOR ANY G AND K
+> TYPE STARS IN THE CLUSTER...
+>
+> For the X-ray (i.e., ROSAT), there were no reported detections in Vizier.
 
 REVIEWER COMMENT
 ----------
@@ -697,7 +845,7 @@ stellar rotational period are not a rational combination.
 
 RESPONSE
 ----------
->
+> Done, thank you.
 
 REVIEWER COMMENT
 ----------
@@ -706,8 +854,33 @@ older, main sequence stars.
 
 RESPONSE
 ----------
+> The first reviewer had a similar comment -- our response is the same:
 >
-
+> These completeness statistics were computed using KeplerPORTS (the Burke &
+> Catanzarite 2021 citation).  KeplerPORTS corrects for red noise in the light
+> curves by using the CDPP over different timescales -- see Section 3.3 of
+> Burke, C. J. & Catanzarite, J.  2017, Planet Detection Metrics: Per-Target
+> Detection Contours for Data Release 25, KSCI-19111-002.  This correction is
+> performed using both a) the slope of the RMS CDPP versus transit duration for
+> for "long" transit durations (the average of 7.5, 9.0, 10.5, 12.0, 12.5, and
+> 15.0 hours) and b) the same slope for "short" transit durations (2.0, 2.5,
+> 3.0, 3.5, and 4.5 hours). We retrieved these values from the DR25 Kepler
+> occurrence rate products hosted on the NASA Exoplanet Archive.  For Kepler
+> 1627, they were CDPP_long = 0.25478 and CDPP_short=0.79505.  Per Figure 2 of
+> the KSCI-19111-002 memo, these do indeed indicate a noisy star -- no
+> surprises.
+>
+> We've added a sentence to the manuscript to clarify that we are talking about
+> per-target detection contours, which should correct for the impact of at
+> least the fast rotation period, inasmuch as it manifests in the slope of the
+> CDPP versus transit duration.  We have also modified the wording for clarity,
+> and have added a citation to Burke & Catanzarite's 2017 KSCI-19111-002 memo.
+>
+> To determine whether this CDPP-slope detection efficiency correction is
+> *accurate* given the exact red-noise properties of Kepler-1627 (i.e., the
+> rotation and flares), a full injection-recovery analysis of the light curve
+> with a pipeline of our own would be necessary. This effort is outside our
+> scope, for now.
 
 
 ******************************************
