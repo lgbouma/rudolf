@@ -5,8 +5,8 @@ the referee for constructive criticism.  We have considered the
 referee's remarks carefully and revised our manuscript accordingly.
 
 Below, we have reproduced the relevant portions of the referee's
-report, alongside our responses. A list of changes is appended to
-the manuscript using the trackchanges AASTeX macros. 
+report, alongside our responses. A list of changes is appended to the
+manuscript using the trackchanges AASTeX macros. 
 
 Sincerely,
 
@@ -18,8 +18,8 @@ Reviewer #1:
 
 REVIEWER COMMENT
 ----------
-Line 57 (evaporation): Consider adding citation to Lopez et al. (2012) or
-similar
+Line 57 (evaporation): Consider adding citation to Lopez et al.
+(2012) or similar
 
 RESPONSE
 ----------
@@ -27,7 +27,8 @@ RESPONSE
 
 REVIEWER COMMENT
 ----------
-Line 78 (Kepler ages): Consider adding citation to Walkowicz & Basri (2013)
+Line 78 (Kepler ages): Consider adding citation to Walkowicz & Basri
+(2013)
 
 RESPONSE
 ----------
@@ -35,30 +36,31 @@ RESPONSE
 
 REVIEWER COMMENT
 ----------
-Line 93: Clarify origin of name delta Lyr, given there are two pre-existing
-names, and how they overlap. It might also be worth mentioning Kerr's Cep-Her
-association as in prep just to save future readers the headache of
-cross-identifying them, either here or in Sec 2.1
+Line 93: Clarify origin of name delta Lyr, given there are two
+pre-existing names, and how they overlap. It might also be worth
+mentioning Kerr's Cep-Her association as in prep just to save future
+readers the headache of cross-identifying them, either here or in Sec
+2.1
 
 RESPONSE
 ----------
-> delta Lyr cluster was the first name suggested by Stephenson (1958),
-> and it is the default name listed in SIMBAD.  It was also the name
-> used in the title of Eggen's 1967 paper.
+> delta Lyr cluster was the first name suggested by Stephenson
+> (1958), and it is the default name listed in SIMBAD.  It was also
+> the name used in the title of Eggen's 1967 paper.
 >
-> The cluster was called Stephenson-1 by people other than Stephenson,
-> including by Kounkel & Covey 2019 -- their Theia catalog identifiers
-> are simply given to any cluster in their catalog, in addition to any 
-> previous names that existed.
+> The cluster was called Stephenson-1 by people other than
+> Stephenson, including by Kounkel & Covey 2019.  The Kounkel & Covey
+> 2019 "Theia" catalog identifiers are simply given to any cluster in
+> their catalog, in addition to any previous names that existed.
 >
 > The overlap between the earlier lists (Stephenson 1958, Eggen 1968,
 > Kharchenko et al. 2012) and the Theia 73 list from Kounkel & Covey
 > 2019 is only present in the stars closest to delta Lyr itself.  For
 > instance, see the 30 stars shown in Figure 1 of Eggen 1968.  The
-> broader "complex" shown in Figure 1 of our paper, which to our
+> broader "complex" shown in Figure 1 of our manuscript was to our
 > knowledge first reported to be a set of kinematically associated
-> stars by Kounkel & Covey (inasmuch as an "HDBScan group"
-> implies kinematic association).
+> stars by Kounkel & Covey -- inasmuch as an "HDBScan group" implies
+> kinematic association.
 >
 > Regarding Ronan Kerr's view of the delta Lyr cluster as a component
 > of the larger Cep-Her complex, we would prefer to leave this as
@@ -68,52 +70,46 @@ RESPONSE
 > broader association (which is different in nuanced ways from the
 > gray Theia 73 points in Figure 1).  Given the complexity, and the
 > potential importance of the complex given its proximity and age, we
-> really would prefer to leave this for the in prep R. Kerr work.  And
-> similarly, the introduction of the term "Cep-Her complex" is
-> probably best left for that future work.
-
-
-REVIEWER COMMENT
-----------
-Line 165: Consider mentioning the axes on which data was cleaned (e.g. color
-precision)
-
-RESPONSE
-----------
-> Done - thank you.  We have added the following sentence: "This also
-> involved cuts on the photometric signal to noise ratio, the number
-> of visibility periods used, the astrometric $\chi^2$ of the
-> single-source solution, and the $G_{\rm BP}-G_{\rm RP}$ color excess
-> factor."
-
+> really would prefer to leave this for the in prep R. Kerr work.
+> And similarly, the introduction of the term "Cep-Her complex" is
+> probably best left for that future work, where it can be mentioned
+> that the "del Lyr cluster" is a subset of this complex.
 
 REVIEWER COMMENT
 ----------
-Line 179 (reddening): What does "reasonably well" mean? Something like 1-2
-sigma?
+Line 165: Consider mentioning the axes on which data was cleaned
+(e.g. color precision)
 
 RESPONSE
 ----------
-> Thank you for catching the weasel words.  The revised text now reads
-> as follows: "These values \replaced{agree reasonably well with}{are
-> within a factor of two of} previously reported values
-> \replaced{from}{in} the literature \citep[{\it
-> e.g.},][]{GaiaCollaboration2018,KounkelCovey2019,bossini_age_2019}\added{,
-> and are all small enough that the choice of whether to use them {\it
-> vs.} other extinction estimates does not affect our primary
-> conclusions}."
+> Done - thank you.  We have added the sentence: "This also involved
+> cuts on the photometric signal to noise ratio, the number of
+> visibility periods used, the astrometric $\chi^2$ of the
+> single-source solution, and the $G_{\rm BP}-G_{\rm RP}$ color
+> excess factor."
+
+REVIEWER COMMENT
+----------
+Line 179 (reddening): What does "reasonably well" mean? Something
+like 1-2 sigma?
+
+RESPONSE
+----------
+> Thank you for catching the imprecise wording.  The revised text now
+> reads as follows: "These values are within a factor of two of
+> previously reported values in the literature (citations), and are
+> all small enough that the choice of whether to use them {\it vs.}
+> other extinction estimates does not affect our primary
+> conclusions."
 >
-> More quantitatively, from the Lallement maps we report
-> $E(B-V)=\{0.020\pm0.003, 0.045\pm0.008, 0.032\pm0.006\}$ for IC
-> 2602, the Pleiades, and the delta Lyr cluster.  The relevant
-> literature reports:
+> More quantitatively, from the Lallement maps we find
+> $E(B-V)=\{0.084\pm0.041, 0.020\pm0.003, 0.045\pm0.008,
+> 0.032\pm0.006\}$ for UCL, IC 2602, the Pleiades, and the delta Lyr
+> cluster respectively.  The relevant literature reports:
 >
 >    Gaia+2018 E(B-V):
 >    Pleiades 0.045
 >    IC2602 0.031
->   
->    Randich+2018 E(B-V):
->    IC2602 0.032 - 0.092
 >   
 >    KC2019: E(B-V)
 >    Pleiades 0.071
@@ -125,48 +121,56 @@ RESPONSE
 >    IC2602 0.031
 >    del Lyr cluster 0.051
 >
+>    Randich+2018 E(B-V):
+>    IC2602 0.032 - 0.092
+>
+>    Pecaut & Mamajek 2016 Table 7 UCL members E(B-V)
+>    UCL 0.059
+>
 > hence our assessment of "it's within a factor of two, and doesn't
 > matter much."  Given that all these clusters are within ~400
 > parsecs, this perhaps isn't too surprising.
 
-
 REVIEWER COMMENT
 ----------
-Fig 3: It may be helpful to include one of the even younger clusters on the CMD
-(i.e. to bracket delta Lyra), though perhaps it makes the plot too busy.
+Fig 3: It may be helpful to include one of the even younger clusters
+on the CMD (i.e. to bracket delta Lyra), though perhaps it makes the
+plot too busy.
 
 RESPONSE
 ----------
-> Please see camd_with_UCL.png and camd_with_UCL_no_redcorr.png
-> attached.  This approach indeed makes the plot a bit too busy, in
-> our opinion.
-
+> Please see camd_with_UCL.png attached.  This does make the plot a
+> bit too busy, in our opinion.
 
 REVIEWER COMMENT
 ----------
-Page 3: Consider re-organizing. Based on the 1st paragraph, I thought the
-quantitative analysis would only deal with Pleiades and IC 2602 and one might
-infer reddening was only calculated for these clusters (whereas I assume the
-latter are also corrected for reddening prior to the analysis described). My
-suggestion would be to introduce all the clusters first. It would also be
-helpful to list the age of IC 2602 at some point in the text.
+Page 3: Consider re-organizing. Based on the 1st paragraph, I thought
+the quantitative analysis would only deal with Pleiades and IC 2602
+and one might infer reddening was only calculated for these clusters
+(whereas I assume the latter are also corrected for reddening prior
+to the analysis described). My suggestion would be to introduce all
+the clusters first. It would also be helpful to list the age of IC
+2602 at some point in the text.
 
 RESPONSE
 ----------
-> Regarding the main re-organization point, FIXME TODO REORGANIZE?
+> Thank you for this suggestion.
 >
-> Regarding the last point, the final paragraph of Section 2.2.1
-> discusses the age of IC 2602 in the text.  There's a fairly wide
-> spread of reported literature ages between 30 and 46 Myr -- we
-> ultimately adopted the half-way point between the isochrone and LDB
-> ages.
+> The first paragraph of Section 2.2.1 has been reorganized to now
+> introduce all five of the relevant clusters: UCL, IC 2602, del Lyr
+> cluster, mu-Tau, and the Pleaides.  The second paragraph has been
+> modified to account for this hcnage.
+>
+> The extinction for UCL is now also listed in the text.  So is the
+> adopted age of IC 2602.
 
 REVIEWER COMMENT
 ----------
 Line 202 (binaries): Add RUWE citation(s). Nice approach to remove
-radial_velocity_error based on each cluster's distribution. It should be noted
-somewhere in this discussion that the target itself does *not* meet the RUWE
-limit and so wouldn't appear on the plot by default.
+radial_velocity_error based on each cluster's distribution. It should
+be noted somewhere in this discussion that the target itself does
+*not* meet the RUWE limit and so wouldn't appear on the plot by
+default.
 
 RESPONSE
 ----------
@@ -180,10 +184,10 @@ RESPONSE
 
 REVIEWER COMMENT
 ----------
-Line 209: I don't follow starting "assembled a piecewise grid of hybrid
-isochrones..." What does "hybrid" mean here? Once the splines for each cluster
-are defined, how does one interpolate between them? Are the ages then
-determined for each star and combined?
+Line 209: I don't follow starting "assembled a piecewise grid of
+hybrid isochrones..." What does "hybrid" mean here? Once the splines
+for each cluster are defined, how does one interpolate between them?
+Are the ages then determined for each star and combined?
 
 RESPONSE
 ----------
@@ -208,62 +212,63 @@ RESPONSE
 > isochrone spline.
 >
 > The main assumption of this approach is that between the reference
-> times set by the adopted clusters, the isochrones evolve linearly in
-> time through color-absolute magnitude space.  If we were to attempt
-> this linear interpolation all the way from UCL to the Pleiades
-> without putting any intermediate point, the validity of this
-> assumption would be crucial to test.  Since we include IC 2602,
-> and it overlaps almost directly on the CAMD with the δ Lyr cluster,
-> the only useful quantity that this method really gives us is a
-> formal uncertainty on the age.  (Since the age the method returns
-> will be very close to whatever age we adopt for IC 2602).
+> times set by the adopted clusters, the isochrones evolve linearly
+> in time through color-absolute magnitude space.  If we were to
+> attempt this linear interpolation all the way from UCL to the
+> Pleiades without putting any intermediate point, the validity of
+> this assumption would be crucial to test.  Since we include IC
+> 2602, and it overlaps almost directly on the CAMD with the δ Lyr
+> cluster, the only useful quantity that this method really gives us
+> is a formal uncertainty on the age.  (Since the age the method
+> returns will be very close to whatever age we adopt for IC 2602).
 >
 > To better illustrate the method, we've attached a figure to the
 > response, "age_interpolation_example.png". This shows the CAMD data
 > from the clusters after all the cleaning steps, their reference
 > splines (constructed from bins over a select color range), and the
 > interpolated splines spaced every 4.4 Myr between UCL and IC2602,
-> and every 14.8 Myr betwen IC2602 and Pleiades.  While we do interpolate
-> over a much finer grid, this is not shown to improve the clarity of
-> the figure.  The age of δ Lyr is determined by using all the stars
-> in the displayed color range, through the referenced Equation 7 of
-> Gange+2020, which is a Gaussian likelihood that treats the
-> interpolated isochrone as the "model" and the δ Lyr cluster's
-> isochrone as the "data".  The statistical uncertainty on the age is
-> then the standard deviation of a Gaussian fit to the posterior
-> probability (in log-age; it becomes asymmetric when transformed to
-> linear age).  We've added a few sentences to the manuscript to
-> clarify this latter point.
+> and every 14.8 Myr betwen IC2602 and Pleiades.  While we do
+> interpolate over a much finer grid, this is not shown to improve
+> the clarity of the figure.  The age of δ Lyr is determined by using
+> all the stars in the displayed color range, through the referenced
+> Equation 7 of Gange+2020, which is a Gaussian likelihood that
+> treats the interpolated isochrone as the "model" and the δ Lyr
+> cluster's isochrone as the "data".  The statistical uncertainty on
+> the age is then the standard deviation of a Gaussian fit to the
+> posterior probability (in log-age; it becomes asymmetric when
+> transformed to linear age).  We've added a few sentences to the
+> manuscript to clarify this latter point.
 
 
 REVIEWER COMMENT
 ----------
-Line 230 (age): Consider adopting a systematic error (perhaps corresponding to
-the range noted for the extremes of the ages) in addition to the random
-(assumed to be the quoted +6/-5 error). Relatedly, how are the quoted errors
-derived?
+Line 230 (age): Consider adopting a systematic error (perhaps
+corresponding to the range noted for the extremes of the ages) in
+addition to the random (assumed to be the quoted +6/-5 error).
+Relatedly, how are the quoted errors derived?
 
 RESPONSE
 ----------
 > We're comfortable quoting the statistical error derived from the
 > standard deviation of the logarithmic age posterior since this
-> distribution is roughly Gaussian.  The worry with quoting a
+> distribution is roughly Gaussian (see the attached
+> del_lyr_cluster_age_posterior.png).  The worry with quoting a
 > systematic error, e.g., "The age of the δ Lyr cluster is
 > $38^{+6}_{-5}$ (stat) $^{+6}_{-8}$ (sys)" is that the systematic
 > uncertainties are not Gaussian and are not based on any probability
-> distribution that we can easily assess -- they're estimated based on
-> the extremes of previous literature age measurements.  Quoting this
-> systematic range next to a number that has been derived based on a
-> more formal approach (and that has statistical meaning within that
-> approach) somehow misses the point.  Given the roughly comparable
-> amplitude of the two sources of uncertainty, does it matter?  Open
-> cluster ages are not H_0.
-
+> distribution that we can easily assess -- they're estimated based
+> on the extremes of previous literature age measurements.  Quoting
+> this systematic range next to a number that has been derived based
+> on a more formal approach (and that has statistical meaning within
+> that approach) somehow misses the point.  Given the comparable
+> amplitude of the two sources of uncertainty, does this matter?
+> Discussing the range of extremes in the text does communicate the
+> point that this is a source of systematic uncertainty.
 
 REVIEWER COMMENT
 ----------
-Line 235: May be worth mentioning the restriction to the 391 stars in the
-beginning of sec 2.2.2.
+Line 235: May be worth mentioning the restriction to the 391 stars in
+the beginning of sec 2.2.2.
 
 RESPONSE
 ----------
@@ -280,8 +285,8 @@ RESPONSE
 REVIEWER COMMENT
 ----------
 Line 286: I thought I remember Curtis or Douglas citing binarity as a
-possibility for stars above to slow sequence as well, but I don't have a
-reference on-hand.
+possibility for stars above to slow sequence as well, but I don't
+have a reference on-hand.
 
 RESPONSE
 ----------
@@ -290,12 +295,11 @@ RESPONSE
 > unresolved F+K binaries in the Pleiades which show anomalously long
 > K2 rotation periods.
 
-
 REVIEWER COMMENT
 ----------
-Section 3.2: The text mentions statistical and systematic uncertainties but I
-only see one set of errors listed in Table 1. Were these uncertainties combined
-or was only one adopted in the end?
+Section 3.2: The text mentions statistical and systematic
+uncertainties but I only see one set of errors listed in Table 1.
+Were these uncertainties combined or was only one adopted in the end?
 
 RESPONSE
 ----------
@@ -314,8 +318,9 @@ RESPONSE
 
 REVIEWER COMMENT
 ----------
-Section 3.2: Comment on whether the binary companion should effect the rotation
-measurement of the host star (either here, or in the rotation section).
+Section 3.2: Comment on whether the binary companion should effect
+the rotation measurement of the host star (either here, or in the
+rotation section).
 
 RESPONSE
 ----------
@@ -323,12 +328,12 @@ RESPONSE
 > when the Kepler light curve is introduced
 >
 > """
->The resulting photometry is dominated by a quasi-periodic starspot
->signal with a peak-to-peak amplitude that varies between 2\% and 8\%.
->\added{Given that the secondary companion's brightness in the Kepler
->band is 1\% to 2\% that of the primary, source confusion for the
->rotation signal is not expected to be an issue.}
- """
+> The resulting photometry is dominated by a quasi-periodic starspot
+> signal with a peak-to-peak amplitude that varies between 2\% and 8\%.
+> \added{Given that the secondary companion's brightness in the Kepler
+> band is 1\% to 2\% that of the primary, source confusion for the
+> rotation signal is not expected to be an issue.}
+  """
 > The rationale here is that the rotation amplitude on the secondary
 > would need to be a factor of >two times its intrinsic brightness for
 > any confusion to happen, and the primary would need to not show any
@@ -339,62 +344,70 @@ RESPONSE
 
 REVIEWER COMMENT
 ----------
-One note about the transit analysis: The MuSCAT3 data was introduced as
-supporting evidence but the conclusion (that the transits appear achromatic)
-was never explicitly stated.
+One note about the transit analysis: The MuSCAT3 data was introduced
+as supporting evidence but the conclusion (that the transits appear
+achromatic) was never explicitly stated.
 
 RESPONSE
 ----------
 > Line 642 of the original manuscript notes "Although we did not
-> detect the RM anomaly, the multi-band MuSCAT3 light curves show that
-> the transit is achromatic (Figure 7)."
+> detect the RM anomaly, the multi-band MuSCAT3 light curves show
+> that the transit is achromatic (Figure 7)."  We have nonetheless
+> reworded this section to improve the clarity with which this point
+> is made.
 
 REVIEWER COMMENT
 ----------
-Line 725: The fast rotation period and flares could plausibly effect the
-completeness.
+Line 725: The fast rotation period and flares could plausibly effect
+the completeness.
 
 RESPONSE
 ----------
-> These completeness statistics were computed using KeplerPORTS (the Burke &
-> Catanzarite 2021 citation).  KeplerPORTS corrects for red noise in the light
-> curves by using the CDPP over different timescales -- see Section 3.3 of
-> Burke, C. J. & Catanzarite, J.  2017, Planet Detection Metrics: Per-Target
-> Detection Contours for Data Release 25, KSCI-19111-002.  This correction is
-> performed using both a) the slope of the RMS CDPP versus transit duration for
-> for "long" transit durations (the average of 7.5, 9.0, 10.5, 12.0, 12.5, and
-> 15.0 hours) and b) the same slope for "short" transit durations (2.0, 2.5,
-> 3.0, 3.5, and 4.5 hours). We retrieved these values from the DR25 Kepler
-> occurrence rate products hosted on the NASA Exoplanet Archive.  For Kepler
-> 1627, they were CDPP_long = 0.25478 and CDPP_short=0.79505.  Per Figure 2 of
-> the KSCI-19111-002 memo, these do indeed indicate a noisy star -- no
-> surprises.
+> These completeness statistics were computed using KeplerPORTS (the
+> Burke & Catanzarite 2021 citation).  KeplerPORTS corrects for red
+> noise in the light curves by using the CDPP over different
+> timescales -- see Section 3.3 of Burke, C. J. & Catanzarite, J.
+> 2017, Planet Detection Metrics: Per-Target Detection Contours for
+> Data Release 25, KSCI-19111-002.  This correction is performed
+> using both a) the slope of the RMS CDPP versus transit duration for
+> for "long" transit durations (the average of 7.5, 9.0, 10.5, 12.0,
+> 12.5, and 15.0 hours) and b) the same slope for "short" transit
+> durations (2.0, 2.5, 3.0, 3.5, and 4.5 hours). We retrieved these
+> values from the DR25 Kepler occurrence rate products hosted on the
+> NASA Exoplanet Archive.  For Kepler 1627, they were CDPP_long =
+> 0.25478 and CDPP_short=0.79505.  Per Figure 2 of the KSCI-19111-002
+> memo, these do indeed indicate a noisy star -- no surprises.
 >
-> We've added a sentence to the manuscript to clarify that we are talking about
-> per-target detection contours, which should correct for the impact of at
-> least the fast rotation period, inasmuch as it manifests in the slope of the
-> CDPP versus transit duration.  We have also modified the wording for clarity,
-> and have added a citation to Burke & Catanzarite's 2017 KSCI-19111-002 memo.
+> We've added a sentence to the manuscript to clarify that we are
+> talking about per-target detection contours, which should correct
+> for the impact of at least the fast rotation period, inasmuch as it
+> manifests in the slope of the CDPP versus transit duration.  We
+> have also modified the wording for clarity, and have added a
+> citation to Burke & Catanzarite's 2017 KSCI-19111-002 memo.
 >
-> To determine whether this CDPP-based detection efficiency correction is
-> *accurate* given the exact red-noise properties of Kepler-1627 (i.e., the
-> rotation and flares), a full injection-recovery analysis of the light curve
-> with a pipeline of our own would be necessary. This effort is outside our
-> scope, for now.
+> To determine whether this CDPP-based detection efficiency
+> correction is accurate given the exact red-noise properties of
+> Kepler-1627 (i.e., the rotation and flares), a full
+> injection-recovery analysis of the light curve with a pipeline of
+> our own would be necessary. This effort is outside our scope, for
+> now.
 
 REVIEWER COMMENT
 ----------
-Line 729: Considering Owen 2020, contraction could also contribute to some
-extent to the larger radii of small planets; might this be significant?
+Line 729: Considering Owen 2020, contraction could also contribute to
+some extent to the larger radii of small planets; might this be
+significant?
 
 RESPONSE
 ----------
-> TODO WHAT?
+> Thank you for this point -- we've added a sentence in the
+> discussion to mention this possibility.
 
 REVIEWER COMMENT
 ----------
-Appendix A paragraph beginning at line 1158: May be worth mentioning that delta
-Lyr may also be part of one of these heirarchical associations.
+Appendix A paragraph beginning at line 1158: May be worth mentioning
+that delta Lyr may also be part of one of these heirarchical
+associations.
 
 RESPONSE
 ----------
@@ -402,8 +415,8 @@ RESPONSE
 
 REVIEWER COMMENT
 ----------
-Figure 13 caption: Specify planetary orbital period since technically there is
-also a stellar orbital period involved.
+Figure 13 caption: Specify planetary orbital period since technically
+there is also a stellar orbital period involved.
 
 RESPONSE
 ----------
@@ -416,44 +429,46 @@ Reviewer #2:
 REVIEWER COMMENT
 ----------
 Abstract
-line 24: Kepl-1627Ab cannot be a "mini-Neptune" if it is same size of Neptune.
-Replace with "Neptune-size" Yes, it falls within a distribution of objects in a
-period-radius diagram with an average that is smaller than Neptune, but
-claiming affiliation with smaller objects implies more than we know about this
-planet, e.g. its mass.
+line 24: Kepl-1627Ab cannot be a "mini-Neptune" if it is same size of
+Neptune.  Replace with "Neptune-size" Yes, it falls within a
+distribution of objects in a period-radius diagram with an average
+that is smaller than Neptune, but claiming affiliation with smaller
+objects implies more than we know about this planet, e.g. its mass.
 
 RESPONSE
 ----------
-> Point well-taken.  R_p = 3.82 +/- 0.16 R_earth, so yes, Kepler-1627 Ab is the
-> same size as Neptune within 1-sigma.  All instances in the text that referred
-> to Kepler-1627 Ab as a mini-Neptune have been modified to call it a
-> "Neptune-sized planet" (including the manuscript's title).
+> Point well-taken.  R_p = 3.82 +/- 0.16 R_earth, so yes, Kepler-1627
+> Ab is the same size as Neptune within 1-sigma.  All instances in
+> the text that referred to Kepler-1627 Ab as a mini-Neptune have
+> been modified to call it a "Neptune-sized planet", including the
+> manuscript's title.
 
 REVIEWER COMMENT
 ----------
-line 25: Kepler target stars were chosen for their suitability for transiting
-detection of planets in general, and for planets that are Earth-analogs in
-paraticular. That involves radius, brightess. Distance and spectral types were
-not direct selection criteria; this was before Gaia.
+line 25: Kepler target stars were chosen for their suitability for
+transiting detection of planets in general, and for planets that are
+Earth-analogs in paraticular. That involves radius, brightess.
+Distance and spectral types were not direct selection criteria; this
+was before Gaia.
 
 RESPONSE
 ----------
-> Indeed.  Batalha+2010 (ApJL) discuss the selection function, which favored
-> stars that were both small and bright since these stars enable the detection
-> of Earth-size planets.  M dwarfs thus were generally excluded unless they
-> happened to be very close.  F, G, and K stars were favored, particularly when
-> they were nearby.  The sentence in L25 currently states that "The star was
-> observed by the Kepler space telescope because it is nearby (d=329pc) and it
-> resembles the Sun".  More directly, yes, the star was chosen because it was
-> thought that it might enable the detection of small planets in the habitable
-> zone.  However the underlying reason for this given how the transit S/N
-> scales is that the star was relatively bright, and it also fell within a
-> particular color range.  That color range (given the Batalha+2010 logg cuts)
-> corresponds to Sun-like stars.  And the brightness range for Sun-like stars
-> corresponds to stars within a particular distance limit.  Our claim therefore
-> holds, albeit indirectly.  It also serves the more important purpose of
-> informing the reader what kind of star this paper is about: a star that is at
-> a distance of ~330 parsecs, and that resembles the Sun (except for its age!).
+> Indeed.  Batalha+2010 (ApJL) discuss the selection function, which
+> favored stars that were both small and bright since these stars
+> enable the detection of Earth-size planets.  M dwarfs thus were
+> generally excluded unless they happened to be very close.  F, G,
+> and K stars were favored, particularly when they were nearby.  The
+> sentence in L25 currently states that "The star was observed by the
+> Kepler space telescope because it is nearby (d=329pc) and it
+> resembles the Sun".  More directly, yes, the star was chosen
+> because it was thought that it might enable the detection of small
+> planets in the habitable zone.  However the underlying reason for
+> why the star enables such detections is based on the star's
+> brightness and assumed radius, which both factor into the transit
+> SNR.  Our claim therefore holds, albeit indirectly.  It also serves
+> the more important purpose of informing the reader what kind of
+> star this paper is about: a star that is at a distance of ~330
+> parsecs, and that resembles the Sun (except for its age!).
 
 REVIEWER COMMENT
 ----------
@@ -467,134 +482,159 @@ REVIEWER COMMENT
 ----------
 Intro
 
-Line 47: (First paragraph on p 2) the time-scale of 1e8 is associated with one
-particular set of photoevaporation models; core-powered mass loss proposes
-timescales of Gyr(s) (see the Ginzburg paper that was cited). More recent
-photoevaporation models also propose 1 Gyr timescales. It would be good to
-revise/update this paragraph.
+Line 47: (First paragraph on p 2) the time-scale of 1e8 is associated
+with one particular set of photoevaporation models; core-powered mass
+loss proposes timescales of Gyr(s) (see the Ginzburg paper that was
+cited). More recent photoevaporation models also propose 1 Gyr
+timescales. It would be good to revise/update this paragraph.
 
 RESPONSE
 ----------
-> FIXME FIXME TODO
+> The sentence corresponds to a claim that mini-Neptunes are
+> "expected to shrink in size by factors of several over their first
+> 10^8 years".   The Owen 2020 models are then cited because this is
+> their main claim: e.g., Figure 1 top panel of Owen 2020.  The range
+> in initial raddi from that study come from differences in
+> assumptions about whether or not the boil-off phase (Owen & Wu
+> 2016) happens, and differences in assumption about the envelope to
+> core mass ratio.
+>
+> Nonetheless, the point is well-taken.  We've added a sentence that
+> clarifies that the outflows are expected to persist for 1e8 to 1e9
+> years, and have added citations to Gupta & Schlichting 2020, Rogers
+> & Owen 2021, and King & Wheatley 2021.
 
 REVIEWER COMMENT
 ----------
 Section 2
 
-Line 65: it is convention to italicize names of space missions like TESS and K2
+Line 65: it is convention to italicize names of space missions like
+TESS and K2
 
 RESPONSE
 ----------
-> Yes, and we leave the imposition of this convention to the copy-editors at
-> the journal. 
+> Yes, and we leave the imposition of this convention to the
+> copy-editors at the journal. 
 
 REVIEWER COMMENT
 ----------
-Lines 142-144: perhaps rephrasing this would clarify that the authors did not
-use Kepler-1627 as a fiducial star about which to select cluster members, and
-that they restricted the analysis to one of several sub-clusters or clumps
-which contained Kepler-1627.
+Lines 142-144: perhaps rephrasing this would clarify that the authors
+did not use Kepler-1627 as a fiducial star about which to select
+cluster members, and that they restricted the analysis to one of
+several sub-clusters or clumps which contained Kepler-1627.
 
 RESPONSE
 ----------
-> We have slightly rephrased Lines 142-144 to clarify the meaning, which is
+> We have rephrased Lines 142-144 to clarify the meaning, which is
 > indeed what the reviewer has stated.
 
 REVIEWER COMMENT
 ----------
-Figure 1: the first three panels would be more effective if they were plotted
-at the same scale and with appropriately aligned axes. As such the upper right
-panels are too small to be useful. Consider leaving out the Sun (which is
-irrelevant) so as to have a more appropriate choice of scale to how the details
-of the cluster. The purpose of the fourth panel (tangential velocities) and the
-second line in the caption are unclear to me. Aren't the tangential velocities
-known from Gaia proper motions and parallaxes? Why calculate them with the
-assumption of common space motion? If that is done, what does it show, anyway?
+Figure 1: the first three panels would be more effective if they were
+plotted at the same scale and with appropriately aligned axes. As
+such the upper right panels are too small to be useful. Consider
+leaving out the Sun (which is irrelevant) so as to have a more
+appropriate choice of scale to how the details of the cluster. The
+purpose of the fourth panel (tangential velocities) and the second
+line in the caption are unclear to me. Aren't the tangential
+velocities known from Gaia proper motions and parallaxes? Why
+calculate them with the assumption of common space motion? If that is
+done, what does it show, anyway?
 
 RESPONSE
 ----------
 > Thank you for these important points of feedback.
 >
-> The Sun has been included to clarify the direction along which parallax
-> uncertainties are expected to produce erroneous clusterings (analogous to the
-> "Fingers of God" effect in the extragalactic literature).  This is relevant
-> because the HDBScan clustering method used by Kounkel & Covey in their 2019
-> paper likely was susceptible to this systematic effect.  A sentence has been
-> added to the caption of Figure 1 to clarify this point.
+> The Sun has been included to clarify the direction along which
+> parallax uncertainties are expected to produce erroneous
+> clusterings (analogous to the "Fingers of God" effect in the
+> extragalactic literature).  This is relevant because the HDBScan
+> clustering method used by Kounkel & Covey in their 2019 paper
+> likely was susceptible to this systematic effect.  A sentence has
+> been added to the caption of Figure 1 to clarify this point.
 > 
-> The {X,Y}, {Z,X}, and {Z,Y} panels are plotted at different scales in order
-> to keep the aspect ratios roughly correct.  The reported KC2019 cluster
-> members span {ΔX, ΔY, ΔZ} of roughly {400, 600, 200} parsecs,  which grows to
-> ~{600, 600, 200} parsecs when including the Sun.  The {Z,X} and {Z,Y}
-> panels should therefore roughly have aspect ratios of 1:3 in order for the
-> parsec to not be stretched too much in either dimension.  The top-down {X,Y}
-> view is the most informative dimension, which is why it is enlarged related
-> to the edge-on views (and its 1:1 aspect ratio is set by the same
+> The {X,Y}, {Z,X}, and {Z,Y} panels are plotted at different scales
+> in order to keep the aspect ratios roughly correct.  The reported
+> KC2019 cluster members span {ΔX, ΔY, ΔZ} of roughly {400, 600, 200}
+> parsecs,  which grows to ~{600, 600, 200} parsecs when including
+> the Sun.  The {Z,X} and {Z,Y} panels should therefore roughly have
+> aspect ratios of 1:3 in order for the parsec to not be stretched
+> too much in either dimension.  The top-down {X,Y} view is the most
+> informative dimension, which is why it is enlarged related to the
+> edge-on views (and its 1:1 aspect ratio is set by the same
 > consideration).
 >
-> Finally, the tangential velocities are important because they tell us whether
-> the structures are kinematically coherent.  Open clusters typically have
-> velocity dispersions of order ~1km/s.  Meingast et al. 2021 (A&A 645 84) for
-> instance suggest tangential velocities <2 km/s (from the mean cluster
-> velocity) as a plausible cutoff for selecting candidate cluster members.  One
-> needs to compute these as relative tangential velocities instead of just
-> looking at the proper motions because the proper motions are changed by
-> line-of-sight projection effects, especially when the clusters appear
-> stretched over tens of degrees on-sky.  See for instance Figure 2 of
-> Meingast+2021, or Figure 14 of Bouma+2021 (AJ, 162, 197).  In our case, the
-> tangential velocities indicate that the spread in Kounkel & Covey 2019's
-> reported cluster members is ~10km/s, which is large enough that it does not
-> make obvious kinematic sense to consider all of these stars to be part of the
-> same structure.  We've added a few sentences in the manuscript to clarify
-> these latter points.
+> Finally, the tangential velocities are important because they tell
+> us whether the structures are kinematically coherent.  Open
+> clusters typically have velocity dispersions of order ~1km/s.
+> Meingast et al. 2021 (A&A 645 84) for instance suggest tangential
+> velocities <2 km/s (from the mean cluster velocity) as a plausible
+> cutoff for selecting candidate cluster members.  One needs to
+> compute these as relative tangential velocities instead of just
+> looking at the proper motions because the proper motions are
+> changed by line-of-sight projection effects, especially when the
+> clusters appear stretched over tens of degrees on-sky.  See for
+> instance Figure 2 of Meingast+2021, or Figure 14 of Bouma+2021 (AJ,
+> 162, 197).  In our case, the tangential velocities indicate that
+> the spread in Kounkel & Covey 2019's reported cluster members is
+> ~10km/s, which is large enough that it does not make obvious
+> kinematic sense to consider all of these stars to be part of the
+> same structure.
+>
+> We've added a few sentences in the manuscript to clarify these
+> latter points.
 
 
 REVIEWER COMMENT
 ----------
-Figure 3 bottom: Can the IC 2602 and 2391 rotation periods be added to this
-plot? Lines 276-278 mention that these and cite Douglas et al. 2021 (although
-the reference does not seem to be complete). Isn't it interesting that the
-interlopers all fall on the Praesepe rotation sequence?
+Figure 3 bottom: Can the IC 2602 and 2391 rotation periods be added
+to this plot? Lines 276-278 mention that these and cite Douglas et
+al. 2021 (although the reference does not seem to be complete). Isn't
+it interesting that the interlopers all fall on the Praesepe rotation
+sequence?
 
 RESPONSE
 ----------
-> Thank you for pointing out the missing link in the reference to Douglas et
-> al. 2021, which should have pointed to
-> https://ui.adsabs.harvard.edu/abs/2021tsc2.confE.157D/abstract, and has been
-> updated in the revision.  The rotation periods from this work, which includes
-> IC 2602, IC 2391, and a few other 30-50 Myr clusters, are not yet public.  
+> Thank you for pointing out the missing link in the reference to
+> Douglas et al. 2021, which should have pointed to
+> https://ui.adsabs.harvard.edu/abs/2021tsc2.confE.157D/abstract, and
+> has been updated in the revision.  The rotation periods from this
+> work, which includes IC 2602, IC 2391, and a few other 30-50 Myr
+> clusters, are not yet public.  
 >
-> The interlopers falling on the Praesepe sequence is indeed a bit odd, but
-> it's really only ~3-5 stars. A much bigger set of interlopers didn't have
-> detected rotation periods at all! (See final paragraph of Section 2.2.2).
-> At the other reviewer's request, we've also added a sentence noting that some
-> of these stars might be unresolved F+K binaries.
+> The interlopers falling on the Praesepe sequence is indeed a bit
+> odd, but it's really only ~3-5 stars. A much bigger set of
+> interlopers didn't have detected rotation periods at all! (See
+> final paragraph of Section 2.2.2).  At the other reviewer's
+> request, we've also added a sentence noting that some of these
+> stars might be unresolved F+K binaries.
 
 REVIEWER COMMENT
 ----------
-p 5 lines 258-261: rather than simply throw the TESS values out in favor of the
-Kepler ones, the authors should compare them to evaluate the accuracy and
-reliability of the TESS values.
+p 5 lines 258-261: rather than simply throw the TESS values out in
+favor of the Kepler ones, the authors should compare them to evaluate
+the accuracy and reliability of the TESS values.
 
 RESPONSE
 ----------
-> Thank you for this point -- please see kepler_vs_tess_prot.png in the
-> attached, which shows the 28 referenced stars that overlap.  5 of the 28
-> stars have Kepler rotation periods above 10 days, of which none were
-> correctly recovered by TESS (3 are chosen at the half-period harmonic).  Of
-> the 23 stars with periods below 10 days, 21 of the TESS periods agree with
-> the Kepler rotation periods, and 2 are at the double-period harmonic.
+> Thank you for this point -- please see kepler_vs_tess_prot.png in
+> the attached, which shows the 28 referenced stars that overlap.  5
+> of the 28 stars have Kepler rotation periods above 10 days, of
+> which none were correctly recovered by TESS (3 are chosen at the
+> half-period harmonic).  Of the 23 stars with periods below 10 days,
+> 21 of the TESS periods agree with the Kepler rotation periods, and
+> 2 are at the double-period harmonic.
 >
-> We've updated the text to reflect this point, which doesn't affect any of the
-> conclusions given that almost all the δ Lyr cluster stars have rotation
-> periods below below 10 days.
+> We've updated the text to reflect this point, which doesn't affect
+> any of the conclusions given that almost all the δ Lyr cluster
+> stars have rotation periods below below 10 days.
 
 REVIEWER COMMENT
 ----------
 Section 3
 
-page 7 line 391: report the RUWE value (yes its in the Table but don't make the
-reader work)
+page 7 line 391: report the RUWE value (yes its in the Table but
+don't make the reader work)
 
 RESPONSE
 ----------
@@ -604,9 +644,9 @@ REVIEWER COMMENT
 ----------
 Section 4.1.3 and Figure 6
 
-The significance of this slope is unclear and a sigma is not a good way to
-evaluate it. Perform a ratio of chi-squared or F-test to evaluate it vs. a flat
-line.
+The significance of this slope is unclear and a sigma is not a good
+way to evaluate it. Perform a ratio of chi-squared or F-test to
+evaluate it vs. a flat line.
 
 RESPONSE
 ----------
@@ -614,17 +654,17 @@ RESPONSE
 
 REVIEWER COMMENT
 ----------
-Lines 530-542: does option (ii) include a transit fit as well? I assume it does
-but it would be good to clarify. And is option (i) the 2nd and 4th order
-polynomial? Perhaps just state this?
+Lines 530-542: does option (ii) include a transit fit as well? I
+assume it does but it would be good to clarify. And is option (i) the
+2nd and 4th order polynomial? Perhaps just state this?
 
 RESPONSE
 ----------
-> Yes, option (ii) includes the transit -- we've updated this in the text for
-> clarity.
+> Yes, option (ii) includes the transit -- we've updated this in the
+> text for clarity.
 >
-> Yes, option (i) is the 2nd or 4th order polynomial.  We've updated the text
-> to state this more directly as well.  Thank you!
+> Yes, option (i) is the 2nd or 4th order polynomial.  We've updated
+> the text to state this more directly as well.  Thank you!
 
 REVIEWER COMMENT
 ----------
@@ -638,63 +678,68 @@ REVIEWER COMMENT
 ----------
 Section 4.2
 
-Analysis of the motion of the photocentroid has been widely used to help
-validate Kepler planets. Can this be used here to distinguish between the
-possible A and B host stars?
+Analysis of the motion of the photocentroid has been widely used to
+help validate Kepler planets. Can this be used here to distinguish
+between the possible A and B host stars?
 
 RESPONSE
 ----------
-> Kepler-1627B is ~0.16 arcseconds East of Kepler-1627A.  For the sake of
-> argument, assume it contributes 2% of the flux to the aperture (an
-> overestimate), and neglect other stars in the scene. 
+> Kepler-1627B is ~0.16 arcseconds East of Kepler-1627A.  For the
+> sake of argument, assume it contributes 2% of the flux to the
+> aperture (an overestimate), and neglect other stars in the scene. 
 >
-> Taking the origin at Kepler-1627A, the center of light outside of transit is
-> then roughly (0.98*0 arcsec + 0.02*0.16 arcsec) = 0.0032 arcsec due East of
-> the primary.
+> Taking the origin at Kepler-1627A, the center of light outside of
+> transit is then roughly (0.98*0 arcsec + 0.02*0.16 arcsec) = 0.0032
+> arcsec due East of the primary.
 >
-> During transit, if the transit happens on the primary, the center of light is
-> roughly ( (0.98-0.002)*0 arcsec + (1-(0.98-0.002))*0.16 arcsec ) = 0.0035
-> arcsec due East of the primary -- i.e., it is closer to the secondary by 0.3
-> milliarcseconds, since the primary is getting fainter.
+> During transit, if the transit happens on the primary, the center
+> of light is roughly ( (0.98-0.002)*0 arcsec + (1-(0.98-0.002))*0.16
+> arcsec ) = 0.0035 arcsec due East of the primary -- i.e., it is
+> closer to the secondary by 0.3 milliarcseconds, since the primary
+> is getting fainter.
 >
-> If the transit instead happened on the secondary, the center of light would
-> be roughly (0.98*0 arcsec + (0.9*0.02)*0.16 arcsec) ~= 0.00288 arcsec due
-> East of the primary, where a 10% intrinsic eclipse depth on the secondary is
-> required to fit the observed transit depth.  In this scenario, the centroid
-> would shift closer to the *primary* by 0.3 milliarcseconds.
+> If the transit instead happened on the secondary, the center of
+> light would be roughly (0.98*0 arcsec + (0.9*0.02)*0.16 arcsec) ~=
+> 0.00288 arcsec due East of the primary, where a 10% intrinsic
+> eclipse depth on the secondary is required to fit the observed
+> transit depth.  In this scenario, the centroid would shift closer
+> to the *primary* by 0.3 milliarcseconds.
 >
-> Examining the NASA SPOC Data Validation Report (DVR), there are two available
-> photocentroid tests, the first based on the flux-weighted centroid analysis,
-> and the second based on the difference image centroid offset test.  The
-> latter test yields offset uncertainties of ~100 milliarcsec for Kepler-1627,
-> which is far above the relevant signal.  The former test yields centroid peak
-> RA and DEC offsets consistent with zero, with uncertainties of 0.9 and 1.1
-> milliarcsec respectively (page 19 of 552 in the DR25 DVR).  So, given that
-> the quoted centroid precision uncertainties are a factor of ~3 larger than
-> the expected shift, it is not possible to use the test in a way that
-> distinguishes the two host stars in a statistically convincing way.
+> Examining the NASA SPOC Data Validation Report (DVR), there are two
+> available photocentroid tests, the first based on the flux-weighted
+> centroid analysis, and the second based on the difference image
+> centroid offset test.  The latter test yields offset uncertainties
+> of ~100 milliarcsec for Kepler-1627, which is far above the
+> relevant signal.  The former test yields centroid peak RA and DEC
+> offsets consistent with zero, with uncertainties of 0.9 and 1.1
+> milliarcsec respectively (page 19 of 552 in the DR25 DVR).  So,
+> given that the quoted centroid precision uncertainties are a factor
+> of ~3 larger than the expected shift, it is not possible to use the
+> test in a way that distinguishes the two host stars in a
+> statistically convincing way.
 
 
 REVIEWER COMMENT
 ----------
-Line 604-608: The statement that the density from the transit duration is
-inconsistent with that expected for the M dwarf "B" cites Table 2 and
-Choi+2016, but that Table does not appear to provide any information on "B",
-and the Choi+2016 reference is just for the Mesa models. A density of 2 g/cm3
-(or lower) is possible for an M dwarf on the pre-main sequence, depending on
-the mass, age and model used.
+Line 604-608: The statement that the density from the transit
+duration is inconsistent with that expected for the M dwarf "B" cites
+Table 2 and Choi+2016, but that Table does not appear to provide any
+information on "B", and the Choi+2016 reference is just for the Mesa
+models. A density of 2 g/cm3 (or lower) is possible for an M dwarf on
+the pre-main sequence, depending on the mass, age and model used.
 
 RESPONSE
 ----------
-> Thank you for catching this -- this citation is indeed deprecated and
-> erroneously was not updated during the writing process.  The final adopted
-> calculation was based on the masses and radii from the Baraffe+2015 models,
-> rather than the MESA models (Choi+2016).  The Baraffe models are available
-> from
+> Thank you for catching this -- this citation is indeed deprecated
+> and erroneously was not updated during the writing process.  The
+> final adopted calculation was based on the masses and radii from
+> the Baraffe+2015 models, rather than the MESA models (Choi+2016).
+> The Baraffe models are available from
 > http://perso.ens-lyon.fr/isabelle.baraffe/BHAC15dir/BHAC15_tracks+structure.
 >
-> We believe that the companion's mass is roughly between 0.3 and 0.4 Msun, and
-> that the age of the system is ~38 +/- 6 Myr.  The Baraffe models give:
+> We believe that the companion's mass is roughly between 0.3 and 0.4
+> Msun, and that the age of the system is ~38 +/- 6 Myr.  The Baraffe
+> models give:
 >
 >    32 Myr 0.300 Msun, 0.481 Rsun, 3.80 g / cm3
 >    35 Myr 0.300 Msun, 0.465 Rsun, 4.21 g / cm3
@@ -706,29 +751,31 @@ RESPONSE
 >    35 Myr 0.330 Msun, 0.489 Rsun, 3.98 g / cm3
 >    40 Myr 0.330 Msun, 0.467 Rsun, 4.58 g / cm3
 >
-> i.e., our default assumption was 40 Myr and 0.33 Msun.  The age is adopted
-> for the reasons discussed in the text.  The mass is based off
-> the observed deltaMag in 832nm and K' (3.14 +/- 0.15 and 2.37 +/- 0.02
-> respectively), which implies absolute magnitudes for the secondary of K'=XXX and
-> [832]=YYY.  Based on a set of absolute magnitude and color relations from a
-> submitted paper by A. Kraus, these gave ~=0.33 Msun.  (TODO: NEED TO BEEF
-> THIS UP!)
+> i.e., our default assumption was 40 Myr and 0.33 Msun.  The age is
+> adopted for the reasons discussed in the text.  The mass is based
+> off the observed deltaMag in 832nm and K' (3.14 +/- 0.15 and 2.37
+> +/- 0.02 respectively), which implies absolute magnitudes for the
+> secondary of K'=XXX and [832]=YYY.  Based on a set of absolute
+> magnitude and color relations from a submitted paper by A. Kraus,
+> these gave ~=0.33 Msun.  (TODO: NEED TO BEEF THIS UP!)
 >
-> The plausible range of companion densities is therefore 3.30 g/cc to
-> 4.86 g/cc.  We've updated the text to reflect this uncertainty, but
-> it doesn't change the overall point that our measured stellar
+> The plausible range of companion densities is therefore 3.30 g/cc
+> to 4.86 g/cc.  We've updated the text to reflect this uncertainty,
+> but it doesn't change the overall point that our measured stellar
 > density (2.00+/-0.24 g/cc) is still a fair bit lower than the
 > expected range.
 
 TODO TODO REMOVE THIS
-> As a sanity check, these calibrations find that for a companion spectral type
-> of M2.5, one expects colors of G-K'=3.39 mag and G-[832] = 1.51 mag, though
-> we cannot test this since Gaia DR2/EDR3 does not resolve the secondary.
+> As a sanity check, these calibrations find that for a companion
+> spectral type of M2.5, one expects colors of G-K'=3.39 mag and
+> G-[832] = 1.51 mag, though we cannot test this since Gaia DR2/EDR3
+> does not resolve the secondary.
 >
-> For the primary spectral type of G8, one expects G-K'=1.58 mag and G-[832] =
-> 0.71 mag (i.e., K'=13.02-1.58=11.44, and [832]=G-0.71=12.31 for the primary).
-> So it holds together (bolstering the case for it being a bound companion) to
-> find DeltaK' = 2.37 mag and Delta[832] = 3.14 mag.
+> For the primary spectral type of G8, one expects G-K'=1.58 mag and
+> G-[832] = 0.71 mag (i.e., K'=13.02-1.58=11.44, and
+> [832]=G-0.71=12.31 for the primary).  So it holds together
+> (bolstering the case for it being a bound companion) to find
+> DeltaK' = 2.37 mag and Delta[832] = 3.14 mag.
 
 G8V: M_G = 5.098
 M2.5V: M_G = 9.67 (ZAMS).
@@ -742,106 +789,130 @@ M2.5V: M_G = 9.67 (ZAMS).
 
 REVIEWER COMMENT
 ----------
-Lines 613-614: it would be good to quantify this, i.e. how faint an unresolved
-companion or background star must be based on the star's position in the CMD.
+Lines 613-614: it would be good to quantify this, i.e. how faint an
+unresolved companion or background star must be based on the star's
+position in the CMD.
 
 RESPONSE
 ----------
-> Visually, one can see that the width of the single-star sequence of δ Lyr
-> candidates (black points) in the upper-right panel of Figure 3 is <~0.2 mag.
-> So, if we saw a star with the same (BP-RP) color as Kepler 1627 that were
-> >~0.3 mag brighter in M_G, we would classify it as a likely photometric
-> binary.  This means we are able to exclude stars ~0.32* as bright as the
-> primary (in Gaia G-band). This corresponds to excluding bound companions more
-> massive than ~0.85 Msun (the primary's mass is ~0.95 Msun).  The SB2 tests do
-> much better if the velocity separation exceeds the CCF width (down to 1% as
-> bright as the primary;
-> https://ui.adsabs.harvard.edu/abs/2015AJ....149...18K/abstract).  For
-> brevity, we would prefer to not present this information in the text.
+> Visually, one can see that the width of the single-star sequence of
+> δ Lyr candidates (black points) in the upper-right panel of Figure
+> 3 is <~0.2 mag.  So, if we saw a star with the same (BP-RP) color
+> as Kepler 1627 that were
+> >~0.3 mag brighter in M_G, we would classify it as a likely
+> >photometric
+> binary.  This means we are able to exclude stars ~0.32* as bright
+> as the primary (in Gaia G-band). This corresponds to excluding
+> bound companions more massive than ~0.85 Msun (the primary's mass
+> is ~0.95 Msun).  The SB2 tests do much better if the velocity
+> separation exceeds the CCF width (down to 1% as bright as the
+> primary;
+> https://ui.adsabs.harvard.edu/abs/2015AJ....149...18K/abstract).
+> For brevity, we would prefer to not present this information in the
+> text.
 
 REVIEWER COMMENT
 ----------
-Lines 635-638: Here, new observations appear for the first time but are not
-described. While the details are given in the appendix, and the outcome of the
-observations doesn't define this work, the authors need to give some basic
-description of the observations, e.g. passbands, SNR, resolution, observation
-times, etc. The authors should not assume the reader actually know what HIRES
-and MuSCAT are!
+Lines 635-638: Here, new observations appear for the first time but
+are not described. While the details are given in the appendix, and
+the outcome of the observations doesn't define this work, the authors
+need to give some basic description of the observations, e.g.
+passbands, SNR, resolution, observation times, etc. The authors
+should not assume the reader actually know what HIRES and MuSCAT are!
 
 RESPONSE
 ----------
 > Thank you for this suggestion.  The main text now reads
 >
 > "We observed a transit of Kepler-1627 Ab on the night of 2021 Aug 7
-> spectroscopically with HIRES at the Keck-I telescope and photometrically in
-> $griz$ bands with MuSCAT3 at Haleakal\=a Observatory.  Details of the
-> observation sequence are discussed in Appendix C; Figure 7 shows the
-> results."
+> spectroscopically with HIRES at the Keck-I telescope and
+> photometrically in $griz$ bands with MuSCAT3 at Haleakal\=a
+> Observatory.  Details of the observation sequence are discussed in
+> Appendix C; Figure 7 shows the results."
 >
-> The first paragraph of Appendix C has been significantly modified to include
-> the requested additional information, including the passbands, exposure
-> times, S/N, and instrument resolution.  Regarding observation times, "the
-> night of 2021 Aug 7" is sufficiently precise for the purposes of the text;
-> Tables 5 and 6 have the BJD-TDB timestamps for those who desire greater
-> precision.
+> The first paragraph of Appendix C has been significantly modified
+> to include the requested additional information, including the
+> passbands, exposure times, S/N, and instrument resolution.
+> Regarding observation times, "the night of 2021 Aug 7" is
+> sufficiently precise for the purposes of the text; Tables 5 and 6
+> have the BJD-TDB timestamps for those who desire greater precision.
 
 REVIEWER COMMENT
 ----------
 Section 5
 
-line 670: assuming that SNR is not to blame, the problem is not precision, the
-problem is either measuremnt systematics or astrophysical noise.
+line 670: assuming that SNR is not to blame, the problem is not
+precision, the problem is either measuremnt systematics or
+astrophysical noise.
 
 RESPONSE
 ----------
-> Thank you for this point; we've updated the text to say "signal-to-noise"
-> rather than "precision".
+> Thank you for this point; we've updated the text to say
+> "signal-to-noise" rather than "precision".
 
 REVIEWER COMMENT
 ----------
-line 678-683: The Ca II HK activity indicator "S" as well as the H-alpha
-equivalent width could be obtained from the HIRES spectrum. Have the authors
-checked fora X-ray or UV (Galex) detection of this star? The star is likely not
-detected but its worth a look. In the same vein, the authors may wish to
-comment on whether the star's infrared emission indicates or rule out a
-substantial debris disk -- the star is detected in WISE (and perhaps Spitzer?)
+line 678-683: The Ca II HK activity indicator "S" as well as the
+H-alpha equivalent width could be obtained from the HIRES spectrum.
+Have the authors checked fora X-ray or UV (Galex) detection of this
+star? The star is likely not detected but its worth a look. In the
+same vein, the authors may wish to comment on whether the star's
+infrared emission indicates or rule out a substantial debris disk --
+the star is detected in WISE (and perhaps Spitzer?)
 
 RESPONSE
 ----------
-> Regarding the S-values, they are shown in the second panel of Figure 7, and
-> are also reported in Table 6.  The line profile changes shown in Figure 12
-> suggested that the majority of the RV variation observed was due to
-> starspot-induced variations.  Quantitative measurements of the H-alpha EWs
-> are not expected to change this picture, and so we opt to not include them.
+> Regarding the S-values, they are shown in the second panel of
+> Figure 7, and are also reported in Table 6.  The line profile
+> changes shown in Figure 12 suggested that the majority of the RV
+> variation observed was due to starspot-induced variations.
+> Quantitative measurements of the H-alpha EWs are not expected to
+> change this picture, and so we opt to not include them.
 >
-> Regarding the NIR, UV, and X-ray detections, we searched Vizier within a
-> radius of 4 arcseconds.
+> Regarding the NIR, UV, and X-ray detections, we searched Vizier
+> within a radius of 4 arcseconds.
 >
-> For the NIR and the possibility of a debris disk, Kepler-1627 is detected in
-> W1, W2, W3, and W4 (see kepler1627_vizier_photometry.png attached).  While W4
-> might be in excess of the usual Rayleigh-Jeans tail (and this could be
-> quantified by fitting synthetic stellar atmospheres), quantifying this excess
-> is best done at the population level, especially given the calibration
-> uncertainties that are present in W4 (e.g., Cotten & Song 2016, ApJS 225 15).
-> Since Kepler-1627 has not been identified as even a candidate debris disk
-> host in the previous literature, we opt to not speculate on this topic.
+> For the X-ray (i.e., ROSAT), there were no reported detections in
+> Vizier.
 >
-> For the UV, Olmedo+2015 reported a coincident source with NUVmag of 19.052
-> +/- 0.017 [AB mags], with a NUV S/N of 65 (2015, ApJ, 813, 100). Loyd et al
-> 2020 report a NUV flux of 4e-13 +/- 4e-15 mW/m^2.  We can use this detection
-> as a youth indicator (e.g., Figure 9 of Newton+2021, which Newton et al
-> attribute from the idea in Shkolnik+2011, ApJ 727 6. Since for Kepler 1627
-> 2MASS J = 11.690+/-0.021 (Cutri+2003), we have m_NUV-m_J = 7.36.  Given the
-> (BP-RP)0 of ~0.95... FIXME TODO ARE YOU GOING TO MAKE A WHOLE NEW PLOT FOR
-> THIS DAMN THING?  MIGHT BE WORTHWHILE... QUICK VETTING CHECK FOR ANY G AND K
-> TYPE STARS IN THE CLUSTER...
+> For the NIR and the possibility of a debris disk, Kepler-1627 is
+> detected in W1, W2, W3, and W4 (see
+> kepler1627_vizier_photometry.png attached).  While W4 might be in
+> excess of the usual Rayleigh-Jeans tail, and this could be
+> quantified by fitting synthetic stellar atmospheres, this type of
+> analysis is best done at the population level, particularly given
+> the calibration uncertainties that are present in W4 (e.g., Cotten
+> & Song 2016, ApJS 225 15).  Since Kepler-1627 has not been
+> identified as even a candidate debris disk host in the previous
+> literature that performs these population-level infrared excess
+> analyses, we opt to not speculate on this topic.
 >
-> For the X-ray (i.e., ROSAT), there were no reported detections in Vizier.
+> For the UV, Olmedo+2015 reported a coincident source with NUVmag of
+> 19.052 +/- 0.017 [AB mags], with a NUV S/N of 65 (2015, ApJ, 813,
+> 100). Loyd et al 2020 similarly report a NUV flux of 4e-13 +/-
+> 4e-15 mW/m^2, though the latter value is based on the same
+> GALEX-CAUSE Kepler survey data presented by Olmedo+2015.  UV
+> detections can sometimes be used as a youth indicator (e.g., Figure
+> 9 of Newton+2021 AJ 161 65, which Newton et al attribute from the
+> idea in Shkolnik+2011, ApJ 727 6).  For Kepler-1627, we have 2MASS
+> J = 11.690+/-0.021, and therefore m_NUV-m_J = 7.36.  Given the Gaia
+> (BP-RP)0 of 0.977, comparing to Figure 9 of Newton+2021 we find
+> that Kepler-1627 overlaps with late-G type stars in Psc-Eri, the
+> Pleiades, and the Hyades.  In other words, the UV flux is not a
+> particularly strong diagnostic of the age for Kepler-1627 as an
+> individual star.  It may well be worth exploring the GALEX-CAUSE
+> Kepler survey data for the delta Lyr cluster generally, since the
+> later type K and M dwarfs are expected to be elevated with respect
+> to the Pleiades and Hyades sequences.  However, this goes beyond
+> the scope of the present work, and the combination of the cluster
+> membership, stellar rotation, stellar lithium content, and stellar
+> activity all point to an age consistent with that reported in our
+> work.
 
 REVIEWER COMMENT
 ----------
-lines 699-701 It could be mentioned here that the planet orbital period and
-stellar rotational period are not a rational combination.
+lines 699-701 It could be mentioned here that the planet orbital
+period and stellar rotational period are not a rational combination.
 
 RESPONSE
 ----------
@@ -849,48 +920,50 @@ RESPONSE
 
 REVIEWER COMMENT
 ----------
-line 723-726: The caveat that should be mentioned here is that this is for
-older, main sequence stars.
+line 723-726: The caveat that should be mentioned here is that this
+is for older, main sequence stars.
 
 RESPONSE
 ----------
-> The first reviewer had a similar comment -- our response is the same:
+> The first reviewer had a similar comment -- our response is the
+> same:
 >
-> These completeness statistics were computed using KeplerPORTS (the Burke &
-> Catanzarite 2021 citation).  KeplerPORTS corrects for red noise in the light
-> curves by using the CDPP over different timescales -- see Section 3.3 of
-> Burke, C. J. & Catanzarite, J.  2017, Planet Detection Metrics: Per-Target
-> Detection Contours for Data Release 25, KSCI-19111-002.  This correction is
-> performed using both a) the slope of the RMS CDPP versus transit duration for
-> for "long" transit durations (the average of 7.5, 9.0, 10.5, 12.0, 12.5, and
-> 15.0 hours) and b) the same slope for "short" transit durations (2.0, 2.5,
-> 3.0, 3.5, and 4.5 hours). We retrieved these values from the DR25 Kepler
-> occurrence rate products hosted on the NASA Exoplanet Archive.  For Kepler
-> 1627, they were CDPP_long = 0.25478 and CDPP_short=0.79505.  Per Figure 2 of
-> the KSCI-19111-002 memo, these do indeed indicate a noisy star -- no
-> surprises.
+> These completeness statistics were computed using KeplerPORTS (the
+> Burke & Catanzarite 2021 citation).  KeplerPORTS corrects for red
+> noise in the light curves by using the CDPP over different
+> timescales -- see Section 3.3 of Burke, C. J. & Catanzarite, J.
+> 2017, Planet Detection Metrics: Per-Target Detection Contours for
+> Data Release 25, KSCI-19111-002.  This correction is performed
+> using both a) the slope of the RMS CDPP versus transit duration for
+> for "long" transit durations (the average of 7.5, 9.0, 10.5, 12.0,
+> 12.5, and 15.0 hours) and b) the same slope for "short" transit
+> durations (2.0, 2.5, 3.0, 3.5, and 4.5 hours). We retrieved these
+> values from the DR25 Kepler occurrence rate products hosted on the
+> NASA Exoplanet Archive.  For Kepler 1627, they were CDPP_long =
+> 0.25478 and CDPP_short=0.79505.  Per Figure 2 of the KSCI-19111-002
+> memo, these do indeed indicate a noisy star -- no surprises.
 >
-> We've added a sentence to the manuscript to clarify that we are talking about
-> per-target detection contours, which should correct for the impact of at
-> least the fast rotation period, inasmuch as it manifests in the slope of the
-> CDPP versus transit duration.  We have also modified the wording for clarity,
-> and have added a citation to Burke & Catanzarite's 2017 KSCI-19111-002 memo.
+> We've added a sentence to the manuscript to clarify that we are
+> talking about per-target detection contours, which should correct
+> for the impact of at least the fast rotation period, inasmuch as it
+> manifests in the slope of the CDPP versus transit duration.  We
+> have also modified the wording for clarity, and have added a
+> citation to Burke & Catanzarite's 2017 KSCI-19111-002 memo.
 >
-> To determine whether this CDPP-slope detection efficiency correction is
-> *accurate* given the exact red-noise properties of Kepler-1627 (i.e., the
-> rotation and flares), a full injection-recovery analysis of the light curve
-> with a pipeline of our own would be necessary. This effort is outside our
-> scope, for now.
+> To determine whether this CDPP-slope detection efficiency
+> correction is *accurate* given the exact red-noise properties of
+> Kepler-1627 (i.e., the rotation and flares), a full
+> injection-recovery analysis of the light curve with a pipeline of
+> our own would be necessary. This effort is outside our scope, for
+> now.
 
 
 ******************************************
 
 Other minor changes made to the manuscript include:
 
-* Updated binning interval on lower panels of Figure 5 from 20 to 15 minutes.
+* Updated binning interval on lower panels of Figure 5 from 20 to 15
+  minutes.
 
 * L.G.B.'s affiliation order was reversed, to reflect the primary
   institution at which this work was performed.
-
-
-

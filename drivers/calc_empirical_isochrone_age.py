@@ -277,31 +277,33 @@ def collect_isochrone_data():
     outpath = os.path.join(RESULTSDIR, 'empirical_isochrone_age',
                            f"all_clusters_CMD_binning_interp.png")
     set_style()
-    f,ax = plt.subplots(figsize=(1.5*6,1.5*4))
+    f,ax = plt.subplots(figsize=(4,4))
 
-    colors = 'k,orange,deepskyblue,C3'.split(',')
+    colors = 'k,orange,deepskyblue,C1'.split(',')
 
     for ix, c, color in zip(range(len(clusters)), clusters, colors):
 
-        ax.scatter(hr_dict[c]['(Bp-Rp)0'], hr_dict[c]['(MG)0'], s=1,
-                   c=color, label=c, zorder=ix)
+        #label = c+' spline'
+        label = c
+        ax.scatter(hr_dict[c]['(Bp-Rp)0'], hr_dict[c]['(MG)0'], s=0.25,
+                   c=color, zorder=ix)
         #ax.errorbar(hr_dict[c]['binmids'], hr_dict[c]['ymean'],
         #            hr_dict[c]['ystdev'], marker='o', elinewidth=0.5,
         #            capsize=4, lw=0, mew=0.5, color=f'k', markersize=3,
         #            zorder=5)
-        ax.plot(hr_dict[c]['x_interp'], hr_dict[c]['y_interp'], lw=1,
-                c=color, zorder=42, label=c+' spline')
+        ax.plot(hr_dict[c]['x_interp'], hr_dict[c]['y_interp'], lw=0.5,
+                c=color, zorder=42, label=label)
 
     for i in range(0,I_grid.shape[1],200):
         if i == 0:
-            ax.plot(x_eval, I_grid[:,i], color='gray', lw=0.5,
+            ax.plot(x_eval, I_grid[:,i], color='gray', lw=0.25,
                     label='Interpolated splines')
         else:
-            ax.plot(x_eval, I_grid[:,i], color='gray', lw=0.5)
+            ax.plot(x_eval, I_grid[:,i], color='gray', lw=0.25)
 
     ax.update({'xlabel': '$(G_{\mathrm{BP}}-G_{\mathrm{RP}})_0$ [mag]',
                'ylabel': '$M_{\mathrm{G},0}$ [mag]'})
-    ax.legend(loc='best')
+    ax.legend(loc='best', fontsize='x-small')
     ax.set_ylim([12.5,3.5])
     ax.set_xlim([0.5,3.5])
     savefig(f, outpath, dpi=400)

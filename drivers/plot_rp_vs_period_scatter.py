@@ -197,7 +197,7 @@ def plot_rp_vs_period_scatter(
 
         _p = ax.scatter(
             period[s1], rp[s1],
-            c=age[s1], alpha=1, zorder=2, s=24, edgecolors='k',
+            c=age[s1], alpha=1, zorder=2, s=32, edgecolors='k',
             marker='o', cmap=cmap, linewidths=0.3, norm=norm
         )
 
@@ -228,7 +228,7 @@ def plot_rp_vs_period_scatter(
                 ax.scatter(
                     _per, _rp,
                     c=_age, alpha=1, zorder=2, s=260, edgecolors='k',
-                    marker='*', cmap=cmap, linewidths=0.8, norm=norm
+                    marker='*', cmap=cmap, linewidths=0.6, norm=norm
                 )
 
                 if add_plnames:

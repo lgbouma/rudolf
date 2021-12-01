@@ -1,6 +1,6 @@
 %\documentclass[12pt,modern,twocolumn,tighten]{aastex63}
-%\documentclass[12pt,modern,twocolumn,tighten,linenumbers]{aastex63}
-\documentclass[12pt,modern,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
+\documentclass[12pt,modern,twocolumn,tighten,linenumbers]{aastex63}
+%\documentclass[12pt,modern,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 %\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
 %\documentclass[12pt,twocolumn,tighten,trackchanges]{aastex63}
 \usepackage{amsmath,amstext,amssymb}
@@ -111,8 +111,11 @@ dispersal ($\lesssim$$10^7$\,years), and shrink to sizes of
 is expected to occur within the first few million years after the disk
 disperses \citep{ikoma_situ_2012}, stellar
 irradiation and internal heat can also power gradual outflows
-which, if strong enough, can deplete or entirely strip the atmosphere \citep{lopez_how_2012,Owen_Wu_2013,ginzburg_corepowered_2018}.
-Discovering young planets, measuring their masses, and detecting their
+which, if strong enough, can deplete or entirely strip the atmosphere \citep{lopez_how_2012,Owen_Wu_2013,ginzburg_corepowered_2018}.\added{ The latter photoevaporative and core-powered
+	outflows are thought to persist for $\approx$$10^8$ to $\approx$$10^9$ years,
+	though the details depend on the planetary masses,
+	the irradiation environments, and the initial atmospheric
+	mass fractions \citep{owen_evaporation_2017,gupta_signatures_2020,2021MNRAS.503.1526R,2021MNRAS.501L..28K}.} Discovering young planets, measuring their masses, and detecting their
 atmospheric outflows are key steps toward testing this paradigm, which
 is often invoked to explain the observed radius distribution of mature
 exoplanets \citep{Fulton_et_al_2017,van_eylen_asteroseismic_2018}.
@@ -205,11 +208,14 @@ latest Gaia EDR3 observations using the \texttt{dr2\_neighbourhood}
 table from the ESA archive,
 taking the stars closest in proper motion and epoch-corrected angular
 distance as the presumed match \citep{gaia_collaboration_2021_edr3}.
-In Figure~\ref{fig:XYZvtang}, \added{we }have shown galactic positions only for
-the stars with parallax signal-to-noise exceeding 20.  \added{We
+\replaced{In Figure~\ref{fig:XYZvtang}, \added{we }have shown galactic positions only for
+the stars with parallax signal-to-noise exceeding 20. }{For plotting purposes, we focused only
+on the stars with parallax signal-to-noise exceeding 20.} \added{We
 calculated the tangential velocities for each of these stars relative to \sn\
-($\Delta \mu^{*}$) by subtracting the observed proper motion from what the proper motion at the star's
-position would be if it were co-moving with \sn. }The reported
+($\Delta \mu^{*}$) by subtracting the observed proper motion from what the proper motion at each star's
+position would be if it were co-moving with \sn. }
+
+\replaced{The}{Figure~\ref{fig:XYZvtang} shows that the} reported
 cluster members (gray and black points) extend over a much larger
 volume \added{in both physical and kinematic space }than the cluster previously identified by
 \citet{stephenson_possible_1959} and later corroborated by
@@ -288,12 +294,20 @@ cluster in the vicinity of \sn.
 \subsubsection{Color-Absolute Magnitude Diagram}
 \label{sec:camd}
 
-We measured the isochrone age using an empirical approach.  The left
+We measured the isochrone age using an empirical approach.  The \added{upper }left
 panel of Figure~\ref{fig:age} shows the color-absolute magnitude
-diagram (CAMD) of candidate \cn\ members, IC\,2602, the Pleiades, and
-the field.  The stars from the Pleiades and IC\,2602 were adopted from
+diagram (CAMD) of candidate \cn\ members, IC\,2602\added{ ($\approx 38$\,Myr)}, the Pleiades\added{ ($\approx 115$\,Myr)}, and
+the field. The stars from the Pleiades and IC\,2602 were adopted from
 \citet{CantatGaudin2018a}, and the field stars are from the Gaia EDR3
-Catalog of Nearby Stars \citep{gaia_gcns_2021}.  We cleaned these
+Catalog of Nearby Stars \citep{gaia_gcns_2021}.  
+\added{We also
+compared against $\mu$-Tau ($62\pm7$\,Myr; \citealt{gagne_mutau_2020})
+and the Upper-Centaurus-Lupus (UCL) component of the Sco OB2
+association ($\approx$$16$\,Myr; \citealt{pecaut_star_2016}).
+We adopted the UCL members from \citet{Damiani2019}.
+For visual clarity, the latter two clusters are not shown in Figure~\ref{fig:age}.
+}
+We cleaned \replaced{these}{the membership lists}
 following the data filtering criteria from \citet[][Appendix
 B]{GaiaCollaboration2018}, except that we weakened the parallax
 precision requirement to $\varpi/\sigma_\varpi>5$.  \added{This also involved cuts
@@ -301,18 +315,22 @@ on the photometric signal to noise ratio, the number of visibility
 periods used, the astrometric $\chi^2$ of the single-source solution, and the
 $G_{\rm BP}-G_{\rm RP}$ color excess factor.} These filters were
 designed to include genuine binaries while omitting instrumental
-artifacts.  We then corrected for extinction by querying the
+artifacts.  
+
+\replaced{We then corrected for extinction by querying}{To correct for extinction, we queried} the
 3-dimensional maps of \citet{capitanio_threedimensional_2017} and
 \citet{lallement_threedimensional_2018}\footnote{\url{https://stilism.obspm.fr/},
 2021/09/25}, and applied the extinction coefficients $k_X\equiv
 A_X/A_0$ computed by \citet{GaiaCollaboration2018} assuming that $A_0
-= 3.1 E(B-V)$.  For IC\,2602, the Pleiades, and the \cn, this
+= 3.1 E(B-V)$.  For \added{UCL, }IC\,2602, the Pleiades, and the \cn, this
 procedure yielded a respective mean and standard deviation for the
-reddening of $E(B-V)=\{0.020\pm0.003, 0.045\pm0.008, 0.032\pm0.006\}$.
+reddening of \replaced{$E(B-V)=\{0.020\pm0.003, 0.045\pm0.008,
+0.032\pm0.006\}$}{$E(B-V)=\{0.084\pm0.041, 0.020\pm0.003, 0.045\pm0.008,
+0.032\pm0.006\}$}.
 These values \replaced{agree reasonably well with}{are within a
 factor of two of} previously reported values
-\replaced{from}{in} the literature \citep[{\it
-e.g.},][]{GaiaCollaboration2018,KounkelCovey2019,bossini_age_2019}\added{,
+\replaced{from}{in} the literature \replaced{\citep[{\it
+e.g.},][]{GaiaCollaboration2018,KounkelCovey2019,bossini_age_2019}}{\citep{pecaut_star_2016,GaiaCollaboration2018,KounkelCovey2019,bossini_age_2019}}\added{,
 and are all small enough that the choice of whether to use them {\it vs.} other
 extinction estimates does not affect our primary conclusions}.
 
@@ -333,19 +351,23 @@ extinction estimates does not affect our primary conclusions}.
 % Steph1: 0.157 -> 0.051
 
 Figure~\ref{fig:age} shows that the \cn\ and IC\,2602 overlap, and
-therefore are approximately the same age.  In our exploration, we also
+therefore are approximately the same age.  \replaced{In our exploration, we also
 compared against $\mu$-Tau ($62\pm7$\,Myr; \citealt{gagne_mutau_2020})
 and the Upper-Centaurus-Lupus (UCL) component of the Sco OB2
-association ($\approx$$16$\,Myr; \citealt{pecaut_star_2016}).  The
+association ($\approx$$16$\,Myr; \citealt{pecaut_star_2016}). The
 pre-main-sequence M dwarfs of the \cn\ were intermediate between the
-latter two clusters.  To turn this heuristic interpolation into an age
+latter two clusters.}{The
+pre-main-sequence M dwarfs of the \cn\ were also seen to be ``below''
+UCL and ``above'' the Pleiades.}  To turn this heuristic interpolation
+into \replaced{an age}{a quantitative age}
 measurement, we used the empirical method developed by
 \citet{gagne_mutau_2020}.  In brief, we fitted the pre-main-sequence
 loci of a set of reference clusters, and the locus of the target \cn\
 was then modeled as a piecewise linear combination of these reference
-clusters.  For our reference clusters, we adopted members of UCL,
+clusters.  For our reference clusters, \replaced{we adopted members of UCL,
 IC\,2602, and the Pleiades from \citet{Damiani2019} and
-\cite{CantatGaudin2018a} respectively.  We removed binaries by
+\cite{CantatGaudin2018a} respectively}{we used UCL, IC\,2602, and the
+Pleiades}.  We removed binaries by
 requiring $\texttt{RUWE}<1.3$, $\texttt{radial\_velocity\_error}$
 below the 80$^{\rm th}$ percentile of each cluster's distribution, and
 excluded stars that were obvious photometric binaries in the CAMD.\footnote{
@@ -355,7 +377,7 @@ moving box average and standard deviation across the CAMD in 0.10\,mag bins,
 fitted a univariate spline to the binned values, and assembled a
 piecewise grid
 of \deleted{hybrid }isochrones spanning the ages between UCL \replaced{to}{and} the Pleiades using
-Equation\replaced{s~6 and~7}{6} from
+Equation\replaced{s~6 and~7}{~6} from
 \citet{gagne_mutau_2020}.  
 \added{To derive a probability distribution function for the age of \cn, we
 then assumed a Gaussian likelihood that treated the interpolated isochrones as
@@ -384,7 +406,7 @@ $31^{+5}_{-4}$\,Myr old.  For the converse extreme of 46\,Myr, the
 38\,Myr age for IC\,2602, which yields an age for the \cn\ of
 \clusterage.\footnote{Our exploration of the PARSEC and MIST isochrone
 models over a grid of ages, metallicities, and reddenings, yielded the
-best agreement for this $\approx 38\,$Myr age as well, given ${\rm
+best agreement for this $\approx$$38\,$Myr age as well, given ${\rm
 [Fe/H] = +0.1}$ and $A_V=0.2$
 \citep{bressan_parsec_2012,choi_mesa_2016};  this preferred CAMD
 reddening is higher than the \citet{lallement_threedimensional_2018}
@@ -415,22 +437,22 @@ Within this radius, we recorded the number of stars with greater
 brightness than the target star, and with brightness within 1.25 TESS magnitudes of the target star.  
 
 We then cleaned the candidate TESS rotation period measurements
-through a combination of automated and manual steps.  \deleted{As a
+through a combination of automated and manual steps.\deleted{ As a
 matter of scope, we restricted our attention to the \nkinwithtess\
 stars discussed in Section~\ref{sec:kinematicselection} in the spatial
-and kinematic proximity of Kepler\,1627.}  \deleted{Kepler rotation
+and kinematic proximity of Kepler\,1627.}\deleted{ Kepler rotation
 periods were derived by \citet{mcquillan_rotation_2014} for 28 of
 our \nkinwithtess\ stars; for these cases, we
-simply adopted the Kepler rotation period.} \added{First, to validate
+simply adopted the Kepler rotation period.}\added{ First, to validate
 the TESS rotation periods, we compared against 28 stars
 from \citet{mcquillan_rotation_2014} that were also observed by Kepler.  Of the 23 stars with Kepler
 periods below 10 days, 21 of the TESS periods agreed with the Kepler
 rotation periods; the other 2 were measured at the double-period
 harmonic.  Of the remaining 5 stars with Kepler rotation periods above
-10 days, none were correctly recovered by TESS (3 were near the
-half-period harmonic).  We therefore adopted a general stance of
-caution for TESS rotation periods exceeding 10 days, and used the
-Kepler rotation periods for the stars for which they were available.}
+10 days, none were correctly recovered by TESS, and 3 were near the
+half-period harmonic.  We therefore adopted a general stance of
+skepticism for TESS rotation periods exceeding 10 days, and used the
+Kepler rotation periods whenever possible.}
 For the remaining stars with only TESS data, we
 focused only on the stars for which no companions were known with a brightness
 exceeding one-tenth of the target star in a $21\farcs0$ radius.  There
@@ -445,7 +467,7 @@ The majority of these stars fall below
 the ``slow sequence'' of the Pleiades, consistent with a gyrochronal
 age for the \cn\ below 100\,Myr.  In fact, the rotation-color
 distributions of other 30\,Myr to 50\,Myr clusters ({\it e.g.},
-IC\,2602 and IC\,2391) are indistinguishable\added{ from each other}
+IC\,2602 and IC\,2391) are indistinguishable
 \citep{douglas_stephanie_t_2021_5131306}.  Approximately 10 of the
 \cn\ stars appear as outliers above the ``slow sequence''.  Assuming
 that they are all false positives ({\it i.e.}, field interlopers), our
@@ -951,14 +973,15 @@ photometry with a model that lets the transit depths vary across each
 bandpass, we found {\it griz} depths consistent with the Kepler depth
 at 0.6, 0.3, 0.3, and 1.1-$\sigma$ respectively.  \added{The
 achromatic transits strongly favor Kepler\ 1627A as the transit host,
-since Kepler\ 1627B is much redder.}  Conditioned on the
+since Kepler\ 1627B is a much redder star.}  Conditioned on the
 ephemeris and transit depth from the Kepler data, the MuSCAT3 observations also
 suggested a transit duration $17.3\pm4.3\ {\rm min}$ shorter than the
 Kepler transits.
 However, given both the lack of TDVs in the Kepler data
 and the relatively low signal-to-noise of the MuSCAT3 transit,
 further photometric follow-up would be necessary to determine
-whether the transit duration is indeed changing.  
+whether the transit duration is \replaced{indeed}{actually} changing.  
+
 For our RM analysis,
 the details are discussed in Appendix~\ref{app:groundobs}.  While the
 velocities are marginally more consistent with a prograde or polar
@@ -1044,9 +1067,15 @@ in which the typical $5\,M_\oplus$ \deleted{to 10$\,M_\oplus$} mini-Neptune
 \citep{wu_mass_2019} loses a significant fraction of its primordial
 atmosphere over its first gigayear
 \citep{Owen_Wu_2013,ginzburg_corepowered_2018}.  
-\added{This of course would need to be confirmed through a measurement
-of the planetary mass; alternative explanations for its large size
-could be that it is abnormally massive, or that it has an abnormally
+\added{
+It could also be consistent with a scenario in which an earlier ``boil-off'' of
+the planet's atmosphere during disk dispersal decreases the entropy of
+the planetary interior, leading to a $\sim$10$^8$ year Kelvin-Helmholtz cooling and
+contraction timescale
+\citep{owen_constraining_2020}.
+Confirming either of these scenarios would require a measurement
+of the planetary mass; otherwise, alternative explanations for its large size
+also include that it is abnormally massive, or that it has an abnormally
 large envelope to core mass ratio.}
 
 % The prograde orbit, if confirmed, would be consistent with a
