@@ -32,6 +32,10 @@ Data getters:
     Clean Gaia sources based on photometry:
         get_clean_gaia_photometric_sources
 
+    All-sky photometric surveys (GALEX/2MASS)
+        get_galex_data
+        get_2mass_data
+
 Proposal/RM-related:
     get_simulated_RM_data
 
@@ -39,6 +43,37 @@ One-offs to get the Stephenson-1 information:
     get_candidate_stephenson1_member_list
     supplement_sourcelist_with_gaiainfo
 """
+
+#############
+## LOGGING ##
+#############
+
+import logging
+from astrobase import log_sub, log_fmt, log_date_fmt
+
+DEBUG = False
+if DEBUG:
+    level = logging.DEBUG
+else:
+    level = logging.INFO
+LOGGER = logging.getLogger(__name__)
+logging.basicConfig(
+    level=level,
+    style=log_sub,
+    format=log_fmt,
+    datefmt=log_date_fmt,
+)
+
+LOGDEBUG = LOGGER.debug
+LOGINFO = LOGGER.info
+LOGWARNING = LOGGER.warning
+LOGERROR = LOGGER.error
+LOGEXCEPTION = LOGGER.exception
+
+#############
+## IMPORTS ##
+#############
+
 import os, collections, pickle
 import numpy as np, pandas as pd
 from glob import glob
@@ -67,7 +102,7 @@ from cdips.utils.gaiaqueries import (
     given_dr2_sourceids_get_edr3_xmatch
 )
 
-from rudolf.paths import DATADIR, RESULTSDIR, PHOTDIR
+from rudolf.paths import DATADIR, RESULTSDIR, PHOTDIR, LOCALDIR
 
 def get_flare_df():
 
@@ -343,7 +378,6 @@ def get_set1_koi7368():
     return pd.read_csv(csvpath)
 
 
-
 def get_gaia_catalog_of_nearby_stars():
     fitspath = os.path.join(
         DATADIR, 'nearby_stars', 'GaiaCollaboration_2021_GCNS.fits'
@@ -541,9 +575,6 @@ def get_ScoOB2_members():
     sdf = df[sel]
 
     return sdf
-
-
-
 
 
 ORIENTATIONTRUTHDICT = {
@@ -782,7 +813,7 @@ def get_autorotation_dataframe(runid='deltaLyrCluster', verbose=1,
         for ra,dec,TESSMAG in zip(
             nparr(mdf.ra), nparr(mdf.dec), nparr(mdf.Tmag_pred)
         ):
-            print(f'{datetime.utcnow().isoformat()}: {ix}/{len(mdf)}...')
+            LOGINFO(f'{datetime.utcnow().isoformat()}: {ix}/{len(mdf)}...')
             APSIZE = 1 # assumes radius 1 pixel, fine for crowding
             radius = APSIZE*21.0*u.arcsec
             nbhr_stars = Catalogs.query_region(
@@ -932,14 +963,14 @@ def get_autorotation_dataframe(runid='deltaLyrCluster', verbose=1,
     )
 
     if verbose:
-        print(f'Getting autorotation dataframe for {runid}...')
-        print(f'Starting with {len(df[ref_sel])} entries that meet NEQUAL and NCLOSE criteria...')
-        print(f'Got {len(df[sel])} entries with P<15d, LSP>{LSP_CUTOFF}, nequal<={NEQUAL_CUTOFF}, nclose<={NCLOSE_CUTOFF}')
+        LOGINFO(f'Getting autorotation dataframe for {runid}...')
+        LOGINFO(f'Starting with {len(df[ref_sel])} entries that meet NEQUAL and NCLOSE criteria...')
+        LOGINFO(f'Got {len(df[sel])} entries with P<15d, LSP>{LSP_CUTOFF}, nequal<={NEQUAL_CUTOFF}, nclose<={NCLOSE_CUTOFF}')
         if cleaning == 'periodogram_match':
-            print(f'...AND required LS and SPDM periods to agree.')
+            LOGINFO(f'...AND required LS and SPDM periods to agree.')
         elif cleaning == 'match234_alias':
-            print(f'...AND required LS and SPDM periods to agree (up to 1x,2x,3x,4x harmonic).')
-        print(10*'.')
+            LOGINFO(f'...AND required LS and SPDM periods to agree (up to 1x,2x,3x,4x harmonic).')
+        LOGINFO(10*'.')
 
     return df[sel], df
 
@@ -1030,9 +1061,225 @@ def get_becc_limits(datasets, soln):
     b = soln["b"]
 
     fn = lambda x: np.nanpercentile(x, 95)
-    print(f'e < {fn(ecc):.3f} at 2-sigma (95th)')
-    print(f'b < {fn(b):.3f} at 2-sigma (95th)')
+    LOGINFO(f'e < {fn(ecc):.3f} at 2-sigma (95th)')
+    LOGINFO(f'b < {fn(b):.3f} at 2-sigma (95th)')
 
     fn = lambda x: np.nanpercentile(x, 99.7)
-    print(f'e < {fn(ecc):.3f} at 3-sigma (99.7th)')
-    print(f'b < {fn(b):.3f} at 3-sigma (99.7th)')
+    LOGINFO(f'e < {fn(ecc):.3f} at 3-sigma (99.7th)')
+    LOGINFO(f'b < {fn(b):.3f} at 3-sigma (99.7th)')
+
+
+def get_galex_data(ra, dec, starids, idstring, verbose=False):
+    """
+    Args:
+        ra, dec (np.ndarray): arrays of GALEX positional crossmatches to run.
+        Assumed to be in degrees, `ra` from 0 to 360.
+
+        starids (np.ndarray): array of strings for star identifiers.
+
+        idstring (str): used to cache the query.
+
+    Returns:
+        DataFrame containing starids, nuv_mag, err, fuv_mag, err.
+    """
+
+    import warnings
+    from astroquery.exceptions import NoResultsWarning
+    from astroquery.mast import Catalogs
+
+    cachedir = os.path.join(LOCALDIR, 'galex')
+    if not os.path.exists(cachedir):
+        os.mkdir(cachedir)
+
+    assert isinstance(ra, np.ndarray)
+    assert isinstance(dec, np.ndarray)
+    assert isinstance(starids, np.ndarray)
+    assert len(ra) == len(dec) == len(starids)
+    assert np.max(ra) < 360
+    assert np.min(ra) > 0
+    assert isinstance(idstring, str)
+
+    outpath = os.path.join(cachedir, idstring+'_galexcache.csv')
+    if os.path.exists(outpath):
+        LOGINFO(f'Found {outpath}, loading it from cache.')
+        df = pd.read_csv(outpath)
+        return df
+
+    N = len(ra)
+
+    if verbose:
+        LOGINFO(f'Searching GALEX for {N} sources...')
+
+    # Suppress the noresultswarning from the catalogs package
+    warnings.filterwarnings("ignore", category=NoResultsWarning)
+
+    # MAST returns: ['distance_arcmin', 'objID', 'survey', 'ra', 'dec', 'band',
+    # 'fov_radius', 'IAUName', 'nuv_exptime', 'fuv_exptime', 'fuv_mag',
+    # 'fuv_magerr', 'nuv_mag', 'nuv_magerr', 'fuv_flux', 'fuv_fluxerr',
+    # 'nuv_flux', 'nuv_fluxerr', 'e_bv', 'ra_cent', 'dec_cent', 'xCenter',
+    # 'yCenter', 'SSAPFitsFile', 'nuv_flux_auto', 'nuv_flux_aper_7',
+    # 'nuv_artifact', 'fuv_flux_auto', 'fuv_flux_aper_7', 'fuv_artifact']
+
+    outdf = pd.DataFrame({
+        'starid': starids,
+        'galex_distance_arcmin': np.nan*np.ones(N),
+        'galex_survey': np.nan*np.ones(N),
+        'nuv_mag': np.nan*np.ones(N),
+        'nuv_magerr': np.nan*np.ones(N),
+        'fuv_mag': np.nan*np.ones(N),
+        'fuv_magerr': np.nan*np.ones(N)
+    })
+
+    coord = SkyCoord(ra=ra*u.deg, dec=dec*u.deg, frame='icrs')
+
+    kvdict = {
+        'galex_distance_arcmin': 'distance_arcmin',
+        'galex_survey': 'survey',
+        'nuv_mag': 'nuv_mag',
+        'nuv_magerr': 'nuv_magerr',
+        'fuv_mag': 'fuv_mag',
+        'fuv_magerr': 'fuv_magerr'
+    }
+
+    for ix, starid, ra, dec in zip(
+        range(N), starids, coord.ra.value, coord.dec.value
+    ):
+
+        if verbose:
+            LOGINFO(f'GALEX query {ix}/{N}...')
+
+        querystr = str(ra) + " " + str(dec)
+        radius = (5*u.arcsec).to(u.deg).value
+        try:
+            t_galex = Catalogs.query_object(
+                querystr, catalog="Galex", radius=radius, TIMEOUT=60
+            )
+
+            # use the most precise NUV magnitude result. at times, GII rather than
+            # AIS or MIS surveys.
+            if len(t_galex[t_galex['nuv_magerr'] > 0]):
+                galex_df = t_galex.to_pandas()
+                sgalex_df = galex_df[galex_df.nuv_magerr > 0]
+                sel_row = sgalex_df.iloc[np.argmin(sgalex_df.nuv_magerr)]
+                # assign to the output array.
+                for k,v in kvdict.items():
+                    outdf.loc[outdf.starid == starid, k] = sel_row[v]
+        except Exception as e:
+            LOGERROR(f'ERROR! FAILED GALEX query {ix}/{N}: {e}')
+            pass
+
+    outdf.to_csv(outpath, index=False)
+    LOGINFO(f'Wrote {outpath}')
+
+    return outdf
+
+
+def get_2mass_data(ra, dec, starids, idstring, verbose=False):
+    """
+    Args:
+        ra, dec (np.ndarray): arrays of 2MASS positional crossmatches to run.
+        Assumed to be in degrees, `ra` from 0 to 360.
+
+        starids (np.ndarray): array of strings for star identifiers.
+
+        idstring (str): used to cache the query.
+
+    Returns:
+        DataFrame containing starids, JHK mags and errs.
+    """
+
+    import warnings
+    from astroquery.exceptions import NoResultsWarning
+    from astroquery.irsa import Irsa
+
+    cachedir = os.path.join(LOCALDIR, 'twomass')
+    if not os.path.exists(cachedir):
+        os.mkdir(cachedir)
+
+    assert isinstance(ra, np.ndarray)
+    assert isinstance(dec, np.ndarray)
+    assert isinstance(starids, np.ndarray)
+    assert len(ra) == len(dec) == len(starids)
+    assert np.max(ra) < 360
+    assert np.min(ra) > 0
+    assert isinstance(idstring, str)
+
+    outpath = os.path.join(cachedir, idstring+'_2masscache.csv')
+    if os.path.exists(outpath):
+        LOGINFO(f'Found {outpath}, loading it from cache.')
+        df = pd.read_csv(outpath)
+        return df
+
+    N = len(ra)
+
+    if verbose:
+        LOGINFO(f'Searching 2MASS for {N} sources...')
+
+    # Suppress the noresultswarning from astroquery.
+    warnings.filterwarnings("ignore", category=NoResultsWarning)
+
+    #FIXME FIXME
+    # https://irsa.ipac.caltech.edu/cgi-bin/Gator/nph-dd?catalog=fp_psc
+    # MAST returns: ['ra', 'dec', 'clon', 'clat', 'err_maj', 'err_min',
+    # 'err_ang', 'designation', 'j_m', 'j_cmsig', 'j_msigcom', 'j_snr', 'h_m',
+    # 'h_cmsig', 'h_msigcom', 'h_snr', 'k_m', 'k_cmsig', 'k_msigcom',
+    # 'k_snr', 'ph_qual', 'rd_flg', 'bl_flg', 'cc_flg', 'ndet',
+    # 'gal_contam', 'mp_flg', 'hemis', 'xdate', 'scan', 'glon', 'glat',
+    # 'a', 'dist_opt', 'phi_opt', 'b_m_opt', 'vr_m_opt', 'nopt_mchs',
+    # 'ext_key', 'dist', 'angle', 'j_h', 'h_k', 'j_k']
+
+    outdf = pd.DataFrame({
+        'starid': starids,
+        'twomass_distance': np.nan*np.ones(N),
+        'j_mag': np.nan*np.ones(N),
+        'j_magerr': np.nan*np.ones(N),
+        'h_mag': np.nan*np.ones(N),
+        'h_magerr': np.nan*np.ones(N),
+        'k_mag': np.nan*np.ones(N),
+        'k_magerr': np.nan*np.ones(N),
+        'ph_qual': np.nan*np.ones(N),
+    })
+
+    coord = SkyCoord(ra=ra*u.deg, dec=dec*u.deg, frame='icrs')
+
+    kvdict = {
+        'twomass_distance': 'dist',
+        'j_mag': 'j_m',
+        'j_magerr': 'j_cmsig',
+        'h_mag': 'h_m',
+        'h_magerr': 'h_cmsig',
+        'k_mag': 'k_m',
+        'k_magerr': 'k_cmsig',
+        'ph_qual': 'ph_qual',
+    }
+
+    for ix, starid, ra, dec in zip(
+        range(N), starids, coord.ra.value, coord.dec.value
+    ):
+
+        if verbose:
+            LOGINFO(f'2MASS query {ix}/{N}...')
+
+        try:
+            querystr = str(ra) + " " + str(dec)
+            t_tmass = Irsa.query_region(
+                querystr, catalog='fp_psc', radius='0d0m5s'
+            )
+
+            # use the brightest 2mass source within 5 arcseconds.  (binarity checks
+            # will be independent!)
+            if len(t_tmass[t_tmass['j_m']>0]) > 0:
+                tmass_df = t_tmass.to_pandas()
+                stmass_df = tmass_df[tmass_df.j_m > 0]
+                sel_row = stmass_df.iloc[np.argmin(stmass_df.j_m)]
+                # assign to the output array.
+                for k,v in kvdict.items():
+                    outdf.loc[outdf.starid == starid, k] = sel_row[v]
+        except Exception as e:
+            LOGERROR(f'ERROR! FAILED 2MASS query {ix}/{N}: {e}')
+            pass
+
+    outdf.to_csv(outpath, index=False)
+    LOGINFO(f'Wrote {outpath}')
+
+    return outdf

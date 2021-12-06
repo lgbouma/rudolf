@@ -10,6 +10,9 @@ Gaia (CMDs, RUWEs)
 Gaia + TESS + Kepler:
     plot_rotationperiod_vs_color
 
+GALEX:
+    plot_galex
+
 Kepler phot:
     plot_keplerlc
         _plot_zoom_light_curve
@@ -86,7 +89,7 @@ from rudolf.helpers import (
     get_mutau_members, get_ScoOB2_members,
     get_BPMG_members,
     supplement_gaia_stars_extinctions_corrected_photometry,
-    get_clean_gaia_photometric_sources
+    get_clean_gaia_photometric_sources, get_galex_data, get_2mass_data
 )
 from rudolf.extinction import (
     retrieve_stilism_reddening, append_corrected_gaia_phot_Gagne2020
@@ -1487,6 +1490,66 @@ def plot_ttv_vs_local_slope(outdir):
     outpath = os.path.join(outdir, f'ttv_vs_local_slope{s}.png')
     savefig(fig, outpath, dpi=400)
 
+    # TODO: BIC difference for line versus flat.
+    x = slopes
+    y = ttv
+    y_err = tc_err
+
+    ax.errorbar(
+        XMULT*slopes, ttv*YMULT, tc_err*YMULT,
+        marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color='k',
+        markersize=3, zorder=5, alpha=1
+    )
+    ax.axhline(0, color="C4", lw=1, ls='--', zorder=-5)
+
+    ax.plot(XMULT*t0, _linear_model(t0, lsfit_slope, lsfit_int)*YMULT, '-',
+            label='Best fit', color='C2', alpha=1, lw=1)
+
+    # MODEL#1: a line
+    # number data points
+    n = len(y)
+    # number free parameters
+    k = 2
+    fudge = 1
+    chi_sq_1 = np.sum(
+        (y - _linear_model(x, lsfit_slope, lsfit_int))**2 /
+        np.nanmedian(y_err)**2
+    )
+    BIC_1 = chi_sq_1 + k*np.log(n)
+
+    # MODEL#2: the line, with slope=0.  i.e., remove a free parameter.
+    k = 1
+    chi_sq_2 = np.sum(
+        (y - _linear_model(x, 0, lsfit_int))**2 / np.nanmedian(y_err)**2
+    )
+    BIC_2 = chi_sq_2 + k*np.log(n)
+
+    chisq_ratio = chi_sq_1 / chi_sq_2
+    delta_BIC = BIC_2 - BIC_1
+
+    # https://statswithr.github.io/book/bayesian-model-selection.html
+    # BF ~= exp(ΔBIC/2)
+    # ΔBIC ~= 2*log(BF)
+    approx_bayes_factor = np.exp(0.5*delta_BIC)
+
+    print(f'Model 1: a line')
+    print(f'n={n}')
+    print(f'k={k}')
+    print(f'chisq={chi_sq_1:.1f}')
+    print(f'BIC={BIC_1:.1f}')
+
+    print(f'Model 2: a constant')
+    print(f'n={n}')
+    print(f'k={k}')
+    print(f'chisq={chi_sq_2:.1f}')
+    print(f'BIC={BIC_2:.1f}')
+
+    print(f'chi_sq_1/chi_sq_2 = {chisq_ratio:.4f}')
+    print(f'deltaBIC = BIC_2 - BIC_1 = {delta_BIC:.1f}')
+    print(f'approx BF = exp(0.5 deltaBIC) = {approx_bayes_factor:.3f}')
+
+
+
 
 def plot_rotation_period_windowslider(outdir, koi7368=0):
 
@@ -2163,9 +2226,6 @@ def plot_hr(
                         _yval,
                         c='k', alpha=1., zorder=9000000009, s=2, marker=".", linewidths=0
                     )
-
-
-
 
     ax.set_ylabel('Absolute $\mathrm{M}_{G}$ [mag]', fontsize='medium')
     if reddening_corr:
@@ -3555,3 +3615,190 @@ def plot_phasedlc_quartiles(
 
     savefig(fig, outpath, dpi=350)
     plt.close('all')
+
+
+def plot_galex(outdir,
+               clusters=['δ Lyr cluster', 'IC 2602', 'Pleiades'],
+               extinctionmethod='gaia2018', show100pc=0,
+               cleanhrcut=1, overplotkep1627=0, xval='bpmrp0'):
+    """
+    NOTE: we assume plot_hr has been run, to get the base data for the clusters.
+
+    xval = 'bpmrp0' or 'jmk'
+    """
+
+    assert xval in ['bpmrp0', 'jmk']
+    if xval == 'bpmrp0':
+        get_xval = (
+            lambda _df: np.array(
+                _df['phot_bp_mean_mag_corr'] - _df['phot_rp_mean_mag_corr']
+            )
+        )
+    elif xval == 'jmk':
+        get_xval = lambda _df: np.array(
+                _df['j_mag'] - _df['k_mag']
+        )
+    get_yval = lambda _df: np.array(
+            _df['nuv_mag'] - _df['j_mag']
+    )
+
+    # make plot and get data
+    plt.close('all')
+    set_style()
+
+    fig, ax = plt.subplots(figsize=(4,3))
+
+    s = 2
+    if overplotkep1627:
+        # made by plot_hr
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', 'deltalyr_kc19_cleansubset_withreddening.csv'
+        )
+        df = pd.read_csv(outpath)
+        if cleanhrcut:
+            df = df[get_clean_gaia_photometric_sources(df)]
+        sel = (df.source_id == 2103737241426734336)
+        sdf = df[sel]
+
+        ra,dec = np.array([float(sdf.ra)]), np.array([float(sdf.dec)])
+        idstring = 'kepler1627'
+        starid = np.array(['2103737241426734336'])
+        galex_df = get_galex_data(ra, dec, starid, idstring, verbose=True)
+        twomass_df = get_2mass_data(ra, dec, starid, idstring, verbose=True)
+        pdf = pd.concat((galex_df,twomass_df), axis=1)
+        _df = pd.concat((sdf.reset_index(), pdf.reset_index()), axis=1)
+
+        ax.plot(
+            get_xval(_df), get_yval(_df),
+            alpha=1, mew=0.5,
+            zorder=9001, label='Kepler 1627',
+            markerfacecolor='yellow', markersize=11, marker='*',
+            color='black', lw=0
+        )
+
+    if 'Pleiades' in clusters:
+        outpath = os.path.join(
+            RESULTSDIR, 'tables',
+            f'Pleiades_withreddening_{extinctionmethod}.csv'
+        )
+        _df = pd.read_csv(outpath)
+        if cleanhrcut:
+            _df = _df[get_clean_gaia_photometric_sources(_df)]
+
+        idstring = 'Pleiades_CG18'
+        starid = np.array(_df.source_id).astype(str)
+        ra = np.array(_df.ra)
+        dec = np.array(_df.dec)
+        galex_df = get_galex_data(ra, dec, starid, idstring, verbose=True)
+        twomass_df = get_2mass_data(ra, dec, starid, idstring, verbose=True)
+        pdf = pd.concat((galex_df,twomass_df), axis=1)
+        __df = pd.concat((_df.reset_index(), pdf.reset_index()), axis=1)
+
+        ax.scatter(
+            get_xval(__df), get_yval(__df), c='deepskyblue', alpha=1, zorder=1,
+            s=s, rasterized=False, label='Pleiades', marker='o',
+            edgecolors='k', linewidths=0.1
+        )
+
+    if 'IC 2602' in clusters:
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', f'IC_2602_withreddening_{extinctionmethod}.csv'
+        )
+        _df = pd.read_csv(outpath)
+        if cleanhrcut:
+            _df = _df[get_clean_gaia_photometric_sources(_df)]
+
+        idstring = 'IC2602_CG18'
+        starid = np.array(_df.source_id).astype(str)
+        ra = np.array(_df.ra)
+        dec = np.array(_df.dec)
+        galex_df = get_galex_data(ra, dec, starid, idstring, verbose=True)
+        twomass_df = get_2mass_data(ra, dec, starid, idstring, verbose=True)
+        pdf = pd.concat((galex_df,twomass_df), axis=1)
+        __df = pd.concat((_df.reset_index(), pdf.reset_index()), axis=1)
+
+        ax.scatter(
+            get_xval(__df), get_yval(__df), c='orange', alpha=1, zorder=2,
+            s=s, rasterized=False, label='IC 2602', marker='o',
+            edgecolors='k', linewidths=0.1
+        )
+
+    if 'δ Lyr cluster' in clusters:
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', 'deltalyr_kc19_cleansubset_withreddening.csv'
+        )
+        df = pd.read_csv(outpath)
+        if cleanhrcut:
+            df = df[get_clean_gaia_photometric_sources(df)]
+
+        idstring = 'delLyrClusterKinematic_KC19'
+        starid = np.array(df.source_id).astype(str)
+        ra = np.array(df.ra)
+        dec = np.array(df.dec)
+        galex_df = get_galex_data(ra, dec, starid, idstring, verbose=True)
+        twomass_df = get_2mass_data(ra, dec, starid, idstring, verbose=True)
+        pdf = pd.concat((galex_df,twomass_df), axis=1)
+        __df = pd.concat((df.reset_index(), pdf.reset_index()), axis=1)
+
+        ax.scatter(
+            get_xval(__df), get_yval(__df), c='k', alpha=1, zorder=10,
+            s=s, rasterized=False, label='δ Lyr cluster', marker='o',
+            edgecolors='k', linewidths=0.1
+        )
+
+    if xval == 'bpmrp0':
+        ax.set_xlabel('$(G_{\mathrm{BP}}-G_{\mathrm{RP}})_0$ [mag]')
+    elif xval == 'jmk':
+        ax.set_xlabel('J-K [mag]')
+    ax.set_ylabel('NUV-J [mag]')
+    ax.set_ylim(ax.get_ylim()[::-1])
+
+    if len(clusters) > 1:
+        ax.legend(fontsize='xx-small', loc='upper right', handletextpad=0.1)
+
+    #
+    # append SpTypes (ignoring reddening)
+    #
+    if xval == 'bpmrp0':
+        from rudolf.priors import AVG_EBpmRp
+        tax = ax.twiny()
+        tax.set_xlabel('Spectral Type')
+
+        xlim = ax.get_xlim()
+        getter = (
+            get_SpType_BpmRp_correspondence
+        )
+        sptypes, xtickvals = getter(
+            ['A0V','F0V','G0V','K2V','K5V','M0V','M2V','M4V']
+        )
+        print(sptypes)
+        print(xtickvals)
+
+        xvals = np.linspace(min(xlim), max(xlim), 100)
+        tax.plot(xvals, np.ones_like(xvals), c='k', lw=0) # hidden, but fixes axis.
+        tax.set_xlim(xlim)
+        ax.set_xlim(xlim)
+
+        tax.set_xticks(xtickvals+AVG_EBpmRp)
+        tax.set_xticklabels(sptypes, fontsize='x-small')
+
+        tax.xaxis.set_ticks_position('top')
+        tax.tick_params(axis='x', which='minor', top=False)
+        tax.get_yaxis().set_tick_params(which='both', direction='in')
+
+    # set naming options
+    s = f'{xval}'
+    if show100pc:
+        s += f'_show100pc'
+    if len(clusters) > 1:
+        s += '_'+'_'.join(clusters).replace(' ','_')
+    if cleanhrcut:
+        s += f'_cleanhrcut'
+    if extinctionmethod:
+        s += f'_{extinctionmethod}'
+    if overplotkep1627:
+        s += '_overplotkep1627'
+
+    outpath = os.path.join(outdir, f'galexcolor_{s}.png')
+
+    savefig(fig, outpath, dpi=500)
