@@ -174,7 +174,7 @@ implications for our ability to age-date a larger sample of planets
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-    {\bf Galactic positions  and tangential velocities   of stars in the
+    {\bf Galactic positions  and tangential velocities of stars in the
     $\delta$\,Lyr cluster.} Points are reported cluster members from
     \citet{KounkelCovey2019}.  The tangential velocities relative to
     \sn\ (bottom right) are computed assuming that every star has the
@@ -329,9 +329,7 @@ reddening of \replaced{$E(B-V)=\{0.020\pm0.003, 0.045\pm0.008,
 0.032\pm0.006\}$}.
 These values \replaced{agree reasonably well with}{are within a
 factor of two of} previously reported values
-\replaced{from}{in} the literature \replaced{\citep[{\it
-e.g.},][]{GaiaCollaboration2018,KounkelCovey2019,bossini_age_2019}}{\citep{pecaut_star_2016,GaiaCollaboration2018,KounkelCovey2019,bossini_age_2019}}\added{,
-and are all small enough that the choice of whether to use them {\it vs.} other
+\replaced{from}{in} the literature \citep{pecaut_star_2016,GaiaCollaboration2018,KounkelCovey2019,bossini_age_2019}\added{, and are all small enough that the choice of whether to use them {\it vs.} other
 extinction estimates does not affect our primary conclusions}.
 
 % Gaia+2018 E(B-V):
@@ -775,11 +773,12 @@ astrophysical explanations are discussed in Section~\ref{sec:conc}.
 	\end{center}
 	\vspace{-0.6cm}
 	\caption{
-    {\bf Possible evidence for a prograde orbit of Kepler 1627 Ab.} The time of
+    {\bf \replaced{Possible}{Weak} evidence for a prograde orbit of Kepler 1627 Ab.} The time of
     each Kepler transit was measured, along with the local slope of
-    the light curve.  The two quantities are weakly anti-correlated
+    the light curve.  The two quantities \replaced{are weakly}{might
+    be} anti-correlated
     ($\approx$2-$\sigma$), which
-    might be caused by starspot crossings during the first
+    \replaced{might}{could} be caused by starspot crossings during the first
     (second) half of transit inducing a positive (negative) TTV,
     provided that the orbit is prograde \citep{mazeh_time_2015}.  The
     units along the abscissa can be understood by considering that the
@@ -813,9 +812,18 @@ mid-time and that of a periodic orbit.  This residual, the transit
 timing variation, is plotted in Figure~\ref{fig:corr} against
 the local linear slope for the fourth-order polynomial baseline.  The
 slope of $-21 \pm 10\,{\rm min\,day}^{-1}$ is similar to that
-found by \citet{holczer_time_2015}.
+found by \citet{holczer_time_2015}. \added{The $\chi^2$ of the
+best-fit line is $306.1$, with $n=140$ data points.  An alternative
+model of a flat line yields $\chi^2=315.6$.  The difference in the
+Bayesian information criterion (BIC) between the two models is ${\rm
+BIC}_{\rm flat} - {\rm BIC}_{\rm line} = 4.5$,
+which corresponds to a Bayes factor of $\approx$9.4. According to the
+usual \citet{kass_bayes_1995} criteria, this is ``positive'' evidence
+for the model with a finite slope.  We view it as suggestive evidence
+at best, particularly given the excess scatter in the transit timing
+measurement uncertainties.}
 
-One concern we had in this analysis was whether our transit fitting
+\replaced{One}{A separate} concern we had in this analysis was whether our transit fitting
 procedure might induce spurious correlations between the slope and
 transit time.  In particular, using the second-order polynomial
 baseline yielded a larger anti-correlation between the TTVs and local
@@ -1715,7 +1723,7 @@ near-infrared.
 \added{We used the ephemeris of \citet{holczer_transit_2016} to
 observe a transit of \pn\ on the night of 2021 Aug 7 both
 spectroscopically and photometrically.  We used the HIRES echelle
-spectrograph at the Keck-I telescope and MuSCAT3 at Haleakal\=a
+spectrograph at the Keck-I telescope and the MuSCAT3 photometer at Haleakal\=a
 Observatory on Maui, HI \citep{Narita_2020}.} \deleted{ We monitored
 \sn\ with Keck/HIRES before, during, and after transit on the night of
 2021 Aug 7.} \replaced{We used the iodine cell for wavelength
@@ -2006,9 +2014,7 @@ those in the Kepler observations.
 
 
 
-
-
-\listofchanges
+%\listofchanges
 
 %\allauthors
 \end{document}
