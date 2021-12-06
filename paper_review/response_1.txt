@@ -45,7 +45,7 @@ readers the headache of cross-identifying them, either here or in Sec
 
 RESPONSE
 ----------
-> delta Lyr cluster was the first name suggested by Stephenson
+> delta Lyra cluster was the first name suggested by Stephenson
 > (1958), and it is the default name listed in SIMBAD.  It was also
 > the name used in the title of Eggen's 1967 paper.
 >
@@ -65,16 +65,17 @@ RESPONSE
 >
 > Regarding Ronan Kerr's view of the delta Lyr cluster as a component
 > of the larger Cep-Her complex, we would prefer to leave this as
-> Ronan's result to present!  There's significant work here in
+> Ronan's result to present.  There's significant work here in
 > designing the clustering method and verifying that it works.
 > There's also work in understanding the overall structure of the
 > broader association (which is different in nuanced ways from the
-> gray Theia 73 points in Figure 1).  Given the complexity, and the
-> potential importance of the complex given its proximity and age, we
-> really would prefer to leave this for the in prep R. Kerr work.
-> And similarly, the introduction of the term "Cep-Her complex" is
-> probably best left for that future work, where it can be mentioned
-> that the "del Lyr cluster" is a subset of this complex.
+> gray Theia 73 points in Figure 1).  Given these complications, and
+> the potential importance of the complex given its proximity and
+> age, we really would prefer to leave this for the in prep R. Kerr
+> work.  And similarly, the introduction of the term "Cep-Her
+> complex" is probably best left for that future work, where it can
+> be mentioned that the "del Lyr cluster" is a subset of this
+> complex.
 
 REVIEWER COMMENT
 ----------
@@ -155,15 +156,12 @@ the clusters first. It would also be helpful to list the age of IC
 
 RESPONSE
 ----------
-> Thank you for this suggestion.
->
-> The first paragraph of Section 2.2.1 has been reorganized to now
-> introduce all five of the relevant clusters: UCL, IC 2602, del Lyr
-> cluster, mu-Tau, and the Pleaides.  The second paragraph has been
-> modified to account for this hcnage.
->
-> The extinction for UCL is now also listed in the text.  So is the
-> adopted age of IC 2602.
+> Thank you for this suggestion.  The first paragraph of Section
+> 2.2.1 has been reorganized to now introduce all five of the
+> relevant clusters: UCL, IC 2602, del Lyr cluster, mu-Tau, and the
+> Pleaides.  The second paragraph has been modified to account for
+> this change.  The extinction for UCL is now also listed in the
+> text.  So is the adopted age of IC 2602.
 
 REVIEWER COMMENT
 ----------
@@ -330,17 +328,18 @@ RESPONSE
 >
 > """
 > The resulting photometry is dominated by a quasi-periodic starspot
-> signal with a peak-to-peak amplitude that varies between 2\% and 8\%.
-> \added{Given that the secondary companion's brightness in the Kepler
-> band is 1\% to 2\% that of the primary, source confusion for the
-> rotation signal is not expected to be an issue.}
-  """
-> The rationale here is that the rotation amplitude on the secondary
-> would need to be a factor of >two times its intrinsic brightness for
-> any confusion to happen, and the primary would need to not show any
+> signal with a peak-to-peak amplitude that varies between 2\% and
+> 8\%.  \added{Given that the secondary companion's brightness in the
+> Kepler band is 1\% to 2\% that of the primary, source confusion for
+> the rotation signal is not expected to be an issue.}
+> """
+>
+> The rationale is that the rotation amplitude on the secondary would
+> need to be a factor of >two times its intrinsic brightness for any
+> confusion to happen, and the primary would need to not show any
 > rotation signal.  Such large variability amplitudes have not been
-> observed except for disked stars (e.g., Rebull+2020, Figure 10), and
-> there is no evidence for a secondary period in the Lomb Scargle
+> observed except for disked stars (e.g., Rebull+2020, Figure 10),
+> and there is no evidence for a secondary period in the Lomb Scargle
 > periodograms.
 
 REVIEWER COMMENT
@@ -351,11 +350,8 @@ achromatic) was never explicitly stated.
 
 RESPONSE
 ----------
-> Line 642 of the original manuscript notes "Although we did not
-> detect the RM anomaly, the multi-band MuSCAT3 light curves show
-> that the transit is achromatic (Figure 7)."  We have nonetheless
-> reworded this section to improve the clarity with which this point
-> is made.
+> Thank you -- we have reworded this section to improve the clarity
+> with which this point is made.
 
 REVIEWER COMMENT
 ----------
@@ -583,7 +579,7 @@ RESPONSE
 > same structure.
 >
 > We've added a few sentences in the manuscript to clarify these
-> latter points.
+> points.
 
 
 REVIEWER COMMENT
@@ -659,13 +655,13 @@ RESPONSE
 > found by \citet{holczer_time_2015}. \added{The $\chi^2$ of the
 > best-fit line is $306.1$, with $n=140$ data points.  An alternative
 > model of a flat line yields $chi^2=315.6$.  The difference in the
-> Bayesian information criterion (BIC) between the two models is ${\rm
-> BIC}_{\rm flat} - {\rm BIC}_{\rm line} = 4.5$, which corresponds to a
-> Bayes factor of $\approx$9.4. According to the usual
-> \citet{kass_bayes_1995} criteria, this is ``positive'' evidence for
-> the model with a finite slope.  We view it as suggestive evidence at
-> best, particularly given the excess scatter in the transit timing
-> measurement uncertainties.}
+> Bayesian information criterion (BIC) between the two models is
+> ${\rm BIC}_{\rm flat} - {\rm BIC}_{\rm line} = 4.5$, which
+> corresponds to a Bayes factor of $\approx$9.4. According to the
+> usual \citet{kass_bayes_1995} criteria, this is ``positive''
+> evidence for the model with a finite slope.  We view it as
+> suggestive evidence at best, particularly given the excess scatter
+> in the transit timing measurement uncertainties.}
 >
 > We have also modified the caption of Figure 6 to clarify that this
 > is not a detection.
@@ -793,7 +789,7 @@ RESPONSE
 > a) the companion being more massive than expected  (~0.35 Msun),
 > simultaneously with b) the system being younger than expected (~32
 > Myr).  In this scenario, the companion star's density would be ~=
-> 3.5 g/cc.  We've updated the text to reflect this uncertainty.
+> 3.5 g/cc.  We've updated the manuscript to reflect this point.
 
 
 REVIEWER COMMENT
@@ -807,15 +803,13 @@ RESPONSE
 > Visually, one can see that the width of the single-star sequence of
 > δ Lyr candidates (black points) in the upper-right panel of Figure
 > 3 is <~0.2 mag.  So, if we saw a star with the same (BP-RP) color
-> as Kepler 1627 that were
-> >~0.3 mag brighter in M_G, we would classify it as a likely
-> >photometric
-> binary.  This means we are able to exclude stars ~0.32* as bright
-> as the primary (in Gaia G-band). This corresponds to excluding
-> bound companions more massive than ~0.85 Msun (the primary's mass
-> is ~0.95 Msun).  The SB2 tests do much better if the velocity
-> separation exceeds the CCF width (down to 1% as bright as the
-> primary;
+> as Kepler 1627 that were more than ~0.3 mag brighter in M_G, we
+> would classify it as a likely photometric binary.  This means we
+> are able to exclude stars ~0.32* as bright as the primary (in Gaia
+> G-band). This corresponds to excluding bound companions more
+> massive than ~0.85 Msun (the primary's mass is ~0.95 Msun).  The
+> SB2 tests do much better if the velocity separation exceeds the CCF
+> width (down to 1% as bright as the primary;
 > https://ui.adsabs.harvard.edu/abs/2015AJ....149...18K/abstract).
 > For brevity, we would prefer to not present this information in the
 > text.
@@ -872,9 +866,6 @@ the star is detected in WISE (and perhaps Spitzer?)
 RESPONSE
 ----------
 
-(NOTE: TODO: THIS RESPONSE STILL MIGHT BE UPDATED WITH A POSSIBLE
-DEEPER ANALYSIS OF THE UV)
-
 > Regarding the S-values, they are shown in the second panel of
 > Figure 7, and are also reported in Table 6.  The line profile
 > changes shown in Figure 12 suggested that the majority of the RV
@@ -914,15 +905,18 @@ DEEPER ANALYSIS OF THE UV)
 > individual star.  
 >
 > To substantiate the latter claim, we cross-matched our lists of
-> Pleaides and δ Lyr cluster members against 2MASS and GALEX.  The
-> results are in galex_jmk.png and galex_bpmrp.png, attached.  We
-> attempted including IC2602 as well, but only got a few matches
-> because it was not observed.  We see that the earliest A and F
+> IC2602, Pleaides, and δ Lyr cluster members against 2MASS and
+> GALEX.  The results are in galex_jmk.png and galex_bpmrp.png,
+> attached.  IC2602 only got a few matches because it was in a region
+> of sky not observed by GALEX.  We see that the earliest A and F
 > stars in the del Lyr cluster (38 Myr) are brighter in the UV than
 > the Pleiades sequence (112 Myr).  However, there's not really any
-> information in this statement independent of the work that's
-> already done in the paper using Gaia isochrones and the stellar
-> rotation.
+> new information in this statement that goes beyond the work that's
+> already been done in the manuscript using Gaia isochrones and the
+> stellar rotation.  So, for brevity, we would prefer to omit
+> this analysis from the manuscript -- but thank you for suggesting
+> it!
+
 
 REVIEWER COMMENT
 ----------
