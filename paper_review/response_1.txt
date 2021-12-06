@@ -749,66 +749,51 @@ the pre-main sequence, depending on the mass, age and model used.
 RESPONSE
 ----------
 
-(NOTE: TODO: THIS RESPONSE HAS YET TO BE UPDATED WITH A MORE LUCID
-DESCRIPTION OF THE DERIVATION OF THE COMPANION MASS)
-
 > Thank you for catching this -- this citation is indeed deprecated
 > and erroneously was not updated during the writing process.  The
-> final adopted calculation was based on the masses and radii from
-> the Baraffe+2015 models, rather than the MESA models (Choi+2016).
-> The Baraffe models are available from
-> http://perso.ens-lyon.fr/isabelle.baraffe/BHAC15dir/.
+> final adopted calculation was based on the stellar masses and radii
+> from the Baraffe+2015 models, rather than the MESA models
+> (Choi+2016).  These models are available from
+> http://perso.ens-lyon.fr/isabelle.baraffe/BHAC15dir/.  We used
+> their 2MASS synthetic photometry to estimate the companion's mass,
+> as follows.
 >
-> We believe that the companion's mass is roughly between 0.3 and 0.4
-> Msun, and that the age of the system is ~38 +/- 6 Myr.  The Baraffe
-> models give:
+>     m_K = 11.194 (2MASS)
+>     m_K,A = 11.31
+>     m_K,B = 13.68 (NIRC2)
+>     m-M = 5*log10(329.5) - 5 = 7.59
+>     -> M_K,A = 3.72
+>     -> M_K,B = 6.09
 >
->    32 Myr 0.300 Msun, 0.481 Rsun, 3.80 g / cm3
->    35 Myr 0.300 Msun, 0.465 Rsun, 4.21 g / cm3
->    40 Myr 0.300 Msun, 0.443 Rsun, 4.86 g / cm3
->    32 Myr 0.400 Msun, 0.555 Rsun, 3.30 g / cm3
->    35 Myr 0.400 Msun, 0.537 Rsun, 3.64 g / cm3
->    40 Myr 0.400 Msun, 0.514 Rsun, 4.15 g / cm3
->    32 Myr 0.330 Msun, 0.506 Rsun, 3.60 g / cm3
->    35 Myr 0.330 Msun, 0.489 Rsun, 3.98 g / cm3
->    40 Myr 0.330 Msun, 0.467 Rsun, 4.58 g / cm3
+> Assuming an age of 40 Myr, this yields M_comp = 0.31 Msun, by
+> interpolating between the Baraffe 0.3 and 0.4 Msun values (M_K =
+> 6.12 and 5.71, respectively).  Assuming an age of 30 Myr yields
+> M_comp = 0.27 Msun (M_K=6.48, and 5.90 for 0.20 and 0.30 Msun).
+> The bilinear interpolation at 38 Myr (our nominal age) yields
+> M_comp=0.30 Msun, Teff=3408K, R=0.451 Rsun, and log(g)=4.60.
+> In our original manuscript, we quoted a companion mass of 0.33
+> Msun; this has been corrected in the revision.
 >
-> i.e., our default assumption was 40 Myr and 0.33 Msun.  The age is
-> adopted for the reasons discussed in the text.  The mass is based
-> off the observed deltaMag in 832nm and K' (3.14 +/- 0.15 and 2.37
-> +/- 0.02 respectively), which implies absolute magnitudes for the
-> secondary of K'=XXX and [832]=YYY.  Based on a set of absolute
-> magnitude and color relations from a submitted paper by A. Kraus,
-> these gave ~=0.33 Msun.  (TODO: NEED TO BEEF THIS UP!)
+> Given our age uncertainies (38 +/- 6 Myr), a plausible mass range
+> based on these models for the companion is roughly 0.27 Msun to
+> 0.33 Msun.  The model densities over the relevant ages and masses
+> are
 >
-> The plausible range of companion densities is therefore 3.30 g/cc
-> to 4.86 g/cc.  We've updated the text to reflect this uncertainty,
-> but it doesn't change the overall point that our measured stellar
-> density (2.00+/-0.24 g/cc) is still a fair bit lower than the
-> expected range.
-
-TODO TODO REMOVE THIS
-> As a sanity check, these calibrations find that for a companion
-> spectral type of M2.5, one expects colors of G-K'=3.39 mag and
-> G-[832] = 1.51 mag, though we cannot test this since Gaia DR2/EDR3
-> does not resolve the secondary.
->
-> For the primary spectral type of G8, one expects G-K'=1.58 mag and
-> G-[832] = 0.71 mag (i.e., K'=13.02-1.58=11.44, and
-> [832]=G-0.71=12.31 for the primary).  So it holds together
-> (bolstering the case for it being a bound companion) to find
-> DeltaK' = 2.37 mag and Delta[832] = 3.14 mag.
-
-G8V: M_G = 5.098
-M2.5V: M_G = 9.67 (ZAMS).
--> delta G = 9.67 - 5.098 = 4.57, so G =13.02+4.57= 17.592 for secondary
--> G-K'=3.39mag implies K' = 14.20 for secondary
--> G-[832]=1.51mag implies [832] = 16.08 for secondary
-->
--> expected delta K' = 2.76
--> expected delta 832 = 3.78
-.. (both are observed a bit lower!  i.e., it's not red enough)
-
+> 	age    mass        radius      density
+>   32 Myr 0.300 Msun, 0.481 Rsun, 3.80 g / cm3
+>   40 Myr 0.300 Msun, 0.443 Rsun, 4.86 g / cm3
+>   32 Myr 0.330 Msun, 0.506 Rsun, 3.60 g / cm3
+>   40 Myr 0.330 Msun, 0.467 Rsun, 4.58 g / cm3
+>   32 Myr 0.350 Msun, 0.518 Rsun, 3.55 g / cm3
+>   40 Myr 0.350 Msun, 0.479 Rsun, 4.50 g / cm3
+>   38 Myr 0.300 Msun, 0.451 Rsun, 4.61 g / cm3
+> 
+> This means that for the argument concerning the stellar density
+> inferred from the transit, the worst-case scenario would be that of
+> a) the companion being more massive than expected  (~0.35 Msun),
+> simultaneously with b) the system being younger than expected (~32
+> Myr).  In this scenario, the companion star's density would be ~=
+> 3.5 g/cc.  We've updated the text to reflect this uncertainty.
 
 
 REVIEWER COMMENT
@@ -917,25 +902,27 @@ DEEPER ANALYSIS OF THE UV)
 >
 > For the UV, Olmedo+2015 reported a coincident source with NUVmag of
 > 19.052 +/- 0.017 [AB mags], with a NUV S/N of 65 (2015, ApJ, 813,
-> 100). Loyd et al 2020 similarly report a NUV flux of 4e-13 +/-
-> 4e-15 mW/m^2, though the latter value is based on the same
-> GALEX-CAUSE Kepler survey data presented by Olmedo+2015.  UV
-> detections can sometimes be used as a youth indicator (e.g., Figure
-> 9 of Newton+2021 AJ 161 65, which Newton et al attribute from the
-> idea in Shkolnik+2011, ApJ 727 6).  For Kepler-1627, we have 2MASS
-> J = 11.690+/-0.021, and therefore m_NUV-m_J = 7.36.  Given the Gaia
+> 100), through the GALEX-CAUSE Kepler survey.  UV detections can
+> sometimes be used as a youth indicator (e.g., Figure 9 of
+> Newton+2021 AJ 161 65, which Newton et al attribute from the idea
+> in Shkolnik+2011, ApJ 727 6).  For Kepler-1627, we have 2MASS J =
+> 11.690+/-0.021, and therefore m_NUV-m_J = 7.36.  Given the Gaia
 > (BP-RP)0 of 0.977, comparing to Figure 9 of Newton+2021 we find
 > that Kepler-1627 overlaps with late-G type stars in Psc-Eri, the
 > Pleiades, and the Hyades.  In other words, the UV flux is not a
 > particularly strong diagnostic of the age for Kepler-1627 as an
-> individual star.  It may well be worth exploring the GALEX-CAUSE
-> Kepler survey data for the delta Lyr cluster generally, since the
-> later type K and M dwarfs are expected to be elevated with respect
-> to the Pleiades and Hyades sequences.  However, this goes beyond
-> the scope of the present work, and the combination of the cluster
-> membership, stellar rotation, stellar lithium content, and stellar
-> activity all point to an age consistent with that reported in our
-> work.
+> individual star.  
+>
+> To substantiate the latter claim, we cross-matched our lists of
+> Pleaides and δ Lyr cluster members against 2MASS and GALEX.  The
+> results are in galex_jmk.png and galex_bpmrp.png, attached.  We
+> attempted including IC2602 as well, but only got a few matches
+> because it was not observed.  We see that the earliest A and F
+> stars in the del Lyr cluster (38 Myr) are brighter in the UV than
+> the Pleiades sequence (112 Myr).  However, there's not really any
+> information in this statement independent of the work that's
+> already done in the paper using Gaia isochrones and the stellar
+> rotation.
 
 REVIEWER COMMENT
 ----------

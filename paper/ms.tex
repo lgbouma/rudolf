@@ -155,7 +155,7 @@ we begin by scrutinizing the properties of the cluster
 \clusterage\ old, and in Section~\ref{sec:stars} show that \sn\ is
 both a binary and also a member of the cluster.  Focusing on the
 planet (Section~\ref{sec:planet}), we confirm that despite the
-existence of the previously unreported M2.5V companion, hereafter
+existence of the previously unreported \replaced{M2.5}{M3}V companion, hereafter
 Kepler\,1627B, the planet orbits the G-dwarf primary, Kepler\,1627A.
 We also analyze an asymmetry in the average transit profile, and a
 possible correlation between the individual transit times and the
@@ -170,7 +170,7 @@ implications for our ability to age-date a larger sample of planets
 \begin{figure*}[t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.95\textwidth]{f1.pdf}
+		\includegraphics[width=0.99\textwidth]{f1.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -260,36 +260,6 @@ cluster in the vicinity of \sn.
 \subsection{The Cluster's Age}
 \label{sec:clusterage}
 
-\begin{figure*}[tp]
-	\begin{center}
-		\leavevmode
-		\subfloat{
-			\includegraphics[width=0.49\textwidth]{f3a.pdf}
-			\includegraphics[width=0.469\textwidth]{f3b.pdf}
-		}
-		
-		\vspace{-0.6cm}
-		\subfloat{
-			\includegraphics[width=0.7\textwidth]{f3c.pdf}
-		}
-	\end{center}
-	\vspace{-0.7cm}
-	\caption{
-    {\bf The \cn\ is \clusterage\ old.}  {\it Top:} Color-absolute
-    magnitude diagram of candidate \cn\ members, in addition to stars
-    in IC\,2602 ($\approx38$\,Myr), the Pleiades ($\approx 115$\,Myr),
-    and the Gaia EDR3 Catalog of Nearby Stars (gray background).  The
-    zoomed right panel highlights the pre-main-sequence.  The \cn\ and
-    IC\,2602 are approximately the same isochronal age.  {\it Bottom:}
-    TESS and Kepler stellar rotation period versus dereddened Gaia
-    color, with the Pleiades and Praesepe (650\,Myr) shown for
-    reference \citep{rebull_rotation_2016a,douglas_poking_2017}.  Most
-    candidate \cn\ members are gyrochronally younger than the
-    Pleiades; outliers are probably field interlopers.
-		\label{fig:age}
-	}
-\end{figure*}
-
 
 \subsubsection{Color-Absolute Magnitude Diagram}
 \label{sec:camd}
@@ -347,6 +317,36 @@ extinction estimates does not affect our primary conclusions}.
 % PleiadesMelotte22 0.140 -> 0.045
 % IC2602 0.096 -> 0.031
 % Steph1: 0.157 -> 0.051
+
+\begin{figure*}[tp]
+	\begin{center}
+		\leavevmode
+		\subfloat{
+			\includegraphics[width=0.49\textwidth]{f3a.pdf}
+			\includegraphics[width=0.469\textwidth]{f3b.pdf}
+		}
+		
+		\vspace{-0.6cm}
+		\subfloat{
+			\includegraphics[width=0.7\textwidth]{f3c.pdf}
+		}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf The \cn\ is \clusterage\ old.}  {\it Top:} Color-absolute
+		magnitude diagram of candidate \cn\ members, in addition to stars
+		in IC\,2602 ($\approx38$\,Myr), the Pleiades ($\approx 115$\,Myr),
+		and the Gaia EDR3 Catalog of Nearby Stars (gray background).  The
+		zoomed right panel highlights the pre-main-sequence.  The \cn\ and
+		IC\,2602 are approximately the same isochronal age.  {\it Bottom:}
+		TESS and Kepler stellar rotation period versus dereddened Gaia
+		color, with the Pleiades and Praesepe (650\,Myr) shown for
+		reference \citep{rebull_rotation_2016a,douglas_poking_2017}.  Most
+		candidate \cn\ members are gyrochronally younger than the
+		Pleiades; outliers are probably field interlopers.
+		\label{fig:age}
+	}
+\end{figure*}
 
 Figure~\ref{fig:age} shows that the \cn\ and IC\,2602 overlap, and
 therefore are approximately the same age.  \replaced{In our exploration, we also
@@ -496,7 +496,7 @@ age.
 	\vspace{-0.5cm}
 	\caption{
 		{\bf Kepler 1627 is a binary.} {\it Left:} High-resolution imaging
-		from Gemini-North/`Alopeke and Keck/NIRC2 shows an $\approx$M2.5V
+		from Gemini-North/`Alopeke and Keck/NIRC2 shows an $\approx$\replaced{M2.5}{M3}V
 		companion at $\rho \approx 0\farcs16$, which corresponds to a
 		projected separation of $53\pm4$\,AU.  The inset shows a cutout of
 		the stacked NIRC2 image (North is up, East is left, scale is set
@@ -615,9 +615,10 @@ given the low geometric probability that a companion imaged at $\rho
 \approx 0\farcs16$ is a chance line-of-sight companion, we proceed
 under the assumption that the companion is bound, and that
 Kepler\,1627 is a binary.  Given the distance and age, the models of
-\citet{baraffe_new_2015} imply a companion mass of $M_{\rm B} \approx
-0.33 M_{\odot}$ and companion temperature of $T_{\rm eff,B} \approx
-3450$ K.  The corresponding spectral type is roughly M2.5V
+\citet{baraffe_new_2015} imply a companion mass of \replaced{$M_{\rm B} \approx
+0.33 M_{\odot}$}{$M_{\rm B} \approx 0.30 M_{\odot}$} and companion
+temperature of \replaced{$T_{\rm eff,B} \approx 3450$}{$T_{\rm eff,B}
+\approx 3408$} K.  The corresponding spectral type is roughly \replaced{M2.5}{M3}V
 \citep{pecaut_mamajek_2013}.  These models combined with the NIRC2
 contrast limits imply physical limits on tertiary companions of
 $M_{\rm ter} < 50 M_{\rm Jup}$ at $\rho = 50$\,AU, $M_{\rm ter} < 20
@@ -769,7 +770,7 @@ astrophysical explanations are discussed in Section~\ref{sec:conc}.
 \begin{figure}[tp]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.49\textwidth]{f6.pdf}
+		\includegraphics[width=0.47\textwidth]{f6.pdf}
 	\end{center}
 	\vspace{-0.6cm}
 	\caption{
@@ -812,10 +813,10 @@ mid-time and that of a periodic orbit.  This residual, the transit
 timing variation, is plotted in Figure~\ref{fig:corr} against
 the local linear slope for the fourth-order polynomial baseline.  The
 slope of $-21 \pm 10\,{\rm min\,day}^{-1}$ is similar to that
-found by \citet{holczer_time_2015}. \added{The $\chi^2$ of the
-best-fit line is $306.1$, with $n=140$ data points.  An alternative
-model of a flat line yields $\chi^2=315.6$.  The difference in the
-Bayesian information criterion (BIC) between the two models is ${\rm
+found by \citet{holczer_time_2015}. \added{The
+best-fit line yields $\chi^2 = 306.1$, with $n=140$ data points.  An alternative
+model of just a flat line yields $\chi^2=315.6$.  The difference in the
+Bayesian information criterion between the two models is ${\rm
 BIC}_{\rm flat} - {\rm BIC}_{\rm line} = 4.5$,
 which corresponds to a Bayes factor of $\approx$9.4. According to the
 usual \citet{kass_bayes_1995} criteria, this is ``positive'' evidence
@@ -849,7 +850,7 @@ suggestive at best.
 \begin{figure}[tp]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.45\textwidth]{f7.pdf}
+		\includegraphics[width=0.47\textwidth]{f7.pdf}
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
@@ -870,31 +871,10 @@ suggestive at best.
 		\label{fig:ground}
 	}
 \end{figure}
-\begin{figure*}[!t]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=0.9\textwidth]{f8.pdf}
-	\end{center}
-	\vspace{-0.7cm}
-	\caption{
-		{\bf Radii, orbital periods, and ages of transiting exoplanets}.
-		Planets younger than a gigayear with ${\rm \tau}/\sigma_{\tau} >
-		3$ are emphasized, where $\tau$ is the age and $\sigma_{\tau}$ is
-		its uncertainty.  \pn\ is shown with a star.  The large sizes of
-		the youngest transiting planets could be explained by their
-		primordial atmospheres not yet having evaporated; direct
-		measurements of the atmospheric outflows or planetary masses would
-		help to confirm this expectation.  Selection effects may also be
-		important.  Parameters are from the NASA Exoplanet Archive (2021
-		Sept 15).
-		\label{fig:rp_period_age}
-	}
-\end{figure*}
 
 If the \pn\ transit signal is created by a genuine planet,  then to
 our knowledge it would be the youngest planet yet found by the
-\replaced{main}{prime}
-Kepler mission.\footnote{The re-purposed K2 mission however has found
+\replaced{main}{prime} Kepler mission.\footnote{The re-purposed K2 mission however has found
 two younger systems containing five planets: K2-33b ($9\pm1\,{\rm
 Myr}$; \citealt{Mann_K2_33b_2016,David_et_al_2017}) and V1298 Tau
 ($23\pm4\,{\rm Myr}$; \citealt{david_four_2019}).}   Could the transit
@@ -934,10 +914,13 @@ effectively confirms the planetary interpretation is that the stellar density
 implied by the transit duration and orbital period is inconsistent
 with an eclipsing body around the M-dwarf companion.  We find
 $\rho_\star = 2.00 \pm 0.24\,{\rm g\,cm}^{-3}$, while the
-theoretically expected density for Kepler\,1627B is $\approx 4.6\,{\rm
+theoretically expected density for Kepler\,1627B \added{given its
+nominal age of 38\,Myr and mass of 0.30\,$M_\odot$} is $\approx 4.6\,{\rm
 g\,cm}^{-3}$ \citep{baraffe_new_2015}.
 The transit duration is therefore too long to be explained by a star
-eclipsing the M dwarf secondary at $10$-$\sigma$.  While the planet
+eclipsing the M dwarf secondary at $10$-$\sigma$.\added{ Adversarially assuming a younger age (32\,Myr) and a larger companion
+mass (0.35\,$M_\odot$), the companion's density could be as low as $\approx 3.5\,{\rm
+g\,cm}^{-3}$.  This is still in tension with the data.} While the planet
 might hypothetically still orbit a hidden close and bright companion,
 this possibility is implausible given {\it i)} the lack of secondary
 lines in the HIRES spectra, {\it ii)} the lack of secondary
@@ -962,6 +945,7 @@ faculae.  Given the observed transition of Sun-like stellar
 variability from spot to faculae-dominated regimes between young and
 old ages, we expect this latter assumption to be reasonably secure
 \citep{shapiro_are_2016,montet_long-term_2017,reinhold_stellar_2020}.
+
 
 A third supporting line of evidence for the planetary interpretation
 also exists.  We observed a transit of \pn\ on the
@@ -1004,6 +988,26 @@ obliquity.
 \section{Discussion \& Conclusions}
 \label{sec:conc}
 
+\begin{figure*}[!t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.9\textwidth]{f8.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf Radii, orbital periods, and ages of transiting exoplanets}.
+		Planets younger than a gigayear with ${\rm \tau}/\sigma_{\tau} >
+		3$ are emphasized, where $\tau$ is the age and $\sigma_{\tau}$ is
+		its uncertainty.  \pn\ is shown with a star.  The large sizes of
+		the youngest transiting planets could be explained by their
+		primordial atmospheres not yet having evaporated; direct
+		measurements of the atmospheric outflows or planetary masses would
+		help to confirm this expectation.  Selection effects may also be
+		important.  Parameters are from the NASA Exoplanet Archive (2021
+		Sept 15).
+		\label{fig:rp_period_age}
+	}
+\end{figure*}
 
 Kepler\,1627Ab provides a new extremum in the ages of the Kepler
 planets, and opens multiple avenues for further study.  Observations
@@ -1119,7 +1123,7 @@ of exoplanet evolution.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%\clearpage
+\clearpage
 \acknowledgements
 \raggedbottom
 
