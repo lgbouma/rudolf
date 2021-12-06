@@ -11,18 +11,24 @@ import numpy as np
 # at 35 Myr (logt 7.544004), 0.400 Msun has Rstar 0.537
 # at 40 Myr (logt 7.603379), 0.400 Msun has Rstar 0.514
 
-ages = [32,35,40,
-        32,35,40,
-        32,35,40]
+ages = [32,40,
+        32,40,
+        32,40,
+        38]
 Ms = np.array(
-    [0.3,0.3,0.3,
-     0.4,0.4,0.4,
-     0.33,0.33,0.33]
+    [0.30,0.30,
+     0.33,0.33,
+     0.35,0.35,
+     0.30
+    ]
 )*u.Msun
 Rs = np.array(
-    [0.481,0.465,0.443,
-     0.555,0.537,0.514,
-     (0.555*1/3+0.481*2/3), (0.537*1/3+0.465*2/3), (0.514*1/3+0.443*2/3)]
+    [0.481,0.443,
+     #0.555,0.537,0.514,
+     (0.555*1/3+0.481*2/3), (0.514*1/3+0.443*2/3),
+     (0.555*1/2+0.481*1/2), (0.514*1/2+0.443*1/2),
+     0.451,
+    ]
 )*u.Rsun
 
 for M, R, A in zip(Ms,Rs,ages):
@@ -33,6 +39,6 @@ for M, R, A in zip(Ms,Rs,ages):
 
     print(f'{A} Myr {M.value:.3f} Msun, {R.value:.3f} Rsun, {rho.cgs:.2f}')
 
-print('default: 40 Myr, 0.33 Msun')
+print('default: 38 Myr, 0.30 Msun')
 #FIXME FIXME TODO VERIFY WHETHER THIS RSTAR IS AT ALL COMPATIBLE WITH THE
 #QUOTED TEFF... ALSO HOW EXACTLY DID KRAUS DO HIS ESTIMATE?
