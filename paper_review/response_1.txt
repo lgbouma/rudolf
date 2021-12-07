@@ -1,13 +1,13 @@
 Dear Dr. Jackson,
 
 We thank you for organizing the review of our paper, and also thank
-the referee for constructive criticism.  We have considered the
-referee's remarks carefully and revised our manuscript accordingly.
+the referees for constructive criticism.  We have considered the
+remarks of both of the reviewers carefully and revised our manuscript
+accordingly.
 
-Below, we have reproduced the relevant portions of the referee's
-report, alongside our responses. The changes are bolded in the 
-attached ms_boldchanges.pdf file, using the trackchanges AASTeX
-macros. 
+Below, we have reproduced the relevant portions of the reviews' reports,
+alongside our responses. The changes are bolded in the  attached
+ms_boldchanges.pdf file, using the trackchanges AASTeX macros. 
 
 Sincerely,
 
@@ -254,15 +254,18 @@ RESPONSE
 > del_lyr_cluster_age_posterior.png).  The worry with quoting a
 > systematic error, e.g., "The age of the δ Lyr cluster is
 > $38^{+6}_{-5}$ (stat) $^{+6}_{-8}$ (sys)" is that the systematic
-> uncertainties are not Gaussian and are not based on any probability
-> distribution that we can easily assess -- they're estimated based
-> on the extremes of previous literature age measurements.  Quoting
-> this systematic range next to a number that has been derived based
-> on a more formal approach (and that has statistical meaning within
-> that approach) somehow misses the point.  Given the comparable
-> amplitude of the two sources of uncertainty, does this matter?
-> Discussing the range of extremes in the text does communicate the
-> point that this is a source of systematic uncertainty.
+> uncertainties are not based on any probability distribution that
+> we can easily assess -- they're estimated based on the extremes of
+> previous literature age measurements.  Quoting this systematic
+> range next to a number that has been derived based on a more
+> formal approach (and that has statistical meaning within that
+> approach) somehow misses this point.  We would prefer to leave the
+> discussion in the manuscript as-is in order to communicate the
+> spread of ages from different measurement approaches (which
+> reflects a systematic uncertainty in the overall age scale),
+> rather than quoting separate statistical and systematic
+> uncertainties.
+
 
 REVIEWER COMMENT
 ----------
@@ -279,7 +282,7 @@ Line 278: "Indistinguishable" -- from each other or from the Pleiades?
 
 RESPONSE
 ----------
-> From each other (and the manuscript has been updated; thank you!).
+> From each other, and the manuscript has been updated; thank you!
 
 REVIEWER COMMENT
 ----------
@@ -289,10 +292,10 @@ have a reference on-hand.
 
 RESPONSE
 ----------
-> Thanks for this point -- we've updated the text with a reference to
-> Stauffer+16.  In their Section 5.1, they discuss the case of some
-> unresolved F+K binaries in the Pleiades which show anomalously long
-> K2 rotation periods.
+> Thank you for this point -- we've updated the text with a
+> reference to Stauffer+16.  In their Section 5.1, they discuss the
+> case of some unresolved F+K binaries in the Pleiades which show
+> anomalously long K2 rotation periods.
 
 REVIEWER COMMENT
 ----------
@@ -450,22 +453,24 @@ was before Gaia.
 
 RESPONSE
 ----------
-> Indeed.  Batalha+2010 (ApJL) discuss the selection function, which
-> favored stars that were both small and bright since these stars
-> enable the detection of Earth-size planets.  M dwarfs thus were
-> generally excluded unless they happened to be very close.  F, G,
-> and K stars were favored, particularly when they were nearby.  The
-> sentence in L25 currently states that "The star was observed by the
-> Kepler space telescope because it is nearby (d=329pc) and it
-> resembles the Sun".  More directly, yes, the star was chosen
-> because it was thought that it might enable the detection of small
-> planets in the habitable zone.  However the underlying reason for
-> why the star enables such detections is based on the star's
-> brightness and assumed radius, which both factor into the transit
-> SNR.  Our claim therefore holds, albeit indirectly.  It also serves
-> the more important purpose of informing the reader what kind of
-> star this paper is about: a star that is at a distance of ~330
-> parsecs, and that resembles the Sun (except for its age!).
+> Thank you for this point.  Batalha+2010 (ApJL) discuss the
+> selection function.  The sentence in L25 currently states that
+> "The star was observed by the Kepler space telescope because it is
+> nearby (d=329pc) and it resembles the Sun".  More directly, yes,
+> the star was chosen because it was thought that it might enable
+> the detection of small planets in the habitable zone.  However the
+> underlying reason for why the star enables such detections is
+> based on the star's brightness and assumed radius, which both
+> factor into the transit SNR ( SNR ~ δ/σ ~ (Rplanet/Rstar)^2 *
+> (1/σ(Kepmag)); for σ(Kepmag) the relative precision as a function
+> of Kepler magnitude ).  Our claim therefore holds, albeit
+> indirectly: a star of the same color that was too far away would
+> not have been selected because it would be too faint.  If it were
+> the wrong color, it also wouldn't have been selected.  But perhaps
+> we are getting a bit too pedantic: this sentence also serves the
+> more important purpose of informing the reader what kind of star
+> this paper is about: a star that is at a distance of ~330 parsecs,
+> and that resembles the Sun (except for its age!).
 
 REVIEWER COMMENT
 ----------
@@ -594,10 +599,10 @@ RESPONSE
 ----------
 > Thank you for pointing out the missing link in the reference to
 > Douglas et al. 2021, which should have pointed to
-> https://ui.adsabs.harvard.edu/abs/2021tsc2.confE.157D/abstract, and
-> has been updated in the revision.  The rotation periods from this
-> work, which includes IC 2602, IC 2391, and a few other 30-50 Myr
-> clusters, are not yet public.  
+> https://ui.adsabs.harvard.edu/abs/2021tsc2.confE.157D/abstract,
+> and has been updated in the revision.  The rotation periods from
+> this work, which includes IC 2602, IC 2391, and a few other 30-50
+> Myr clusters, are not yet public.  
 >
 > The interlopers falling on the Praesepe sequence is indeed a bit
 > odd, but it's really only ~3-5 stars. A much bigger set of
@@ -615,12 +620,12 @@ the accuracy and reliability of the TESS values.
 RESPONSE
 ----------
 > Thank you for this point -- please see kepler_vs_tess_prot.png in
-> the attached, which shows the 28 referenced stars that overlap.  5
-> of the 28 stars have Kepler rotation periods above 10 days, of
-> which none were correctly recovered by TESS (3 are chosen at the
-> half-period harmonic).  Of the 23 stars with periods below 10 days,
-> 21 of the TESS periods agree with the Kepler rotation periods, and
-> 2 are at the double-period harmonic.
+> the attached response, which shows the 28 referenced stars that
+> overlap.  5 of the 28 stars have Kepler rotation periods above 10
+> days, of which none were correctly recovered by TESS (3 are chosen
+> at the half-period harmonic).  Of the 23 stars with periods below
+> 10 days, 21 of the TESS periods agree with the Kepler rotation
+> periods, and 2 are at the double-period harmonic.
 >
 > We've updated the text to reflect this point, which doesn't affect
 > any of the conclusions given that almost all the δ Lyr cluster

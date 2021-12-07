@@ -46,7 +46,7 @@
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2.
 %% Add "Submitted to " argument.
 \received{2021 Oct 12}
-\revised{---}
+\revised{2021 Dec 6}
 \accepted{---}
 \submitjournal{AAS Journals}
 \shorttitle{Kepler\,1627}
@@ -352,8 +352,9 @@ and the Upper-Centaurus-Lupus (UCL) component of the Sco OB2
 association ($\approx$$16$\,Myr; \citealt{pecaut_star_2016}). The
 pre-main-sequence M dwarfs of the \cn\ were intermediate between the
 latter two clusters.}{The
-pre-main-sequence M dwarfs of the \cn\ were also seen to be ``below''
-UCL and ``above'' the Pleiades.}  To turn this heuristic interpolation
+pre-main-sequence M dwarfs of a fixed color in the \cn\ are more luminous than those of the Pleiades, and were also seen to be 
+less luminous than those in
+UCL.}  To turn this heuristic interpolation
 into \replaced{an age}{a quantitative age}
 measurement, we used the empirical method developed by
 \citet{gagne_mutau_2020}.  In brief, we fitted the pre-main-sequence
@@ -443,8 +444,8 @@ periods below 10 days, 21 of the TESS periods agreed with the Kepler
 rotation periods; the other 2 were measured at the double-period
 harmonic.  Of the remaining 5 stars with Kepler rotation periods above
 10 days, none were correctly recovered by TESS, and 3 were near the
-half-period harmonic.  We therefore adopted a general stance of
-skepticism for TESS rotation periods exceeding 10 days, and used the
+half-period harmonic.  We were therefore 
+wary of any TESS rotation periods exceeding 10 days, and used the
 Kepler rotation periods whenever possible.}
 For the remaining stars with only TESS data, we
 focused only on the stars for which no companions were known with a brightness
@@ -611,9 +612,9 @@ given the low geometric probability that a companion imaged at $\rho
 under the assumption that the companion is bound, and that
 Kepler\,1627 is a binary.  Given the distance and age, the models of
 \citet{baraffe_new_2015} imply a companion mass of \replaced{$M_{\rm B} \approx
-0.33 M_{\odot}$}{$M_{\rm B} \approx 0.30 M_{\odot}$} and companion
+0.33 M_{\odot}$}{$M_{\rm B} \approx 0.30\,M_{\odot}$} and companion
 temperature of \replaced{$T_{\rm eff,B} \approx 3450$}{$T_{\rm eff,B}
-\approx 3408$} K.  The corresponding spectral type is roughly \replaced{M2.5}{M3}V
+\approx 3408$}\,K.  The corresponding spectral type is roughly \replaced{M2.5}{M3}V
 \citep{pecaut_mamajek_2013}.  These models combined with the NIRC2
 contrast limits imply physical limits on tertiary companions of
 $M_{\rm ter} < 50 M_{\rm Jup}$ at $\rho = 50$\,AU, $M_{\rm ter} < 20
@@ -806,7 +807,7 @@ time-dependence in the local baseline.  }We let the mid-time of each
 transit float, and then calculated the residual between the measured
 mid-time and that of a periodic orbit.  This residual, the transit
 timing variation, is plotted in Figure~\ref{fig:corr} against
-the local linear slope for the fourth-order polynomial baseline.  The
+the local linear slope \replaced{for}{assuming} the fourth-order polynomial baseline.  The
 slope of $-21 \pm 10\,{\rm min\,day}^{-1}$ is similar to that
 found by \citet{holczer_time_2015}. \added{The
 best-fit line yields $\chi^2 = 306.1$, with $n=140$ data points.  An alternative
@@ -820,7 +821,7 @@ at best, particularly given the poor reduced $\chi^2$.}
 
 \replaced{One}{A separate} concern we had in this analysis was whether our transit fitting
 procedure might induce spurious correlations between the slope and
-transit time.  In particular, using the second-order polynomial
+transit time.  In particular, assuming the second-order polynomial
 baseline yielded a larger anti-correlation between the TTVs and local
 slopes, of $-79 \pm 14\,{\rm min\,day}^{-1}$.  We therefore
 performed an injection-recovery procedure in which we injected
@@ -830,7 +831,7 @@ $0.02\,P_{\rm orb}$ while omitting the phases in transit.  For
 the second-order polynomial baseline, this procedure yielded
 a similar anti-correlation in the injected transits as that present in the real
 transit;
-using this baseline would therefore bias the
+assuming this baseline would therefore bias the
 result.  However for the fourth-order baseline, the correlation
 present in the data was stronger than in all but one of the injected
 transits.
@@ -878,7 +879,7 @@ transit shape, arguing that the most probable false positive scenario
 was that of a background eclipsing binary, which had a model-dependent
 probability of $\approx$$10^{-5}$.  However, this calculation was
 performed without knowledge of the low-mass stellar companion ($M_{\rm
-B}\approx 0.33\,M_\odot$).  Validated planets have also previously
+B}\approx 0.30\,M_\odot$).  Validated planets have also previously
 been refuted \citep[{\it e.g.},][]{shporer_three_2017}.  We therefore
 reassessed false positive scenarios in some detail. 
 
@@ -887,7 +888,7 @@ reassessed false positive scenarios in some detail.
 As an initial plausibility check, Kepler\,1627B contributes 1\% to 2\%
 of the total flux observed in the Kepler aperture.  For the sake of
 argument, assume the former value.  The observed transit has a depth
-of $\approx$0.18\%.  A 18\% deep eclipse of Kepler\,1627B would
+of $\approx$0.18\%.  An $\approx$18\% deep eclipse of Kepler\,1627B would
 therefore be needed to produce a signal with the appropriate depth.
 The shape of the transit signal however requires the impact parameter
 to be below 0.77 (2-$\sigma$); the tertiary transiting the secondary
@@ -895,13 +896,10 @@ would therefore need to be non-grazing with $R_3/R_2 \approx 0.4$.
 This yields a contradiction:  this scenario requires an ingress
 and egress phase that each span $\approx$40\% of the transit duration
 ($\approx 68\,{\rm min}$).  The actual measured ingress and egress
-duration is $\approx 17\,{\rm min}$, a factor of four times too
+duration is $\approx$$17\,{\rm min}$, a factor of four times too
 short.  The combination of Kepler 1627B's brightness, the transit
 depth, and the ingress duration therefore disfavor the scenario that
 Kepler 1627B might host the transit signal.  
-
-% Baraffe+15: M_B 0.33 Mdot
-% Rstar = 0.455 --> 0.465 Rsun
 
 Beyond this simple test, a line of evidence that
 effectively confirms the planetary interpretation is that the stellar density
@@ -909,12 +907,12 @@ implied by the transit duration and orbital period is inconsistent
 with an eclipsing body around the M-dwarf companion.  We find
 $\rho_\star = 2.00 \pm 0.24\,{\rm g\,cm}^{-3}$, while the
 theoretically expected density for Kepler\,1627B \added{given its
-nominal age of 38\,Myr and mass of 0.30\,$M_\odot$} is $\approx 4.6\,{\rm
+nominal age of 38\,Myr and mass of 0.30\,$M_\odot$} is $\approx$$4.6\,{\rm
 g\,cm}^{-3}$ \citep{baraffe_new_2015}.
 The transit duration is therefore too long to be explained by a star
 eclipsing the M dwarf secondary at $10$-$\sigma$.\added{ Adversarially assuming a younger age (32\,Myr) and a larger companion
 mass (0.35\,$M_\odot$), the companion's density could be as low as $\approx 3.5\,{\rm
-g\,cm}^{-3}$.  This is still in tension with the data.} While the planet
+g\,cm}^{-3}$.  This is still in tension with the fitted stellar density.} While the planet
 might hypothetically still orbit a hidden close and bright companion,
 this possibility is implausible given {\it i)} the lack of secondary
 lines in the HIRES spectra, {\it ii)} the lack of secondary
@@ -1058,15 +1056,17 @@ and the four-planet V1298~Tau \citep{david_four_2019}.  \pn\ is one of
 the smaller planets in this sample ($3.82\pm0.16\,R_\oplus$), which
 could be linked to the selection effects imposed by spot-induced
 photometric variability at very young ages \citep[{\it
-e.g.},][]{zhou_2021_tois}.  \replaced{However,}{However, it seems that} smaller planets could have been
-detected: \added{based on the per-target detection contours, }the Kepler pipeline's median completeness extended to
+e.g.},][]{zhou_2021_tois}. 
+
+ \replaced{However,}{It seems though that} smaller planets could have been
+detected\added{ in the \sn\ system}: \added{based on the per-target detection contours, }the Kepler pipeline's median completeness extended to
 $1.6\,R_\oplus$ at 10~day orbital periods, and $3.3\,R_\oplus$ at
 100~days
 \citep{2021ascl.soft07027B}.
 \added{These limits account for the spot-induced variability in the
 system through
 a correction based on the Combined Differential Photometric Precision
-in the \sn\ light curve over the relevant transit timescales
+in the light curve over the relevant transit timescales
 \citep{2017ksci.rept...19B}.} The large size of \pn\ relative
 to most Kepler mini-Neptunes might therefore support a picture
 in which the typical $5\,M_\oplus$\deleted{ to 10$\,M_\oplus$} mini-Neptune
@@ -1076,12 +1076,12 @@ atmosphere over its first gigayear
 \added{
 It could also be consistent with a scenario in which an earlier ``boil-off'' of
 the planet's atmosphere during disk dispersal decreases the entropy of
-the planetary interior, leading to a $\sim$10$^8$ year Kelvin-Helmholtz
+the planetary interior, leading to a rather long $\sim$10$^8$ year Kelvin-Helmholtz
 contraction timescale
 \citep{owen_constraining_2020}.
 Confirming either of these scenarios would require a measurement
 of the planetary mass; otherwise, alternative explanations for its large size
-could include that it is abnormally massive, or that it has an abnormally
+could include that it is just abnormally massive, or that it has an abnormally
 large envelope to core mass ratio.}
 
 % The prograde orbit, if confirmed, would be consistent with a
