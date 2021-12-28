@@ -1,0 +1,7 @@
+A 38 Million Year Old Neptune-Sized Planet in the Kepler Field
+
+L. G. Bouma, J. L. Curtis, K. Masuda, L. A. Hillenbrand, G. Stefansson, H. Isaacson, N. Narita, A. Fukui, M. Ikoma, M. Tamura, A. L. Kraus, E. Furlan, C. L. Gnilka, K. V. Lester, S. B. Howell
+
+Kepler 1627A is a G8V star previously known to host a 3.8 Earth-radius planet on a 7.2 day orbit. The star was observed by the Kepler space telescope because it is nearby (d=329 pc) and it resembles the Sun. Here we show using Gaia kinematics, TESS stellar rotation periods, and spectroscopic lithium abundances that Kepler 1627 is a member of the 38 $\pm$ 6 Myr old $\delta$ Lyr cluster. To our knowledge, this makes Kepler 1627Ab the youngest planet with a precise age yet found by the prime Kepler mission. The Kepler photometry shows two peculiarities: the average transit profile is asymmetric, and the individual transit times might be correlated with the local light curve slope. We discuss possible explanations for each anomaly. More importantly, the $\delta$ Lyr cluster is one of about 10$^3$ coeval groups whose properties have been clarified by Gaia. Many other exoplanet hosts are candidate members of these clusters; these memberships can be verified with the trifecta of Gaia, TESS, and ground-based spectroscopy.
+
+AJ accepted, Table 3 available upon request
