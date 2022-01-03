@@ -43,8 +43,8 @@ sel = np.zeros(len(df)).astype(bool)
 for cluster_name in cluster_names:
     sel |= df.cluster.str.contains(cluster_name)
 
-# Avoid e.g., "UBC_186" matching for the clusters "UBC_1", "UBC_10", "UBC_11",
-# etc. when applying the string matching.
+# Avoid "UBC_1" matching to clusters like "UBC_10", "UBC_11", "UBC_186",
+# when performing the string matching.
 for cluster_name in special_names:
     sel |= (
         # This selects singleton cases
