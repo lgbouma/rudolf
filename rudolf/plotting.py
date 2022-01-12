@@ -360,7 +360,8 @@ def plot_simulated_RM(outdir, orientation, N_mcmc=10000):
 
 
 def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
-                  shownakedeye=0, showcomovers=0, showkepstars=0):
+                  shownakedeye=0, showcomovers=0, showkepstars=0,
+                  showkepclusters=0, showdellyrcluster=1 ):
 
     set_style()
 
@@ -384,7 +385,7 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
         )
     )
 
-    if not showtess:
+    if showdellyrcluster and not showtess:
         ax.scatter(
             get_xval(df_edr3), get_yval(df_edr3), c='k', alpha=0.9,
             zorder=4, s=8, rasterized=True, linewidths=0,
@@ -395,6 +396,7 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
             zorder=8, label='Kepler 1627', markerfacecolor='yellow',
             markersize=15, marker='*', color='black', lw=0
         )
+
     if showkepstars:
         _df = pd.read_csv('/Users/luke/Dropbox/proj/cdips_followup/results/KNOWNPLANET_YOUNGSTAR_XMATCH/20210916_kepgaiafun_X_cdips0pt6/20210916_kepgaiafun_X_cdipsv0pt6_short.csv')
         sel = ~pd.isnull(_df.cluster)
@@ -408,6 +410,22 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
             label='... with Kepler data', marker='o', edgecolors='k'
         )
         print(f'N comovers with Kepler data: {len(df_edr3[sel])}')
+
+    if showkepclusters:
+        cluster_names = ['NGC6819', 'NGC6791', 'NGC6811', 'NGC6866']
+        cras = [295.33, 290.22, 294.34, 300.983]
+        cdecs =[40.18, 37.77, 46.378, 44.158]
+        cplxs = [0.356, 0.192, 0.870, 0.686]
+        ages_gyr = [1, 8, 1, 0.7]
+        for _n, _ra, _dec in zip(cluster_names, cras, cdecs):
+            ax.scatter(
+                _ra, _dec, c='C0', alpha=0.8, zorder=4, s=20, rasterized=True,
+                linewidths=0.2, marker='o', edgecolors='C0'
+            )
+            bbox = dict(facecolor='white', alpha=0.9, pad=0, edgecolor='white')
+            deltay = 0.4
+            ax.text(_ra, _dec+deltay, _n, ha='center', va='bottom',
+                    fontsize=4, bbox=bbox, zorder=4)
 
     if showkepler:
         kep_d = get_keplerfieldfootprint_dict()
@@ -535,7 +553,6 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
         ax.set_ylim([np.min([ymin,8]),ymax])
         ax.set_ylim([26,49])
 
-
     if shownakedeye:
 
         plot_starnames = 1
@@ -599,9 +616,13 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
                 )
             )
 
-    if not showtess:
+    if not showtess and showdellyrcluster:
         leg = ax.legend(loc='lower left', handletextpad=0.1,
                         fontsize='x-small', framealpha=0.9)
+
+    if not showdellyrcluster:
+        ax.set_xlim([304,274])
+        ax.set_ylim([26,49])
 
     ax.set_xlabel(r'$\alpha$ [deg]', fontsize='large')
     ax.set_ylabel(r'$\delta$ [deg]', fontsize='large')
@@ -619,6 +640,11 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
         s += '_shownakedeye'
     if showcomovers:
         s += '_showcomovers'
+    if showkepclusters:
+        s += '_showkepclusters'
+    if not showdellyrcluster:
+        s += '_nodellyr'
+
 
     bn = inspect.stack()[0][3].split("_")[1]
     outpath = os.path.join(outdir, f'{bn}{s}.png')
