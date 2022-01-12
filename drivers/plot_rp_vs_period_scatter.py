@@ -19,7 +19,8 @@ from aesthetic.plot import savefig, format_ax, set_style
 
 # This "VER" string caches the NASA exoplanet archive `ps` table at a
 # particular date, in the YYYYMMDD format.
-VER = '20210915' # could be today_YYYYMMDD()
+VER = '20210915' # kepler-1627 paper version
+VER = '20220107' # could be today_YYYYMMDD()
 
 def plot_rp_vs_period_scatter(
     showlegend=1, colorbydisc=1, showarchetypes=1, showss=1, colorbyage=0,
@@ -84,7 +85,8 @@ def plot_rp_vs_period_scatter(
     if not colorbyage:
 
         sel = (
-            has_rp_value & has_rp_errs & transits & rp_gt_0
+            #has_rp_value & has_rp_errs & transits & rp_gt_0
+            has_age_value & has_rp_value & has_rp_errs & transits & rp_gt_0
         )
 
     else:
@@ -172,7 +174,7 @@ def plot_rp_vs_period_scatter(
     fig,ax = plt.subplots(figsize=(1.3*4,1.3*3))
 
     if not colorbydisc and not colorbyage:
-        ax.scatter(period, rp, color='darkgray', s=3, zorder=1, marker='o',
+        ax.scatter(period, rp, color='darkgray', s=2.5, zorder=1, marker='o',
                    linewidth=0, alpha=1, rasterized=True)
 
     if colorbyage:
@@ -238,10 +240,11 @@ def plot_rp_vs_period_scatter(
 
         if add_allkep:
             # Kepler-52 and Kepler-968
-            namelist = ['Kepler-52', 'Kepler-968', 'Kepler-1627', 'KOI-7368']
-            ages = [3.5e8, 3.5e8, 3.8e7, 3.8e7]
-            markers = ['o','d','*', '*']
-            sizes = [80, 80, 120, 120]
+            namelist = ['Kepler-52', 'Kepler-968', 'Kepler-1627', 'KOI-7368',
+                        'KOI-7913', 'Kepler-1643']
+            ages = [3e8, 3e8, 3.8e7, 3.8e7, 3.8e7, 3.8e7]
+            markers = ['o','d','*', 'X', 'X', 'X']
+            sizes = [80, 80, 120, 90, 90, 90]
 
             for n, a, m, _s in zip(namelist, ages, markers, sizes):
                 sel = ea_df.hostname == n
@@ -254,10 +257,17 @@ def plot_rp_vs_period_scatter(
                     _rp = [2.67]
                     _per = [6.84]
                     _sdf = pd.DataFrame({'pl_name':'KOI-7368'}, index=[0])
-                _age = np.ones(len(_sdf))*a
 
                 if n == 'Kepler-1627':
                     _rp = [(0.338*(1.015)**(0.5)*u.Rjup).to(u.Rearth).value]
+
+                if n == 'KOI-7913':
+                    del _sdf
+                    _rp = [2.39]
+                    _per = [24.0]
+                    _sdf = pd.DataFrame({'pl_name':'KOI-7913'}, index=[0])
+
+                _age = np.ones(len(_sdf))*a
 
                 ax.scatter(
                     _per, _rp,
@@ -440,6 +450,12 @@ def plot_rp_vs_period_scatter(
 
 
 if __name__=='__main__':
+
+    plot_rp_vs_period_scatter(
+        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=0,
+        verbose=0, add_kep1627=0, add_delLyr=0, add_plnames=0
+    )
+    assert 0
 
     plot_rp_vs_period_scatter(
         showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
