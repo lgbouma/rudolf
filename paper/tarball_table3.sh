@@ -1,0 +1,1 @@
+tar czf Bouma_2022_Table3_cdips_targets_v0.6.tar.gz example_read_script_0.py example_read_script_1.py README_Table3.txt Bouma_2022_Table3_cdips_targets_v0.6.csv

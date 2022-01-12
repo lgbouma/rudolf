@@ -4,6 +4,7 @@ This example script reads Table 3 from Bouma+2022, and then uses the pandas
 boolean logic operators to select a set of interesting open clusters in the
 northern celestial hemisphere studied by Kounkel & Covey 2019.
 
+Dependencies: python3, numpy, pandas
 Author: Luke Bouma
 Contact: <luke@astro.caltech.edu>
 """

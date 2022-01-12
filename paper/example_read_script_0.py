@@ -4,6 +4,7 @@ This example script reads Table 3 from Bouma+2022, also known as v0.6 of the
 CDIPS target list.  After reading the table using python's pandas library, we
 show what the table contains for some stars in the Pleiades.
 
+Dependencies: python3, numpy, pandas
 Author: Luke Bouma
 Contact: <luke@astro.caltech.edu>
 """
