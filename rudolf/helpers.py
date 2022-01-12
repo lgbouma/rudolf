@@ -39,8 +39,9 @@ Data getters:
 Proposal/RM-related:
     get_simulated_RM_data
 
-One-offs to get the Stephenson-1 information:
+One-offs to get the Stephenson-1 and RSG-5 information:
     get_candidate_stephenson1_member_list
+    get_candidate_rsg5_member_list
     supplement_sourcelist_with_gaiainfo
 """
 
@@ -255,9 +256,23 @@ def get_candidate_stephenson1_member_list():
     return pd.read_csv(outpath)
 
 
-def supplement_sourcelist_with_gaiainfo(df):
+def get_candidate_rsg5_member_list():
 
-    groupname = 'stephenson1'
+    outpath = os.path.join(DATADIR, 'gaia', 'rsg5_kc19.csv')
+
+    if not os.path.exists(outpath):
+        # Kounkel & Covey 2019 Stephenson1 candidate member list.
+        csvpath = os.path.join(DATADIR, 'gaia', 'string_table1.csv')
+        df = pd.read_csv(csvpath)
+
+        sdf = df[np.array(df.group_id).astype(int) == 96]
+
+        sdf['source_id'].to_csv(outpath, index=False)
+
+    return pd.read_csv(outpath)
+
+
+def supplement_sourcelist_with_gaiainfo(df, groupname='stephenson1'):
 
     dr2_source_ids = np.array(df.source_id).astype(np.int64)
 
@@ -289,16 +304,16 @@ def supplement_sourcelist_with_gaiainfo(df):
                                              savstr='',
                                              gaia_datarelease='gaiaedr3')
 
-    outpath_dr2 = os.path.join(DATADIR, 'gaia', 'stephenson1_kc19_dr2.csv')
-    outpath_edr3 = os.path.join(DATADIR, 'gaia', 'stephenson1_kc19_edr3.csv')
-    outpath_dr2xedr3 = os.path.join(DATADIR, 'gaia', 'stephenson1_kc19_dr2xedr3.csv')
+    outpath_dr2 = os.path.join(DATADIR, 'gaia', f'{groupname}_kc19_dr2.csv')
+    outpath_edr3 = os.path.join(DATADIR, 'gaia', f'{groupname}_kc19_edr3.csv')
+    outpath_dr2xedr3 = os.path.join(DATADIR, 'gaia', f'{groupname}_kc19_dr2xedr3.csv')
 
     df_dr2.to_csv(outpath_dr2, index=False)
     df_edr3.to_csv(outpath_edr3, index=False)
     dr2_x_edr3_df.to_csv(outpath_dr2xedr3, index=False)
 
 
-def get_deltalyr_kc19_gaia_data(return_7368=0):
+def get_deltalyr_kc19_gaia_data(return_all_targets=0):
     """
     Get all Kounkel & Covey 2019 "Stephenson 1" members.
     """
@@ -307,10 +322,8 @@ def get_deltalyr_kc19_gaia_data(return_7368=0):
     outpath_edr3 = os.path.join(DATADIR, 'gaia', 'stephenson1_kc19_edr3.csv')
 
     if not os.path.exists(outpath_dr2):
-
         df = get_candidate_stephenson1_member_list()
-
-        supplement_sourcelist_with_gaiainfo(df)
+        supplement_sourcelist_with_gaiainfo(df, groupname='stephenson1')
 
     df_dr2 = pd.read_csv(outpath_dr2)
     df_edr3 = pd.read_csv(outpath_edr3)
@@ -318,13 +331,51 @@ def get_deltalyr_kc19_gaia_data(return_7368=0):
     trgt_id = "2103737241426734336" # Kepler 1627
     trgt_df = df_edr3[df_edr3.source_id.astype(str) == trgt_id]
 
-    if not return_7368:
+    if not return_all_targets:
         return df_dr2, df_edr3, trgt_df
 
-    trgt_id = "2128840912955018368" # KOI 7368
-    koi_df = df_edr3[df_edr3.source_id.astype(str) == trgt_id]
+    trgt_id_dict = {
+        'KOI-7368': "2128840912955018368",
+        'KOI-7913': "2106235301785454208",
+        'Kepler-1643': "2082142734285082368" # aka. KOI-6186
+    }
 
-    return df_dr2, df_edr3, trgt_df, koi_df
+    koi_df_dict = {}
+    for k,trgt_id in trgt_id_dict.items():
+
+        _df = df_edr3[df_edr3.source_id.astype(str) == trgt_id]
+
+        if len(_df) == 0:
+            print(f'Running single-object EDR3 search for {trgt_id}...')
+            _df = given_source_ids_get_gaia_data(
+                np.array([trgt_id]).astype(np.int64), str(trgt_id), n_max=2,
+                overwrite=False, enforce_all_sourceids_viable=True, savstr='',
+                gaia_datarelease='gaiaedr3')
+
+        assert len(_df) > 0
+
+        koi_df_dict[k] = _df
+
+    return df_dr2, df_edr3, trgt_df, koi_df_dict
+
+
+def get_rsg5_kc19_gaia_data():
+    """
+    Get all Kounkel & Covey 2019 "RSG_5" (Theia 96) members.
+    """
+
+    outpath_dr2 = os.path.join(DATADIR, 'gaia', 'rsg5_kc19_dr2.csv')
+    outpath_edr3 = os.path.join(DATADIR, 'gaia', 'rsg5_kc19_edr3.csv')
+
+    if not os.path.exists(outpath_dr2):
+        df = get_candidate_rsg5_member_list()
+        supplement_sourcelist_with_gaiainfo(df, groupname='rsg5')
+
+    df_dr2 = pd.read_csv(outpath_dr2)
+    df_edr3 = pd.read_csv(outpath_edr3)
+
+    return df_dr2, df_edr3
+
 
 
 def get_deltalyr_kc19_comovers():
@@ -669,6 +720,11 @@ def get_keplerfieldfootprint_dict():
 def supplement_gaia_stars_extinctions_corrected_photometry(
     df, extinctionmethod='gaia2018', savpath=None
 ):
+    """
+    Using distances calculated as 1/parallax, retrieve the STILISM reddening
+    coefficients for a set of Gaia stars, and append corrected photometry
+    columns to the working DataFrame using those coefficients.
+    """
 
     from cdips.utils.gaiaqueries import parallax_to_distance_highsn
     from rudolf.extinction import (
@@ -694,9 +750,12 @@ def supplement_gaia_stars_extinctions_corrected_photometry(
 
 def get_clean_gaia_photometric_sources(df):
     """
-    Given a dataframe of Gaia DR2 columns, apply the "cleaning
-    selection" described on page 3 / Appendix B of GaiaCollab+2018 HR
-    diagram paper.
+    Given a dataframe of Gaia DR2 columns, calculate the "cleaning selection"
+    described on page 3 / Appendix B of GaiaCollab+2018 HR diagram paper.  The
+    point of this selection is to remove sources that are expected to have
+    photometric or astrometric problems.  Binaries are left in.
+
+    Returns: boolean np.ndarray of sources that meet the selection cut.
     """
     chisq = nparr(df.astrometric_chi2_al)
     nuprime = nparr(df.astrometric_n_good_obs_al)
