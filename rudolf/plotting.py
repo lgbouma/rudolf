@@ -89,7 +89,8 @@ from rudolf.helpers import (
     get_mutau_members, get_ScoOB2_members,
     get_BPMG_members,
     supplement_gaia_stars_extinctions_corrected_photometry,
-    get_clean_gaia_photometric_sources, get_galex_data, get_2mass_data
+    get_clean_gaia_photometric_sources, get_galex_data, get_2mass_data,
+    get_rsg5_kc19_gaia_data
 )
 from rudolf.extinction import (
     retrieve_stilism_reddening, append_corrected_gaia_phot_Gagne2020
@@ -625,7 +626,8 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
 
 
 def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
-                  show_comovers=0, show_sun=0, orientation=None, show_7368=0):
+                  show_comovers=0, show_sun=0, orientation=None, show_7368=0,
+                  show_allknown=0, show_rsg5=0):
 
     plt.close('all')
     set_style()
@@ -635,8 +637,15 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
 
     _, df_edr3, trgt_df = get_deltalyr_kc19_gaia_data()
     if show_7368:
-        _, _, _, koi_df = get_deltalyr_kc19_gaia_data(return_7368=1)
+        # keys: KOI-7368, KOI-7913, Kepler-1643
+        _, _, _, koi_df_dict = get_deltalyr_kc19_gaia_data(return_all_targets=1)
         set1_df = get_set1_koi7368()
+    if show_allknown:
+        _, _, _, koi_df_dict = get_deltalyr_kc19_gaia_data(return_all_targets=1)
+
+    if show_rsg5:
+        df_rsg5_dr2, df_rsg5_edr3 = get_rsg5_kc19_gaia_data()
+
     # set "dr2_radial_velocity" according to Andrew Howard HIRES recon
     # spectrum. agrees with -16.9km/s+/-0.5km/s TRES.
     trgt_df.dr2_radial_velocity = -16.7
@@ -646,11 +655,15 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
     df_sel = append_physicalpositions(df_sel, trgt_df)
     trgt_df = append_physicalpositions(trgt_df, trgt_df)
     if show_7368:
-        koi_df = append_physicalpositions(koi_df, trgt_df)
+        koi_df_dict['KOI-7368'] = append_physicalpositions(koi_df_dict['KOI-7368'], trgt_df)
         set1_df = append_physicalpositions(set1_df, trgt_df)
+    if show_allknown:
+        for k,v in koi_df_dict.items():
+            koi_df_dict[k] = append_physicalpositions(v, trgt_df)
+    if show_rsg5:
+        df_rsg5_edr3 = append_physicalpositions(df_rsg5_edr3, trgt_df)
 
     if save_candcomovers:
-
         sel = (
             (df_edr3.delta_pmdec_prime_km_s > -5)
             &
@@ -667,7 +680,6 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
         cm_df_edr3.to_csv(_outpath, index=False)
 
     if save_allphys:
-
         _outpath = os.path.join(RESULTSDIR, 'tables',
                                 'stephenson1_edr3_XYZvtang_allphysical.csv')
         df_edr3.to_csv(_outpath, index=False)
@@ -714,6 +726,19 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
                 "height_ratios": [2.5,1,1,2.5],
             }
         )
+    elif orientation == 'square':
+        fig = plt.figure(figsize=(6,6))
+        axd = fig.subplot_mosaic(
+            """
+            AB
+            CD
+            """
+            #gridspec_kw={
+                #"height_ratios": [2,1,1],
+                #"height_ratios": [2.5,1,1,2.5],
+            #}
+        )
+
 
     xydict = {
         "A":('x_pc', 'y_pc'),
@@ -741,7 +766,7 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
         c = 'k' if not show_comovers else 'darkgray'
         axd[k].scatter(
             sdf[xv], sdf[yv], c=c, alpha=1, zorder=7, s=2, edgecolors='none',
-            rasterized=True, marker='.'
+            rasterized=True, marker='.', label='KC19 Stephenson_1'
         )
         if show_comovers:
             axd[k].scatter(
@@ -752,21 +777,31 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
         if show_1627:
             axd[k].plot(
                 trgt_df[xv], trgt_df[yv], alpha=1, mew=0.5,
-                zorder=42, label='Kepler 1627', markerfacecolor='yellow',
+                zorder=42, label='Kepler-1627', markerfacecolor='yellow',
                 markersize=12, marker='*', color='black', lw=0
             )
 
         if show_7368:
             axd[k].plot(
-                koi_df[xv], koi_df[yv], alpha=1, mew=0.5,
-                zorder=42, label='KOI 7368', markerfacecolor='lime',
+                koi_df_dict['KOI-7368'][xv], koi_df_dict['KOI-7368'][yv], alpha=1, mew=0.5,
+                zorder=42, label='KOI-7368', markerfacecolor='lime',
                 markersize=12, marker='*', color='black', lw=0
             )
-            axd[k].scatter(
-                set1_df[set1_df.parallax_over_error>20][xv],
-                set1_df[set1_df.parallax_over_error>20][yv], c='lime', alpha=1,
-                zorder=8, s=2, edgecolors='none', rasterized=True, marker='.'
-            )
+            if show_comovers:
+                axd[k].scatter(
+                    set1_df[set1_df.parallax_over_error>20][xv],
+                    set1_df[set1_df.parallax_over_error>20][yv], c='lime', alpha=1,
+                    zorder=8, s=2, edgecolors='none', rasterized=True, marker='.'
+                )
+
+        if show_allknown:
+            mfcs = ['lime', 'salmon', 'magenta']
+            for mfc, (name,_df) in zip(mfcs, koi_df_dict.items()):
+                axd[k].plot(
+                    _df[xv], _df[yv], alpha=1, mew=0.5,
+                    zorder=42, label=name, markerfacecolor=mfc,
+                    markersize=12, marker='*', color='black', lw=0
+                )
 
         if show_sun and '_pc' in xv:
             axd[k].scatter(
@@ -777,6 +812,13 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
                 sun[xv], sun[yv], c='k', alpha=1, zorder=10, ms=10,
                 marker='o', markerfacecolor="None", markeredgecolor='k',
                 markeredgewidth=0.5
+            )
+
+        if show_rsg5:
+            axd[k].scatter(
+                df_rsg5_edr3[xv], df_rsg5_edr3[yv], c='C0', alpha=1, zorder=6,
+                s=2, edgecolors='none', rasterized=True, marker='.',
+                label='KC19 RSG_5'
             )
 
         # update x/ylabels
@@ -825,6 +867,11 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
     axd['B'].update({'xlim': [-8275, -7450]})
     axd['C'].update({'xlim': [-25, 525]})
 
+    if orientation == 'square':
+        axd['A'].update({'xlim': [-8275, -7825], 'ylim': [-25, 525]})
+        axd['B'].update({'xlim': [-8275, -7825], 'ylim': [-25, 175]})
+        axd['C'].update({'xlim': [-25, 525], 'ylim': [-25, 175]})
+
     for _,ax in axd.items():
         format_ax(ax)
 
@@ -835,11 +882,18 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
     else:
         fig.tight_layout(w_pad=0.2)
 
+    if show_allknown and orientation in ['portrait', 'square']:
+        axd['D'].legend(loc='best', fontsize=4)
+
     s = ''
     if show_1627:
         s += "_show1627"
     if show_7368:
         s += "_show7368"
+    if show_allknown:
+        s += "_showallknown"
+    if show_rsg5:
+        s += "_showrsg5"
     if show_comovers:
         s += "_showcomovers"
     if show_sun:
