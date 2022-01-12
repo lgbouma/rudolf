@@ -34,6 +34,7 @@ RM:
 General for re-use:
     multiline: iterate through a colormap with many lines.
     truncate_colormap: extract a subset of a colormap
+    plot_full_kinematics: corner plot of ra,dec,plx,PM,rv
 """
 import os, corner, pickle, inspect
 from glob import glob
@@ -1762,7 +1763,8 @@ def plot_hr(
     outdir, isochrone=None, color0='phot_bp_mean_mag', rasterized=False,
     show100pc=0, clusters=['$\delta$ Lyr cluster'], reddening_corr=0,
     cleanhrcut=1, extinctionmethod='gaia2018', smalllims=0,
-    overplotkep1627=0, overplotkoi7368=0, getstellarparams=0
+    overplotkep1627=0, overplotkoi7368=0, getstellarparams=0,
+    show_allknown=0
 ):
     """
     clusters: ['$\delta$ Lyr cluster', 'IC 2602', 'Pleiades']
@@ -1909,7 +1911,7 @@ def plot_hr(
             print(_df['reddening[mag][stilism]'].describe())
 
         ax.scatter(
-            get_xval(_df), get_yval(_df), c='lime', alpha=1, zorder=100000,
+            get_xval(_df), get_yval(_df), c='lime', alpha=1, zorder=9000,
             s=s, rasterized=False, label='KOI 7368 vicinity (Set 1)', marker='D',
             edgecolors='k', linewidths=0.1
         )
@@ -1925,6 +1927,25 @@ def plot_hr(
                 color='black', lw=0
             )
 
+    if show_allknown:
+        _, _, _, koi_df_dict = get_deltalyr_kc19_gaia_data(return_all_targets=1)
+        mfcs = ['lime', 'salmon', 'magenta']
+
+        for mfc, (name,_kdf) in zip(mfcs, koi_df_dict.items()):
+
+            cachepath = os.path.join(RESULTSDIR,'tables',f'{name}_stilism.csv')
+            if not os.path.exists(cachepath):
+                _kdf = supplement_gaia_stars_extinctions_corrected_photometry(
+                    _kdf, extinctionmethod=extinctionmethod, savpath=cachepath
+                )
+                _kdf.to_csv(cachepath, index=False)
+            _kdf = pd.read_csv(cachepath)
+
+            ax.plot(
+                get_xval(_kdf), get_yval(_kdf),
+                alpha=1, mew=0.5, zorder=9001, label=name, markerfacecolor=mfc,
+                markersize=11, marker='*', color='black', lw=0
+            )
 
     if 'BPMG' in clusters:
         outpath = os.path.join(
@@ -2413,6 +2434,8 @@ def plot_hr(
         c0s += '_overplotkep1627'
     if overplotkoi7368:
         c0s += '_overplotkoi7368'
+    if show_allknown:
+        c0s += '_allknownkois'
 
     outpath = os.path.join(outdir, f'hr{s}{c0s}.png')
 
@@ -3882,3 +3905,132 @@ def plot_galex(outdir,
     outpath = os.path.join(outdir, f'galexcolor_{s}.png')
 
     savefig(fig, outpath, dpi=500)
+
+
+def plot_full_kinematics(df, outstr, outdir, galacticframe=0):
+    """
+    df: dataframe containing Gaia-key stars
+    outstr: used as the head-string in the file name
+    """
+
+    if galacticframe:
+        if not ('l' in df and 'b' in df):
+            c = SkyCoord(ra=nparr(df.ra)*u.deg, dec=nparr(df.dec)*u.deg)
+            df['l'] = c.galactic.l.value
+            df['b'] = c.galactic.b.value
+
+    plt.close('all')
+
+    rvkey = (
+        'dr2_radial_velocity' if 'dr2_radial_velocity' in df else 'radial_velocity'
+    )
+
+    if galacticframe:
+        xkey, ykey = 'l', 'b'
+        xl, yl = r'$l$ [deg]', r'$b$ [deg]'
+    else:
+        xkey, ykey = 'ra', 'dec'
+        xl, yl = r'$\alpha$ [deg]', r'$\delta$ [deg]'
+
+    params = [xkey, ykey, 'parallax', 'pmra', 'pmdec', rvkey]
+    # whether to limit axis by 5/95th percetile
+    qlimd = {
+        xkey: 0, ykey: 0, 'parallax': 0, 'pmra': 0, 'pmdec': 0, rvkey: 0
+    }
+    # whether to limit axis by 99th percentile
+    nnlimd = {
+        xkey: 0, ykey: 0, 'parallax': 0, 'pmra': 0, 'pmdec': 0, rvkey: 0
+    }
+    ldict = {
+        xkey: xl, ykey: yl,
+        'parallax': r'$\pi$ [mas]', 'pmra': r"$\mu_{{\alpha'}}$ [mas/yr]",
+        'pmdec':  r'$\mu_{{\delta}}$ [mas/yr]', rvkey: 'RV [km/s]'
+    }
+
+    nparams = len(params)
+    f, axs = plt.subplots(figsize=(6,6), nrows=nparams-1, ncols=nparams-1)
+
+    for i in range(nparams):
+        for j in range(nparams):
+            print(i,j)
+            if j == nparams-1 or i == nparams-1:
+                continue
+            if j>i:
+                axs[i,j].set_axis_off()
+                continue
+
+            xv = params[j]
+            yv = params[i+1]
+            print(i,j,xv,yv)
+
+            alpha = 0.9
+            axs[i,j].scatter(
+                df[xv], df[yv], c='k', alpha=alpha, zorder=4, s=5,
+                rasterized=True, label=outstr, marker='.', linewidths=0
+            )
+
+            # set the axis limits as needed
+            if qlimd[xv]:
+                xlim = (np.nanpercentile(nbhd_df[xv], 5),
+                        np.nanpercentile(nbhd_df[xv], 95))
+                axs[i,j].set_xlim(xlim)
+            if qlimd[yv]:
+                ylim = (np.nanpercentile(nbhd_df[yv], 5),
+                        np.nanpercentile(nbhd_df[yv], 95))
+                axs[i,j].set_ylim(ylim)
+            if nnlimd[xv]:
+                xlim = (np.nanpercentile(nbhd_df[xv], 1),
+                        np.nanpercentile(nbhd_df[xv], 99))
+                axs[i,j].set_xlim(xlim)
+            if nnlimd[yv]:
+                ylim = (np.nanpercentile(nbhd_df[yv], 1),
+                        np.nanpercentile(nbhd_df[yv], 99))
+                axs[i,j].set_ylim(ylim)
+
+
+            # fix labels
+            if j == 0 :
+                axs[i,j].set_ylabel(ldict[yv], fontsize='small')
+                if not i == nparams - 2:
+                    # hide xtick labels
+                    labels = [item.get_text() for item in axs[i,j].get_xticklabels()]
+                    empty_string_labels = ['']*len(labels)
+                    axs[i,j].set_xticklabels(empty_string_labels)
+
+            if i == nparams - 2:
+                axs[i,j].set_xlabel(ldict[xv], fontsize='small')
+                if not j == 0:
+                    # hide ytick labels
+                    labels = [item.get_text() for item in axs[i,j].get_yticklabels()]
+                    empty_string_labels = ['']*len(labels)
+                    axs[i,j].set_yticklabels(empty_string_labels)
+
+            if (not (j == 0)) and (not (i == nparams - 2)):
+                # hide ytick labels
+                labels = [item.get_text() for item in axs[i,j].get_yticklabels()]
+                empty_string_labels = ['']*len(labels)
+                axs[i,j].set_yticklabels(empty_string_labels)
+                # hide xtick labels
+                labels = [item.get_text() for item in axs[i,j].get_xticklabels()]
+                empty_string_labels = ['']*len(labels)
+                axs[i,j].set_xticklabels(empty_string_labels)
+
+    f.tight_layout(h_pad=0.05, w_pad=0.05)
+
+    axs[2,2].legend(loc='best', handletextpad=0.1, fontsize='medium', framealpha=0.7)
+    leg = axs[2,2].legend(bbox_to_anchor=(0.8,0.8), loc="upper right",
+                          handletextpad=0.1, fontsize='medium',
+                          bbox_transform=f.transFigure)
+
+    for ax in axs.flatten():
+        format_ax(ax)
+
+    s = '_'+outstr
+    if galacticframe:
+        s += f'_galactic'
+    else:
+        s += f'_icrs'
+
+    outpath = os.path.join(outdir, f'full_kinematics{s}.png')
+
+    savefig(f, outpath)

@@ -11,6 +11,11 @@ PLOTDIR = os.path.join(RESULTSDIR, 'hr')
 if not os.path.exists(PLOTDIR):
     os.mkdir(PLOTDIR)
 
+rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
+           clusters=['δ Lyr cluster', 'Set1', 'IC 2602', 'Pleiades'], reddening_corr=1,
+           overplotkep1627=1, show_allknown=1, smalllims=1)
+assert 0
+
 # as in ms, but with "Set 1" (KOI 7368)
 rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
            clusters=['δ Lyr cluster', 'Set1', 'IC 2602', 'Pleiades'], reddening_corr=1,
@@ -23,7 +28,7 @@ for iso in [None, 'mist', 'parsec']:
                clusters=['δ Lyr cluster', 'Set1', 'IC 2602', 'Pleiades'],
                reddening_corr=1, overplotkep1627=1, overplotkoi7368=1, getstellarparams=1)
 
-# actually used in manuscript
+# actually used in kep-1627 manuscript
 rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
            clusters=['δ Lyr cluster', 'IC 2602', 'Pleiades'], reddening_corr=1,
            overplotkep1627=1)
