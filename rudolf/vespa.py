@@ -77,7 +77,8 @@ def _write_vespa(data, soln, staridentifier,
 
     s = (t > -N_hours_from_transit) & (t < N_hours_from_transit)
 
-    t,f,e = t[s],f[s],e[s]
+    # time units: days
+    t,f,e = t[s]/24,f[s],e[s]
 
     outdf = pd.DataFrame({'t':t, 'f':f, 'e':e})
 
@@ -93,7 +94,7 @@ def _write_vespa(data, soln, staridentifier,
                     capsize=0, markersize=1, rasterized=True, zorder=-1,
                     alpha=0.6)
 
-        ax.set_xlabel('hours around mid-transit')
+        ax.set_xlabel('days from mid-transit')
         ax.set_ylabel('relative flux')
 
         outpath = os.path.join(outdir, f'{staridentifier}_vespa_lc.png')
