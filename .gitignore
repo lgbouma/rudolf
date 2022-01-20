@@ -22,8 +22,8 @@ tests/*pdf
 *zip
 *tar.gz
 paper/Bouma_2022_Table3_cdips_targets_v0.6.csv
-drivers/vespa_drivers/chains*
-drivers/vespa_drivers/*csv
-drivers/vespa_drivers/*png
-drivers/vespa_drivers/*h5
-drivers/vespa_drivers/*log
+drivers/vespa_drivers/*/chains*
+drivers/vespa_drivers/*/*csv
+drivers/vespa_drivers/*/*png
+drivers/vespa_drivers/*/*h5
+drivers/vespa_drivers/*/*log
