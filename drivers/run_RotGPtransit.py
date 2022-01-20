@@ -104,11 +104,18 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
                         kind='stats', stat_funcs={'median':np.nanmedian},
                         extend=True)
 
+    writevespa = 1
     phaseplot = 1
     cornerplot = 1
     posttable = 1
     phasedsubsets = 1
     getbecclimits = 1
+
+    if writevespa:
+        from rudolf.vespa import _write_vespa
+        staridentifier = f'{starid}_{modelid}'
+        _write_vespa(datasets, m.trace.posterior, staridentifier,
+                     N_hours_from_transit=4, make_plot=True)
 
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
