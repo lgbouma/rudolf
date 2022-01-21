@@ -27,3 +27,7 @@ drivers/vespa_drivers/*/*csv
 drivers/vespa_drivers/*/*png
 drivers/vespa_drivers/*/*h5
 drivers/vespa_drivers/*/*log
+paper_proofs*
+drivers/vespa_drivers/*/*pkl
+drivers/vespa_drivers/*/*cache*
+drivers/vespa_drivers/lixo
