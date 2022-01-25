@@ -22,17 +22,18 @@ from betty.modelfitter import ModelFitter
 from betty.paths import BETTYDIR
 
 from rudolf.helpers import (
-    get_kep1627_kepler_lightcurve
+    get_manually_downloaded_kepler_lightcurve
 )
 from rudolf.paths import DATADIR, RESULTSDIR
 
 # NOTE: change starid as desired based on the dataset to use.
 # Kepler_1627_Q15slc, or Kepler_1627
 #def run_RotGPtransit(starid='Kepler_1627_Q15slc', N_samples=2000):
-def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
-#def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
+#def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
+def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
 
-    assert starid in ['Kepler_1627', 'Kepler_1627_Q15slc', 'KOI_7368']
+    assert starid in ['Kepler_1627', 'Kepler_1627_Q15slc', 'KOI_7368',
+                      'KOI_7913', 'Kepler_1643']
 
     # this line ensures I use the right python environment on my system
     assert os.environ['CONDA_DEFAULT_ENV'] == 'py38'
@@ -42,15 +43,15 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
     datasets = OrderedDict()
     if starid == 'Kepler_1627':
         time, flux, flux_err, qual, texp = (
-            get_kep1627_kepler_lightcurve(lctype='longcadence')
+            get_manually_downloaded_kepler_lightcurve(lctype='longcadence')
         )
     elif starid == 'Kepler_1627_Q15slc':
         time, flux, flux_err, qual, texp = (
-            get_kep1627_kepler_lightcurve(lctype='shortcadence')
+            get_manually_downloaded_kepler_lightcurve(lctype='shortcadence')
         )
-    elif starid == 'KOI_7368':
+    elif starid in ['KOI_7368', 'KOI_7913', 'Kepler_1643']:
         time, flux, flux_err, qual, texp = (
-            get_kep1627_kepler_lightcurve(lctype='koi7368')
+            get_manually_downloaded_kepler_lightcurve(lctype=starid)
         )
     else:
         raise NotImplementedError
@@ -64,6 +65,13 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
     assert os.path.exists(priorpath)
     priormod = SourceFileLoader('prior', priorpath).load_module()
     priordict = priormod.priordict
+
+    if 'log_depth' in priordict.keys():
+        parametrization = 'log_depth_and_b'
+    elif 'log_ror' in priordict.keys():
+        parametrization = 'log_ror_and_b'
+    else:
+        raise NotImplementedError
 
     pklpath = join(BETTYDIR, f'run_{starid}_{modelid}.pkl')
 
@@ -87,16 +95,21 @@ def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
                     N_cores=os.cpu_count(),
                     map_optimization_method=map_optimization_method)
 
-    var_names = [
-        'mean','logg_star','r_star','t0','period','log_depth', 'b',
-        'ecc', 'omega','u_star',
-        'log_jitter',
-        'log_prot','log_Q0','log_dQ',
-        'sigma_rot', 'prot', 'f',
-        'rho_star',
-        'depth','ror',
-        'r_planet', 'a_Rs', 'cosi', 'sini','T_14','T_13'
-    ]
+    if parametrization == 'log_depth_and_b':
+        var_names = [
+            'mean','logg_star','r_star','t0','period', 'log_depth', 'b', 'ecc',
+            'omega','u_star', 'log_jitter', 'log_prot','log_Q0','log_dQ',
+            'sigma_rot', 'prot', 'f', 'rho_star', 'depth', 'ror', 'r_planet',
+            'a_Rs', 'cosi', 'sini','T_14','T_13'
+        ]
+    elif parametrization == 'log_ror_and_b':
+        #NOTE: if in log_ror + b parametrization (to explore grazing), depth is not derived
+        var_names = [
+            'mean','logg_star','r_star','t0','period', 'log_ror', 'b', 'ecc',
+            'omega','u_star', 'log_jitter', 'log_prot','log_Q0','log_dQ',
+            'sigma_rot', 'prot', 'f', 'rho_star', 'ror', 'r_planet', 'a_Rs',
+            'cosi', 'sini','T_14','T_13'
+        ]
 
     print(pm.summary(m.trace, var_names=var_names))
 
