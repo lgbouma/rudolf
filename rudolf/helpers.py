@@ -7,12 +7,11 @@ Data getters:
         get_autorotation_dataframe
 
     Kepler 1627:
-        get_kep1627_kepler_lightcurve
+        get_manually_downloaded_kepler_lightcurve
         get_kep1627_muscat_lightcuve
         get_keplerfieldfootprint_dict
         get_flare_df
         get_becc_limits
-        get_koi7368_lightcurve
 
     Get cluster datasets (useful for HR diagrams!):
         get_gaia_catalog_of_nearby_stars
@@ -125,23 +124,32 @@ def get_flare_df():
     return sdf
 
 
-def get_kep1627_kepler_lightcurve(lctype='longcadence'):
+def get_manually_downloaded_kepler_lightcurve(lctype='longcadence'):
     """
     Collect and stitch available Kepler quarters, after median-normalizing in
     each quater.
     """
 
-    assert lctype in ['longcadence', 'shortcadence',
-                      'longcadence_byquarter', 'koi7368', 'koi7368_byquarter']
+    assert lctype in [
+        'longcadence', 'shortcadence', 'longcadence_byquarter', 'KOI_7368',
+        'KOI_7368_byquarter', 'KOI_7913', 'Kepler_1643', 'KOI_7913_byquarter',
+        'Kepler_1643_byquarter'
+    ]
 
     if lctype in ['longcadence', 'longcadence_byquarter']:
+        # Kepler-1627
         lcfiles = glob(os.path.join(DATADIR, 'phot', 'kplr*_llc.fits'))
     elif lctype == 'shortcadence':
         lcfiles = glob(os.path.join(DATADIR, 'phot', 'full_MAST_sc', 'MAST_*',
                                     'Kepler', 'kplr006184894*', 'kplr*_slc.fits'))
-    elif lctype in ['koi7368', 'koi7368_byquarter']:
-        lcfiles = glob(os.path.join(DATADIR, 'KOI_7368', 'phot',
-                                    'kplr010736489*_llc.fits'))
+    elif lctype in [
+        'KOI_7368', 'KOI_7913', 'Kepler_1643',
+        'KOI_7368_byquarter', 'KOI_7913_byquarter', 'Kepler_1643_byquarter'
+    ]:
+        starid = lctype
+        if starid.endswith('byquarter'):
+            starid = "_".join(foo.split("_")[:-1])
+        lcfiles = glob(os.path.join(DATADIR, starid, 'phot', 'kplr*_llc.fits'))
     else:
         raise NotImplementedError('could do short cadence here too')
     assert len(lcfiles) > 1
@@ -171,15 +179,19 @@ def get_kep1627_kepler_lightcurve(lctype='longcadence'):
         texp_list.append(texp)
 
     if (
-        lctype == 'longcadence' or lctype == 'shortcadence' or
-        lctype == 'koi7368'
+        lctype in [
+            'longcadence', 'shortcadence', 'KOI_7368', 'Kepler_1643', 'KOI_7913'
+        ]
     ):
         time = np.hstack(timelist)
         flux = np.hstack(f_list)
         flux_err = np.hstack(ferr_list)
         qual = np.hstack(qual_list)
         texp = np.nanmedian(texp_list)
-    elif lctype == 'longcadence_byquarter' or lctype == 'koi7368_byquarter':
+    elif lctype in [
+        'longcadence_byquarter', 'KOI_7368_byquarter', 'Kepler_1643_byquarter',
+        'KOI_7913_byquarter'
+    ]:
         return (
             timelist,
             f_list,
