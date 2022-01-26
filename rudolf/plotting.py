@@ -84,7 +84,7 @@ from rudolf.paths import DATADIR, RESULTSDIR
 from rudolf.helpers import (
     get_deltalyr_kc19_gaia_data, get_simulated_RM_data,
     get_keplerfieldfootprint_dict, get_deltalyr_kc19_comovers,
-    get_deltalyr_kc19_cleansubset, get_kep1627_kepler_lightcurve,
+    get_deltalyr_kc19_cleansubset, get_manually_downloaded_kepler_lightcurve,
     get_set1_koi7368,
     get_gaia_catalog_of_nearby_stars, get_clustermembers_cg18_subset,
     get_mutau_members, get_ScoOB2_members,
@@ -954,7 +954,7 @@ def plot_keplerlc(outdir, N_samples=500, xlim=[200,300]):
     modelid, starid = 'RotGPtransit', 'Kepler_1627'
     datasets = OrderedDict()
     if starid == 'Kepler_1627':
-        time, flux, flux_err, qual, texp = get_kep1627_kepler_lightcurve()
+        time, flux, flux_err, qual, texp = get_manually_downloaded_kepler_lightcurve()
     else:
         raise NotImplementedError
 
@@ -1086,7 +1086,7 @@ def _get_detrended_flare_data(cachepath, method):
     if not os.path.exists(cachepath):
         # get 1min data
         time, flux, flux_err, qual, texp = (
-            get_kep1627_kepler_lightcurve(lctype='shortcadence')
+            get_manually_downloaded_kepler_lightcurve(lctype='shortcadence')
         )
         sel = (qual == 0)
         time, flux, flux_err = time[sel], flux[sel], flux_err[sel]
@@ -1641,12 +1641,12 @@ def plot_rotation_period_windowslider(outdir, koi7368=0):
     if not koi7368:
         modelid, starid = 'gptransit', 'Kepler_1627'
         time, flux, flux_err, qual, texp = (
-            get_kep1627_kepler_lightcurve(lctype='longcadence_byquarter')
+            get_manually_downloaded_kepler_lightcurve(lctype='longcadence_byquarter')
         )
     else:
         modelid, starid = 'gptransit', 'KOI_7368'
         time, flux, flux_err, qual, texp = (
-            get_kep1627_kepler_lightcurve(lctype='koi7368_byquarter')
+            get_manually_downloaded_kepler_lightcurve(lctype='koi7368_byquarter')
         )
 
     N_quarters = len(time)
@@ -1764,7 +1764,7 @@ def plot_hr(
     show100pc=0, clusters=['$\delta$ Lyr cluster'], reddening_corr=0,
     cleanhrcut=1, extinctionmethod='gaia2018', smalllims=0,
     overplotkep1627=0, overplotkoi7368=0, getstellarparams=0,
-    show_allknown=0
+    show_allknown=0, overplotkep1643=0, overplotkoi7913=0
 ):
     """
     clusters: ['$\delta$ Lyr cluster', 'IC 2602', 'Pleiades']
@@ -1927,7 +1927,7 @@ def plot_hr(
                 color='black', lw=0
             )
 
-    if show_allknown:
+    if show_allknown or overplotkoi7913 or overplotkep1643:
         _, _, _, koi_df_dict = get_deltalyr_kc19_gaia_data(return_all_targets=1)
         mfcs = ['lime', 'salmon', 'magenta']
 
@@ -1941,11 +1941,22 @@ def plot_hr(
                 _kdf.to_csv(cachepath, index=False)
             _kdf = pd.read_csv(cachepath)
 
-            ax.plot(
-                get_xval(_kdf), get_yval(_kdf),
-                alpha=1, mew=0.5, zorder=9001, label=name, markerfacecolor=mfc,
-                markersize=11, marker='*', color='black', lw=0
-            )
+            if show_allknown:
+                ax.plot(
+                    get_xval(_kdf), get_yval(_kdf),
+                    alpha=1, mew=0.5, zorder=9001, label=name, markerfacecolor=mfc,
+                    markersize=11, marker='*', color='black', lw=0
+                )
+            if (
+                (overplotkoi7913 and name == 'KOI-7913')
+                or
+                (overplotkep1643 and name == 'Kepler-1643')
+            ):
+                ax.plot(
+                    get_xval(_kdf), get_yval(_kdf),
+                    alpha=1, mew=0.5, zorder=9001, label=name, markerfacecolor=mfc,
+                    markersize=11, marker='*', color='black', lw=0
+                )
 
     if 'BPMG' in clusters:
         outpath = os.path.join(
@@ -2190,7 +2201,14 @@ def plot_hr(
 
                     print("MIST")
                     if overplotkoi7368:
+                        print("overplotkoi7368")
                         sel = (mstar > 0.83) & (mstar < 0.93)
+                    elif overplotkep1643:
+                        print("overplotkep1643")
+                        sel = (mstar > 0.80) & (mstar < 0.90)
+                    elif overplotkoi7913:
+                        print("overplotkoi7913")
+                        sel = (mstar > 0.70) & (mstar < 0.80)
                     else:
                         sel = (mstar > 0.93) & (mstar < 1.0)
 
@@ -2290,6 +2308,18 @@ def plot_hr(
                             (np.abs(iso_df.logAge - la) < 0.01) &
                             (iso_df.Mass > 0.83) &
                             (iso_df.Mass < 0.93)
+                        )
+                    elif overplotkep1643:
+                        sel = (
+                            (np.abs(iso_df.logAge - la) < 0.01) &
+                            (iso_df.Mass > 0.80) &
+                            (iso_df.Mass < 0.90)
+                        )
+                    elif overplotkoi7913:
+                        sel = (
+                            (np.abs(iso_df.logAge - la) < 0.01) &
+                            (iso_df.Mass > 0.70) &
+                            (iso_df.Mass < 0.80)
                         )
                     else:
                         sel = (
@@ -2434,6 +2464,10 @@ def plot_hr(
         c0s += '_overplotkep1627'
     if overplotkoi7368:
         c0s += '_overplotkoi7368'
+    if overplotkep1643:
+        c0s += '_overplotkep1643'
+    if overplotkoi7913:
+        c0s += '_overplotkoi7913'
     if show_allknown:
         c0s += '_allknownkois'
 
@@ -3360,7 +3394,7 @@ def plot_phasedlc_quartiles(
     modelid, starid = 'RotGPtransit', 'Kepler_1627'
     datasets = OrderedDict()
     if starid == 'Kepler_1627':
-        time, flux, flux_err, qual, texp = get_kep1627_kepler_lightcurve()
+        time, flux, flux_err, qual, texp = get_manually_downloaded_kepler_lightcurve()
     else:
         raise NotImplementedError
 
