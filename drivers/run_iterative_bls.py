@@ -1,7 +1,7 @@
 import os
 import numpy as np, pandas as pd
 from numpy import array as nparr
-from rudolf.helpers import get_kep1627_kepler_lightcurve
+from rudolf.helpers import get_manually_downloaded_kepler_lightcurve
 from rudolf.iterative_bls import run_iterative_bls
 from rudolf.paths import DATADIR, RESULTSDIR
 

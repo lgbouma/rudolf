@@ -17,7 +17,7 @@ except ModuleNotFoundError as e:
     print(f'WRN! {e}')
     pass
 
-from rudolf.helpers import get_kep1627_kepler_lightcurve
+from rudolf.helpers import get_manually_downloaded_kepler_lightcurve
 from betty.posterior_table import make_posterior_table
 from betty.modelfitter import ModelFitter
 
@@ -33,7 +33,7 @@ def run_RotStochGPtransit(starid='Kepler_1627', N_samples=2000):
 
     datasets = OrderedDict()
     if starid == 'Kepler_1627':
-        time, flux, flux_err, qual, texp = get_kep1627_kepler_lightcurve()
+        time, flux, flux_err, qual, texp = get_manually_downloaded_kepler_lightcurve()
     else:
         raise NotImplementedError
 

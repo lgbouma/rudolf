@@ -20,7 +20,7 @@ plt.savefig('../results/flares/poisson_comparison_temp.png')
 # ok... so guess the rate as the time difference divided by the number of
 # events... NB the interarrival time distriubtion for a poisson process is an
 # EXOPONENTIAL distribution.
-t_shortcadence = 97.667479  # max-min from get_kep1627_kepler_lightcurve
+t_shortcadence = 97.667479  # max-min from get_manually_downloaded_kepler_lightcurve
 lambda_0 = t_shortcadence / len(t_arr)
 print(f'λ0: {lambda_0:.3f}')
 

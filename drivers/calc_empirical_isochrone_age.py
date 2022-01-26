@@ -7,7 +7,7 @@ from rudolf.paths import DATADIR, RESULTSDIR
 from rudolf.helpers import (
     get_deltalyr_kc19_gaia_data, get_simulated_RM_data,
     get_keplerfieldfootprint_dict, get_deltalyr_kc19_comovers,
-    get_deltalyr_kc19_cleansubset, get_kep1627_kepler_lightcurve,
+    get_deltalyr_kc19_cleansubset, get_manually_downloaded_kepler_lightcurve,
     get_gaia_catalog_of_nearby_stars, get_clustermembers_cg18_subset,
     get_mutau_members, get_ScoOB2_members,
     supplement_gaia_stars_extinctions_corrected_photometry,
