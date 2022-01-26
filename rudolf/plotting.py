@@ -1632,21 +1632,20 @@ def plot_ttv_vs_local_slope(outdir):
 
 
 
-def plot_rotation_period_windowslider(outdir, koi7368=0):
+def plot_rotation_period_windowslider(outdir, starid):
 
     from timmy.rotationperiod import measure_rotation_period_and_unc
 
+    modelid = 'gptransit'
     # get data
     datasets = OrderedDict()
-    if not koi7368:
-        modelid, starid = 'gptransit', 'Kepler_1627'
+    if starid in ['KOI_7368', 'KOI_7913', 'Kepler_1643']:
         time, flux, flux_err, qual, texp = (
-            get_manually_downloaded_kepler_lightcurve(lctype='longcadence_byquarter')
+            get_manually_downloaded_kepler_lightcurve(lctype=starid+'_byquarter')
         )
     else:
-        modelid, starid = 'gptransit', 'KOI_7368'
         time, flux, flux_err, qual, texp = (
-            get_manually_downloaded_kepler_lightcurve(lctype='koi7368_byquarter')
+            get_manually_downloaded_kepler_lightcurve(lctype='longcadence_byquarter')
         )
 
     N_quarters = len(time)
