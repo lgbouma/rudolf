@@ -148,8 +148,9 @@ def get_manually_downloaded_kepler_lightcurve(lctype='longcadence'):
     ]:
         starid = lctype
         if starid.endswith('byquarter'):
-            starid = "_".join(foo.split("_")[:-1])
-        lcfiles = glob(os.path.join(DATADIR, starid, 'phot', 'kplr*_llc.fits'))
+            starid = "_".join(starid.split("_")[:-1])
+        lcfiles = glob(os.path.join(DATADIR, starid, 'phot', 'MAST*', 'Kepler',
+                                    'kplr*_lc_*', 'kplr*_llc.fits'))
     else:
         raise NotImplementedError('could do short cadence here too')
     assert len(lcfiles) > 1
