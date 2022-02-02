@@ -28,7 +28,7 @@ from rudolf.paths import DATADIR, RESULTSDIR
 #def run_RotGPtransit(starid='Kepler_1627_Q15slc', N_samples=2000):
 #def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
 #def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
-def run_RotGPtransit(starid='KOI_7913', N_samples=2000):
+def run_RotGPtransit(starid='KOI_7913', N_samples=1000):
 #def run_RotGPtransit(starid='Kepler_1643', N_samples=1000):
 
     assert starid in ['Kepler_1627', 'Kepler_1627_Q15slc', 'KOI_7368',
@@ -71,6 +71,7 @@ def run_RotGPtransit(starid='KOI_7913', N_samples=2000):
         parametrization = 'log_ror_and_b'
     else:
         raise NotImplementedError
+    fvarname = 'log_f' if 'log_f' in priordict.keys() else 'f'
 
     pklpath = join(BETTYDIR, f'run_{starid}_{modelid}.pkl')
 
@@ -98,7 +99,7 @@ def run_RotGPtransit(starid='KOI_7913', N_samples=2000):
         var_names = [
             'mean','logg_star','r_star','t0','period', 'log_depth', 'b', 'ecc',
             'omega','u_star', 'log_jitter', 'log_prot','log_Q0','log_dQ',
-            'sigma_rot', 'prot', 'f', 'rho_star', 'depth', 'ror', 'r_planet',
+            'sigma_rot', 'prot', fvarname, 'rho_star', 'depth', 'ror', 'r_planet',
             'a_Rs', 'cosi', 'sini','T_14','T_13'
         ]
     elif parametrization == 'log_ror_and_b':
@@ -106,7 +107,7 @@ def run_RotGPtransit(starid='KOI_7913', N_samples=2000):
         var_names = [
             'mean','logg_star','r_star','t0','period', 'log_ror', 'b', 'ecc',
             'omega','u_star', 'log_jitter', 'log_prot','log_Q0','log_dQ',
-            'sigma_rot', 'prot', 'f', 'rho_star', 'ror', 'r_planet', 'a_Rs',
+            'sigma_rot', 'prot', fvarname, 'rho_star', 'ror', 'r_planet', 'a_Rs',
             'cosi', 'sini','T_14','T_13'
         ]
 
