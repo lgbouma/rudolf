@@ -28,7 +28,7 @@ from rudolf.paths import DATADIR, RESULTSDIR
 #def run_RotGPtransit(starid='Kepler_1627_Q15slc', N_samples=2000):
 #def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
 #def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
-def run_RotGPtransit(starid='KOI_7913', N_samples=1000):
+def run_RotGPtransit(starid='KOI_7913', N_samples=2000):
 #def run_RotGPtransit(starid='Kepler_1643', N_samples=1000):
 
     assert starid in ['Kepler_1627', 'Kepler_1627_Q15slc', 'KOI_7368',
@@ -123,6 +123,49 @@ def run_RotGPtransit(starid='KOI_7913', N_samples=1000):
     posttable = 1
     phasedsubsets = 1
     getbecclimits = 1
+    phasesampleplot = 1
+
+    if phasesampleplot:
+        n_samples = 200
+        outpath = join(
+            PLOTDIR,
+            f'{starid}_{modelid}_posterior_phasesampleplot_nsamples{n_samples}.png'
+        )
+        if starid == 'KOI_7368':
+            ylimd = {'A':[-2, 1.5], 'B':[-0.19,0.19]}
+        elif starid == 'KOI_7913':
+            ylimd = {'A':[-1.5, 0.5], 'B':[-0.05,0.05]}
+        else:
+            ylimd = {'A':[-3.5, 2.5], 'B':[-0.19,0.19]}
+        bp.plot_phased_light_curve_samples(
+            datasets, m.trace.posterior, outpath, from_trace=True, ylimd=ylimd,
+            map_estimate=m.map_estimate, do_hacky_reprerror=True,
+            binsize_minutes=15, n_samples=n_samples
+        )
+        assert 0
+
+    if phaseplot:
+        outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
+        if starid == 'KOI_7368':
+            ylimd = {'A':[-2, 1.5], 'B':[-0.19,0.19]}
+        elif starid == 'KOI_7913':
+            ylimd = {'A':[-1.5, 0.5], 'B':[-0.05,0.05]}
+        else:
+            ylimd = {'A':[-3.5, 2.5], 'B':[-0.19,0.19]}
+        alpha = 1 # 3e-1 looks good
+        bp.plot_phased_light_curve_gptransit(
+            datasets, m.trace.posterior, outpath, from_trace=True, ylimd=ylimd,
+            map_estimate=m.map_estimate, do_hacky_reprerror=True,
+            binsize_minutes=15, alpha=alpha
+        )
+        outpath = join(PLOTDIR,
+                       f'{starid}_{modelid}_posterior_phaseplot_fullxlim.png')
+        alpha = 1 #2e-2 looked good
+        bp.plot_phased_light_curve_gptransit(
+            datasets, m.trace.posterior, outpath, from_trace=True, ylimd=ylimd,
+            map_estimate=m.map_estimate, fullxlim=True, BINMS=0.5,
+            do_hacky_reprerror=True, binsize_minutes=15, alpha=alpha
+        )
 
     if cornerplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_cornerplot.png')
@@ -143,30 +186,6 @@ def run_RotGPtransit(starid='KOI_7913', N_samples=1000):
         staridentifier = f'{starid}_{modelid}'
         _write_vespa(datasets, m.trace.posterior, staridentifier,
                      N_hours_from_transit=4, make_plot=True)
-
-    if phaseplot:
-        outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
-        if starid == 'KOI_7368':
-            ylimd = {'A':[-2, 1.5], 'B':[-0.19,0.19]}
-        elif starid == 'KOI_7913':
-            ylimd = {'A':[-1, 0.5], 'B':[-0.05,0.05]}
-        else:
-            ylimd = {'A':[-3.5, 2.5], 'B':[-0.19,0.19]}
-        alpha = 1 # 3e-1 looks good
-        bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
-                                   from_trace=True, ylimd=ylimd,
-                                   map_estimate=m.map_estimate,
-                                   do_hacky_reprerror=True,
-                                   binsize_minutes=15, alpha=alpha)
-        outpath = join(PLOTDIR,
-                       f'{starid}_{modelid}_posterior_phaseplot_fullxlim.png')
-        alpha = 1 #2e-2 looked good
-        bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
-                                   from_trace=True, ylimd=ylimd,
-                                   map_estimate=m.map_estimate, fullxlim=True,
-                                   BINMS=0.5, do_hacky_reprerror=True,
-                                   binsize_minutes=15, alpha=alpha)
-
 
     if getbecclimits:
         from rudolf.helpers import get_becc_limits

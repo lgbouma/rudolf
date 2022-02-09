@@ -77,16 +77,17 @@ def run_RotStochGPtransit(starid='Kepler_1627', N_samples=2000):
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
         ylimd = {'A':[-3.5, 2.5], 'B':[-0.5,0.5]}
-        bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
-                                   from_trace=True, ylimd=ylimd,
-                                   map_estimate=m.map_estimate)
+        bp.plot_phased_light_curve_gptransit(
+            datasets, m.trace.posterior, outpath, from_trace=True, ylimd=ylimd,
+            map_estimate=m.map_estimate
+        )
         outpath = join(PLOTDIR,
                        f'{starid}_{modelid}_posterior_phaseplot_fullxlim.png')
         ylimd = {'A':[-3.5, 2.5], 'B':[-1,1]}
-        bp.plot_phased_light_curve(datasets, m.trace.posterior, outpath,
-                                   from_trace=True, ylimd=ylimd,
-                                   map_estimate=m.map_estimate, fullxlim=True,
-                                   BINMS=0.5)
+        bp.plot_phased_light_curve_gptransit(
+            datasets, m.trace.posterior, outpath, from_trace=True, ylimd=ylimd,
+            map_estimate=m.map_estimate, fullxlim=True, BINMS=0.5
+        )
 
     if posttable:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')

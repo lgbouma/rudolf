@@ -332,7 +332,7 @@ def get_ylimguess(y):
     ymax = yhigh + 0.35*ydiff
     return [ymin,ymax]
 
-def plot_phased_light_curve(
+def plot_phased_light_curve_gptransit(
     x, y, yerr, soln, mask=None, from_trace=False, ylimd=None,
     binsize_minutes=20, map_estimate=None, fullxlim=False, BINMS=3,
     show_rms_err=True, hlines=None
@@ -574,19 +574,19 @@ plt.savefig("temp3.png", bbox_inches="tight")
 hlines = [-1e3*map_estimate["depth"],
           -1e3*(map_estimate["depth"]-map_estimate["mean"])]
 plt.close("all")
-plot_phased_light_curve(
+plot_phased_light_curve_gptransit(
     x, y, yerr, map_estimate, ylimd={"A": [-2.2,0.5], "B": [-0.1,0.1]},
     hlines=hlines
 )
 plt.savefig("temp4.png", bbox_inches="tight")
 
-plot_phased_light_curve(
+plot_phased_light_curve_gptransit(
     x, y, yerr, map_estimate, ylimd={"A": [-2.2,0.5], "B": [-0.1,0.1]},
     hlines=hlines, fullxlim=True
 )
 plt.savefig("temp5.png", bbox_inches="tight")
 
-plot_phased_light_curve(
+plot_phased_light_curve_gptransit(
     x, y, yerr, map_estimate, ylimd={"A": [-0.1,0.1], "B": [-0.1,0.1]},
     hlines=hlines, fullxlim=True
 )
