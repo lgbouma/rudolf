@@ -34,9 +34,6 @@ def run_RotGPtransit(starid='KOI_7913', N_samples=2000):
     assert starid in ['Kepler_1627', 'Kepler_1627_Q15slc', 'KOI_7368',
                       'KOI_7913', 'Kepler_1643']
 
-    # this line ensures I use the right python environment on my system
-    assert os.environ['CONDA_DEFAULT_ENV'] == 'py38'
-
     modelid = 'RotGPtransit'
 
     datasets = OrderedDict()
@@ -142,7 +139,6 @@ def run_RotGPtransit(starid='KOI_7913', N_samples=2000):
             map_estimate=m.map_estimate, do_hacky_reprerror=True,
             binsize_minutes=15, n_samples=n_samples
         )
-        assert 0
 
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posterior_phaseplot.png')
