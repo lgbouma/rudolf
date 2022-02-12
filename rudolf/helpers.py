@@ -86,21 +86,7 @@ from numpy import array as nparr
 from astropy.io import fits
 from astropy import units as u
 from astropy.table import Table
-from astroquery.vizier import Vizier
-from astroquery.xmatch import XMatch
 from astropy.coordinates import SkyCoord
-
-import cdips.utils.lcutils as lcu
-import cdips.lcproc.detrend as dtr
-import cdips.lcproc.mask_orbit_edges as moe
-
-from cdips.utils.catalogs import (
-    get_cdips_catalog, get_tic_star_information
-)
-from cdips.utils.gaiaqueries import (
-    query_neighborhood, given_source_ids_get_gaia_data,
-    given_dr2_sourceids_get_edr3_xmatch
-)
 
 from rudolf.paths import DATADIR, RESULTSDIR, PHOTDIR, LOCALDIR
 
@@ -287,6 +273,8 @@ def get_candidate_rsg5_member_list():
 
 def supplement_sourcelist_with_gaiainfo(df, groupname='stephenson1'):
 
+    from cdips.utils.gaiaqueries import given_dr2_sourceids_get_edr3_xmatch
+
     dr2_source_ids = np.array(df.source_id).astype(np.int64)
 
     dr2_x_edr3_df = given_dr2_sourceids_get_edr3_xmatch(
@@ -305,6 +293,8 @@ def supplement_sourcelist_with_gaiainfo(df, groupname='stephenson1'):
     edr3_source_ids = np.array(s_edr3.dr3_source_id).astype(np.int64)
 
     # get gaia dr2 data
+    from cdips.utils.gaiaqueries import given_source_ids_get_gaia_data
+
     df_dr2 = given_source_ids_get_gaia_data(dr2_source_ids, groupname, n_max=10000,
                                             overwrite=True,
                                             enforce_all_sourceids_viable=True,
@@ -330,6 +320,8 @@ def get_deltalyr_kc19_gaia_data(return_all_targets=0):
     """
     Get all Kounkel & Covey 2019 "Stephenson 1" members.
     """
+
+    from cdips.utils.gaiaqueries import given_source_ids_get_gaia_data
 
     outpath_dr2 = os.path.join(DATADIR, 'gaia', 'stephenson1_kc19_dr2.csv')
     outpath_edr3 = os.path.join(DATADIR, 'gaia', 'stephenson1_kc19_edr3.csv')
@@ -593,6 +585,7 @@ def get_mutau_members():
 def get_ScoOB2_members():
 
     from cdips.catalogbuild.vizier_xmatch_utils import get_vizier_table_as_dataframe
+    from cdips.utils.gaiaqueries import given_source_ids_get_gaia_data
 
     vizier_search_str = "Damiani J/A+A/623/A112"
     whichcataloglist = "J/A+A/623/A112"
