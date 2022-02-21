@@ -106,8 +106,19 @@ def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
     getbecclimits = 1
 
     if localpolyindivpanels:
-        outpath = join(PLOTDIR, f'{starid}_{modelid}_localpolyindivpanels.png')
-        bp.plot_localpolyindivpanels(d, m, summdf, outpath, modelid=modelid)
+        outpath = join(
+            PLOTDIR, f'{starid}_{modelid}_localpolyindivpanels_resids.png'
+        )
+        bp.plot_localpolyindivpanels(
+            d, m, summdf, outpath, modelid=modelid, plot_resids=True
+        )
+        assert 0
+        outpath = join(
+            PLOTDIR, f'{starid}_{modelid}_localpolyindivpanels.png'
+        )
+        bp.plot_localpolyindivpanels(
+            d, m, summdf, outpath, modelid=modelid
+        )
 
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_phaseplot.png')

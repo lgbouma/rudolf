@@ -10,14 +10,14 @@ import numpy as np
 # ImpactParameter: testval
 
 priordict = {
-'period': ('Normal', 24.2783801, 0.01), # Q1-Q17 DR25 table
+'period': ('Normal', 24.2783801, 2e-3), # Q1-Q17 DR25 table
 't0': ('Normal', 2454987.513-2454833, 0.05), # Q1-Q17 DR25 table  (smaller unc maybe needed?)
 # #Classical Parametrization: fit log(Rp/R*), b[0,1+Rp/R*]
-'log_ror': ('Uniform', np.log(5e-3), np.log(1), np.log(0.023)),
-'b': ('ImpactParameter', 0.5),
+# 'log_ror': ('Uniform', np.log(0.011108996538242306), np.log(1), np.log(0.023)),
+# 'b': ('ImpactParameter', 0.5),
 # # Alternative paramterization: fit log(depth), b[0,1]. 
-#'log_depth': ('Normal', np.log(1.7e-3), 2),
-#'b': ('Uniform', 0, 1),
+'log_depth': ('Normal', np.log(0.0007144), 2),
+'b': ('Uniform', 0, 1),
 'u_star': ('QuadLimbDark',),
 #'u[0]': ('Uniform', 0.51-0.2, 0.51+0.2, 0.51), # Claret+2011, Teff 5500K, logg 4.5, solar metallicity, V-band
 #'u[1]': ('Uniform', 0.24-0.2, 0.24+0.2, 0.240),

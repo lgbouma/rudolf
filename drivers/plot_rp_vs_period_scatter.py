@@ -452,10 +452,27 @@ def plot_rp_vs_period_scatter(
 if __name__=='__main__':
 
     plot_rp_vs_period_scatter(
+        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+        verbose=1, add_kep1627=0, add_allkep=1, add_plnames=1
+    )
+    plot_rp_vs_period_scatter(
+        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+        verbose=1, add_kep1627=0, add_allkep=1, add_plnames=0
+    )
+
+    plot_rp_vs_period_scatter(
+        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+        verbose=1, add_kep1627=0, add_plnames=1
+    )
+    plot_rp_vs_period_scatter(
+        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+        verbose=1, add_kep1627=1, add_plnames=1
+    )
+
+    plot_rp_vs_period_scatter(
         showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=0,
         verbose=0, add_kep1627=0, add_delLyr=0, add_plnames=0
     )
-    assert 0
 
     plot_rp_vs_period_scatter(
         showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
@@ -466,19 +483,6 @@ if __name__=='__main__':
         verbose=1, add_kep1627=0, add_delLyr=1, add_plnames=1
     )
 
-
-    plot_rp_vs_period_scatter(
-        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-        verbose=1, add_kep1627=0, add_allkep=1, add_plnames=1
-    )
-    plot_rp_vs_period_scatter(
-        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-        verbose=1, add_kep1627=0, add_plnames=1
-    )
-    plot_rp_vs_period_scatter(
-        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-        verbose=1, add_kep1627=1, add_plnames=1
-    )
 
     for showss in [0,1]:
         plot_rp_vs_period_scatter(
