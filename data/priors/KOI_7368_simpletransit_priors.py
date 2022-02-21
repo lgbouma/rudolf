@@ -9,5 +9,5 @@ priordict = {
 'r_star': ('Normal', 0.876, 0.035), # Cluster isochrone (MIST+PARSEC)
 'logg_star': ('Normal', 4.499, 0.03), # Cluster isochrone (MIST+PARSEC)
 'log_jitter': ('Normal', '\\log\\langle \\sigma_f \\rangle', 2.0),
-'kepler_mean': ('Normal', 0, 0.1),
+'kepler_mean': ('Normal', 1, 0.1),
 }

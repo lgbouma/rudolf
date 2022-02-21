@@ -40,6 +40,7 @@ def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
     assert starid in ['Kepler_1627', 'KOI_7368', 'KOI_7913', 'Kepler_1643']
 
     modelid = 'simpletransit'
+    norm_zero = False # normalize LC around 1, not 0
 
     PLOTDIR = os.path.join(RESULTSDIR, f'run_{modelid}_{starid}')
     if not os.path.exists(PLOTDIR):
@@ -47,15 +48,17 @@ def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
 
     datasets = OrderedDict()
     if starid == 'Kepler_1627':
-        time, flux, flux_err, qual, texp = (
-            get_manually_downloaded_kepler_lightcurve(lctype='longcadence')
-        )
+        lctype = 'longcadence'
     elif starid in ['KOI_7368', 'KOI_7913', 'Kepler_1643']:
-        time, flux, flux_err, qual, texp = (
-            get_manually_downloaded_kepler_lightcurve(lctype=starid)
-        )
+        lctype = starid
     else:
         raise NotImplementedError
+
+    time, flux, flux_err, qual, texp = (
+        get_manually_downloaded_kepler_lightcurve(
+            lctype=starid, norm_zero=norm_zero
+        )
+    )
 
     # NOTE: we have an abundance of data -> drop all non-zero quality flags.
     sel = (qual == 0)
@@ -112,7 +115,6 @@ def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
         bp.plot_localpolyindivpanels(
             d, m, summdf, outpath, modelid=modelid, plot_resids=True
         )
-        assert 0
         outpath = join(
             PLOTDIR, f'{starid}_{modelid}_localpolyindivpanels.png'
         )
