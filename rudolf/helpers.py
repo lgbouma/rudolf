@@ -110,7 +110,7 @@ def get_flare_df():
     return sdf
 
 
-def get_manually_downloaded_kepler_lightcurve(lctype='longcadence'):
+def get_manually_downloaded_kepler_lightcurve(lctype='longcadence', norm_zero=0):
     """
     Collect and stitch available Kepler quarters, after median-normalizing in
     each quater.
@@ -151,7 +151,10 @@ def get_manually_downloaded_kepler_lightcurve(lctype='longcadence'):
         yval = 'PDCSAP_FLUX'
         time = d['TIME']
         _f, _f_err = d[yval], d[yval+'_ERR']
-        flux = (_f/np.nanmedian(_f) - 1) # normalize around zero for GP regression
+        if norm_zero:
+            flux = (_f/np.nanmedian(_f) - 1) # normalize around zero for GP regression
+        else:
+            flux = (_f/np.nanmedian(_f))
         flux_err = _f_err/np.nanmedian(_f)
         qual = d['SAP_QUALITY']
 

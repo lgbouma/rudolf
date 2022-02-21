@@ -39,15 +39,18 @@ def run_RotGPtransit(starid='KOI_7913', N_samples=2000):
     datasets = OrderedDict()
     if starid == 'Kepler_1627':
         time, flux, flux_err, qual, texp = (
-            get_manually_downloaded_kepler_lightcurve(lctype='longcadence')
+            get_manually_downloaded_kepler_lightcurve(lctype='longcadence',
+                                                      norm_zero=1)
         )
     elif starid == 'Kepler_1627_Q15slc':
         time, flux, flux_err, qual, texp = (
-            get_manually_downloaded_kepler_lightcurve(lctype='shortcadence')
+            get_manually_downloaded_kepler_lightcurve(lctype='shortcadence',
+                                                      norm_zero=1)
         )
     elif starid in ['KOI_7368', 'KOI_7913', 'Kepler_1643']:
         time, flux, flux_err, qual, texp = (
-            get_manually_downloaded_kepler_lightcurve(lctype=starid)
+            get_manually_downloaded_kepler_lightcurve(lctype=starid,
+                                                      norm_zero=1)
         )
     else:
         raise NotImplementedError
