@@ -182,8 +182,7 @@ def run_RotGPtransit(starid='KOI_7913', N_samples=2000):
 
     if writevespa:
         from rudolf.vespa import _write_vespa
-        staridentifier = f'{starid}_{modelid}'
-        _write_vespa(datasets, m.trace.posterior, staridentifier,
+        _write_vespa(datasets, m.trace.posterior, starid, modelid,
                      N_hours_from_transit=4, make_plot=True)
 
     if getbecclimits:

@@ -23,7 +23,7 @@ VESPADRIVERDIR = os.path.join(DRIVERDIR, 'vespa_drivers')
 if not os.path.exists(VESPADRIVERDIR):
     os.mkdir(VESPADRIVERDIR)
 
-def _write_vespa(data, soln, staridentifier,
+def _write_vespa(data, soln, starid, modelid,
                  N_hours_from_transit=4, make_plot=False):
     """
     Given the data and m.trace.posterior ("data" and "soln"),  get *detrended*
@@ -37,12 +37,15 @@ def _write_vespa(data, soln, staridentifier,
         soln (arviz.data.inference_data.InferenceData): posterior's trace
         (m.trace.posterior) from PyMC3.
 
-        staridentifier: str used in the output csv file name.
+        starid / modelid: strings used in the output csv file name, and when
+        figuring out how to read the data.
 
         N_hours_from_transit: number of hours +/- the transit mid-point that
         are used.  Better to not use all available data because otherwise
         vespa's MCMC is slow.
     """
+
+    staridentifier = f'{starid}_{modelid}'
 
     # get time/flux/error/period/t0
     assert len(data.keys()) == 1
@@ -50,14 +53,28 @@ def _write_vespa(data, soln, staridentifier,
     x,y,yerr,texp = data[name]
     t0, period = np.nanmedian(soln["t0"]), np.nanmedian(soln["period"])
 
-    assert len(soln["gp_pred"].shape) == 3, 'ncores X nchains X time'
-    medfunc, pctfunc = doublemean, doublepctile
-    gp_mod = medfunc(soln["gp_pred"]) + medfunc(soln["mean"])
-    _yerr = np.sqrt(yerr**2 + np.exp(2*medfunc(soln["log_jitter"])))
+    if modelid == 'RotGPtransit':
+        # in this model, `data` contains the full light curve, containing both
+        # the transits and stellar variability
+        assert len(soln["gp_pred"].shape) == 3, 'ncores X nchains X time'
+        medfunc, pctfunc = doublemean, doublepctile
+        gp_mod = medfunc(soln["gp_pred"]) + medfunc(soln["mean"])
+        _yerr = np.sqrt(yerr**2 + np.exp(2*medfunc(soln["log_jitter"])))
+        time = x
+        flux = 1 + (y-gp_mod) - np.nanmedian(y-gp_mod)
+        flux_err = _yerr
 
-    time = x
-    flux = 1 + (y-gp_mod) - np.nanmedian(y-gp_mod)
-    flux_err = _yerr
+    elif modelid == 'simpletransit':
+        # in this model, `data` contains the transit windows only, with the
+        # stellar variability already subtracted
+        medfunc = doublemean
+        time = x
+        flux = y
+        _yerr = np.sqrt(yerr**2 + np.exp(2*medfunc(soln["log_jitter"])))
+        flux_err = _yerr
+
+    else:
+        raise NotImplementedError
 
     # make relevant directories and paths
     outdir = os.path.join(VESPADRIVERDIR, f'{staridentifier}')

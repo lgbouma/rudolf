@@ -121,14 +121,14 @@ def run_simpletransit_polyremover(starid='Kepler_1643', N_samples=2000, N_cores=
 
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_phaseplot.png')
-        if starid == 'KOI_7368':
-            ylimd = {'A':[-2, 1.5], 'B':[-0.19,0.19]}
-        elif starid == 'KOI_7913':
-            ylimd = {'A':[-1.5, 0.5], 'B':[-0.05,0.05]}
-        else:
-            ylimd = {'A':[-3.5, 2.5], 'B':[-0.19,0.19]}
+        ylimds = {
+            'KOI_7368':{'A':[-2, 1.5], 'B':[-0.26,0.26]},
+            'KOI_7913':{'A':[-2, 1.5], 'B':[-0.36,0.36]},
+            'Kepler_1627':{'A':[-3.5, 1.5], 'B':[-0.26,0.26]},
+            'Kepler_1643':{'A':[-2, 1.5], 'B':[-0.26,0.26]},
+        }
         bp.plot_phasefold(m, summdf, outpath, modelid=modelid, inppt=1,
-                          ylimd=ylimd, binsize_minutes=15,
+                          ylimd=ylimds[starid], binsize_minutes=20,
                           singleinstrument='kepler')
 
     if posttable:
@@ -141,8 +141,7 @@ def run_simpletransit_polyremover(starid='Kepler_1643', N_samples=2000, N_cores=
 
     if writevespa:
         from rudolf.vespa import _write_vespa
-        staridentifier = f'{starid}_{modelid}'
-        _write_vespa(datasets, m.trace.posterior, staridentifier,
+        _write_vespa(datasets, m.trace.posterior, starid, modelid,
                      N_hours_from_transit=4, make_plot=True)
 
     if getbecclimits:
@@ -155,5 +154,5 @@ def run_simpletransit_polyremover(starid='Kepler_1643', N_samples=2000, N_cores=
 if __name__ == "__main__":
     for starid in ['Kepler_1627', 'KOI_7368', 'KOI_7913', 'Kepler_1643']:
         run_simpletransit_polyremover(
-            starid=starid, , N_samples=2000, N_cores=os.cpu_count()
+            starid=starid, N_samples=2000, N_cores=os.cpu_count()
         )
