@@ -28,14 +28,11 @@ from rudolf.paths import DATADIR, RESULTSDIR
 EPHEMDICT = {
     'KOI_7368': {'t0': 2454970.06-2454833, 'per': 6.842939, 'tdur':2.8/24, 'n_tdurs':3.5},
     'KOI_7913': {'t0': 2454987.513-2454833, 'per': 24.2783801, 'tdur':4.564/24, 'n_tdurs':2.5},
+    'Kepler_1627': {'t0': 120.790531, 'per': 7.20280608, 'tdur':2.841/24, 'n_tdurs':3.5},
+    'Kepler_1643': {'t0': 2454967.381-2454833, 'per': 5.34264143, 'tdur':2.401/24, 'n_tdurs':3.5},
 }
 
-# NOTE: change starid as desired based on the dataset to use.
-#def run_RotGPtransit(starid='Kepler_1627_Q15slc', N_samples=2000):
-#def run_RotGPtransit(starid='Kepler_1627', N_samples=2000):
-def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
-#def run_RotGPtransit(starid='KOI_7913', N_samples=2000):
-#def run_RotGPtransit(starid='Kepler_1643', N_samples=1000):
+def run_simpletransit_polyremover(starid='Kepler_1643', N_samples=2000, N_cores=32):
 
     assert starid in ['Kepler_1627', 'KOI_7368', 'KOI_7913', 'Kepler_1643']
 
@@ -56,7 +53,7 @@ def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
 
     time, flux, flux_err, qual, texp = (
         get_manually_downloaded_kepler_lightcurve(
-            lctype=starid, norm_zero=norm_zero
+            lctype=lctype, norm_zero=norm_zero
         )
     )
 
@@ -93,7 +90,7 @@ def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
 
     m = ModelFitter(modelid, datasets, priordict, plotdir=PLOTDIR,
                     pklpath=pklpath, overwrite=0, N_samples=N_samples,
-                    N_cores=os.cpu_count())
+                    N_cores=N_cores)
 
     print(pm.summary(m.trace, var_names=list(priordict)))
 
@@ -156,4 +153,7 @@ def run_RotGPtransit(starid='KOI_7368', N_samples=2000):
 
 
 if __name__ == "__main__":
-    run_RotGPtransit()
+    for starid in ['Kepler_1627', 'KOI_7368', 'KOI_7913', 'Kepler_1643']:
+        run_simpletransit_polyremover(
+            starid=starid, , N_samples=2000, N_cores=os.cpu_count()
+        )
