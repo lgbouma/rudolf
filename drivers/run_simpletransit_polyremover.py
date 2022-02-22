@@ -67,7 +67,9 @@ def run_simpletransit_polyremover(starid='Kepler_1643', N_samples=2000, N_cores=
         time, flux, flux_err, EPHEMDICT[starid]['t0'],
         EPHEMDICT[starid]['per'], EPHEMDICT[starid]['tdur'],
         n_tdurs=EPHEMDICT[starid]['n_tdurs'],
-        method='poly_4', plot_outpath=outpath
+        method='poly_4', plot_outpath=outpath,
+        drop_badtransits={'min_pts_in_transit':2,
+                          'drop_worst_rms_percentile':90}
     )
 
     datasets = OrderedDict()
