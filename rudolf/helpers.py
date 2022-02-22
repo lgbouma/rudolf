@@ -1125,15 +1125,18 @@ def append_phot_membershipexclude_column(df):
 
 def get_becc_limits(datasets, soln):
 
-    ecc = soln["ecc"]
     b = soln["b"]
+    if 'ecc' in soln:
+        ecc = soln["ecc"]
 
     fn = lambda x: np.nanpercentile(x, 95)
-    LOGINFO(f'e < {fn(ecc):.3f} at 2-sigma (95th)')
+    if 'ecc' in soln:
+        LOGINFO(f'e < {fn(ecc):.3f} at 2-sigma (95th)')
     LOGINFO(f'b < {fn(b):.3f} at 2-sigma (95th)')
 
     fn = lambda x: np.nanpercentile(x, 99.7)
-    LOGINFO(f'e < {fn(ecc):.3f} at 3-sigma (99.7th)')
+    if 'ecc' in soln:
+        LOGINFO(f'e < {fn(ecc):.3f} at 3-sigma (99.7th)')
     LOGINFO(f'b < {fn(b):.3f} at 3-sigma (99.7th)')
 
 
