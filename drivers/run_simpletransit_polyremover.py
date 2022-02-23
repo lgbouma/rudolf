@@ -124,10 +124,10 @@ def run_simpletransit_polyremover(starid='Kepler_1643', N_samples=2000, N_cores=
     if phaseplot:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_phaseplot.png')
         ylimds = {
-            'KOI_7368':{'A':[-2, 1.5], 'B':[-0.26,0.26]},
-            'KOI_7913':{'A':[-2, 1.5], 'B':[-0.36,0.36]},
-            'Kepler_1627':{'A':[-3.5, 1.5], 'B':[-0.26,0.26]},
-            'Kepler_1643':{'A':[-2, 1.5], 'B':[-0.26,0.26]},
+            'KOI_7368':{'A':[-2, 1.5], 'B':[-0.39,0.39]},
+            'KOI_7913':{'A':[-2, 1.5], 'B':[-0.39,0.39]},
+            'Kepler_1627':{'A':[-3.5, 1.5], 'B':[-0.39,0.39]},
+            'Kepler_1643':{'A':[-2, 1.5], 'B':[-0.39,0.39]},
         }
         bp.plot_phasefold(m, summdf, outpath, modelid=modelid, inppt=1,
                           ylimd=ylimds[starid], binsize_minutes=20,
