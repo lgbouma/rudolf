@@ -26,7 +26,7 @@ from rudolf.helpers import (
 from rudolf.paths import DATADIR, RESULTSDIR
 
 EPHEMDICT = {
-    'KOI_7368': {'t0': 2454970.06-2454833, 'per': 6.842939, 'tdur':2.8/24, 'n_tdurs':3.5},
+    'KOI_7368': {'t0': 2454970.06-2454833, 'per': 6.842939, 'tdur':2.54/24, 'n_tdurs':3.},
     'KOI_7913': {'t0': 2454987.513-2454833, 'per': 24.2783801, 'tdur':4.564/24, 'n_tdurs':2.5},
     'Kepler_1627': {'t0': 120.790531, 'per': 7.20280608, 'tdur':2.841/24, 'n_tdurs':3.5},
     'Kepler_1643': {'t0': 2454967.381-2454833, 'per': 5.34264143, 'tdur':2.401/24, 'n_tdurs':3.5},
@@ -63,13 +63,22 @@ def run_simpletransit_polyremover(starid='Kepler_1643', N_samples=2000, N_cores=
 
     from cdips.lcproc.detrend import transit_window_polynomial_remover
     outpath = join(PLOTDIR, f'{starid}_{modelid}.png')
+
+    drop_badtransits = {'min_pts_in_transit':2, 'drop_worst_rms_percentile':90}
+    if starid == 'KOI_7368':
+        drop_badtransits = {
+            'min_pts_in_transit':2, 'drop_worst_rms_percentile':85,
+            'badtimewindows':[(6.5,7.5), (260,261), (383,384), (458.3, 459.3),
+                              (1094.7, 1095.7), (1368.5, 1369.5)],
+            'x0': 123.0316919518882
+        }
+
     d = transit_window_polynomial_remover(
         time, flux, flux_err, EPHEMDICT[starid]['t0'],
         EPHEMDICT[starid]['per'], EPHEMDICT[starid]['tdur'],
         n_tdurs=EPHEMDICT[starid]['n_tdurs'],
         method='poly_4', plot_outpath=outpath,
-        drop_badtransits={'min_pts_in_transit':2,
-                          'drop_worst_rms_percentile':90}
+        drop_badtransits=drop_badtransits
     )
 
     datasets = OrderedDict()
