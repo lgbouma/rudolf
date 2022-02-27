@@ -31,3 +31,4 @@ paper_proofs*
 drivers/vespa_drivers/*/*pkl
 drivers/vespa_drivers/*/*cache*
 drivers/vespa_drivers/lixo
+drivers/vespa_drivers/pull_simpletransit.sh
