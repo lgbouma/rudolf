@@ -1,0 +1,432 @@
+%\documentclass[12pt,modern,twocolumn,tighten]{aastex63}
+\documentclass[12pt,modern,tighten]{aastex63}
+%\documentclass[12pt,modern,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
+%\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
+%\documentclass[12pt,twocolumn,tighten,trackchanges]{aastex63}
+\usepackage{amsmath,amstext,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{apjfonts}
+\usepackage[figure,figure*]{hypcap}
+\usepackage{graphics,graphicx}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage[caption=false]{subfig} % for subfloat
+\usepackage{enumitem} % for specific spacing of enumerate
+\usepackage{epigraph}
+
+\renewcommand*{\sectionautorefname}{Section} %for \autoref
+\renewcommand*{\subsectionautorefname}{Section} %for \autoref
+
+\newcommand{\cn}{Cep-Her complex} % cluster name
+\newcommand{\sysone}{Kepler-1627} % star system name (binary)
+\newcommand{\stone}{Kepler-1627 A} % star system name (binary)
+\newcommand{\plone}{Kepler-1627 Ab} % planet name
+\newcommand{\systwo}{Kepler-1643} % star system name (binary)
+\newcommand{\sttwo}{Kepler-1643} % star system name (binary)
+\newcommand{\pltwo}{Kepler-1643 b} % planet name
+\newcommand{\systhree}{KOI-7368} % star system name (binary)
+\newcommand{\stthree}{KOI-7368} % star system name (binary)
+\newcommand{\plthree}{KOI-7368 b} % planet name
+\newcommand{\sysfour}{KOI-7913 } % star system name (binary)
+\newcommand{\stfour}{KOI-7913 A} % star system name (binary)
+\newcommand{\plfour}{KOI-7913 Ab} % planet name
+
+\newcommand{\clusterage}{$38^{+6}_{-5}$\,Myr} % 
+
+%
+% Symbols
+%
+\newcommand{\kms}{\,km\,s$^{-1}$}
+\newcommand{\ms}{\,m\,s$^{-1}$}
+\newcommand{\bpmrpo}{(G_{\rm BP}-G_{\rm RP})_0}
+\newcommand{\bpmrp}{G_{\rm BP}-G_{\rm RP}}
+
+%% Reintroduced the \received and \accepted commands from AASTeX v5.2.
+%% Add "Submitted to " argument.
+\received{2021 Oct 12}
+\revised{---}
+\accepted{---}
+%\submitjournal{AAS Journals}
+\shorttitle{Kepler Mini-Neptunes in Cep-Her}
+
+\begin{document}
+
+\title{
+  Three 38 Million Year Old Mini-Neptunes from Kepler, TESS, and Gaia
+}
+
+%\suppressAffiliations
+%\NewPageAfterKeywords
+\input{authors.tex}
+
+% 208 words (250 max)
+\begin{abstract}
+  Stellar positions and velocities from Gaia
+  are yielding a refined view of stellar clusters during the
+  first hundred million years of their lives.
+  Here we present an analysis of a group of $38 \pm 6$ million year old stars
+  in the Cepheus-Hercules region, hereafter the Cep-Her complex.
+  This group of stars includes four previously known Kepler Objects of
+  Interest:
+  Kepler-1627 Ab ($R_{\rm p} = 3.85 \pm 0.11\,R_\oplus$, $P = 7.2\ {\rm days}$),
+  Kepler-1643 b ($R_{\rm p} = 2.32 \pm 0.14\,R_\oplus$, $P = 5.3\ {\rm days}$),
+  KOI-7368 b ($R_{\rm p} = 2.22 \pm 0.12\,R_\oplus$, $P = 6.8\ {\rm days}$), and
+  KOI-7913 Ab ($R_{\rm p} = 2.34 \pm 0.18\,R_\oplus$, $P = 24.2\ {\rm days}$).
+	Kepler-1627 is a previously validated young planet
+	in a component of the Cep-Her complex called the $\delta$\ Lyr\ cluster \citep{bouma_kep1627_2022}.
+	Here we focus on the latter three systems, which are in other sub-components
+	of the complex (RSG5 and CH-2).
+	Based on kinematic evidence from Gaia, stellar rotation periods from TESS, and spectroscopy,
+	these three systems are also $38 \pm 6$ million years old.
+	Based on the transit shapes and high resolution imaging, we
+	statistically validate that they are all most likely planets (false positive probabilities of $6\times10^{-9}$,
+	$5\times10^{-3}$, and $1\times10^{-4}$ for Kepler-1643, KOI-7368, and
+	KOI-7913 respectively).
+	Supplemented by Gaia and TESS, the main Kepler mission is now contributing to the
+	census of young close-in planets, and Kepler-1643 and KOI-7913 are the first
+	empirical demonstration that mini-Neptunes with sizes of $\approx$2 Earth radii
+	exist at ages of roughly 40 million years.
+\end{abstract}
+
+\keywords{
+  exoplanet evolution (491),
+  open star clusters (1160),
+	stellar ages (1581)
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% * Main text <3500 words (not including acknowledgements, appendices, or other
+%   supplementary)
+
+\section{Introduction}
+
+
+\section{The Cluster}
+\label{sec:cluster}
+
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.99\textwidth]{f1.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+    {\bf Galactic positions  and tangential velocities of stars in the
+    $\delta$\,Lyr cluster.} 
+		\label{fig:XYZvtang}
+	}
+\end{figure*}
+
+\subsection{Selecting Cluster Members}
+\label{sec:kinematicselection}
+
+\begin{figure*}[tp]
+	\begin{center}
+		\leavevmode
+		\subfloat{
+			\includegraphics[width=0.49\textwidth]{f2a.pdf}
+			\includegraphics[width=0.469\textwidth]{f2b.pdf}
+		}
+		
+		\vspace{-0.6cm}
+		\subfloat{
+			\includegraphics[width=0.7\textwidth]{f2c.pdf}
+		}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf The \cn\ is \clusterage\ old.} 
+		\label{fig:age}
+	}
+\end{figure*}
+
+\subsection{The Cluster's Age}
+\label{sec:clusterage}
+
+\subsubsection{Color-Absolute Magnitude Diagram}
+\label{sec:camd}
+
+\subsubsection{Stellar Rotation Periods}
+
+\section{The Stars}
+\label{sec:stars}
+
+\subsection{Kepler\,1627A}
+\subsection{Kepler\,1643}
+\subsection{KOI-7368}
+\subsection{KOI-7913}
+Is a binary.
+
+\section{The Planets}
+\label{sec:planet}
+
+\begin{figure*}[tp]
+	\begin{center}
+		\leavevmode
+		\subfloat{
+			\includegraphics[width=0.5\textwidth]{f3a.png}
+			\includegraphics[width=0.5\textwidth]{f3b.png}
+		}
+	
+		\subfloat{
+			\includegraphics[width=0.5\textwidth]{f3c.png}
+			\includegraphics[width=0.5\textwidth]{f3d.png}
+		}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf planets.} 
+		\label{fig:planets}
+	}
+\end{figure*}
+
+
+\section{Discussion \& Conclusions}
+\label{sec:conc}
+
+\begin{figure*}[!t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.9\textwidth]{f4.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		{\bf Radii, orbital periods, and ages of transiting exoplanets}.
+		Planets younger than a gigayear with ${\rm \tau}/\sigma_{\tau} >
+		3$ are emphasized, where $\tau$ is the age and $\sigma_{\tau}$ is
+		its uncertainty. STAR, SQUARE, DIAMOND.  The large sizes of
+		the youngest transiting planets could be explained by their
+		primordial atmospheres not yet having evaporated; direct
+		measurements of the atmospheric outflows or planetary masses would
+		help to confirm this expectation.  Selection effects may also be
+		important.  Parameters are from the NASA Exoplanet Archive (2021
+		Sept 15).
+		\label{fig:rp_period_age}
+	}
+\end{figure*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\clearpage
+\acknowledgements
+\raggedbottom
+%
+L.G.B{.} acknowledges support from the TESS GI Program (NASA grants
+80NSSC19K0386 and 80NSSC19K1728) and the Heising-Simons Foundation (51 Pegasi~b
+Fellowship).
+% programs G011103 and G022117, through 
+%
+%
+%FIXME
+Keck/NIRC2 imaging was acquired by program 2015A/N301N2L
+(PI: A.~Kraus). % and 2019A/N069 (PI: E.~Petigura).
+%
+% ACKNOWLEDGE PFS / CAMPANAS.
+%
+This paper also includes data collected by the TESS mission, which are
+publicly available from the Mikulski Archive for Space Telescopes
+(MAST).
+%
+Funding for the TESS mission is provided by NASA's Science Mission
+directorate.
+%
+We thank the TESS Architects (G.~Ricker, R.~Vanderspek, D.~Latham,
+S.~Seager, J.~Jenkins) and the many TESS team members for their
+efforts to make the mission a continued success.
+%
+%
+%This study was based in part on observations at Cerro Tololo
+%Inter-American Observatory at NSF's NOIRLab (NOIRLab Prop{.} ID
+%2020A-0146; 2020B-0029 PI: Bouma), which is managed by the
+%Association of Universities for Research in Astronomy (AURA) under a
+%cooperative agreement with the National Science Foundation.
+%
+%
+%Finally, this research has made use of the Keck Observatory Archive (KOA),
+%which is operated by the W. M. Keck Observatory and the NASA Exoplanet
+%Science Institute (NExScI), under contract with the National
+%Aeronautics and Space Administration.
+Finally, we also thank the Keck Observatory staff for their support of
+HIRES and remote observing.  We recognize the importance that the
+summit of Maunakea has within the indigenous Hawaiian community, and
+are deeply grateful to have the opportunity to conduct observations
+from this mountain.
+%
+% The Digitized Sky Survey was produced at the Space Telescope Science
+% Institute under U.S. Government grant NAG W-2166.
+% Figure~\ref{fig:scene} is based on photographic data obtained using
+% the Oschin Schmidt Telescope on Palomar Mountain.
+%
+
+% %
+% This research made use of the NASA Exoplanet Archive, which is
+% operated by the California Institute of Technology, under contract
+% with the National Aeronautics and Space Administration under the
+% Exoplanet Exploration Program.
+% %
+
+% Resources supporting this work were provided by the NASA High-End
+% Computing (HEC) Program through the NASA Advanced Supercomputing (NAS)
+% Division at Ames Research Center for the production of the SPOC data
+% products.
+%
+
+% A.J.\ and R.B.\ acknowledge support from project IC120009 ``Millennium
+% Institute of Astrophysics (MAS)'' of the Millenium Science Initiative,
+% Chilean Ministry of Economy. A.J.\ acknowledges additional support
+% from FONDECYT project 1171208.  J.I.V\ acknowledges support from
+% CONICYT-PFCHA/Doctorado Nacional-21191829.  R.B.\ acknowledges support
+% from FONDECYT Post-doctoral Fellowship Project 3180246.
+% %
+% C.T.\ and C.B\ acknowledge support from Australian Research Council
+% grants LE150100087, LE160100014, LE180100165, DP170103491 and
+% DP190103688.
+% %
+% C.Z.\ is supported by a Dunlap Fellowship at the Dunlap Institute for
+% Astronomy \& Astrophysics, funded through an endowment established by
+% the Dunlap family and the University of Toronto.
+% %
+% D.D.\ acknowledges support through the TESS Guest Investigator Program
+% Grant 80NSSC19K1727.
+%
+%
+%
+% %
+% Based on observations obtained at the Gemini Observatory, which is
+% operated by the Association of Universities for Research in Astronomy,
+% Inc., under a cooperative agreement with the NSF on behalf of the
+% Gemini partnership: the National Science Foundation (United States),
+% National Research Council (Canada), CONICYT (Chile), Ministerio de
+% Ciencia, Tecnolog\'{i}a e Innovaci\'{o}n Productiva (Argentina),
+% Minist\'{e}rio da Ci\^{e}ncia, Tecnologia e Inova\c{c}\~{a}o (Brazil),
+% and Korea Astronomy and Space Science Institute (Republic of Korea).
+% %
+% Observations in the paper made use of the High-Resolution Imaging
+% instrument Zorro at Gemini-South. Zorro was funded by the NASA
+% Exoplanet Exploration Program and built at the NASA Ames Research
+% Center by Steve B. Howell, Nic Scott, Elliott P. Horch, and Emmett
+% Quigley.
+% %
+% This research has made use of the VizieR catalogue access tool, CDS,
+% Strasbourg, France. The original description of the VizieR service was
+% published in A\&AS 143, 23.
+% %
+% This work has made use of data from the European Space Agency (ESA)
+% mission {\it Gaia} (\url{https://www.cosmos.esa.int/gaia}), processed
+% by the {\it Gaia} Data Processing and Analysis Consortium (DPAC,
+% \url{https://www.cosmos.esa.int/web/gaia/dpac/consortium}). Funding
+% for the DPAC has been provided by national institutions, in particular
+% the institutions participating in the {\it Gaia} Multilateral
+% Agreement.
+%
+% (Some of) The data presented herein were obtained at the W. M. Keck
+% Observatory, which is operated as a scientific partnership among the
+% California Institute of Technology, the University of California and
+% the National Aeronautics and Space Administration. The Observatory was
+% made possible by the generous financial support of the W. M. Keck
+% Foundation.
+% The authors wish to recognize and acknowledge the very significant
+% cultural role and reverence that the summit of Maunakea has always had
+% within the indigenous Hawaiian community.  We are most fortunate to
+% have the opportunity to conduct observations from this mountain.
+%
+% \newline
+%
+
+\software{
+  %\texttt{arviz} \citep{arviz_2019},
+  %\texttt{altaipony} \citep{ilin_flares_2021},
+  \texttt{astrobase} \citep{bhatti_astrobase_2018},
+  %\texttt{astroplan} \citep{astroplan2018},
+	%\texttt{AstroImageJ} \citep{collins_astroimagej_2017},
+  \texttt{astropy} \citep{astropy_2018},
+  \texttt{astroquery} \citep{astroquery_2018},
+  %\texttt{BATMAN} \citep{kreidberg_batman_2015},
+  %\texttt{ceres} \citep{brahm_2017_ceres},
+  %\texttt{cdips-pipeline} \citep{bhatti_cdips-pipeline_2019},
+  \texttt{corner} \citep{corner_2016},
+  %\texttt{emcee} \citep{foreman-mackey_emcee_2013},
+  \texttt{exoplanet} \citep{exoplanet:exoplanet}, and its
+  dependencies \citep{exoplanet:agol20, exoplanet:kipping13, exoplanet:luger18,
+   	exoplanet:theano},
+	%\texttt{gala} \citep{gala,PriceWhelan_2017_gala_zenodo},
+	%\texttt{IDL Astronomy User's Library} \citep{landsman_1995},
+  %\texttt{IPython} \citep{perez_2007},
+	%\texttt{isochrones} \citep{morton_2015_isochrones},
+	%\texttt{lightkurve} \citep{lightkurve_2018},
+  %\texttt{matplotlib} \citep{hunter_matplotlib_2007}, 
+  %\texttt{MESA} \citep{paxton_modules_2011,paxton_modules_2013,paxton_modules_2015}
+  %\texttt{numpy} \citep{walt_numpy_2011}, 
+  %\texttt{pandas} \citep{mckinney-proc-scipy-2010},
+  %\texttt{pyGAM} \citep{serven_pygam_2018_1476122},
+  \texttt{PyMC3} \citep{salvatier_2016_PyMC3},
+  %\texttt{radvel} \citep{fulton_radvel_2018},
+  %\texttt{scikit-learn} \citep{scikit-learn},
+  \texttt{scipy} \citep{jones_scipy_2001},
+  %\texttt{TESS-point}  \citep{burke_2020},
+  %\texttt{tesscut} \citep{brasseur_astrocut_2019},
+	%\texttt{VESPA} \citep{morton_efficient_2012,vespa_2015},
+  %\texttt{webplotdigitzer} \citep{rohatgi_2019},
+  %\texttt{wotan} \citep{hippke_wotan_2019}.
+}
+\ 
+
+\facilities{
+ 	{\it Astrometry}:
+ 	Gaia \citep{gaia_collaboration_gaia_2018,gaia_collaboration_2021_edr3}.
+ 	{\it Imaging}:
+    Second Generation Digitized Sky Survey. %,
+    %SOAR~(HRCam; \citealt{tokovinin_ten_2018}).
+ 	Keck:II~(NIRC2; \url{www2.keck.hawaii.edu/inst/nirc2}).
+ 	%Gemini:South~(Zorro; \citealt{scott_nessi_2018}.
+ 	%Gemini:North~(`Alopeke; \citealt{scott_nessi_2018,scott_twin_2021}.
+ 	{\it Spectroscopy}:
+	%CTIO1.5$\,$m~(CHIRON; \citealt{tokovinin_chironfiber_2013}),
+  %PFS ({\bf CITE}),
+	Tillinghast:1.5m~(TRES; \citealt{furesz_tres_2008}).
+  %MPG2.2$\,$m~(FEROS; \citealt{kaufer_commissioning_1999}),
+	%AAT~(Veloce; \citealt{gilbert_veloce_2018}).
+	%AAT~(HERMES; \citealt{lewis_2002_hermers_2df,sheinis_2015_hermes}),
+ 	Keck:I~(HIRES; \citealt{vogt_hires_1994}).
+ 	%VLT:Kueyen~(FLAMES; \citealt{pasquini_2002}).
+% 	Euler1.2m~(CORALIE),
+% 	ESO:3.6m~(HARPS; \citealt{mayor_setting_2003}).
+ 	{\it Photometry}:
+%	  ASTEP:0.40$\,$m (ASTEP400),
+% 	CTIO:1.0m (Y4KCam),
+% 	Danish 1.54m Telescope,
+%	  El Sauce:0.356$\,$m,
+% 	Elizabeth 1.0m at SAAO,
+% 	Euler1.2m (EulerCam),
+	  Kepler \citep{borucki_kepler_2010},
+% 	Magellan:Baade (MagIC),
+% 	Max Planck:2.2m	(GROND; \citealt{greiner_grond7-channel_2008})
+%   MuSCAT3 \citep{Narita_2020},
+% 	NTT,
+% 	SOAR (SOI),
+ 	  TESS \citep{ricker_transiting_2015}.
+% 	TRAPPIST \citep{jehin_trappist_2011},
+% 	VLT:Antu (FORS2).
+}
+
+% \input{starparams.tex}
+% \input{model_posterior_table.tex}
+% \input{t1_appendix.tex}
+% \input{t2_appendix.tex}
+
+\clearpage
+\bibliographystyle{yahapj}                            
+\bibliography{bibliography} 
+
+%\appendix
+%\section{Young, Age-Dated, and Age-Dateable Star Compilation}
+%\label{app:targetlist}
+
+
+%\listofchanges
+%\allauthors
+\end{document}
