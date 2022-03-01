@@ -933,6 +933,107 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
     savefig(fig, outpath, dpi=400)
 
 
+def plot_koikeplerlc(outdir, xlim=[200,300]):
+    """
+    Kepler-1643, KOI-7368, KOI-7913, Kepler-1627.
+    Each in a row.
+    """
+
+    EPHEMDICT = {
+        'KOI_7368': {'t0': 2454970.06-2454833, 'per': 6.842939, 'tdur':2.54/24, 'n_tdurs':3.},
+        'KOI_7913': {'t0': 2454987.513-2454833, 'per': 24.2783801, 'tdur':4.564/24, 'n_tdurs':2.5},
+        'Kepler_1627': {'t0': 120.790531, 'per': 7.20280608, 'tdur':2.841/24, 'n_tdurs':3.5},
+        'Kepler_1643': {'t0': 2454967.381-2454833, 'per': 5.34264143, 'tdur':2.401/24, 'n_tdurs':3.5},
+    }
+
+    starids = [
+        'Kepler_1643', 'KOI_7368', 'KOI_7913', 'Kepler_1627'
+    ]
+
+    #
+    # make plot
+    #
+    plt.close('all')
+    set_style()
+
+    fig, axs = plt.subplots(figsize=(6,2.7), nrows=4, ncols=1)
+
+    # get initial offset
+    x0s = []
+    times, fluxs = [], []
+    for ix, starid in enumerate(starids):
+
+        if starid == 'Kepler_1627':
+            lctype = 'longcadence'
+        elif starid in ['KOI_7368', 'KOI_7913', 'Kepler_1643']:
+            lctype = starid
+        time, flux, flux_err, qual, texp = (
+            get_manually_downloaded_kepler_lightcurve(
+                lctype=lctype, norm_zero=1
+            )
+        )
+
+        # NOTE: we have an abundance of data -> drop all non-zero quality flags.
+        sel = (qual == 0)
+        time, flux, flux_err, texp = time[sel], flux[sel], flux_err[sel], texp
+
+        x0s.append(np.nanmin(time))
+        times.append(time)
+        fluxs.append(flux)
+
+    x0 = np.nanmin(x0s)
+    print(f'Got x0={x0}')
+
+    # do the plotting
+    for ix, starid in enumerate(starids):
+
+        ax = axs[ix]
+
+        x, y = times[ix], fluxs[ix]
+
+        ax.scatter(x-x0, 1e3*(y), c="k", s=0.5, rasterized=True, linewidths=0,
+                   zorder=42)
+        ax.set_xlim(xlim)
+
+		# Star/Planet name
+        txt = starid.replace('_','-')
+        props = dict(boxstyle='square', facecolor='white', alpha=0.95, pad=0.15,
+                     linewidth=0)
+        ax.text(0.98, 0.04, txt, transform=ax.transAxes, ha='right',va='bottom',
+                color='k', zorder=43, fontsize='small', bbox=props)
+
+
+        # Ephemeris
+        t0 = EPHEMDICT[starid]['t0'] - x0
+        period = EPHEMDICT[starid]['per']
+        epochs = np.arange(-200,400,1)
+        tra_times = t0 + period*epochs
+
+        ax.set_ylim([-90,90])
+
+        ymin, ymax = ax.get_ylim()
+        ax.vlines(
+            tra_times, ymin, ymax, colors='darkgray', alpha=0.5,
+            linestyles='--', zorder=-2, linewidths=0.2
+        )
+        ax.set_ylim((ymin, ymax))
+
+    for ax in axs[:-1]:
+        ax.set_xticklabels([])
+
+    fig.text(-0.01,0.5, 'Relative flux [ppt]', va='center', rotation=90)
+    fig.text(0.5,-0.01, 'Days from start', ha='center')
+
+    fig.tight_layout(h_pad=0.0)
+
+    # set naming options
+    s = f'_xlim{str(xlim[0]).zfill(4)}_{str(xlim[1]).zfill(4)}'
+
+    bn = inspect.stack()[0][3].split("_")[1]
+    outpath = os.path.join(outdir, f'{bn}{s}.png')
+    savefig(fig, outpath, dpi=400)
+
+
 def plot_keplerlc(outdir, N_samples=500, xlim=[200,300]):
     """
     mosaic format:

@@ -11,6 +11,7 @@ cp /Users/luke/Dropbox/proj/rudolf/results/rotation/deltaLyrCluster_rotation_vs_
 #TODO TODO
 
 # phased and sliced LCs
+cp /Users/luke/Dropbox/proj/rudolf/results/koikeplerlc/koikeplerlc_xlim0550_0600.pdf f3e.pdf
 cp ~/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1643/*phase*png f3a.png
 cp ~/Dropbox/proj/rudolf/results/run_simpletransit_KOI_7913/*phase*png f3b.png
 cp ~/Dropbox/proj/rudolf/results/run_simpletransit_KOI_7368/*phase*png f3c.png
