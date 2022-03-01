@@ -12,10 +12,10 @@ cp /Users/luke/Dropbox/proj/rudolf/results/rotation/deltaLyrCluster_rotation_vs_
 
 # phased and sliced LCs
 cp /Users/luke/Dropbox/proj/rudolf/results/koikeplerlc/koikeplerlc_xlim0550_0600.pdf f3e.pdf
-cp ~/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1643/*phase*png f3a.png
-cp ~/Dropbox/proj/rudolf/results/run_simpletransit_KOI_7913/*phase*png f3b.png
-cp ~/Dropbox/proj/rudolf/results/run_simpletransit_KOI_7368/*phase*png f3c.png
-cp ~/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1627/*phase*png f3d.png
+cp ~/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1643/*singlepanel*pdf f3a.pdf
+cp ~/Dropbox/proj/rudolf/results/run_simpletransit_KOI_7913/*singlepanel*pdf f3b.pdf
+cp ~/Dropbox/proj/rudolf/results/run_simpletransit_KOI_7368/*singlepanel*pdf f3c.pdf
+cp ~/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1627/*singlepanel*pdf f3d.pdf
 
 # Rp, Period, Age
 cp ~/Dropbox/proj/rudolf/results/rp_vs_period_scatter/rp_vs_period_scatter_20220227_colorbyage_showCepHer.pdf f4.pdf
