@@ -16,6 +16,7 @@ GALEX:
 Kepler phot:
     plot_keplerlc
         _plot_zoom_light_curve
+    plot_koikeplerlc
     plot_flare_checker
         _get_detrended_flare_data
     plot_ttv
@@ -995,7 +996,7 @@ def plot_koikeplerlc(outdir, xlim=[200,300]):
                    zorder=42)
         ax.set_xlim(xlim)
 
-		# Star/Planet name
+        # Star/Planet name
         txt = starid.replace('_','-')
         props = dict(boxstyle='square', facecolor='white', alpha=0.95, pad=0.15,
                      linewidth=0)

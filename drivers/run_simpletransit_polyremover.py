@@ -111,6 +111,7 @@ def run_simpletransit_polyremover(starid='Kepler_1643', N_samples=2000, N_cores=
 
     localpolyindivpanels = 1
     phaseplot = 1
+    spphaseplot = 1
     posttable = 1
     cornerplot = 1
     writevespa = 1
@@ -141,6 +142,21 @@ def run_simpletransit_polyremover(starid='Kepler_1643', N_samples=2000, N_cores=
         bp.plot_phasefold(m, summdf, outpath, modelid=modelid, inppt=1,
                           ylimd=ylimds[starid], binsize_minutes=20,
                           singleinstrument='kepler')
+
+    if spphaseplot:
+        outpath = join(PLOTDIR, f'{starid}_{modelid}_singlepanelphaseplot.png')
+        ylimds = {
+            'KOI_7368':[-4, 1.5],
+            'KOI_7913':[-5.5, 1.5],
+            'Kepler_1627':[-6.5, 1.5],
+            'Kepler_1643':[-4, 1.5],
+        }
+        dyfactor = 4.2 if starid != 'Kepler_1627' else 2.8
+        bp.plot_singlepanelphasefold(
+            m, summdf, outpath, dyfactor=dyfactor, txt=starid.replace('_','-'), modelid=modelid,
+            inppt=1, ylims=ylimds[starid], binsize_minutes=20,
+            singleinstrument='kepler'
+        )
 
     if posttable:
         outpath = join(PLOTDIR, f'{starid}_{modelid}_posteriortable.tex')
