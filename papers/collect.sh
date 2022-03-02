@@ -1,10 +1,12 @@
 # Cep-Her XYZ
-cp /Users/luke/Dropbox/proj/rudolf/results/XYZvtang/XYZvtang_show1627_showallknown_showrsg5_showsun_square.pdf f1.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/XYZvtang/XYZvtang_showallknown_showrsg5_showsun_square_showset1.pdf f1.pdf
 
 # rotation, CAMD, spectra (Li/H-alpha)
 # CAMD:
-cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_Set1_IC_2602_Pleiades_cleanhrcut_gaia2018_overplotkep1627_allknownkois.pdf f2a.pdf
-cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_Set1_IC_2602_Pleiades_cleanhrcut_gaia2018_smalllims_overplotkep1627_allknownkois.pdf f2b.pdf
+
+cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_Set1_Pleiades_cleanhrcut_gaia2018_smalllims_allknownkois.pdf f2a.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_RSG5_Pleiades_cleanhrcut_gaia2018_smalllims_allknownkois.pdf f2b.pdf
+
 # rotation:
 cp /Users/luke/Dropbox/proj/rudolf/results/rotation/deltaLyrCluster_rotation_vs_BpmRp_talkaspect_kinematicspatialselected_linear_curtiscleaning_overplotkep1627.pdf f2c.pdf
 # spectra: Li EW vs Teff and Halpha EW vs Teff
