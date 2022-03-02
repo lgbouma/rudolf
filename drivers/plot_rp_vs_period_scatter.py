@@ -288,9 +288,8 @@ def plot_rp_vs_period_scatter(
         if add_CepHer:
             # Kepler-52 and Kepler-968
             namelist = ['Kepler-1627', 'KOI-7368', 'KOI-7913', 'Kepler-1643']
-
             ages = [3.8e7, 3.8e7, 3.8e7, 3.8e7]
-            markers = ['P', 'v', 's', 'X']
+            markers = ['P', 'v', 'X', 's']
             sizes = [120, 120, 120, 120]
 
             for n, a, m, _s in zip(namelist, ages, markers, sizes):
