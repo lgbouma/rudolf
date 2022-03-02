@@ -25,6 +25,9 @@ Kepler phot:
     plot_flare_pair_time_distribution
     plot_phasedlc_quartiles
 
+Spec:
+    plot_lithium
+
 RM:
     plot_simulated_RM
     plot_RM
@@ -2628,7 +2631,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                                  emph_binaries=False, refcluster_only=False,
                                  talk_aspect=0, xval_absmag=0,
                                  kinematic_selection=0,
-                                 overplotkep1627=0):
+                                 overplotkep1627=0, show_allknown=0):
     """
     Plot rotation periods that satisfy the automated selection criteria
     (specified in helpers.get_autorotation_dataframe)
@@ -2717,9 +2720,10 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
 
         else:
             if not xval_absmag:
-                xval = (
-                    df['phot_bp_mean_mag'+cstr] - df['phot_rp_mean_mag'+cstr]
+                get_xval = lambda _df: np.array(
+                    _df['phot_bp_mean_mag'+cstr] - _df['phot_rp_mean_mag'+cstr]
                 )
+                xval = get_xval(df)
             else:
                 get_xval = lambda _df: np.array(
                     _df['phot_g_mean_mag'] + 5*np.log10(_df['parallax']/1e3) + 5
@@ -2773,6 +2777,36 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
             markerfacecolor='yellow', markersize=14, marker='*',
             color='black', lw=0
         )
+
+    if show_allknown:
+        _, _, _, koi_df_dict = get_deltalyr_kc19_gaia_data(return_all_targets=1)
+
+        namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A', 'KOI-7913 B', 'Kepler-1643']
+        markers = ['P', 'v', 'X', 'X', 's']
+        # lime: CH-2 (KOI-7913, KOI-7368)
+        # magenta: RSG5 (Kepler-1643)
+        # gray/black: del Lyr cluster (Kepler-1627)
+        mfcs = ['white', 'lime', 'lime', 'lime', 'magenta']
+
+        from rudolf.starinfo import starinfodict as sd
+        for mfc, marker, (name,_kdf) in zip(mfcs, markers, koi_df_dict.items()):
+
+            cachepath = os.path.join(RESULTSDIR,'tables',f'{name}_stilism.csv')
+            if not os.path.exists(cachepath):
+                _kdf = supplement_gaia_stars_extinctions_corrected_photometry(
+                    _kdf, extinctionmethod=extinctionmethod, savpath=cachepath
+                )
+                _kdf.to_csv(cachepath, index=False)
+            _kdf = pd.read_csv(cachepath)
+
+            Prot = sd[name]['Prot']
+
+            ax.plot(
+                get_xval(_kdf), Prot,
+                alpha=1, mew=0.5, zorder=9001, label=name, markerfacecolor=mfc,
+                markersize=11, marker=marker, color='black', lw=0,
+            )
+
 
     ax.set_ylabel('Rotation Period [days]', fontsize='medium')
 
@@ -2847,6 +2881,8 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
         outstr += '_overplotkep1627'
     if refcluster_only:
         outstr += '_refclusteronly'
+    if show_allknown:
+        outstr += '_allknown'
     outpath = os.path.join(outdir, f'{runid}_rotation{outstr}.png')
     savefig(f, outpath)
 
@@ -4215,4 +4251,118 @@ def plot_full_kinematics(df, outstr, outdir, galacticframe=0):
 
     outpath = os.path.join(outdir, f'full_kinematics{s}.png')
 
+    savefig(f, outpath)
+
+
+def plot_lithium(outdir):
+
+    set_style()
+
+    from timmy.lithium import get_Randich18_lithium, get_Berger18_lithium
+
+    rdf = get_Randich18_lithium()
+    bdf = get_Berger18_lithium()
+
+    selclusters = [
+        # 'IC4665', # LDB 23.2 Myr
+        'NGC2547', # LDB 37.7 Myr
+        'IC2602', # LDB 43.7 Myr
+        # 'IC2391', # LDB 51.3 Myr
+    ]
+    selrdf = np.zeros(len(rdf)).astype(bool)
+    for c in selclusters:
+        selrdf |= rdf.Cluster.str.contains(c)
+
+    srdf = rdf[selrdf]
+    srdf_lim = srdf[srdf.f_EWLi==3]
+    srdf_val = srdf[srdf.f_EWLi==0]
+
+    # young dictionary
+    yd = {
+        'val_teff_young': nparr(srdf_val.Teff),
+        'val_teff_err_young': nparr(srdf_val.e_Teff),
+        'val_li_ew_young': nparr(srdf_val.EWLi),
+        'val_li_ew_err_young': nparr(srdf_val.e_EWLi),
+        'lim_teff_young': nparr(srdf_lim.Teff),
+        'lim_teff_err_young': nparr(srdf_lim.e_Teff),
+        'lim_li_ew_young': nparr(srdf_lim.EWLi),
+        'lim_li_ew_err_young': nparr(srdf_lim.e_EWLi),
+    }
+
+    # field dictionary
+    # SNR > 3
+    field_det = ( (bdf.EW_Li_ / bdf.e_EW_Li_) > 3 )
+    bdf_val = bdf[field_det]
+    bdf_lim = bdf[~field_det]
+
+    fd = {
+        'val_teff_field': nparr(bdf_val.Teff),
+        'val_li_ew_field': nparr(bdf_val.EW_Li_),
+        'val_li_ew_err_field': nparr(bdf_val.e_EW_Li_),
+        'lim_teff_field': nparr(bdf_lim.Teff),
+        'lim_li_ew_field': nparr(bdf_lim.EW_Li_),
+        'lim_li_ew_err_field': nparr(bdf_lim.e_EW_Li_),
+    }
+
+    d = {**yd, **fd}
+
+    ##########
+    # make tha plot 
+    ##########
+
+    plt.close('all')
+
+    f, ax = plt.subplots(figsize=(4,3))
+
+    classes = ['young', 'field']
+    colors = ['k', 'gray']
+    zorders = [2, 1]
+    markers = ['o', '.']
+    ss = [13, 5]
+    #NGC$\,$2547 & IC$\,$2602
+    labels = [r'$\approx 40$ Myr', 'Kepler Field']
+
+    # plot vals
+    for _cls, _col, z, m, l, s in zip(classes, colors, zorders, markers,
+                                      labels, ss):
+        ax.scatter(
+            d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'], c=_col, alpha=1,
+            zorder=z, s=s, rasterized=False, linewidths=0, label=l, marker=m
+        )
+
+    from rudolf.starinfo import starinfodict as sd
+
+    # lime: CH-2 (KOI-7913, KOI-7368)
+    # magenta: RSG5 (Kepler-1643)
+    # gray/black: del Lyr cluster (Kepler-1627)
+    namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A', 'KOI-7913 B', 'Kepler-1643']
+    markers = ['P', 'v', 'X', 'X', 's']
+    mfcs = ['gray', 'lime', 'lime', 'lime', 'magenta']
+
+    for n,m,mfc in zip(namelist, markers, mfcs):
+
+        teff = sd[n]['Teff']
+        Li_EW = sd[n]['Li_EW']
+        yerr = np.array([sd[n]['Li_EW_perr'],
+                         sd[n]['Li_EW_merr']]).reshape((2,1))
+
+        ax.errorbar(
+            teff,
+            Li_EW,
+            yerr=yerr,
+            marker=m,
+            c=mfc,
+            label=n,
+            elinewidth=0.5, capsize=4, lw=0, mew=0.5, markersize=3,
+            zorder=5
+        )
+
+    ax.legend(loc='best', handletextpad=0.1, fontsize='x-small', framealpha=0.7)
+    ax.set_ylabel('Li$_{6708}$ EW [m$\mathrm{\AA}$]', fontsize='large')
+    ax.set_xlabel('Effective Temperature [K]', fontsize='large')
+
+    #ax.set_xlim((4900, 6600))
+
+    format_ax(ax)
+    outpath = os.path.join(outdir, 'lithium.png')
     savefig(f, outpath)

@@ -10,17 +10,13 @@ from earhart.priors import AVG_EBpmRp
 
 runid = 'deltaLyrCluster'
 
-#TODO: do a cut in rotation periods?
-# c = 'defaultcleaning_cutProtColor'
-# rp.plot_rotationperiod_vs_color(
-#     PLOTDIR, runid, E_BpmRp, core_halo=1, yscale='linear', cleaning=c,
-#     emph_binaries=0, talk_aspect=1, showPleiadesQuad=0
-# )
-# rp.plot_rotationperiod_vs_color(
-#     PLOTDIR, runid, E_BpmRp, core_halo=0, yscale='linear', cleaning=c,
-#     emph_binaries=1, talk_aspect=1, showPleiadesQuad=0
-# )
-
+# add all KOIs
+rp.plot_rotationperiod_vs_color(
+    PLOTDIR, runid, yscale='linear', cleaning='defaultcleaning',
+    emph_binaries=0, talk_aspect=1, kinematic_selection=1,
+    overplotkep1627=0, show_allknown=1
+)
+assert 0
 # pleiades and praesepe only
 rp.plot_rotationperiod_vs_color(
     PLOTDIR, runid, yscale='linear',
