@@ -343,8 +343,10 @@ def get_deltalyr_kc19_gaia_data(return_all_targets=0):
         return df_dr2, df_edr3, trgt_df
 
     trgt_id_dict = {
+        'Kepler-1627 A': "2103737241426734336",
         'KOI-7368': "2128840912955018368",
-        'KOI-7913': "2106235301785454208",
+        'KOI-7913 A': "2106235301785454208",
+        'KOI-7913 B': "2106235301785453824",
         'Kepler-1643': "2082142734285082368" # aka. KOI-6186
     }
 
@@ -439,11 +441,13 @@ def get_set1_koi7368():
 
 def get_gaia_catalog_of_nearby_stars():
     fitspath = os.path.join(
-        DATADIR, 'nearby_stars', 'GaiaCollaboration_2021_GCNS.fits'
+        DATADIR, 'nearby_stars', 'GaiaCollaboration_2021_GCNS_with_probs.fits'
     )
     hl = fits.open(fitspath)
     d = hl[1].data
     df = Table(d).to_pandas()
+
+    df = df[df.GCNSprob > 0.99]
 
     COLDICT = {
         'GaiaEDR3': 'edr3_source_id',
