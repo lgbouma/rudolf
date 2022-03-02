@@ -1965,7 +1965,7 @@ def plot_hr(
     l0 = '$\delta$ Lyr candidates'
     ax.scatter(
         get_xval(df), get_yval(df), c='k', alpha=1, zorder=3,
-        s=s, rasterized=False, linewidths=0.1, label=l0, marker='o',
+        s=0.8*s, rasterized=False, linewidths=0.1, label=l0, marker='o',
         edgecolors='k'
     )
 
@@ -2026,8 +2026,8 @@ def plot_hr(
 
         ax.scatter(
             get_xval(_df), get_yval(_df), c='lime', alpha=1, zorder=9000,
-            s=s, rasterized=False, label='KOI 7368 vicinity (Set 1)', marker='D',
-            edgecolors='k', linewidths=0.1
+            s=1.5*s, rasterized=False, label='CH-2 candidates', marker='D',
+            edgecolors='k', linewidths=0.2
         )
 
         if overplotkoi7368:
@@ -2043,9 +2043,15 @@ def plot_hr(
 
     if show_allknown or overplotkoi7913 or overplotkep1643:
         _, _, _, koi_df_dict = get_deltalyr_kc19_gaia_data(return_all_targets=1)
-        mfcs = ['lime', 'salmon', 'magenta']
 
-        for mfc, (name,_kdf) in zip(mfcs, koi_df_dict.items()):
+        namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A', 'KOI-7913 B', 'Kepler-1643']
+        markers = ['P', 'v', 'X', 'X', 's']
+        # lime: CH-2 (KOI-7913, KOI-7368)
+        # magenta: RSG5 (Kepler-1643)
+        # gray/black: del Lyr cluster (Kepler-1627)
+        mfcs = ['white', 'lime', 'lime', 'lime', 'magenta']
+
+        for mfc, marker, (name,_kdf) in zip(mfcs, markers, koi_df_dict.items()):
 
             cachepath = os.path.join(RESULTSDIR,'tables',f'{name}_stilism.csv')
             if not os.path.exists(cachepath):
@@ -2059,7 +2065,7 @@ def plot_hr(
                 ax.plot(
                     get_xval(_kdf), get_yval(_kdf),
                     alpha=1, mew=0.5, zorder=9001, label=name, markerfacecolor=mfc,
-                    markersize=11, marker='*', color='black', lw=0
+                    markersize=11, marker=marker, color='black', lw=0
                 )
             if (
                 (overplotkoi7913 and name == 'KOI-7913')
@@ -2136,6 +2142,37 @@ def plot_hr(
             edgecolors='k', linewidths=0.1
         )
 
+    if 'RSG5' in clusters:
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', f'RSG5_withreddening_{extinctionmethod}.csv'
+        )
+        if not os.path.exists(outpath):
+            df_rsg5_dr2, df_rsg5_edr3 = get_rsg5_kc19_gaia_data()
+            _gdf = given_source_ids_get_gaia_data(
+                nparr(df_rsg5_dr2['source_id']).astype(np.int64), 'RSG5_rudolf',
+                n_max=10000, overwrite=False,
+                enforce_all_sourceids_viable=True, savstr='', whichcolumns='*',
+                gaia_datarelease='gaiadr2'
+            )
+            assert len(df_rsg5_dr2) == len(_gdf)
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(
+                _gdf, extinctionmethod=extinctionmethod,
+                savpath=os.path.join(RESULTSDIR,'tables','RSG5_stilism.csv')
+            )
+            _df.to_csv(outpath, index=False)
+        _df = pd.read_csv(outpath)
+        if cleanhrcut:
+            _df = _df[get_clean_gaia_photometric_sources(_df)]
+        if reddening_corr:
+            print('RSG5')
+            print(_df['reddening[mag][stilism]'].describe())
+
+        ax.scatter(
+            get_xval(_df), get_yval(_df), c='magenta', alpha=1, zorder=10,
+            s=0.7*s, rasterized=False, label='RSG-5 candidates', marker='o',
+            edgecolors='k', linewidths=0.1
+        )
+
     if 'Pleiades' in clusters:
         outpath = os.path.join(
             RESULTSDIR, 'tables', f'Pleiades_withreddening_{extinctionmethod}.csv'
@@ -2168,7 +2205,6 @@ def plot_hr(
             edgecolors='k', linewidths=0.1
         )
 
-
     if 'μ Tau' in clusters:
         outpath = os.path.join(
             RESULTSDIR, 'tables', f'muTau_withreddening_{extinctionmethod}.csv'
@@ -2199,8 +2235,6 @@ def plot_hr(
             s=s, rasterized=False, label='μ Tau', marker='o',
             edgecolors='k', linewidths=0.1
         )
-
-
 
     if show100pc:
         from matplotlib.colors import LinearSegmentedColormap
