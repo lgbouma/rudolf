@@ -655,7 +655,7 @@ def plot_skychart(outdir, narrowlims=0, showkepler=0, showtess=0,
 
 def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
                   show_comovers=0, show_sun=0, orientation=None, show_7368=0,
-                  show_allknown=0, show_rsg5=0):
+                  show_allknown=0, show_rsg5=0, show_set1=0):
 
     plt.close('all')
     set_style()
@@ -664,7 +664,7 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
     df_sel = get_deltalyr_kc19_cleansubset()
 
     _, df_edr3, trgt_df = get_deltalyr_kc19_gaia_data()
-    if show_7368:
+    if show_7368 or show_set1:
         # keys: KOI-7368, KOI-7913, Kepler-1643
         _, _, _, koi_df_dict = get_deltalyr_kc19_gaia_data(return_all_targets=1)
         set1_df = get_set1_koi7368()
@@ -682,7 +682,7 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
     df_edr3 = append_physicalpositions(df_edr3, trgt_df)
     df_sel = append_physicalpositions(df_sel, trgt_df)
     trgt_df = append_physicalpositions(trgt_df, trgt_df)
-    if show_7368:
+    if show_7368 or show_set1:
         koi_df_dict['KOI-7368'] = append_physicalpositions(koi_df_dict['KOI-7368'], trgt_df)
         set1_df = append_physicalpositions(set1_df, trgt_df)
     if show_allknown:
@@ -815,20 +815,31 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
                 zorder=42, label='KOI-7368', markerfacecolor='lime',
                 markersize=12, marker='*', color='black', lw=0
             )
-            if show_comovers:
-                axd[k].scatter(
-                    set1_df[set1_df.parallax_over_error>20][xv],
-                    set1_df[set1_df.parallax_over_error>20][yv], c='lime', alpha=1,
-                    zorder=8, s=2, edgecolors='none', rasterized=True, marker='.'
-                )
+
+        if (show_comovers and show_7368) or show_set1:
+            axd[k].scatter(
+                set1_df[set1_df.parallax_over_error>20][xv],
+                set1_df[set1_df.parallax_over_error>20][yv], c='lime', alpha=1,
+                zorder=8, s=2, edgecolors='none', rasterized=True, marker='.',
+                label='(needs work) CH-2'
+            )
 
         if show_allknown:
-            mfcs = ['lime', 'salmon', 'magenta']
-            for mfc, (name,_df) in zip(mfcs, koi_df_dict.items()):
+            namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A', 'Kepler-1643']
+            markers = ['P', 'v', 'X', 's']
+            # lime: CH-2 (KOI-7913, KOI-7368)
+            # magenta: RSG5 (Kepler-1643)
+            # gray/black: del Lyr cluster (Kepler-1627)
+            mfcs = ['white', 'lime', 'lime', 'magenta']
+
+            # drops KOI-7913 B
+            koi_df_dict = {k:v for k,v in koi_df_dict.items() if k in namelist}
+
+            for mfc, marker, (name,_df) in zip(mfcs, markers, koi_df_dict.items()):
                 axd[k].plot(
                     _df[xv], _df[yv], alpha=1, mew=0.5,
                     zorder=42, label=name, markerfacecolor=mfc,
-                    markersize=12, marker='*', color='black', lw=0
+                    markersize=12, marker=marker, color='black', lw=0
                 )
 
         if show_sun and '_pc' in xv:
@@ -844,7 +855,7 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
 
         if show_rsg5:
             axd[k].scatter(
-                df_rsg5_edr3[xv], df_rsg5_edr3[yv], c='C0', alpha=1, zorder=6,
+                df_rsg5_edr3[xv], df_rsg5_edr3[yv], c='magenta', alpha=1, zorder=6,
                 s=2, edgecolors='none', rasterized=True, marker='.',
                 label='KC19 RSG_5'
             )
@@ -928,6 +939,8 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
         s += "_showsun"
     if orientation:
         s += f"_{orientation}"
+    if show_set1:
+        s += f"_showset1"
 
     bn = inspect.stack()[0][3].split("_")[1]
     outpath = os.path.join(outdir, f'{bn}{s}.png')
