@@ -1,5 +1,5 @@
 %\documentclass[12pt,modern,twocolumn,tighten]{aastex63}
-\documentclass[12pt,modern,tighten]{aastex63}
+\documentclass[12pt,twocolumn,linenumbers]{aastex63}
 %\documentclass[12pt,modern,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 %\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
 %\documentclass[12pt,twocolumn,tighten,trackchanges]{aastex63}
@@ -61,32 +61,29 @@
 
 % 208 words (250 max)
 \begin{abstract}
-  Stellar positions and velocities from Gaia
-  are yielding a refined view of stellar clusters during the
-  first hundred million years of their lives.
-  Here we present an analysis of a group of $38 \pm 6$ million year old stars
-  spanning Cepheus ($l=100^\circ$) to Hercules ($l=40^\circ$), hereafter the Cep-Her complex.
-  This group of stars includes four previously known Kepler Objects of
-  Interest:
+  Stellar positions and velocities from Gaia are yielding a new and
+  refined view of stellar cluster evolution.
+  Here we present an analysis of a group of $\approx$40 million
+  year old stars spanning Cepheus ($l=100^\circ$) to Hercules
+  ($l=40^\circ$), hereafter the Cep-Her complex.  The group contains
+  four known Kepler Objects of Interest:
   Kepler-1627 Ab ($R_{\rm p} = 3.85 \pm 0.11\,R_\oplus$, $P = 7.2\ {\rm days}$),
   Kepler-1643 b ($R_{\rm p} = 2.32 \pm 0.14\,R_\oplus$, $P = 5.3\ {\rm days}$),
   KOI-7368 b ($R_{\rm p} = 2.22 \pm 0.12\,R_\oplus$, $P = 6.8\ {\rm days}$), and
   KOI-7913 Ab ($R_{\rm p} = 2.34 \pm 0.18\,R_\oplus$, $P = 24.2\ {\rm days}$).
-  Kepler-1627 is a Neptune-sized planet in a component of the Cep-Her
+  Kepler-1627 is a Neptune-sized planet in a sub-component of the
   complex called the $\delta$\ Lyr\ cluster
   \citep{bouma_kep1627_2022}.  Here we focus on the latter three
   systems, which are in other sub-components of the complex (RSG-5 and
   CH-2).  Based on kinematic evidence from Gaia, stellar rotation
   periods from TESS, and spectroscopy, these three systems are also
   $38 \pm 6$ million years old.  Based on the transit shapes and high
-  resolution imaging, we statistically validate that they are all most
+  resolution imaging, they are all most
   likely planets (false positive probabilities of $6\times10^{-9}$,
   $5\times10^{-3}$, and $1\times10^{-4}$ for Kepler-1643, KOI-7368,
-  and KOI-7913 respectively).  Supplemented by Gaia and TESS, the main
-  Kepler mission is now contributing to the census of young close-in
-  planets, and Kepler-1643 and KOI-7913 are the first empirical
-  demonstration that mini-Neptunes with sizes of $\approx$2 Earth
-  radii exist at ages of roughly 40 million years.
+  and KOI-7913 respectively).  Kepler-1643 and KOI-7913 are therefore
+  the first empirical demonstration that mini-Neptunes with sizes of
+  $\approx$2 Earth radii exist at ages of roughly 40 million years.
 \end{abstract}
 
 \keywords{
@@ -103,9 +100,73 @@
 
 \section{Introduction}
 
+The discovery of young transiting planets is a major frontier in
+current exoplanet research.  The reason is that the properties of
+these planets can help constrain the timescales for processes
+including hot Jupiter migration (CITE), the cooling and contraction of
+mini-Neptunes (CITE Rizzuto), the early evolution of close-in
+multiplanet systems (CITE David), and whether and how mass-loss
+explains the radius valley (e.g., CITE, CITE, Lee+21 on theory; CITE
+CITE CITE on observations).
+
+Assuming a constant star formation rate in the Galaxy, $\approx$1\% of
+stars are $\lesssim$10$^8$ years old.  While $\approx$5{,}000
+transiting exoplanets are known (CITE), 11 currently meet this age
+cut.  The discrepancy between the $\approx$50 expected and $\approx$10
+known likely has a contribution from selection effects in planetary
+detection, which include photometric and spectroscopic starspot
+modulation, and the rarity of young stars.
+
+While detecting planets around young and active stars is challenging,
+so is measuring stellar ages (see CITE Soderblom for a review).  It
+should therefore not be surprising that advances along either
+dimension can yield advances in the census of young transiting
+planets.
+
+The prime Kepler mission (CITE) found most of the currently known
+transiting exoplanets, and it was conducted before the positions,
+velocities, and stellar brightnesses measured by Gaia revolutionized
+our understanding of stellar clusters (CITE, CITE, CITE).  This
+revolution is slated to continue with the upcoming third Gaia data
+release (DR3 CITE).  Nonetheless, it seems sensible to revisit the
+Kepler field, given our new knowlege of the stellar ages.
+
+In this work, we expand on a previous study of a 38 million year (Myr)
+old Neptune-sized planet in the Kepler field (Kepler-1627Ab; CITE).
+The age of this planet was derived based on its host star's membership
+in the $\delta$\ Lyr\ cluster.  Our analysis of this cluster focused
+on the immediate kinematic vicinity of Kepler-1627A in order to
+reliably confirm the age of the planet.  However it also became clear
+that the $\delta$\ Lyr\ cluster is spatially and kinematically close
+to a much larger group of similarly aged stars.  This group, which is
+at a distance of roughly 300 parsecs, appears to span Cepheus
+($l=100^\circ$) to Hercules ($l=40^\circ$), at galactic latitudes,
+$b$, between roughly 0 and 20 degrees.  We therefore refer to it as
+the Cep-Her complex.  Viewed top-down in the plane of the Galaxy, the
+complex spans roughly 250 parsecs in the direction toward the galactic
+center, and 150 parsecs in the perpendicular direction of galactic
+rotation.  A detailed kinematic analysis and exploration is currently
+being prepared by R.~Kerr and collaborators.
+
+The subject of this study is the intersection of the Cep-Her complex
+with the Kepler field, and an analysis of the consequent transiting
+planets and planet candidates.  Cross-matching the full set of
+candidate Cep-Her members against all known Kepler Objects of Interest
+(CITE) yielded XX candidate matches.  Given the purported XX Myr age
+of the group, a visual inspection of the light curves quickly enabled
+a decision about whether the matches could be valid, based on the
+presence or non-presence of stellar rotation signals of the
+appropriate periods and amplitudes (CITE REBULL).  Four possible
+matches remained from this exercise: Kepler-1627, Kepler-1643,
+KOI-7368, and KOI-7913.  Given our previous analysis of Kepler-1627,
+we will focus for the most part on the latter three.
+
 
 \section{The Cluster}
 \label{sec:cluster}
+
+\subsection{Selecting Cluster Members}
+\label{sec:kinematicselection}
 
 \begin{figure*}[t]
 	\begin{center}
@@ -122,8 +183,10 @@
 	}
 \end{figure*}
 
-\subsection{Selecting Cluster Members}
-\label{sec:kinematicselection}
+
+
+\subsection{The Cluster's Age}
+\label{sec:clusterage}
 
 \begin{figure*}[tp]
 	\begin{center}
@@ -142,19 +205,23 @@
 	\vspace{-0.7cm}
 	\caption{
 		{\bf The \cn\ is \clusterage\ old.} 
-    The top row shows CAMDs.  Left shows CH-2, right shows RSG-5.
-    The bottom left shows gyro (and is a {\bf place-holder since we might want to add CH-2 and RSG5}).
-    The bottom right shows lithium (black points are NGC2547 and
-    IC2602 from Randich+18 and probably are not believable at the red
-    end; for Kepler-1643 I'm less confident, but it might be tied to the ``slow'' rotation period -- this is why we need RSG5 rotation periods).
-    Also, we might want an
-    H-alpha plot?).
+    The top row shows CAMDs.  Left shows CH-2, right shows RSG-5.  The
+    bottom left shows gyro (and is a {\bf place-holder since we might
+    want to add CH-2 and RSG5}).  The bottom right shows lithium
+    (black points are NGC2547 and IC2602 from Randich+18 and probably
+    are not believable at the red end; for Kepler-1643 I'm less
+    confident, but it might be tied to the ``slow'' rotation period --
+    this is why we need RSG5 rotation periods).  Also, we might want
+    an H-alpha plot?).
 		\label{fig:age}
 	}
 \end{figure*}
 
-\subsection{The Cluster's Age}
-\label{sec:clusterage}
+
+
+The evidence for the RSG-5 and CH-2 sub-groups at least roughly
+sharing the age of the $\delta$\ Lyra\ cluster is shown in
+Figure~\ref{fig:age}.
 
 \subsubsection{Color-Absolute Magnitude Diagram}
 \label{sec:camd}
@@ -164,7 +231,66 @@
 \section{The Stars}
 \label{sec:stars}
 
-\subsection{Kepler\,1627A}
+\input{tab_sysparams.tex}
+
+Many of the relevant stellar parameters can be gleaned by inspecting
+Figure~\ref{fig:age}.  The known planet-hosting stars in Cep-Her span
+spectral types of G8V (Kepler-1627) to K8V (KOI-7913 A).  The
+secondary in the KOI-7913 system is only marginally cooler than the
+primary (SpType $\approx$M0V).
+The latter system is 3$\farcs$501 
+%FIXME FIXME FIXME TODO TODO TODO
+A Solar-mass star with solar metallicity arrives at the zero-age main
+sequence at $t\approx40$ million years (CITE CHOI MESA), and so these
+stars are in the end stages of their pre-main-sequence contraction.
+Their Gaia EDR3 parallaxes span X.X to Y.Y, corresponding to distances
+between X.X and Y.Y parsecs.
+
+To derive the spectroscopic parameters $(T_{\rm eff}, \log g_\star,
+[{\rm Fe/H}])$ and  the equivalent width of the Li\,\textsc{I}
+from the 6708\,\AA\ doublet, we acquired spectra.  Specifically, we
+acquired iodine-free HIRES spectra for Kepler-1643 (YYYY/MM/DD) and
+KOI-7913 (YYYY/MM/DD and YYYY/MM/DD), where for the latter the two
+different epochs corresponded to observations of the secondary and
+primary respectively.  The acquisition and analysis followed the
+standard reduction techniques of the California Planet Survey
+\citep{howard_cps_2010}.  For KOI-7368, we acquired TRES spectra on
+YYYY/MM/DD and YYYY/MM/DD.  CITE METHOD PAPER.
+The results are given in Table~\ref{tab:sysparams}.
+
+Table~\ref{tab:sysparams} summarizes
+%
+%from the 
+%
+%
+%\citep[{\it e.g.},][]{soderblom_ages_2014}, we acquired an iodine-free
+%spectrum from Keck/HIRES on the night of 2021 March 26 using the
+%standard setup and reduction techniques of the California Planet
+%Survey \citep{howard_cps_2010}.  Following the equivalent width
+%measurement procedure described by \citet{bouma_2021_ngc2516}, we find
+%${\rm EW}_{\rm Li} = 233^{+5}_{-7}$\,m\AA.   This value does not
+%correct for the Fe\,\textsc{I} blend at 6707.44\AA.  Nonetheless,
+%given the stellar effective temperature (Table~\ref{tab:starparams}),
+%this measurement is in agreement with expectations for a
+%$\approx40$\,Myr star ({\it e.g.}, as measured in IC~2602 by
+%\citealt{randich_gaiaeso_2018}).  It is also larger than any lithium
+%equivalent widths measured by \citet{berger_identifying_2018} in their
+%analysis of 1{,}301 Kepler-star spectra.
+%
+%
+%% rotation period from plot_rotation_period_windowslider.py
+%Based on the spatial and kinematic association of \sn\ with the \cn,
+%and the assumption that the planet formed shortly after the star, it
+%seems likely that \sn\ is the same age as the cluster. There are two
+%consistency checks on whether this is true: rotation and lithium.
+%Based on the Kepler light curve, the rotation period is
+%$2.642\pm0.042$\,days, where the quoted uncertainty is based on the
+%scatter in rotation periods measured from each individual Kepler
+%quarter.  This is consistent with comparable cluster members
+%(Figure~\ref{fig:age}).
+
+
+%\subsection{Kepler\,1627A}
 \subsection{Kepler\,1643}
 \subsection{KOI-7368}
 \subsection{KOI-7913}
@@ -177,19 +303,19 @@ Is a binary.
 	\begin{center}
 		\leavevmode
 		\subfloat{
-			\includegraphics[width=0.99\textwidth]{f3e.pdf}
+			\includegraphics[width=0.85\textwidth]{f3e.pdf}
 		}
-		\vspace{-0.4cm}
 
+		\vspace{-0.5cm}
 		\subfloat{
-			\includegraphics[width=0.47\textwidth]{f3a.pdf}
-			\includegraphics[width=0.47\textwidth]{f3b.pdf}
+			\includegraphics[width=0.41\textwidth]{f3a.pdf}
+			\includegraphics[width=0.41\textwidth]{f3b.pdf}
 		}
-		\vspace{-1.45cm}
-	
+
+		\vspace{-1.45cm}	
 		\subfloat{
-			\includegraphics[width=0.47\textwidth]{f3c.pdf}
-			\includegraphics[width=0.47\textwidth]{f3d.pdf}
+			\includegraphics[width=0.41\textwidth]{f3c.pdf}
+			\includegraphics[width=0.41\textwidth]{f3d.pdf}
 		}
 	\end{center}
 	\vspace{-0.7cm}
@@ -229,6 +355,8 @@ Is a binary.
 		\label{fig:rp_period_age}
 	}
 \end{figure*}
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
