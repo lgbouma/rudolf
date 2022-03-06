@@ -1,0 +1,66 @@
+SCHEMA:
+
+In two-column ApJ format, you get 56 lines for the table.
+9+7=16 (omitting the ?? lines).  16*3 = 48.  
+Could shave off "age" lines... redundant -> 45 lines plus change and caption.
+
+------------------------------------------
+
+Caption: Selected System Parameters for Kepler-1643, KOI-7913, and KOI-7368
+(Can append the usual priors etc table)
+
+------------------------------------------
+Parameter... Value... 68% confidence interval... Comment
+------------------------------------------
+              Kepler-1643
+------------------------------------------
+Star
+------------------------------------------
+Gaia G mag
+  ?? plx (mas)  (maybe not needed b/c d=300pc said elsewhere)
+  ?? RUWE
+Teff
+logg
+  ?? Fe/H
+  ?? A_V
+Rstar
+Mstar
+rho_star
+P_rot
+Li EW
+  ?? Age
+------------------------------------------
+Planet
+------------------------------------------
+t0
+Period
+Rp/R*
+b
+Rp [Earths]
+a/R*
+T_14
+
+
+Planet
+------------------------------------------
+
+              KOI-7368
+------------------------------------------
+
+Star
+------------------------------------------
+
+Planet
+------------------------------------------
+
+
+              KOI-7913
+------------------------------------------
+
+Star
+------------------------------------------
+
+Planet
+------------------------------------------
+
+
