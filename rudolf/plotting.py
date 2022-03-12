@@ -6,6 +6,7 @@ Gaia (CMDs, RUWEs)
     plot_skychart
     plot_XYZvtang
     plot_hr
+    plot_CepHer_quicklook_tests
 
 Gaia + TESS + Kepler:
     plot_rotationperiod_vs_color
@@ -4366,3 +4367,75 @@ def plot_lithium(outdir):
     format_ax(ax)
     outpath = os.path.join(outdir, 'lithium.png')
     savefig(f, outpath)
+
+
+def plot_CepHer_quicklook_tests(outdir):
+
+    # get data
+    csvpath = os.path.join(DATADIR, 'Cep-Her',
+                           '20220311_Kerr_SPYGLASS205_Members_All.csv')
+    df = pd.read_csv(csvpath)
+
+    df = df.rename({'RA':'ra', 'Dec':'dec', 'RV':'dr2_radial_velocity'}, axis='columns')
+
+    df['bp-rp'] = df['bp'] - df['rp']
+    df['M_G'] = df['g'] + 5*np.log10(df['parallax']/1e3) + 5
+
+    c = SkyCoord(ra=nparr(df.ra)*u.deg, dec=nparr(df.dec)*u.deg)
+    df['l'] = c.galactic.l.value
+    df['b'] = c.galactic.b.value
+
+    # get: v_l, v_b?
+    from earhart.physicalpositions import (
+        calc_vl_vb_physical,
+        append_physicalpositions
+    )
+    v_l_cosb_km_per_sec, v_b_km_per_sec = calc_vl_vb_physical(
+        nparr(df.ra), nparr(df.dec), nparr(df.pmra), nparr(df.pmdec),
+        nparr(df.parallax)
+    )
+
+    df["v_l*"] = v_l_cosb_km_per_sec
+    df['v_b'] = v_b_km_per_sec
+
+    reference_df = pd.DataFrame(df.mean()).T
+    append_physicalpositions(df, reference_df)
+
+    xytuples = [
+        ('ra', 'dec', 'linear', 'linear'),
+        ('l', 'b', 'linear', 'linear'),
+        ('pmra', 'pmdec', 'linear', 'linear'),
+        ('bp-rp', 'g', 'linear', 'linear'),
+        ('bp-rp', 'M_G', 'linear', 'linear'),
+        ('parallax', 'age', 'linear', 'linear'),
+        ('v_l*', 'v_b', 'linear', 'linear'),
+        ('x_pc', 'y_pc', 'linear', 'linear'),
+        ('x_pc', 'z_pc', 'linear', 'linear'),
+        ('y_pc', 'z_pc', 'linear', 'linear'),
+    ]
+
+    for xy in xytuples:
+        xkey, ykey = xy[0], xy[1]
+        xscale, yscale = xy[2], xy[3]
+        invert_y = True if ykey == 'M_G' else False
+        invert_x = True if xkey == 'l' else False
+
+        plt.close('all')
+        set_style()
+        fig, ax = plt.subplots(figsize=(4,3))
+        ax.scatter(df[xkey], df[ykey], c='k', s=2, zorder=1)
+        ax.set_xlabel(xkey)
+        ax.set_ylabel(ykey)
+        ax.set_xscale(xscale)
+        ax.set_yscale(yscale)
+        if invert_y:
+            ax.set_ylim(ax.get_ylim()[::-1])
+        if invert_x:
+            ax.set_xlim(ax.get_xlim()[::-1])
+        s = ''
+        if xscale == 'log':
+            s += '_logx'
+        if yscale == 'log':
+            s += '_logy'
+        outpath = os.path.join(outdir, f'{xkey}_vs_{ykey}{s}.png')
+        savefig(fig, outpath)
