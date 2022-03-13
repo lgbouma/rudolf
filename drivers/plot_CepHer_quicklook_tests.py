@@ -6,6 +6,9 @@ PLOTDIR = os.path.join(RESULTSDIR, 'CepHer_quicklook_tests')
 if not os.path.exists(PLOTDIR):
     os.mkdir(PLOTDIR)
 
+rp.plot_CepHerExtended_quicklook_tests(
+    PLOTDIR
+)
 rp.plot_CepHer_quicklook_tests(
     PLOTDIR
 )

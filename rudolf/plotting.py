@@ -85,6 +85,10 @@ from cdips.utils.mamajek import (
     get_SpType_BpmRp_correspondence, get_SpType_GmRp_correspondence
 )
 
+from earhart.physicalpositions import (
+    calc_vl_vb_physical, append_physicalpositions
+)
+
 from rudolf.paths import DATADIR, RESULTSDIR
 from rudolf.helpers import (
     get_deltalyr_kc19_gaia_data, get_simulated_RM_data,
@@ -4385,7 +4389,7 @@ def plot_CepHer_quicklook_tests(outdir):
     df['l'] = c.galactic.l.value
     df['b'] = c.galactic.b.value
 
-    # get: v_l, v_b?
+    # get: v_l, v_b
     from earhart.physicalpositions import (
         calc_vl_vb_physical,
         append_physicalpositions
@@ -4439,3 +4443,183 @@ def plot_CepHer_quicklook_tests(outdir):
             s += '_logy'
         outpath = os.path.join(outdir, f'{xkey}_vs_{ykey}{s}.png')
         savefig(fig, outpath)
+
+
+def _given_df_get_auxiliary_quantities(df):
+
+    # calculate auxiliary quantities
+    df['bp-rp'] = df['phot_bp_mean_mag'] - df['phot_rp_mean_mag']
+    df['M_G'] = df['phot_g_mean_mag'] + 5*np.log10(df['parallax']/1e3) + 5
+
+    c = SkyCoord(ra=nparr(df.ra)*u.deg, dec=nparr(df.dec)*u.deg)
+    df['l'] = c.galactic.l.value
+    df['b'] = c.galactic.b.value
+
+    # get: v_l, v_b
+    v_l_cosb_km_per_sec, v_b_km_per_sec = calc_vl_vb_physical(
+        nparr(df.ra), nparr(df.dec), nparr(df.pmra), nparr(df.pmdec),
+        nparr(df.parallax)
+    )
+
+    df["v_l*"] = v_l_cosb_km_per_sec
+    df['v_b'] = v_b_km_per_sec
+
+    return df
+
+
+def plot_CepHerExtended_quicklook_tests(outdir):
+
+    # get data
+    csvpath = os.path.join(DATADIR, 'Cep-Her',
+                           '20220311_Kerr_CepHer_Extended_Candidates.csv')
+    df = pd.read_csv(csvpath)
+    df = df[(df['photometric flag'].astype(bool)) & (df['astrometric flag'].astype(bool))]
+
+    csvpath1 = os.path.join(DATADIR, 'Cep-Her',
+                           '20220311_Kerr_SPYGLASS205_Members_All.csv')
+    df1 = pd.read_csv(csvpath1)
+
+    koi_dict = { # strengths
+        'KOI-7368': '2128840912955018368', # 0.093
+        'KOI-7913 A': '2106235301785454208', # 0.04
+        'KOI-7913 B': '2106235301785453824', # 0.04
+        'Kepler-1643': '2082142734285082368', # 0.24
+        'Kepler-1627 A': '2103737241426734336', # 0.30
+    }
+
+    _mdf = df[np.in1d(df.source_id.astype(str),
+                      np.array(list(koi_dict.values())))]
+
+    print(_mdf[['source_id','strengths']])
+
+    # verify that everything in the "Extended Candidates" list includes the
+    # objects from the "base core members" list.
+    mdf = df.merge(df1, left_on='source_id', right_on='GEDR3', how='inner')
+    assert len(mdf) == len(df1)
+
+    df = _given_df_get_auxiliary_quantities(df)
+    _mdf = _given_df_get_auxiliary_quantities(_mdf)
+
+    reference_df = pd.DataFrame(df.mean()).T
+    df = append_physicalpositions(df, reference_df)
+    _mdf = append_physicalpositions(_mdf, reference_df)
+
+    xytuples = [
+        ('ra', 'dec', 'linear', 'linear'),
+        ('l', 'b', 'linear', 'linear'),
+        ('pmra', 'pmdec', 'linear', 'linear'),
+        ('bp-rp', 'phot_g_mean_mag', 'linear', 'linear'),
+        ('bp-rp', 'M_G', 'linear', 'linear'),
+        ('v_l*', 'v_b', 'linear', 'linear'),
+        ('x_pc', 'y_pc', 'linear', 'linear'),
+        ('x_pc', 'z_pc', 'linear', 'linear'),
+        ('y_pc', 'z_pc', 'linear', 'linear'),
+    ]
+
+    strengths = [4e-2, 1e-1, 2e-2]
+    sizes = [1.5, 2, 1]
+
+    for strength_cut, size in zip(strengths, sizes):
+
+        sdf = df[df.strengths > strength_cut]
+        print(f'Strength cut: > {strength_cut}: {len(sdf)} objects')
+        sstr = f'strengthgt{strength_cut:.2f}'
+
+        csvpath = os.path.join(outdir, f'weight_{sstr}.csv')
+        sdf.to_csv(csvpath, index=False)
+
+        for xy in xytuples:
+
+            xkey, ykey = xy[0], xy[1]
+            xscale, yscale = xy[2], xy[3]
+            invert_y = True if ykey in ['M_G','phot_g_mean_mag'] else False
+            invert_x = True if xkey in ['l', 'ra'] else False
+
+            # colorless
+
+            #  # standard x vs y
+            #  plt.close('all')
+            #  set_style()
+            #  fig, ax = plt.subplots(figsize=(4,3))
+            #  ax.scatter(sdf[xkey], sdf[ykey], c='k', s=size, zorder=1,
+            #             linewidths=0, marker='.')
+            #  ax.set_xlabel(xkey)
+            #  ax.set_ylabel(ykey)
+            #  ax.set_xscale(xscale)
+            #  ax.set_yscale(yscale)
+            #  if invert_y:
+            #      ax.set_ylim(ax.get_ylim()[::-1])
+            #  if invert_x:
+            #      ax.set_xlim(ax.get_xlim()[::-1])
+            #  s = ''
+            #  if xscale == 'log':
+            #      s += '_logx'
+            #  if yscale == 'log':
+            #      s += '_logy'
+            #  outpath = os.path.join(outdir, f'{sstr}_{xkey}_vs_{ykey}{s}.png')
+            #  savefig(fig, outpath)
+
+            # x vs y, colored by strength!
+
+            # Add a colorbar.
+            color = np.log10(sdf['strengths'])
+
+            # https://matplotlib.org/stable/tutorials/colors/colormaps.html
+            cmap = mpl.cm.get_cmap('plasma')
+            # # Only show points for which color is defined (e.g., not all stars have
+            # # ages reported in the table).
+            # sel = ~pd.isnull(color)
+
+            plt.close('all')
+            set_style()
+            fig, ax = plt.subplots(figsize=(4,3))
+            _p = ax.scatter(sdf[xkey], sdf[ykey], c=color, s=size, zorder=1,
+                            linewidths=0, marker='.', cmap=cmap)
+            ax.set_xlabel(xkey)
+            ax.set_ylabel(ykey)
+            ax.set_xscale(xscale)
+            ax.set_yscale(yscale)
+            if invert_y:
+                ax.set_ylim(ax.get_ylim()[::-1])
+            if invert_x:
+                ax.set_xlim(ax.get_xlim()[::-1])
+
+            namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A',
+                        'KOI-7913 B', 'Kepler-1643']
+            markers = ['P', 'v', 'X', 'X', 's']
+            # lime: CH-2 (KOI-7913, KOI-7368)
+            # magenta: RSG5 (Kepler-1643)
+            # gray/black: del Lyr cluster (Kepler-1627)
+            mfcs = ['white', 'lime', 'lime', 'lime', 'magenta']
+            for name,marker,mfc in zip(namelist, markers, mfcs):
+                source_id = koi_dict[name]
+                sel = _mdf.source_id.astype(str) == source_id
+                ax.plot(
+                    _mdf[sel][xkey], _mdf[sel][ykey],
+                    alpha=1, mew=0.5, zorder=9001, label=name,
+                    markerfacecolor=mfc, markersize=4, marker=marker,
+                    color='black', lw=0
+                )
+
+            # For the colorbar, inset it into the main plot to keep the aspect
+            # ratio.
+            axins1 = inset_axes(ax, width="3%", height="20%",
+                                loc='lower right', borderpad=0.7)
+
+            cb = fig.colorbar(_p, cax=axins1, orientation="vertical",
+                              extend="neither")
+            cb.ax.tick_params(labelsize='x-small')
+            cb.ax.yaxis.set_ticks_position('left')
+            cb.ax.yaxis.set_label_position('left')
+            cb.set_label('$\log_{10}$ weight', fontsize='x-small')
+
+            ax.legend(loc='lower left', handletextpad=0.1, fontsize='xx-small',
+                      framealpha=0.7)
+
+            s = ''
+            if xscale == 'log':
+                s += '_logx'
+            if yscale == 'log':
+                s += '_logy'
+            outpath = os.path.join(outdir, f'weight_{sstr}_{xkey}_vs_{ykey}{s}.png')
+            savefig(fig, outpath)
