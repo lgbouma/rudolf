@@ -6,7 +6,6 @@ Gaia (CMDs, RUWEs)
     plot_skychart
     plot_XYZvtang
     plot_hr
-    plot_CepHer_quicklook_tests
 
 Gaia + TESS + Kepler:
     plot_rotationperiod_vs_color
@@ -35,6 +34,11 @@ RM:
     plot_RM_and_phot
     plot_rvactivitypanel
     plot_rv_checks
+
+Cep-Her:
+    plot_CepHer_quicklook_tests
+    plot_CepHerExtended_quicklook_tests
+    plot_CepHer_XYZvtang_sky
 
 General for re-use:
     multiline: iterate through a colormap with many lines.
@@ -4516,7 +4520,7 @@ def plot_CepHerExtended_quicklook_tests(outdir):
         ('y_pc', 'z_pc', 'linear', 'linear'),
     ]
 
-    strengths = [4e-2, 1e-1, 2e-2]
+    strengths = [2e-2, 4e-2, 1e-1]
     sizes = [1.5, 2, 1]
 
     for strength_cut, size in zip(strengths, sizes):
@@ -4535,30 +4539,6 @@ def plot_CepHerExtended_quicklook_tests(outdir):
             invert_y = True if ykey in ['M_G','phot_g_mean_mag'] else False
             invert_x = True if xkey in ['l', 'ra'] else False
 
-            # colorless
-
-            #  # standard x vs y
-            #  plt.close('all')
-            #  set_style()
-            #  fig, ax = plt.subplots(figsize=(4,3))
-            #  ax.scatter(sdf[xkey], sdf[ykey], c='k', s=size, zorder=1,
-            #             linewidths=0, marker='.')
-            #  ax.set_xlabel(xkey)
-            #  ax.set_ylabel(ykey)
-            #  ax.set_xscale(xscale)
-            #  ax.set_yscale(yscale)
-            #  if invert_y:
-            #      ax.set_ylim(ax.get_ylim()[::-1])
-            #  if invert_x:
-            #      ax.set_xlim(ax.get_xlim()[::-1])
-            #  s = ''
-            #  if xscale == 'log':
-            #      s += '_logx'
-            #  if yscale == 'log':
-            #      s += '_logy'
-            #  outpath = os.path.join(outdir, f'{sstr}_{xkey}_vs_{ykey}{s}.png')
-            #  savefig(fig, outpath)
-
             # x vs y, colored by strength!
 
             # Add a colorbar.
@@ -4573,7 +4553,7 @@ def plot_CepHerExtended_quicklook_tests(outdir):
             plt.close('all')
             set_style()
             fig, ax = plt.subplots(figsize=(4,3))
-            _p = ax.scatter(sdf[xkey], sdf[ykey], c=color, s=size, zorder=1,
+            _p = ax.scatter(sdf[xkey], sdf[ykey], c=color, s=size, zorder=2,
                             linewidths=0, marker='.', cmap=cmap)
             ax.set_xlabel(xkey)
             ax.set_ylabel(ykey)
@@ -4596,7 +4576,7 @@ def plot_CepHerExtended_quicklook_tests(outdir):
                 sel = _mdf.source_id.astype(str) == source_id
                 ax.plot(
                     _mdf[sel][xkey], _mdf[sel][ykey],
-                    alpha=1, mew=0.5, zorder=9001, label=name,
+                    alpha=1, mew=0.5, zorder=1, label=name,
                     markerfacecolor=mfc, markersize=4, marker=marker,
                     color='black', lw=0
                 )
@@ -4616,6 +4596,24 @@ def plot_CepHerExtended_quicklook_tests(outdir):
             ax.legend(loc='lower left', handletextpad=0.1, fontsize='xx-small',
                       framealpha=0.7)
 
+            showkepler = True if xkey in ['l','ra'] and ykey in ['b','dec'] else False
+            if showkepler:
+                kep_d = get_keplerfieldfootprint_dict()
+                for mod in np.sort(list(kep_d.keys())):
+                    for op in np.sort(list(kep_d[mod].keys())):
+                        this = kep_d[mod][op]
+                        ra, dec = nparr(this['corners_ra']), nparr(this['corners_dec'])
+                        if xkey == 'ra' and ykey == 'dec':
+                            ax.fill(ra, dec, c='lightgray', alpha=0.95, lw=0,
+                                    rasterized=True, zorder=-1)
+                        elif xkey == 'l' and ykey == 'b':
+                            c = SkyCoord(ra=nparr(ra)*u.deg, dec=nparr(dec)*u.deg)
+                            glon = c.galactic.l.value
+                            glat = c.galactic.b.value
+                            ax.fill(glon, glat, c='lightgray', alpha=0.95, lw=0,
+                                    rasterized=True, zorder=-1)
+
+
             s = ''
             if xscale == 'log':
                 s += '_logx'
@@ -4623,3 +4621,180 @@ def plot_CepHerExtended_quicklook_tests(outdir):
                 s += '_logy'
             outpath = os.path.join(outdir, f'weight_{sstr}_{xkey}_vs_{ykey}{s}.png')
             savefig(fig, outpath)
+
+
+def plot_CepHer_XYZvtang_sky(outdir):
+
+    # get data
+    csvpath = os.path.join(DATADIR, 'Cep-Her',
+                           '20220311_Kerr_CepHer_Extended_Candidates.csv')
+    df = pd.read_csv(csvpath)
+    df = df[(df['photometric flag'].astype(bool)) & (df['astrometric flag'].astype(bool))]
+
+    csvpath1 = os.path.join(DATADIR, 'Cep-Her',
+                           '20220311_Kerr_SPYGLASS205_Members_All.csv')
+    df1 = pd.read_csv(csvpath1)
+
+    koi_dict = { # strengths
+        'KOI-7368': '2128840912955018368', # 0.093
+        'KOI-7913 A': '2106235301785454208', # 0.04
+        'KOI-7913 B': '2106235301785453824', # 0.04
+        'Kepler-1643': '2082142734285082368', # 0.24
+        'Kepler-1627 A': '2103737241426734336', # 0.30
+    }
+
+    _mdf = df[np.in1d(df.source_id.astype(str),
+                      np.array(list(koi_dict.values())))]
+
+    print(_mdf[['source_id','strengths']])
+
+    # verify that everything in the "Extended Candidates" list includes the
+    # objects from the "base core members" list.
+    mdf = df.merge(df1, left_on='source_id', right_on='GEDR3', how='inner')
+    assert len(mdf) == len(df1)
+
+    df = _given_df_get_auxiliary_quantities(df)
+    _mdf = _given_df_get_auxiliary_quantities(_mdf)
+
+    reference_df = pd.DataFrame(df.mean()).T
+    df = append_physicalpositions(df, reference_df)
+    _mdf = append_physicalpositions(_mdf, reference_df)
+
+    # set up the axis dictionary.
+    plt.close('all')
+    set_style()
+    # (8.5x11), -1inch all sides = (6.5 x 9), -1.5 inch bottom for caption.
+    fig = plt.figure(figsize=(6.5, 6.5/1.0664))
+    axd = fig.subplot_mosaic(
+        """
+        AAAA
+        BBCC
+        BBDD
+        EEEE
+        """,
+        #gridspec_kw={
+        #    "width_ratios": [6,1,1,1,1],
+        #}
+    )
+
+    xytuples = [
+        ('l', 'b', 'linear', 'linear', "A", ["$l$ [deg]", "$b$ [deg]"], [(102, 38), (-6,26)]),
+        ('x_pc', 'y_pc', 'linear', 'linear', "B", ["$X$ [pc]", "$Y$ [pc]"], None),
+        ('x_pc', 'z_pc', 'linear', 'linear', "C", ["$X$ [pc]", "$Z$ [pc]"], None),
+        ('y_pc', 'z_pc', 'linear', 'linear', "D", ["$Y$ [pc]", "$Z$ [pc]"], None),
+        ('v_l*', 'v_b', 'linear', 'linear', "E",  ["$v_{l*}$ [km$\,$s$^{-1}$]", "$v_{b}$ [km$\,$s$^{-1}$]"], [(-15,15), (-11,1)]),
+    ]
+
+    for xy in xytuples:
+
+        xkey, ykey = xy[0], xy[1]
+        xscale, yscale = xy[2], xy[3]
+        invert_y = True if ykey in ['M_G','phot_g_mean_mag'] else False
+        invert_x = True if xkey in ['l', 'ra'] else False
+        axkey = xy[4]
+        xlabel, ylabel = xy[5][0], xy[5][1]
+
+        xylim = xy[6]
+        if xylim is not None:
+            xlim = xylim[0]
+            ylim = xylim[1]
+
+        # assign axis
+        ax = axd[axkey]
+
+        # iterate over "gold" and "maybe" candidates
+        for strength_cut, c, size in zip([0.02, 0.10], ['darkgray','black'], [1.0,1.8]):
+            # STRENGTH_CUT: require > 0.02
+            sdf = df[df.strengths > strength_cut]
+
+            print(f'Strength cut: > {strength_cut}: {len(sdf)} objects')
+            sstr = f'strengthgt{strength_cut:.2f}'
+            csvpath = os.path.join(outdir, f'weight_{sstr}.csv')
+            sdf.to_csv(csvpath, index=False)
+
+            do_colorbar = 0
+
+            if do_colorbar:
+                # Add a colorbar.
+                color = np.log10(sdf['strengths'])
+                # https://matplotlib.org/stable/tutorials/colors/colormaps.html
+                cmap = mpl.cm.get_cmap('plasma')
+                _p = ax.scatter(sdf[xkey], sdf[ykey], c=color, s=size, zorder=2,
+                                linewidths=0, marker='.', cmap=cmap, rasterized=True)
+            else:
+                _p = ax.scatter(sdf[xkey], sdf[ykey], c=c, s=size, zorder=2,
+                                linewidths=0, marker='.', rasterized=True)
+
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        ax.set_xscale(xscale)
+        ax.set_yscale(yscale)
+        if invert_y:
+            ax.set_ylim(ax.get_ylim()[::-1])
+        if invert_x:
+            ax.set_xlim(ax.get_xlim()[::-1])
+        if xylim is not None:
+            ax.set_xlim(xlim)
+            ax.set_ylim(ylim)
+
+        #ax.set_xticklabels(fontsize='x-small')
+        #ax.set_yticklabels(fontsize='x-small')
+        ax.tick_params(axis='both', which='major', labelsize='small')
+
+        namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A',
+                    'KOI-7913 B', 'Kepler-1643']
+        markers = ['P', 'v', 'X', 'X', 's']
+        # lime: CH-2 (KOI-7913, KOI-7368)
+        # magenta: RSG5 (Kepler-1643)
+        # gray/black: del Lyr cluster (Kepler-1627)
+        mfcs = ['white', 'lime', 'lime', 'lime', 'magenta']
+        for name,marker,mfc in zip(namelist, markers, mfcs):
+            source_id = koi_dict[name]
+            sel = _mdf.source_id.astype(str) == source_id
+            ax.plot(
+                _mdf[sel][xkey], _mdf[sel][ykey],
+                alpha=1, mew=0.5, zorder=10, label=name,
+                markerfacecolor=mfc, markersize=4, marker=marker,
+                color='black', lw=0
+            )
+
+        if do_colorbar:
+            # For the colorbar, inset it into the main plot to keep the aspect
+            # ratio.
+            axins1 = inset_axes(ax, width="3%", height="20%",
+                                loc='lower right', borderpad=0.7)
+
+            cb = fig.colorbar(_p, cax=axins1, orientation="vertical",
+                              extend="neither")
+            cb.ax.tick_params(labelsize='x-small')
+            cb.ax.yaxis.set_ticks_position('left')
+            cb.ax.yaxis.set_label_position('left')
+            cb.set_label('$\log_{10}$ weight', fontsize='x-small')
+
+        if xkey == 'x_pc' and ykey == 'y_pc':
+            ax.legend(loc='lower left', handletextpad=0.1, fontsize='x-small',
+                      framealpha=0.7)
+
+        showkepler = True if xkey in ['l','ra'] and ykey in ['b','dec'] else False
+        if showkepler:
+            kep_d = get_keplerfieldfootprint_dict()
+            for mod in np.sort(list(kep_d.keys())):
+                for op in np.sort(list(kep_d[mod].keys())):
+                    this = kep_d[mod][op]
+                    ra, dec = nparr(this['corners_ra']), nparr(this['corners_dec'])
+                    if xkey == 'ra' and ykey == 'dec':
+                        ax.fill(ra, dec, c='lightgray', alpha=0.95, lw=0,
+                                rasterized=True, zorder=-1)
+                    elif xkey == 'l' and ykey == 'b':
+                        c = SkyCoord(ra=nparr(ra)*u.deg, dec=nparr(dec)*u.deg)
+                        glon = c.galactic.l.value
+                        glat = c.galactic.b.value
+                        ax.fill(glon, glat, c='lightgray', alpha=0.95, lw=0,
+                                rasterized=True, zorder=-1)
+
+    outpath = os.path.join(outdir, f'CepHer_XYZvtang_sky.png')
+
+    fig.tight_layout(h_pad=0.6, w_pad=0.6)
+    #f.tight_layout(h_pad=0.2, w_pad=0.2)
+
+    savefig(fig, outpath)
