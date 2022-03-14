@@ -62,7 +62,7 @@
 % 208 words (250 max)
 \begin{abstract}
   Stellar positions and velocities from Gaia are yielding a new and
-  refined view of stellar cluster evolution.
+  refined view of how stellar clusters evolve.
   Here we present an analysis of a group of $\approx$40 million
   year old stars spanning Cepheus ($l=100^\circ$) to Hercules
   ($l=40^\circ$), hereafter the Cep-Her complex.  The group contains
@@ -104,10 +104,10 @@ The discovery of young transiting planets is a major frontier in
 current exoplanet research.  The reason is that the properties of
 these planets can help constrain the timescales for processes
 including hot Jupiter migration (CITE), the cooling and contraction of
-mini-Neptunes (CITE Rizzuto), the early evolution of close-in
-multiplanet systems (CITE David), and whether and how mass-loss
-explains the radius valley (e.g., CITE, CITE, Lee+21 on theory; CITE
-CITE CITE on observations).
+planets with massive gaseous envelopes (CITE Rizzuto), the early
+evolution of close-in multiplanet systems (CITE David), and whether
+and how mass-loss explains the radius valley (e.g., CITE, CITE, Lee+21
+on theory; CITE CITE CITE on observations).
 
 %FIXME WORDING OF THIS PARAGRAPH NEEDS WORK.  ALSO, WHERE DO YOU PUT
 %THE CONTEXT RE CLUSTERS?
@@ -187,19 +187,33 @@ we will focus for the most part on the latter three.
 	\end{center}
 	\vspace{-0.7cm}
 	\caption{
-    {\bf Galactic positions  and tangential velocities of stars in the
-    complex.}  {\bf This is a placeholder before we get real kinematics.}
-    Sub-clusters include the $\delta$ Lyr cluster, RSG-5, and the
-    worryingly diffuse ``CH-2''.
-		\label{fig:XYZvtang}
+    {\bf Galactic positions  and tangential velocities of candidate members of the
+    Cep-Her complex.}
+	{\it Top row}: On-sky positions in galactic coordinates.
+	Black points are stars for which membership is more likely than for
+	gray points (``weight'' cuts above 0.10 and 0.02 respectively; see text).
+	The $\delta$ Lyr cluster, at $\{ l, b\} \approx \{ 66^\circ, 12^\circ\}$, contains Kepler-1627  \citep{bouma_kep1627_2022}.
+	{\it Middle row}:
+	Galactic positions.
+	The Sun is at $\{X, Y, Z\} = \{-8122, 0, 20.8\}$ pc.
+	{\it Bottom row}:
+	Galactic tangential velocities.
+	The spatial and kinematic overlap between RSG-5 ($\{ l, b\} \approx \{ 82^\circ, 6^\circ\}$; $\{ X, Y, Z\} \approx \{-8070, 330, 50\} $ pc)
+	and Kepler-1643 is fairly obvious.
+	KOI-7368 and KOI-7913 however are candidate members of a diffuse population,
+	that we dub ``CH-2''.
+	Although CH-2 appears close to RSG-5 when projected in $(X,Y)$ and $(v_b, v_{l*})$,
+	it is spatially  distinct in $(Z,Y)$.
+	\label{fig:XYZvtang}
 	}
 \end{figure*}
 
+\subsection{General Context} % might cut!
+
 Our focus is on a region of the Galaxy roughly 200 to 500 parsecs from
 the Sun, above the galactic plane, and spanning galactic longitudes of
-roughly $40^\circ$ to $100^\circ$ degrees.  A direct query of the Gaia
-archive imposing these constraints yields $\approx3.4\times10^7$
-sources.  Imposing the cuts suggested by \citet[][Appendix
+roughly $40^\circ$ to $100^\circ$ degrees.  Querying the Gaia archive
+and imposing the cuts suggested by \citet[][Appendix
 B]{GaiaCollaboration2018} on the photometric signal to noise ratio,
 the number of visibility periods used, the astrometric $\chi^2$ of the
 single-source solution, the $G_{\rm BP}-G_{\rm RP}$ color excess
@@ -227,15 +241,34 @@ have however previously been noticed and studied.  They include the
 $\delta$ Lyr cluster, also known as Stephenson-1
 \citep{stephenson_possible_1959}, which comprises a major grouping
 around $(l,b)=(68^\circ,15^\circ)$, with typical velocities $(v_{l'},
-v_b)=(-4.5{\rm \kms},-4{\rm \kms})$.  Another individual component
+v_b)=(-4.5{\rm kms},-4{\rm kms})$.  Another individual component
 that has previously been recognized is RSG-5 \citep{roser_nine_2016}.
 This group is at roughly $(l,b)=(83^\circ,6^\circ)$, with velocities
-$(v_{l'}, v_b)=(+5.5{\rm \kms},-3.5{\rm \kms})$.  Most of the other
+$(v_{l'}, v_b)=(+5.5{\rm kms},-3.5{\rm kms})$.  Most of the other
 subclusters, including CH-2, and those in Cep-Cyg and Cerberus are too
 small or dispersed to have previously been analyzed in great detail.
 
+\subsection{Actual Membership Selection} % might cut!
 
+% TODO: add words to acknowledge that Cep-Her is not yet demonstrated
+% to be a thing
 
+To identify stars in this region of space that could be members of the
+Cep-Her complex, we follow the methods of \citet{Kerr2021}.  The
+analysis therefore broadly consists of two steps.  The first step is
+to select stars that photometrically appear young based on the Gaia
+EDR3 magnitudes $\{G, G_{\rm RP}, G_{\rm BP}\}$, in combination with
+the parallaxes and reddening estimates.  This method works best for
+low-mass stars due to their long pre-main-sequence contraction
+timescale, and for massive stars because of their fast evolutionary
+timescale.  The second step in the analysis is to use the
+photometrically-identified young stars as the ``seed'' for a candidate
+population in a spatial and kinematic clustering analysis in $\{ X, Y,
+Z, c v_b, c v_{l^*} \} $.  The latter step helps identify F, G, and
+K-type stars that cannot be identified as young based solely on their
+positions in color versus absolute magnitude.
+
+%FIXME TODO TODO TODO: this analysis!
 
 
 
