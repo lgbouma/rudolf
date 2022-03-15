@@ -2042,17 +2042,6 @@ def plot_hr(
             edgecolors='k', linewidths=0.2
         )
 
-        if overplotkoi7368:
-            sel = (_df.source_id == 2128840912955018368)
-            _sdf = _df[sel]
-            ax.plot(
-                get_xval(_sdf), get_yval(_sdf),
-                alpha=1, mew=0.5,
-                zorder=9001, label='KOI 7368',
-                markerfacecolor='lime', markersize=11, marker='*',
-                color='black', lw=0
-            )
-
     if show_allknown or overplotkoi7913 or overplotkep1643:
         _, _, _, koi_df_dict = get_deltalyr_kc19_gaia_data(return_all_targets=1)
 
@@ -2080,14 +2069,16 @@ def plot_hr(
                     markersize=11, marker=marker, color='black', lw=0
                 )
             if (
-                (overplotkoi7913 and name == 'KOI-7913')
+                (overplotkoi7368 and name == 'KOI-7368')
+                or
+                (overplotkoi7913 and 'KOI-7913' in name)
                 or
                 (overplotkep1643 and name == 'Kepler-1643')
             ):
                 ax.plot(
                     get_xval(_kdf), get_yval(_kdf),
                     alpha=1, mew=0.5, zorder=9001, label=name, markerfacecolor=mfc,
-                    markersize=11, marker='*', color='black', lw=0
+                    markersize=7, marker=marker, color='black', lw=0
                 )
 
     if 'BPMG' in clusters:
@@ -2155,6 +2146,8 @@ def plot_hr(
         )
 
     if 'RSG5' in clusters:
+        # crappy selection based on KC19
+        raise NotImplementedError('deprecated')
         outpath = os.path.join(
             RESULTSDIR, 'tables', f'RSG5_withreddening_{extinctionmethod}.csv'
         )
@@ -2184,6 +2177,77 @@ def plot_hr(
             s=0.7*s, rasterized=False, label='RSG-5 candidates', marker='o',
             edgecolors='k', linewidths=0.1
         )
+
+
+    if 'RSG-5' in clusters:
+        # selection based on Kerr clustering and XYZ/vl/vb cuts
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', f'RSG-5_withreddening_{extinctionmethod}.csv'
+        )
+        if not os.path.exists(outpath):
+            readpath = os.path.join(RESULTSDIR, 'CepHer_XYZvtang_sky', 'RSG5_XYZ_vl_vb_cut.csv')
+            df_rsg5_edr3 = pd.read_csv(readpath)
+
+            _gdf = given_source_ids_get_gaia_data(
+                nparr(df_rsg5_edr3['source_id']).astype(np.int64), 'RSG-5_rudolf',
+                n_max=10000, overwrite=False,
+                enforce_all_sourceids_viable=True, savstr='', whichcolumns='*',
+                gaia_datarelease='gaiaedr3'
+            )
+            assert len(df_rsg5_edr3) == len(_gdf)
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(
+                _gdf, extinctionmethod=extinctionmethod,
+                savpath=os.path.join(RESULTSDIR,'tables','RSG-5_stilism.csv')
+            )
+            _df.to_csv(outpath, index=False)
+        _df = pd.read_csv(outpath)
+        if cleanhrcut:
+            _df = _df[get_clean_gaia_photometric_sources(_df)]
+        if reddening_corr:
+            print('RSG5')
+            print(_df['reddening[mag][stilism]'].describe())
+
+        ax.scatter(
+            get_xval(_df), get_yval(_df), c='magenta', alpha=1, zorder=10,
+            s=0.7*s, rasterized=False, label='RSG-5 candidates', marker='o',
+            edgecolors='k', linewidths=0.1
+        )
+
+
+    if 'CH-2' in clusters:
+        # selection based on Kerr clustering and XYZ/vl/vb cuts
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', f'CH-2_withreddening_{extinctionmethod}.csv'
+        )
+        if not os.path.exists(outpath):
+            readpath = os.path.join(RESULTSDIR, 'CepHer_XYZvtang_sky', 'CH2_XYZ_vl_vb_cut.csv')
+            df_edr3 = pd.read_csv(readpath)
+
+            _gdf = given_source_ids_get_gaia_data(
+                nparr(df_edr3['source_id']).astype(np.int64), 'CH-2_rudolf',
+                n_max=10000, overwrite=False,
+                enforce_all_sourceids_viable=True, savstr='', whichcolumns='*',
+                gaia_datarelease='gaiaedr3'
+            )
+            assert len(df_edr3) == len(_gdf)
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(
+                _gdf, extinctionmethod=extinctionmethod,
+                savpath=os.path.join(RESULTSDIR,'tables','CH-2_stilism.csv')
+            )
+            _df.to_csv(outpath, index=False)
+        _df = pd.read_csv(outpath)
+        if cleanhrcut:
+            _df = _df[get_clean_gaia_photometric_sources(_df)]
+        if reddening_corr:
+            print('CH-2')
+            print(_df['reddening[mag][stilism]'].describe())
+
+        ax.scatter(
+            get_xval(_df), get_yval(_df), c='lime', alpha=1, zorder=9000,
+            s=1.5*s, rasterized=False, label='CH-2 candidates', marker='D',
+            edgecolors='k', linewidths=0.2
+        )
+
 
     if 'Pleiades' in clusters:
         outpath = os.path.join(
@@ -4623,7 +4687,7 @@ def plot_CepHerExtended_quicklook_tests(outdir):
             savefig(fig, outpath)
 
 
-def plot_CepHer_XYZvtang_sky(outdir):
+def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
 
     # get data
     csvpath = os.path.join(DATADIR, 'Cep-Her',
@@ -4664,25 +4728,38 @@ def plot_CepHer_XYZvtang_sky(outdir):
     plt.close('all')
     set_style()
     # (8.5x11), -1inch all sides = (6.5 x 9), -1.5 inch bottom for caption.
-    fig = plt.figure(figsize=(6.5, 6.5/1.0664))
+    fig = plt.figure(figsize=(1.1*6.5, 1.1*6.8))
     axd = fig.subplot_mosaic(
         """
         AAAA
+        AAAA
         BBCC
         BBDD
-        EEEE
+        EEFF
+        EEFF
         """,
-        #gridspec_kw={
-        #    "width_ratios": [6,1,1,1,1],
-        #}
+        gridspec_kw={
+            "height_ratios": [1,1,1.8,1.8,1.4,1.4],
+        }
     )
 
+    df['v_l'] = df['v_l*']/np.cos(np.deg2rad(df['b']))
+
     xytuples = [
-        ('l', 'b', 'linear', 'linear', "A", ["$l$ [deg]", "$b$ [deg]"], [(102, 38), (-6,26)]),
-        ('x_pc', 'y_pc', 'linear', 'linear', "B", ["$X$ [pc]", "$Y$ [pc]"], None),
-        ('x_pc', 'z_pc', 'linear', 'linear', "C", ["$X$ [pc]", "$Z$ [pc]"], None),
-        ('y_pc', 'z_pc', 'linear', 'linear', "D", ["$Y$ [pc]", "$Z$ [pc]"], None),
-        ('v_l*', 'v_b', 'linear', 'linear', "E",  ["$v_{l*}$ [km$\,$s$^{-1}$]", "$v_{b}$ [km$\,$s$^{-1}$]"], [(-15,15), (-11,1)]),
+        ('l', 'b', 'linear', 'linear', "A",
+         ["$l$ [deg]", "$b$ [deg]"], [(102, 38), (-6,26)]),
+        ('x_pc', 'y_pc', 'linear', 'linear', "B",
+         ["$X$ [pc]", "$Y$ [pc]"], None),
+        ('x_pc', 'z_pc', 'linear', 'linear', "C",
+         ["$X$ [pc]", "$Z$ [pc]"], None),
+        ('y_pc', 'z_pc', 'linear', 'linear', "D",
+         ["$Y$ [pc]", "$Z$ [pc]"], None),
+        ('v_l*', 'v_b', 'linear', 'linear', "E",
+         ["$v_{l*}$ [km$\,$s$^{-1}$]", "$v_{b}$ [km$\,$s$^{-1}$]"],
+         [(-15,15), (-11,1)]),
+        ('l', 'v_l*', 'linear', 'linear', "F",
+         ["$l$ [deg]", "$v_{l*}$ [km$\,$s$^{-1}$]"],
+         [(102,38), (-15,15)]),
     ]
 
     for xy in xytuples:
@@ -4703,14 +4780,19 @@ def plot_CepHer_XYZvtang_sky(outdir):
         ax = axd[axkey]
 
         # iterate over "gold" and "maybe" candidates
-        for strength_cut, c, size in zip([0.02, 0.10], ['darkgray','black'], [1.0,1.8]):
+        for strength_cut, c, size in zip(
+            [0.02, 0.10], ['darkgray','black'], [1.0,1.8]
+        ):
             # STRENGTH_CUT: require > 0.02
             sdf = df[df.strengths > strength_cut]
 
             print(f'Strength cut: > {strength_cut}: {len(sdf)} objects')
             sstr = f'strengthgt{strength_cut:.2f}'
             csvpath = os.path.join(outdir, f'weight_{sstr}.csv')
-            sdf.to_csv(csvpath, index=False)
+
+            SELCOLS = ['source_id','l','b','x_pc','y_pc','z_pc',
+                       'v_l*','v_b','bp-rp','M_G','strengths']
+            sdf[SELCOLS].to_csv(csvpath, index=False)
 
             do_colorbar = 0
 
@@ -4719,14 +4801,35 @@ def plot_CepHer_XYZvtang_sky(outdir):
                 color = np.log10(sdf['strengths'])
                 # https://matplotlib.org/stable/tutorials/colors/colormaps.html
                 cmap = mpl.cm.get_cmap('plasma')
-                _p = ax.scatter(sdf[xkey], sdf[ykey], c=color, s=size, zorder=2,
-                                linewidths=0, marker='.', cmap=cmap, rasterized=True)
+                _p = ax.scatter(sdf[xkey], sdf[ykey], c=color, s=size,
+                                zorder=2, linewidths=0, marker='.', cmap=cmap,
+                                rasterized=True)
             else:
                 _p = ax.scatter(sdf[xkey], sdf[ykey], c=c, s=size, zorder=2,
                                 linewidths=0, marker='.', rasterized=True)
 
-        ax.set_xlabel(xlabel)
-        ax.set_ylabel(ylabel)
+        if showgroups:
+            # Manually selected groups in glue.
+            groupnames = ['CH2_XYZ_vl_vb_cut.csv', 'RSG5_XYZ_vl_vb_cut.csv']
+            groupcolors = ['lime', 'magenta']
+            sizes = [2, 1]
+            mews = [0.3, 0.1]
+            ix = 0
+            for groupname, color, size, mew in zip(
+                groupnames, groupcolors, sizes, mews
+            ):
+                grouppath = os.path.join(outdir, groupname)
+                _df = pd.read_csv(grouppath)
+                _df['v_l'] = _df['v_l*']/np.cos(np.deg2rad(_df['b']))
+                ax.plot(
+                    _df[xkey], _df[ykey],
+                    alpha=1, mew=mew, zorder=10+ix, markerfacecolor=color,
+                    markersize=size, marker='o', color='black', lw=0
+                )
+                ix -= 1
+
+        ax.set_xlabel(xlabel, labelpad=1)
+        ax.set_ylabel(ylabel, labelpad=1)
         ax.set_xscale(xscale)
         ax.set_yscale(yscale)
         if invert_y:
@@ -4736,6 +4839,14 @@ def plot_CepHer_XYZvtang_sky(outdir):
         if xylim is not None:
             ax.set_xlim(xlim)
             ax.set_ylim(ylim)
+        if xkey == 'x_pc':
+            ax.set_xticks([-8200, -8100, -8000, -7900])
+            from matplotlib.ticker import (
+                MultipleLocator, FormatStrFormatter, AutoMinorLocator
+            )
+            ax.xaxis.set_major_locator(MultipleLocator(100))
+            ax.xaxis.set_major_formatter(FormatStrFormatter('%d'))
+            ax.xaxis.set_minor_locator(MultipleLocator(20))
 
         #ax.set_xticklabels(fontsize='x-small')
         #ax.set_yticklabels(fontsize='x-small')
@@ -4751,6 +4862,7 @@ def plot_CepHer_XYZvtang_sky(outdir):
         for name,marker,mfc in zip(namelist, markers, mfcs):
             source_id = koi_dict[name]
             sel = _mdf.source_id.astype(str) == source_id
+            _mdf['v_l'] = _mdf['v_l*']/np.cos(np.deg2rad(_mdf['b']))
             ax.plot(
                 _mdf[sel][xkey], _mdf[sel][ykey],
                 alpha=1, mew=0.5, zorder=10, label=name,
@@ -4792,9 +4904,12 @@ def plot_CepHer_XYZvtang_sky(outdir):
                         ax.fill(glon, glat, c='lightgray', alpha=0.95, lw=0,
                                 rasterized=True, zorder=-1)
 
-    outpath = os.path.join(outdir, f'CepHer_XYZvtang_sky.png')
+    s = ''
+    if showgroups:
+        s += '_showgroups'
+    outpath = os.path.join(outdir, f'CepHer_XYZvtang_sky{s}.png')
 
-    fig.tight_layout(h_pad=0.6, w_pad=0.6)
+    fig.tight_layout(h_pad=0.1, w_pad=0.4)
     #f.tight_layout(h_pad=0.2, w_pad=0.2)
 
     savefig(fig, outpath)

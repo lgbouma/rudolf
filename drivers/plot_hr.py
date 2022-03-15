@@ -15,12 +15,14 @@ if not os.path.exists(PLOTDIR):
 for smalllims in [1,0]:
 
     rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
-               clusters=['δ Lyr cluster', 'Set1', 'Pleiades'], reddening_corr=1,
-               overplotkep1627=0, show_allknown=1, smalllims=smalllims)
+               clusters=['δ Lyr cluster', 'CH-2'], reddening_corr=1,
+               overplotkep1627=0, show_allknown=0, overplotkoi7368=1,
+               overplotkoi7913=1, smalllims=smalllims)
 
     rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
-               clusters=['δ Lyr cluster', 'RSG5', 'Pleiades'], reddening_corr=1,
-               overplotkep1627=0, show_allknown=1, smalllims=smalllims)
+               clusters=['δ Lyr cluster', 'RSG-5'], reddening_corr=1,
+               overplotkep1627=0, show_allknown=0, overplotkep1643=1,
+               smalllims=smalllims)
 
 assert 0
 
