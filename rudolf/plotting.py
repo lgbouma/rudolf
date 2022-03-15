@@ -4776,6 +4776,11 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
             xlim = xylim[0]
             ylim = xylim[1]
 
+        if xkey == 'x_pc':
+            x0 = 8122
+        else:
+            x0 = 0
+
         # assign axis
         ax = axd[axkey]
 
@@ -4801,11 +4806,11 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
                 color = np.log10(sdf['strengths'])
                 # https://matplotlib.org/stable/tutorials/colors/colormaps.html
                 cmap = mpl.cm.get_cmap('plasma')
-                _p = ax.scatter(sdf[xkey], sdf[ykey], c=color, s=size,
+                _p = ax.scatter(sdf[xkey]+x0, sdf[ykey], c=color, s=size,
                                 zorder=2, linewidths=0, marker='.', cmap=cmap,
                                 rasterized=True)
             else:
-                _p = ax.scatter(sdf[xkey], sdf[ykey], c=c, s=size, zorder=2,
+                _p = ax.scatter(sdf[xkey]+x0, sdf[ykey], c=c, s=size, zorder=2,
                                 linewidths=0, marker='.', rasterized=True)
 
         if showgroups:
@@ -4822,35 +4827,11 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
                 _df = pd.read_csv(grouppath)
                 _df['v_l'] = _df['v_l*']/np.cos(np.deg2rad(_df['b']))
                 ax.plot(
-                    _df[xkey], _df[ykey],
+                    _df[xkey]+x0, _df[ykey],
                     alpha=1, mew=mew, zorder=10+ix, markerfacecolor=color,
                     markersize=size, marker='o', color='black', lw=0
                 )
                 ix -= 1
-
-        ax.set_xlabel(xlabel, labelpad=1)
-        ax.set_ylabel(ylabel, labelpad=1)
-        ax.set_xscale(xscale)
-        ax.set_yscale(yscale)
-        if invert_y:
-            ax.set_ylim(ax.get_ylim()[::-1])
-        if invert_x:
-            ax.set_xlim(ax.get_xlim()[::-1])
-        if xylim is not None:
-            ax.set_xlim(xlim)
-            ax.set_ylim(ylim)
-        if xkey == 'x_pc':
-            ax.set_xticks([-8200, -8100, -8000, -7900])
-            from matplotlib.ticker import (
-                MultipleLocator, FormatStrFormatter, AutoMinorLocator
-            )
-            ax.xaxis.set_major_locator(MultipleLocator(100))
-            ax.xaxis.set_major_formatter(FormatStrFormatter('%d'))
-            ax.xaxis.set_minor_locator(MultipleLocator(20))
-
-        #ax.set_xticklabels(fontsize='x-small')
-        #ax.set_yticklabels(fontsize='x-small')
-        ax.tick_params(axis='both', which='major', labelsize='small')
 
         namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A',
                     'KOI-7913 B', 'Kepler-1643']
@@ -4864,11 +4845,35 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
             sel = _mdf.source_id.astype(str) == source_id
             _mdf['v_l'] = _mdf['v_l*']/np.cos(np.deg2rad(_mdf['b']))
             ax.plot(
-                _mdf[sel][xkey], _mdf[sel][ykey],
+                _mdf[sel][xkey]+x0, _mdf[sel][ykey],
                 alpha=1, mew=0.5, zorder=10, label=name,
                 markerfacecolor=mfc, markersize=4, marker=marker,
                 color='black', lw=0
             )
+
+        ax.set_xlabel(xlabel, labelpad=1)
+        ax.set_ylabel(ylabel, labelpad=1)
+        ax.set_xscale(xscale)
+        ax.set_yscale(yscale)
+        if invert_y:
+            ax.set_ylim(ax.get_ylim()[::-1])
+        if invert_x:
+            ax.set_xlim(ax.get_xlim()[::-1])
+        if xylim is not None:
+            ax.set_xlim(xlim)
+            ax.set_ylim(ylim)
+        if xkey == 'x_pc':
+            ax.set_xticks([-50, 0, 50, 100, 150, 200, 250])
+            from matplotlib.ticker import (
+                MultipleLocator, FormatStrFormatter, AutoMinorLocator
+            )
+            ax.xaxis.set_major_locator(MultipleLocator(50))
+            ax.xaxis.set_major_formatter(FormatStrFormatter('%d'))
+            ax.xaxis.set_minor_locator(MultipleLocator(10))
+
+        #ax.set_xticklabels(fontsize='x-small')
+        #ax.set_yticklabels(fontsize='x-small')
+        ax.tick_params(axis='both', which='major', labelsize='small')
 
         if do_colorbar:
             # For the colorbar, inset it into the main plot to keep the aspect
@@ -4903,6 +4908,66 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
                         glat = c.galactic.b.value
                         ax.fill(glon, glat, c='lightgray', alpha=0.95, lw=0,
                                 rasterized=True, zorder=-1)
+
+        if xkey == 'l' and ykey == 'v_l*':
+
+            import astropy.coordinates as coord
+            _ = coord.galactocentric_frame_defaults.set('v4.0')
+            from astropy.coordinates import (
+                Galactic, CartesianDifferential
+            )
+
+            # Schonrich+2010 solar velocity wrt local standard of rest
+            U = 11.10 * u.km/u.s
+            U_hi = 0.69 * u.km/u.s
+            U_lo = 0.75 * u.km/u.s
+            V = 12.24 * u.km/u.s
+            V_hi = 0.47 * u.km/u.s
+            V_lo = 0.47 * u.km/u.s
+            W = 7.25 * u.km/u.s
+            W_hi = 0.37 * u.km/u.s
+            W_lo = 0.36 * u.km/u.s
+
+            lons = np.arange(0,360,1)
+            _lat = 42   # doesn't matter
+            _dist = 300 # doesn't matter
+
+            lats = _lat*np.ones_like(lons)
+            dists_pc = _dist*np.ones_like(lons)
+
+            for _U, _V, _W, label in zip(
+                [U, U+U_hi, U-U_lo],
+                [V, V+V_hi, V-V_lo],
+                [W, W+W_hi, W-W_lo],
+                [0, 1, 2]
+            ):
+                print(42*'-')
+                print(label)
+                v_l_cosb_kms_list = []
+                for ix, (lon, lat, dist_pc) in enumerate(zip(lons, lats, dists_pc)):
+                    #print(f'{ix}/{len(lons)}')
+                    gal = Galactic(lon*u.deg, lat*u.deg, distance=dist_pc*u.pc)
+                    vel_to_add = CartesianDifferential(_U, _V, _W)
+                    newdata = gal.data.to_cartesian().with_differentials(vel_to_add)
+                    newgal = gal.realize_frame(newdata)
+                    pm_l_cosb_AU_per_yr = (newgal.pm_l_cosb.value*1e-3) * dist_pc * (1*u.AU/u.yr)
+                    v_l_cosb_kms = pm_l_cosb_AU_per_yr.to(u.km/u.second)
+                    v_l_cosb_kms_list.append(v_l_cosb_kms.value)
+
+                v_l_cosb_kms = -np.array(v_l_cosb_kms_list)
+
+                if label == 0:
+                    v_l_cosb_kms_mid = v_l_cosb_kms*1.
+                elif label == 1:
+                    v_l_cosb_kms_upper = v_l_cosb_kms*1.
+                elif label == 2:
+                    v_l_cosb_kms_lower = v_l_cosb_kms*1.
+
+            ax.fill_between(lons, v_l_cosb_kms_lower,
+                            v_l_cosb_kms_upper,
+                            alpha=0.1, color='black', lw=0, zorder=-2)
+
+
 
     s = ''
     if showgroups:
