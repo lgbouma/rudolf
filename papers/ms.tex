@@ -206,7 +206,7 @@ mini-Neptunes (Section~\ref{sec:disc}).
   {\bf Positions and velocities of candidate members of the Cep-Her
   complex.}
   {\it Top row}: On-sky positions in galactic coordinates.  Black
-  points are stars for which group membership is more likely than for
+  points are stars for which group membership is more secure than for
   gray points (see Section~\ref{subsec:members}).
   Kepler-1627 is in the outskirts of the $\delta$ Lyr cluster
   \citep{bouma_kep1627_2022}, which is centered at $\{ l, b\} \approx
@@ -219,13 +219,13 @@ mini-Neptunes (Section~\ref{sec:disc}).
   projection of the Solar velocity with respect to the local standard
   of rest.
   There is a strong spatial and kinematic overlap between Kepler-1643
-  and RSG-5 (magenta points; $\{ l, b\} \approx \{ 82^\circ,
-  6^\circ\}$; $\{ X, Y, Z\} \approx \{-8070, 330, 50\} $ pc).  The
+  and RSG-5 ($\{ l, b\} \approx \{ 82^\circ,
+  6^\circ\}$; $\{ X, Y, Z\} \approx \{60, 330, 50\} $ pc).  The
   local population of candidate young stars around KOI-7368 and
-  KOI-7913 is more diffuse -- we call this region ``CH-2'' (lime green
-  points).  The green and purple points are manually selected from the
-  initial candidate population based on galactic position and
-  tangential velocity.
+  KOI-7913 is more diffuse -- we call this region ``CH-2'',
+  and treat it with additional skepticism
+  The {\bf interactive figure} enables overplotting the candidate
+  cluster members.
 	\label{fig:XYZvtang}
 	}
 \end{figure*}
@@ -278,57 +278,88 @@ G_{\rm RP}, G_{\rm BP}\}$, parallaxes and auxiliary reddening
 estimates \citep{lallement_gaia-2mass_2019}.  This step yielded \npms\
 stars, which are either  pre-main-sequence K and M dwarfs due to their
 long contraction timescales, or massive stars near the zero-age main
-sequence due to their rapid evolutionary timescales.  The second step
-is to then perform in an unsupervised HDBScan clustering on this
-photometrically-young population
+sequence due to their rapid evolutionary timescales.
+
+The second step is to then perform in an unsupervised HDBScan
+clustering on the photometrically selected population
 \citep{campello_hierarchical_2015,mcinnes_hdbscan_2017}.  The specific
 parameters we use in this clustering analysis are $\{ X, Y, Z, c v_b,
 c v_{l^*} \} $, where $c$ is the size-velocity corrective factor,
 which is taken as $c=6\,{\rm pc / km\,s}^{-1}$ to ensure that the
-spatial and velocity scales have identical standard deviations.  As
-input parameters, we set the minimum $\epsilon$ threshold past which
-clusters cannot be fragmented as $25$ in units of parsecs, and $c$
-\kms\ in units of velocity.  The minimum cluster size $N$ is set to
-10, as is $k$, the parameter used to define the ``core distance''
-density metric.  This unsupervised clustering in our case
-yielded 8 distinct groups.
+spatial and velocity scales have identical standard deviations.
+Positions are computed assuming the \texttt{astropy v4.0} coordinate
+standard \citep{astropy_2018}, which places the Sun $8122$ pc from the
+galactic center, and assumes the solar velocity with respect to the
+local standard of rest from \citet{schonrich_local_2010}.  As input
+parameters to HDBScan, we set the minimum $\epsilon$ threshold past
+which clusters cannot be fragmented as $25$ parsecs in physical space,
+and $c$ \kms\ in velocity.  The minimum cluster size $N$ is set to 10,
+as is $k$, the parameter used to define the ``core distance'' density
+metric. 
+
+This unsupervised clustering in our case yielded 8 distinct groups.
 These groups are then used as the ``seed'' populations for the third
 step, which is to search for objects that are spatially and
 kinematically consistent with each of the groups, {\bf WORDING NEEDS
-WORK FOR CLARITY at least as close to the 10$^{\rm th}$ nearest HDBSCAN-identified
-member in space-velocity coordinates as the most peripheral
-HDBSCAN-identified member}.
-The latter step yields F, G, and K-type stars that are spatially and
-kinematically close to the photometrically-young stars, but which
-cannot be identified as young based on their positions in color versus
-absolute magnitude.
+WORK FOR CLARITY at least as close to the 10$^{\rm th}$ nearest
+HDBSCAN-identified member in space-velocity coordinates as the most
+peripheral HDBSCAN-identified member}.  This third step yields F, G,
+and K-type stars that are spatially and kinematically close to the
+photometrically-young stars, but which cannot be identified as young
+based on their positions in color versus absolute magnitude.
 
-The outcome of this analysis is shown in Figure~\ref{fig:XYZvtang}.
-We computed positions in these plots assuming the \texttt{astropy
-v4.0} coordinate standard \citep{astropy_2018}, which assumes that the
-Sun is $8122$ pc from the galactic center.  It also assumes
-the solar velocity with respect to the local standard of rest from \citet{schonrich_local_2010}.
-The previously known $\delta$~Lyr\ cluster ($l,b=68^\circ,15^\circ$;
-$v_{l'}, v_b=-4.5{\rm kms},-4{\rm kms}$) is visible, as is
-RSG-5 ($l,b=83^\circ,6^\circ$, $v_{l'}, v_b=+5.5{\rm kms},-3.5{\rm
-kms}$).  Most of the other subclusters, including CH-2, and those in
-Cep-Cyg ($l,b=90^\circ,7^\circ$) and Cerberus
-($l,b=48^\circ,18^\circ$) are too small or dispersed to have
-previously been analyzed in great detail.
-
+The outcome of from the analysis up to the point of the third step is
+shown in Figure~\ref{fig:XYZvtang}.  
 To enable a selection cut that filters out field-star contaminants, we
 also compute a weight metric, defined such that the group member
 with the smallest core distance has a weight of 1, the group member
 with the greatest core distance has a weight of 0, and weights for the
 other group members are linearly spaced between these two extremes.
-For Figure~\ref{fig:XYZvtang}, we show 26{,}960 objects with weight
+In Figure~\ref{fig:XYZvtang}, we show 26{,}960 objects with weight
 exceeding 0.02 as gray points, and overplot 7{,}560 objects with
 weights exceeding 0.10 as black points.
-{\bf TODO: add table of candidate members?}.
 
-% FIXME FIXME ANYTHING ELSE TO SAY?
-{\bf TODO: describe final step: manual selection of RSG-5 and CH-2 populations}
-{\bf also TODO: maybe automate those steps.}
+The previously known $\delta$~Lyr\ cluster ($l,b=68^\circ,15^\circ$;
+$v_{l'}, v_b=-4.5{\rm kms},-4{\rm kms}$) is visible, as is RSG-5
+($l,b=83^\circ,6^\circ$, $v_{l'}, v_b=+5.5{\rm kms},-3.5{\rm kms}$).
+Most of the other subclusters, including in Cep-Cyg
+($l,b=90^\circ,7^\circ$) and Cerberus ($l,b=48^\circ,18^\circ$) are
+too small or dispersed to have previously been analyzed in great
+detail.
+
+Finally, there is a final step.
+This paper is actually about planets, not this insane stellar
+population.
+We cross-matched
+our candidate Cep-Her member list against 
+all known Kepler Objects of Interest, including known false positives
+\citep{thompson_planetary_2018}.
+This yields 32 matches, of which 5 are ``confirmed''
+planets according to the NASA Exoplanet Archive.
+A cursory inspection of the light curves and RoboVetter (CITE)
+classifications for these objects quickly revealed whether they were
+consistent with being members of a $\lesssim 10^8$ year old
+population.
+Four candidate cluster members remained after this inspection:
+Kepler-1627, Kepler-1643, KOI-7368, and KOI-7913.
+
+Figure~\ref{fig:XYZvtang}
+
+
+CH-2:
+X: 20 to 80
+Y: 230 to 270
+Z: 70 to 105
+vb: -1.5 to 3.5 kms
+vl: 1 to 6 kms
+
+RSG-5:
+X: 45 to 75
+Y: 320 to 350
+Z: 40 to 70
+vl: 4 to 6 kms
+vb: -3 to -4 kms
+
 
 
 %Querying the Gaia archive
