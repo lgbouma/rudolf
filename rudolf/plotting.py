@@ -2182,22 +2182,23 @@ def plot_hr(
     if 'RSG-5' in clusters:
         # selection based on Kerr clustering and XYZ/vl/vb cuts
         outpath = os.path.join(
-            RESULTSDIR, 'tables', f'RSG-5_withreddening_{extinctionmethod}.csv'
+            RESULTSDIR, 'tables', f'RSG-5_auto_withreddening_{extinctionmethod}.csv'
         )
         if not os.path.exists(outpath):
-            readpath = os.path.join(RESULTSDIR, 'CepHer_XYZvtang_sky', 'RSG5_XYZ_vl_vb_cut.csv')
+            readpath = os.path.join(RESULTSDIR, 'CepHer_XYZvtang_sky',
+                                    'RSG-5_auto_XYZ_vl_vb_cut.csv')
             df_rsg5_edr3 = pd.read_csv(readpath)
 
             _gdf = given_source_ids_get_gaia_data(
-                nparr(df_rsg5_edr3['source_id']).astype(np.int64), 'RSG-5_rudolf',
-                n_max=10000, overwrite=False,
-                enforce_all_sourceids_viable=True, savstr='', whichcolumns='*',
-                gaia_datarelease='gaiaedr3'
+                nparr(df_rsg5_edr3['source_id']).astype(np.int64),
+                'RSG-5_auto_rudolf', n_max=10000, overwrite=False,
+                enforce_all_sourceids_viable=True, savstr='',
+                whichcolumns='*', gaia_datarelease='gaiaedr3'
             )
             assert len(df_rsg5_edr3) == len(_gdf)
             _df = supplement_gaia_stars_extinctions_corrected_photometry(
                 _gdf, extinctionmethod=extinctionmethod,
-                savpath=os.path.join(RESULTSDIR,'tables','RSG-5_stilism.csv')
+                savpath=os.path.join(RESULTSDIR,'tables','RSG-5_auto_stilism.csv')
             )
             _df.to_csv(outpath, index=False)
         _df = pd.read_csv(outpath)
@@ -2217,14 +2218,16 @@ def plot_hr(
     if 'CH-2' in clusters:
         # selection based on Kerr clustering and XYZ/vl/vb cuts
         outpath = os.path.join(
-            RESULTSDIR, 'tables', f'CH-2_withreddening_{extinctionmethod}.csv'
+            RESULTSDIR, 'tables', f'CH-2_auto_withreddening_{extinctionmethod}.csv'
         )
         if not os.path.exists(outpath):
-            readpath = os.path.join(RESULTSDIR, 'CepHer_XYZvtang_sky', 'CH2_XYZ_vl_vb_cut.csv')
+            readpath = os.path.join(RESULTSDIR, 'CepHer_XYZvtang_sky',
+                                    'CH-2_auto_XYZ_vl_vb_cut.csv')
             df_edr3 = pd.read_csv(readpath)
 
             _gdf = given_source_ids_get_gaia_data(
-                nparr(df_edr3['source_id']).astype(np.int64), 'CH-2_rudolf',
+                nparr(df_edr3['source_id']).astype(np.int64),
+                'CH-2_auto_rudolf',
                 n_max=10000, overwrite=False,
                 enforce_all_sourceids_viable=True, savstr='', whichcolumns='*',
                 gaia_datarelease='gaiaedr3'
@@ -2232,7 +2235,7 @@ def plot_hr(
             assert len(df_edr3) == len(_gdf)
             _df = supplement_gaia_stars_extinctions_corrected_photometry(
                 _gdf, extinctionmethod=extinctionmethod,
-                savpath=os.path.join(RESULTSDIR,'tables','CH-2_stilism.csv')
+                savpath=os.path.join(RESULTSDIR,'tables','CH-2_auto_stilism.csv')
             )
             _df.to_csv(outpath, index=False)
         _df = pd.read_csv(outpath)
@@ -4762,6 +4765,16 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
          [(102,38), (-15,15)]),
     ]
 
+    # save the augmented dataframe
+    strength_cut = 0.00
+    sdf = df[df.strengths > strength_cut]
+    print(f'Strength cut: > {strength_cut}: {len(sdf)} objects')
+    sstr = f'strengthgt{strength_cut:.2f}'
+    csvpath = os.path.join(outdir, f'weight_{sstr}.csv')
+    SELCOLS = ['source_id','l','b','x_pc','y_pc','z_pc',
+               'v_l*','v_b','bp-rp','M_G','strengths']
+    sdf[SELCOLS].to_csv(csvpath, index=False)
+
     for xy in xytuples:
 
         xkey, ykey = xy[0], xy[1]
@@ -4795,8 +4808,6 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
             sstr = f'strengthgt{strength_cut:.2f}'
             csvpath = os.path.join(outdir, f'weight_{sstr}.csv')
 
-            SELCOLS = ['source_id','l','b','x_pc','y_pc','z_pc',
-                       'v_l*','v_b','bp-rp','M_G','strengths']
             sdf[SELCOLS].to_csv(csvpath, index=False)
 
             do_colorbar = 0
@@ -4965,7 +4976,7 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
 
             ax.fill_between(lons, v_l_cosb_kms_lower,
                             v_l_cosb_kms_upper,
-                            alpha=0.1, color='black', lw=0, zorder=-2)
+                            alpha=0.1, color='black', lw=0.5, zorder=-2)
 
 
 
