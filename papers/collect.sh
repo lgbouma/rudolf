@@ -1,5 +1,5 @@
 # Cep-Her XYZ
-cp /Users/luke/Dropbox/proj/rudolf/results/CepHer_XYZvtang_sky/CepHer_XYZvtang_sky.pdf f1.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/CepHer_XYZvtang_sky/CepHer_XYZvtang_sky_showgroups.pdf f1.pdf
 
 # rotation, CAMD, spectra (Li/H-alpha)
 # CAMD:
