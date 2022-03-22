@@ -230,21 +230,20 @@ def plot_rp_vs_period_scatter(
 
                 ax.scatter(
                     _per, _rp,
-                    c=_age, alpha=1, zorder=2, s=260, edgecolors='k',
-                    marker='*', cmap=cmap, linewidths=0.6, norm=norm
+                    c=_age, alpha=1, zorder=2, s=120, edgecolors='k',
+                    marker='P', cmap=cmap, linewidths=0.3, norm=norm
                 )
 
                 if add_plnames:
                     ax.text(_per, _rp, 'Kepler-1627 b', ha='right',
                             va='bottom', fontsize=2, bbox=bbox, zorder=49)
 
-
         if add_allkep:
             namelist = ['Kepler-52', 'Kepler-968', 'Kepler-1627', 'KOI-7368',
                         'KOI-7913', 'Kepler-1643']
             ages = [3e8, 3e8, 3.8e7, 3.8e7, 3.8e7, 3.8e7]
-            markers = ['o','d','*', 'X', 'X', 'X']
-            sizes = [80, 80, 120, 90, 90, 90]
+            markers = ['o','d','P', 'v', 'X', 's']
+            sizes = [80, 80, 120, 120, 120, 120]
 
             for n, a, m, _s in zip(namelist, ages, markers, sizes):
                 sel = ea_df.hostname == n
@@ -305,7 +304,7 @@ def plot_rp_vs_period_scatter(
                     _sdf = pd.DataFrame({'pl_name':'KOI-7368'}, index=[0])
                 if n == 'Kepler-1627':
                     del _sdf
-                    _rp = [3.846]
+                    _rp = [(0.338*(1.015)**(0.5)*u.Rjup).to(u.Rearth).value]
                     _per = [7.2028]
                     _sdf = pd.DataFrame({'pl_name':'Kepler-1627'}, index=[0])
                 if n == 'Kepler-1643':
