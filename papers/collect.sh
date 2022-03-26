@@ -8,10 +8,13 @@ cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Ly
 cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_RSG-5_cleanhrcut_gaia2018_smalllims_overplotkep1643.pdf f2b.pdf
 
 # rotation:
-cp /Users/luke/Dropbox/proj/rudolf/results/rotation/deltaLyrCluster_rotation_vs_BpmRp_talkaspect_kinematicspatialselected_linear_defaultcleaning_allknown.pdf f2c.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/rotation/CH-2_rotation_vs_BpmRp_talkaspect_kinematicspatialselected_linear_defaultcleaning_allknown.pdf f2c.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/rotation/RSG-5_rotation_vs_BpmRp_talkaspect_kinematicspatialselected_linear_defaultcleaning_allknown.pdf f2d.pdf
+
 # spectra: Li EW vs Teff and Halpha EW vs Teff
-cp /Users/luke/Dropbox/proj/rudolf/results/lithium/lithium.pdf f2d.pdf
-#TODO h-alpha?
+# TODO:
+# Li, H-alpha?
+#cp /Users/luke/Dropbox/proj/rudolf/results/lithium/lithium.pdf f2d.pdf
 
 # phased and sliced LCs
 cp /Users/luke/Dropbox/proj/rudolf/results/koikeplerlc/koikeplerlc_xlim0550_0600.pdf f3e.pdf
