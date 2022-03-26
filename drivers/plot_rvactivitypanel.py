@@ -1,4 +1,3 @@
-
 import os
 import rudolf.plotting as rp
 from rudolf.paths import RESULTSDIR

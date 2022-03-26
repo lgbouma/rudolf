@@ -6,6 +6,7 @@ Gaia (CMDs, RUWEs)
     plot_skychart
     plot_XYZvtang
     plot_hr
+    plot_kerr21_XY
 
 Gaia + TESS + Kepler:
     plot_rotationperiod_vs_color
@@ -1955,7 +1956,9 @@ def plot_hr(
     if not show100pc:
         f, ax = plt.subplots(figsize=(1.5*2,1.5*3))
     else:
-        f = plt.figure(figsize=(1.5*2,1.5*3))
+        # note: standard...
+        # f = plt.figure(figsize=(3,4.5))
+        f = plt.figure(figsize=(4,4))
         ax = f.add_subplot(1, 1, 1, projection='scatter_density')
 
     cstr = '_corr' if reddening_corr else ''
@@ -2211,7 +2214,7 @@ def plot_hr(
 
         ax.scatter(
             get_xval(_df), get_yval(_df), c='magenta', alpha=1, zorder=10,
-            s=0.7*s, rasterized=False, label='RSG-5 candidates', marker='o',
+            s=1.3*s, rasterized=False, label='RSG-5 candidates', marker='o',
             edgecolors='k', linewidths=0.1
         )
 
@@ -2248,7 +2251,7 @@ def plot_hr(
 
         ax.scatter(
             get_xval(_df), get_yval(_df), c='lime', alpha=1, zorder=9000,
-            s=1.5*s, rasterized=False, label='CH-2 candidates', marker='D',
+            s=1.8*s, rasterized=False, label='CH-2 candidates', marker='D',
             edgecolors='k', linewidths=0.2
         )
 
@@ -2615,7 +2618,8 @@ def plot_hr(
     ax.set_ylim((max(ylim),min(ylim)))
 
     if len(clusters) > 1:
-        ax.legend(fontsize='xx-small', loc='upper right', handletextpad=0.1)
+        ax.legend(fontsize='xx-small', loc='upper right', handletextpad=0.1,
+                  borderaxespad=2.0)
 
     if show100pc and 'phot_bp_mean_mag' in color0:
         ax.set_xlim([-1,4.5])
@@ -2626,7 +2630,7 @@ def plot_hr(
 
     if smalllims and 'phot_bp_mean_mag' in color0:
         ax.set_xlim([0.85,3.45])
-        ax.set_ylim([12.5,5.0])
+        ax.set_ylim([11.5,5.0])
     elif smalllims and 'phot_bp_mean_mag' not in color0:
         raise NotImplementedError
 
@@ -2725,18 +2729,31 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     if not talk_aspect:
         f, ax = plt.subplots(figsize=(4,5))
     else:
-        f, ax = plt.subplots(figsize=(4,3))
+        f, ax = plt.subplots(figsize=(4,4))
+
+    colordict = {
+        'deltaLyrCluster': 'k',
+        'CH-2': 'lime',
+        'RSG-5': 'magenta'
+    }
+    sizedict = {
+        'deltaLyrCluster': 8,
+        'CH-2': 17,
+        'RSG-5': 17
+    }
 
     classes = ['pleiades', 'praesepe', f'{runid}']
-    colors = ['gray', 'gray', 'k']
+    colors = ['gray', 'gray', colordict[runid]]
     zorders = [-2, -3, -1]
     markers = ['X', '+', 'o']
-    lws = [0., 0.1, 0.1]
-    mews= [0., 0.5, 0.5]
+    lws = [0., 0.1, 0.5]
+    mews= [0., 0.5, 2]
     _s = 3 if runid != 'VelaOB2' else 1.2
-    ss = [15, 12, 8]
+    ss = [15, 12, sizedict[runid]]
     if runid == 'deltaLyrCluster':
         l = '$\delta$ Lyr candidates'
+    elif runid in ['CH-2','RSG-5']:
+        l = f'{runid} candidates'
     else:
         raise NotImplementedError
     labels = ['Pleiades', 'Praesepe', l]
@@ -2758,7 +2775,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
             else:
                 raise NotImplementedError
 
-        else:
+        elif runid == 'deltaLyrCluster':
             from rudolf.helpers import get_autorotation_dataframe
             auto_df, base_df = get_autorotation_dataframe(
                 runid, cleaning=cleaning
@@ -2790,6 +2807,35 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
             # exclude photometric non-members
             df = df[~df.is_phot_nonmember]
 
+        elif runid in ['CH-2','RSG-5']:
+            csvpath = os.path.join(DATADIR, 'rotation',
+                                   'CepHer_RSG5_EDR3_Curtis_20220324.csv')
+            _df = pd.read_csv(csvpath)
+
+            # match Jason's keys against what I call these clusters
+            if runid == 'CH-2':
+                sel = (_df.Cluster == 'CepHer')
+            elif runid == 'RSG-5':
+                sel = (_df.Cluster == 'RSG5')
+
+            _df = _df[sel]
+
+            # merge in knowledge of the reddening correction (from plot_hr)
+            cstr = '_corr'
+            redpath = os.path.join(
+                RESULTSDIR, 'tables', f'{runid}_auto_withreddening_gaia2018.csv'
+            )
+            rdf = pd.read_csv(redpath)
+
+            # EDR3
+            _df['Source_Input'] = _df['Source_Input'].astype(str)
+            rdf['source_id'] = rdf['source_id'].astype(str)
+
+            df = _df.merge(
+                rdf, how='inner', left_on='Source_Input', right_on='source_id'
+            )
+
+            assert len(df) == len(_df)
 
         if f'{runid}' not in _cls:
             key = '(BP-RP)0' if not xval_absmag else 'MGmag'
@@ -2797,13 +2843,13 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
 
         else:
             if not xval_absmag:
-                get_xval = lambda _df: np.array(
-                    _df['phot_bp_mean_mag'+cstr] - _df['phot_rp_mean_mag'+cstr]
+                get_xval = lambda __df: np.array(
+                    __df['phot_bp_mean_mag'+cstr] - __df['phot_rp_mean_mag'+cstr]
                 )
                 xval = get_xval(df)
             else:
-                get_xval = lambda _df: np.array(
-                    _df['phot_g_mean_mag'] + 5*np.log10(_df['parallax']/1e3) + 5
+                get_xval = lambda __df: np.array(
+                    __df['phot_g_mean_mag'] + 5*np.log10(__df['parallax']/1e3) + 5
                 )
                 xval = get_xval(df)
 
@@ -2819,6 +2865,16 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                 c=_col, alpha=1, zorder=z, s=s, edgecolors='k',
                 marker=m, linewidths=_lw, label=f"{l.replace('_',' ')}"
             )
+
+        if runid in ['CH-2','RSG-5'] and f'{runid}' in _cls:
+            # get a few quick statistics
+            print(42*'-')
+            print(f'For the cluster {runid}')
+            colorrange = (xval > 0.5) & (xval < 2.6)
+            print(f'Started with {len(df[colorrange])} in 0.5 < BP-RP0 < 2.6')
+            print(f'and got {len(df[~pd.isnull(df[ykey])])} rotation period detections.')
+            print(42*'-')
+
 
         if emph_binaries and f'{runid}' in _cls:
 
@@ -2878,6 +2934,18 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
 
             Prot = sd[name]['Prot']
 
+            if runid == 'CH-2' and name not in [
+                'KOI-7368', 'KOI-7913 A', 'KOI-7913 B'
+            ]:
+                continue
+            if runid == 'RSG-5' and name not in [
+                'Kepler-1643'
+            ]:
+                continue
+            if runid == 'deltaLyrCluster' and name not in [
+                'Kepler-1627 A'
+            ]:
+                continue
             ax.plot(
                 get_xval(_kdf), Prot,
                 alpha=1, mew=0.5, zorder=9001, label=name, markerfacecolor=mfc,
@@ -2890,8 +2958,8 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     if not xval_absmag:
         ax.set_xlabel('($G_{\mathrm{BP}}-G_{\mathrm{RP}}$)$_0$ [mag]',
                       fontsize='medium')
-        if 'deltaLyrCluster' in runid:
-            ax.set_xlim((0.2, 2.4))
+        if runid in ['deltaLyrCluster', 'RSG-5', 'CH-2'] :
+            ax.set_xlim((0.2, 2.7))
         else:
             ax.set_xlim((0.2, 3.6))
     else:
@@ -2899,7 +2967,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
         ax.set_xlim((1.5, 10))
 
     if yscale == 'linear':
-        ax.set_ylim((0,13))
+        ax.set_ylim((0,20))
     elif yscale == 'log':
         ax.set_ylim((0.05,13))
     else:
@@ -2915,8 +2983,8 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     tax.set_xlabel('Spectral Type')
 
     xlim = ax.get_xlim()
-    if 'deltaLyrCluster' in runid:
-        splist = ['F0V','F5V','G0V','K0V','K3V','K5V','K7V','M0V','M1V','M2V']
+    if runid in ['deltaLyrCluster', 'RSG-5', 'CH-2'] :
+        splist = ['F0V','F5V','G0V','K0V','K3V','K5V','K7V','M0V','M1V','M2V','M3V']
     else:
         splist = ['F0V','F5V','G0V','K0V','K3V','K6V','M0V','M1V','M3V','M4V']
     sptypes, BpmRps = get_SpType_BpmRp_correspondence(splist)
@@ -2937,8 +3005,8 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
 
     # fix legend zorder
     loc = 'upper left' if yscale == 'linear' else 'lower right'
-    leg = ax.legend(loc=loc, handletextpad=0.1, fontsize='x-small',
-                    framealpha=1.0)
+    leg = ax.legend(loc=loc, handletextpad=0.1, fontsize='xx-small',
+                    framealpha=1.0, borderaxespad=2.0)
 
 
     outstr = '_vs_BpmRp'
