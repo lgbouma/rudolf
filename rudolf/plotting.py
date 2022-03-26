@@ -33,6 +33,7 @@ RM:
     plot_RM
     plot_RM_and_phot
     plot_rvactivitypanel
+    plot_youthlines
     plot_rv_checks
 
 Cep-Her:
@@ -3424,16 +3425,16 @@ def plot_RM_and_phot(outdir, model=None, showmodelbands=0, showmodel=0):
 def plot_rvactivitypanel(outdir):
 
     # get data
-    lines = ['Ca K', 'Ca H', 'Hα']
-    globs = ['Kep*bj*order07*', 'Kep*bj*order07*', 'Kep*ij*order00*']
+    lines = ['ca k', 'ca h', 'hα']
+    globs = ['kep*bj*order07*', 'kep*bj*order07*', 'kep*ij*order00*']
     deltawav = 5
     xlims = [
-        [3933.66-deltawav, 3933.66+deltawav], # Ca K
-        [3968.47-deltawav, 3968.47+deltawav], # Ca H
-        [6562.8-deltawav, 6562.8+deltawav], # Halpa
+        [3933.66-deltawav, 3933.66+deltawav], # ca k
+        [3968.47-deltawav, 3968.47+deltawav], # ca h
+        [6562.8-deltawav, 6562.8+deltawav], # halpa
     ]
 
-    rvpath = os.path.join(DATADIR, 'spec', '20210809_rvs_template_V1298TAU.csv')
+    rvpath = os.path.join(datadir, 'spec', '20210809_rvs_template_v1298tau.csv')
     rvdf = pd.read_csv(rvpath)
 
     # make plot
@@ -3457,7 +3458,7 @@ def plot_rvactivitypanel(outdir):
 
     for ix, (l,g,xlim) in enumerate(zip(lines, globs, xlims)):
 
-        csvpaths = glob(os.path.join(DATADIR, 'rvactivity', g))
+        csvpaths = glob(os.path.join(datadir, 'rvactivity', g))
         assert len(csvpaths) > 0
 
         _df = pd.read_csv(csvpaths[0])
@@ -3487,7 +3488,7 @@ def plot_rvactivitypanel(outdir):
             wavs.append(nparr(df.wav))
 
         lc = multiline(
-            wavs, diff_flxs, 24*(nparr(times)-np.min(times)), cmap='Spectral',
+            wavs, diff_flxs, 24*(nparr(times)-np.min(times)), cmap='spectral',
             ax=axd[str(ix+3)], lw=1
         )
 
@@ -3508,16 +3509,75 @@ def plot_rvactivitypanel(outdir):
                         borderpad=1.5)
     cb = fig.colorbar(lc, cax=axins1, orientation="horizontal")
     cb.ax.tick_params(labelsize='xx-small')
-    cb.ax.set_title('Time [hours]', fontsize='xx-small')
-    # axd['B'].text(0.725,0.955, '$t$ [days]',
-    #         transform=axd['B'].transAxes,
+    cb.ax.set_title('time [hours]', fontsize='xx-small')
+    # axd['b'].text(0.725,0.955, '$t$ [days]',
+    #         transform=axd['b'].transaxes,
     #         ha='right',va='top', color='k', fontsize='xx-small')
     cb.ax.tick_params(size=0, which='both') # remove the ticks
     axins1.xaxis.set_ticks_position("bottom")
 
+    fig.text(-0.01,0.5, 'relative flux', va='center',
+             rotation=90)
+    fig.text(0.5,-0.01, 'wavelength [$\aa$]', va='center', ha='center', rotation=0)
+
+    fig.tight_layout()
+
+    # set naming options
+    s = ''
+
+    bn = inspect.stack()[0][3].split("_")[1]
+    outpath = os.path.join(outdir, f'{bn}{s}.png')
+    savefig(fig, outpath, dpi=400)
+
+
+def plot_youthlines(outdir):
+
+    # get data
+    lines = ['Ca K', 'Ca H', 'Hα', 'Li-I']
+    globs = ['Kep*bj*order07*', 'Kep*bj*order07*', 'Kep*ij*order00*', 'Kep*ij*order01*']
+    deltawav = 5
+    xlims = [
+        [3933.66-deltawav, 3933.66+deltawav], # ca k
+        [3968.47-deltawav, 3968.47+deltawav], # ca h
+        [6562.8-deltawav, 6562.8+deltawav], # halpa
+        [6707.8-deltawav, 6707.8+deltawav], # li6708
+    ]
+
+    # make plot
+    plt.close('all')
+    set_style()
+
+    #fig, ax = plt.subplots(figsize=(4,3))
+    fig = plt.figure(figsize=(4,3))
+    axd = fig.subplot_mosaic(
+        """
+        01
+        23
+        """,
+        gridspec_kw={
+            #"width_ratios": [1, 1, 1, 1]
+            #"height_ratios": [1, 3]
+        },
+    )
+
+    from scipy.ndimage import gaussian_filter1d
+
+    for ix, (l,g,xlim) in enumerate(zip(lines, globs, xlims)):
+
+        csvpaths = glob(os.path.join(DATADIR, 'rvactivity', g))
+        assert len(csvpaths) > 0
+
+        _df = pd.read_csv(csvpaths[0])
+        axd[str(ix)].plot(
+            _df.wav, _df.model_flx, c='k', zorder=3, lw=0.2
+        )
+
+        axd[str(ix)].set_title(l)
+        axd[str(ix)].set_xlim(xlim)
+
     fig.text(-0.01,0.5, 'Relative flux', va='center',
              rotation=90)
-    fig.text(0.5,-0.01, 'Wavelength [$\AA$]', va='center', ha='center', rotation=0)
+    fig.text(0.5,-0.01, r'Wavelength [$\AA$]', va='center', ha='center', rotation=0)
 
     fig.tight_layout()
 
@@ -5100,6 +5160,3 @@ def plot_kerr21_XY(outdir, tablenum=1, colorkey=None):
     outpath = os.path.join(outdir, f'kerr21t{tablenum}_XY{s}.png')
     fig.savefig(outpath, bbox_inches='tight', dpi=400)
     print(f"Made {outpath}")
-
-
-
