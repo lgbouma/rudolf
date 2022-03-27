@@ -4,12 +4,12 @@ cp /Users/luke/Dropbox/proj/rudolf/results/CepHer_XYZvtang_sky/CepHer_XYZvtang_s
 # rotation, CAMD, spectra (Li/H-alpha)
 # CAMD:
 
-cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_CH-2_cleanhrcut_gaia2018_smalllims_overplotkoi7368_overplotkoi7913.pdf f2a.pdf
-cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_RSG-5_cleanhrcut_gaia2018_smalllims_overplotkep1643.pdf f2b.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_RSG-5_cleanhrcut_gaia2018_smalllims_overplotkep1643.pdf f2a.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Lyr_cluster_CH-2_cleanhrcut_gaia2018_smalllims_overplotkoi7368_overplotkoi7913.pdf f2b.pdf
 
 # rotation:
-cp /Users/luke/Dropbox/proj/rudolf/results/rotation/CH-2_rotation_vs_BpmRp_talkaspect_kinematicspatialselected_linear_defaultcleaning_allknown.pdf f2c.pdf
-cp /Users/luke/Dropbox/proj/rudolf/results/rotation/RSG-5_rotation_vs_BpmRp_talkaspect_kinematicspatialselected_linear_defaultcleaning_allknown.pdf f2d.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/rotation/RSG-5_rotation_vs_BpmRp_talkaspect_kinematicspatialselected_linear_defaultcleaning_allknown.pdf f2c.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/rotation/CH-2_rotation_vs_BpmRp_talkaspect_kinematicspatialselected_linear_defaultcleaning_allknown.pdf f2d.pdf
 
 # spectra: Li EW vs Teff and Halpha EW vs Teff
 # TODO:
