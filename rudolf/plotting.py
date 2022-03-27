@@ -2809,7 +2809,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
 
         elif runid in ['CH-2','RSG-5']:
             csvpath = os.path.join(DATADIR, 'rotation',
-                                   'CepHer_RSG5_EDR3_Curtis_20220324.csv')
+                                   'CepHer_RSG5_EDR3_v2_Curtis_20220326.csv')
             _df = pd.read_csv(csvpath)
 
             # match Jason's keys against what I call these clusters
@@ -2948,7 +2948,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                 continue
             ax.plot(
                 get_xval(_kdf), Prot,
-                alpha=1, mew=0.5, zorder=9001, label=name, markerfacecolor=mfc,
+                alpha=1, mew=0.5, zorder=-3, label=name, markerfacecolor=mfc,
                 markersize=11, marker=marker, color='black', lw=0,
             )
 
@@ -3955,7 +3955,6 @@ def plot_phasedlc_quartiles(
         _per = soln["period"]
         gp_mod = soln["gp_pred"] + soln["mean"]
         lc_mod = soln["light_curves"][:, 0]
-        import IPython; IPython.embed()
         _yerr = (
             np.sqrt(yerr[mask] ** 2 + np.exp(2 * soln["log_jitter"]))
         )
@@ -4880,7 +4879,7 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
         ('l', 'b', 'linear', 'linear', "A",
          ["$l$ [deg]", "$b$ [deg]"], [(102, 38), (-6,26)]),
         ('x_pc', 'y_pc', 'linear', 'linear', "B",
-         ["$X$ [pc]", "$Y$ [pc]"], None),
+         ["$X$ [pc]", "$Y$ [pc]"], [(-105, 285), (135, 415)]),# (-22, 178)]),
         ('x_pc', 'z_pc', 'linear', 'linear', "C",
          ["$X$ [pc]", "$Z$ [pc]"], None),
         ('y_pc', 'z_pc', 'linear', 'linear', "D",
@@ -4972,6 +4971,20 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
                 )
                 ix -= 1
 
+        if xkey == 'x_pc' and ykey == 'y_pc':
+            # overplot the ring at d=330 pc.
+            def given_r_get_xy(R, num_samples=1000):
+                theta = np.linspace(0, 2*np.pi, num_samples)
+                x, y = R * np.cos(theta), R * np.sin(theta)
+                return x,y
+
+            for radius in [250, 300, 350, 400]:
+                x,y = given_r_get_xy(radius)
+                sel = (y>0) & (x>-120)
+                x,y = x[sel], y[sel]
+                ax.plot(x, y, alpha=0.2, color='black', lw=0.5, zorder=-2)
+
+        # Show our objects!
         namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A',
                     'KOI-7913 B', 'Kepler-1643']
         markers = ['P', 'v', 'X', 'X', 's']
