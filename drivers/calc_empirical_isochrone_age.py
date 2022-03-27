@@ -77,8 +77,24 @@ def _get_pleiades():
     mdf = _df.merge(ruwe_df, how='left', on='source_id')
     return mdf
 
+def _get_rsg5():
+    outpath = os.path.join(
+        RESULTSDIR, 'tables', f'RSG-5_auto_withreddening_gaia2018.csv'
+    )
+    _df = pd.read_csv(outpath)
+    _df = _df[get_clean_gaia_photometric_sources(_df)]
+    return _df
 
-def collect_isochrone_data():
+def _get_ch2():
+    outpath = os.path.join(
+        RESULTSDIR, 'tables', f'CH-2_auto_withreddening_gaia2018.csv'
+    )
+    _df = pd.read_csv(outpath)
+    _df = _df[get_clean_gaia_photometric_sources(_df)]
+    return _df
+
+
+def collect_isochrone_data(clusterid='δ Lyr cluster'):
 
     # hardcode options
     reddening_corr = 1
@@ -110,10 +126,15 @@ def collect_isochrone_data():
     # save the HR diagram information, and the resulting binned values etc, as
     # entries in a dict.  structure is `hr_dict[cluster_name][parameter]`.
     hr_dict = {}
-    clusters = ['δ Lyr cluster', 'IC 2602', 'Pleiades', 'UCL']
-    getclusterfn = [_get_deltalyr, _get_ic2602, _get_pleiades, _get_ucl]
+    clusters = ['δ Lyr cluster', 'IC 2602', 'Pleiades', 'UCL', 'RSG-5', 'CH-2']
+    getclusterfn = [
+        _get_deltalyr, _get_ic2602, _get_pleiades, _get_ucl, _get_rsg5, _get_ch2
+    ]
+    smoothingfactors = [
+        1e-2, 5e-2, 1e-2, 5e-2, 5e-2, 5e-2
+    ]
 
-    for c,fn in zip(clusters, getclusterfn):
+    for c,fn,_smooth in zip(clusters, getclusterfn, smoothingfactors):
 
         print(c+'...')
         _df = fn()
@@ -146,6 +167,7 @@ def collect_isochrone_data():
         savefig(f, outpath, dpi=400)
 
         # step 2: cut on RV_error < 80th pctile
+        # TODO: maybe do not run this on CH-2??  tryt with it first...
         rvkey = (
             'dr2_radial_velocity' if 'dr2_radial_velocity' in _df else
             'radial_velocity'
@@ -172,6 +194,11 @@ def collect_isochrone_data():
 
         inpath = os.path.join(RESULTSDIR, 'empirical_isochrone_age',
                                f"{c.replace(' ','_')}_manual_CMD_lasso.csv")
+        if not os.path.exists(inpath):
+            raise ValueError(
+                f'You need to make {inpath} via manual glue CAMD selection.'
+                f'\nDo this, and then be sure to export to source_ids.'
+            )
         lasso_df = pd.read_csv(inpath)
 
         sel &= (
@@ -206,6 +233,9 @@ def collect_isochrone_data():
             if N >= 2:
                 ymean.append(np.average(ys[in_bin]))
                 ystdev.append(np.std(ys[in_bin]))
+            elif N == 1:
+                ymean.append(np.average(ys[in_bin]))
+                ystdev.append(0.1)
             else:
                 ymean.append(np.nan)
                 ystdev.append(np.nan)
@@ -218,8 +248,10 @@ def collect_isochrone_data():
         _s = np.isfinite(ymean)
 
         # cubic spline
-        fn_BpmRp_to_AbsG = UnivariateSpline(binmids[_s], ymean[_s],
-                                            k=3, s=1e-2, ext=1)
+        # s = smoothing factor.  bigger means more smooth.
+        fn_BpmRp_to_AbsG = UnivariateSpline(
+            binmids[_s], ymean[_s], k=3, s=_smooth, ext=1
+        )
 
         # this is the (Bp-Rp)0 component
         x_interp = np.linspace(0.8, 2.9, 1001) #NOTE: for clean plots
@@ -236,7 +268,8 @@ def collect_isochrone_data():
                     capsize=4, lw=0, mew=0.5, color='k', markersize=3,
                     zorder=5)
         ax.plot(x_interp, y_interp, lw=1, c='C1', zorder=42)
-        ax.update({'xlabel': '(Bp-Rp)0 [mag]', 'ylabel': '(MG)0'})
+        ax.update({'xlabel': '(Bp-Rp)0 [mag]', 'ylabel': '(MG)0',
+                   'xlim':[-0.3,3.2], 'ylim':[-2.5, 12]})
         savefig(f, outpath, dpi=400)
 
         hr_dict[c]['(Bp-Rp)0_fullsample'] = xval
@@ -274,11 +307,14 @@ def collect_isochrone_data():
     I_grid = np.hstack((I_step1, I_step2))
 
     # make evaluation plot
-    outpath = os.path.join(RESULTSDIR, 'empirical_isochrone_age',
-                           f"all_clusters_CMD_binning_interp.png")
+    outpath = os.path.join(
+        RESULTSDIR, 'empirical_isochrone_age',
+        f"all_clusters_{clusterid.replace(' ','_')}_CMD_binning_interp.png"
+    )
     set_style()
     f,ax = plt.subplots(figsize=(4,4))
 
+    clusters = [clusterid, 'IC 2602', 'Pleiades', 'UCL']
     colors = 'k,orange,deepskyblue,C1'.split(',')
 
     for ix, c, color in zip(range(len(clusters)), clusters, colors):
@@ -323,7 +359,7 @@ def collect_isochrone_data():
     # calculate the age probabilities assuming a gaussian likelihood
     JITTER = 0.30
 
-    for c in ['δ Lyr cluster', 'IC 2602']:
+    for c in [clusterid, 'IC 2602']:
 
         ln_P_grid = -0.5 * np.nansum(
             (
@@ -364,11 +400,13 @@ def collect_isochrone_data():
         savefig(f, outpath, dpi=400)
 
     cachepath = os.path.join(RESULTSDIR, 'empirical_isochrone_age',
-                           f"isochrone_data_cache.pkl")
+                           f"{clusterid.replace(' ','_')}_isochrone_data_cache.pkl")
     with open(cachepath, "wb") as f:
-        pickle.dump(c, f)
+        pickle.dump(hr_dict, f)
 
     print(f'Wrote {cachepath}')
 
 if __name__ == "__main__":
-    collect_isochrone_data()
+    collect_isochrone_data(clusterid='δ Lyr cluster')
+    collect_isochrone_data(clusterid='RSG-5')
+    collect_isochrone_data(clusterid='CH-2')
