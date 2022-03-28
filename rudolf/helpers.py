@@ -765,7 +765,7 @@ def supplement_gaia_stars_extinctions_corrected_photometry(
     return df
 
 
-def get_clean_gaia_photometric_sources(df):
+def get_clean_gaia_photometric_sources(df, verbose=True):
     """
     Given a dataframe of Gaia DR2 columns, calculate the "cleaning selection"
     described on page 3 / Appendix B of GaiaCollab+2018 HR diagram paper.  The
@@ -808,6 +808,21 @@ def get_clean_gaia_photometric_sources(df):
     sel4 = df.visibility_periods_used > 8
 
     sel = sel0 & sel1 & sel2 & sel3 & sel4
+
+    if verbose:
+        N_begin = len(df)
+        N_0 = len(df[sel0])
+        N_1 = len(df[sel0 & sel1])
+        N_2 = len(df[sel0 & sel1 & sel2])
+        N_3 = len(df[sel0 & sel1 & sel2 & sel3])
+        N_4 = len(df[sel0 & sel1 & sel2 & sel3 & sel4])
+
+        print(f'Beginning Gaia phot cleaning with N={N_begin} stars.')
+        print(f'0. Astrom χ^2 cut: {N_0} stars remain.')
+        print(f'1. ω/σω > 5 cut: {N_1} stars remain.')
+        print(f'2. Phot S/N cut: {N_2} stars remain.')
+        print(f'3. BP/RP excess factor cut: {N_3} stars remain.')
+        print(f'4. Visibility period cut: {N_4} stars remain.')
 
     return sel
 
