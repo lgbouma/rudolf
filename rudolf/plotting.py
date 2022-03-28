@@ -2744,7 +2744,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
 
     classes = ['pleiades', 'praesepe', f'{runid}']
     colors = ['gray', 'gray', colordict[runid]]
-    zorders = [-2, -3, -1]
+    zorders = [-3, -4, -1]
     markers = ['X', '+', 'o']
     lws = [0., 0.1, 0.5]
     mews= [0., 0.5, 2]
@@ -2837,6 +2837,17 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
 
             assert len(df) == len(_df)
 
+            if runid == 'CH-2':
+                # drop KOI-7913 A
+                df = df[df.Source_Input != '2106235301785454208' ]
+                # drop KOI-7913 A
+                df = df[df.Source_Input != '2106235301785453824' ]
+                # drop KOI-7368
+                df = df[df.Source_Input != '2128840912955018368' ]
+
+            elif runid == 'RSG-5':
+                df = df[df.Source_Input != '2082142734285082368' ]
+
         if f'{runid}' not in _cls:
             key = '(BP-RP)0' if not xval_absmag else 'MGmag'
             xval = df[key]
@@ -2859,9 +2870,13 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
             pass
 
         else:
+            if runid in ['CH-2','RSG-5'] and f'{runid}' in _cls:
+                sel = (xval > 0.5) & (df.phot_g_mean_mag_x < 16)
+            else:
+                sel = (xval > 0.5)
             ax.scatter(
-                xval,
-                df[ykey],
+                xval[sel],
+                df[sel][ykey],
                 c=_col, alpha=1, zorder=z, s=s, edgecolors='k',
                 marker=m, linewidths=_lw, label=f"{l.replace('_',' ')}"
             )
@@ -2870,11 +2885,18 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
             # get a few quick statistics
             print(42*'-')
             print(f'For the cluster {runid}')
-            colorrange = (xval > 0.5) & (xval < 2.6)
-            print(f'Started with {len(df[colorrange])} in 0.5 < BP-RP0 < 2.6')
-            print(f'and got {len(df[~pd.isnull(df[ykey])])} rotation period detections.')
+            #sel = (xval > 0.5) & (df.phot_g_mean_mag_x < 16)
+            if runid == 'CH-2':
+                print('OMITTING 3 stars (KOI-7913, KOI-7368)')
+            elif runid == 'RSG-5':
+                print('OMITTING 1 star (Kepler-1643)')
+            print(f'Started with {len(df[sel])} in 0.5 < BP-RP0, and G < 16')
+            print(f'and got {len(df[sel][~pd.isnull(df[sel][ykey])])} rotation period detections.')
+            print(df[sel][[
+                'Source_Input', 'TESS_Data', 'bp_rp_x',
+                'period']].sort_values(by='bp_rp_x')
+            )
             print(42*'-')
-
 
         if emph_binaries and f'{runid}' in _cls:
 
@@ -2948,7 +2970,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                 continue
             ax.plot(
                 get_xval(_kdf), Prot,
-                alpha=1, mew=0.5, zorder=-3, label=name, markerfacecolor=mfc,
+                alpha=1, mew=0.5, zorder=-2, label=name, markerfacecolor=mfc,
                 markersize=11, marker=marker, color='black', lw=0,
             )
 
