@@ -39,6 +39,7 @@
 % Symbols
 %
 \newcommand{\kms}{\,km\,s$^{-1}$}
+\newcommand{\mkms}{\,km\,s^{-1}}  % math mode
 \newcommand{\ms}{\,m\,s$^{-1}$}
 \newcommand{\bpmrpo}{(G_{\rm BP}-G_{\rm RP})_0}
 \newcommand{\bpmrp}{G_{\rm BP}-G_{\rm RP}}
@@ -144,12 +145,12 @@ effects and internal dynamics.  As an extreme example, in the Hyades
 the apparent velocities of stars in the tidal tails are expected to
 span up to $\pm 40$\kms relative to the cluster center
 \citep{jerabkova_800_2021}.  The stars in such diffuse regions can be
-verified to be the same age as the core members ({\it i.e.}, co-eval)
+verified to be the same age as the core members ({\it i.e.}, coeval)
 through analyses of color-absolute magnitude diagrams, stellar
 rotation periods \citep{curtis_tess_2019,bouma_2021_ngc2516}, and
 chemical abundances \citep{hawkins_2020}.  While there are many
 implications for our understanding of star formation and cluster
-evolution \citep[{\it e.g.}][]{dinnbier_tidal_2020}, a more immediate
+evolution \citep[{\it e.g.},][]{dinnbier_tidal_2020}, a more immediate
 consequence is that we now know the ages of many more stars, including
 previously known planet hosts.
 
@@ -447,9 +448,9 @@ color range to best visualize the region of maximal age information
 content: the pre-main-sequence.
 
 The CAMDs show that for RSG-5, our membership selection gives stars
-that photometrically appear to almost all be on a tight
-pre-main-sequence locus.  This implies a false positive rate of at
-most a few percent.  By comparison, our control sample (the $\delta$~Lyr
+that photometrically seem to almost all be on a tight
+pre-main-sequence locus.  This implies a false positive rate of 
+a few percent, at most.  By comparison, our control sample (the $\delta$~Lyr
 candidates) has a false positive rate of $\approx$12\%, based on the
 number of stars that photometrically appear to be more consistent with
 the field population than the bulk cluster population.  For CH-2, our
@@ -490,14 +491,13 @@ $\delta$~Lyr cluster.
 \label{sec:rotation}
 
 An independent way to assess the age of the candidate cluster members
-is to measure their stellar rotation periods using data available from
-surveys such as TESS \citep{ricker_transiting_2015} and ZTF
-\citep{bellm_zwicky_2019}.  This approach leverages a storied
-tradition of measuring rotation periods for open clusters of various
-ages, in order to determine the rate of stellar spin-down \citep[{\it
-e.g.},][]{skumanich_time_1972,curtis_rup147_2020}.  The TESS data in
-our case are especially useful, since they provide 3 to 5 lunar months
-of photometry for all of our candidate CH-2 and RSG-5 members.
+is to measure their stellar rotation periods.  This approach can be
+achieved using surveys such as TESS \citep{ricker_transiting_2015} and
+ZTF \citep{bellm_zwicky_2019}, and it leverages a storied tradition of
+rotation period measurement for benchmark open clusters \citep[see
+{\it e.g.},][]{skumanich_time_1972,curtis_rup147_2020}.  The TESS data
+in our case are especially useful, since they provide 3 to 5 lunar
+months of photometry for all of our candidate CH-2 and RSG-5 members.
 
 We selected stars suitable for gyrochronology by requiring $\bpmrpo
 \geq 0.5$ and $G<16$.  The latter cut corresponds to $\bpmrpo \lesssim
@@ -505,51 +505,71 @@ We selected stars suitable for gyrochronology by requiring $\bpmrpo
 42 stars in RSG-5.  We extracted light curves from the TESS images for
 these stars using the \texttt{unpopular} package
 \citep{hattorio_2021_cpm}, and regressed them against systematics with
-its causal pixel model.  
-{\bf For the ZTF light curves, we used the default photometry?}.
-We then measured candidate rotation periods
-using a Lomb-Scargle periodogram, and visually inspected them
-following the methods discussed in \citet{curtis_rup147_2020}.
+its causal pixel model.  {\bf For the ZTF light curves, we used the
+default photometry?  Ran aperture photometry on the image cutouts?}.
+We then measured candidate rotation periods using a Lomb-Scargle
+periodogram, and visually inspected them following the methods
+discussed in \citet{curtis_rup147_2020}.
 
-The lower panels of Figure~\ref{fig:age} show the results.
-In RSG-5,
-36/42 stars have rotation consistent with ``sub-Pleiades'' (86\%).
-Given the nearly perfectly clean photometric CAMD for RSG-5, this
-probably gives some indication for the fraction of stars for which we
-should expect
-to detect rotation periods with TESS (due to e.g., pole-on stars
-having less detectable starspot modulation).
+The lower panels of Figure~\ref{fig:age} show the results.  In RSG-5,
+36/42 stars have rotation periods faster than the Pleiades (86\%).
+This numerator omits the two stars with periods $>12$\,days visible in
+the lower-left panel of Figure~\ref{fig:age}.  The age interpretation
+for these latter stars, particularly the $\approx$M2.5 dwarf, is not
+obvious.  \citet{rebull_usco_2018} for instance have found numerous
+M-dwarfs with 10-12 day rotation periods at ages of USco ($\sim
+8$\,Myr), and some may still exist at ages of LCC ($\sim 16$\,Myr;
+L.~Rebull in preparation).  Regardless, given that nearly no field
+star outliers seem to be present on the RSG-5 CAMD, the fact that we
+do not detect rotation periods for $\approx$14\% of stars should
+perhaps be taken as an indication for the fraction of stars for
+rotation periods might not be detectable, due to {\it e.g.}, pole-on
+stars having lower amplitude starspot modulation.
 
+%
+% CH-2
+% 5 stars with Prot>10 days (from the Prot versus color plot):
+%                      DESIGNATION  TESS_Data   bp_rp_x     period
+%25  Gaia EDR3 2129930258400157440          4  1.909693  15.309000
+%24  Gaia EDR3 2129417404945830784          4  2.040988  10.981582
+%4   Gaia EDR3 2107169165113864064          4  2.059904  10.580494
+%9   Gaia EDR3 2134851775526125696          4  2.326998  12.227900
+%1   Gaia EDR3 2127726081184588160          4  2.347244  11.543281
+%
+% CH-2
+% Photometric field stars (from Glue -- one of these is omitted due to phot S/N cut, 
+% presumably 2126008609657702784 )
+%
+%In [9]: df[['DESIGNATION', 'bp_rp', 'M_G']]
+%Out[9]:
+%                     DESIGNATION     bp_rp        M_G
+%0  Gaia EDR3 2126529468937923456  2.518077   9.844733 --> NaN period, G=16.9
+%1  Gaia EDR3 2126008609657702784  2.746735  11.409737 --> NaN, G=18.4
+%2  Gaia EDR3 2133330051428541952  2.499458   9.459546 --> 15.7 d (ZTF), G=16.5
+%3  Gaia EDR3 2133510921093964928  2.720177  10.923209 --> NaN, G=17.9
+%4  Gaia EDR3 2139369183468814464  2.929506  11.170221 --> NaN, G=18.2
+%5  Gaia EDR3 2129930258400157440  1.909693   8.200652 --> P=15.3 (ZTF), G=15.2
 
+For CH-2, 13/19 stars have rotation periods that are obviously faster
+than their counterparts in the Pleiades (68\%).  4 stars, not included
+in the preceding numerator, are M-dwarfs with rotation periods between
+10 and 12.5 days.  The age interpretation for these M-dwarfs is, as
+just discussed, not obvious.  Regardless, the $\approx$15\% false
+positive rate determined from the CAMD seems consistent with our
+fraction of detected rotation periods, given that RSG-5 was also
+missing rotation period detections for $\approx$15\% of its candidate
+members, which all seemed photometrically consistent with being part
+of a single pre-main-sequence locus.
 
-Consider stars in CH-2 with 0.5 < BP-RP0, and G < 16.
-19 stars meet this criterion -- all were observed by TESS.
-13/19 (68\%) have rotation that is obviously consistent with a 40 Myr
-age.
-4 are M-dwarfs with rotation periods between 10 and 12.5 days, for which
-the age interpretation is not obvious.
-L.~Rebull for instance have found numerous M-dwarfs
-with 10-12 day rotation periods at ages of USco ($\sim 8$\,Myr); some
-might exist at ages of LCC ($\sim 16$\,Myr)
-(\citealt{rebull_rotation_2020}; Rebull et al., in prep -- {\bf see
-Skumanich conf slide deck -- though beware TESS stitching systematics}).
-Fr the sake of argument, let's say that this provides an independent
-verification that at least two thirds of our CH-2 candidates are both
-photometrically and rotationally consistent with being $\approx$40
-Myr.
-
-
-For RSG-5, 42 stars are in the relevant color and brgithness range.
-36 have rotation consistent with ``sub-Pleiades'', i.e., 86\%.
-Given the nearly perfectly clean photometric CAMD for RSG-5, this
-probably gives some indication for the fraction of stars for which we
-should expect
-to detect rotation periods with TESS (due to e.g., pole-on stars
-having less detectable starspot modulation).
-
-
-
-
+It is challenging to convert these stellar rotation periods
+to a precise age estimate, since on the pre-main-sequence
+the stars are spinning up due to thermal contraction
+rather than down due to magnetized braking.  Regardless, the rotation
+period distributions of both CH-2 and RSG-5 seem consistent with other
+30\,Myr to 50\,Myr clusters ({\it e.g.}, IC\,2602 and IC\,2391;
+\citealt{douglas_stephanie_t_2021_5131306}).
+They also seem consistent with the false positive rate estimates
+determined from the color-absolute magnitude diagrams.
 
 
 \section{The Stars}
@@ -655,6 +675,80 @@ Is a binary.
 
 \section{Discussion \& Conclusions}
 \label{sec:disc_conc}
+
+\subsection{Is CH-2 really a star cluster?}
+
+RSG-5, and Kepler-1643's membership inside it, clearly meet the
+typical expectations of a star claimed to be in an open cluster.
+RSG-5 shows an obvious overdensity relative to the local field
+population ({\it e.g.}, Figure~\ref{fig:XYZvtang}), and our membership
+selection easily produces a clean pre-main-sequence locus in 
+color-absolute magnitude space (Figure~\ref{fig:age}).
+CH-2, and KOI-7913 and KOI-7368's membership inside it, do not meet
+those expectations in as obvious a manner.  This is because this
+association of stars is diffuse.
+
+%really 80:9
+To quantify the density discrepancy, we can compare the spatial and
+velocity volumes searched to select candidate members of each cluster.
+For RSG-5, we drew 141 candidate members from a $30\,{\rm
+pc}\times30\,{\rm pc}\times30\,{\rm pc}$ spatial cube, given a $1 {\rm \mkms} \times 2 {\rm \mkms }$ rectangle in apparent galactic velocity.
+For CH-2, our 37 candidate members came from a spatial cube of
+dimension $50\,{\rm pc}\times40\,{\rm pc}\times30\,{\rm pc}$, and the
+velocity rectangle of $2 {\rm \mkms} \times 4 {\rm \mkms}$.  If we
+define the ``searched volume'' in units of ${\rm pc}^3 {\rm
+(\mkms)}^2$, then the volume ratio of CH-2:RSG-5 is $\approx$9:1.  The
+density (number of stars per unit searched volume) within RSG-5 relative to
+CH-2 similarly comes out to 34 to 1.
+
+So what makes a star cluster?  Historic answers to this question have
+recently by reviewed by \citet{krumholz_star_2019}: some definitions
+that have been offered include criteria such as being gravitationally
+bound, and having a mass density that significantly exceeds the mean
+in a cluster's galactic neighborhood.  We prefer a modified version of
+the definition adopted by \citet{krumholz_star_2019}: for our purposes
+a star cluster is a group of at least 12 stars that was physically
+associated at its time of formation.  The somewhat arbitrary ``12'' is
+set to distinguish clusters from high-order multiple star systems.  We
+therefore explicitly include dissolved clusters and their tidal tails
+in our concept of clusters.  We also explicitly exclude the idea that
+a particular number of stars per unit spatial volume is required to
+define a cluster.  The latter point acknowledges the fact that an
+important factor in cluster identification is now also the number per
+unit velocity volume, whether in 2-dimensional tangential velocity, or
+when including the third radial component.  Perhaps
+once stellar rotation periods and chemical abundances reach the same
+level of ubiquity as stellar proper motions, they might enable further
+refinement of our ability in cluster discovery.
+
+From a data-driven perspective, how do we demonstrate that a star is
+in a cluster, {\it i.e.}, that it is part of a group of stars that was
+physically associated at its time of formation?
+Back-integrating the orbits is one convincing approach, but it does
+not always work {\bf (CITE)}.
+The relatively minimal approach suggested by \citet{tofflemire_2021}
+is intriguing: search for coeval, phase-space neighbors, measure their
+ages, and determine if they share a common age.
+This approach is more accurately be described as a method for
+determining whether a star is currently associated with a set of coeval
+stars, which is much easier to determine than what the association
+looked like in the past.
+From this standard, our analysis thus far of CH-2 has already
+demonstrated the existence of such an assocation.
+
+A crucial logical step in this method however is to ensure that the
+(automated) search process for coeval phase-space neighbors in fact
+produces neighbors at a rate different from what it would for field
+stars.
+
+% TODO
+And so we ask: what is the density of field stars in the CH-2 region?
+If we had applied Ronan's pre-main-sequence selection, + HDBScan, +
+local neighbors... what would we have gotten?
+Similarly... if you just applied Adam Kraus' Comove 
+What is the likelihood we are fooling ourselves?
+
+
 
 \begin{figure*}[!t]
 	\begin{center}
