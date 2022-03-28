@@ -2826,6 +2826,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                 RESULTSDIR, 'tables', f'{runid}_auto_withreddening_gaia2018.csv'
             )
             rdf = pd.read_csv(redpath)
+            rdf = rdf[get_clean_gaia_photometric_sources(rdf)]
 
             # EDR3
             _df['Source_Input'] = _df['Source_Input'].astype(str)
@@ -2835,7 +2836,9 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                 rdf, how='inner', left_on='Source_Input', right_on='source_id'
             )
 
-            assert len(df) == len(_df)
+            # NOTE: only true if you don't impose the "clean
+            # photometric sources" cut.
+            # assert len(df) == len(_df)
 
             if runid == 'CH-2':
                 # drop KOI-7913 A
@@ -2892,8 +2895,15 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                 print('OMITTING 1 star (Kepler-1643)')
             print(f'Started with {len(df[sel])} in 0.5 < BP-RP0, and G < 16')
             print(f'and got {len(df[sel][~pd.isnull(df[sel][ykey])])} rotation period detections.')
+            print(f'N={len(df[sel])} Detections and non-detections are as follows')
             print(df[sel][[
                 'Source_Input', 'TESS_Data', 'bp_rp_x',
+                'period']].sort_values(by='bp_rp_x')
+            )
+            print(10*'#')
+            print('Stars with Prot>10 days:')
+            print(df[(df.period > 10) & (df.phot_g_mean_mag_x < 16)][[
+                'DESIGNATION', 'TESS_Data', 'bp_rp_x',
                 'period']].sort_values(by='bp_rp_x')
             )
             print(42*'-')
