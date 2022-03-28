@@ -368,11 +368,6 @@ interest.  For candidate RSG-5 members, we require:
   Z/{\rm pc} &\in [40, 70] \nonumber \\
   v_b/{\rm km\,s^{-1}} &\in [-4, -3] \nonumber \\
   v_{l^*}/{\rm km\,s^{-1}} &\in [4, 6] \nonumber
-  %45 < X/{\rm pc} < 75 \nonumber \\
-  %320 < Y/{\rm pc} < 350 \nonumber \\
-  %40 < Z/{\rm pc} < 70 \nonumber \\
-  %-4 < v_b/{\rm km\,s^{-1}} < -3 \nonumber \\
-  %4 < v_{l^*}/{\rm km\,s^{-1}} < 6 \nonumber
 \end{align}
 For the diffuse stars near KOI-7368 and KOI-7913, we require
 \begin{align}
@@ -381,11 +376,6 @@ For the diffuse stars near KOI-7368 and KOI-7913, we require
   Z/{\rm pc} &\in [75, 105] \nonumber \\
   v_b/{\rm km\,s^{-1}} &\in [-3.5, -1.5] \nonumber \\
   v_{l^*}/{\rm km\,s^{-1}} &\in [2, 6] \nonumber
-  %20 < X/{\rm pc} < 70 \nonumber \\
-  %230 < Y/{\rm pc} < 270 \nonumber \\
-  %75 < Z/{\rm pc} < 105 \nonumber \\
-  %-3.5 < v_b/{\rm km\,s^{-1}} < -1.5 \nonumber \\
-  %2 < v_{l^*}/{\rm km\,s^{-1}} < 6, \nonumber
 \end{align}
 and we call this latter set of stars ``CH-2''.  These cuts yield 141
 candidate RSG-5 members, and 37 candidate CH-2 members.  An important
@@ -421,16 +411,14 @@ section.
     ($\approx38$\,Myr; \citealt{bouma_kep1627_2022}) and and the Gaia
     EDR3 Catalog of Nearby Stars (gray background).  The left and
     right columns shows stars in RSG-5 and CH-2, respectively.  The
-    range of colors displayed is truncated to show whether or not
-    candidate members fall on the pre-main-sequence.
+    range of colors is truncated to emphasize the pre-main-sequence.
     {\it Bottom row}:
     TESS and ZTF-derived stellar rotation periods, with the Pleiades
-    ($\approx 112$\,Myr), and Praesepe ($\approx 650$\,Myr) shown for reference
+    ($\approx 112$\,Myr) and Praesepe ($\approx 650$\,Myr) shown for reference
     \citep{rebull_rotation_2016a,douglas_poking_2017}.
-    Our detection efficiency for reliable rotation periods falls off
+    The detection efficiency for reliable rotation periods falls off
     beyond $\bpmrpo \gtrsim 2.6$.
-    {\bf todo: fix zorder markers}.  
-		\label{fig:age}
+	\label{fig:age}
 	}
 \end{figure*}
 
@@ -486,11 +474,12 @@ IC\,2602 vary from 40 to 46\,Myr based on lithium-depletion-boundary
 from 30 to 46\,Myr based on isochronal analyses
 \citep{stauffer_rotational_1997,david_ages_2015,bossini_age_2019}.},
 and 112\,Myr for the Pleiades \citep{dahm_2015}.  These assumptions
-and the consequent processing steps were identical to those described
-in \citet{bouma_kep1627_2022}.  The mean and standard deviation of the
-resulting age posterior are $46^{+9}_{-7}$\,Myr for RSG-5, and
-$36^{+10}_{-8}$\,Myr for CH-2.  For comparison, the
-this procedure yields an age for the $\delta$~Lyr cluster of
+and the consequent processing steps taken to exclude field stars as
+well as photometric and astrometric binaries were identical to those
+described in \citet{bouma_kep1627_2022}.  The mean and standard
+deviation of the resulting age posterior are $46^{+9}_{-7}$\,Myr for
+RSG-5, and $36^{+10}_{-8}$\,Myr for CH-2.  For comparison, the this
+procedure yields an age for the $\delta$~Lyr cluster of
 $38^{+6}_{-5}$\,Myr.  The slightly older isochronal age of RSG-5 is
 expected given that its locus is slightly bluer and less luminous in
 the upper left panel of Figure~\ref{fig:age} relative to the
@@ -498,6 +487,70 @@ $\delta$~Lyr cluster.
 
 
 \subsubsection{Stellar Rotation Periods}
+\label{sec:rotation}
+
+An independent way to assess the age of the candidate cluster members
+is to measure their stellar rotation periods using data available from
+surveys such as TESS \citep{ricker_transiting_2015} and ZTF
+\citep{bellm_zwicky_2019}.  This approach leverages a storied
+tradition of measuring rotation periods for open clusters of various
+ages, in order to determine the rate of stellar spin-down \citep[{\it
+e.g.},][]{skumanich_time_1972,curtis_rup147_2020}.  The TESS data in
+our case are especially useful, since they provide 3 to 5 lunar months
+of photometry for all of our candidate CH-2 and RSG-5 members.
+
+We selected stars suitable for gyrochronology by requiring $\bpmrpo
+\geq 0.5$ and $G<16$.  The latter cut corresponds to $\bpmrpo \lesssim
+2.6$, at the relevant distances.  These cuts gave 19 stars in CH-2 and
+42 stars in RSG-5.  We extracted light curves from the TESS images for
+these stars using the \texttt{unpopular} package
+\citep{hattorio_2021_cpm}, and regressed them against systematics with
+its causal pixel model.  
+{\bf For the ZTF light curves, we used the default photometry?}.
+We then measured candidate rotation periods
+using a Lomb-Scargle periodogram, and visually inspected them
+following the methods discussed in \citet{curtis_rup147_2020}.
+
+The lower panels of Figure~\ref{fig:age} show the results.
+In RSG-5,
+36/42 stars have rotation consistent with ``sub-Pleiades'' (86\%).
+Given the nearly perfectly clean photometric CAMD for RSG-5, this
+probably gives some indication for the fraction of stars for which we
+should expect
+to detect rotation periods with TESS (due to e.g., pole-on stars
+having less detectable starspot modulation).
+
+
+
+Consider stars in CH-2 with 0.5 < BP-RP0, and G < 16.
+19 stars meet this criterion -- all were observed by TESS.
+13/19 (68\%) have rotation that is obviously consistent with a 40 Myr
+age.
+4 are M-dwarfs with rotation periods between 10 and 12.5 days, for which
+the age interpretation is not obvious.
+L.~Rebull for instance have found numerous M-dwarfs
+with 10-12 day rotation periods at ages of USco ($\sim 8$\,Myr); some
+might exist at ages of LCC ($\sim 16$\,Myr)
+(\citealt{rebull_rotation_2020}; Rebull et al., in prep -- {\bf see
+Skumanich conf slide deck -- though beware TESS stitching systematics}).
+Fr the sake of argument, let's say that this provides an independent
+verification that at least two thirds of our CH-2 candidates are both
+photometrically and rotationally consistent with being $\approx$40
+Myr.
+
+
+For RSG-5, 42 stars are in the relevant color and brgithness range.
+36 have rotation consistent with ``sub-Pleiades'', i.e., 86\%.
+Given the nearly perfectly clean photometric CAMD for RSG-5, this
+probably gives some indication for the fraction of stars for which we
+should expect
+to detect rotation periods with TESS (due to e.g., pole-on stars
+having less detectable starspot modulation).
+
+
+
+
+
 
 \section{The Stars}
 \label{sec:stars}
