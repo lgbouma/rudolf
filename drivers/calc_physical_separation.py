@@ -36,22 +36,19 @@ sep = c_a.separation(c_b)
 
 print('2d separation')
 print(sep.to(u.arcsec))
-print('2d sep in AU: {sep.to(u.arcsec).value*avg_dist:.2f} AU')
 
-#FIXME FIXME HOW DO YOU FIGURE OUT THE UNCERTAINTIES ON THIS??? YOU WANT IT TO
-#BE UNCERTAINTY ON THE DIFFERENCE(!!!)
+# small, relative to uncertainty from distance...
 abs_unc = np.sqrt(
-    float(adf.e_Plx)**2 +
-    float(bdf.e_Plx)**2
+    (float(adf.e_RA_ICRS)*u.mas)**2 +
+    (float(adf.e_DE_ICRS)*u.mas)**2 +
+    (float(bdf.e_RA_ICRS)*u.mas)**2 +
+    (float(bdf.e_DE_ICRS)*u.mas)**2
 )
+print('+/-', abs_unc.to(u.arcsec))
 
-#
-# NOTE: this is wrong, b/c it's the uncertainty on the DIFFERENCE that matters.
-#
-# rel_unc = np.sqrt(
-#     (float(adf.e_Plx) / float(adf.Plx))**2 +
-#     (float(bdf.e_Plx) / float(bdf.Plx))**2
-# )
-# sep_unc = rel_unc * sep.to(u.pc)
+print(f'2d sep in AU: {sep.to(u.arcsec).value*avg_dist:.2f} AU')
 
-print(sep_unc)
+rel_unc = (dist_a - dist_b)/dist_a
+
+print(f'2d sep unc in AU: {(rel_unc*sep).to(u.arcsec).value*avg_dist:.2f} AU')
+import IPython; IPython.embed()
