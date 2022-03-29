@@ -55,7 +55,7 @@
 \begin{document}
 
 \title{
-  Three $\approx$40 Million Year Old Mini-Neptunes from Kepler, TESS, and Gaia
+  Three 40 Million Year Old Mini-Neptunes from Kepler, TESS, and Gaia
 }
 
 %\suppressAffiliations
@@ -576,10 +576,10 @@ determined from the color-absolute magnitude diagrams.
 
 \input{tab_sysparams.tex}
 
-Some of the most salient stellar parameters of the KOIs in Cep-Her can
-be gleaned by inspecting Figure~\ref{fig:age}.  They span spectral
-types of G8V (Kepler-1627) to K8V (KOI-7913 A).  The secondary in the
-KOI-7913 system is marginally cooler than the primary.  Since a
+Some salient stellar parameters of the KOIs in Cep-Her can be gleaned
+by inspecting Figure~\ref{fig:age}.  They span spectral types of G8V
+(Kepler-1627) to K8V (KOI-7913 A).  The secondary in the KOI-7913
+system is only marginally cooler than the primary.  And since a
 Solar-mass star with solar metallicity arrives at the zero-age main
 sequence at $t\approx40$ million years \citep{choi_mesa_2016}, these
 stars are all in the late stages of their pre-main-sequence
@@ -587,59 +587,83 @@ contraction.  Their heliocentric distances are $\approx$260\,pc
 (KOI-7913 and KOI-7368, in CH-2) and $\approx$340\,pc (Kepler-1643, in
 RSG-5).
 
-To derive spectroscopic parameters $(T_{\rm eff}, \log g_\star, [{\rm
-Fe/H}])$ and to analyze spectroscopic youth proxies such as the
-Li\,\textsc{I} 6708\,\AA\ doublet equivalent width and H$\alpha$
-emission, we acquired spectra.  The system-by-system details follow.
-The results are summarized in Table~\ref{tab:sysparams}.
+The adopted stellar parameters are listed in
+Table~\ref{tab:starparams}.  The stellar surface gravity, radius,
+mass, and density are found by interpolating against the MIST
+isochrones \citep{choi_mesa_2016}.  The statistical uncertainties from
+this technique mostly originate from the parallax uncertaintes; the
+systematic uncertainties are taken to be the absolute difference
+between the PARSEC \citep{bressan_parsec_2012} and MIST isochrones.
+Reported uncertainties are a quadrature sum of the statistical and
+systematic components. 
 
-%\citep[{\it e.g.},][]{soderblom_ages_2014}, we acquired an iodine-free
-%spectrum from Keck/HIRES on the night of 2021 March 26 using the
-%standard setup and reduction techniques of the California Planet
-%Survey \citep{howard_cps_2010}.  Following the equivalent width
-%measurement procedure described by \citet{bouma_2021_ngc2516}, we find
-%${\rm EW}_{\rm Li} = 233^{+5}_{-7}$\,m\AA.   This value does not
-%correct for the Fe\,\textsc{I} blend at 6707.44\AA.  Nonetheless,
-%given the stellar effective temperature (Table~\ref{tab:starparams}),
-%this measurement is in agreement with expectations for a
-%$\approx40$\,Myr star ({\it e.g.}, as measured in IC~2602 by
-%\citealt{randich_gaiaeso_2018}).  It is also larger than any lithium
-%equivalent widths measured by \citet{berger_identifying_2018} in their
-%analysis of 1{,}301 Kepler-star spectra.
-%
-%
-%% rotation period from plot_rotation_period_windowslider.py
-%Based on the spatial and kinematic association of \sn\ with the \cn,
-%and the assumption that the planet formed shortly after the star, it
-%seems likely that \sn\ is the same age as the cluster. There are two
-%consistency checks on whether this is true: rotation and lithium.
-%Based on the Kepler light curve, the rotation period is
-%$2.642\pm0.042$\,days, where the quoted uncertainty is based on the
-%scatter in rotation periods measured from each individual Kepler
-%quarter.  This is consistent with comparable cluster members
-%(Figure~\ref{fig:age}).
-
-
-%\subsection{Kepler\,1627A}
+To verify these parameters and to also analyze spectroscopic youth
+proxies such as the Li\,\textsc{I} 6708\,\AA\ doublet and H$\alpha$,
+we acquired spectra.  We also acquired high resolution imaging for
+each system, to constrain the existence of visual companions,
+including possible bound binaries.  The system-by-system details
+follow, and the the relevant results are also summarized in
+Table~\ref{tab:sysparams}.
 
 \subsection{Kepler\,1643}
 
-For Kepler-1643,
-we acquired an iodine-free spectrum from Keck/HIRES
-...
-%FIMXE TODO TODO TODO WORDS LET'S GO!
+\paragraph{Spectra}
+For Kepler-1643, we acquired two iodine-free spectra from Keck/HIRES
+on the nights of 2020 August 16 and 2021 October 25.  The acquisition
+and analysis followed the standard reduction techniques of the
+California Planet Survey \citep{howard_cps_2010}.  We derived the
+stellar spectral parameters ($T_{\rm eff}, \log g, R_\star$) using
+\texttt{SpecMatch-Emp} \citep{yee_SM_2017}, which yielded values in
+$<1$-$\sigma$ agreement with those from the cluster-isochrone
+approach.  This approach also yielded $[Fe/H]=0.13 \pm 0.09$.  Using
+the broadened synthetic templates from \texttt{SpecMatch-Synth}
+\citep{petigura_cksi_2017}, we found $v\sin i = 9.3 \pm 1.0\,\mkms$.
+The systemic radial velocity at the two sequence epochs was $-9.1 \pm
+1.9\,\mkms$ and $-7.8\pm 1.2\,\mkms$ respectively.  To infer the
+equivalent width of the Li\,\textsc{I} 6708\,\AA\ doublet, we followed
+the procedure described by \citet{bouma_2021_ngc2516}.  This yielded a
+strong detection: ${\rm EW}_{\rm Li} = 126^{+8}_{-4}$\,m\AA, with
+values consistent at $<1$-$\sigma$ between the two epochs.   The
+quoted value does not correct for the Fe\,\textsc{I} blend at
+6707.44\AA.  
 
-spectra  (YYYY/MM/DD) and KOI-7913 (YYYY/MM/DD and
-YYYY/MM/DD), where for the latter the two different epochs
-corresponded to observations of the secondary and primary
-respectively.  The acquisition and analysis followed the standard
-reduction techniques of the California Planet Survey
-\citep{howard_cps_2010}.  For KOI-7368, we acquired TRES spectra on
-YYYY/MM/DD and YYYY/MM/DD.  CITE METHOD PAPER.  
+{\bf TODO verify continuum normalization}
+Given the reddening-corrected color of the star this is
+consistent(ish) with the Pleiades/NGC2516 based on my NGC2516 figure.
+But it looks sub-IC2602 based on the lithium.png figure, which uses
+the Randich2018 values.
+It's pretty clearly super-field.
+I really need to verify the continuum normalization.
+COMPARE vs:
+\citealt{randich_gaiaeso_2018}).  
+\citet{berger_identifying_2018}
+
+\paragraph{High-Resolution Imaging}
+%FIXME TODO LEFT OFF HERE -- DESCRIBE!
 
 
 \subsection{KOI-7368}
+\paragraph{Spectra}
+For KOI-7368, we acquired TRES spectra on 2015 June 1.  The stellar
+parameter classification pipeline for these spectra is described by
+\citet{2021tsc2.confE.124B}, and is based on the template library
+originally constructed by \citet{buchhave_hatp16b_class_2010}.
+
+%FIXME TODO LEFT OFF HERE -- DESCRIBE!
+vsini?  Fe/H?  Li EW?
+
+
+\paragraph{High-Resolution Imaging}
+
 \subsection{KOI-7913}
+
+\paragraph{Spectra}
+
+KOI-7913 (YYYY/MM/DD and YYYY/MM/DD), where for the latter the two
+different epochs corresponded to observations of the secondary and
+primary respectively.   
+
+\paragraph{High-Resolution Imaging}
 Is a binary.
 The latter system is 3$\farcs$501 
 %FIXME FIXME FIXME TODO TODO TODO
@@ -997,9 +1021,16 @@ from this mountain.
 \bibliographystyle{yahapj}                            
 \bibliography{bibliography} 
 
-%\appendix
-%\section{Young, Age-Dated, and Age-Dateable Star Compilation}
-%\label{app:targetlist}
+\appendix
+\section{Table of Candidate RSG-5 and CH-2 Members}
+\label{app:members}
+
+Gaia source lists and abbreviated info.  Include rotation periods.
+
+\section{Table of Transit Fit Parameters}
+\label{app:transit}
+
+Table goes here
 
 
 %\listofchanges
