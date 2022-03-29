@@ -612,10 +612,10 @@ For Kepler-1643, we acquired two iodine-free spectra from Keck/HIRES
 on the nights of 2020 August 16 and 2021 October 25.  The acquisition
 and analysis followed the standard reduction techniques of the
 California Planet Survey \citep{howard_cps_2010}.  We derived the
-stellar spectral parameters ($T_{\rm eff}, \log g, R_\star$) using
+stellar parameters ($T_{\rm eff}, \log g, R_\star$) using
 \texttt{SpecMatch-Emp} \citep{yee_SM_2017}, which yielded values in
 $<1$-$\sigma$ agreement with those from the cluster-isochrone
-approach.  This approach also yielded $[Fe/H]=0.13 \pm 0.09$.  Using
+approach.  This approach also yielded $[{\rm Fe/H}]=0.13 \pm 0.09$.  Using
 the broadened synthetic templates from \texttt{SpecMatch-Synth}
 \citep{petigura_cksi_2017}, we found $v\sin i = 9.3 \pm 1.0\,\mkms$.
 The systemic radial velocity at the two sequence epochs was $-9.1 \pm
@@ -639,34 +639,97 @@ COMPARE vs:
 \citet{berger_identifying_2018}
 
 \paragraph{High-Resolution Imaging}
-%FIXME TODO LEFT OFF HERE -- DESCRIBE!
-
+{\bf todo}
 
 \subsection{KOI-7368}
 \paragraph{Spectra}
-For KOI-7368, we acquired TRES spectra on 2015 June 1.  The stellar
-parameter classification pipeline for these spectra is described by
-\citet{2021tsc2.confE.124B}, and is based on the template library
-originally constructed by \citet{buchhave_hatp16b_class_2010}.
-
-%FIXME TODO LEFT OFF HERE -- DESCRIBE!
-vsini?  Fe/H?  Li EW?
-
+For KOI-7368, we acquired a spectrum using the echelle spectrograph
+(TRES; \citealt{furesz_tres_2008}) mounted at the Tillinghast 1.5m at
+the Fred Lawrence Whipple Observatory on Mt. Hopkins, AZ.  The
+spectrum was acquired on 2015 June 1.  The stellar parameter
+classification pipeline for these spectra is described by
+\citet{2021tsc2.confE.124B}.  It is based on the synthetic template
+library originally constructed by \citet{buchhave_hatp16b_class_2010}.
+The resulting stellar parameters ($T_{\rm eff}, \log g, R_\star$)
+agreed with those from the cluster-isochrone method within
+$1$-$\sigma$, though the effective temperature is more precise by a
+factor of three.  Auxiliary parameters included the metallicity $[{\rm
+Fe/H}]= -0.02 \pm 0.08$, the equatorial velocity $v\sin i = 20.21 \pm
+0.50\,\mkms$, and the systemic velocity ${\rm RV}_{\rm sys} = -10.9
+\pm 0.2\,\mkms$.  The Li 6708\AA\ EW measurement procedure yielded
+${\rm EW}_{\rm Li} = 236^{+16}_{-14}$\,m\AA.
 
 \paragraph{High-Resolution Imaging}
 
 \subsection{KOI-7913}
 
+\paragraph{Binarity}
+
+%(e.g., Jenkins KSCI-19081-002 KPDH pp 129, or many other pages)
+KOI-7913 appears to be a binary.  The north-west
+primary\footnote{Relevant identifiers for the primary are KIC 8873450
+= Gaia DR2/EDR3 2106235301785454208.  For the secondary, they are KIC
+8873448 = Gaia DR2/EDR3 2106235301785453824.  } is approximately 0.5
+magnitudes brighter than the south-east secondary in optical passbands.
+The two stars are separated in Gaia EDR3 by $3\farcs54$ on-sky, and
+have parallaxes consistent within $1$-$\sigma$ (the average is
+$\varpi=3.66 \pm 0.01$\,mas).  This corresponds to an apparent on-sky
+separation of $959 \pm 2$ au.  Gaia EDR3 quotes
+$(\mu_{\alpha'},\mu_\delta)=(2.439\pm0.015, 1.009\pm 0.016)\,{\rm
+mas}\,{\rm yr}^{-1}$ for the primary, and
+$(\mu_{\alpha'},\mu_\delta)=(2.696\pm0.020, 0.650 \pm 0.021) \,{\rm
+mas}\,{\rm yr}^{-1}$ for the secondary.  Since two stars were resolved
+in the Kepler Input Catalog and are roughly one Kepler pixel apart, an
+accurate crowding metric has already been applied in the NASA Ames
+data products to correct the mean flux level
+\citep{2017ksci.rept....6M}.  This is important for deriving accurate
+transit depths.
+
 \paragraph{Spectra}
 
-KOI-7913 (YYYY/MM/DD and YYYY/MM/DD), where for the latter the two
-different epochs corresponded to observations of the secondary and
-primary respectively.   
+We acquired Keck/HIRES spectra for KOI-7913 A on the night of 2021 Nov
+13, and KOI-7913 B on the night of 2021 Oct 26.  The usual
+\texttt{SpecMatch-Emp} \citep{yee_SM_2017} machinery yielded $T_{\rm
+eff,A} = 4324 \pm 70\,{\rm K}$, $T_{\rm eff,B} = 4038 \pm 70\,{\rm
+K}$.  The remaining parameters were in agreement with those from the
+cluster isochrone.  For the primary, we also found $[{\rm Fe/H}]=
+-0.06 \pm 0.09$, $v\sin i = 13.3 \pm 1.0\,\mkms$, and ${\rm RV}_{\rm
+sys} = -17.8 \pm 1.1\,\mkms$.  These same parameters for the secondary
+were $[{\rm Fe/H}]= -0.01 \pm 0.09$, $v\sin i = 10.7 \pm 1.0\,\mkms$,
+and ${\rm RV}_{\rm sys} = -18.8 \pm 1.1\,\mkms$.
+
+Regarding indicators of youth, the primary has a spectral type
+$\approx$K6V, while the secondary is $\approx$M0V.  At $\approx$40
+Myr, 
+lithium 6708\,\AA\ absorption is not expected for the
+secondary, but might be present for the primary 
+\citep[{\it e.g.},][Figure~8]{soderblom_ages_2014}.
+Conversely,  {\bf todo finish}
+% TODO: make this figure?
+
+% For Li:
+%    ~~~(CITE Figure 10 of Barrado y Navasceus 2004?).
+%   ****USE FIG8 OF SODERBLOM+13****
+% 
+%   OR USE BAFFLES AS YOUR REFERENCE?
+%     B-V=1.48 (primary), IC2602 age has no data.  beta pic age has lots of scatter
+%     around this color, between 10mA and 100mA.
+%     B-V=redder... 1.8?  SpType ~M0V, really no Li expected.
+%   A: no... they really didn't collect very good data from what i see.
+%   especially at the red end...
+% 
+% NW component SpType~K5.5-K6V; HIRES spectrum shows weak Li (EW 65 +/-
+% 8 mA), Halpha in emission (double-peaked?!), and CaHK in emission.
+% Reamatch SB2 checks don't show evidence for it being SB2.
+% SW component SpType~K9V-M0V; HIRES spectrum shows H-alpha in emission
+% (consistent with <150 Myr) and no Li (expected given Teff).
+% Given the kinematics, the spectra paint a picture consistent with KOI
+% 7913 being part of the ~40 Myr Cep-Her group.
+
+
+
 
 \paragraph{High-Resolution Imaging}
-Is a binary.
-The latter system is 3$\farcs$501 
-%FIXME FIXME FIXME TODO TODO TODO
 
 
 
