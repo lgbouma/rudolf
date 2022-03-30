@@ -48,6 +48,7 @@ General for re-use:
     plot_full_kinematics: corner plot of ra,dec,plx,PM,rv
 """
 import os, corner, pickle, inspect
+from copy import deepcopy
 from glob import glob
 from datetime import datetime
 import numpy as np, matplotlib.pyplot as plt, pandas as pd, pymc3 as pm
@@ -4851,12 +4852,13 @@ def plot_CepHerExtended_quicklook_tests(outdir):
 
 def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
 
-    # get data
+    # result after "step 4", kinematic search around the HDScan group
     csvpath = os.path.join(DATADIR, 'Cep-Her',
                            '20220311_Kerr_CepHer_Extended_Candidates.csv')
     df = pd.read_csv(csvpath)
     df = df[(df['photometric flag'].astype(bool)) & (df['astrometric flag'].astype(bool))]
 
+    # core memebers
     csvpath1 = os.path.join(DATADIR, 'Cep-Her',
                            '20220311_Kerr_SPYGLASS205_Members_All.csv')
     df1 = pd.read_csv(csvpath1)
@@ -4885,6 +4887,25 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
     reference_df = pd.DataFrame(df.mean()).T
     df = append_physicalpositions(df, reference_df)
     _mdf = append_physicalpositions(_mdf, reference_df)
+
+    csvpath = os.path.join(DATADIR, 'Cep-Her',
+                           '20220311_Kerr_CepHer_Extended_Candidates_v0-result.csv')
+    _gdf = pd.read_csv(csvpath)
+    #fitspath = os.path.join(DATADIR, 'Cep-Her',
+    #                       '20220311_Kerr_CepHer_Extended_Candidates_v0-result.fits.gz')
+    #hl = fits.open(fitspath)
+    #d = hl[0].data
+    #_gdf = Table(d).to_pandas()
+
+    _gdf['source_id'] = _gdf.source_id.astype(str)
+    df['source_id'] = df.source_id.astype(str)
+
+    mgdf = df.merge(_gdf, how='inner', on='source_id', suffixes=('', '_GEDR3'))
+    assert len(mgdf) == len(df)
+
+    df = deepcopy(mgdf)
+
+    df = df[get_clean_gaia_photometric_sources(df)]
 
     # set up the axis dictionary.
     plt.close('all')
