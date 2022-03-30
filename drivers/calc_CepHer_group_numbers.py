@@ -9,10 +9,11 @@ df = pd.read_csv(csvpath)
 df = df[(df['photometric flag'].astype(bool)) & (df['astrometric flag'].astype(bool))]
 
 print(f'Start with {len(df)} candidate members.')
+print(f'Start with {len(df[df.strengths>0.02])} cands w/ strength>0.02.')
 
 # check 
 csvpath = os.path.join(DATADIR, 'Cep-Her',
-                       'KOI_crossmatches.txt')
+                       'KOI_crossmatches_weight_gt_0.02.txt')
 kdf = pd.read_csv(csvpath)
 kdf.kicid = kdf.kicid.astype(str)
 
@@ -32,4 +33,6 @@ for csvpath in csvpaths:
     mdf = kdf.merge(koi_df, how='left', left_on='kicid', right_on='kepid')
 
     for disposition in ['CONFIRMED', 'CANDIDATE', 'FALSE POSITIVE']:
+        print(42*'-')
+        print(disposition)
         print(mdf[mdf.koi_disposition == disposition])
