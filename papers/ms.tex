@@ -590,7 +590,7 @@ contraction.  Their heliocentric distances are $\approx$260\,pc
 RSG-5).
 
 The adopted stellar parameters are listed in
-Table~\ref{tab:starparams}.  The stellar surface gravity, radius,
+Table~\ref{tab:sysparams}.  The stellar surface gravity, radius,
 mass, and density are found by interpolating against the MIST
 isochrones \citep{choi_mesa_2016}.  The statistical uncertainties from
 this technique mostly originate from the parallax uncertaintes; the
@@ -617,8 +617,8 @@ California Planet Survey \citep{howard_cps_2010}.  We derived the
 stellar parameters ($T_{\rm eff}, \log g, R_\star$) using
 \texttt{SpecMatch-Emp} \citep{yee_SM_2017}, which yielded values in
 $<1$-$\sigma$ agreement with those from the cluster-isochrone
-approach.  This approach also yielded $[{\rm Fe/H}]=0.13 \pm 0.09$.  Using
-the broadened synthetic templates from \texttt{SpecMatch-Synth}
+approach.  This approach also yielded $[{\rm Fe/H}]=0.13 \pm 0.09$.
+Using the broadened synthetic templates from \texttt{SpecMatch-Synth}
 \citep{petigura_cksi_2017}, we found $v\sin i = 9.3 \pm 1.0\,\mkms$.
 The systemic radial velocity at the two sequence epochs was $-9.1 \pm
 1.9\,\mkms$ and $-7.8\pm 1.2\,\mkms$ respectively.  To infer the
@@ -629,54 +629,74 @@ values consistent at $<1$-$\sigma$ between the two epochs.   The
 quoted value does not correct for the Fe\,\textsc{I} blend at
 6707.44\AA.  
 
-{\bf TODO verify continuum normalization}
-Given the reddening-corrected color of the star this is
-consistent(ish) with the Pleiades/NGC2516 based on my NGC2516 figure.
-But it looks sub-IC2602 based on the lithium.png figure, which uses
-the Randich2018 values.
-It's pretty clearly super-field.
-I really need to verify the continuum normalization.
-COMPARE vs:
-\citealt{randich_gaiaeso_2018}).  
-\citet{berger_identifying_2018}
+% {\bf TODO verify continuum normalization in Li EW measurement...}
+% Given the reddening-corrected color of the star this is
+% consistent(ish) with the Pleiades/NGC2516 based on my NGC2516 figure.
+% But it looks sub-IC2602 based on the lithium.png figure, which uses
+% the Randich2018 values.
+% It's pretty clearly super-field.
+% I really need to verify the continuum normalization.
+% COMPARE vs:
+% \citealt{randich_gaiaeso_2018}).  
+% \citet{berger_identifying_2018}
 
 \paragraph{High-Resolution Imaging}
-{\bf todo}
+% KOI-6186 & 58662.62 &   Kp     &  4 &   80.00 &  4.1 &  4.8 &  5.4 &  5.8 &  6.5 &  6.8 &  7.6 &  8.3 &  8.2 &  8.3 &             Petigura \\ % N2.20190628.53389
+We acquired adaptive optics imaging of Kepler-1643 on the night of
+2019 June 28 using the NIRC2 imager on Keck-II (PI: E.~Petigura).
+Using the narrow camera (FOV = 10.2\arcsec), we obtained 4 images in
+the $K'$ filter ($\lambda = 2.12\,\mu$m) with a total exposure time of
+320\,s. We analyzed these data following \citet{kraus_impact_2016},
+and determined the detection limits to visual companions by analyzing
+the residuals after subtracting an empirical PSF template. 
+This procedure yielded contrast limits of $\Delta K' = 4.1$ mag at
+$\rho = 150$ mas, $\Delta K' = 5.8$ mag at $\rho = 300$ mas, and
+$\Delta K' = 8.3$ mag at $\rho > 1000$ mas.
+
 
 \subsection{KOI-7368}
 \paragraph{Spectra}
-For KOI-7368, we acquired a spectrum using the echelle spectrograph
-(TRES; \citealt{furesz_tres_2008}) mounted at the Tillinghast 1.5m at
-the Fred Lawrence Whipple Observatory on Mt. Hopkins, AZ.  The
-spectrum was acquired on 2015 June 1.  The stellar parameter
-classification pipeline for these spectra is described by
-\citet{2021tsc2.confE.124B}.  It is based on the synthetic template
-library originally constructed by \citet{buchhave_hatp16b_class_2010}.
-The resulting stellar parameters ($T_{\rm eff}, \log g, R_\star$)
-agreed with those from the cluster-isochrone method within
-$1$-$\sigma$, though the effective temperature is more precise by a
-factor of three.  Auxiliary parameters included the metallicity $[{\rm
-Fe/H}]= -0.02 \pm 0.08$, the equatorial velocity $v\sin i = 20.21 \pm
-0.50\,\mkms$, and the systemic velocity ${\rm RV}_{\rm sys} = -10.9
-\pm 0.2\,\mkms$.  The Li 6708\AA\ EW measurement procedure yielded
-${\rm EW}_{\rm Li} = 236^{+16}_{-14}$\,m\AA.
+For KOI-7368, we acquired a spectrum on 2015 June 1 using the echelle
+spectrograph (TRES; \citealt{furesz_tres_2008}) mounted at the
+Tillinghast 1.5m at the Fred Lawrence Whipple Observatory on Mt.
+Hopkins, AZ.  The stellar parameter classification pipeline for the
+TRES spectra has been described by \citet{2021tsc2.confE.124B}.  It is
+based on the synthetic template library originally constructed by
+\citet{buchhave_hatp16b_class_2010}.  The resulting stellar parameters
+($T_{\rm eff}, \log g, R_\star$) agreed with those from the
+cluster-isochrone method within $1$-$\sigma$, though the effective
+temperature is more precise by a factor of three.  Auxiliary
+spectroscopic parameters included the metallicity $[{\rm Fe/H}]= -0.02
+\pm 0.08$, the equatorial velocity $v\sin i = 20.21 \pm 0.50\,\mkms$,
+and the systemic velocity ${\rm RV}_{\rm sys} = -10.9 \pm 0.2\,\mkms$.
+The Li 6708\AA\ EW measurement procedure yielded ${\rm EW}_{\rm Li} =
+236^{+16}_{-14}$\,m\AA.
 
 \paragraph{High-Resolution Imaging}
+% KOI-7368 & 58646.57 &   Kp     &  4 &   80.00 &  5.2 &  5.8 &  6.4 &  6.7 &  7.1 &  7.5 &  8.1 &  8.7 &  8.7 &  8.8 &                Huber \\ % N2.20190612.49290
+We acquired adaptive optics imaging of KOI-7368 on the night of 2019
+June 12 using the NIRC2 imager on Keck-II (PI: D.~Huber).  The
+observational configuration and reduction was identical as for
+Kepler-1643.  No companions were detected, and the analysis of the
+image residuals yielded contrast limits of $\Delta K' = 5.2$ mag at
+$\rho = 150$ mas, $\Delta K' = 6.7$ mag at $\rho = 300$ mas, and
+$\Delta K' = 8.7$ mag at $\rho > 1000$ mas.
+
 
 \subsection{KOI-7913}
 
 \paragraph{Binarity}
 
 %(e.g., Jenkins KSCI-19081-002 KPDH pp 129, or many other pages)
-KOI-7913 appears to be a binary.  The north-west
-primary\footnote{Relevant identifiers for the primary are KIC 8873450
-= Gaia DR2/EDR3 2106235301785454208.  For the secondary, they are KIC
-8873448 = Gaia DR2/EDR3 2106235301785453824.  } is approximately 0.5
-magnitudes brighter than the south-east secondary in optical passbands.
-The two stars are separated in Gaia EDR3 by $3\farcs54$ on-sky, and
-have parallaxes consistent within $1$-$\sigma$ (the average is
-$\varpi=3.66 \pm 0.01$\,mas).  This corresponds to an apparent on-sky
-separation of $959 \pm 2$ au.  Gaia EDR3 quotes
+KOI-7913 appears to be a binary.\footnote{Relevant identifiers for the
+primary are KIC 8873450 = Gaia DR2/EDR3 2106235301785454208.  For the
+secondary, they are KIC 8873448 = Gaia DR2/EDR3 2106235301785453824.}
+The north-west primary is $\approx$0.5 magnitudes brighter than the
+south-east secondary in optical passbands.  The two stars are
+separated in Gaia EDR3 by $3\farcs54$ on-sky, and have parallaxes
+consistent within $1$-$\sigma$ (with an average $\varpi=3.66 \pm
+0.01$\,mas).  This corresponds to an apparent on-sky separation of
+$959 \pm 2$ au.  Gaia EDR3 quotes
 $(\mu_{\alpha'},\mu_\delta)=(2.439\pm0.015, 1.009\pm 0.016)\,{\rm
 mas}\,{\rm yr}^{-1}$ for the primary, and
 $(\mu_{\alpha'},\mu_\delta)=(2.696\pm0.020, 0.650 \pm 0.021) \,{\rm
@@ -702,12 +722,14 @@ and ${\rm RV}_{\rm sys} = -18.8 \pm 1.1\,\mkms$.
 
 Regarding indicators of youth, the primary has a spectral type
 $\approx$K6V, while the secondary is $\approx$M0V.  At $\approx$40
-Myr, 
-lithium 6708\,\AA\ absorption is not expected for the
-secondary, but might be present for the primary 
-\citep[{\it e.g.},][Figure~8]{soderblom_ages_2014}.
-Conversely,  {\bf todo finish}
-% TODO: make this figure?
+Myr, lithium 6708\,\AA\ absorption is not expected for the secondary,
+but might be present for the primary \citep[{\it
+e.g.},][Figure~8]{soderblom_ages_2014}.  Conversely, H$\alpha$ is
+expected to be in emission for for all M-dwarfs younger than
+$\approx150$\,Myr \citep{kiman_calibration_2021}.
+
+Turning to the actual data, we find {\bf X for lithium}.
+For H$\alpha$, {\bf we see Y}.
 
 % For Li:
 %    ~~~(CITE Figure 10 of Barrado y Navasceus 2004?).
@@ -728,10 +750,22 @@ Conversely,  {\bf todo finish}
 % Given the kinematics, the spectra paint a picture consistent with KOI
 % 7913 being part of the ~40 Myr Cep-Her group.
 
-
-
-
 \paragraph{High-Resolution Imaging}
+
+We acquired adaptive optics imaging of KOI-7913 on the night of 2020
+Aug 27 using the NIRC2 imager on Keck-II (PI: D.~Huber).  The
+observational configuration and reduction was identical as before.
+The images showed KOI-7913 A, KOI-7913 B, and an additional faint star
+$\approx0\farcs99$ due East of KOI-7913 B.  Applying the PSF-fitting
+routines from \citet{kraus_impact_2016}, the tertiary star has a
+separation $\rho = 4397 \pm 3$\,mas from the primary, at a position
+angle $231.17^\circ \pm 0.02^\circ$, with a $\Delta K' = 6.97 \pm
+0.04$.  While it is too faint to affect the interpretation of the KOI
+itself, it would be amusing if the faint neighbor were also comoving
+and young -- at the age of the system, it would have a mass roughly
+between 10 and 15\,M$_{\rm Jup}$.  Additional imaging epochs will be
+required to tell.
+
 
 
 
