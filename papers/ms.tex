@@ -39,7 +39,7 @@
 % Symbols
 %
 \newcommand{\kms}{\,km\,s$^{-1}$}
-\newcommand{\mkms}{\,km\,s^{-1}}  % math mode
+\newcommand{\mkms}{{\rm \,km\,s^{-1}}}  % math mode
 \newcommand{\ms}{\,m\,s$^{-1}$}
 \newcommand{\bpmrpo}{(G_{\rm BP}-G_{\rm RP})_0}
 \newcommand{\bpmrp}{G_{\rm BP}-G_{\rm RP}}
@@ -132,7 +132,7 @@ lithium abundances, x-ray activity, or emission line strength
 In this work, we leverage recent analyses of the Gaia data, which have
 greatly expanded our knowledge of stellar group memberships
 \citep[{\it e.g.},][]{CantatGaudin2018a,KounkelCovey2019,Kerr2021}.
-Broadly speaking these analyses cluster on the stellar positions and
+To date these analyses have mostly clustered on the stellar positions and
 on-sky velocities measured by Gaia, with varying degrees of filtering
 and supervision.  One important result is the identification of
 diffuse streams and tidal tails comparable in stellar mass to the
@@ -141,8 +141,8 @@ previously known cores of nearby open clusters
 spatially diffuse groups typically have velocity dispersions of
 $\approx$1\kms, though they can be much higher due to both projection
 effects and internal dynamics.  As an extreme example, in the Hyades
-the velocities of stars in the tidal tails are expected to
-span up to $\pm 40$\kms relative to the cluster center
+the velocities of stars in the tidal tails are thought to
+span up to $\pm 40\mkms$ relative to the cluster center
 \citep{jerabkova_800_2021}.  The stars in such diffuse regions can be
 verified to be the same age as the core members ({\it i.e.}, coeval)
 through analyses of color-absolute magnitude diagrams, stellar
@@ -264,7 +264,7 @@ years.
 
 The possibility that the $\delta$~Lyr cluster, RSG-5, and the
 sub-populations identified by \citet{Kerr2021} share a common origin
-has yet to be fully substantiated, and is the subject of the upcoming
+has yet to be fully substantiated, and will be the subject of the upcoming
 study by R.~Kerr and collaborators.  Our primary interest in the
 region stems from the fact that a portion of it was observed by Kepler
 (Figure~\ref{fig:XYZvtang}, top panel).  To further explore the
@@ -315,16 +315,16 @@ such that the group member with the smallest core distance has a
 weight of 1, the group member with the greatest core distance has a
 weight of 0, and weights for the other group members are log-normally
 distributed between these two extremes.  In Figure~\ref{fig:XYZvtang},
-we show 26{,}960 objects with weight exceeding 0.02 as gray points,
-and overplot 7{,}560 objects with weights exceeding 0.10 as black
-points.  {\bf TODO: FIXME these object numbers impose pretty weak
-quality cuts and include junk at G>18...  use
-get\_clean\_gaia\_photometric\_sources too, since they come in for the
-CAMDs}.
-
+we show 12{,}436 objects with weight exceeding 0.02 as gray points,
+and overplot 4{,}763 objects with weights exceeding 0.10 as black
+points.\footnote{These counts only include objects with reliable astrometry
+	and photometry: $\varpi/\sigma_\varpi>5$;
+	$G/\sigma_{G}>50$;
+	$G_{\rm RP}/\sigma_{G_{RP}}>20$;
+	$G_{\rm BP}/\sigma_{G_{BP}}>20$.}
 The previously known $\delta$~Lyr\ cluster ($l,b=68^\circ,15^\circ$;
-$v_{l'}, v_b=-4.5{\rm kms},-4{\rm kms}$) is visible, as is RSG-5
-($l,b=83^\circ,6^\circ$, $v_{l'}, v_b=+5.5{\rm kms},-3.5{\rm kms}$).
+$v_{l'}, v_b=-4.5 \mkms,-4 \mkms$) is visible, as is RSG-5
+($l,b=83^\circ,6^\circ$; $v_{l'}, v_b=5.5 \mkms,-3.5 \mkms$).
 Most of the other subclusters, including in Cep-Cyg
 ($l,b=90^\circ,7^\circ$) and Cerberus ($l,b=48^\circ,18^\circ$) are
 too small or dispersed to have previously been analyzed in great
@@ -337,11 +337,13 @@ The fourth and final step was to cross-match our candidate Cep-Her
 member list against all known Kepler Objects of Interest.  We used the
 Cumulative KOI table from the NASA Exoplanet Archive from 27 March
 2022, and also compared against the \texttt{q1\_q17\_dr25} table
-\citep{thompson_planetary_2018}.  This yielded 32 matches, of which 18
-were known false positives, 7 were designated
-``confirmed'', and 8 were designated ``candidates''.  A cursory
-inspection of the Kepler data validation summaries and Robovetter
-classifications for these objects quickly showed whether they were
+\citep{thompson_planetary_2018}.  From the candidate members
+with weights exceeding 0.02, this yielded
+ yielded 25 matches, of which 11
+were known false positives, 6 were designated
+``confirmed'', and 8 were designated ``candidates''.  
+Inspection of the Kepler data validation summaries and Robovetter
+classifications for these objects then showed whether they were
 potentially consistent with being {\it i)} planets, and {\it ii)}
 $\lesssim 10^8$ years old, based on the presence of rotational
 modulation at the expected period and amplitude \citep[{\it
@@ -436,7 +438,7 @@ include binaries while omitting instrumental artifacts from for
 instance low photometric signal to noise, or a small number of
 visibility periods.  We then corrected for extinction using the
 \citet{lallement_threedimensional_2018}\footnote{\url{https://stilism.obspm.fr/}}
-dust maps and the extinction coefficients $k_X\equiv A_X/A_0$from
+dust maps and the extinction coefficients $k_X\equiv A_X/A_0$ from
 \citet{GaiaCollaboration2018}, assuming that $A_0 = 3.1 E(B-V)$.  This
 yielded a mean and standard deviation for the reddening of
 $E(B-V)=0.036\pm0.002$ for RSG-5, and $E(B-V)=0.017\pm0.001$
