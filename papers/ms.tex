@@ -781,25 +781,126 @@ required to tell.
 
 		\vspace{-0.5cm}
 		\subfloat{
-			\includegraphics[width=0.41\textwidth]{f3a.pdf}
-			\includegraphics[width=0.41\textwidth]{f3b.pdf}
+			\includegraphics[width=0.33\textwidth]{f3a.pdf}
+			\includegraphics[width=0.33\textwidth]{f3b.pdf}
 		}
 
-		\vspace{-1.45cm}	
+		\vspace{-1.27cm}	
 		\subfloat{
-			\includegraphics[width=0.41\textwidth]{f3c.pdf}
-			\includegraphics[width=0.41\textwidth]{f3d.pdf}
+			\includegraphics[width=0.33\textwidth]{f3c.pdf}
+			\includegraphics[width=0.33\textwidth]{f3d.pdf}
 		}
 	\end{center}
-	\vspace{-0.7cm}
+	\vspace{-0.5cm}
 	\caption{
-		{\bf Raw and processed light curves for the objects of
-    interest.} Top: raw.  Bottom: processed.
-    The increased scatter during transit is likely due to starspot
-    crossing events.  KOI-7913 is janky, but P=24 days.
+		{\bf Raw and processed light curves for the Kepler Objects of
+    Interest in Cep-Her.}   
+    {\it Top}:
+    50 day light curve segment from the 3.9 years of Kepler data.  The
+    ordinate shows the \texttt{PDCSAP} median-subtracted flux in units
+    of parts-per-thousand ($\times 10^{-3}$).  The dominant signal is
+    induced by starspots.  
+    {\it Bottom}:
+    Phase-folded transits of Kepler-1643, KOI-7913, KOI-7368, and
+    Kepler-1627 with stellar variability removed.  The maximum {\it a
+    posteriori} transit model is shown with the gray line, and the
+    residual after subtracting the transit model is vertially
+    displaced.  Windows over 10 hours are shown.  Gray points are
+    individual flux measurements; black points are binned to 20 minute
+    intervals, and have a representative 1-$\sigma$ error bar in the
+    center-right of each panel. 
 		\label{fig:planets}
 	}
 \end{figure*}
+
+\subsection{Kepler Data}
+
+The Kepler space telescope observed Kepler-1643, KOI-7913, and
+KOI-7368 at a 30-minute cadence between May 2009 and April 2013.  For
+all three systems quarters 1 through 17 were observed without any data
+gaps other than the usual quarterly roll.  The top panel of
+Figure~\ref{fig:planets} shows a 50-day slice of the \texttt{PDCSAP}
+light curves for the three new Cep-Her candidates, along with
+Kepler-1627.  In \texttt{PDCSAP}, nonastrophysical variability is
+removed through a cotrending approach that uses a set of basis vectors
+derived using singular value decomposition of a set of
+systematics-dominated stellar light curves
+\citep{smith_kepler_PDC_2017}.  In our analysis, we used the
+\texttt{PDCSAP} light curves with the default optimal aperture
+\citep{smith_finding_2016}.  Cadences with non-zero quality flags were
+omitted.  In all cases, the stars are dominated by spot-induced
+modulation with peak-to-peak variability between 2\% and 10\%.  These
+signals are much larger than the transits, which have depth
+$\approx$0.1\%.
+To quantify the stellar rotation periods, we calculated the
+Lomb-Scargle periodogram for each Kepler quarter independently.  The
+resulting means and standard deviations are quoted in
+Table~\ref{tab:sysparams}.
+
+
+\subsection{Transit and Stellar Variability Model}
+
+Our goals in fitting the Kepler light curves are twofold.  First, we
+want to derive accurate planetary sizes and orbital properties.
+Second, we want to remove the stellar variability signal to enable a
+statistical assessment of the probability that the transit signals are
+planetary.
+
+Our adopted approach was as follows.  Given an initial guess for the
+transit ephemeris from the \texttt{q1\_q17\_dr25} analysis
+\citep{thompson_planetary_2018}, the light curve was first trimmed to
+a local window around each transit of duration $\pm 3\times t_{14}$.
+The local out-of-transit points were then fitted with a fourth-order
+polynomial, which was then divided out from the light curve.  The
+resulting flattened transits were then fitted with a 
+planetary transit under the assumption of quadratic limb darkening.
+Our model therefore included 8 free parameters for the transit ($\{P,
+t_0, \log R_{\rm p}/R_\star, b, u_1 ,u_2, R_\star, \log g\}$), 2 free
+parameters for the light curve normalization and a white noise jitter
+($\{\langle f \rangle, \sigma_f \}$), and an additional 5 implicit
+parameters per transit through the polynomial.
+
+We fitted the models using \texttt{exoplanet}
+\citep{exoplanet:exoplanet}.  We assumed a Gaussian likelihood, and
+sampled using \texttt{PyMC3}'s No-U-Turn Sampler
+\citep{hoffman_no-u-turn_2014}, after having initialized using the
+maximum {\it a posteriori} (MAP) model.  We used the
+\citet{gelman_inference_1992} statistic ($\hat{R}$) as our convergence
+diagnostic.  Abbreviated results are in Table~\ref{fig:sysparams}, the
+full results are in Appendix~\ref{app:transit}.
+
+One weakness of our fitting approach is that we have fixed 5 implicit
+parameters per individual transit to their MAP values to remove the
+stellar variability signal.  An alternative could be to fit the
+planetary transits simultaneously with the starspot-induced
+variability using, say, a quasiperiodic Gaussian process (GP).  We
+explored this approach, but found that it required careful fine-tuning
+of the hyperparameter priors, otherwise the GP would tend to
+incorporate anything that was not part of the transit, even if it was
+short-term variability attributable to for instance flares, or simply
+instrumental noise.  This failure mode is particularly pernicious, in
+that it yields an inflated and ill-founded sense of confidence in the
+transit model results.  While our model is simpler, it has the benefit
+that its white noise jitter never trades off with any parameter
+equivalent to a damping timescale for the coherence of the GP.  It is
+also computationally efficient, while capturing the planetary
+parameters that we actually care about.
+
+
+\subsection{Planet Validation}
+
+%TODO : write a paragraph or two about previous VESPA work, and how we
+% went further.
+
+% Previous analyses have identified and characterized the smaller
+% transit signal \citep{2012ApJS..199...24T,thompson_planetary_2018},
+% validated its planetary nature \citep{morton_false_2016}, and even
+% searched the system for transit timing variations
+% \citep{holczer_transit_2016}.  Nonetheless, since the cluster
+% membership provides us with more precise stellar parameters than those
+% previously available, we opted to reanalyze the light curve.
+
+
 
 
 \section{Discussion \& Conclusions}
