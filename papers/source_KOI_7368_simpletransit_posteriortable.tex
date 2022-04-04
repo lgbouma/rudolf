@@ -1,0 +1,68 @@
+\begin{deluxetable*}{lllrrrrrrr}
+	%
+	\tablecaption{ Priors and posteriors for KOI-7368 transit model with local
+  polynomials removed.}
+	\label{tab:koi7368}
+	%
+	\tabletypesize{\scriptsize}
+	%\tabletypesize{\small}
+	%
+	%\tablenum{2}
+	%
+	\tablehead{
+		\colhead{Param.} & 
+		\colhead{Unit} &
+		\colhead{Prior} & 
+		\colhead{Median} & 
+		\colhead{Mean} & 
+		\colhead{Std{.} Dev.} &
+		\colhead{3\% HDI} &
+		\colhead{97\% HDI} &
+		\colhead{ESS} &
+		\colhead{$\hat{R}-1$}
+	}
+  %
+	\startdata
+$P$ & d & $\mathcal{N}(6.84294; 0.01000)$ & 6.8430344 & 6.8430341 & 0.0000125 & 6.8430107 & 6.8430574 & 10045 & 6.5e-05 \\
+$t_0^{(1)}$ & d & $\mathcal{N}(137.06000; 0.02000)$ & 137.0463023 & 137.0463315 & 0.0014043 & 137.0436532 & 137.0489229 & 10303 & 9.2e-05 \\
+$\log R_{\rm p}/R_\star$ & -- & $\mathcal{U}(-4.605; 0.000)$ & -3.76025 & -3.76299 & 0.03062 & -3.81932 & -3.70774 & 4043 & 6.3e-04 \\
+$b$ & -- & $\mathcal{U}(0; 1+R_{\mathrm{p}}/R_\star)$ & 0.5077 & 0.4999 & 0.0641 & 0.3797 & 0.6115 & 4434 & 3.5e-04 \\
+$u_1$ & -- & Kipping 2013 & 0.976 & 0.953 & 0.267 & 0.425 & 1.422 & 5809 & -5.6e-05 \\
+$u_2$ & -- & Kipping 2013 & -0.191 & -0.158 & 0.308 & -0.661 & 0.421 & 4387 & 2.6e-04 \\
+$R_\star$ & $R_\odot$ & $\mathcal{N}(0.876; 0.035)$ & 0.874 & 0.874 & 0.036 & 0.804 & 0.938 & 9902 & 7.3e-04 \\
+$\log g$ & cgs & $\mathcal{N}(4.499; 0.030)$ & 4.503 & 4.502 & 0.030 & 4.445 & 4.557 & 7527 & 2.7e-05 \\
+$\log \sigma_f$ & -- & $\mathcal{N}(\log\langle \sigma_f \rangle; 2.000)$ & -8.314 & -8.314 & 0.012 & -8.337 & -8.292 & 10636 & 1.3e-03 \\
+$\langle f \rangle$ & -- & $\mathcal{N}(1.000; 0.100)$ & 1.0000 & 1.0000 & 0.0000 & 1.0000 & 1.0000 & 9742 & -2.9e-04 \\
+$R_{\rm p}/R_\star$ & -- & -- & 0.023 & 0.023 & 0.001 & 0.022 & 0.025 & 4043 & 6.3e-04 \\
+$\rho_\star$ & g$\ $cm$^{-3}$ & -- & 1.872 & 1.878 & 0.151 & 1.593 & 2.159 & 6829 & 3.4e-04 \\
+$R_{\rm p}$ & $R_{\mathrm{Jup}}$ & -- & 0.198 & 0.198 & 0.011 & 0.177 & 0.218 & 5676 & 2.8e-04 \\
+$R_{\rm p}$ & $R_{\mathrm{Earth}}$ & -- & 2.219 & 2.219 & 0.123 & 1.984 & 2.444 & 5676 & 2.8e-04 \\
+$a/R_\star$ & -- & -- & 16.671 & 16.677 & 0.447 & 15.863 & 17.542 & 6829 & 3.3e-04 \\
+$\cos i$ & -- & -- & 0.030 & 0.030 & 0.004 & 0.022 & 0.038 & 4518 & 5.4e-04 \\
+$T_{14}$ & hr & -- & 2.789 & 2.792 & 0.075 & 2.651 & 2.928 & 4845 & 5.0e-04 \\
+$T_{13}$ & hr & -- & 2.619 & 2.622 & 0.085 & 2.470 & 2.779 & 4575 & 3.1e-04 \\
+	\enddata
+	%
+	\tablecomments{
+		ESS refers to the number of effective samples.
+		$\hat{R}$ is the Gelman-Rubin convergence diagnostic.
+		Logarithms in this table are base-$e$.
+		$\mathcal{U}$ denotes a uniform distribution,
+		and $\mathcal{N}$ a normal distribution.
+    Many of the $T_{13}$ statistics may be \texttt{nan} in the event of a
+    grazing transit.
+     (1) The ephemeris is in units of BJKD (BJDTDB-2454833).
+		%  (2) Although $\mathcal{U}(0,1+R_{\rm p}/R_\star)$ is formally
+		%  correct, for this model we assumed a non-grazing transit to enable
+		%  sampling in $\log \delta$.
+		%  (3) The eccentricity vectors are sampled in the $(e\cos\omega,
+		%  e\sin\omega)$ plane.
+		%  (4) The true planet size is a factor of $((F_1+F_2)/F_1)^{1/2}$
+		%  larger than that from the fit because of dilution from Kepler
+		%  1627B, where $F_1$ is the flux from the primary, and $F_2$ is that
+		%  from the secondary; the mean and standard deviation of $R_{\rm
+		%  p}=3.817\pm0.158\,R_{\oplus}$ quoted in the text includes this correction,
+		%  assuming $(F_1+F_2)/F_1\approx 1.015$.
+	}
+	\vspace{-0.3cm}
+\end{deluxetable*}

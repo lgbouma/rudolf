@@ -87,7 +87,7 @@
   $36^{+10}_{-8}$\,Myr old.
   Based on the transit shapes and high resolution imaging, they are
   all most likely planets, with false positive probabilities of
-  $6\times10^{-9}$, $5\times10^{-3}$, and $1\times10^{-4}$ for
+  $6\times10^{-9}$, $4\times10^{-3}$, and $1\times10^{-4}$ for
   Kepler-1643, KOI-7368, and KOI-7913 respectively.
   These planets are therefore the first empirical
   demonstration that mini-Neptunes with sizes of $\approx$2 Earth
@@ -688,7 +688,7 @@ $\Delta K' = 8.7$ mag at $\rho > 1000$ mas.
 \paragraph{Binarity}
 
 %(e.g., Jenkins KSCI-19081-002 KPDH pp 129, or many other pages)
-KOI-7913 appears to be a binary.\footnote{Relevant identifiers for the
+KOI-7913 is almost certainly a binary.\footnote{Relevant identifiers for the
 primary are KIC 8873450 = Gaia DR2/EDR3 2106235301785454208.  For the
 secondary, they are KIC 8873448 = Gaia DR2/EDR3 2106235301785453824.}
 The north-west primary is $\approx$0.5 magnitudes brighter than the
@@ -839,6 +839,7 @@ Table~\ref{tab:sysparams}.
 
 
 \subsection{Transit and Stellar Variability Model}
+\label{sec:fitting}
 
 Our goals in fitting the Kepler light curves are twofold.  First, we
 want to derive accurate planetary sizes and orbital properties.
@@ -866,8 +867,10 @@ sampled using \texttt{PyMC3}'s No-U-Turn Sampler
 \citep{hoffman_no-u-turn_2014}, after having initialized using the
 maximum {\it a posteriori} (MAP) model.  We used the
 \citet{gelman_inference_1992} statistic ($\hat{R}$) as our convergence
-diagnostic.  Abbreviated results are in Table~\ref{fig:sysparams}, the
-full results are in Appendix~\ref{app:transit}.
+diagnostic.  The results are shown in the lower panels of
+Figure~\ref{fig:planets}, and the important derived parameters are in
+Table~\ref{tab:sysparams}.  The set of full parameters with their
+priors are given in Appendix~\ref{app:transit}.
 
 One weakness of our fitting approach is that we have fixed 5 implicit
 parameters per individual transit to their MAP values to remove the
@@ -876,18 +879,163 @@ planetary transits simultaneously with the starspot-induced
 variability using, say, a quasiperiodic Gaussian process (GP).  We
 explored this approach, but found that it required careful fine-tuning
 of the hyperparameter priors, otherwise the GP would tend to
-incorporate anything that was not part of the transit, even if it was
-short-term variability attributable to for instance flares, or simply
-instrumental noise.  This failure mode is particularly pernicious, in
-that it yields an inflated and ill-founded sense of confidence in the
-transit model results.  While our model is simpler, it has the benefit
-that its white noise jitter never trades off with any parameter
+incorporate any variability that was not part of the transit, even if it was
+short-term variability attributable to flares, or simply
+instrumental noise.  This failure mode is somewhat pernicious, in that
+it yields an ill-founded sense of confidence in an ``overly clean''
+transit model fit.  Although our model is simpler, it has the benefit
+that the white noise jitter never trades off with any parameter
 equivalent to a damping timescale for the coherence of the GP.  It is
-also computationally efficient, while capturing the planetary
+also computationally efficient, and it captures the planetary
 parameters that we actually care about.
 
 
 \subsection{Planet Validation}
+
+In the future, it may be possible to obtain independent evidence for
+the Cep-Her planets that directly confirms their planetary nature.
+The most likely path for that would be through transit
+observations with a high-resolution high-throughput spectrograph
+\citep[see][]{bouma_kep1627_2022}.  In the interim, it is of some
+interest whether any type of astrophysical false positive is likely to
+explain the transit signals, or whether they can be argued to be
+planetary on a statistical basis.  We adopt the Bayesian framework
+implemented in \texttt{VESPA} for this purpose
+\citep{morton_efficient_2012,vespa_2015}.  Briefly summarized, the
+priors in \texttt{VESPA} take as given the binary star occurrence rate
+from \citet{raghavan_survey_2010}, direction-specific star counts from
+\citet{girardi_star_2005}, and planet occurrence rates as described by
+\citet[][Section~3.4]{morton_efficient_2012}.  The likelihoods are
+then evaluated by forward-modeling a synthetic population of eclipsing
+bodies for each possible astrophysical model class, in which each
+population member has a particular trapezoidal eclipse depth, total
+duration, and ingress duration.  These summary statistics are then
+compared against the actual photometric data to evaluate the 
+probabilities of false positive scenarios such as foreground eclipsing
+binaries, hierarchical eclipsing binaries, and background eclipsing
+binaries.
+
+\paragraph{Kepler-1643}
+Kepler-1643~b (KOI-6186.01) was already validated as a transiting
+planet by \citet{morton_false_2016}.  Based on the Q1-Q17 DR25 False
+Positive Probability table hosted at the NASA Exoplanet Archive, they
+found a probability for any of the considered false positive scenarios
+of 9$\times$10$^{-6}$.  Repeating the calculation with our own
+stellar-variability correction and the new NIRC2 imaging constraints,
+we find ${\rm FPP} = 6\times10^{-9}$, where the improvement is
+presumably due to the new NIRC2 contrast curves.
+Figure~\ref{fig:planets} shows the intuitive justification for the
+strong statistical result: the transit is flat and has a reasonably
+high S/N ($\approx 47$), which is difficult to reproduce with
+eclipsing binary models.
+
+An interesting note on Kepler-1643 is that it formally fails the
+default centroid shift test in both the \texttt{q1\_q17\_dr25\_koi}
+and \texttt{q1\_q17\_dr25\_sup\_koi} releases, with the angular
+distance between the target star position and the location of the
+transiting source being reported as $0\farcs99$ (4.4-$\sigma$).  This
+seems to be mostly due to two outlying quarters (Q2 and Q6) driving
+the offset -- the centroid locations from the other Kepler quarters
+are all consistent within $\lesssim 0\farcs5$.  Nonetheless, this is
+an instructive exercise in how highly variable stars will complicate
+centroid-based vetting tests.  The centroid shifts measured by these
+tests are determined from the in- and out-of-transit flux-weighted
+centroids, but for our stars there is no static baseline in either in-
+or out-of-transit phase.
+
+\paragraph{KOI-7368}
+KOI-7368.01 is listed on the NASA Exoplanet Archive as a ``CANDIDATE''
+planet.  The Q1-Q17 DR25 False Positive Probability table however
+lists its probability of being an astrophysical false positive as
+``1.0''. However, given that none of the other columns in this table
+are populated, this is most likely a database entry error ({\bf ask
+Jessie}).  Performing the validation calculation using our new NIRC2
+imaging constraints, we find ${\rm FPP} \approx 4\times10^{-3}$.
+Though not as convincing as Kepler-1643, this formally clears the
+usual threshold for calling the planet statistically validated
+\citep{morton_efficient_2012}.  The S/N of the transit itself is
+$\approx 32$, which indicates that it is unlikely to be caused by
+systematic noise in the light curve.  Visually, one can also inspect
+each individual transit window in the light curve itself.  This
+exercise shows a weak notch in each case; over the 198 observed
+transits, the resulting transit signal seems sensible.
+
+Why was KOI-7368 not previously validated?  One reason could be the
+increased stellar variability, or the lower S/N of the transit.
+Another reason could be that it also formally fails the centroid shift
+test, just like Kepler-1643.  In this case, the reported offset is
+somewhat less significant ($0\farcs22$; 3.0-$\sigma$).  Again,
+inspection of the data validation reports shows that this is caused by
+a few outlying quarters: in this case Q4, Q5, Q8, and Q12.
+The fact that the remaining quarters show a far more consistent
+scatter suggests that these outliers are caused by local stellar
+variability, rather than an astrophysical offset.
+Our imaging also shows that there are no neighboring sources that
+could cause the offset.
+
+
+\paragraph{KOI-7913}
+KOI-7913.01 is listed on the NASA Exoplanet Archive as a ``CANDIDATE''
+planet.  The Q1-Q17 DR25 False Positive Probability table lists its
+probability of being an astrophysical false positive as
+$1.4\times10^{-4}$, with the most likely false positive scenario being
+a blended eclipsing binary.  Repeating the calculation with our new
+detrending and contrast curves, we find a similar result: ${\rm FPP} =
+1.3\times10^{-4}$.  While the transit has the lowest S/N of any of the
+objects discusssed (${\rm S/N}=14$), its marginally lower FPP relative
+to KOI-7368 can be understood through its relatively flat-bottomed
+shape, combined with its long transit duration relative to plausible
+eclipsing binary models.
+
+The disposition of KOI-7913.01 seems to have been previously debated:
+in \texttt{q1\_q17\_dr25\_koi} it was flagged as a ``FALSE POSITIVE'',
+with the comment ``CENT\_KIC\_POS---HALO\_GHOST''.  This comment and
+disposition seem to have been removed in the
+\texttt{q1\_q17\_dr25\_sup\_koi} data release, which renamed it a
+``CANDIDATE'', without any flag given.  As described by
+\citet{thompson_planetary_2018}, the ``CENT\_KIC\_POS'' flag is an
+indication that the measured source centroid is offset from its
+expected location in the Kepler Input Catalog.  The final Data
+Validation Reports (generated 2016 Jan 30) do not seem to show this,
+and the statistical significance of any centroid offset seems to be
+lower than for KOI-7368 and Kepler-1643 (which, as we have argued,
+both show centroid offsets that seem to be explained by the stellar
+variability).
+
+What of the ``HALO\_GHOST'' flag?  This test measures the transit
+strength for the pixels inside the aperture, and the ring of pixels
+around that aperture (the ``halo'').  Generally one expects the
+transit signal to be strongest in the central aperture.  Two types
+of false positive scenarios can change this, triggering the flag: the first is
+when optical ghosts from bright eclipsing binaries reflect off the
+CCD, and contaminate the target star.  The second is when the PRF of
+nearby stars directly overlaps with the PRF of the target star (see
+\citealt{thompson_planetary_2018}, Section A.5.2).
+
+The most obvious explanation for KOI-7913 is the latter case, since
+KOI-7913 B is $\approx0.9$ Kepler pixels away from Kepler-7913 A.
+Due to the on-sky orientation of KOI-7913 A and
+KOI-7913 B, the default ``optimal
+aperture'' selected in Q3, Q7, Q11, and Q15 in fact included both
+stars, while for the remaining quarters KOI-7913 B was (correctly)
+excluded from the optimal aperture
+(see pages 35 through 71 of the Data Validation Report.)
+
+
+
+
+
+
+
+{\bf
+TODO: words!  Describe Halo ghost statistic.  Why should I, or
+shouldn't I, be worried?
+}
+
+
+
+
+
 
 %TODO : write a paragraph or two about previous VESPA work, and how we
 % went further.
@@ -1147,7 +1295,7 @@ from this mountain.
   %\texttt{BATMAN} \citep{kreidberg_batman_2015},
   %\texttt{ceres} \citep{brahm_2017_ceres},
   %\texttt{cdips-pipeline} \citep{bhatti_cdips-pipeline_2019},
-  \texttt{corner} \citep{corner_2016},
+  %\texttt{corner} \citep{corner_2016},
   %\texttt{emcee} \citep{foreman-mackey_emcee_2013},
   \texttt{exoplanet} \citep{exoplanet:exoplanet}, and its
   dependencies \citep{exoplanet:agol20, exoplanet:kipping13, exoplanet:luger18,
@@ -1168,7 +1316,7 @@ from this mountain.
   \texttt{scipy} \citep{jones_scipy_2001},
   %\texttt{TESS-point}  \citep{burke_2020},
   %\texttt{tesscut} \citep{brasseur_astrocut_2019},
-	%\texttt{VESPA} \citep{morton_efficient_2012,vespa_2015},
+	\texttt{VESPA} \citep{morton_efficient_2012,vespa_2015},
   %\texttt{webplotdigitzer} \citep{rohatgi_2019},
   %\texttt{wotan} \citep{hippke_wotan_2019}.
 }
@@ -1230,7 +1378,14 @@ Gaia source lists and abbreviated info.  Include rotation periods.
 \section{Table of Transit Fit Parameters}
 \label{app:transit}
 
-Table goes here
+Tables~\ref{tab:kepler1643}, \ref{tab:koi7368}, \ref{tab:koi7913} give
+the full set of fitted and derived parameters from the model described in
+Section~\ref{sec:fitting}.
+Priors and convergence statistics are also listed.
+
+\input{source_Kepler_1643_simpletransit_posteriortable.tex}
+\input{source_KOI_7368_simpletransit_posteriortable.tex}
+\input{source_KOI_7913_simpletransit_posteriortable.tex}
 
 
 %\listofchanges
