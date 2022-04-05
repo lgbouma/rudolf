@@ -24,4 +24,4 @@ cp ~/Dropbox/proj/rudolf/results/run_simpletransit_KOI_7368/*singlepanel*pdf f3c
 cp ~/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1627/*singlepanel*pdf f3d.pdf
 
 # Rp, Period, Age
-cp ~/Dropbox/proj/rudolf/results/rp_vs_period_scatter/rp_vs_period_scatter_20220227_colorbyage_showCepHer.pdf f4.pdf
+cp ~/Dropbox/proj/rudolf/results/rp_vs_period_scatter/rp_vs_period_scatter_20220405_colorbyage_showCepHer.pdf f4.pdf
