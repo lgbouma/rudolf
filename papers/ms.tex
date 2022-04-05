@@ -74,9 +74,9 @@
   KOI-7368 b ($R_{\rm p} = 2.22 \pm 0.12\,R_\oplus$, $P = 6.8\ {\rm days}$), 
   KOI-7913 Ab ($R_{\rm p} = 2.34 \pm 0.18\,R_\oplus$, $P = 24.2\ {\rm days}$), and
   Kepler-1627 Ab ($R_{\rm p} = 3.85 \pm 0.11\,R_\oplus$, $P = 7.2\ {\rm days}$).
-  The latter Neptune-sized planet has previously been noted to be in
-  the $\delta$\ Lyr\ cluster \citep{bouma_kep1627_2022}, which we
-  argue here is a sub-component of the Cep-Her complex.
+  The latter Neptune-sized planet is in a sub-component of the
+  Cep-Her complex called the $\delta$\ Lyr\ cluster
+  \citep{bouma_kep1627_2022}.
   Here we focus on the former three systems, which are in other
   sub-components of the complex.
   Based on kinematic evidence from Gaia, stellar rotation periods from
@@ -495,23 +495,40 @@ $\delta$~Lyr cluster.
 An independent way to assess the age of the candidate cluster members
 is to measure their stellar rotation periods.  This approach can be
 achieved using surveys such as TESS \citep{ricker_transiting_2015} and
-ZTF \citep{bellm_zwicky_2019}, and it leverages a storied tradition of
-rotation period measurement for benchmark open clusters \citep[see
-{\it e.g.},][]{skumanich_time_1972,curtis_rup147_2020}.  The TESS data
-in our case are especially useful, since they provide 3 to 5 lunar
-months of photometry for all of our candidate CH-2 and RSG-5 members.
+the Zwicky Transient Facility (ZTF, \citealt{bellm_zwicky_2019}), and
+it leverages a storied tradition of rotation period measurement for
+benchmark open clusters \citep[see {\it
+e.g.},][]{skumanich_time_1972,curtis_rup147_2020}.  The TESS data in
+our case are especially useful, since they provide 3 to 5 lunar months
+of photometry for all of our candidate CH-2 and RSG-5 members.
 
 We selected stars suitable for gyrochronology by requiring $\bpmrpo
-\geq 0.5$ and $G<16$.  The latter cut corresponds to $\bpmrpo \lesssim
-2.6$, at the relevant distances.  These cuts gave 19 stars in CH-2 and
-42 stars in RSG-5.  We extracted light curves from the TESS images for
-these stars using the \texttt{unpopular} package
+\geq 0.5$ to focus on FGKM stars that experience magnetic braking.
+For TESS, we also restricted our sample to $G<16$, to ensure the stars
+are bright enough to extract usable light curves from the full-frame
+images (FFIs).  The magnitude cut corresponds to $\bpmrpo < 2.6$
+($\sim$M3V) at the relevant distances.  These cuts gave 19 stars in
+CH-2 and 42 stars in RSG-5.  We extracted light curves from the TESS
+images for these stars using the \texttt{unpopular} package
 \citep{hattorio_2021_cpm}, and regressed them against systematics with
-its causal pixel model.  {\bf For the ZTF light curves, we used the
-default photometry?  Ran aperture photometry on the image cutouts?}.
-We then measured candidate rotation periods using a Lomb-Scargle
-periodogram, and visually inspected them following the methods
-discussed in \citet{curtis_rup147_2020}.
+its causal pixel model.  We measured rotation periods using
+Lomb-Scargle periodograms and visually vetted the results using an
+interactive program that allows us to switch between TESS Cycles,
+select particular sectors, flag stars with multiple periods, and
+correct half-period harmonics. For ZTF, we used the same color cut to
+focus on FGKM stars, but restricted the sample to $13 < G < 18$ to
+avoid the saturation limit on the bright end and ensure sufficient
+photometric precision at the faint end. We followed the procedure
+outlined in \citet{curtis_rup147_2020}: we downloaded $8'\times8'$
+image cutouts, ran aperture photometry for the target and neighboring
+stars identified with Gaia, and used them to define a systematics
+correction to refine the target light curves. 
+%Like for TESS, we also
+%calculated periods with Lomb-Scargle periodograms using an interactive
+%program that allows us to visually validate our measurements.
+{\bf How many stars with periods from TESS? ZTF? Overlap?
+Consistency? }
+
 
 The lower panels of Figure~\ref{fig:age} show the results.  In RSG-5,
 36/42 stars have rotation periods faster than the Pleiades (86\%).
