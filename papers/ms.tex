@@ -55,7 +55,7 @@
 \begin{document}
 
 \title{
-  Three 40 Million Year Old Mini-Neptunes from Kepler, TESS, and Gaia
+  Three 40 to 50 Million Year Old Mini-Neptunes from Kepler, TESS, and Gaia
 }
 
 %\suppressAffiliations
@@ -65,7 +65,7 @@
 % 208 words (250 max)
 \begin{abstract}
   Stellar positions and velocities from Gaia are yielding a new and
-  refined view of how stellar clusters evolve.
+  refined view of open cluster dispersal.
   Here we present an analysis of a group of $\approx$40 million
   year old stars spanning Cepheus ($l=100^\circ$) to Hercules
   ($l=40^\circ$), hereafter the Cep-Her complex.
@@ -89,8 +89,8 @@
   all most likely planets, with false positive probabilities of
   $6\times10^{-9}$, $4\times10^{-3}$, and $1\times10^{-4}$ for
   Kepler-1643, KOI-7368, and KOI-7913 respectively.
-  These planets are therefore the first empirical
-  demonstration that mini-Neptunes with sizes of $\approx$2 Earth
+  These planets therefore empirically
+  demonstrate that mini-Neptunes with sizes of $\approx$2 Earth
   radii exist at ages of $\approx$40 million years.
 \end{abstract}
 
@@ -182,11 +182,12 @@ members against known Kepler Objects of Interest (KOIs)
 members: Kepler-1627, Kepler-1643, KOI-7368, and KOI-7913.  Given our
 previous analysis of Kepler-1627, we will mostly focus on the latter
 three.  After analyzing the relevant properties of Cep-Her
-(Section~\ref{sec:cluster}), we discuss the stellar properties
+(Section~\ref{sec:cluster}), we derive the stellar properties
 (Section~\ref{sec:stars}) and validate the planetary nature of each
 system using a combination of the Kepler photometry and
-high-resolution imaging (Section~\ref{sec:planets}).  We conclude with
-a discussion of implications for the size-evolution of close-in
+high-resolution imaging (Section~\ref{sec:planets}).  
+We conclude with a few caveats, 
+and discuss implications for the size-evolution of close-in
 mini-Neptunes (Section~\ref{sec:disc_conc}).
 
 \section{The Cep-Her Complex}
@@ -406,7 +407,7 @@ section.
 	\vspace{-0.7cm}
 	\caption{
 		{\bf The stellar groups near KOI-7368, KOI-7913, and Kepler-1643
-    are $\approx$40 million years old.} 
+    are 40 to 50 million years old.} 
     {\it Top row}: 
     Color-absolute magnitude diagram of candidate Cep-Her members, in
     addition to candidate members of the $\delta$~Lyr~cluster
@@ -723,7 +724,7 @@ and ${\rm RV}_{\rm sys} = -18.8 \pm 1.1\,\mkms$.
 Regarding indicators of youth, the primary has a spectral type
 $\approx$K6V, while the secondary is $\approx$M0V.  At $\approx$40
 Myr, lithium 6708\,\AA\ absorption is not expected for the secondary,
-but might be present for the primary \citep[{\it
+but might be present in the primary \citep[{\it
 e.g.},][Figure~8]{soderblom_ages_2014}.  Conversely, H$\alpha$ is
 expected to be in emission for for all M-dwarfs younger than
 $\approx150$\,Myr \citep{kiman_calibration_2021}.  At $\approx$M0V, if
@@ -732,7 +733,7 @@ more common for its H$\alpha$ component to be observed in absorption
 \citep[][Figure~4]{kiman_calibration_2021}.  H$\alpha$ emission in
 late K-dwarfs is rarer still. Based on the data from K.~Rocio et al's
 analysis\footnote{Available at
-\url{https://zenodo.org/record/4659293#.YkuKh27MKDV}}, a $\approx$K6V
+\url{https://zenodo.org/record/4659293\#.YkuKh27MKDV}}, a $\approx$K6V
 star should be emitting in H$\alpha$ at 40\,Myr, but not typically
 past $\approx200\,{\rm Myr}$.  This presents a fairly direct test for
 the star's age.
@@ -1036,8 +1037,32 @@ pixel files for these particular cases.
 
 
 
-\section{Discussion \& Conclusions}
+\section{Discussion \& Conclusion}
 \label{sec:disc_conc}
+
+\begin{figure*}[!t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.9\textwidth]{f4.pdf}
+	\end{center}
+	\vspace{-0.7cm}
+	\caption{
+		%    namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A', 'KOI-7913 B', 'Kepler-1643']
+		%    markers = ['P', 'v', 'X', 'X', 's']
+		{\bf Radii, orbital periods, and ages of transiting exoplanets}.
+		Planets younger than a gigayear with ${\rm \tau}/\sigma_{\tau} >
+		3$ are emphasized, where $\tau$ is the age and $\sigma_{\tau}$ is
+		its uncertainty. Kepler-1627 (+), KOI-7368 (down-triangle),
+		KOI-7913 (X), Kepler-1643 (diamond).  The large sizes of the
+		youngest transiting planets could be explained by their primordial
+		atmospheres not yet having evaporated; direct measurements of the
+		atmospheric outflows or planetary masses would help to confirm
+		this expectation.  Selection effects may also be important.
+		Parameters are from the NASA Exoplanet Archive (2022 Feb 27).
+		\label{fig:rp_period_age}
+	}
+\end{figure*}
+
 
 \subsection{Is CH-2 really a star cluster?}
 
@@ -1112,30 +1137,52 @@ Similarly... if you just applied Adam Kraus' Comove
 What is the likelihood we are fooling ourselves?
 
 
+\subsection{Normal-Sized Mini-Neptunes Exist at 40$\,$Myr}
 
-\begin{figure*}[!t]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=0.9\textwidth]{f4.pdf}
-	\end{center}
-	\vspace{-0.7cm}
-	\caption{
-    %    namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A', 'KOI-7913 B', 'Kepler-1643']
-    %    markers = ['P', 'v', 'X', 'X', 's']
-		{\bf Radii, orbital periods, and ages of transiting exoplanets}.
-		Planets younger than a gigayear with ${\rm \tau}/\sigma_{\tau} >
-		3$ are emphasized, where $\tau$ is the age and $\sigma_{\tau}$ is
-    its uncertainty. Kepler-1627 (+), KOI-7368 (down-triangle),
-    KOI-7913 (X), Kepler-1643 (diamond).  The large sizes of
-		the youngest transiting planets could be explained by their
-		primordial atmospheres not yet having evaporated; direct
-		measurements of the atmospheric outflows or planetary masses would
-		help to confirm this expectation.  Selection effects may also be
-		important.  Parameters are from the NASA Exoplanet Archive (2022
-		Feb 27).
-		\label{fig:rp_period_age}
-	}
-\end{figure*}
+
+Perhaps the most significant point about
+Kepler-1643~b, KOI-7368.01, and KOI-7913 is that they have normal
+sizes.
+{\bf TODO for LGB: write more about this}
+
+
+\subsection{Summary}
+
+We have argued that Kepler-1643~b, KOI-7368.01, and KOI-7913 {\it i)}
+are all $\approx$40 million years old, and {\it ii)} that each signal
+is most likely planetary.  The evidence for the planetary
+interpretation comes from an application of \texttt{VESPA} to the
+Kepler data, alongside new adaptive optics imaging from NIRC2.  The
+validity of the \texttt{VESPA} framework rests on the premise that
+non-astrophysical false positives, including false alarms and known
+neighboring eclipsing binaries, can be rejected.  Kepler-1643 and
+KOI-7368 both pass all but one of the canonical vetting checks: the
+check for centroid offsets between the in and out-of-transit phases.
+For both cases, we have argued the weak observed shifts are most
+likely caused by starspot-induced variability in specific quarters
+shifting the stellar center-of-light.
+
+Each system has multiple indicators of youth that support their
+reported ages.  For Kepler-1643, perhaps the strongest youth indicator
+is its physical and kinematic association with RSG-5.  Based on the
+color-absolute magnitude diagram, we seem to be able to select members
+of this cluster with a false positive rate of $\ll 5\%$
+(Figure~\ref{fig:age}), and Kepler-1643 is one such member.  Its
+rotation period period agrees with this assessment, and {\bf its
+lithium is a little low}.
+
+The spatial and kinematic arguments for the youth of KOI-7368 and
+KOI-7913 are necessarily weaker because they are in an association of
+stars, CH-2, that is much more tenuous.  For KOI-7913 this is not of
+particular concern, since it happens to be a binary.  Both components
+have isochronal ages consistent with $40$\,Myr, but the measurement
+for the secondary is more constraining since it is less massive.  Both
+components also show H$\alpha$ in emission, which for the $\approx$K6V
+primary is a good indicator that the star is $\lesssim$100$\,$Myr old.
+For KOI-7368, which is slightly more massive, the Li 6708\AA\ EW
+measurement and stellar rotation period are more constraining, and
+provide independent verification of the stellar youth.
+
 
 
 
