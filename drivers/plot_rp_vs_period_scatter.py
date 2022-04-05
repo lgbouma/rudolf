@@ -22,6 +22,7 @@ from aesthetic.plot import savefig, format_ax, set_style
 VER = '20210915' # kepler-1627 paper version
 VER = '20220107' # could be today_YYYYMMDD()
 VER = '20220227'
+VER = '20220405'
 
 def plot_rp_vs_period_scatter(
     showlegend=1, colorbydisc=1, showarchetypes=1, showss=1, colorbyage=0,
