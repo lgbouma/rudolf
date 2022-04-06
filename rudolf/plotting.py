@@ -4490,28 +4490,64 @@ def plot_full_kinematics(df, outstr, outdir, galacticframe=0):
     savefig(f, outpath)
 
 
-def plot_lithium(outdir):
+def plot_lithium(outdir, reference='Randich18'):
 
     set_style()
 
-    from timmy.lithium import get_Randich18_lithium, get_Berger18_lithium
+    from timmy.lithium import (
+        get_Randich18_lithium, get_Berger18_lithium, get_Randich01_lithium,
+        get_Kraus14_Mentuch08_TucHor,
+        get_Pleiades_Bouvier17_Jones96_Soderblom93
+    )
 
-    rdf = get_Randich18_lithium()
+    if reference == 'Randich18':
+        rdf = get_Randich18_lithium()
+    elif 'Randich01' in reference:
+        rdf = get_Randich01_lithium()
+    elif 'Pleiades' in reference:
+        rdf = get_Pleiades_Bouvier17_Jones96_Soderblom93()
+    else:
+        raise NotImplementedError
     bdf = get_Berger18_lithium()
 
-    selclusters = [
-        # 'IC4665', # LDB 23.2 Myr
-        'NGC2547', # LDB 37.7 Myr
-        'IC2602', # LDB 43.7 Myr
-        # 'IC2391', # LDB 51.3 Myr
-    ]
-    selrdf = np.zeros(len(rdf)).astype(bool)
-    for c in selclusters:
-        selrdf |= rdf.Cluster.str.contains(c)
+    if reference == 'Randich18':
+        selclusters = [
+            # 'IC4665', # LDB 23.2 Myr
+            #'NGC2547', # LDB 37.7 Myr
+            'IC2602', # LDB 43.7 Myr
+            'IC2391', # LDB 51.3 Myr
+        ]
+        selrdf = np.zeros(len(rdf)).astype(bool)
+        for c in selclusters:
+            selrdf |= rdf.Cluster.str.contains(c)
 
-    srdf = rdf[selrdf]
-    srdf_lim = srdf[srdf.f_EWLi==3]
-    srdf_val = srdf[srdf.f_EWLi==0]
+        srdf = rdf[selrdf]
+        srdf_lim = srdf[srdf.f_EWLi==3]
+        srdf_val = srdf[srdf.f_EWLi==0]
+
+    elif 'Randich01' in reference:
+        srdf = rdf
+        srdf_lim = srdf[srdf.f_EWLi=='<=']
+        srdf_val = srdf[srdf.f_EWLi!='<=']
+
+    elif 'Pleiades' in reference:
+        srdf = rdf
+        srdf_lim = srdf[srdf.f_EWLi==1]
+        srdf_val = srdf[srdf.f_EWLi==0]
+
+    if 'Randich01_TucHorK14M08' in reference:
+        tdf = get_Kraus14_Mentuch08_TucHor()
+        tdf_lim = tdf[tdf.f_EWLi==1]
+        tdf_val = tdf[tdf.f_EWLi==0]
+
+        cols = 'Teff,e_Teff,EWLi,e_EWLi'.split(',')
+
+        # merge IC2602 and Tuc-Hor dataframes
+        _df_val = pd.concat((srdf_val[cols], tdf_val[cols]))
+        _df_lim = pd.concat((srdf_lim[cols], tdf_lim[cols]))
+
+        srdf_lim = deepcopy(_df_lim)
+        srdf_val = deepcopy(_df_val)
 
     # young dictionary
     yd = {
@@ -4524,7 +4560,6 @@ def plot_lithium(outdir):
         'lim_li_ew_young': nparr(srdf_lim.EWLi),
         'lim_li_ew_err_young': nparr(srdf_lim.e_EWLi),
     }
-
     # field dictionary
     # SNR > 3
     field_det = ( (bdf.EW_Li_ / bdf.e_EW_Li_) > 3 )
@@ -4554,17 +4589,33 @@ def plot_lithium(outdir):
     colors = ['k', 'gray']
     zorders = [2, 1]
     markers = ['o', '.']
-    ss = [13, 5]
+    ss = [1.5, 5]
     #NGC$\,$2547 & IC$\,$2602
-    labels = [r'$\approx 40$ Myr', 'Kepler Field']
+    label = '40-50 Myr' if reference != 'Pleiades' else '115 Myr'
+    labels = [label, 'Kepler Field']
 
     # plot vals
     for _cls, _col, z, m, l, s in zip(classes, colors, zorders, markers,
                                       labels, ss):
-        ax.scatter(
-            d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'], c=_col, alpha=1,
-            zorder=z, s=s, rasterized=False, linewidths=0, label=l, marker=m
-        )
+        if _cls == 'young':
+            ax.errorbar(
+                d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'],
+                yerr=d[f'val_li_ew_err_{_cls}'], c=_col, alpha=1,
+                zorder=z, markersize=s, elinewidth=0.5, capsize=0, mew=0.5,
+                rasterized=False, label=l, marker=m, lw=0
+            )
+
+            ax.scatter(
+                d[f'lim_teff_{_cls}'], d[f'lim_li_ew_{_cls}'], c=_col, alpha=1,
+                zorder=z+1, s=5*s, rasterized=False, linewidths=0, marker='v'
+            )
+
+        else:
+            ax.scatter(
+                d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'], c=_col, alpha=1,
+                zorder=z, s=s, rasterized=False, linewidths=0, label=l, marker=m
+            )
+
 
     from rudolf.starinfo import starinfodict as sd
 
@@ -4579,8 +4630,8 @@ def plot_lithium(outdir):
 
         teff = sd[n]['Teff']
         Li_EW = sd[n]['Li_EW']
-        yerr = np.array([sd[n]['Li_EW_perr'],
-                         sd[n]['Li_EW_merr']]).reshape((2,1))
+        yerr = np.array([sd[n]['Li_EW_merr'],
+                         sd[n]['Li_EW_perr']]).reshape((2,1))
 
         ax.errorbar(
             teff,
@@ -4589,18 +4640,30 @@ def plot_lithium(outdir):
             marker=m,
             c=mfc,
             label=n,
-            elinewidth=0.5, capsize=4, lw=0, mew=0.5, markersize=3,
+            elinewidth=1, capsize=0, lw=0, mew=0.5, markersize=6,
+            mec='k',
             zorder=5
         )
 
-    ax.legend(loc='best', handletextpad=0.1, fontsize='x-small', framealpha=0.7)
+    # Shrink current axis by 20%
+    box = ax.get_position()
+    ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
+
+    # Put a legend to the right of the current axis
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), handletextpad=0.1,
+              fontsize='xx-small', framealpha=1)
+
+
     ax.set_ylabel('Li$_{6708}$ EW [m$\mathrm{\AA}$]', fontsize='large')
     ax.set_xlabel('Effective Temperature [K]', fontsize='large')
 
     #ax.set_xlim((4900, 6600))
+    ax.set_ylim((-20,420))
+    ax.set_xlim((3200, 6700))
 
     format_ax(ax)
-    outpath = os.path.join(outdir, 'lithium.png')
+    s = f'_{reference}'
+    outpath = os.path.join(outdir, f'lithium{s}.png')
     savefig(f, outpath)
 
 

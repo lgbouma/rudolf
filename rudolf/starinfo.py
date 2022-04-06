@@ -23,8 +23,8 @@ starinfodict = {
         # HIRES / SM-Emp Median
         'Teff': 4038,
         'Teff_err': 70,
-        # HIRES / KOI-7913B_ij438.81_Li_EW_shift-0.05_results.csv
-        'Li_EW':34.613, 'Li_EW_perr': 12.683, 'Li_EW_merr': 13.974,
+        # HIRES / KOI-7913B_ij438.81_Li_EW_shift-0.20_deltawav5.0.png
+        'Li_EW':41.6, 'Li_EW_perr': 11.5, 'Li_EW_merr': 18.6,
         # rotation_period_windowslider
         'Prot': 2.641824,
         'Prot_err': 0.066772,
@@ -33,9 +33,9 @@ starinfodict = {
         # HIRES / SM-Emp Median
         'Teff': 4916,
         'Teff_err': 110,
-        # HIRES / Kepler1643_ij384.99_Li_EW_shift-0.30.png
-        # or Kepler1643_ij438.82_Li_EW_shift-0.05.png
-        'Li_EW': 126.4, 'Li_EW_perr': 7.9, 'Li_EW_merr': 4.2,
+        # Kepler1643_ij384.99_Li_EW_shift-0.30_deltawav5.0.png
+        # Kepler1643_ij438.82_Li_EW_shift0.00_deltawav5.0.png
+        'Li_EW': 129.7, 'Li_EW_perr': 5.9, 'Li_EW_merr': 4.5,
         # rotation_period_windowslider
         'Prot': 5.106414,
         'Prot_err': 0.043881,
