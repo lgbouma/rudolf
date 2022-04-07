@@ -15,6 +15,8 @@ cp /Users/luke/Dropbox/proj/rudolf/results/rotation/CH-2_rotation_vs_BpmRp_talka
 # TODO:
 # Li, H-alpha?
 #cp /Users/luke/Dropbox/proj/rudolf/results/lithium/lithium.pdf f2d.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/lithium/lithium_Randich01_TucHorK14M08.pdf f5a.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/lithium/lithium_Pleiades.pdf f5b.pdf
 
 # phased and sliced LCs
 cp /Users/luke/Dropbox/proj/rudolf/results/koikeplerlc/koikeplerlc_xlim0550_0600.pdf f3e.pdf

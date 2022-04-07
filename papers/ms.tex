@@ -1450,6 +1450,88 @@ from this mountain.
 
 Gaia source lists and abbreviated info.  Include rotation periods.
 
+\section{Spectroscopic Youth Indicators}
+\label{app:spectra}
+
+\begin{figure*}[tp]
+	\begin{center}
+		\leavevmode
+		\subfloat{
+			\includegraphics[width=0.49\textwidth]{f5a.pdf}
+			\includegraphics[width=0.49\textwidth]{f5b.pdf}
+		}
+	\end{center}
+	\vspace{-0.3cm}
+	\caption{
+    {\bf Lithium 6708\AA\ equivalent widths for Kepler-1643, KOI-7368,
+    KOI-7913 AB, and Kepler-1627 compared to those of young open
+    clusters and field stars. }
+    The statistical uncertainties on the newly measured equivalent
+    widths are shown, or else are smaller than the markers.
+    The field stars are stars with Kepler planets from \citet{berger_identifying_2018}.
+    The ``40-50 Myr'' reference stars (left) are from
+		IC\,2602 \citep{randich_gaiaeso_2018} and Tuc-Hor
+		\citep{kraus_stellar_2014}.
+    The ``112 Myr'' stars (right) are from the Pleiades
+    \citep{soderblom_evolution_1993,jones_evolution_1996,bouvier_pleiades_lirot_2018},
+    where we adopt the LDB age from \citet{dahm_2015}.
+    \label{fig:lithium}
+	}
+\end{figure*}
+
+\subsection{Lithium}
+
+Figure~\ref{fig:lithium} compares the measured lithium equivalent
+widths of the objects of interest against a few reference populations.
+We selected the reference populations from the literature only for
+cases in which upper limits were explicitly reported.  KOI-7368 and
+KOI-7913~A have secure lithium detections, and the KOI-7913~B
+detection is marginal (${\rm EW}_{\rm Li} = 42^{+12}_{-19}$).  For all
+three stars, as well as for Kepler-1627~A, the observed lithium
+equivalent width is consistent with the stellar effective temperatures
+and $\approx40$\,Myr ages.
+
+Kepler-1643, in RSG-5, is conspicuously below the 40-50$\,$Myr sequence
+in the left-panel of Figure~\ref{fig:lithium}, while still being above
+the field stars (${\rm EW}_{\rm Li} = 130^{+6}_{-5}$).
+The right panel shows the comparison against the Pleiades, where
+Kepler-1643 is more consistent with the observed dispersion in lithium.
+
+One explanation for this could be that Kepler-1643 is a field
+interloper; another could be that RSG-5 is older than 50\,Myr.  We do
+not favor the former, given that {\it i)} the star was selected based
+on its spatio-kinematic proximity to other RSG-5 members, nearly all
+of which appear consistent with being $\approx$50\,Myr old
+(Figure~\ref{fig:age} upper left), and {\it ii)} the same RSG-5
+members display a gyrochronal sequence consistent with being younger
+than the Pleaides (Figure~\ref{fig:age} lower left).
+We do not have an explanation, but in the following paragraph
+speculate on one possible line of thinking that might help resolve the
+discrepancy.
+
+Analyzing Figure~\ref{fig:lithium}, it is remarkable that in just 50
+million years, stars between $4500$\,K and $5200$\,K go from having
+such a tight lithium sequence to one with a dispersion
+$\approx10\times$ greater.  The existence of such a dispersion in
+Pleiades-age K-dwarfs has been known for longer than some of the
+present authors have been alive; it has also been known that the stars
+with the most lithium are also the most rapidly rotating
+\citep{butler_pleiades_1987,soderblom_evolution_1993}.  More recent
+analyses of this correlation have been reviewed by
+\citet{bouvier_lithium-rotation_2020}.  The conclusion of that work
+was that the origin of the rotation-lithium correlation likely lies
+within pre-main-sequence stellar physics.  If so, one would expect the
+IC\,2062 and Tuc-Hor K-dwarfs to show a larger intrinsic lithium
+dispersion, which they do not.  It seems therefore that the exact
+onset time of the K-dwarf lithium dispersion might be worth
+clarifying.  \citet{messina_rotation-lithium_2016} for instance do not
+obviously see it in the $\beta$~Pic moving group ($25\pm3$\,Myr).
+Given that RSG-5 seems somewhat isochronally older than the
+$\delta$~Lyr cluster (and therefore IC\,2602
+\citealt{bouma_kep1627_2022}), it might be a worthy cluster for such
+an analysis.
+
+
 \section{Table of Transit Fit Parameters}
 \label{app:transit}
 
@@ -1461,6 +1543,9 @@ Priors and convergence statistics are also listed.
 \input{source_Kepler_1643_simpletransit_posteriortable.tex}
 \input{source_KOI_7368_simpletransit_posteriortable.tex}
 \input{source_KOI_7913_simpletransit_posteriortable.tex}
+
+
+
 
 
 %\listofchanges
