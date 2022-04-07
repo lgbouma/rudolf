@@ -64,7 +64,6 @@ def given_EBmV_and_BpmRp_get_A_X(EBmV, BpmRp, bandpass='G'):
     return A_X
 
 
-
 def append_corrected_gaia_phot_Gaia2018(df):
     """
     Using the coefficients calculated by GaiaCollaboration+2018 Table
@@ -124,7 +123,6 @@ def append_corrected_gaia_phot_Gaia2018(df):
         )
 
     return df
-
 
 
 def append_corrected_gaia_phot_Gagne2020(df):

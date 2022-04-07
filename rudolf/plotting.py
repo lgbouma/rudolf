@@ -4591,7 +4591,7 @@ def plot_lithium(outdir, reference='Randich18'):
     markers = ['o', '.']
     ss = [1.5, 5]
     #NGC$\,$2547 & IC$\,$2602
-    label = '40-50 Myr' if reference != 'Pleiades' else '115 Myr'
+    label = '40-50 Myr' if reference != 'Pleiades' else '112 Myr'
     labels = [label, 'Kepler Field']
 
     # plot vals
@@ -4647,11 +4647,11 @@ def plot_lithium(outdir, reference='Randich18'):
 
     # Shrink current axis by 20%
     box = ax.get_position()
-    ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
+    ax.set_position([box.x0, box.y0, box.width, 0.8*box.height])
 
     # Put a legend to the right of the current axis
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), handletextpad=0.1,
-              fontsize='xx-small', framealpha=1)
+    ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1), handletextpad=0.1,
+              fontsize='xx-small', framealpha=1, ncol=4)
 
 
     ax.set_ylabel('Li$_{6708}$ EW [m$\mathrm{\AA}$]', fontsize='large')
