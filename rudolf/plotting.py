@@ -28,6 +28,7 @@ Kepler phot:
 
 Spec:
     plot_lithium
+    plot_koiyouthlines
 
 RM:
     plot_simulated_RM
@@ -3681,6 +3682,126 @@ def plot_youthlines(outdir):
     fig.text(0.5,-0.01, r'Wavelength [$\AA$]', va='center', ha='center', rotation=0)
 
     fig.tight_layout()
+
+    # set naming options
+    s = ''
+
+    bn = inspect.stack()[0][3].split("_")[1]
+    outpath = os.path.join(outdir, f'{bn}{s}.png')
+    savefig(fig, outpath, dpi=400)
+
+
+def get_flx_wav_given_2d_and_target(flx_2d, wav_2d, target_wav):
+    _preorder = np.argmin(np.abs(wav_2d - target_wav), axis=1)
+    viable_orders = np.argwhere(
+        (_preorder != wav_2d.shape[1]-1) & (_preorder != 0)
+    )
+    order = int(
+        viable_orders[np.argmin(
+            np.abs(_preorder[viable_orders] - wav_2d.shape[1]/2)
+        )]
+    )
+
+    flx, wav = flx_2d[order, :], wav_2d[order, :]
+    return flx, wav
+
+
+def plot_koiyouthlines(outdir):
+
+    lines = ['Hα', 'Li-I']
+    starnames = ['Kepler-1627', 'KOI-7368', 'Kepler-1643', 'KOI-7913_A', 'KOI-7913_B']
+    deltawav = 4
+    xlims = [
+        [6707.8-deltawav, 6707.8+deltawav], # li6708
+        [6562.8-deltawav, 6562.8+deltawav], # halpha
+    ]
+
+    # make plot
+    plt.close('all')
+    set_style()
+
+    fig, axs = plt.subplots(nrows=2, ncols=len(starnames), figsize=(7,3.5))
+
+    from scipy.ndimage import gaussian_filter1d
+
+    for ix, starname in enumerate(starnames):
+
+        fitspaths = glob(os.path.join(
+            DATADIR, 'koispectra', starname, 'ij*fits')
+        )
+        assert len(fitspaths) == 1
+        spectrum_path = fitspaths[0]
+
+        from cdips_followup.spectools import read_tres, read_hires
+
+        if starname == 'KOI-7368':
+            flx_2d, wav_2d = read_tres(spectrum_path)
+            instrument = 'TRES'
+        else:
+            flx_2d, wav_2d = read_hires(
+                spectrum_path, is_registered=0, return_err=0
+            )
+            instrument = 'HIRES'
+
+        # upper: Li
+        ax0 = axs[0,ix]
+        # lower: Hα
+        ax1 = axs[1,ix]
+
+        norm = lambda x: x/np.nanmedian(x)
+        fn = lambda x: gaussian_filter1d(x, sigma=2)
+
+        flx, wav = get_flx_wav_given_2d_and_target(flx_2d, wav_2d, 6707.8)
+        sel = ((xlims[0][0]-2) < wav) & (wav < xlims[0][1]+2)
+        ax0.plot(
+            wav[sel], fn(norm(flx[sel])), c='k', zorder=3, lw=0.2
+        )
+
+        flx, wav = get_flx_wav_given_2d_and_target(flx_2d, wav_2d, 6562.8)
+        sel = (xlims[1][0]-2 < wav) & (wav < xlims[1][1]+2)
+        ax1.plot(
+            wav[sel], fn(norm(flx[sel])), c='k', zorder=3, lw=0.2
+        )
+
+        ax0.set_title(starname.replace("_"," "))
+        ax0.set_xlim(xlims[0])
+        ax1.set_xlim(xlims[1])
+
+        props = dict(boxstyle='square', facecolor='white', alpha=0.8, pad=0.15,
+                     linewidth=0)
+        txt = 'Li-I'
+        yval = 0.1 if 'KOI-7913' in starname else 0.7
+        delta = 0.05 if starname not in ['Kepler-1627', 'KOI-7368'] else 0
+        ax0.text(0.5+delta, yval, txt, transform=ax0.transAxes,
+                 ha='right',va='bottom', color='k',
+                 fontsize='x-small', bbox=props)
+        txt = 'Hα'
+        yval = 0.1 if 'KOI-7913' not in starname else 0.7
+        ax1.text(0.9, yval, txt, transform=ax1.transAxes,
+                 ha='right',va='bottom', color='k',
+                 fontsize='x-small', bbox=props)
+
+        from matplotlib.ticker import (
+            MultipleLocator, FormatStrFormatter, AutoMinorLocator
+        )
+        if starname in ['Kepler-1627', 'KOI-7368']:
+            ax0.yaxis.set_major_locator(MultipleLocator(0.2))
+        else:
+            ax0.yaxis.set_major_locator(MultipleLocator(0.1))
+        ax0.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+        if starname != 'KOI-7913_B':
+            ax1.yaxis.set_major_locator(MultipleLocator(0.2))
+        else:
+            ax1.yaxis.set_major_locator(MultipleLocator(0.3))
+        ax1.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+        #ax.xaxis.set_minor_locator(MultipleLocator(10))
+
+    fig.text(-0.01,0.5, 'Relative flux', va='center',
+             rotation=90)
+    fig.text(0.5,-0.01, r'Wavelength [$\AA$]', va='center', ha='center',
+             rotation=0)
+
+    fig.tight_layout(w_pad=0.2, h_pad=0.5)
 
     # set naming options
     s = ''
