@@ -21,11 +21,10 @@ cp ~/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1627/*singlepanel*pdf 
 # Rp, Period, Age
 cp ~/Dropbox/proj/rudolf/results/rp_vs_period_scatter/rp_vs_period_scatter_20220405_colorbyage_showCepHer.pdf f4.pdf
 
-# spectra: Li EW vs Teff and Halpha EW vs Teff
-# TODO:
-# Li, H-alpha?
+# spectra
 cp /Users/luke/Dropbox/proj/rudolf/results/lithium/lithium_Randich01_TucHorK14M08.pdf f6a.pdf
 cp /Users/luke/Dropbox/proj/rudolf/results/lithium/lithium_Pleiades.pdf f6b.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/halpha/halpha.pdf f6c.pdf
 
 cp /Users/luke/Dropbox/proj/rudolf/results/koiyouthlines/koiyouthlines.pdf f5.pdf
 

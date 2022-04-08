@@ -8,6 +8,7 @@ starinfodict = {
         # rotation_period_windowslider
         'Prot': 2.606363,
         'Prot_err': 0.051906,
+        'SpT': ['K0V', -10],
     },
     "KOI-7913 A": {
         # HIRES / SM-Emp Median
@@ -18,6 +19,7 @@ starinfodict = {
         # rotation_period_windowslider
         'Prot': 3.197631,
         'Prot_err': 0.056841,
+        'SpT': ['K6V', -4],
     },
     "KOI-7913 B": {
         # HIRES / SM-Emp Median
@@ -28,6 +30,7 @@ starinfodict = {
         # rotation_period_windowslider
         'Prot': 2.641824,
         'Prot_err': 0.066772,
+        'SpT': ['K8V', -2],
     },
     "Kepler-1643": {
         # HIRES / SM-Emp Median
@@ -39,6 +42,7 @@ starinfodict = {
         # rotation_period_windowslider
         'Prot': 5.106414,
         'Prot_err': 0.043881,
+        'SpT': ['K3V', -7],
     },
     "Kepler-1627 A": {
         # HIRES / SM-Emp Median / Bouma+22
@@ -49,5 +53,6 @@ starinfodict = {
         # rotation_period_windowslider
         'Prot': 2.641824,
         'Prot_err': 0.043764,
+        'SpT': ['G8V', -12],
     },
 }
