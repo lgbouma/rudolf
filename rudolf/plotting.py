@@ -28,6 +28,7 @@ Kepler phot:
 
 Spec:
     plot_lithium
+    plot_halpha
     plot_koiyouthlines
 
 RM:
@@ -3796,6 +3797,9 @@ def plot_koiyouthlines(outdir):
         ax1.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
         #ax.xaxis.set_minor_locator(MultipleLocator(10))
 
+        ax0.tick_params(axis='both', which='major', labelsize='x-small')
+        ax1.tick_params(axis='both', which='major', labelsize='x-small')
+
     fig.text(-0.01,0.5, 'Relative flux', va='center',
              rotation=90)
     fig.text(0.5,-0.01, r'Wavelength [$\AA$]', va='center', ha='center',
@@ -4611,6 +4615,82 @@ def plot_full_kinematics(df, outstr, outdir, galacticframe=0):
     savefig(f, outpath)
 
 
+def plot_halpha(outdir, reference='TucHor'):
+
+    # get data
+    if reference != 'TucHor':
+        raise NotImplementedError
+
+    fitspath = os.path.join(
+        DATADIR, 'cluster', 'Kraus_2014_AJ_147_146_TucHor_table2.fits'
+    )
+    hdul = fits.open(fitspath)
+    df = Table(hdul[1].data).to_pandas()
+    hdul.close()
+
+    #In [10]: Counter([t[0] for t in df['SpT']])
+    #Out[10]: Counter({'M': 156, 'K': 42, 'F': 1, 'G': 6})
+    sel = (df['SpT'].str.contains("M")) | (df['SpT'].str.contains("K"))
+    sdf = df[sel]
+
+    SpT_val = []
+    for v in sdf.SpT:
+        if v.startswith('M'):
+            SpT_val.append(float(v[1:]))
+        elif v.startswith('K'):
+            SpT_val.append(float(v[1:])-10)
+        else:
+            raise NotImplementedError
+
+    sdf['SpT_val'] = SpT_val
+
+    # make plot
+    plt.close('all')
+    set_style()
+
+    fig, ax = plt.subplots(figsize=(4,3))
+
+    ax.scatter(
+        sdf[sdf.Mm == 'Y'].SpT_val,
+        sdf[sdf.Mm == 'Y'].EWHa,
+        zorder=2,
+        label='TucHor (Kraus+14)',
+        c='k', marker='o', s=1.5
+    )
+    ax.scatter(
+        sdf[sdf.Mm == 'N'].SpT_val,
+        sdf[sdf.Mm == 'N'].EWHa,
+        zorder=1,
+        label='Field',
+        c='gray', marker='.', s=5
+    )
+
+    # Shrink current axis by 20%
+    box = ax.get_position()
+    ax.set_position([box.x0, box.y0, box.width, 0.8*box.height])
+
+    # Put a legend to the right of the current axis
+    ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1), handletextpad=0.1,
+              fontsize='xx-small', framealpha=1, ncol=2)
+
+    ax.set_ylabel(r'H$\mathrm{\alpha}$ EW [$\mathrm{\AA}$]', fontsize='large')
+    ax.set_xlabel('Spectral Type', fontsize='large')
+
+    ax.set_xticks([-8,-6,-4,-2,0,2,4,6])
+    ax.set_xticklabels(['K2', 'K4', 'K6', 'K8', 'M0', 'M2', 'M4', 'M6'])
+
+    ax.set_ylim((2,-10))
+
+
+    # set naming options
+    s = ''
+
+    bn = inspect.stack()[0][3].split("_")[1]
+    outpath = os.path.join(outdir, f'{bn}{s}.png')
+    savefig(fig, outpath, dpi=400)
+
+
+
 def plot_lithium(outdir, reference='Randich18'):
 
     set_style()
@@ -4773,7 +4853,6 @@ def plot_lithium(outdir, reference='Randich18'):
     # Put a legend to the right of the current axis
     ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1), handletextpad=0.1,
               fontsize='xx-small', framealpha=1, ncol=4)
-
 
     ax.set_ylabel('Li$_{6708}$ EW [m$\mathrm{\AA}$]', fontsize='large')
     ax.set_xlabel('Effective Temperature [K]', fontsize='large')
