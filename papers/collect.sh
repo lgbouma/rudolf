@@ -11,13 +11,6 @@ cp /Users/luke/Dropbox/proj/rudolf/results/hr/hr_Bp_m_Rp_show100pc_redcorr_δ_Ly
 cp /Users/luke/Dropbox/proj/rudolf/results/rotation/RSG-5_rotation_vs_BpmRp_talkaspect_kinematicspatialselected_linear_defaultcleaning_allknown.pdf f2c.pdf
 cp /Users/luke/Dropbox/proj/rudolf/results/rotation/CH-2_rotation_vs_BpmRp_talkaspect_kinematicspatialselected_linear_defaultcleaning_allknown.pdf f2d.pdf
 
-# spectra: Li EW vs Teff and Halpha EW vs Teff
-# TODO:
-# Li, H-alpha?
-#cp /Users/luke/Dropbox/proj/rudolf/results/lithium/lithium.pdf f2d.pdf
-cp /Users/luke/Dropbox/proj/rudolf/results/lithium/lithium_Randich01_TucHorK14M08.pdf f5a.pdf
-cp /Users/luke/Dropbox/proj/rudolf/results/lithium/lithium_Pleiades.pdf f5b.pdf
-
 # phased and sliced LCs
 cp /Users/luke/Dropbox/proj/rudolf/results/koikeplerlc/koikeplerlc_xlim0550_0600.pdf f3e.pdf
 cp ~/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1643/*singlepanel*pdf f3a.pdf
@@ -27,3 +20,13 @@ cp ~/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1627/*singlepanel*pdf 
 
 # Rp, Period, Age
 cp ~/Dropbox/proj/rudolf/results/rp_vs_period_scatter/rp_vs_period_scatter_20220405_colorbyage_showCepHer.pdf f4.pdf
+
+# spectra: Li EW vs Teff and Halpha EW vs Teff
+# TODO:
+# Li, H-alpha?
+cp /Users/luke/Dropbox/proj/rudolf/results/lithium/lithium_Randich01_TucHorK14M08.pdf f6a.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/lithium/lithium_Pleiades.pdf f6b.pdf
+
+cp /Users/luke/Dropbox/proj/rudolf/results/koiyouthlines/koiyouthlines.pdf f5.pdf
+
+
