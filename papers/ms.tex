@@ -1199,6 +1199,24 @@ larger, with sizes between 4 and 10$\,R_\oplus$
 mass, KH timescale, etc}.
 
 
+\subsection{Further Work on Cep-Her}
+
+Disentangling its kinematics
+* Need an RV survey.
+
+Benchmarking its age(s):
+* Lithium analysis of FGK depletion (bright enough to be feasible).
+
+* Asteroseismology of the delta Sct stars (TESS data are there, group is
+rich enough).
+
+Finding more interesting objects in it:
+* Kepler data... presumably $\sim$200 stars in the cluster were
+observed, in order to have detected 4 planets.
+
+* TESS data
+
+
 
 
 
@@ -1463,7 +1481,7 @@ from this mountain.
 \section{Table of Candidate RSG-5 and CH-2 Members}
 \label{app:members}
 
-Gaia source lists and abbreviated info.  Include rotation periods.
+{\bf LGB TODO: add Gaia source lists and abbreviated info.  Include rotation periods.}
 
 We measured rotation periods for 53 stars with ZTF and 51 stars with
 TESS, for a total of 71 periods reported for unique stars and 32
@@ -1504,9 +1522,9 @@ TESS might have been a 1/2 period harmonic; (3) Gaia EDR3
 	\end{center}
 	\vspace{-0.3cm}
 	\caption{
-    {\bf Key spectroscopic youth diagnostics for Kepler-1627, KOI-7368,
+    {\bf Spectroscopic youth diagnostics for Kepler-1627, KOI-7368,
     Kepler-1643, and KOI-7913 AB. }
-    The spectra are shown as in the observed frame, and
+    The spectra are shown in the observed frame, and
     the stars are sorted left-to-right in order of decreasing effective temperature.
     \label{fig:koiyouthindicators}
 	}
@@ -1530,21 +1548,29 @@ open clusters.
 			\includegraphics[width=0.49\textwidth]{f6a.pdf}
 			\includegraphics[width=0.49\textwidth]{f6b.pdf}
 		}
+
+		\subfloat{
+			\includegraphics[width=0.49\textwidth]{f6a.pdf}
+		}
 	\end{center}
 	\vspace{-0.3cm}
 	\caption{
-    {\bf Lithium 6708\AA\ equivalent widths for Kepler-1643, KOI-7368,
-    KOI-7913 AB, and Kepler-1627 compared to those of young open
-    clusters and field stars. }
+    {\bf Lithium 6708\AA\ and H$\alpha$ equivalent widths for the
+    Kepler objects of interest compared to young open clusters and
+    field stars. }
     The statistical uncertainties on the newly measured equivalent
     widths are shown, or else are smaller than the markers.
+    {\it Top}:
     The field stars are stars with Kepler planets from \citet{berger_identifying_2018}.
     The ``40-50 Myr'' reference stars (left) are from
 		IC\,2602 \citep{randich_gaiaeso_2018} and Tuc-Hor
 		\citep{kraus_stellar_2014}.
     The ``112 Myr'' stars (right) are from the Pleiades
     \citep{soderblom_evolution_1993,jones_evolution_1996,bouvier_pleiades_lirot_2018},
-    where we adopt the LDB age from \citet{dahm_2015}.
+    where the quoted LDB age os from \citet{dahm_2015}.
+    {\it Bottom}:
+    The H$\alpha$ comparison is against Tuc-Hor
+    \citep[$\approx$$40$\,Myr;][]{kraus_stellar_2014}
     \label{fig:lithium}
 	}
 \end{figure*}
@@ -1598,6 +1624,38 @@ Given that RSG-5 seems somewhat isochronally older than the
 $\delta$~Lyr cluster (and therefore IC\,2602
 \citealt{bouma_kep1627_2022}), it might be a worthy cluster for such
 an analysis.
+
+\subsection{H$\alpha$}
+
+As shown in Figure~\ref{fig:koiyouthindicators}, H$\alpha$ is in
+emission for both components of KOI-7913, and in absorption for the
+hotter stars.  Additionally, the emission appears double-peaked for
+both of the KOI-7913 components.  We note that KOI-7913~A and
+KOI-7913~B were spatially resolved from each other during data
+acquisition.  Performing a cross-correlation between each of the stars
+and the nearest matches in the Keck/HIRES template library, we also
+found that the CCFs for both components of KOI-7913 showed no
+indications of double-lined binarity \citep{kolbl_detection_2015}.
+
+Balmer line emission, particularly for H$\alpha$, is expected for
+stars of this age.  \citet{kraus_stellar_2014} for instance, in their
+survey of Tuc-Hor ($\approx$40\,Myr), observed that essentially all
+cluster members with spectral type $>$${\rm K4.5V}$ had H$\alpha$ in
+emission.  The agrees with our observations that KOI-7913 shows
+H$\alpha$ in emission for both components, while it is in absorption
+for all of our other Kepler objects.  The double-peaked nature of the
+emission, though not always present, is also not particularly rare for
+active stars.  Proxima Centauri, for instance, has double-peaked
+H$\alpha$ emission \citep{collins_calculations_2017}.  A simple
+explanation is self-absorption: photons nearest the center of the line
+see a greater optical depth from higher layers of the chromosphere,
+while photons on the wings are on average too far from the
+rest-wavelength to excite electrons and be re-absorbed in the upper
+layers.  The exact details of when a star's atmosphere reaches the
+conditions for such self-absorption require non-local thermal
+equilibrium models of the chromosphere
+\citep{short_chromospheric_1998,2005A&A...439.1137F}.
+
 
 
 \section{Table of Transit Fit Parameters}
