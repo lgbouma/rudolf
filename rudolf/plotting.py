@@ -4665,13 +4665,38 @@ def plot_halpha(outdir, reference='TucHor'):
         c='gray', marker='.', s=5
     )
 
+    from rudolf.starinfo import starinfodict as sd
+    namelist = ['KOI-7913 A', 'KOI-7913 B', 'Kepler-1643']
+    markers = ['X', 'X', 's']
+    mfcs = ['lime', 'lime', 'magenta']
+
+    for n,m,mfc in zip(namelist, markers, mfcs):
+
+        SpT_val = sd[n]['SpT'][1]
+        Ha_EW = sd[n]['Halpha_EW']/(1e3)
+        yerr = np.array(
+            [sd[n]['Halpha_EW_merr'], sd[n]['Halpha_EW_perr']]
+        ).reshape((2,1))/1e3
+
+        ax.errorbar(
+            SpT_val,
+            Ha_EW,
+            yerr=yerr,
+            marker=m,
+            c=mfc,
+            label=n,
+            elinewidth=1, capsize=0, lw=0, mew=0.5, markersize=6,
+            mec='k',
+            zorder=5
+        )
+
     # Shrink current axis by 20%
     box = ax.get_position()
     ax.set_position([box.x0, box.y0, box.width, 0.8*box.height])
 
     # Put a legend to the right of the current axis
     ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1), handletextpad=0.1,
-              fontsize='xx-small', framealpha=1, ncol=2)
+              fontsize='xx-small', framealpha=1, ncol=3)
 
     ax.set_ylabel(r'H$\mathrm{\alpha}$ EW [$\mathrm{\AA}$]', fontsize='large')
     ax.set_xlabel('Spectral Type', fontsize='large')
@@ -4688,7 +4713,6 @@ def plot_halpha(outdir, reference='TucHor'):
     bn = inspect.stack()[0][3].split("_")[1]
     outpath = os.path.join(outdir, f'{bn}{s}.png')
     savefig(fig, outpath, dpi=400)
-
 
 
 def plot_lithium(outdir, reference='Randich18'):

@@ -20,6 +20,7 @@ starinfodict = {
         'Prot': 3.197631,
         'Prot_err': 0.056841,
         'SpT': ['K6V', -4],
+        'Halpha_EW': -413, 'Halpha_EW_perr': 50, 'Halpha_EW_merr': 50
     },
     "KOI-7913 B": {
         # HIRES / SM-Emp Median
@@ -31,6 +32,7 @@ starinfodict = {
         'Prot': 2.641824,
         'Prot_err': 0.066772,
         'SpT': ['K8V', -2],
+        'Halpha_EW': -1015, 'Halpha_EW_perr': 100, 'Halpha_EW_merr': 100
     },
     "Kepler-1643": {
         # HIRES / SM-Emp Median
@@ -43,6 +45,7 @@ starinfodict = {
         'Prot': 5.106414,
         'Prot_err': 0.043881,
         'SpT': ['K3V', -7],
+        'Halpha_EW': 120, 'Halpha_EW_perr': 20, 'Halpha_EW_merr': 20
     },
     "Kepler-1627 A": {
         # HIRES / SM-Emp Median / Bouma+22
