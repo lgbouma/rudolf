@@ -927,117 +927,95 @@ binaries, hierarchical eclipsing binaries, and background eclipsing
 binaries.
 
 \paragraph{Kepler-1643}
+  %Based on the Q1-Q17 DR25 False Positive Probability table hosted at
+%the NASA Exoplanet Archive, 
 Kepler-1643~b (KOI-6186.01) was already validated as a transiting
-planet by \citet{morton_false_2016}.  %Based on the Q1-Q17 DR25 False
-%Positive Probability table hosted at the NASA Exoplanet Archive, 
-They
-found a probability for any of the considered false positive scenarios
-of 9$\times$10$^{-6}$.  Repeating the calculation with our own
-stellar-variability correction and the new NIRC2 imaging constraints,
-we find ${\rm FPP} = 6\times10^{-9}$, where the improvement is
-presumably due to the new NIRC2 contrast curves.
-Figure~\ref{fig:planets} shows the intuitive justification for the
-result: the transit is flat and has a reasonably
-high S/N ($\approx 47$), which is difficult to reproduce with
-eclipsing binary models.
+planet by \citet{morton_false_2016}, who found a probability for any
+of the aforementioned false positive scenarios of 9$\times$10$^{-6}$.
+Repeating the calculation with our own stellar-variability correction
+and the new NIRC2 imaging constraints, we find ${\rm FPP} =
+6\times10^{-9}$, where the improvement is due to the new NIRC2
+contrast curves.  Figure~\ref{fig:planets} shows the justification:
+the transit is flat and has a high S/N ($\approx 47$), which is
+difficult to reproduce with eclipsing binary models.
 
-Intriguingly, Kepler-1643 also formally failed the
-centroid shift test (see the \texttt{q1\_q17\_dr25\_koi} data release),
-with the angular distance between the target star position and the
-location of the transiting source being measured as $1\farcs0$
-at 4.4-$\sigma$ confidence.  There seem to be two outlying quarters
-(Q2 and Q6) driving the offset -- the centroid locations from the
-other Kepler quarters are all consistent within $\lesssim 0\farcs5$.
-Nonetheless, this is an instructive exercise in how variable stars can
-complicate centroid-based vetting tests.  The centroid shifts measured
-by these tests are determined from the in- and out-of-transit
-flux-weighted centroids, but for our stars there is no static baseline
-in either phase.
+Intriguingly, Kepler-1643 formally failed one of the centroid shift
+tests (see the \texttt{q1\_q17\_dr25\_koi} data release): the angular
+distance between the target star's catalog position and the position
+of the transiting source was measured as $1\farcs0$ at 4.4-$\sigma$.
+The reports show however that two outlying quarters (2 and 6) 
+drive the offset -- the centroid locations from the other Kepler
+quarters are consistent at $\lesssim 0\farcs4$.  Nonetheless, this
+is an instructive exercise in how stellar variability complicates
+centroid-based vetting tests.  The centroid shifts measured by these
+tests are determined from the in- and out-of-transit flux-weighted
+centroids.  For stars with significant spot-induced
+variability there is no static baseline in either the in- or
+out-of-transit phases.
 
 \paragraph{KOI-7368}
 KOI-7368.01 is listed on the NASA Exoplanet Archive as a ``candidate''
-planet.  The Q1-Q17 DR25 False Positive Probability table however
-lists its probability of being an astrophysical false positive as
-``1.0''. However, given that none of the other columns in this table
-are populated, this is likely a database entry error ({\bf ask
-Jessie}).  Performing the validation calculation using our new NIRC2
-imaging constraints, we find ${\rm FPP} \approx 4\times10^{-3}$.
-While not as convincing as Kepler-1643, this formally clears the
-usual threshold for calling the planet statistically validated
-\citep{morton_efficient_2012}.  The S/N of the transit itself is
-$\approx 32$, which indicates that it is unlikely to be caused by
-systematic noise in the light curve.  Visually, one can also inspect
-each individual transit window in the light curve itself.  This
-exercise shows a weak notch in each case; over the 198 observed
-transits, the resulting signal seems sensible.
+planet.  \citet{morton_false_2016} did not compute a false positive
+probability for the system because their default trapezoidal fitting
+routine failed, presumably due to the spot-induced variability.
+%The Q1-Q17 DR25 False Positive Probability table however lists its
+%probability of being an astrophysical false positive as ``1.0''. Given
+%that none of the other columns in the table are populated, this seems
+%likely to be a database entry error ({\bf ask Jessie}). 
+Our fitting approach rectifies this point, and our new NIRC2 images
+revealed no new stellar companions.  Performing the validation
+calculation, we find ${\rm FPP} \approx 4\times10^{-3}$.  Though not
+as convincing as Kepler-1643, this formally clears the usual threshold
+for calling the planet statistically validated
+\citep{morton_efficient_2012}.  The S/N of the transit is
+$\approx$$32$, which indicates that it is unlikely to be caused by
+systematic noise in the light curve (see Figure~\ref{fig:planets}).
+The positional probability score also meets the requirements
+for transiting sources thought to share positions with their
+target stars \citep{morton_false_2016,2017ksci.rept...16B}. 
+%A visual inspection of
+%each individual transit also shows a weak notch at the predicted
+%transit times; over the 198 observed transits, the resulting signal
+%seems sensible.
 
-Why was KOI-7368 not previously validated?  One reason could be the
-high stellar variability.  Another reason could be that it also
-formally fails the centroid shift test, similar to Kepler-1643.  In
-the case of KOI-7368, the reported offset is marginally less
-significant ($0\farcs22$; 3.0-$\sigma$).  Again, inspection of the
-data validation reports shows that this is caused by a few outlying
-quarters: in this case Q4, Q5, Q8, and Q12.  The fact that the
-remaining quarters show a more consistent scatter suggests that these
-outliers are again caused by stellar variability local to the
-transits, rather than by an astrophysical offset.  Our imaging also
-shows that there are no neighboring sources that could cause an
-offset of the observed amplitude.
+It bears mentioning that KOI-7368 shows a weak centroid shift in the
+\texttt{q1\_q17\_dr25\_koi} validation reports, similar to
+Kepler-1643.  For KOI-7368, the reported offset is smaller, and less
+statistically significant ($0\farcs2$; 3.0-$\sigma$).  Again,
+the data validation reports show that the shift is caused by a few
+outlying quarters (4, 5, 8, and 12).  The fact that the remaining data
+show a consistent scatter between centroid locations suggests that
+these outliers are also caused by the stellar variability.  Independently, our
+imaging shows that there are no neighboring sources that could
+cause an offset of the observed amplitude.
 
 
 \paragraph{KOI-7913}
-KOI-7913.01 is listed on the NASA Exoplanet Archive as a ``CANDIDATE''
-planet.  The Q1-Q17 DR25 False Positive Probability table lists its
-probability of being an astrophysical false positive as
-$1.4\times10^{-4}$, with the most likely false positive scenario being
-a blended eclipsing binary.  Repeating the calculation with our new
-detrending and contrast curves, we find a similar result: ${\rm FPP} =
-1.3\times10^{-4}$.  While the transit has the lowest S/N of any of the
-objects discusssed (${\rm S/N}=14$), its lower FPP relative to
+KOI-7913.01 is also listed on the NASA Exoplanet Archive as a
+``candidate'' planet.  The canonical \citet{morton_false_2016} analysis
+was of Q1-Q17 KOIs from DR24, and therefore spanned KOI-1.01 to
+KOI-7620.01 and omitted KOI-7913.01.  However the results of the
+subsequent DR25 analysis by Morton et al.\ are listed at the NASA
+Exoplanet Archive.  The relevant table gives a probability for the
+system being an astrophysical false positive of $1.4\times10^{-4}$,
+with the most likely false positive scenario being a blended eclipsing
+binary.  Repeating the calculation with our new detrending and
+contrast curves, we find a similar result: ${\rm FPP} =
+1.3\times10^{-4}$.  Though the transit has the lowest S/N of any of
+the objects discusssed (${\rm S/N}=14$), its lower FPP relative to
 KOI-7368 can be understood through its relatively flat-bottomed shape,
 combined with its long transit duration relative to plausible
-eclipsing binary models (Figure~\ref{fig:planets}).
-
-The disposition of KOI-7913.01 has previously been debated:
-in \texttt{q1\_q17\_dr25\_koi} the source was flagged as a ``FALSE POSITIVE'',
-with the comment ``CENT\_KIC\_POS---HALO\_GHOST''.  This comment and
-disposition seem to have been removed in the
-\texttt{q1\_q17\_dr25\_sup\_koi} data release, which renamed it a
-``CANDIDATE'', without any flag given.  As described by
-\citet{thompson_planetary_2018}, the ``CENT\_KIC\_POS'' flag is an
-indication that the measured source centroid is offset from its
-expected location in the Kepler Input Catalog.  The final Data
-Validation Reports, generated 2016 Jan 30, do not seem to show this.
-Moreover, the statistical significance of any centroid offset seems to
-be lower than for KOI-7368 and Kepler-1643 (which, as we have argued,
-both show centroid offsets that seem to be explained by the stellar
-variability).
-
-What of the ``HALO\_GHOST'' flag?  This test measures the transit
-strength for the pixels inside the aperture, and compares it to that
-measured in the ring of pixels around said aperture (the ``halo'').
-Generally one expects the transit signal to be strongest in the
-central aperture, rather than the halo.  Two types of false positive
-scenarios can change this and trigger the flag: the first is when
-optical ghosts from bright eclipsing binaries reflect off the CCD, and
-contaminate the target star.  The second is when the PRF of nearby
-stars directly overlaps with the PRF of the target star (see
-\citealt{thompson_planetary_2018}, Section A.5.2).
-
-The most obvious explanation for KOI-7913 is the latter case, since
-KOI-7913 B is $\approx0.9$ Kepler pixels away from Kepler-7913 A.  Due
-to the on-sky orientation of KOI-7913 A and KOI-7913 B, the default
-``optimal aperture'' selected in Q3, Q7, Q11, and Q15 in fact included
-both stars, while for the remaining quarters KOI-7913 B was
-(correctly) excluded from the optimal aperture (see pages 35 through
-71 of the Data Validation Report.)
-
-As a test, we opted to re-extract the light curves from the target
-pixel files for these particular cases.
-{\bf Comparing the pixels on-target, and found}
-%FIXME FIXME TODO TODO
-{\bf We found...}
-
+eclipsing binary models (Figure~\ref{fig:planets}).  The host star
+probability usability score \citep{2017ksci.rept...16B} also meets the
+usual threshold, and so the planet seems to be validated.  Its
+disposition has however previously fluctuated from ``false positive''
+to ``candidate''.  The most likely explanation is the presence of
+KOI-7913~B, which is located approximately one Kepler pixel away from Kepler-7913 A (see
+Appendix~\ref{app:koi7913}).  Our pixel-level analysis of the target
+pixel files did not show any evidence to support the idea that
+KOI-7913~B could host the transiting planet.  Our NIRC2 imaging
+similarly ruled out the possibility of any other plausible host star
+for the planet other than KOI-7913~A.
 
 
 \section{Discussion \& Conclusion}
@@ -1064,6 +1042,34 @@ pixel files for these particular cases.
 		\label{fig:rp_period_age}
 	}
 \end{figure*}
+
+
+\subsection{Normal-Sized Mini-Neptunes Exist at 40$\,$Myr}
+
+Current thinking about the origins and evolution of lose-in
+mini-Neptunes has recently been reviewed by \citet{bean_nature_2021}.
+In the context of the existing exoplanet population, the most
+significant novelty about Kepler-1643~b, KOI-7368.01, and KOI-7913 is
+that they have normal sizes.
+More specifically, the size distribution of mini-Neptunes spans
+$\approx$1.8\,$R_\oplus$ to $\approx$3.6\,$R_\oplus$, with a peak at
+$\approx 2.4\,R_\oplus$ \citep[][Figure~7]{Fulton_et_al_2017}.
+Figure~\ref{fig:rp_period_age} shows the sizes, orbital periods, and ages of
+known transiting planets, emphasizing those with precise ages.
+Considering planets younger than $10^8$ years, the smallest previously
+known were AU~Mic~c ($\approx3.0\pm0.2\,R_\oplus$, averaging the
+results of \citealt{martioli_aumicbc_2021} and
+\citealt{gilbert_flares_2022}), Kepler-1627~Ab ($3.8\pm0.2\,R_\oplus$;
+\citealt{bouma_kep1627_2022}), and AU~Mic~d ($4.2\pm0.2\,R_\oplus$;
+\citealt{plavchan_planet_2020}).
+The other transiting planets younger than $10^8$ years are much
+larger, with sizes between 4 and 10$\,R_\oplus$
+\citep{Mann_K2_33b_2016,David_et_al_2017,benatti_possibly_2019,david_four_2019,newton_tess_2019,rizzuto_tess_2020,bouma_cluster_2020}.
+
+%TODO: I think we might need James Owen to contribute something
+%similar to the TOI-1227 models?
+{\bf Run some evolutionary models, make some comments about the core
+	mass, KH timescale, etc}.
 
 
 \subsection{Is CH-2 really a star cluster?}
@@ -1138,33 +1144,6 @@ local neighbors... what would we have gotten?
 Similarly... if you just applied Adam Kraus' Comove 
 What is the likelihood we are fooling ourselves?
 
-
-\subsection{Normal-Sized Mini-Neptunes Exist at 40$\,$Myr}
-
-Current thinking about the origins and evolution of lose-in
-mini-Neptunes has recently been reviewed by \citet{bean_nature_2021}.
-In the context of the existing exoplanet population, the most
-significant novelty about Kepler-1643~b, KOI-7368.01, and KOI-7913 is
-that they have normal sizes.
-More specifically, the size distribution of mini-Neptunes spans
-$\approx$1.8\,$R_\oplus$ to $\approx$3.6\,$R_\oplus$, with a peak at
-$\approx 2.4\,R_\oplus$ \citep[][Figure~7]{Fulton_et_al_2017}.
-Figure~\ref{fig:rp_period_age} shows the sizes, orbital periods, and ages of
-known transiting planets, emphasizing those with precise ages.
-Considering planets younger than $10^8$ years, the smallest previously
-known were AU~Mic~c ($\approx3.0\pm0.2\,R_\oplus$, averaging the
-results of \citealt{martioli_aumicbc_2021} and
-\citealt{gilbert_flares_2022}), Kepler-1627~Ab ($3.8\pm0.2\,R_\oplus$;
-\citealt{bouma_kep1627_2022}), and AU~Mic~d ($4.2\pm0.2\,R_\oplus$;
-\citealt{plavchan_planet_2020}).
-The other transiting planets younger than $10^8$ years are much
-larger, with sizes between 4 and 10$\,R_\oplus$
-\citep{Mann_K2_33b_2016,David_et_al_2017,benatti_possibly_2019,david_four_2019,newton_tess_2019,rizzuto_tess_2020,bouma_cluster_2020}.
-
-%TODO: I think we might need James Owen to contribute something
-%similar to the TOI-1227 models?
-{\bf Run some evolutionary models, make some comments about the core
-mass, KH timescale, etc}.
 
 
 \subsection{Further Work on Cep-Her}
@@ -1655,14 +1634,67 @@ the full set of fitted and derived parameters from the model described in
 Section~\ref{sec:fitting}.
 Priors and convergence statistics are also listed.
 
+
+\section{Disposition History of KOI-7913}
+\label{app:koi7913}
+
+The disposition of KOI-7913.01 has been debated: in
+\texttt{q1\_q17\_dr25\_koi} the source was flagged as a false
+positive, with the comment ``cent\_kic\_pos---halo\_ghost''.  This
+comment and disposition were removed in the
+\texttt{q1\_q17\_dr25\_sup\_koi} data release, which renamed the
+planet a ``candidate''.  In this note, we discuss the interpretation
+of these flags (which do not apply to the system, according to the
+latest analysis).  We also discuss how the relative locations of
+KOI-7913~A and KOI-7913~B affect the interpretation of the Kepler
+data.
+
+As described by \citet{thompson_planetary_2018}, the
+``cent\_kic\_pos'' flag is an indication that the measured source
+centroid is offset from its expected location in the Kepler Input
+Catalog.  The final Kepler data validation reports, generated 2016 Jan
+30, do not show this to be the case for KOI-7913.  Moreover, the
+statistical significance of any centroid offset is lower than for
+KOI-7368 and Kepler-1643 (which both show centroid offsets that are
+likely explained by the stellar variability).
+
+What of the ``halo\_ghost'' flag?  This test measures the transit
+strength for the pixels inside the aperture, and compares it to that
+measured in the ring of pixels around said aperture (the ``halo'').
+Generally one expects the transit signal to be strongest in the
+central aperture, rather than the halo.  Two types of false positive
+scenarios can change this and trigger the flag: the first is when
+optical ghosts from bright eclipsing binaries reflect off the CCD, and
+contaminate the target star.  The second is when the PRF of nearby
+stars directly overlaps with the PRF of the target star (see
+\citealt{thompson_planetary_2018}, Section A.5.2).
+The most obvious explanation for KOI-7913 is the latter case, given
+that KOI-7913 B is $\approx0.9$ Kepler pixels away from Kepler-7913 A
+and so it usually part of the ``halo''.  Due to the on-sky orientation
+of KOI-7913 A and KOI-7913 B, the default ``optimal aperture''
+selected in quarters 3, 7, 11, and 15 in fact included both stars,
+while for the remaining quarters KOI-7913 B was excluded from the
+optimal aperture but was included as part of the halo (see pages 35
+through 71 of the data validation reports.)  
+
+Given the orientation of the stars and the $\approx$1.5 pixel FWHM of
+the Kepler pixel response function, some blending between the two
+stars is present.  The pointing geometries from quarters 3, 7, 11, and
+15 however did not noticeably affect the observed transit depths,
+which is an indication that the crowding metric applied in the data
+products accurately correct the mean flux level
+\citep{2017ksci.rept....6M}.  Analysis of the target-pixel data that
+was acquired separately for KOI-7913~B also reveals a clearly
+different stellar rotation period, and no hint of the transit signal.
+
+
+
 \input{source_Kepler_1643_simpletransit_posteriortable.tex}
 \input{source_KOI_7368_simpletransit_posteriortable.tex}
 \input{source_KOI_7913_simpletransit_posteriortable.tex}
 
-
-
-
-
 %\listofchanges
 %\allauthors
 \end{document}
+
+
