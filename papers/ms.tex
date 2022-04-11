@@ -709,19 +709,19 @@ parameters were $[{\rm Fe/H}]= -0.01 \pm 0.09$, $v\sin i = 10.7 \pm
 of the KOI-7913 components shows strong lithium absorption, but this
 is expected given their $\approx$K6V and $\approx$K8V spectral types.
 They do however both show H$\alpha$ in emission.  We discuss the
-significant in greater depth in Appendix~\ref{app:spectra}, but
+significance in greater depth in Appendix~\ref{app:spectra}, but
 broadly speaking both observations are consistent with a $\approx$40
 Myr age for KOI-7913.
 
 \paragraph{High-Resolution Imaging}
 We acquired adaptive optics imaging of KOI-7913 on the night of 2020
 Aug 27 using the NIRC2 imager.  The observational configuration and
-reduction was identical as before.  The images showed KOI-7913 A,
+reduction were identical as before.  The images showed KOI-7913 A,
 KOI-7913 B, and an additional faint star $\approx$$0\farcs99$ due East
 of KOI-7913 B.  Applying the PSF-fitting routines from
 \citet{kraus_impact_2016}, the tertiary star has a separation $\rho =
 4397 \pm 3$\,mas from the primary, at a position angle $231.17^\circ
-\pm 0.02^\circ$, with a $\Delta K' = 6.97 \pm 0.04$.  While it is too
+\pm 0.02^\circ$, with $\Delta K' = 6.97 \pm 0.04$.  While it is too
 faint to affect the interpretation of the KOI itself, it would be
 amusing if the faint neighbor were also comoving and young -- at the
 age of the system, it would have a mass roughly between 10 and
@@ -846,7 +846,7 @@ transit model fit.  While our model is simpler, it has the benefit
 that the white noise jitter never trades off with any parameter
 equivalent to a damping timescale for the coherence of the GP.  It is
 also computationally efficient, and it captures the planetary
-parameters that we actually care about.
+parameters about which we care the most.
 
 
 \subsection{Planet Validation}
@@ -854,7 +854,7 @@ parameters that we actually care about.
 In the future, it may be possible to obtain independent evidence for
 the Cep-Her planets to directly confirm their planetary nature.  The
 most likely path would be through transit observations using a
-high-resolution spectrograph \citep[see][]{bouma_kep1627_2022}.  In
+high-resolution spectrograph.  In
 the interim, it is of interest whether the transit signals could be
 astrophysical false positives, or whether they can be argued to be
 planetary on a statistical basis.  We adopt the Bayesian framework
@@ -881,8 +881,8 @@ Repeating the calculation with our own stellar-variability correction
 and the new NIRC2 imaging constraints, we find ${\rm FPP} =
 6\times10^{-9}$, where the improvement is due to the new NIRC2
 contrast curves.  Figure~\ref{fig:planets} shows the justification:
-the transit is flat and has a high S/N ($\approx 47$), which is
-difficult to reproduce with eclipsing binary models.
+the transit is flat and has a high S/N ($\approx 47$).  The shape is
+therefore difficult to reproduce with eclipsing binary models.
 
 Intriguingly, Kepler-1643 formally failed one of the centroid shift
 tests (see the \texttt{q1\_q17\_dr25\_koi} data release): the angular
@@ -903,7 +903,7 @@ planet.  \citet{morton_false_2016} did not compute a false positive
 probability for the system because their default trapezoidal fitting
 routine failed, presumably due to the spot-induced variability.  Our
 fitting approach rectifies this point, and our new NIRC2 images
-revealed no new stellar companions.  Performing the validation
+revealed no new stellar companions.  Performing the relevant
 calculation, we find ${\rm FPP} \approx 4\times10^{-3}$.  Though not
 as convincing as Kepler-1643, this formally clears the usual threshold
 for calling the planet statistically validated
@@ -912,7 +912,7 @@ $\approx$$32$, which indicates that it is unlikely to be caused by
 systematic noise in the light curve (see Figure~\ref{fig:planets}).
 The positional probability score also meets the requirements for
 transiting sources thought to share positions with their target stars
-\citep{morton_false_2016,2017ksci.rept...16B}. 
+\citep{2017ksci.rept...16B}. 
 
 It bears mentioning that KOI-7368 shows a weak centroid shift in the
 \texttt{q1\_q17\_dr25\_koi} validation reports, similar to
@@ -922,11 +922,11 @@ validation reports show that the shift is caused by a few outlying
 quarters (4, 5, 8, and 12).  The fact that the remaining data show a
 consistent scatter between centroid locations suggests that these
 outliers are also caused by the stellar variability.  Independently,
-our imaging shows that there are no neighboring sources that could
-cause an offset of the observed amplitude.
+our NIRC2 imaging shows that there are no neighboring sources that
+could cause an offset of the observed amplitude.
 
 \paragraph{KOI-7913}
-KOI-7913.01 is also listed on the NASA Exoplanet Archive as a
+KOI-7913.01 is also currently listed on the NASA Exoplanet Archive as a
 ``candidate'' planet.  The canonical \citet{morton_false_2016}
 analysis was of Q1-Q17 KOIs from DR24, and therefore spanned KOI-1.01
 to KOI-7620.01 and omitted KOI-7913.01.  However the results of the
@@ -980,124 +980,161 @@ plausible host star for the planet other than KOI-7913~A.
 
 
 \subsection{Normal-Sized Mini-Neptunes Exist at 40$\,$Myr}
+\label{subsec:sizes}
 
-Current thinking about the origins and evolution of lose-in
-mini-Neptunes has recently been reviewed by \citet{bean_nature_2021}.
-In the context of the existing exoplanet population, the most
-significant novelty about Kepler-1643~b, KOI-7368.01, and KOI-7913 is
-that they have normal sizes.
-More specifically, the size distribution of mini-Neptunes spans
-$\approx$1.8\,$R_\oplus$ to $\approx$3.6\,$R_\oplus$, with a peak at
-$\approx 2.4\,R_\oplus$ \citep[][Figure~7]{Fulton_et_al_2017}.
-Figure~\ref{fig:rp_period_age} shows the sizes, orbital periods, and ages of
-known transiting planets, emphasizing those with precise ages.
-Considering planets younger than $10^8$ years, the smallest previously
-known were AU~Mic~c ($\approx3.0\pm0.2\,R_\oplus$, averaging the
-results of \citealt{martioli_aumicbc_2021} and
-\citealt{gilbert_flares_2022}), Kepler-1627~Ab ($3.8\pm0.2\,R_\oplus$;
-\citealt{bouma_kep1627_2022}), and AU~Mic~d ($4.2\pm0.2\,R_\oplus$;
-\citealt{plavchan_planet_2020}).
-The other transiting planets younger than $10^8$ years are much
-larger, with sizes between 4 and 10$\,R_\oplus$
-\citep{Mann_K2_33b_2016,David_et_al_2017,benatti_possibly_2019,david_four_2019,newton_tess_2019,rizzuto_tess_2020,bouma_cluster_2020}.
+The most significant novelty about
+Kepler-1643~b, KOI-7368.01, and KOI-7913~Ab is that their sizes are
+normal, relative to the known population of gigayear-old
+mini-Neptunes.  At field star ages, mini-Neptune sizes span
+1.8\,$R_\oplus$ to 3.6\,$R_\oplus$, with the most
+common size being $\approx 2.4\,R_\oplus$
+\citep[][Figure~7]{Fulton_et_al_2017}.  The known planets younger than
+$10^8$ years are almost all larger, with sizes between 4 and
+10$\,R_\oplus$
+\citep{Mann_K2_33b_2016,David_et_al_2017,benatti_possibly_2019,david_four_2019,newton_tess_2019,rizzuto_tess_2020,bouma_cluster_2020,mann_toi1227_2022}.
+Figure~\ref{fig:rp_period_age} explores this in more detail by showing
+the sizes, orbital periods, and ages of the known transiting planets,
+emphasizing planets with precise ages.  The smallest previously known planets
+comparable to the new Cep-Her mini-Neptunes
+are AU~Mic~c ($3.0\pm0.2\,R_\oplus$, see
+\citealt{martioli_aumicbc_2021} and \citealt{gilbert_flares_2022}),
+Kepler-1627~Ab ($3.8\pm0.2\,R_\oplus$; \citealt{bouma_kep1627_2022}),
+and AU~Mic~d ($4.2\pm0.2\,R_\oplus$; \citealt{plavchan_planet_2020}).
 
-%TODO: I think we might need James Owen to contribute something
-%similar to the TOI-1227 models?
-{\bf Run some evolutionary models, make some comments about the core
-	mass, KH timescale, etc}.
+The theoretical expectation is that mini-Neptunes with sizes of 2 to
+3\,$R_\oplus$ should be common at ages of $10^7$ to $10^8$ years.
+This expectation is tied to inferences about the
+initial distributions of planetary core mass, core composition, and
+atmospheric mass fraction \citep{owen_evaporation_2017}.  The
+Kelvin-Helmholtz cooling timescale, which is tied to the entropy of
+the planetary interior once the disk disperses, could also play a
+significant role \citep{owen_constraining_2020}.  As an example,
+\citet{rogers_unveiling_2021} predicted that given a core-mass
+distribution peaked at $\approx$$4$\,M$_\oplus$, an ice-poor rock/iron
+core composition, and a typical H/He mass fraction of $\approx$4\%,
+there should be a maximum in planet occurrence at 2 to 3\,$R_\oplus$,
+at times between 10 and 100\,Myr
+(their Figure~16).  The models advanced by
+\citet{gupta_signatures_2020} and \citet{lee_primordial_2021} agree;
+the theoretical differences lie in their explanations
+for the origin of the radius valley.  If the radius gap is primordial
+and created by gas accretion physics, then super-Earths
+($<$$1.8$\,$R_\oplus$) would be common as early as $10^7$ years
+\citep{lee_primordial_2021}.   The photoevaporation-driven models more
+often quote $10^8$ year timescales for production of
+atmosphere-stripped super-Earths, while the models with the mass-loss
+driven by a slow escape of heat from the core predict longer
+$\sim$$10^9$ year timescales (but see \citealt{king_euv_2020}).
+
+Systems such as K2-25, V1298~Tau, HIP-67522, TOI-837,
+and TOI-1227 have sizes that are much larger than the picture we have
+just described.  However, their large sizes can be accommodated
+by existing models by invoking any of {\it i)} larger core masses,
+{\it ii)} more volatile-rich compositions, {\it iii)}  larger initial
+atmospheric mass fractions, or {\it iv)} longer thermal cooling times.
+For instance, perhaps all five of the the aforementioned systems are
+large simply because the planets are more massive than most
+mini-Neptunes.  Secure mass measurements would help constrain this
+parameter space, but the $\sim$1\,\kms\ spot-induced radial velocity
+semi-amplitudes makes measuring the Doppler orbits incredibly
+challenging.  \citep[][]{cale_diving_2021,zicher_one_2022,klein_one_2022}.
+Regardless, the new Kepler-1643, KOI-7368, and KOI-7913 systems do
+demonstrate that at least some planets at 40\,Myr have sizes that are
+consistent with theoretical expectations for mini-Neptunes.  While
+selection effects imposed by spot-induced photometric variability are
+a likely explanation for why planets this small have not previously
+been identified \citep[{\it e.g.},][]{zhou_2021_tois}, future work
+should quantify this bias more carefully, in order to enable empirical
+studies of how the planetary size distribution changes at early times.
 
 
-\subsection{Is CH-2 really a star cluster?}
+\subsection{Is CH-2 a real cluster?}
+\label{subsec:ch2}
 
-RSG-5, and Kepler-1643's membership inside it, clearly meet the
-typical expectations of a star claimed to be in an open cluster.
-RSG-5 shows an obvious overdensity relative to the local field
-population ({\it e.g.}, Figure~\ref{fig:XYZvtang}), and our membership
-selection easily produces a clean pre-main-sequence locus in 
-color-absolute magnitude space (Figure~\ref{fig:age}).
-CH-2, and KOI-7913 and KOI-7368's membership inside it, do not meet
-those expectations in as obvious a manner.  This is because this
-association of stars is diffuse.
+RSG-5, and Kepler-1643's membership inside it, meet typical
+expectations for a star claimed to be in an open cluster.  RSG-5 is an
+obvious overdensity relative to the local field, and our
+membership selection easily produces a clean pre-main-sequence locus
+in color versus absolute magnitude (Figure~\ref{fig:age}).  CH-2, and
+KOI-7913 and KOI-7368's membership inside it, do not meet these
+expectations in as obvious a manner.  This is because the CH-2
+association is diffuse.
 
-%really 80:9
-To quantify the density discrepancy, we can compare the spatial and
-velocity volumes searched to select candidate members of each cluster.
+To quantify the density difference between CH-2 and RSG-5, we can compare the spatial and
+velocity volumes searched for each group.
 For RSG-5, we drew 141 candidate members from a $30\,{\rm
-pc}\times30\,{\rm pc}\times30\,{\rm pc}$ spatial cube, given a $1 {\rm \mkms} \times 2 {\rm \mkms }$ rectangle in apparent galactic velocity.
-For CH-2, our 37 candidate members came from a spatial cube of
-dimension $50\,{\rm pc}\times40\,{\rm pc}\times30\,{\rm pc}$, and the
-velocity rectangle of $2 {\rm \mkms} \times 4 {\rm \mkms}$.  If we
-define the ``searched volume'' in units of ${\rm pc}^3 {\rm
-(\mkms)}^2$, then the volume ratio of CH-2:RSG-5 is $\approx$9:1.  The
-density (number of stars per unit searched volume) within RSG-5 relative to
-CH-2 similarly comes out to 34 to 1.
+pc}\times30\,{\rm pc}\times30\,{\rm pc}$ spatial cube, given a $1 {\rm
+\mkms} \times 2 {\rm \mkms }$ rectangle in apparent galactic velocity.
+For CH-2, our 37 candidate members came from a rectangular prism of
+dimension $50\,{\rm pc}\times40\,{\rm pc}\times30\,{\rm pc}$, and a
+rectangular box of $2 {\rm \mkms} \times 4 {\rm \mkms}$.  If we define
+the searched volume in units of ${\rm pc}^3\,{\rm km^2}\,{\rm s^{-2}}$, then
+the volume ratio of CH-2 to RSG-5 is 9 to 1.  The number of candidate
+members per unit searched volume in RSG-5 relative to CH-2 is
+therefore 34 to 1.
 
-So what makes a star cluster?  Historic answers to this question have
-recently by reviewed by \citet{krumholz_star_2019}: some definitions
-that have been offered include criteria such as being gravitationally
-bound, and having a mass density that significantly exceeds the mean
-in a cluster's galactic neighborhood.  We prefer a modified version of
-the definition adopted by \citet{krumholz_star_2019}: for our purposes
-a star cluster is a group of at least 12 stars that was physically
-associated at its time of formation.  The somewhat arbitrary ``12'' is
-set to distinguish clusters from high-order multiple star systems.  We
-therefore explicitly include dissolved clusters and their tidal tails
-in our concept of clusters.  We also explicitly exclude the idea that
-a particular number of stars per unit spatial volume is required to
-define a cluster.  The latter point acknowledges the fact that an
-important factor in cluster identification is now also the number per
-unit velocity volume, whether in 2-dimensional tangential velocity, or
-when including the third radial component.  Perhaps
-once stellar rotation periods and chemical abundances reach the same
-level of ubiquity as stellar proper motions, they might enable further
-refinement of our ability in cluster discovery.
+Given its low density, in CH-2 really a star cluster?  For this
+discussion, let us adopt the definition that a star cluster is a group
+of at least 12 stars that was physically associated at its time of
+formation.  The somewhat arbitrary ``12'' is set to distinguish star
+clusters from high-order multiples \citep[see][]{krumholz_star_2019}.
+Dissolved clusters and their tidal tails are therefore included in our
+concept of clusters.  We do not require however that a particular number of stars per
+unit spatial volume is required for a group to be a ``cluster''.
+The latter point acknowledges that an important
+factor in cluster identification is also the density in velocity
+space.  Perhaps once stellar rotation periods and chemical abundances
+reach the same level of ubiquity as stellar proper motions, they might
+enable further refinement of our ability to discover stars that formed
+together.
 
-From a data-driven perspective, how do we demonstrate that a star is
-in a cluster, {\it i.e.}, that it is part of a group of stars that was
-physically associated at its time of formation?
-Back-integrating the orbits is one convincing approach, but it does
-not always work {\bf (CITE)}.
-The relatively minimal approach suggested by \citet{tofflemire_2021}
-is intriguing: search for coeval, phase-space neighbors, measure their
-ages, and determine if they share a common age.
-This approach is more accurately be described as a method for
-determining whether a star is currently associated with a set of coeval
-stars, which is much easier to determine than what the association
-looked like in the past.
-From this standard, our analysis thus far of CH-2 has already
-demonstrated the existence of such an assocation.
-
-A crucial logical step in this method however is to ensure that the
-(automated) search process for coeval phase-space neighbors in fact
-produces neighbors at a rate different from what it would for field
-stars.
-
-% TODO
-And so we ask: what is the density of field stars in the CH-2 region?
-If we had applied Ronan's pre-main-sequence selection, + HDBScan, +
-local neighbors... what would we have gotten?
-Similarly... if you just applied Adam Kraus' Comove 
-What is the likelihood we are fooling ourselves?
+From a data-driven perspective, demonstrating that a group of stars
+was physically associated at its time of formation is challenging.
+While some young groups show kinematic evidence for expansion
+\citep{kuhn_kinematics_2019}, many, including Sco-Cen, do not
+\citep{wright_kinematics_2018}.  This complicates the feasibility of
+deriving kinematic ages through traceback, as
+well as through the expansion itself
+\citep[see][]{crundall_chronostar_2019}.  A more minimal approach is
+that suggested by \citet{tofflemire_2021}: search for coeval,
+phase-space neighbors, measure their ages, and determine if they share
+a common age.  This approach can demonstrate whether a star is {\it
+currently associated} with a set of coeval stars, which is much easier
+than determining what the association looked like in the past.  Our
+analysis of CH-2 meets the latter standard for the existence of a
+$\approx$40\,Myr assocation today.  It would be a worthy exercise for
+future work to perform a similar search for coeval phase-space
+neighbors on the entire dataset of known exoplanet hosts.  For the
+time being, we can offer the anecdotal point that in our experience,
+most stars do not have dozens of $\sim$40\,Myr neighbors within a
+local volume of a few \kms\ and tens of parsecs.
 
 
 
-\subsection{Further Work on Cep-Her}
+\subsection{Future work}
 
-Disentangling its kinematics
+\subsubsection{Cep-Her}
+\paragraph{Kinematics}
 * Need an RV survey.
 
+\paragraph{Age(s)}
 Benchmarking its age(s):
 * Lithium analysis of FGK depletion (bright enough to be feasible).
 
 * Asteroseismology of the delta Sct stars (TESS data are there, group is
 rich enough).
 
-Finding more interesting objects in it:
+\paragraph{More objects}
+
+* TESS data: giant planets in Cep-Her.  We need more 1e7-1e8 year old
+stars for the HJ occurrence versus time question.  This will help.
+
+* Kepler data: exocomets?  Search for smaller planets?
+
+\subsubsection{Occ rates}
 * Kepler data... presumably $\sim$200 stars in the cluster were
-observed, in order to have detected 4 planets.
-
-* TESS data
-
+observed, in order to have detected 4 planets. 
+Occurrence rates?
 
 
 
