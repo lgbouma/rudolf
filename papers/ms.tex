@@ -806,24 +806,24 @@ Second, we want to remove the stellar variability signal to enable a
 statistical assessment of the probability that the transit signals are
 planetary.
 
-Our adopted approach was as follows.  Given an initial guess for the
-transit ephemeris from the \texttt{q1\_q17\_dr25} analysis
-\citep{thompson_planetary_2018}, the light curve was first trimmed to
-a local window around each transit, spanning $\pm 3\times t_{14}$.
-The local out-of-transit points were then fitted with a fourth-order
-polynomial, which was then divided out from the light curve.  The
-resulting flattened transits were then fitted with a planetary transit
-under the assumption of quadratic limb darkening.  Our model therefore
-included 8 free parameters for the transit ($\{P, t_0, \log R_{\rm
-p}/R_\star, b, u_1 ,u_2, R_\star, \log g\}$), 2 free parameters for
-the light curve normalization and a white noise jitter ($\{\langle f
-\rangle, \sigma_f \}$), and an additional 5 implicit parameters per
-transit through the polynomial.
+We fitted the data as follows.  Given an initial guess for the transit
+ephemeris from \citet{thompson_planetary_2018}, we first trimmed the
+light curve to a local window around each transit that spanned three
+transit durations before and after each mid-transit time.  The
+out-of-transit points in each local window were then fitted with a
+fourth-order polynomial, which was then divided out from the light
+curve.  The resulting flattened transits were then fitted with a
+planetary transit under the assumption of quadratic limb darkening.
+Our model therefore included 8 free parameters for the transit ($\{P,
+t_0, \log R_{\rm p}/R_\star, b, u_1 ,u_2, R_\star, \log g\}$), 2 free
+parameters for the light curve normalization and a white noise jitter
+($\{\langle f \rangle, \sigma_f \}$), and an additional 5 implicit
+parameters for each transit.
 
 We fitted the models using \texttt{exoplanet}
 \citep{exoplanet:exoplanet}.  We assumed a Gaussian likelihood, and
 sampled using \texttt{PyMC3}'s No-U-Turn Sampler
-\citep{hoffman_no-u-turn_2014}, after having initialized using the
+\citep{hoffman_no-u-turn_2014}, after having initialized to the the
 maximum {\it a posteriori} (MAP) model.  We used the
 \citet{gelman_inference_1992} statistic ($\hat{R}$) as our convergence
 diagnostic.  The resulting fits are shown in the lower panels of
@@ -831,7 +831,7 @@ Figure~\ref{fig:planets}, and the important derived parameters are in
 Table~\ref{tab:sysparams}.  The set of full parameters with their
 priors are given in Appendix~\ref{app:transit}.
 
-One weakness of our fitting approach is that we have fixed 5 implicit
+One weakness of our approach is that we have fixed 5 implicit
 parameters per individual transit to their MAP values to remove the
 stellar variability signal.  An alternative could be to fit the
 planetary transits simultaneously with the starspot-induced
@@ -839,36 +839,35 @@ variability using, say, a quasiperiodic Gaussian process (GP).  We
 explored this approach, but found that it required careful fine-tuning
 of the hyperparameter priors, otherwise the GP would tend to
 incorporate variability that was not part of the transit, even if it
-was short-term variability attributable to flares, or simply
-instrumental noise.  This failure mode is somewhat pernicious, in that
-it yields an ill-founded sense of confidence in an ``overly clean''
-transit model fit.  While our model is simpler, it has the benefit
-that the white noise jitter never trades off with any parameter
-equivalent to a damping timescale for the coherence of the GP.  It is
-also computationally efficient, and it captures the planetary
-parameters about which we care the most.
+was short-term variability attributable to flares or instrumental
+noise.  This failure mode is pernicious, in that it yields an
+ill-founded sense of confidence in an ``overly clean'' transit model
+fit.  Our model is simpler, and it has the benefit that the white
+noise jitter never trades off with any parameter equivalent to a
+damping timescale for the coherence of the GP.  It is also
+computationally efficient, and it captures the planetary parameters
+about which we care the most.
 
 
 \subsection{Planet Validation}
 
 In the future, it may be possible to obtain independent evidence for
-the Cep-Her planets to directly confirm their planetary nature.  The
-most likely path would be through transit observations using a
-high-resolution spectrograph.  In
-the interim, it is of interest whether the transit signals could be
-astrophysical false positives, or whether they can be argued to be
-planetary on a statistical basis.  We adopt the Bayesian framework
-implemented in \texttt{VESPA} for this purpose
-\citep{morton_efficient_2012,vespa_2015}.  Briefly summarized, the
-priors in \texttt{VESPA} take as given the binary star occurrence rate
-from \citet{raghavan_survey_2010}, direction-specific star counts from
-\citet{girardi_star_2005}, and planet occurrence rates as described by
-\citet[][Section~3.4]{morton_efficient_2012}.  The likelihoods are
-then evaluated by forward-modeling a synthetic population of eclipsing
-bodies for each possible astrophysical model class, in which each
-population member has a particular trapezoidal eclipse depth, total
-duration, and ingress duration.  These summary statistics are then
-compared against the actual photometric data to evaluate the
+the Cep-Her planets to directly confirm their planetary nature, for
+instance through transit observations using a high-resolution
+spectrograph.  For now, it is of interest whether the transit signals
+might be astrophysical false positives, or whether they can be argued
+to be planetary on a statistical basis.  We adopt the Bayesian
+framework implemented in \texttt{VESPA} to assess the relevant
+probabilities \citep{morton_efficient_2012,vespa_2015}.  Briefly
+summarized, the priors in \texttt{VESPA} assume the binary star
+occurrence rate from \citet{raghavan_survey_2010}, direction-specific
+star counts from \citet{girardi_star_2005}, and planet occurrence
+rates as described by \citet[][Section~3.4]{morton_efficient_2012}.
+The likelihoods are then evaluated by forward-modeling a synthetic
+population of eclipsing bodies for each astrophysical model class, in
+which each population member has a known trapezoidal eclipse depth,
+total duration, and ingress duration.  These summary statistics are
+then compared against the actual photometric data to evaluate the
 probabilities of false positive scenarios such as foreground eclipsing
 binaries, hierarchical eclipsing binaries, and background eclipsing
 binaries.
@@ -879,23 +878,23 @@ planet by \citet{morton_false_2016}, who found a probability for any
 of the aforementioned false positive scenarios of 9$\times$10$^{-6}$.
 Repeating the calculation with our own stellar-variability correction
 and the new NIRC2 imaging constraints, we find ${\rm FPP} =
-6\times10^{-9}$, where the improvement is due to the new NIRC2
-contrast curves.  Figure~\ref{fig:planets} shows the justification:
+6\times10^{-9}$.  Figure~\ref{fig:planets} shows the justification:
 the transit is flat and has a high S/N ($\approx 47$).  The shape is
-therefore difficult to reproduce with eclipsing binary models.
+therefore nearly impossible to reproduce with eclipsing binary models.
 
-Intriguingly, Kepler-1643 formally failed one of the centroid shift
-tests (see the \texttt{q1\_q17\_dr25\_koi} data release): the angular
-distance between the target star's catalog position and the position
-of the transiting source was measured as $1\farcs0$ at 4.4-$\sigma$.
-The reports show however that two outlying quarters (2 and 6) drive
-the offset -- the centroid locations from the other Kepler quarters
-are consistent at $\lesssim 0\farcs4$.  Nonetheless, this is an
-instructive exercise in how stellar variability complicates
-centroid-based vetting tests.  The centroid shifts measured by these
-tests are determined from the in- and out-of-transit flux-weighted
-centroids.  For stars with significant spot-induced variability there
-is no static baseline in either the in- or out-of-transit phases.
+Intriguingly, Kepler-1643 formally failed one of the data validation
+centroid shift tests (see the \texttt{q1\_q17\_dr25\_koi} data
+release): the angular distance between the target star's catalog
+position and the position of the transiting source was measured as
+$1\farcs0$ at 4.4-$\sigma$.  The reports show however that two
+outlying quarters (2 and 6) drive the offset -- the centroid locations
+from the other Kepler quarters are consistent at $\lesssim 0\farcs4$.
+Nonetheless, this is an instructive exercise in how stellar
+variability complicates centroid-based vetting tests.  The centroid
+shifts measured by these tests are determined from the in- and
+out-of-transit flux-weighted centroids.  For stars with significant
+spot-induced variability there is no static baseline in either the in-
+or out-of-transit phases.
 
 \paragraph{KOI-7368}
 KOI-7368.01 is listed on the NASA Exoplanet Archive as a ``candidate''
