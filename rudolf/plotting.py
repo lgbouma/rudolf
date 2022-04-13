@@ -845,9 +845,9 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
             namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A', 'Kepler-1643']
             markers = ['P', 'v', 'X', 's']
             # lime: CH-2 (KOI-7913, KOI-7368)
-            # magenta: RSG5 (Kepler-1643)
+            # #ff6eff: RSG5 (Kepler-1643)
             # gray/black: del Lyr cluster (Kepler-1627)
-            mfcs = ['white', 'lime', 'lime', 'magenta']
+            mfcs = ['white', 'lime', 'lime', '#ff6eff']
 
             # drops KOI-7913 B
             koi_df_dict = {k:v for k,v in koi_df_dict.items() if k in namelist}
@@ -872,7 +872,7 @@ def plot_XYZvtang(outdir, show_1627=0, save_candcomovers=1, save_allphys=1,
 
         if show_rsg5:
             axd[k].scatter(
-                df_rsg5_edr3[xv], df_rsg5_edr3[yv], c='magenta', alpha=1, zorder=6,
+                df_rsg5_edr3[xv], df_rsg5_edr3[yv], c='#ff6eff', alpha=1, zorder=6,
                 s=2, edgecolors='none', rasterized=True, marker='.',
                 label='KC19 RSG_5'
             )
@@ -1978,7 +1978,7 @@ def plot_hr(
 
     s = 4
     if smalllims:
-        s = 6.5
+        s = 9
 
     # mixed rasterizing along layers b/c we keep the loading times nice
     l0 = '$\delta$ Lyr candidates'
@@ -2055,9 +2055,9 @@ def plot_hr(
         namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A', 'KOI-7913 B', 'Kepler-1643']
         markers = ['P', 'v', 'X', 'X', 's']
         # lime: CH-2 (KOI-7913, KOI-7368)
-        # magenta: RSG5 (Kepler-1643)
+        # #ff6eff: RSG5 (Kepler-1643)
         # gray/black: del Lyr cluster (Kepler-1627)
-        mfcs = ['white', 'lime', 'lime', 'lime', 'magenta']
+        mfcs = ['white', 'lime', 'lime', 'lime', '#ff6eff']
 
         for mfc, marker, (name,_kdf) in zip(mfcs, markers, koi_df_dict.items()):
 
@@ -2085,7 +2085,7 @@ def plot_hr(
                 ax.plot(
                     get_xval(_kdf), get_yval(_kdf),
                     alpha=1, mew=0.5, zorder=9001, label=name, markerfacecolor=mfc,
-                    markersize=7, marker=marker, color='black', lw=0
+                    markersize=10, marker=marker, color='black', lw=0
                 )
 
     if 'BPMG' in clusters:
@@ -2180,7 +2180,7 @@ def plot_hr(
             print(_df['reddening[mag][stilism]'].describe())
 
         ax.scatter(
-            get_xval(_df), get_yval(_df), c='magenta', alpha=1, zorder=10,
+            get_xval(_df), get_yval(_df), c='#ff6eff', alpha=1, zorder=10,
             s=0.7*s, rasterized=False, label='RSG-5 candidates', marker='o',
             edgecolors='k', linewidths=0.1
         )
@@ -2216,8 +2216,8 @@ def plot_hr(
             print(_df['reddening[mag][stilism]'].describe())
 
         ax.scatter(
-            get_xval(_df), get_yval(_df), c='magenta', alpha=1, zorder=10,
-            s=1.3*s, rasterized=False, label='RSG-5 candidates', marker='o',
+            get_xval(_df), get_yval(_df), c='#ff6eff', alpha=1, zorder=10,
+            s=1.6*s, rasterized=False, label='RSG-5 candidates', marker='o',
             edgecolors='k', linewidths=0.1
         )
 
@@ -2622,7 +2622,7 @@ def plot_hr(
 
     if len(clusters) > 1:
         ax.legend(fontsize='xx-small', loc='upper right', handletextpad=0.1,
-                  borderaxespad=2.0)
+                  borderaxespad=2.0, borderpad=0.8)
 
     if show100pc and 'phot_bp_mean_mag' in color0:
         ax.set_xlim([-1,4.5])
@@ -2737,19 +2737,19 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     colordict = {
         'deltaLyrCluster': 'k',
         'CH-2': 'lime',
-        'RSG-5': 'magenta'
+        'RSG-5': '#ff6eff'
     }
     sizedict = {
         'deltaLyrCluster': 8,
-        'CH-2': 17,
-        'RSG-5': 17
+        'CH-2': 24,
+        'RSG-5': 24
     }
 
     classes = ['pleiades', 'praesepe', f'{runid}']
     colors = ['gray', 'gray', colordict[runid]]
     zorders = [-3, -4, -1]
     markers = ['X', '+', 'o']
-    lws = [0., 0.1, 0.5]
+    lws = [0., 0.1, 0.35]
     mews= [0., 0.5, 2]
     _s = 3 if runid != 'VelaOB2' else 1.2
     ss = [15, 12, sizedict[runid]]
@@ -2952,9 +2952,9 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
         namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A', 'KOI-7913 B', 'Kepler-1643']
         markers = ['P', 'v', 'X', 'X', 's']
         # lime: CH-2 (KOI-7913, KOI-7368)
-        # magenta: RSG5 (Kepler-1643)
+        # #ff6eff: RSG5 (Kepler-1643)
         # gray/black: del Lyr cluster (Kepler-1627)
-        mfcs = ['white', 'lime', 'lime', 'lime', 'magenta']
+        mfcs = ['white', 'lime', 'lime', 'lime', '#ff6eff']
 
         from rudolf.starinfo import starinfodict as sd
         for mfc, marker, (name,_kdf) in zip(mfcs, markers, koi_df_dict.items()):
@@ -2984,7 +2984,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
             ax.plot(
                 get_xval(_kdf), Prot,
                 alpha=1, mew=0.5, zorder=-2, label=name, markerfacecolor=mfc,
-                markersize=11, marker=marker, color='black', lw=0,
+                markersize=12, marker=marker, color='black', lw=0,
             )
 
 
@@ -3040,8 +3040,8 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
 
     # fix legend zorder
     loc = 'upper left' if yscale == 'linear' else 'lower right'
-    leg = ax.legend(loc=loc, handletextpad=0.1, fontsize='xx-small',
-                    framealpha=1.0, borderaxespad=2.0)
+    leg = ax.legend(loc=loc, handletextpad=0.3, fontsize='xx-small',
+                    framealpha=1.0, borderaxespad=2.0, borderpad=0.8)
 
 
     outstr = '_vs_BpmRp'
@@ -3764,7 +3764,7 @@ def plot_koiyouthlines(outdir):
             wav[sel], fn(norm(flx[sel])), c='k', zorder=3, lw=0.2
         )
 
-        ax0.set_title(starname.replace("_"," "))
+        ax0.set_title(starname.replace("_"," "), fontsize='small')
         ax0.set_xlim(xlims[0])
         ax1.set_xlim(xlims[1])
 
@@ -4668,7 +4668,7 @@ def plot_halpha(outdir, reference='TucHor'):
     from rudolf.starinfo import starinfodict as sd
     namelist = ['KOI-7913 A', 'KOI-7913 B', 'Kepler-1643']
     markers = ['X', 'X', 's']
-    mfcs = ['lime', 'lime', 'magenta']
+    mfcs = ['lime', 'lime', '#ff6eff']
 
     for n,m,mfc in zip(namelist, markers, mfcs):
 
@@ -4845,11 +4845,11 @@ def plot_lithium(outdir, reference='Randich18'):
     from rudolf.starinfo import starinfodict as sd
 
     # lime: CH-2 (KOI-7913, KOI-7368)
-    # magenta: RSG5 (Kepler-1643)
+    # #ff6eff: RSG5 (Kepler-1643)
     # gray/black: del Lyr cluster (Kepler-1627)
     namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A', 'KOI-7913 B', 'Kepler-1643']
     markers = ['P', 'v', 'X', 'X', 's']
-    mfcs = ['gray', 'lime', 'lime', 'lime', 'magenta']
+    mfcs = ['gray', 'lime', 'lime', 'lime', '#ff6eff']
 
     for n,m,mfc in zip(namelist, markers, mfcs):
 
@@ -5082,9 +5082,9 @@ def plot_CepHerExtended_quicklook_tests(outdir):
                         'KOI-7913 B', 'Kepler-1643']
             markers = ['P', 'v', 'X', 'X', 's']
             # lime: CH-2 (KOI-7913, KOI-7368)
-            # magenta: RSG5 (Kepler-1643)
+            # #ff6eff: RSG5 (Kepler-1643)
             # gray/black: del Lyr cluster (Kepler-1627)
-            mfcs = ['white', 'lime', 'lime', 'lime', 'magenta']
+            mfcs = ['white', 'lime', 'lime', 'lime', '#ff6eff']
             for name,marker,mfc in zip(namelist, markers, mfcs):
                 source_id = koi_dict[name]
                 sel = _mdf.source_id.astype(str) == source_id
@@ -5294,8 +5294,8 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
         if showgroups:
             # Manually selected groups in glue.
             groupnames = ['CH2_XYZ_vl_vb_cut.csv', 'RSG5_XYZ_vl_vb_cut.csv']
-            groupcolors = ['lime', 'magenta']
-            sizes = [2, 1]
+            groupcolors = ['lime', '#ff6eff']
+            sizes = [3, 2]
             mews = [0.3, 0.1]
             ix = 0
             for groupname, color, size, mew in zip(
@@ -5329,9 +5329,9 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
                     'KOI-7913 B', 'Kepler-1643']
         markers = ['P', 'v', 'X', 'X', 's']
         # lime: CH-2 (KOI-7913, KOI-7368)
-        # magenta: RSG5 (Kepler-1643)
+        # #ff6eff: RSG5 (Kepler-1643)
         # gray/black: del Lyr cluster (Kepler-1627)
-        mfcs = ['white', 'lime', 'lime', 'lime', 'magenta']
+        mfcs = ['white', 'lime', 'lime', 'lime', '#ff6eff']
         for name,marker,mfc in zip(namelist, markers, mfcs):
             source_id = koi_dict[name]
             sel = _mdf.source_id.astype(str) == source_id
@@ -5339,7 +5339,7 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
             ax.plot(
                 _mdf[sel][xkey]+x0, _mdf[sel][ykey],
                 alpha=1, mew=0.5, zorder=10, label=name,
-                markerfacecolor=mfc, markersize=4, marker=marker,
+                markerfacecolor=mfc, markersize=7, marker=marker,
                 color='black', lw=0
             )
 
@@ -5466,7 +5466,7 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
         s += '_showgroups'
     outpath = os.path.join(outdir, f'CepHer_XYZvtang_sky{s}.png')
 
-    fig.tight_layout(h_pad=0.1, w_pad=0.4)
+    fig.tight_layout(h_pad=0., w_pad=0.2)
     #f.tight_layout(h_pad=0.2, w_pad=0.2)
 
     savefig(fig, outpath)
