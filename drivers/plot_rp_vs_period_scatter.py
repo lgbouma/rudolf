@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import pandas as pd, numpy as np
 import os
 from astropy import units as u
+import matplotlib.colors as colors
 
 # If you want to run the code, you'll need to do:
 # `git clone https://github.com/lgbouma/cdips; cd cdips; python setup.py install`
@@ -24,9 +25,18 @@ VER = '20220107' # could be today_YYYYMMDD()
 VER = '20220227'
 VER = '20220405'
 
+def truncate_colormap(cmap, minval=0.0, maxval=1.0, n=100):
+    new_cmap = colors.LinearSegmentedColormap.from_list(
+        f'trunc({cmap.name},{minval:.2f},{maxval:.2f})',
+        cmap(np.linspace(minval, maxval, n))
+    )
+    return new_cmap
+
+
 def plot_rp_vs_period_scatter(
     showlegend=1, colorbydisc=1, showarchetypes=1, showss=1, colorbyage=0,
-    verbose=0, add_kep1627=0, add_allkep=0, add_CepHer=0, add_plnames=0
+    verbose=0, add_kep1627=0, add_allkep=0, add_CepHer=0, add_plnames=0,
+    add_Theia520=0, add_MELANGE2=0, dark_bkgd=0
 ):
     """
     Plot planetary parameters versus ages. By default, it writes the plots to
@@ -58,6 +68,8 @@ def plot_rp_vs_period_scatter(
     """
 
     set_style()
+    if dark_bkgd:
+        plt.style.use('dark_background')
 
     #
     # Columns are described at
@@ -194,8 +206,28 @@ def plot_rp_vs_period_scatter(
                             borderpad=0.7)
 
         #cmap = mpl.cm.magma_r
-        cmap = mpl.cm.Spectral
-        cmap = mpl.cm.get_cmap('magma_r', 8)
+        if not dark_bkgd:
+            cmap = mpl.cm.get_cmap('magma_r', 6) # not bad
+            #cmap = mpl.cm.get_cmap('cividis_r', 6) # ok, but kinda gross
+            #cmap = mpl.cm.get_cmap('pink_r', 6) # nah too muted
+
+            # good
+            cmap = truncate_colormap(
+                plt.get_cmap("magma_r"), minval=0.0, maxval=0.9, n=256
+            )
+            mpl.cm.register_cmap(name='trunc_map', cmap=cmap)
+            cmap = mpl.cm.get_cmap('trunc_map', 6)
+
+            ## nah
+            #cmap = truncate_colormap(
+            #    plt.get_cmap("Blues"), minval=0.05, maxval=0.9, n=256
+            #)
+            #mpl.cm.register_cmap(name='trunc_map', cmap=cmap)
+            #cmap = mpl.cm.get_cmap('trunc_map', 6)
+
+
+        else:
+            cmap = mpl.cm.get_cmap('Wistia', 6)
         bounds = np.arange(7.0,9.0,0.01)
         norm = mpl.colors.LogNorm(vmin=1e7, vmax=1e9)
 
@@ -241,10 +273,10 @@ def plot_rp_vs_period_scatter(
 
         if add_allkep:
             namelist = ['Kepler-52', 'Kepler-968', 'Kepler-1627', 'KOI-7368',
-                        'KOI-7913', 'Kepler-1643']
-            ages = [3e8, 3e8, 3.8e7, 3.8e7, 3.8e7, 3.8e7]
-            markers = ['o','d','P', 'v', 'X', 's']
-            sizes = [80, 80, 120, 120, 120, 120]
+                        'KOI-7913', 'Kepler-1643', 'Kepler-970', 'KOI-3876']
+            ages = [3e8, 3e8, 3.8e7, 3.8e7, 3.8e7, 3.8e7, 1.1e8, 1.1e8]
+            markers = ['o','d','P', 'v', 'X', 's', '^', 'p']
+            sizes = [80, 80, 120, 120, 120, 120, 95, 95]
 
             for n, a, m, _s in zip(namelist, ages, markers, sizes):
                 sel = ea_df.hostname == n
@@ -254,18 +286,34 @@ def plot_rp_vs_period_scatter(
                 _per= _sdf.pl_orbper
                 if n == 'KOI-7368':
                     del _sdf
-                    _rp = [2.67]
+                    _rp = [2.22]
                     _per = [6.84]
                     _sdf = pd.DataFrame({'pl_name':'KOI-7368'}, index=[0])
 
                 if n == 'Kepler-1627':
                     _rp = [(0.338*(1.015)**(0.5)*u.Rjup).to(u.Rearth).value]
 
+                if n == 'Kepler-1643':
+                    _rp = [2.32]
+
                 if n == 'KOI-7913':
                     del _sdf
-                    _rp = [2.39]
+                    _rp = [2.34]
                     _per = [24.0]
                     _sdf = pd.DataFrame({'pl_name':'KOI-7913'}, index=[0])
+
+                if n == 'Kepler-970':
+                    del _sdf
+                    _rp = [2.61]
+                    _per = [16.74]
+                    _sdf = pd.DataFrame({'pl_name':'Kepler-970'}, index=[0])
+
+                if n == 'KOI-3876':
+                    del _sdf
+                    _rp = [1.99]
+                    _per = [19.58]
+                    _sdf = pd.DataFrame({'pl_name':'KOI-3876'}, index=[0])
+
 
                 _age = np.ones(len(_sdf))*a
 
@@ -298,26 +346,97 @@ def plot_rp_vs_period_scatter(
                 _sdf = ea_df[sel]
                 _rp = _sdf.pl_rade
                 _per= _sdf.pl_orbper
+
                 if n == 'KOI-7368':
                     del _sdf
-                    _rp = [2.67]
+                    _rp = [2.22]
                     _per = [6.84]
                     _sdf = pd.DataFrame({'pl_name':'KOI-7368'}, index=[0])
+
                 if n == 'Kepler-1627':
-                    del _sdf
                     _rp = [(0.338*(1.015)**(0.5)*u.Rjup).to(u.Rearth).value]
-                    _per = [7.2028]
-                    _sdf = pd.DataFrame({'pl_name':'Kepler-1627'}, index=[0])
+
                 if n == 'Kepler-1643':
-                    del _sdf
                     _rp = [2.32]
-                    _per = [5.34]
-                    _sdf = pd.DataFrame({'pl_name':'Kepler-1643'}, index=[0])
+
                 if n == 'KOI-7913':
                     del _sdf
                     _rp = [2.34]
                     _per = [24.0]
                     _sdf = pd.DataFrame({'pl_name':'KOI-7913'}, index=[0])
+
+                _age = np.ones(len(_sdf))*a
+
+                ax.scatter(
+                    _per, _rp,
+                    c=_age, alpha=1, zorder=2, s=_s, edgecolors='k',
+                    marker=m, cmap=cmap, linewidths=0.3, norm=norm
+                )
+
+                if add_plnames:
+                    print(np.array(_sdf.pl_name), np.array(_per),
+                          np.array(_rp))
+                    for __n, __per, __rp in zip(
+                        np.array(_sdf.pl_name), np.array(_per), np.array(_rp)
+                    ):
+                        ax.text(__per, __rp, __n, ha='right', va='bottom',
+                                fontsize=2, bbox=bbox, zorder=49)
+
+
+        if add_Theia520:
+            namelist = ['Kepler-52', 'Kepler-968']
+            ages = [3e8, 3e8]
+            markers = ['o','d']
+            sizes = [80, 80]
+
+            for n, a, m, _s in zip(namelist, ages, markers, sizes):
+                sel = ea_df.hostname == n
+
+                _sdf = ea_df[sel]
+                _rp = _sdf.pl_rade
+                _per= _sdf.pl_orbper
+
+                _age = np.ones(len(_sdf))*a
+
+                ax.scatter(
+                    _per, _rp,
+                    c=_age, alpha=1, zorder=2, s=_s, edgecolors='k',
+                    marker=m, cmap=cmap, linewidths=0.3, norm=norm
+                )
+
+                if add_plnames:
+                    print(np.array(_sdf.pl_name), np.array(_per),
+                          np.array(_rp))
+                    for __n, __per, __rp in zip(
+                        np.array(_sdf.pl_name), np.array(_per), np.array(_rp)
+                    ):
+                        ax.text(__per, __rp, __n, ha='right', va='bottom',
+                                fontsize=2, bbox=bbox, zorder=49)
+
+
+        if add_MELANGE2:
+            namelist = ['Kepler-970', 'KOI-3876']
+            ages = [1.1e8, 1.1e8]
+            markers = ['^', 'p']
+            sizes = [95, 95]
+
+            for n, a, m, _s in zip(namelist, ages, markers, sizes):
+                sel = ea_df.hostname == n
+                _sdf = ea_df[sel]
+                _rp = _sdf.pl_rade
+                _per= _sdf.pl_orbper
+
+                if n == 'Kepler-970':
+                    del _sdf
+                    _rp = [2.61]
+                    _per = [16.74]
+                    _sdf = pd.DataFrame({'pl_name':'Kepler-970'}, index=[0])
+
+                if n == 'KOI-3876':
+                    del _sdf
+                    _rp = [1.99]
+                    _per = [19.58]
+                    _sdf = pd.DataFrame({'pl_name':'KOI-3876'}, index=[0])
 
                 _age = np.ones(len(_sdf))*a
 
@@ -423,6 +542,7 @@ def plot_rp_vs_period_scatter(
         ax.set_xlim([0.1, 110000])
     else:
         ax.set_xlim([0.1, 1100])
+
     format_ax(ax)
 
     ax.set_yscale('log')
@@ -446,8 +566,14 @@ def plot_rp_vs_period_scatter(
         s += '_showallkep'
     if add_CepHer:
         s += '_showCepHer'
+    if add_Theia520:
+        s += '_showTheia520'
+    if add_MELANGE2:
+        s += '_showMELANGE2'
     if add_plnames:
         s += '_showplnames'
+    if dark_bkgd:
+        s += '_darkbkgd'
 
     outdir = '../results/rp_vs_period_scatter/'
     if not os.path.exists(outdir):
@@ -464,32 +590,31 @@ def plot_rp_vs_period_scatter(
 
 if __name__=='__main__':
 
-    plot_rp_vs_period_scatter(
-        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-        verbose=1, add_kep1627=0, add_CepHer=1, add_plnames=0
-    )
-    plot_rp_vs_period_scatter(
-        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-        verbose=1, add_kep1627=0, add_CepHer=1, add_plnames=1
-    )
+    for dark_bkgd in [0]:
+        for add_plnames in [0,1]:
+            plot_rp_vs_period_scatter(
+                showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+                verbose=1, add_kep1627=0, add_allkep=1,
+                add_plnames=add_plnames, dark_bkgd=dark_bkgd
+            )
+            plot_rp_vs_period_scatter(
+                showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+                verbose=1, add_kep1627=0, add_CepHer=1, add_plnames=add_plnames, dark_bkgd=dark_bkgd
+            )
+            plot_rp_vs_period_scatter(
+                showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+                verbose=1, add_kep1627=0, add_Theia520=1, add_plnames=add_plnames, dark_bkgd=dark_bkgd
+            )
+            plot_rp_vs_period_scatter(
+                showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+                verbose=1, add_kep1627=0, add_Theia520=1, add_MELANGE2=1, add_plnames=add_plnames, dark_bkgd=dark_bkgd
+            )
+            plot_rp_vs_period_scatter(
+                showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
+                verbose=1, add_kep1627=0, add_plnames=add_plnames
+            )
 
-    plot_rp_vs_period_scatter(
-        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-        verbose=1, add_kep1627=0, add_allkep=1, add_plnames=1
-    )
-    plot_rp_vs_period_scatter(
-        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-        verbose=1, add_kep1627=0, add_allkep=1, add_plnames=0
-    )
-
-    plot_rp_vs_period_scatter(
-        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-        verbose=1, add_kep1627=0, add_plnames=1
-    )
-    plot_rp_vs_period_scatter(
-        showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-        verbose=1, add_kep1627=1, add_plnames=1
-    )
+    assert 0
 
     plot_rp_vs_period_scatter(
         showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=0,
