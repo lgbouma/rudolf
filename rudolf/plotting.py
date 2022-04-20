@@ -3764,7 +3764,10 @@ def plot_koiyouthlines(outdir):
             wav[sel], fn(norm(flx[sel])), c='k', zorder=3, lw=0.2
         )
 
-        ax0.set_title(starname.replace("_"," "), fontsize='small')
+        titlestr = starname.replace("_"," ")
+        if starname == 'Kepler-1627':
+            titlestr += ' A'
+        ax0.set_title(titlestr, fontsize='small')
         ax0.set_xlim(xlims[0])
         ax1.set_xlim(xlims[1])
 
@@ -4685,7 +4688,7 @@ def plot_halpha(outdir, reference='TucHor'):
             marker=m,
             c=mfc,
             label=n,
-            elinewidth=1, capsize=0, lw=0, mew=0.5, markersize=6,
+            elinewidth=1, capsize=0, lw=0, mew=0.5, markersize=10,
             mec='k',
             zorder=5
         )
@@ -4818,6 +4821,7 @@ def plot_lithium(outdir, reference='Randich18'):
     #NGC$\,$2547 & IC$\,$2602
     label = '40-50 Myr' if reference != 'Pleiades' else '112 Myr'
     labels = [label, 'Kepler Field']
+    alpha = 1
 
     # plot vals
     for _cls, _col, z, m, l, s in zip(classes, colors, zorders, markers,
@@ -4825,19 +4829,21 @@ def plot_lithium(outdir, reference='Randich18'):
         if _cls == 'young':
             ax.errorbar(
                 d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'],
-                yerr=d[f'val_li_ew_err_{_cls}'], c=_col, alpha=1,
-                zorder=z, markersize=s, elinewidth=0.5, capsize=0, mew=0.5,
+                yerr=d[f'val_li_ew_err_{_cls}'], c=_col, alpha=alpha,
+                zorder=z, markersize=s, elinewidth=0.35, capsize=0, mew=0.5,
                 rasterized=False, label=l, marker=m, lw=0
             )
 
             ax.scatter(
-                d[f'lim_teff_{_cls}'], d[f'lim_li_ew_{_cls}'], c=_col, alpha=1,
+                d[f'lim_teff_{_cls}'], d[f'lim_li_ew_{_cls}'], c=_col,
+                alpha=alpha,
                 zorder=z+1, s=5*s, rasterized=False, linewidths=0, marker='v'
             )
 
         else:
             ax.scatter(
-                d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'], c=_col, alpha=1,
+                d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'], c=_col,
+                alpha=alpha,
                 zorder=z, s=s, rasterized=False, linewidths=0, label=l, marker=m
             )
 
@@ -4849,7 +4855,7 @@ def plot_lithium(outdir, reference='Randich18'):
     # gray/black: del Lyr cluster (Kepler-1627)
     namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A', 'KOI-7913 B', 'Kepler-1643']
     markers = ['P', 'v', 'X', 'X', 's']
-    mfcs = ['gray', 'lime', 'lime', 'lime', '#ff6eff']
+    mfcs = ['white', 'lime', 'lime', 'lime', '#ff6eff']
 
     for n,m,mfc in zip(namelist, markers, mfcs):
 
@@ -4865,7 +4871,7 @@ def plot_lithium(outdir, reference='Randich18'):
             marker=m,
             c=mfc,
             label=n,
-            elinewidth=1, capsize=0, lw=0, mew=0.5, markersize=6,
+            elinewidth=1, capsize=0, lw=0, mew=0.5, markersize=10,
             mec='k',
             zorder=5
         )
