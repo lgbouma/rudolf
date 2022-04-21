@@ -1,6 +1,12 @@
 """
-Write the table that cross-matches plausible Cep-Her against
-stars observed by Kepler.
+Write the table that cross-matches plausible Cep-Her stars against stars
+observed by Kepler.
+
+These are the candidates with weights > 0.02.  There are 338 objects in the
+match.  (The planetary detection fraction of ~1% is about what one would
+expect!) Cross-matching against, say, Santos et al 2021, (which we note uses a
+different color selection function!) one can see plausible rotation periods are
+most often detected when the weights exceed ~=0.05.
 """
 import os
 import numpy as np, pandas as pd, matplotlib.pyplot as plt
