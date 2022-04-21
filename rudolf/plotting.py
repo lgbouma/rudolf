@@ -40,6 +40,7 @@ RM:
     plot_rv_checks
 
 Cep-Her:
+    plot_CepHer_weights
     plot_CepHer_quicklook_tests
     plot_CepHerExtended_quicklook_tests
     plot_CepHer_XYZvtang_sky
@@ -72,6 +73,7 @@ from astropy.coordinates import SkyCoord
 from astropy.io import fits
 from astropy.time import Time
 from astropy.table import Table
+from astropy.modeling import models, fitting
 
 import matplotlib.patheffects as pe
 from matplotlib.ticker import MaxNLocator
@@ -109,7 +111,7 @@ from rudolf.helpers import (
     get_BPMG_members,
     supplement_gaia_stars_extinctions_corrected_photometry,
     get_clean_gaia_photometric_sources, get_galex_data, get_2mass_data,
-    get_rsg5_kc19_gaia_data
+    get_rsg5_kc19_gaia_data, get_ronan_cepher_augmented
 )
 from rudolf.extinction import (
     retrieve_stilism_reddening, append_corrected_gaia_phot_Gagne2020
@@ -4895,6 +4897,53 @@ def plot_lithium(outdir, reference='Randich18'):
     s = f'_{reference}'
     outpath = os.path.join(outdir, f'lithium{s}.png')
     savefig(f, outpath)
+
+
+def plot_CepHer_weights(outdir):
+    """
+    how are the weights distributed?  log-normal?  what parameters?
+    """
+
+    df, __df = get_ronan_cepher_augmented()
+
+    for _df, flag in zip([df, __df], ['RonanLGBFlag', 'RonanFlag']):
+
+        plt.close('all')
+        set_style()
+        fig, ax = plt.subplots(figsize=(4,3))
+
+        bins = np.logspace(-5,0,21)
+
+        hists = ax.hist(_df.strengths, bins=bins, cumulative=False, color='k',
+                        fill=False, histtype='step', linewidth=0.5)
+
+        log10_x = np.log10(nparr(_df.strengths))
+
+        # midpoints of logspaced values
+        midway = 10**((np.log10(bins[0:-1])+np.log10(bins[1:]))/2)
+        vals = hists[0]
+
+        # fit a log-normal gaussian using a non-linear fitter
+        g_init = models.Gaussian1D(
+            amplitude=max(vals), mean=np.nanmedian(log10_x), stddev=1
+        )
+        fit = fitting.LevMarLSQFitter()
+        g_fit = fit(g_init, np.log10(midway), vals)
+
+        x_new = np.logspace(-5,0,1000)
+        ax.plot(x_new, g_fit(np.log10(x_new)), zorder=1, c='C0')
+
+        txt = f"α ~ logN({g_fit.mean.value:.4f}, {g_fit.stddev.value:.4f})"
+        ax.set_title(txt)
+
+        ax.set_xlabel('strengths')
+        ax.set_ylabel('count')
+        ax.set_xscale('log')
+        ax.set_yscale('linear')
+        outpath = os.path.join(outdir, f'hist_weight_{flag}.png')
+        savefig(fig, outpath)
+
+
 
 
 def plot_CepHer_quicklook_tests(outdir):
