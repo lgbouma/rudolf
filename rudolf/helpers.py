@@ -6,6 +6,9 @@ Data getters:
         get_deltalyr_kc19_cleansubset
         get_autorotation_dataframe
 
+    Cep-Her:
+        get_ronan_cepher_augmented
+
     Kepler 1627:
         get_manually_downloaded_kepler_lightcurve
         get_kep1627_muscat_lightcuve
@@ -1377,3 +1380,76 @@ def get_2mass_data(ra, dec, starids, idstring, verbose=False):
     LOGINFO(f'Wrote {outpath}')
 
     return outdf
+
+
+def get_ronan_cepher_augmented():
+
+    from rudolf.plotting import _given_df_get_auxiliary_quantities
+    from earhart.physicalpositions import (
+        calc_vl_vb_physical, append_physicalpositions
+    )
+
+    #
+    # get data and augment the dataframe
+    #
+    csvpath = os.path.join(DATADIR, 'Cep-Her',
+                           '20220311_Kerr_CepHer_Extended_Candidates.csv')
+    df = pd.read_csv(csvpath)
+
+    csvpath1 = os.path.join(DATADIR, 'Cep-Her',
+                           '20220311_Kerr_SPYGLASS205_Members_All.csv')
+    df1 = pd.read_csv(csvpath1)
+
+    koi_dict = { # strengths
+        'KOI-7368': '2128840912955018368', # 0.093
+        'KOI-7913 A': '2106235301785454208', # 0.04
+        'KOI-7913 B': '2106235301785453824', # 0.04
+        'Kepler-1643': '2082142734285082368', # 0.24
+        'Kepler-1627 A': '2103737241426734336', # 0.30
+    }
+
+    _mdf = df[np.in1d(df.source_id.astype(str),
+                      np.array(list(koi_dict.values())))]
+
+    print(_mdf[['source_id','strengths']])
+
+    # verify that everything in the "Extended Candidates" list includes the
+    # objects from the "base core members" list.
+    mdf = df.merge(df1, left_on='source_id', right_on='GEDR3', how='inner')
+    assert len(mdf) == len(df1)
+
+    df = _given_df_get_auxiliary_quantities(df)
+    _mdf = _given_df_get_auxiliary_quantities(_mdf)
+
+    reference_df = pd.DataFrame(df.mean()).T
+    df = append_physicalpositions(df, reference_df)
+    _mdf = append_physicalpositions(_mdf, reference_df)
+
+    csvpath = os.path.join(DATADIR, 'Cep-Her',
+                           '20220311_Kerr_CepHer_Extended_Candidates_v0-result.csv')
+    _gdf = pd.read_csv(csvpath)
+    _gdf['source_id'] = _gdf.source_id.astype(str)
+    df['source_id'] = df.source_id.astype(str)
+
+    mgdf = df.merge(_gdf, how='inner', on='source_id', suffixes=('', '_GEDR3'))
+    assert len(mgdf) == len(df)
+
+    df = deepcopy(mgdf)
+
+    #
+    # consider only photometrically relevant stars
+    # __df: after Ronan's flags
+    # df: after Ronan's + my flags
+    # df[fig1_grey]: the 12,436 objects in the ms (weight>0.02)
+    # df[fig2_black]: the 4,763 objects in the ms (weight>0.10)
+    #
+    print(f'--> Starting w/ {len(df)} sources...')
+    __df = df[(df['photometric flag'].astype(bool)) & (df['astrometric flag'].astype(bool))]
+    print(f"--> N={len(__df)} sources after Ronan's phot and astrom flags...")
+    df = __df[get_clean_gaia_photometric_sources(__df)]
+    print(f"--> N={len(df)} sources after my clean Gaia flags...")
+
+    fig1_grey = (df.strengths > 0.02)
+    fig1_black = (df.strengths > 0.10)
+
+    return df, __df
