@@ -1438,61 +1438,61 @@ from this mountain.
 \section{Tables of Candidate Cep-Her Members}
 \label{app:members}
 
-{\bf LGB TODO: add Tables}
-Three tables:
-1) All RSG-5 candidates (with rotation periods)
-2) All CH-2 candidates (with rotation periods)
-
-Table~\ref{tab:cepherkepler} contains candidate Cep-Her members with
-weights $\alpha>0.02$ observed by Kepler.  A cursory inspection of the
-color absolute-magnitude diagram suggests that more restrictive weight
-cuts would be needed to remove the majority of field star interlopers.
-Table~\ref{tab:cepherkepler}  was created by cross-matching candidate
-Cep-Her members (selected using Gaia EDR3;
+\paragraph{Table~2} contains candidate Cep-Her members with weights $\alpha>0.02$
+observed by Kepler.  More restrictive weight cuts
+would be needed if one wanted to remove the majority of field star interlopers: at
+least half of the stars included in the table are unlikely
+to be bonafide members of Cep-Her.  Table~2  was created by
+cross-matching candidate Cep-Her members (selected using Gaia EDR3;
 Section~\ref{subsec:members}) against a Kepler to Gaia DR2 cross-match
 (the \texttt{gaia-kepler.fun} crossmatch database created by Megan
-Bedell).  The \texttt{kic_\dr2\_ang\_dist} column is from the latter
+Bedell).  The \texttt{kic\_dr2\_ang\_dist} column is from the latter
 table.  The EDR3 to DR2 match was performed using the
-\texttt{gaiaedr3.dr2_neighbourhood} table, and the closest (proper
-motion and epoch-corrected) angular distance neighbor was taken as the
-as single single match.  The \texttt{edr3\_dr2\_mag\_diff} column
+\texttt{gaiaedr3.dr2\_neighbourhood} table, and the closest proper
+motion and epoch-corrected angular distance neighbor was taken as the
+single best match.  The \texttt{edr3\_dr2\_mag\_diff} column
 gives some indication of the reliability of this EDR3 to DR2
-conversion, as there are likely a few cases where partially resolved
-binaries became fully resolved.
+conversion, as there are a few cases between Gaia DR2 and EDR3 where
+partially resolved binaries became fully resolved.
 
-% We measured rotation periods for 53 stars with ZTF and 51 stars with
-% TESS, for a total of 71 periods reported for unique stars and 32
-% overlapping between the surveys. We adopted the ZTF period over the
-% TESS period in three cases: (1) Gaia EDR3 2081755809272821248: the
-% Lomb-Scargle periodogram favored 6.67 days, consistent with the ZTF
-% period of 6.61 days; however, we flagged it as a candidate
-% double-dipper, which appears to have inaccurately doubled the TESS
-% period to 13.34 days; (2) Gaia EDR3 2081737529891330560: we found 3.06
-% days with TESS and 6.64 days with ZTF; we suspect that TESS captured
-% the 1/2-period harmonic and adopt the approximately double value from
-% ZTF; (3) 2134851775526125696: for this star, we measured 1.91 days
-% with TESS from Cycle 2, but noted that the signal appeared to be
-% missing in Cycle 4; ZTF found a strong signal at 12.23 days and we
-% adopt this as the star's period. In the remaining overlap cases, we
-% adopted the average between TESS and ZTF as the final period. For
-% these overlap stars, the median absolute deviation is 0.01 days,
-% showing remarkable consistency between the surveys. For three stars,
-% we failed to detect a period in TESS but recovered one from ZTF; in
-% all cases the periods appear to be 13--16 days, pushing the limit of
-% what is detectable with TESS with our procedure: (1) Gaia EDR3
-% 2129930258400157440, TESS showed a flat light curve while ZTF yielded
-% a 15.3-day period; (2) Gaia EDR3 2082376861542398336, LS found a
-% 7.6-day period which we rejected during visual validation; we found
-% 15.4 days with ZTF, and we suspect that the weak/rejected singal form
-% TESS might have been a 1/2 period harmonic; (3) Gaia EDR3
-% 2082397099429013120, similar to the previous case, we rejected a
-% 6.7-day signal from TESS and recovered a 12.8-day period with ZTF. 
+\paragraph{Table~3} contains spatial, kinematic, astrometric, and rotation period
+information for the 141 candidate RSG-5 members and 37 candidate CH-2
+members described in Section~\ref{subsec:members}.
+These are the data used to make the lower panels of
+Figure~\ref{fig:age}.
+Table~3 includes rotation periods for 53 stars with ZTF and 51 stars with
+ TESS, for a total of 71 periods reported for unique stars and 32
+ overlapping between the surveys. We adopted the ZTF period over the
+ TESS period in three cases: (1) Gaia EDR3 2081755809272821248: the
+ Lomb-Scargle periodogram favored 6.67 days, consistent with the ZTF
+ period of 6.61 days; however, we flagged it as a candidate
+ double-dipper, which appears to have inaccurately doubled the TESS
+ period to 13.34 days; (2) Gaia EDR3 2081737529891330560: we found 3.06
+ days with TESS and 6.64 days with ZTF; we suspect that TESS captured
+ the 1/2-period harmonic and adopt the approximately double value from
+ ZTF; (3) 2134851775526125696: for this star, we measured 1.91 days
+ with TESS from Cycle 2, but noted that the signal appeared to be
+ missing in Cycle 4; ZTF found a strong signal at 12.23 days and we
+ adopt this as the star's period. In the remaining overlap cases, we
+ adopted the average between TESS and ZTF as the final period. For
+ these overlap stars, the median absolute deviation is 0.01 days,
+ showing remarkable consistency between the surveys. For three stars,
+ we failed to detect a period in TESS but recovered one from ZTF; in
+ all cases the periods appear to be 13--16 days.
+ These stars were: (1) Gaia EDR3
+ 2129930258400157440, for which TESS showed a flat light curve while ZTF yielded
+ a 15.3-day period; (2) Gaia EDR3 2082376861542398336, LS found a
+ 7.6-day period which we rejected during visual validation; we found
+ 15.4 days with ZTF, and we suspect that the weak/rejected signal form
+ TESS might have been a 1/2 period harmonic; (3) Gaia EDR3
+ 2082397099429013120, similar to the previous case, we rejected a
+ 6.7-day signal from TESS and recovered a 12.8-day period with ZTF. 
 
 
 \section{Spectroscopic Youth Indicators}
 \label{app:spectra}
 
-\begin{figure*}[tp]
+\begin{figure*}[b]
 	\begin{center}
 		\leavevmode
 			\includegraphics[width=0.99\textwidth]{f5.pdf}
@@ -1555,8 +1555,8 @@ Figure~\ref{fig:lithium} compares the measured lithium equivalent
 widths of the Kepler objects against a few reference populations.  We
 selected studies from the literature only where upper limits were
 explicitly reported.  KOI-7368 and KOI-7913~A have secure lithium
-detections, and the KOI-7913~B detection is marginal (${\rm EW}_{\rm
-Li} = 42^{+12}_{-19}$).  For all three stars, as well as for
+detections, while for KOI-7913~B the detection is marginal (${\rm EW}_{\rm
+Li} = 42^{+12}_{-19}$\,m\AA).  For all three stars, as well as for
 Kepler-1627~A, the observed lithium equivalent width is consistent
 with the stellar effective temperatures and $\approx40$\,Myr ages.
 
@@ -1568,8 +1568,8 @@ Kepler-1643 is more consistent with the observed dispersion in
 lithium.
 
 One explanation for this could be that Kepler-1643 is a field
-interloper; another could be that RSG-5 is older than 50\,Myr.  We do
-not favor the former, given that {\it i)} the star was selected based
+interloper; another could be that RSG-5 is much older than 50\,Myr.  We do
+not favor either, given that {\it i)} the star was selected based
 on its spatio-kinematic proximity to other RSG-5 members, nearly all
 of which appear consistent with being $\approx$50\,Myr old
 (Figure~\ref{fig:age} upper left), and {\it ii)} the same RSG-5
@@ -1577,7 +1577,7 @@ members display a gyrochronal sequence consistent with being younger
 than the Pleaides (Figure~\ref{fig:age} lower left).  
 There is a $\approx$$1\%$ chance of being a field interloper based on
 the spatio-kinematic selection, and a similar independent chance
-($\approx1\%$) of a field K2V star having a rotation period below the
+($\approx$$1\%$) of a field K2V star having a rotation period below the
 Pleiades \citep{mcquillan_rotation_2014}.
 The extra observation of a strong lithium detection at these
 effective temperatures yields a very small probability for Kepler-1643 
@@ -1586,11 +1586,13 @@ It also seems unlikely that RSG-5 could be much older than 50\,Myr,
 based on its proximity to the $\delta$~Lyr cluster and IC\,2602 in the
 CAMD, as well as the data shown in rotation versus color diagram.
 
-A third possible explanation for Kepler-1643's odd lithium equivalent
-width could be tied to the calibration sample of IC\,2602 and Tuc-Hor
-stars.  Analyzing Figure~\ref{fig:lithium}, it is remarkable that in
-just 50 million years, stars between $4500$\,K and $5200$\,K go from
-having such a tight lithium sequence to one with a dispersion
+Our preferred explanation for Kepler-1643's lithium equivalent
+width is tied to the reference sample of IC\,2602 and Tuc-Hor
+stars not fully exploring the possible stellar rotation
+periods and lithium equivalent widths. 
+Analyzing Figure~\ref{fig:lithium}, it is remarkable that in
+just 50 million years, K-dwarfs between $4500$\,K and $5200$\,K go from
+having a relatively tight lithium sequence to one with a dispersion
 $\approx10\times$ greater.  The existence of the Li dispersion in
 Pleiades-age K-dwarfs has been known for decades; it has also been
 known that the stars with the largest lithium abundances are also the
@@ -1600,15 +1602,15 @@ analyses of this correlation have been reviewed by
 \citet{bouvier_lithium-rotation_2020}.  The conclusion of that work
 was that the origin of the rotation-lithium correlation likely lies
 within pre-main-sequence stellar physics.  If so, one would expect the
-IC\,2062 and Tuc-Hor K-dwarfs to show a larger intrinsic lithium
-dispersion, which they do not.  It seems therefore that the exact
-onset time of the K-dwarf lithium dispersion might be worth
-clarifying.  \citet{messina_rotation-lithium_2016} for instance do not
-obviously see it in the $\beta$~Pic moving group ($25\pm3$\,Myr).
-Given that RSG-5 seems somewhat isochronally older than the
-$\delta$~Lyr cluster (and therefore IC\,2602;
-\citealt{bouma_kep1627_2022}), it seems like it would be a worthy
-cluster for such an analysis.
+IC\,2602 and Tuc-Hor K-dwarfs to show a larger intrinsic lithium
+dispersion.  A recent analysis of the $\approx$40\,Myr
+NGC~2547 by \citet{binks_2022} suggests that this may
+be the case, though it only had $\approx$10 stars in the relevant
+effective temperature range.
+This suggests that
+RSG-5 and Cep-Her could be
+worthy objects for a closer analysis of the lithium-rotation correlation
+near the zero-age main sequence.
 
 \subsection{H$\alpha$}
 
@@ -1645,7 +1647,7 @@ equilibrium models of the chromosphere
 \section{Table of Transit Fit Parameters}
 \label{app:transit}
 
-Table~2 gives the full set of fitted and derived
+Table~4 gives the full set of fitted and derived
 parameters from the model described in Section~\ref{sec:fitting}.
 Priors and convergence statistics are also listed.
 
@@ -1702,6 +1704,9 @@ products accurately correct the mean flux level
 was separately acquired for KOI-7913~B also reveals a
 different stellar rotation period, and no hint of the transit signal.
 
+%\clearpage
+\input{tab_supp_CepHer_X_Kepler.tex}
+\input{tab_supp_RSG5_CH2_Prot.tex}
 \input{source_KOIs_simpletransit_posteriortable.tex}
 
 %\listofchanges

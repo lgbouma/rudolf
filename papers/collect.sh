@@ -30,3 +30,6 @@ cp /Users/luke/Dropbox/proj/rudolf/results/koiyouthlines/koiyouthlines.pdf f5.pd
 
 # tables
 cp /Users/luke/Dropbox/proj/rudolf/results/tables/CepHer_X_Kepler.csv tab_supp_CepHer_X_Kepler.csv
+cp /Users/luke/Dropbox/proj/rudolf/results/tables/RSG5_CH2_Prot_cleaned.csv tab_supp_RSG5_CH2_Prot.csv
+
+
