@@ -327,8 +327,8 @@ member list against all known Kepler Objects of Interest.  We used the
 Cumulative KOI table from the NASA Exoplanet Archive from 27 March
 2022, and also compared against the \texttt{q1\_q17\_dr25} table
 \citep{thompson_planetary_2018}.  From the candidate members
-with weights exceeding 0.02, this yielded
- yielded 11 were known false positives, 6 ``confirmed'' planets, and 8
+with weights exceeding 0.02, this 
+ yielded 11 known false positives, 6 ``confirmed'' planets, and 8
  ``candidate'' planets.  
 Inspection of the Kepler data validation summaries and Robovetter
 classifications for these objects showed whether they were
@@ -1442,7 +1442,23 @@ from this mountain.
 Three tables:
 1) All RSG-5 candidates (with rotation periods)
 2) All CH-2 candidates (with rotation periods)
-3) Cep-Her candidates observed by Kepler
+
+Table~\ref{tab:cepherkepler} contains candidate Cep-Her members with
+weights $\alpha>0.02$ observed by Kepler.  A cursory inspection of the
+color absolute-magnitude diagram suggests that more restrictive weight
+cuts would be needed to remove the majority of field star interlopers.
+Table~\ref{tab:cepherkepler}  was created by cross-matching candidate
+Cep-Her members (selected using Gaia EDR3;
+Section~\ref{subsec:members}) against a Kepler to Gaia DR2 cross-match
+(the \texttt{gaia-kepler.fun} crossmatch database created by Megan
+Bedell).  The \texttt{kic_\dr2\_ang\_dist} column is from the latter
+table.  The EDR3 to DR2 match was performed using the
+\texttt{gaiaedr3.dr2_neighbourhood} table, and the closest (proper
+motion and epoch-corrected) angular distance neighbor was taken as the
+as single single match.  The \texttt{edr3\_dr2\_mag\_diff} column
+gives some indication of the reliability of this EDR3 to DR2
+conversion, as there are likely a few cases where partially resolved
+binaries became fully resolved.
 
 % We measured rotation periods for 53 stars with ZTF and 51 stars with
 % TESS, for a total of 71 periods reported for unique stars and 32

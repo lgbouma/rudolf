@@ -50,7 +50,7 @@ sdf = sdf.rename({'source_id':'dr3_source_id'}, axis='columns')
 sdf['dr3_source_id'] = sdf.dr3_source_id.astype(str)
 kdf['source_id'] = kdf.source_id.astype(str)
 
-sdf = sdf.merge(s_dr2[['dr2_source_id', 'dr3_source_id']], how='inner')
+sdf = sdf.merge(s_dr2[['dr2_source_id', 'dr3_source_id', 'magnitude_difference']], how='inner')
 
 # Merge Kepler (DR2; Bedell) and Cep-Her source lists
 
@@ -61,19 +61,17 @@ mdf = sdf.merge(
 
 selcols = (
     "dr2_source_id,dr3_source_id,kepid,ra_EDR3,dec_EDR3,"
-    "l_GEDR3,b_GEDR3,parallax_EDR3,"
-    "ruwe_GEDR3,strengths,v_l*,v_b,x_pc,y_pc,z_pc,M_G,bp_rp_EDR3,"
-    "nconfp,nkoi,ntce,kepler_gaia_ang_dist"
+    "strengths,v_l*,v_b,x_pc,y_pc,z_pc,"
+    "kepler_gaia_ang_dist,magnitude_difference"
 )
 
 smdf = mdf[selcols.split(',')]
 
 rename_dict = {
-    "l_GEDR3":"l_EDR3",
-    "b_GEDR3":"b_EDR3",
-    "ruwe_GEDR3":"ruwe_EDR3",
     "strengths":"weight",
     "v_l*":"v_l",
+    "kepler_gaia_ang_dist":"kic_dr2_ang_dist",
+    "magnitude_difference":"edr3_dr2_mag_diff"
 }
 smdf = smdf.rename(rename_dict, axis='columns')
 
@@ -87,12 +85,13 @@ round_dict = {
     'weight': 5,
     'v_l': 4,
     'v_b': 4,
-    'x_pc': 3,
-    'y_pc': 3,
-    'z_pc': 3,
-    'M_G': 4,
-    'bp_rp_EDR3': 4,
-    'kepler_gaia_ang_dist': 4
+    'x_pc': 2,
+    'y_pc': 2,
+    'z_pc': 2,
+    'M_G': 3,
+    'bp_rp_EDR3': 3,
+    'kic_dr2_ang_dist': 3,
+    'edr3_dr2_mag_diff': 3
 }
 smdf = smdf.round(round_dict)
 
