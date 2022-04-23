@@ -34,6 +34,8 @@
 \newcommand{\clusterage}{$38^{+6}_{-5}$\,Myr} % 
 
 \newcommand{\npms}{1{,}097} % 20220311_Kerr_SPYGLASS205_Members_All.csv
+\newcommand{\nchtwo}{37} % CH-2_auto_XYZ_vl_vb_cut.csv
+\newcommand{\nrsgfive}{173} % RSG-5_auto_XYZ_vl_vb_cut.csv
 
 %
 % Symbols
@@ -364,10 +366,13 @@ interest.  For candidate RSG-5 members, we require:
 \begin{align}
   X/{\rm pc} &\in [45, 75] \nonumber \\
   Y/{\rm pc} &\in [320, 350] \nonumber \\
-  Z/{\rm pc} &\in [40, 70] \nonumber \\
-  v_b/{\rm km\,s^{-1}} &\in [-4, -3] \nonumber \\
-  v_{l^*}/{\rm km\,s^{-1}} &\in [4, 6] \nonumber
+  Z/{\rm pc} &\in [40, 80] \nonumber \\
+  v_b/{\rm km\,s^{-1}} &\in [-4, -2.5] \nonumber \\
+  v_{l^*}/{\rm km\,s^{-1}} &\in [3.5, 6], \nonumber
 \end{align}
+though the cluster does have a greater
+spatial extent toward smaller $X$
+(Figure~\ref{fig:XYZvtang}, middle panels).
 For the diffuse stars near KOI-7368 and KOI-7913, we require
 \begin{align}
   X/{\rm pc} &\in [20, 70] \nonumber \\
@@ -376,11 +381,10 @@ For the diffuse stars near KOI-7368 and KOI-7913, we require
   v_b/{\rm km\,s^{-1}} &\in [-3.5, -1.5] \nonumber \\
   v_{l^*}/{\rm km\,s^{-1}} &\in [2, 6] \nonumber
 \end{align}
-and we call this latter set of stars ``CH-2''.  These cuts yield 141
-candidate RSG-5 members, and 37 candidate CH-2 members.
-These stars are listed in Appendix~\ref{app:members}, as are
-the Cep-Her candidates that were observed by
-Kepler.
+and we call this latter set of stars ``CH-2''.  These cuts yield
+\nrsgfive\ candidate RSG-5 members, and \nchtwo\ candidate CH-2
+members.  These stars are listed in Appendix~\ref{app:members}, as are
+the Cep-Her candidates that were observed by Kepler.
 An important consideration, especially for CH-2, is the
 contamination rate by field stars.  We assess this in the following
 section.
@@ -450,7 +454,7 @@ $E(B-V)=0.032\pm0.006$.  Finally, for the plots we set the
 color range to best visualize the region of maximal age information
 content: the pre-main-sequence.
 
-The CAMDs show that for RSG-5, nearly all of our candidate members are
+The CAMDs show that for RSG-5, practically all of our candidate members are
 on a tight pre-main-sequence locus.  This implies a false positive
 rate of a few percent, at most.  By comparison, our control sample
 (the $\delta$~Lyr candidates) has a false positive rate of
@@ -1063,10 +1067,10 @@ association is diffuse.
 
 To quantify the density difference between CH-2 and RSG-5, we can compare the spatial and
 velocity volumes searched for each group.
-For RSG-5, we drew 141 candidate members from a $30\,{\rm
+For RSG-5, we drew \nrsgfive\ candidate members from a $30\,{\rm
 pc}\times30\,{\rm pc}\times30\,{\rm pc}$ spatial cube, given a $1 {\rm
 \mkms} \times 2 {\rm \mkms }$ rectangle in apparent galactic velocity.
-For CH-2, our 37 candidate members came from a rectangular prism of
+For CH-2, our \nchtwo\ candidate members came from a rectangular prism of
 dimension $50\,{\rm pc}\times40\,{\rm pc}\times30\,{\rm pc}$, and a
 rectangular box of $2 {\rm \mkms} \times 4 {\rm \mkms}$.  If we define
 the searched volume in units of ${\rm pc}^3\,{\rm km^2}\,{\rm s^{-2}}$, then
@@ -1457,7 +1461,7 @@ conversion, as there are a few cases between Gaia DR2 and EDR3 where
 partially resolved binaries became fully resolved.
 
 \paragraph{Table~3} contains spatial, kinematic, astrometric, and rotation period
-information for the 141 candidate RSG-5 members and 37 candidate CH-2
+information for the \nrsgfive\ candidate RSG-5 members and \nchtwo\ candidate CH-2
 members described in Section~\ref{subsec:members}.
 These are the data used to make the lower panels of
 Figure~\ref{fig:age}.
