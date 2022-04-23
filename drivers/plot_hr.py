@@ -11,6 +11,12 @@ PLOTDIR = os.path.join(RESULTSDIR, 'hr')
 if not os.path.exists(PLOTDIR):
     os.mkdir(PLOTDIR)
 
+# exo4
+rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
+           clusters=['RSG-5'], reddening_corr=1,
+           overplotkep1627=0, show_allknown=0, overplotkep1643=1,
+           smalllims=1)
+
 # show all the known KOIs that are ~40 Myr old
 for smalllims in [1,0]:
 

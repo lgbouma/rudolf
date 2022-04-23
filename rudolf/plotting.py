@@ -1983,13 +1983,14 @@ def plot_hr(
     if smalllims:
         s = 9
 
-    # mixed rasterizing along layers b/c we keep the loading times nice
-    l0 = '$\delta$ Lyr candidates'
-    ax.scatter(
-        get_xval(df), get_yval(df), c='k', alpha=1, zorder=3,
-        s=0.8*s, rasterized=False, linewidths=0.1, label=l0, marker='o',
-        edgecolors='k'
-    )
+    if 'δ Lyr cluster' in clusters:
+        # mixed rasterizing along layers b/c we keep the loading times nice
+        l0 = '$\delta$ Lyr candidates'
+        ax.scatter(
+            get_xval(df), get_yval(df), c='k', alpha=1, zorder=3,
+            s=0.8*s, rasterized=False, linewidths=0.1, label=l0, marker='o',
+            edgecolors='k'
+        )
 
     if overplotkep1627:
         sel = (df.source_id == 2103737241426734336)
@@ -2158,36 +2159,6 @@ def plot_hr(
     if 'RSG5' in clusters:
         # crappy selection based on KC19
         raise NotImplementedError('deprecated')
-        outpath = os.path.join(
-            RESULTSDIR, 'tables', f'RSG5_withreddening_{extinctionmethod}.csv'
-        )
-        if not os.path.exists(outpath):
-            df_rsg5_dr2, df_rsg5_edr3 = get_rsg5_kc19_gaia_data()
-            _gdf = given_source_ids_get_gaia_data(
-                nparr(df_rsg5_dr2['source_id']).astype(np.int64), 'RSG5_rudolf',
-                n_max=10000, overwrite=False,
-                enforce_all_sourceids_viable=True, savstr='', whichcolumns='*',
-                gaia_datarelease='gaiadr2'
-            )
-            assert len(df_rsg5_dr2) == len(_gdf)
-            _df = supplement_gaia_stars_extinctions_corrected_photometry(
-                _gdf, extinctionmethod=extinctionmethod,
-                savpath=os.path.join(RESULTSDIR,'tables','RSG5_stilism.csv')
-            )
-            _df.to_csv(outpath, index=False)
-        _df = pd.read_csv(outpath)
-        if cleanhrcut:
-            _df = _df[get_clean_gaia_photometric_sources(_df)]
-        if reddening_corr:
-            print('RSG5')
-            print(_df['reddening[mag][stilism]'].describe())
-
-        ax.scatter(
-            get_xval(_df), get_yval(_df), c='#ff6eff', alpha=1, zorder=10,
-            s=0.7*s, rasterized=False, label='RSG-5 candidates', marker='o',
-            edgecolors='k', linewidths=0.1
-        )
-
 
     if 'RSG-5' in clusters:
         # selection based on Kerr clustering and XYZ/vl/vb cuts
@@ -2219,7 +2190,10 @@ def plot_hr(
             print(_df['reddening[mag][stilism]'].describe())
 
         ax.scatter(
-            get_xval(_df), get_yval(_df), c='#ff6eff', alpha=1, zorder=10,
+            get_xval(_df), get_yval(_df),
+            #c='#ffa873', # orange
+            c='#ff6eff', # magenta
+            alpha=1, zorder=10,
             s=1.6*s, rasterized=False, label='RSG-5 candidates', marker='o',
             edgecolors='k', linewidths=0.1
         )
@@ -2690,7 +2664,7 @@ def plot_hr(
         c0s += f'_show100pc'
     if reddening_corr:
         c0s += f'_redcorr'
-    if len(clusters) > 1:
+    if len(clusters) >= 1:
         c0s += '_'+'_'.join(clusters).replace(' ','_')
     if cleanhrcut:
         c0s += f'_cleanhrcut'
@@ -5638,12 +5612,18 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
         'KOI-7913': [75.79313, 16.30537]
     }
     cluster_color_dict = {
-        'Theia-520': 'royalblue',
-        'Melange-2': 'goldenrod',
-        'Cep-Her': None,
+        'Theia-520': '#5c167f',
+        'Melange-2': '#a4327e',
+        'Cep-Her': '#ffa873',
         'δ Lyr': 'white',
         'RSG-5': '#ff6eff',
         'CH-2': 'lime'
+        #'Theia-520': 'royalblue',
+        #'Melange-2': 'goldenrod',
+        #'Cep-Her': None,
+        #'δ Lyr': 'white',
+        #'RSG-5': '#ff6eff',
+        #'CH-2': 'lime'
     }
 
     namelist = ['Kepler-52', 'Kepler-968', 'Kepler-1627', 'KOI-7368',
@@ -5699,13 +5679,19 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                     edgecolors='k', linewidths=0.1
                 )
             else:
-                for strength_cut, c, size in zip(
-                    [0.02, 0.10], ['darkgray','black'], [1.0,1.8]
-                ):
-                    sdf = df[df.strengths > strength_cut]
-                    print(f'Strength cut: > {strength_cut}: {len(sdf)} objects')
-                    _p = ax.scatter(get_xval(sdf), get_yval(sdf), c=c, s=size,
-                                    linewidths=0, marker='.', rasterized=True)
+                #sdf = df[df.strengths > 0.02]
+                #print(f'Strength cut: > 0.02: {len(sdf)} objects')
+                #_p = ax.scatter(get_xval(sdf), get_yval(sdf), c='darkgray',
+                #                s=1.5, linewidths=0, marker='.',
+                #                rasterized=True)
+                sdf = df[df.strengths > 0.10]
+                print(f'Strength cut: > 0.10: {len(sdf)} objects')
+                ax.scatter(
+                    get_xval(sdf), get_yval(sdf), c=color, alpha=1,
+                    s=5, rasterized=False, label=cluster, marker='o',
+                    edgecolors='k', linewidths=0.1
+                )
+
 
     if showplanets:
         for cluster in clusters:
@@ -5750,8 +5736,9 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
             )
             bbox = dict(facecolor='white', alpha=0.9, pad=0, edgecolor='white')
             deltay = 0.4
-            #ax.text(_l, _b+deltay, _n, ha='center', va='bottom',
-            #        fontsize=4, bbox=bbox, zorder=4)
+            if clusters == None:
+                ax.text(_l, _b+deltay, _n, ha='center', va='bottom',
+                        fontsize=4, bbox=bbox, zorder=4)
 
     #leg = ax.legend(loc='lower left', handletextpad=0.1,
     #                fontsize='x-small', framealpha=0.9)
