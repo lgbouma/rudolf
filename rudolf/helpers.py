@@ -1383,6 +1383,12 @@ def get_2mass_data(ra, dec, starids, idstring, verbose=False):
 
 
 def get_ronan_cepher_augmented():
+    """
+    returns three dataframes:
+        df: 'RonanLGBFlag'
+        __df: 'RonanFlag'
+        _mdf:: dataframe with the 4 Cep-Her KOIs (+KOI-7913 B)
+    """
 
     from rudolf.plotting import _given_df_get_auxiliary_quantities
     from earhart.physicalpositions import (
@@ -1452,4 +1458,4 @@ def get_ronan_cepher_augmented():
     fig1_grey = (df.strengths > 0.02)
     fig1_black = (df.strengths > 0.10)
 
-    return df, __df
+    return df, __df, _mdf
