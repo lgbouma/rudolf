@@ -4904,7 +4904,7 @@ def plot_CepHer_weights(outdir):
     how are the weights distributed?  log-normal?  what parameters?
     """
 
-    df, __df = get_ronan_cepher_augmented()
+    df, __df, _ = get_ronan_cepher_augmented()
 
     for _df, flag in zip([df, __df], ['RonanLGBFlag', 'RonanFlag']):
 
@@ -5194,17 +5194,8 @@ def plot_CepHerExtended_quicklook_tests(outdir):
 
 def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
 
-    # result after "step 4", kinematic search around the HDScan group
-    csvpath = os.path.join(DATADIR, 'Cep-Her',
-                           '20220311_Kerr_CepHer_Extended_Candidates.csv')
-    df = pd.read_csv(csvpath)
-    df = df[(df['photometric flag'].astype(bool)) & (df['astrometric flag'].astype(bool))]
-
-    # core memebers
-    csvpath1 = os.path.join(DATADIR, 'Cep-Her',
-                           '20220311_Kerr_SPYGLASS205_Members_All.csv')
-    df1 = pd.read_csv(csvpath1)
-
+    from rudolf.helpers import get_ronan_cepher_augmented
+    df, __df, _mdf = get_ronan_cepher_augmented()
     koi_dict = { # strengths
         'KOI-7368': '2128840912955018368', # 0.093
         'KOI-7913 A': '2106235301785454208', # 0.04
@@ -5212,42 +5203,6 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
         'Kepler-1643': '2082142734285082368', # 0.24
         'Kepler-1627 A': '2103737241426734336', # 0.30
     }
-
-    _mdf = df[np.in1d(df.source_id.astype(str),
-                      np.array(list(koi_dict.values())))]
-
-    print(_mdf[['source_id','strengths']])
-
-    # verify that everything in the "Extended Candidates" list includes the
-    # objects from the "base core members" list.
-    mdf = df.merge(df1, left_on='source_id', right_on='GEDR3', how='inner')
-    assert len(mdf) == len(df1)
-
-    df = _given_df_get_auxiliary_quantities(df)
-    _mdf = _given_df_get_auxiliary_quantities(_mdf)
-
-    reference_df = pd.DataFrame(df.mean()).T
-    df = append_physicalpositions(df, reference_df)
-    _mdf = append_physicalpositions(_mdf, reference_df)
-
-    csvpath = os.path.join(DATADIR, 'Cep-Her',
-                           '20220311_Kerr_CepHer_Extended_Candidates_v0-result.csv')
-    _gdf = pd.read_csv(csvpath)
-    #fitspath = os.path.join(DATADIR, 'Cep-Her',
-    #                       '20220311_Kerr_CepHer_Extended_Candidates_v0-result.fits.gz')
-    #hl = fits.open(fitspath)
-    #d = hl[0].data
-    #_gdf = Table(d).to_pandas()
-
-    _gdf['source_id'] = _gdf.source_id.astype(str)
-    df['source_id'] = df.source_id.astype(str)
-
-    mgdf = df.merge(_gdf, how='inner', on='source_id', suffixes=('', '_GEDR3'))
-    assert len(mgdf) == len(df)
-
-    df = deepcopy(mgdf)
-
-    df = df[get_clean_gaia_photometric_sources(df)]
 
     # set up the axis dictionary.
     plt.close('all')
