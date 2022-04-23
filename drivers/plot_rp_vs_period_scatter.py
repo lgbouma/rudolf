@@ -36,7 +36,7 @@ def truncate_colormap(cmap, minval=0.0, maxval=1.0, n=100):
 def plot_rp_vs_period_scatter(
     showlegend=1, colorbydisc=1, showarchetypes=1, showss=1, colorbyage=0,
     verbose=0, add_kep1627=0, add_allkep=0, add_CepHer=0, add_plnames=0,
-    add_Theia520=0, add_MELANGE2=0, dark_bkgd=0
+    add_Theia520=0, add_MELANGE2=0, dark_bkgd=0, oldalpha=None
 ):
     """
     Plot planetary parameters versus ages. By default, it writes the plots to
@@ -197,9 +197,10 @@ def plot_rp_vs_period_scatter(
         s0 = (~has_factorN_age) | (age > 1e9)
         s1 = (has_factorN_age) & (age <= 1e9)
 
+        alpha = 1 if oldalpha is None else oldalpha
         ax.scatter(period[s0], rp[s0],
                    color='darkgray', s=2.5, zorder=1, marker='o', linewidth=0,
-                   alpha=1, rasterized=True)
+                   alpha=alpha, rasterized=True)
 
         # draw the colored points
         axins1 = inset_axes(ax, width="3%", height="33%", loc='lower right',
@@ -231,9 +232,10 @@ def plot_rp_vs_period_scatter(
         bounds = np.arange(7.0,9.0,0.01)
         norm = mpl.colors.LogNorm(vmin=1e7, vmax=1e9)
 
+        alpha = 1 if oldalpha is None else oldalpha
         _p = ax.scatter(
             period[s1], rp[s1],
-            c=age[s1], alpha=1, zorder=2, s=32, edgecolors='k',
+            c=age[s1], alpha=alpha, zorder=2, s=32, edgecolors='k',
             marker='o', cmap=cmap, linewidths=0.3, norm=norm
         )
 
@@ -574,6 +576,8 @@ def plot_rp_vs_period_scatter(
         s += '_showplnames'
     if dark_bkgd:
         s += '_darkbkgd'
+    if oldalpha is not None:
+        s += '_oldalpha'
 
     outdir = '../results/rp_vs_period_scatter/'
     if not os.path.exists(outdir):
@@ -591,28 +595,37 @@ def plot_rp_vs_period_scatter(
 if __name__=='__main__':
 
     for dark_bkgd in [0]:
-        for add_plnames in [0,1]:
-            plot_rp_vs_period_scatter(
-                showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-                verbose=1, add_kep1627=0, add_allkep=1,
-                add_plnames=add_plnames, dark_bkgd=dark_bkgd
-            )
-            plot_rp_vs_period_scatter(
-                showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-                verbose=1, add_kep1627=0, add_CepHer=1, add_plnames=add_plnames, dark_bkgd=dark_bkgd
-            )
-            plot_rp_vs_period_scatter(
-                showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-                verbose=1, add_kep1627=0, add_Theia520=1, add_plnames=add_plnames, dark_bkgd=dark_bkgd
-            )
-            plot_rp_vs_period_scatter(
-                showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-                verbose=1, add_kep1627=0, add_Theia520=1, add_MELANGE2=1, add_plnames=add_plnames, dark_bkgd=dark_bkgd
-            )
-            plot_rp_vs_period_scatter(
-                showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=1,
-                verbose=1, add_kep1627=0, add_plnames=add_plnames
-            )
+        for oldalpha in [0.4, None]:
+            for add_plnames in [0]:
+                plot_rp_vs_period_scatter(
+                    showlegend=0, colorbydisc=0, showarchetypes=0, showss=0,
+                    colorbyage=1, verbose=1, add_kep1627=0, add_allkep=1,
+                    add_plnames=add_plnames, dark_bkgd=dark_bkgd,
+                    oldalpha=oldalpha
+                )
+                plot_rp_vs_period_scatter(
+                    showlegend=0, colorbydisc=0, showarchetypes=0, showss=0,
+                    colorbyage=1, verbose=1, add_kep1627=0, add_CepHer=1,
+                    add_plnames=add_plnames, dark_bkgd=dark_bkgd,
+                    oldalpha=oldalpha
+                )
+                plot_rp_vs_period_scatter(
+                    showlegend=0, colorbydisc=0, showarchetypes=0, showss=0,
+                    colorbyage=1, verbose=1, add_kep1627=0, add_Theia520=1,
+                    add_plnames=add_plnames, dark_bkgd=dark_bkgd,
+                    oldalpha=oldalpha
+                )
+                plot_rp_vs_period_scatter(
+                    showlegend=0, colorbydisc=0, showarchetypes=0, showss=0,
+                    colorbyage=1, verbose=1, add_kep1627=0, add_Theia520=1,
+                    add_MELANGE2=1, add_plnames=add_plnames,
+                    dark_bkgd=dark_bkgd, oldalpha=oldalpha
+                )
+                plot_rp_vs_period_scatter(
+                    showlegend=0, colorbydisc=0, showarchetypes=0, showss=0,
+                    colorbyage=1, verbose=1, add_kep1627=0,
+                    add_plnames=add_plnames, oldalpha=oldalpha
+                )
 
     assert 0
 
