@@ -7,6 +7,7 @@ Gaia (CMDs, RUWEs)
     plot_XYZvtang
     plot_hr
     plot_kerr21_XY
+    plot_kepclusters_skychart
 
 Gaia + TESS + Kepler:
     plot_rotationperiod_vs_color
@@ -5594,3 +5595,186 @@ def plot_kerr21_XY(outdir, tablenum=1, colorkey=None):
     outpath = os.path.join(outdir, f'kerr21t{tablenum}_XY{s}.png')
     fig.savefig(outpath, bbox_inches='tight', dpi=400)
     print(f"Made {outpath}")
+
+
+def _get_theia520():
+    csvpath = os.path.join(DATADIR, "gaia", "string_table1.csv")
+    df = pd.read_csv(csvpath)
+    df = df[df.group_id==520] # Theia-520 / UBC-1
+    c = SkyCoord(ra=nparr(df.ra)*u.deg, dec=nparr(df.dec)*u.deg)
+    df['l'] = c.galactic.l.value
+    df['b'] = c.galactic.b.value
+    return df
+
+
+def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
+                              clusters=None, showplanets=0):
+    """
+    clusters: any of ['Theia-520', 'Melange-2', 'Cep-Her', 'δ Lyr', 'RSG-5', 'CH-2']
+    """
+
+    set_style()
+
+    #
+    # collect data
+    #
+
+    cluster_planet_dict = {
+        'Theia-520': ['Kepler-52', 'Kepler-968'],
+        'Melange-2': ['KOI-3876', 'Kepler-970'],
+        'Cep-Her': ['Kepler-1627', 'Kepler-1643', 'KOI-7368', 'KOI-7913'],
+        'δ Lyr': ['Kepler-1627'],
+        'RSG-5': ['Kepler-1643'],
+        'CH-2': ['KOI-7368', 'KOI-7913']
+    }
+    position_dict = {
+        'Kepler-52': [80.47826, 18.08719],
+        'Kepler-968': [80.34362, 18.81791],
+        'KOI-3876': [70.72417, 11.07782],
+        'Kepler-970': [72.46181, 12.58684],
+        'Kepler-1627': [71.5646, 16.77961],
+        'Kepler-1643': [79.86511, 7.481905],
+        'KOI-7368': [80.62987, 12.99258],
+        'KOI-7913': [75.79313, 16.30537]
+    }
+    cluster_color_dict = {
+        'Theia-520': 'royalblue',
+        'Melange-2': 'goldenrod',
+        'Cep-Her': None,
+        'δ Lyr': 'white',
+        'RSG-5': '#ff6eff',
+        'CH-2': 'lime'
+    }
+
+    namelist = ['Kepler-52', 'Kepler-968', 'Kepler-1627', 'KOI-7368',
+                'KOI-7913', 'Kepler-1643', 'Kepler-970', 'KOI-3876']
+    ages = [3e8, 3e8, 3.8e7, 3.8e7, 3.8e7, 3.8e7, 1.1e8, 1.1e8]
+    markers = ['o','d','P', 'v', 'X', 's', '^', 'p']
+    sizes = [80, 80, 120, 120, 120, 120, 95, 95]
+
+    clusterdict = {}
+    if clusters is not None:
+        for cluster in clusters:
+            if cluster == 'Theia-520':
+                df = _get_theia520()
+            if cluster == 'Melange-2':
+                csvpath = os.path.join(DATADIR, "gaia", "Barber_2022_melange2.csv")
+                df = pd.read_csv(csvpath)
+            if cluster == 'δ Lyr':
+                df = get_deltalyr_kc19_cleansubset()
+            if cluster == 'RSG-5':
+                csvpath = os.path.join(RESULTSDIR, 'CepHer_XYZvtang_sky',
+                                       'RSG-5_auto_XYZ_vl_vb_cut.csv')
+                df = pd.read_csv(csvpath)
+            if cluster == 'CH-2':
+                csvpath = os.path.join(RESULTSDIR, 'CepHer_XYZvtang_sky',
+                                       'CH-2_auto_XYZ_vl_vb_cut.csv')
+                df = pd.read_csv(csvpath)
+            if cluster == 'Cep-Her':
+                df, _, _ = get_ronan_cepher_augmented()
+                chdf = deepcopy(df)
+            clusterdict[cluster] = df
+
+    # fix the RSG-5 definition??? yeah....
+
+    #
+    # make the plot
+    #
+
+    plt.close('all')
+    f, ax = plt.subplots(figsize=(15/2,7/2))
+
+    xkey, ykey = 'l', 'b'
+    get_yval = lambda _df: np.array(_df[ykey])
+    get_xval = lambda _df: np.array(_df[xkey])
+
+    if clusters is not None:
+        for cluster in clusters:
+            df = clusterdict[cluster]
+            color = cluster_color_dict[cluster]
+            if cluster != 'Cep-Her':
+                ax.scatter(
+                    get_xval(df), get_yval(df), c=color, alpha=1,
+                    s=5, rasterized=False, label=cluster, marker='o',
+                    edgecolors='k', linewidths=0.1
+                )
+            else:
+                for strength_cut, c, size in zip(
+                    [0.02, 0.10], ['darkgray','black'], [1.0,1.8]
+                ):
+                    sdf = df[df.strengths > strength_cut]
+                    print(f'Strength cut: > {strength_cut}: {len(sdf)} objects')
+                    _p = ax.scatter(get_xval(sdf), get_yval(sdf), c=c, s=size,
+                                    linewidths=0, marker='.', rasterized=True)
+
+    if showplanets:
+        for cluster in clusters:
+            pl_list = cluster_planet_dict[cluster]
+            color = cluster_color_dict[cluster]
+            for pl in pl_list:
+                l,b = position_dict[pl]
+                ind = np.argwhere(np.array(namelist)==pl)
+                marker = markers[int(ind)]
+                ax.plot(
+                    l, b,
+                    alpha=1, mew=0.5, zorder=10, label=pl,
+                    markerfacecolor=color, markersize=7, marker=marker,
+                    color='black', lw=0
+                )
+
+    if showkepler:
+        kep_d = get_keplerfieldfootprint_dict()
+        for mod in np.sort(list(kep_d.keys())):
+            for op in np.sort(list(kep_d[mod].keys())):
+                this = kep_d[mod][op]
+                ra, dec = nparr(this['corners_ra']), nparr(this['corners_dec'])
+                c = SkyCoord(ra=nparr(ra)*u.deg, dec=nparr(dec)*u.deg)
+                glon = c.galactic.l.value
+                glat = c.galactic.b.value
+                ax.fill(glon, glat, c='lightgray', alpha=0.95, lw=0,
+                        rasterized=True, zorder=-1)
+
+
+    if showkepclusters:
+        cluster_names = ['NGC6819', 'NGC6791', 'NGC6811', 'NGC6866']
+        cras = [295.33, 290.22, 294.34, 300.983]
+        cdecs =[40.18, 37.77, 46.378, 44.158]
+        cplxs = [0.356, 0.192, 0.870, 0.686]
+        ages_gyr = [1, 8, 1, 0.7]
+        for _n, _ra, _dec in zip(cluster_names, cras, cdecs):
+            c = SkyCoord(ra=_ra*u.deg, dec=_dec*u.deg)
+            _l, _b = c.galactic.l.value, c.galactic.b.value
+            ax.scatter(
+                _l, _b, c='k', alpha=0.8, zorder=4, s=20, rasterized=True,
+                linewidths=0.7, marker='x', edgecolors='k'
+            )
+            bbox = dict(facecolor='white', alpha=0.9, pad=0, edgecolor='white')
+            deltay = 0.4
+            #ax.text(_l, _b+deltay, _n, ha='center', va='bottom',
+            #        fontsize=4, bbox=bbox, zorder=4)
+
+    #leg = ax.legend(loc='lower left', handletextpad=0.1,
+    #                fontsize='x-small', framealpha=0.9)
+
+    ax.set_xlim([90, 58])
+    ax.set_ylim([0, 23])
+
+    ax.set_xlabel(r'Galactic longitude, $l$ [deg]', fontsize='large')
+    ax.set_ylabel(r'Galactic latitude, $b$ [deg]', fontsize='large')
+
+    s = ''
+    if clusters is not None:
+        s += "_".join([f"{s}" for s in clusters])
+    if showkepler:
+        s += '_showkepler'
+    if showkepclusters:
+        s += '_showkepclusters'
+    if showplanets:
+        s += '_showplanets'
+
+    bn = 'kepclusters_skychart'
+    outpath = os.path.join(outdir, f'{bn}{s}.png')
+    savefig(f, outpath, dpi=400)
+
+
+
