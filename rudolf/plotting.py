@@ -100,7 +100,7 @@ from earhart.physicalpositions import (
     calc_vl_vb_physical, append_physicalpositions
 )
 
-from rudolf.paths import DATADIR, RESULTSDIR
+from rudolf.paths import DATADIR, RESULTSDIR, TABLEDIR
 from rudolf.helpers import (
     get_deltalyr_kc19_gaia_data, get_simulated_RM_data,
     get_keplerfieldfootprint_dict, get_deltalyr_kc19_comovers,
@@ -5245,12 +5245,13 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
     # save the augmented dataframe
     strength_cut = 0.00
     sdf = df[df.strengths > strength_cut]
-    print(f'Strength cut: > {strength_cut}: {len(sdf)} objects')
+    __sdf = __df[__df.strengths > strength_cut]
+    print(f'Strength cut: > {strength_cut}: {len(__sdf)} objects')
     sstr = f'strengthgt{strength_cut:.2f}'
     csvpath = os.path.join(outdir, f'weight_{sstr}.csv')
     SELCOLS = ['source_id','l','b','x_pc','y_pc','z_pc',
                'v_l*','v_b','bp-rp','M_G','strengths']
-    sdf[SELCOLS].to_csv(csvpath, index=False)
+    __sdf[SELCOLS].to_csv(csvpath, index=False)
 
     for xy in xytuples:
 
@@ -5303,7 +5304,9 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
 
         if showgroups:
             # Manually selected groups in glue.
-            groupnames = ['CH2_XYZ_vl_vb_cut.csv', 'RSG5_XYZ_vl_vb_cut.csv']
+            #groupnames = ['CH2_XYZ_vl_vb_cut.csv', 'RSG5_XYZ_vl_vb_cut.csv']
+            # NOTE: this plot should have the automatically selected groups!
+            groupnames = ['CH-2_auto_XYZ_vl_vb_cut.csv', 'RSG-5_auto_XYZ_vl_vb_cut.csv']
             groupcolors = ['lime', '#ff6eff']
             sizes = [3, 2]
             mews = [0.3, 0.1]
