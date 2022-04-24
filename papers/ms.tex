@@ -67,32 +67,30 @@
 % 208 words (250 max)
 \begin{abstract}
   Stellar positions and velocities from Gaia are yielding a new window
-  on
-  open cluster dispersal.  Here we present an analysis of a
-  group stars spanning Cepheus ($l=100^\circ$) to Hercules
-  ($l=40^\circ$), hereafter the Cep-Her complex.
-  The group includes four Kepler Objects of Interest:
+  on open cluster dispersal.  Here we present an analysis of a group
+  stars spanning Cepheus ($l=100^\circ$) to Hercules ($l=40^\circ$),
+  hereafter the Cep-Her complex.  The group includes four Kepler
+  Objects of Interest:
   Kepler-1643 b ($R_{\rm p} = 2.32 \pm 0.14\,R_\oplus$, $P = 5.3\ {\rm days}$),
   KOI-7368 b ($R_{\rm p} = 2.22 \pm 0.12\,R_\oplus$, $P = 6.8\ {\rm days}$), 
   KOI-7913 Ab ($R_{\rm p} = 2.34 \pm 0.18\,R_\oplus$, $P = 24.2\ {\rm days}$), and
   Kepler-1627 Ab ($R_{\rm p} = 3.85 \pm 0.11\,R_\oplus$, $P = 7.2\ {\rm days}$).
-  The latter Neptune-sized planet is in part of the Cep-Her
-  complex called the $\delta$\ Lyr\ cluster
-  \citep{bouma_kep1627_2022}.  Here we focus on the former three
-  systems, which are in other regions of the association.  Based on
-  kinematic evidence from Gaia, stellar rotation periods from TESS,
-  and spectroscopy, these three objects are also $\approx$40 million
-  years (Myr) old.  More specifically, we find that Kepler-1643 is
-  $46^{+9}_{-7}$\,Myr old, based on its membership in a dense
-  sub-cluster of the complex called RSG-5.  KOI-7368 and KOI-7913 are
-  $36^{+10}_{-8}$\,Myr old, and are in a diffuse region that we call
-  CH-2.  Based on the transit shapes and high resolution imaging, all
-  three objects are most likely planets, with false positive
-  probabilities of $6\times10^{-9}$, $4\times10^{-3}$, and
-  $1\times10^{-4}$ for Kepler-1643, KOI-7368, and KOI-7913
-  respectively.  These planets empirically demonstrate that
-  mini-Neptunes with sizes of $\sim$2 Earth radii exist at ages of
-  40 million years.
+  The latter Neptune-sized planet is in part of the Cep-Her complex
+  called the $\delta$\ Lyr\ cluster \citep{bouma_kep1627_2022}.  Here
+  we focus on the former three systems, which are in other regions of
+  the association.  Based on kinematic evidence from Gaia, stellar
+  rotation periods from TESS, and spectroscopy, these three objects
+  are also $\approx$40 million years (Myr) old.  More specifically, we
+  find that Kepler-1643 is $46^{+9}_{-7}$\,Myr old, based on its
+  membership in a dense sub-cluster of the complex called RSG-5.
+  KOI-7368 and KOI-7913 are $36^{+10}_{-8}$\,Myr old, and are in a
+  diffuse region that we call CH-2.  Based on the transit shapes and
+  high resolution imaging, all three objects are most likely planets,
+  with false positive probabilities of $6\times10^{-9}$,
+  $4\times10^{-3}$, and $1\times10^{-4}$ for Kepler-1643, KOI-7368,
+  and KOI-7913 respectively.  These planets empirically demonstrate
+  that mini-Neptunes with sizes of $\sim$2 Earth radii exist at ages
+  of 40 million years.
 \end{abstract}
 
 \keywords{
@@ -105,12 +103,11 @@
 
 \section{Introduction}
 
-The discovery and characterization of planets younger than
-a billion years is a major frontier in current exoplanet research.
-The reason is that the properties of young planets provide benchmarks
-for studies of planetary evolution.  For instance, young planets can
-inform our understanding
-of when hot Jupiters arrive on their close-in orbits
+The discovery and characterization of planets younger than a billion
+years is a major frontier in current exoplanet research.  The reason
+is that the properties of young planets provide benchmarks for studies
+of planetary evolution.  For instance, young planets can inform our
+understanding of when hot Jupiters arrive on their close-in orbits
 \citep{dawson_johnson_2018}, how the sizes of planets with massive
 gaseous envelopes evolve \citep{rizzuto_tess_2020}, the timescales for
 close-in multiplanet systems to fall out of resonance
@@ -118,8 +115,8 @@ close-in multiplanet systems to fall out of resonance
 whether and how mass-loss explains the radius valley
 \citep{lopez_how_2012,Owen_Wu_2013,Fulton_et_al_2017,ginzburg_corepowered_2018,lee_primordial_2021}.
 
-The discovery of a young planet requires two claims to be true:
-the planet must exist, and its age must be secured.  Spaced-based
+The discovery of a young planet requires two claims to be true: the
+planet must exist, and its age must be secured.  Spaced-based
 photometry from K2 and TESS has yielded a number of exemplars for
 which the planetary evidence comes from transits, and the age is based
 on either cluster membership
@@ -129,62 +126,63 @@ lithium content, x-ray activity, and emission line strength
 \citep{zhou_2021_tois,hedges_toi-2076_2021}.
 
 In this work, we leverage recent analyses of the Gaia data, which have
-greatly expanded our knowledge of stellar groups \citep[{e.g.},][]{CantatGaudin2018a,KounkelCovey2019,Kerr2021}.  To date these
-analyses have mostly clustered on stellar positions and 2D
-velocities.  One important result has been the discovery of
-diffuse streams and tidal tails comparable in stellar mass to the
-previously known cores of nearby open clusters
+greatly expanded our knowledge of stellar groups
+\citep[{e.g.},][]{CantatGaudin2018a,KounkelCovey2019,Kerr2021}.  To
+date these analyses have mostly clustered on stellar positions and 2D
+velocities.  One important result has been the discovery of diffuse
+streams and tidal tails comparable in stellar mass to the previously
+known cores of nearby open clusters
 \citep{meingast_psceri_2019,Meingast2021,gagne_number_2021}.  Even
-though these streams are spread over tens to hundreds of
-parsecs, their velocity dispersions can remain coherent at the
-$\sim$1\kms\ level.  Internal dynamics and projection effects can also
-drive them to be much larger: in the Hyades,
-stars in the tidal tails are expected to span up to $\pm 40\mkms$ in velocity
-relative to the cluster center \citep{jerabkova_800_2021}.
-The stars in such diffuse regions can be verified to be the same age
-as the core cluster members through analyses of
-color-absolute magnitude diagrams \citep{KounkelCovey2019}, stellar
-rotation periods \citep{curtis_tess_2019,bouma_2021_ngc2516}, and
-chemical abundances \citep{hawkins_2020}.  While there are 
-implications for our understanding of star formation and cluster
-evolution \citep{dinnbier_tidal_2020}, a separate consequence is that
-we now know the ages of many more stars, including previously known
-planet hosts.
+though these streams are spread over tens to hundreds of parsecs,
+their velocity dispersions can remain coherent at the $\sim$1\kms\
+level.  Internal dynamics and projection effects can also drive them
+to be much larger: in the Hyades, stars in the tidal tails are
+expected to span up to $\pm 40\mkms$ in velocity relative to the
+cluster center \citep{jerabkova_800_2021}.  The stars in such diffuse
+regions can be verified to be the same age as the core cluster members
+through analyses of color-absolute magnitude diagrams
+\citep{KounkelCovey2019}, stellar rotation periods
+\citep{curtis_tess_2019,bouma_2021_ngc2516}, and chemical abundances
+\citep{hawkins_2020}.  While there are implications for our
+understanding of star formation and cluster evolution
+\citep{dinnbier_tidal_2020}, a separate consequence is that we now
+know the ages of many more stars, including previously known planet
+hosts.
 
 The prime Kepler mission \citep{borucki_kepler_2010} found most of the
 currently known transiting exoplanets, and it was conducted before
 Gaia.  It is therefore sensible to revisit the Kepler field, given our
 new knowledge of the stellar ages.
 
-Here, we expand on our earlier study of a $38^{+7}_{-6}$ Myr
-old Neptune-sized planet in the Kepler field (Kepler-1627~Ab;
-\citealt{bouma_kep1627_2022}).  This planet's age was derived
-based on its host star's membership in the $\delta$\ Lyr\ cluster.
-While our analysis of the cluster focused on the immediate vicinity of
-Kepler-1627 in order to have a reasonable scope,  it became
-clear that the $\delta$\ Lyr\ cluster seems to
-also be part of a much larger group of similarly aged stars.  This
-group, which is at a distance of $\sim$330\,pc from the Sun, 
-spans Cepheus to Hercules (galactic longitudes, $l$, between
-40$^\circ$ and 100$^\circ$), at galactic latitudes between
-0$^\circ$ and 20$^\circ$.  We therefore refer to it as the Cep-Her
-complex.  It exhibits significant sub-structure over its $\approx$250
-parsec length, and a detailed analysis of its memberships, kinematics,
-and possible origin is currently being prepared by R.~Kerr and
-collaborators.
+Here, we expand on our earlier study of a $38^{+7}_{-6}$ Myr old
+Neptune-sized planet in the Kepler field (Kepler-1627~Ab;
+\citealt{bouma_kep1627_2022}).  This planet's age was derived based on
+its host star's membership in the $\delta$\ Lyr\ cluster.  While our
+analysis of the cluster focused on the immediate vicinity of
+Kepler-1627 in order to have a reasonable scope,  it became clear that
+the $\delta$\ Lyr\ cluster seems to also be part of a much larger
+group of similarly aged stars.  This group, which is at a distance of
+$\sim$330\,pc from the Sun, spans Cepheus to Hercules (galactic
+longitudes, $l$, between 40$^\circ$ and 100$^\circ$), at galactic
+latitudes between 0$^\circ$ and 20$^\circ$.  We therefore refer to it
+as the Cep-Her complex.  It exhibits significant sub-structure over
+its $\approx$250 parsec length, and a detailed analysis of its
+memberships, kinematics, and possible origin is currently being
+prepared by R.~Kerr and collaborators.
 
 Our focus is on the intersection of the Cep-Her complex with the
 Kepler field.  Cross-matching our Cep-Her members against known Kepler
 Objects of Interest (KOIs; \citealt{thompson_planetary_2018}) yielded
 four candidate cluster members: Kepler-1627, Kepler-1643, KOI-7368,
 and KOI-7913.  Given our earlier analysis of Kepler-1627, we focus
-here on the latter three objects.  After analyzing the relevant properties of
-Cep-Her (Section~\ref{sec:cluster}), we derive the stellar properties
-(Section~\ref{sec:stars}) and validate the planetary nature of each
-system using a combination of the Kepler photometry and
-high-resolution imaging (Section~\ref{sec:planets}).  We conclude with
-a discussion of mini-Neptune size evolution, and point out possible
-directions for future work (Section~\ref{sec:disc_conc}).
+here on the latter three objects.  After analyzing the relevant
+properties of Cep-Her (Section~\ref{sec:cluster}), we derive the
+stellar properties (Section~\ref{sec:stars}) and validate the
+planetary nature of each system using a combination of the Kepler
+photometry and high-resolution imaging (Section~\ref{sec:planets}).
+We conclude with a discussion of mini-Neptune size evolution, and
+point out possible directions for future work
+(Section~\ref{sec:disc_conc}).
 
 \section{The Cep-Her Complex}
 \label{sec:cluster}
@@ -224,30 +222,30 @@ directions for future work (Section~\ref{sec:disc_conc}).
 
 Our focus is on a region of the Galaxy approximately 200 to 500\,pc
 from the Sun, above the galactic plane, and spanning galactic
-longitudes of roughly $40^\circ$ to $100^\circ$.  Two rich
-clusters in this region are the $\delta$~Lyra cluster
+longitudes of roughly $40^\circ$ to $100^\circ$.  Two rich clusters in
+this region are the $\delta$~Lyra cluster
 \citep{stephenson_possible_1959} and RSG-5 \citep{roser_nine_2016}.
-Each of these clusters was known before Gaia.  Their reported ages
-are between 30 and 60\,Myr.  Early empirical
-evidence that these two clusters could be part of a large and more
-diffuse population was apparent in the Gaia-based photometric analysis
-of pre-main-sequence stars by \citet[][see their Figures~11
-and~13]{Zari2018}.  Further kinematic connections and complexity were
-highlighted by \citet{KounkelCovey2019}, who included these previously
-known groups in the larger structures dubbed ``Theia~73'' and
+Each of these clusters was known before Gaia.  Their reported ages are
+between 30 and 60\,Myr.  Early empirical evidence that these two
+clusters could be part of a large and more diffuse population was
+apparent in the Gaia-based photometric analysis of pre-main-sequence
+stars by \citet[][see their Figures~11 and~13]{Zari2018}.  Further
+kinematic connections and complexity were highlighted by
+\citet{KounkelCovey2019}, who included these previously known groups
+in the larger structures dubbed ``Theia~73'' and
 ``Theia~96''\footnote{See their visualization online at
 \url{http://mkounkel.com/mw3d/mw2d.html} (accessed 15 March 2022)}.
 The connection made by \citet{KounkelCovey2019} between the previously
 known open clusters and the other groups in the region was made as
 part of an unsupervised clustering analysis of the Gaia DR2 positions
 and on-sky velocities with a subsequent manual ``stitching'' step.
-Their results support the idea that there is an overdensity of
-30 to 60\,Myr old stars in this region of
-the Galaxy.  \citet{Kerr2021}, in a volume-limited analysis of the
-Gaia DR2 point-source catalog out to one third of a kiloparsec,
-identified three of the nearest sub-populations, dubbed
-``Cepheus-Cygnus'', ``Lyra'', and ``Cerberus''.  \citet{Kerr2021}
-reported ages for each of these subgroups between 30 and 35 Myr.
+Their results support the idea that there is an overdensity of 30 to
+60\,Myr old stars in this region of the Galaxy.  \citet{Kerr2021}, in
+a volume-limited analysis of the Gaia DR2 point-source catalog out to
+one third of a kiloparsec, identified three of the nearest
+sub-populations, dubbed ``Cepheus-Cygnus'', ``Lyra'', and
+``Cerberus''.  \citet{Kerr2021} reported ages for each of these
+subgroups between 30 and 35 Myr.
 
 
 \subsection{Member Selection}
@@ -311,12 +309,12 @@ photometry,\footnote{$\varpi/\sigma_\varpi>5$; $G/\sigma_{G}>50$;
 $G_{\rm RP}/\sigma_{G_{RP}}>20$; $G_{\rm BP}/\sigma_{G_{BP}}>20$.}
 this procedure yields $\alpha \sim \log_{10}\mathcal{N}(-1.55,0.61)$.
 To visualize the results, in Figure~\ref{fig:XYZvtang} we show
-12{,}436 objects with $\alpha>0.02$ as gray points, and
-overplot 4{,}763 objects with $\alpha>0.10$ as black points.
-The previously known $\delta$~Lyr\ cluster is visible at
-$(l,b)=(68^\circ,15^\circ$) and $(v_{l'}, v_b)=(-4.5 ,-4 )\mkms$.
-RSG-5 is visible at $(l,b)=(83^\circ,6^\circ)$, $(v_{l'}, v_b)=(5.5
-,-3.5 )\mkms$.  Most of the other subclusters, including in Cep-Cyg
+12{,}436 objects with $\alpha>0.02$ as gray points, and overplot
+4{,}763 objects with $\alpha>0.10$ as black points.  The previously
+known $\delta$~Lyr\ cluster is visible at $(l,b)=(68^\circ,15^\circ$)
+and $(v_{l'}, v_b)=(-4.5 ,-4 )\mkms$.  RSG-5 is visible at
+$(l,b)=(83^\circ,6^\circ)$, $(v_{l'}, v_b)=(5.5 ,-3.5 )\mkms$.  Most
+of the other subclusters, including in Cep-Cyg
 ($l,b=90^\circ,7^\circ$) and Cerberus ($l,b=48^\circ,18^\circ$) are
 too small or dispersed to have previously been analyzed in great
 detail.
@@ -328,17 +326,16 @@ Our fourth and final step was to cross-match the candidate Cep-Her
 member list against all known Kepler Objects of Interest.  We used the
 Cumulative KOI table from the NASA Exoplanet Archive from 27 March
 2022, and also compared against the \texttt{q1\_q17\_dr25} table
-\citep{thompson_planetary_2018}.  From the candidate members
-with weights exceeding 0.02, this 
- yielded 11 known false positives, 6 ``confirmed'' planets, and 8
- ``candidate'' planets.  
-Inspection of the Kepler data validation summaries and Robovetter
-classifications for these objects showed whether they were
-potentially consistent with being {\it i)} planets, and {\it ii)}
-$\lesssim 10^8$ years old, based on the presence of rotational
-modulation at the expected period and amplitude \citep[{e.g.},][Figure~9]{rebull_rotation_2020}.  Four objects remained after
-this inspection: Kepler-1627, Kepler-1643, KOI-7368, and
-KOI-7913.
+\citep{thompson_planetary_2018}.  From the candidate members with
+weights exceeding 0.02, this yielded 11 known false positives, 6
+``confirmed'' planets, and 8 ``candidate'' planets.  Inspection of the
+Kepler data validation summaries and Robovetter classifications for
+these objects showed whether they were potentially consistent with
+being {\it i)} planets, and {\it ii)} $\lesssim 10^8$ years old, based
+on the presence of rotational modulation at the expected period and
+amplitude \citep[{e.g.},][Figure~9]{rebull_rotation_2020}.  Four
+objects remained after this inspection: Kepler-1627, Kepler-1643,
+KOI-7368, and KOI-7913.
 %\footnote{These figures
 %yield an estimate of the size of Cep-Her: if our 4/14
 %matches represent the true positive rate, then
@@ -351,11 +348,11 @@ KOI-7913.
 
 Figure~\ref{fig:XYZvtang} shows the positions of the KOIs along
 various projections.  Kepler-1643 is near the core RSG-5 population
-both spatially and kinematically.  KOI-7368 and KOI-7913 are in a 
+both spatially and kinematically.  KOI-7368 and KOI-7913 are in a
 diffuse region $\approx$40\,pc above RSG-5 in $Z$ and $\approx$100\,pc
 closer to the Sun in $Y$.  In tangential galactic velocity space,
-there is some kinematic overlap between the region the
-latter two KOIs are in and the main RSG-5 group.
+there is some kinematic overlap between the region the latter two KOIs
+are in and the main RSG-5 group.
 
 %
 % Numbers are from RSG-5_auto_XYZ_vl_vb_cut.csv,
@@ -370,10 +367,9 @@ interest.  For candidate RSG-5 members, we require:
   v_b/{\rm km\,s^{-1}} &\in [-4, -2.5] \nonumber \\
   v_{l^*}/{\rm km\,s^{-1}} &\in [3.5, 6], \nonumber
 \end{align}
-though the cluster does have a greater
-spatial extent toward smaller $X$
-(Figure~\ref{fig:XYZvtang}, middle panels).
-For the diffuse stars near KOI-7368 and KOI-7913, we require
+though the cluster does have a greater spatial extent toward smaller
+$X$ (Figure~\ref{fig:XYZvtang}, middle panels).  For the diffuse stars
+near KOI-7368 and KOI-7913, we require
 \begin{align}
   X/{\rm pc} &\in [20, 70] \nonumber \\
   Y/{\rm pc} &\in [230, 270] \nonumber \\
@@ -384,10 +380,9 @@ For the diffuse stars near KOI-7368 and KOI-7913, we require
 and we call this latter set of stars ``CH-2''.  These cuts yield
 \nrsgfive\ candidate RSG-5 members, and \nchtwo\ candidate CH-2
 members.  These stars are listed in Appendix~\ref{app:members}, as are
-the Cep-Her candidates that were observed by Kepler.
-An important consideration, especially for CH-2, is the
-contamination rate by field stars.  We assess this in the following
-section.
+the Cep-Her candidates that were observed by Kepler.  An important
+consideration, especially for CH-2, is the contamination rate by field
+stars.  We assess this in the following section.
 
 
 \subsection{The Cluster's Age}
@@ -411,20 +406,18 @@ section.
 	\caption{
 		{\bf The stellar groups near KOI-7368, KOI-7913, and Kepler-1643
     are 40 to 50 million years old.} 
-    {\it Top row}: 
-    Color-absolute magnitude diagram of candidate Cep-Her members, plotted
-    over candidate members of the $\delta$~Lyr~cluster
-    ($\approx38$\,Myr; \citealt{bouma_kep1627_2022}) and the Gaia
-    EDR3 Catalog of Nearby Stars (gray background).  The left and
-    right columns shows stars in RSG-5 and CH-2, respectively.  The
-    range of colors is truncated to emphasize the pre-main-sequence.
-    Stars that fall far below the cluster sequences are field
-    interlopers.
-    {\it Bottom row}:
-    TESS and ZTF-derived stellar rotation periods, with the Pleiades
-    ($\approx 112$\,Myr) and Praesepe ($\approx 650$\,Myr) shown for reference
-    \citep{rebull_rotation_2016a,douglas_poking_2017}.
-    The detection efficiency for reliable rotation periods falls off
+    {\it Top row}: Color-absolute magnitude diagram of candidate
+    Cep-Her members, plotted over candidate members of the
+    $\delta$~Lyr~cluster ($\approx38$\,Myr;
+    \citealt{bouma_kep1627_2022}) and the Gaia EDR3 Catalog of Nearby
+    Stars (gray background).  The left and right columns shows stars
+    in RSG-5 and CH-2, respectively.  The range of colors is truncated
+    to emphasize the pre-main-sequence.  Stars that fall far below the
+    cluster sequences are field interlopers.  {\it Bottom row}: TESS
+    and ZTF-derived stellar rotation periods, with the Pleiades
+    ($\approx 112$\,Myr) and Praesepe ($\approx 650$\,Myr) shown for
+    reference \citep{rebull_rotation_2016a,douglas_poking_2017}.  The
+    detection efficiency for reliable rotation periods falls off
     beyond $\bpmrpo \gtrsim 2.6$.
 	\label{fig:age}
 	}
@@ -439,59 +432,59 @@ stars from the $\delta$~Lyr cluster are from
 \citet{bouma_kep1627_2022}, and the field stars are from the Gaia EDR3
 Catalog of Nearby Stars \citep{gaia_gcns_2021}.  To make these
 diagrams, we imposed the data filtering criteria from
-\citet[][Appendix B]{GaiaCollaboration2018}, which 
-include binaries while omitting instrumental artifacts from for
-instance low photometric signal to noise, or a small number of
-visibility periods.  We then corrected for extinction using the
-\citet{lallement_threedimensional_2018}
-dust maps\footnote{\url{https://stilism.obspm.fr/}} and the extinction coefficients $k_X\equiv A_X/A_0$ from
-\citet{GaiaCollaboration2018}, assuming that $A_0 = 3.1 E(B-V)$.  This
-yielded a mean and standard deviation for the reddening of
-$E(B-V)=0.036\pm0.002$ for RSG-5, and $E(B-V)=0.017\pm0.001$
-for CH-2.  By way of comparison, in \citet{bouma_kep1627_2022} the
-same query for the $\delta$~Lyr cluster yielded
-$E(B-V)=0.032\pm0.006$.  Finally, for the plots we set the
+\citet[][Appendix B]{GaiaCollaboration2018}, which include binaries
+while omitting instrumental artifacts from for instance low
+photometric signal to noise, or a small number of visibility periods.
+We then corrected for extinction using the
+\citet{lallement_threedimensional_2018} dust
+maps and the extinction
+coefficients $k_X\equiv A_X/A_0$ from \citet{GaiaCollaboration2018},
+assuming that $A_0 = 3.1 E(B-V)$.  This yielded a mean and standard
+deviation for the reddening of $E(B-V)=0.036\pm0.002$ for RSG-5, and
+$E(B-V)=0.017\pm0.001$ for CH-2.  By way of comparison, in
+\citet{bouma_kep1627_2022} the same query for the $\delta$~Lyr cluster
+yielded $E(B-V)=0.032\pm0.006$.  Finally, for the plots we set the
 color range to best visualize the region of maximal age information
 content: the pre-main-sequence.
 
-The CAMDs show that for RSG-5, practically all of our candidate members are
-on a tight pre-main-sequence locus.  This implies a false positive
-rate of a few percent, at most.  By comparison, our control sample
-(the $\delta$~Lyr candidates) has a false positive rate of
+The CAMDs show that for RSG-5, practically all of our candidate
+members are on a tight pre-main-sequence locus.  This implies a false
+positive rate of a few percent, at most.  By comparison, our control
+sample (the $\delta$~Lyr candidates) has a false positive rate of
 $\approx$12\%, based on the number of stars that photometrically
-overlap with the field population, while being outliers from the bulk cluster
-population.  For CH-2, our membership selection gives 27 objects in
-the color range displayed, and 23 of them appear to be consistent with
-being on the pre-main-sequence.  This implies a false positive rate in
-CH-2 of $\approx$15\%.
+overlap with the field population, while being outliers from the bulk
+cluster population.  For CH-2, our membership selection gives 27
+objects in the color range displayed, and 23 of them appear to be
+consistent with being on the pre-main-sequence.  This implies a false
+positive rate in CH-2 of $\approx$15\%.
 
-Figure~\ref{fig:age} also shows that most RSG-5 and
-CH-2 members overlap with the $\delta$~Lyr cluster, and that the groups are therefore
-roughly the same age.  To quantify this, we use the method
-introduced by \citet[][their Section~6.3]{gagne_mutau_2020}.  The
-idea is to fit the pre-main-sequence loci of a set of
-reference clusters, and to then model the locus of the target cluster
-as a linear combination of these reference cluster loci.  For our
-reference clusters, we used UCL, IC\,2602, and the Pleiades, with the
+Figure~\ref{fig:age} also shows that most RSG-5 and CH-2 members
+overlap with the $\delta$~Lyr cluster, and that the groups are
+therefore roughly the same age.  To quantify this, we use the method
+introduced by \citet[][their Section~6.3]{gagne_mutau_2020}.  The idea
+is to fit the pre-main-sequence loci of a set of reference clusters,
+and to then model the locus of the target cluster as a linear
+combination of these reference cluster loci.  For our reference
+clusters, we used UCL, IC\,2602, and the Pleiades, with the
 memberships reported by \citet{Damiani2019} and
 \cite{CantatGaudin2018a} respectively.  We adopted ages of 16\,Myr for
-UCL \citep{pecaut_star_2016}, 38\,Myr for IC\,2602\footnote{ Ages for
-IC\,2602 vary from 40 to 46\,Myr based on lithium-depletion-boundary
-(LDB) measurements \citep{dobbie_ic_2010,randich_gaiaeso_2018}, and
-from 30 to 46\,Myr based on isochronal analyses
-\citep{stauffer_rotational_1997,david_ages_2015,bossini_age_2019}.},
+UCL \citep{pecaut_star_2016}, 38\,Myr for IC\,2602
+\citep{david_ages_2015,randich_gaiaeso_2018}
+%\footnote{ Ages for
+%IC\,2602 vary from 40 to 46\,Myr based on lithium-depletion-boundary
+%(LDB) measurements \citep{dobbie_ic_2010,randich_gaiaeso_2018}, and
+%from 30 to 46\,Myr based on isochronal analyses
+%\citep{stauffer_rotational_1997,david_ages_2015,bossini_age_2019}.},
 and 112\,Myr for the Pleiades \citep{dahm_2015}.  These assumptions
-and the subsequent processing steps taken to exclude field stars and binaries
-were identical to those
-described in \citet{bouma_kep1627_2022}.  The mean and 
-uncertainty of the resulting age posterior are $46^{+9}_{-7}$\,Myr for
-RSG-5, and $36^{+10}_{-8}$\,Myr for CH-2.  For comparison, this
-procedure yields an age for the $\delta$~Lyr cluster of
-$38^{+6}_{-5}$\,Myr.  
-The slightly older isochronal age of RSG-5 is
-consistent with its location
-relative to the $\delta$~Lyr cluster in
-the upper left panel of Figure~\ref{fig:age}.
+and the subsequent processing steps taken to exclude field stars and
+binaries were identical to those described in
+\citet{bouma_kep1627_2022}.  The mean and uncertainty of the resulting
+age posterior are $46^{+9}_{-7}$\,Myr for RSG-5, and
+$36^{+10}_{-8}$\,Myr for CH-2.  For comparison, this procedure yields
+an age for the $\delta$~Lyr cluster of $38^{+6}_{-5}$\,Myr.  The
+slightly older isochronal age of RSG-5 is consistent with its location
+relative to the $\delta$~Lyr cluster in the upper left panel of
+Figure~\ref{fig:age}.
 
 
 \subsubsection{Stellar Rotation Periods}
@@ -500,9 +493,10 @@ the upper left panel of Figure~\ref{fig:age}.
 An independent way to assess the age of the candidate cluster members
 is to measure their stellar rotation periods.  This approach can be
 achieved using surveys such as TESS \citep{ricker_transiting_2015} and
-the Zwicky Transient Facility (ZTF, \citealt{bellm_zwicky_2019});
-it leverages a storied tradition of measuring rotation periods of stars in
-benchmark open clusters \citep[see {e.g.},][]{skumanich_time_1972,curtis_rup147_2020}.  The TESS data in
+the Zwicky Transient Facility (ZTF, \citealt{bellm_zwicky_2019}); it
+leverages a storied tradition of measuring rotation periods of stars
+in benchmark open clusters \citep[see
+{e.g.},][]{skumanich_time_1972,curtis_rup147_2020}.  The TESS data in
 our case are especially useful, since they provide 3 to 5 lunar months
 of photometry for all of our candidate CH-2 and RSG-5 members.
 
@@ -512,60 +506,35 @@ For TESS, we also restricted our sample to $G<16$, to ensure the stars
 are bright enough to extract usable light curves from the full-frame
 images.  The magnitude cut corresponds to $\bpmrpo < 2.6$
 ($\sim$M3V) at the relevant distances.  These cuts gave 19 stars in
-CH-2 and 42 stars in RSG-5.  We extracted light curves from the TESS
-images using the \texttt{unpopular} package
-\citep{hattorio_2021_cpm}, and regressed them against systematics with
-its causal pixel model.  We measured rotation periods using
-Lomb-Scargle periodograms and visually vetted the results using an
-interactive program that allows us to switch between TESS Cycles,
-select particular sectors, flag stars with multiple periods, and
-correct half-period harmonics. For ZTF, we used the same color cut to
-focus on FGKM stars, but restricted the sample to $13 < G < 18$ to
-avoid the saturation limit on the bright end and ensure sufficient
-photometric precision at the faint end. We followed the procedure
-outlined in \citet{curtis_rup147_2020}: we downloaded $8'\times8'$
-image cutouts, ran aperture photometry for the target and neighboring
-stars identified with Gaia, and used them to define a systematics
-correction to refine the target light curves. 
+CH-2 and 47 stars in RSG-5.  We extracted light curves from the TESS
+images using the \texttt{unpopular} package \citep{hattorio_2021_cpm},
+and regressed them against systematics with its causal pixel model.
+We measured rotation periods using Lomb-Scargle periodograms and
+visually vetted the results using an interactive program that allows
+us to switch between TESS Cycles, select particular sectors, flag
+stars with multiple periods, and correct half-period harmonics. For
+ZTF, we used the same color cut to focus on FGKM stars, but restricted
+the sample to $13 < G < 18$ to avoid the saturation limit on the
+bright end and ensure sufficient photometric precision at the faint
+end. We followed the procedure outlined in \citet{curtis_rup147_2020}:
+we downloaded $8'\times8'$ image cutouts, ran aperture photometry for
+the target and neighboring stars identified with Gaia, and used them
+to define a systematics correction to refine the target light curves. 
 
 The lower panels of Figure~\ref{fig:age} show the results.  In RSG-5,
-36/42 stars have rotation periods faster than the Pleiades (86\%).
-This numerator omits the two stars with periods $>$$12$\,days visible in
-the lower-left panel of Figure~\ref{fig:age}.  The age interpretation
-for these latter stars, particularly the $\approx$M2.5 dwarf, is not
-obvious.  \citet{rebull_usco_2018} for instance have found numerous
-M-dwarfs with 10-12 day rotation periods at ages of USco ($\sim$$8$\,Myr),
-and some may still exist at ages of LCC ($\sim$$16$\,Myr;
-L.~Rebull in preparation).  Regardless, given that nearly no field
-star outliers seem to be present on the RSG-5 CAMD, the fact that we
-do not detect rotation periods for $\approx$14\% of stars should
-perhaps be taken as an indication for the fraction of stars for
-which rotation periods might not be detectable, due to {e.g.}, pole-on
-stars having lower amplitude starspot modulation.
-
-%
-% CH-2
-% 5 stars with Prot>10 days (from the Prot versus color plot):
-%                      DESIGNATION  TESS_Data   bp_rp_x     period
-%25  Gaia EDR3 2129930258400157440          4  1.909693  15.309000
-%24  Gaia EDR3 2129417404945830784          4  2.040988  10.981582
-%4   Gaia EDR3 2107169165113864064          4  2.059904  10.580494
-%9   Gaia EDR3 2134851775526125696          4  2.326998  12.227900
-%1   Gaia EDR3 2127726081184588160          4  2.347244  11.543281
-%
-% CH-2
-% Photometric field stars (from Glue -- one of these is omitted due to phot S/N cut, 
-% presumably 2126008609657702784 )
-%
-%In [9]: df[['DESIGNATION', 'bp_rp', 'M_G']]
-%Out[9]:
-%                     DESIGNATION     bp_rp        M_G
-%0  Gaia EDR3 2126529468937923456  2.518077   9.844733 --> NaN period, G=16.9
-%1  Gaia EDR3 2126008609657702784  2.746735  11.409737 --> NaN, G=18.4
-%2  Gaia EDR3 2133330051428541952  2.499458   9.459546 --> 15.7 d (ZTF), G=16.5
-%3  Gaia EDR3 2133510921093964928  2.720177  10.923209 --> NaN, G=17.9
-%4  Gaia EDR3 2139369183468814464  2.929506  11.170221 --> NaN, G=18.2
-%5  Gaia EDR3 2129930258400157440  1.909693   8.200652 --> P=15.3 (ZTF), G=15.2
+41/47 stars have rotation periods faster than the Pleiades (87\%).
+This numerator omits the two stars with periods $>$$12$\,days visible
+in the lower-left panel of Figure~\ref{fig:age}.  The age
+interpretation for these latter stars, particularly the $\approx$M2.5
+dwarf, is not obvious.  \citet{rebull_usco_2018} for instance have
+found numerous M-dwarfs with 10-12 day rotation periods at ages of
+USco ($\sim$$8$\,Myr), and some may still exist at ages of LCC
+($\sim$$16$\,Myr; L.~Rebull in preparation).  Regardless, given that
+nearly no field star outliers seem to be present on the RSG-5 CAMD,
+the fact that we do not detect rotation periods for $\approx$13\% of
+stars should perhaps be taken as an indication for the fraction of
+stars for which rotation periods might not be detectable, due to
+{e.g.}, pole-on stars having lower amplitude starspot modulation.
 
 For CH-2, 13/19 stars have rotation periods that are obviously faster
 than their counterparts in the Pleiades (68\%).  4 stars, not included
@@ -573,10 +542,10 @@ in the preceding numerator, are M-dwarfs with rotation periods between
 10 and 12.5 days.  As just discussed, the age interpretation for these
 M-dwarfs is not obvious.  Regardless, the $\approx$15\% false positive
 rate for CH-2 determined from the CAMD seems consistent with our
-fraction of detected rotation periods; RSG-5 was missing
-rotation periods for $\approx$15\% of its candidate members, even
-though all of its stars appear photometrically consistent with being
-on a single pre-main-sequence locus.
+fraction of detected rotation periods; RSG-5 was missing rotation
+periods for $\approx$15\% of its candidate members, even though all of
+its stars appear photometrically consistent with being on a single
+pre-main-sequence locus.
 
 It is challenging to convert these stellar rotation periods to a
 precise age estimate, since on the pre-main-sequence the stars are
@@ -597,12 +566,10 @@ color-absolute magnitude diagrams.
 A few salient properties of the Kepler objects in Cep-Her can be
 gleaned from Figure~\ref{fig:age}.  The stars span spectral types of
 G8V (Kepler-1627) to K6V (KOI-7913 A).  The secondary in the KOI-7913
-system has spectral type $\approx$K8V.  And given that a star with Solar mass
-and metallicity arrives at the zero-age main sequence at
+system has spectral type $\approx$K8V.  And given that a star with
+Solar mass and metallicity arrives at the zero-age main sequence at
 $t\approx40$ Myr \citep{choi_mesa_2016}, these stars are all in the
 late stages of their pre-main-sequence contraction.  
-% Their heliocentric distances are $\approx$260\,pc (KOI-7913 and
-% KOI-7368, in CH-2) and $\approx$340\,pc (Kepler-1643, in RSG-5).
 
 The adopted stellar parameters are listed in
 Table~\ref{tab:sysparams}.  The stellar surface gravity, radius, mass,
@@ -615,12 +582,11 @@ Reported uncertainties are a quadrature sum of the statistical and
 systematic components. 
 
 To verify these parameters and to also analyze spectroscopic youth
-proxies such as the Li 6708\,\AA\ doublet and H$\alpha$,
-we acquired spectra.  We also acquired high resolution imaging for
-each system, to constrain the existence of visual companions,
-including possible bound binaries.  The system-by-system details
-follow, and the relevant results are also summarized in
-Table~\ref{tab:sysparams}.
+proxies such as the Li 6708\,\AA\ doublet and H$\alpha$, we acquired
+spectra.  We also acquired high resolution imaging for each system, to
+constrain the existence of visual companions, including possible bound
+binaries.  The system-by-system details follow, and the relevant
+results are also summarized in Table~\ref{tab:sysparams}.
 
 \subsection{Kepler\,1643}
 
@@ -635,17 +601,16 @@ with those from the cluster-isochrone method.  This approach also
 yielded $[{\rm Fe/H}]=0.13 \pm 0.09$.  Using the broadened synthetic
 templates from \texttt{SpecMatch-Synth} \citep{petigura_cksi_2017}, we
 found $v\sin i = 9.3 \pm 1.0\,\mkms$.  The systemic radial velocity at
-the two epochs was $-9.1 \pm 1.9\,\mkms$ and $-7.8\pm
-1.2\,\mkms$ respectively.  To infer the equivalent width of the
-Li\,\textsc{I} 6708\,\AA\ doublet, we followed the procedure described
-by \citet{bouma_2021_ngc2516}.  This yielded a strong detection: ${\rm
+the two epochs was $-9.1 \pm 1.9\,\mkms$ and $-7.8\pm 1.2\,\mkms$
+respectively.  To infer the equivalent width of the Li\,\textsc{I}
+6708\,\AA\ doublet, we followed the procedure described by
+\citet{bouma_2021_ngc2516}.  This yielded a strong detection: ${\rm
 EW}_{\rm Li} = 130^{+6}_{-5}$\,m\AA, with values consistent at
 $<$$1$-$\sigma$ between the two epochs.   The quoted value does not
 correct for the Fe\,\textsc{I} blend at 6707.44\AA, because HIRES
-resolves the two features.  
-Given the purported age and effective temperature of the star, the
-lithium equivalent width is somewhat low.  We discuss this in greater
-depth in Appendix~\ref{app:spectra}.
+resolves the two features.  Given the purported age and effective
+temperature of the star, the lithium equivalent width is somewhat low.
+We discuss this in greater depth in Appendix~\ref{app:spectra}.
 
 \paragraph{High-Resolution Imaging}
 We acquired adaptive optics imaging of Kepler-1643 on the night of
@@ -665,11 +630,10 @@ at $\rho > 1000$ mas.
 For KOI-7368, we acquired a spectrum on 2015 June 1 using the echelle
 spectrograph (TRES; \citealt{furesz_tres_2008}) mounted at the
 Tillinghast 1.5m at the Fred Lawrence Whipple Observatory.  The
-Stellar Parameter Classification pipeline for TRES has
-been described by \citet{2021tsc2.confE.124B}.  It is based on the
-synthetic template library constructed by
-\citet{Buchhave2012}.  The resulting stellar parameters
-($T_{\rm eff}, \log g, R_\star$) agreed with those from the
+Stellar Parameter Classification pipeline for TRES has been described
+by \citet{2021tsc2.confE.124B}.  It is based on the synthetic template
+library constructed by \citet{Buchhave2012}.  The resulting stellar
+parameters ($T_{\rm eff}, \log g, R_\star$) agreed with those from the
 cluster-isochrone method within $1$-$\sigma$, though the effective
 temperature was more precise by a factor of three.  Auxiliary
 spectroscopic parameters included the metallicity $[{\rm Fe/H}]= -0.02
@@ -705,19 +669,19 @@ important for deriving accurate transit depths.
 \paragraph{Spectra}
 We acquired Keck/HIRES spectra for KOI-7913 A on the night of 2021 Nov
 13, and KOI-7913 B on the night of 2021 Oct 26.  The
-\texttt{SpecMatch-Emp} machinery yielded $T_{\rm
-eff,A} = 4324 \pm 70\,{\rm K}$, and $T_{\rm eff,B} = 4038 \pm 70\,{\rm
-K}$.  The remaining parameters were in agreement with those from the
-cluster isochrone.  For the primary, we also found $[{\rm Fe/H}]=
--0.06 \pm 0.09$, $v\sin i = 13.3 \pm 1.0\,\mkms$, and ${\rm RV}_{\rm
-sys} = -17.8 \pm 1.1\,\mkms$.  For the secondary, these same
-parameters were $[{\rm Fe/H}]= -0.01 \pm 0.09$, $v\sin i = 10.7 \pm
-1.0\,\mkms$, and ${\rm RV}_{\rm sys} = -18.8 \pm 1.1\,\mkms$.  Neither
-of the KOI-7913 components shows strong lithium absorption, but this
-is expected given their $\approx$K6V and $\approx$K8V spectral types.
-They do however both show H$\alpha$ in emission.  Broadly speaking,
-both observations are consistent with a $\approx$40 Myr age for
-KOI-7913 (see Appendix~\ref{app:spectra}).
+\texttt{SpecMatch-Emp} machinery yielded $T_{\rm eff,A} = 4324 \pm
+70\,{\rm K}$, and $T_{\rm eff,B} = 4038 \pm 70\,{\rm K}$.  The
+remaining parameters were in agreement with those from the cluster
+isochrone.  For the primary, we also found $[{\rm Fe/H}]= -0.06 \pm
+0.09$, $v\sin i = 13.3 \pm 1.0\,\mkms$, and ${\rm RV}_{\rm sys} =
+-17.8 \pm 1.1\,\mkms$.  For the secondary, these same parameters were
+$[{\rm Fe/H}]= -0.01 \pm 0.09$, $v\sin i = 10.7 \pm 1.0\,\mkms$, and
+${\rm RV}_{\rm sys} = -18.8 \pm 1.1\,\mkms$.  Neither of the KOI-7913
+components shows strong lithium absorption, but this is expected given
+their $\approx$K6V and $\approx$K8V spectral types.  They do however
+both show H$\alpha$ in emission.  Broadly speaking, both observations
+are consistent with a $\approx$40 Myr age for KOI-7913 (see
+Appendix~\ref{app:spectra}).
 
 
 \paragraph{High-Resolution Imaging}
@@ -763,12 +727,10 @@ age of the system, it would have a mass roughly between 10 and
 	\caption{
 		{\bf Raw and processed light curves for the Kepler Objects of
     Interest in Cep-Her.}   
-    {\it Top}:
-    50 day light curve segment from the 3.9 years of Kepler data.  The
-    ordinate shows the \texttt{PDCSAP} median-subtracted flux in units
-    of parts-per-thousand ($\times 10^{-3}$).  The dominant signal is
-    induced by starspots.  
-    {\it Bottom}:
+    {\it Top}: 50 day light curve segment from the 3.9 years of Kepler
+    data.  The ordinate shows the \texttt{PDCSAP} median-subtracted
+    flux in units of parts-per-thousand ($\times 10^{-3}$).  The
+    dominant signal is induced by starspots.  {\it Bottom}:
     Phase-folded transits of Kepler-1643, KOI-7913, KOI-7368, and
     Kepler-1627 with stellar variability removed.  The maximum {\it a
     posteriori} transit model is shown with the gray line, and the
@@ -813,19 +775,18 @@ Second, we want to remove the stellar variability signal to enable a
 statistical assessment of the probability that the transit signals are
 planetary.
 
-We fitted the data as follows.  Given an initial guess for the transit
+We fitted the data as follows.  Given the transit
 ephemeris from \citet{thompson_planetary_2018}, we first trimmed the
 light curve to a local window around each transit that spanned three
 transit durations before and after each mid-transit time.  The
 out-of-transit points in each local window were then fitted with a
-fourth-order polynomial, which was divided out from the light
-curve.  The resulting flattened transits were then fitted with a
-transit model that assumed quadratic limb darkening.
-The model therefore included 8 free parameters for the transit ($\{P,
-t_0, \log R_{\rm p}/R_\star, b, u_1 ,u_2, R_\star, \log g\}$), 2 free
-parameters for the light curve normalization and a white noise jitter
-($\{\langle f \rangle, \sigma_f \}$), and 5 fixed
-parameters for each transit.
+fourth-order polynomial, which was divided out from the light curve.
+The resulting flattened transits were then fitted with a transit model
+that assumed quadratic limb darkening.  The model therefore included 8
+free parameters for the transit ($\{P, t_0, \log R_{\rm p}/R_\star, b,
+u_1 ,u_2, R_\star, \log g\}$), 2 free parameters for the light curve
+normalization and a white noise jitter ($\{\langle f \rangle, \sigma_f
+\}$), and 5 fixed parameters for each transit.
 
 We fitted the models using \texttt{exoplanet}
 \citep{exoplanet:exoplanet}.  We assumed a Gaussian likelihood, and
@@ -838,21 +799,21 @@ Figure~\ref{fig:planets}, and the important derived parameters are in
 Table~\ref{tab:sysparams}.  The set of full parameters with their
 priors are given in Appendix~\ref{app:transit}.
 
-One drawback of our approach is that we have fixed 5 implicit
-parameters per individual transit to their MAP values to remove the
-starspot-induced variability.  An alternative could be to fit the
+A potential drawback of our approach is that to remove
+the starspot-induced variability, we fixed 5 
+parameters per transit to their MAP values.
+An alternative could be to fit the
 planetary transits simultaneously with the starspot-induced
-variability using a quasiperiodic Gaussian process (GP).  We
-explored this approach, but found that it sometimes required fine-tuning
-of the hyperparameter priors, otherwise the GP would 
-overfit flares, instrumental noise, and any other variability that was not
-part of the transit.  This failure mode is pernicious, in that it yields an
-ill-founded sense of confidence in a visually clean
-fit.  Our model is simpler, and it has the benefit that the white
-noise jitter never trades off with any parameter equivalent to a
-damping timescale for the coherence of the GP.  It is also
-computationally efficient, and it captures the planetary parameters
-about which we care the most.
+variability using a quasiperiodic Gaussian process (GP).  We explored
+this approach, but found that it sometimes required fine-tuning of the
+hyperparameter priors, otherwise the GP would overfit flares,
+instrumental noise, and any other variability that was not part of the
+transit.  This failure mode is pernicious, in that it yields an
+ill-founded sense of confidence in a visually clean fit.  Our model is
+simpler, and it has the benefit that the white noise jitter never
+trades off with any parameter equivalent to a damping timescale for
+the coherence of the GP.  It is also computationally efficient, and it
+captures the planetary parameters about which we care the most.
 
 
 \subsection{Planet Validation}
@@ -964,19 +925,18 @@ plausible host star for the planet other than KOI-7913~A.
 \begin{figure*}[!t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.9\textwidth]{f4.pdf}
+		\includegraphics[width=0.8\textwidth]{f4.pdf}
 	\end{center}
 	\vspace{-0.6cm}
 	\caption{
 		{\bf Radii, orbital periods, and ages of transiting exoplanets}.
-    Planets younger than a gigayear with ages more precise than a factor of
-    three are emphasized. The Cep-Her planets are
+    Planets younger than a gigayear with ages more precise than a
+    factor of three are emphasized. The Cep-Her planets are
     Kepler-1643~b ($\square$), KOI-7368~b ($\triangledown$),
-    KOI-7913~Ab (X), and Kepler-1627~Ab (+).  
-    Interesting trends in the population of young planets currently include
-    {\it i)} their large sizes 
-    and {\it ii)} the lack of young hot Jupiters.
-    The new objects of interest in Cep-Her have normal mini-Neptune sizes
+    KOI-7913~Ab (X), and Kepler-1627~Ab (+).  Interesting trends in
+    the population of young planets currently include {\it i)} their
+    large sizes and {\it ii)} the lack of young hot Jupiters.  The new
+    objects of interest in Cep-Her have normal mini-Neptune sizes
     between 2 and 3\,$R_\oplus$, which is a novelty given their ages.
     Parameters are from the NASA Exoplanet Archive (2022 Apr 5).
 		\label{fig:rp_period_age}
@@ -987,69 +947,67 @@ plausible host star for the planet other than KOI-7913~A.
 \subsection{Normal-Sized Mini-Neptunes Exist at 40$\,$Myr}
 \label{subsec:sizes}
 
-The most significant novelty about
-Kepler-1643~b, KOI-7368.01, and KOI-7913~Ab is that their sizes are
-normal, relative to the known population of gigayear-old
-mini-Neptunes.  At field star ages, mini-Neptune sizes span
-1.8\,$R_\oplus$ to 3.6\,$R_\oplus$, with the most
-common size being $\approx 2.4\,R_\oplus$
+The most significant novelty about Kepler-1643~b, KOI-7368.01, and
+KOI-7913~Ab is that their sizes are normal, relative to the known
+population of gigayear-old mini-Neptunes.  At field star ages,
+mini-Neptune sizes span 1.8\,$R_\oplus$ to 3.6\,$R_\oplus$, with the
+most common size being $\approx 2.4\,R_\oplus$
 \citep[][Figure~7]{Fulton_et_al_2017}.  The known planets younger than
 $10^8$ years are almost all larger, with sizes between 4 and
 10$\,R_\oplus$
-\citep{Mann_K2_33b_2016,David_et_al_2017,benatti_possibly_2019,david_four_2019,newton_tess_2019,rizzuto_tess_2020,bouma_cluster_2020,mann_toi1227_2022}.
+\citep{Mann_K2_33b_2016,David_et_al_2016,benatti_possibly_2019,david_four_2019,newton_tess_2019,rizzuto_tess_2020,bouma_cluster_2020,mann_toi1227_2022}.
 Figure~\ref{fig:rp_period_age} explores this in more detail by showing
 the sizes, orbital periods, and ages of the known transiting planets,
-emphasizing planets with precise ages.  The smallest previously known planets
-comparable to the new Cep-Her mini-Neptunes
-are AU~Mic~c ($3.0\pm0.2\,R_\oplus$, see
-\citealt{martioli_aumicbc_2021} and \citealt{gilbert_flares_2022}),
-Kepler-1627~Ab ($3.8\pm0.2\,R_\oplus$; \citealt{bouma_kep1627_2022}),
-and AU~Mic~d ($4.2\pm0.2\,R_\oplus$; \citealt{plavchan_planet_2020}).
+emphasizing planets with precise ages.  The smallest previously known
+planets comparable to the new Cep-Her mini-Neptunes are AU~Mic~c
+($3.0\pm0.2\,R_\oplus$, see \citealt{martioli_aumicbc_2021} and
+\citealt{gilbert_flares_2022}), Kepler-1627~Ab ($3.8\pm0.2\,R_\oplus$;
+\citealt{bouma_kep1627_2022}), and AU~Mic~d ($4.2\pm0.2\,R_\oplus$;
+\citealt{plavchan_planet_2020}).
 
 The theoretical expectation is that mini-Neptunes with sizes of 2 to
 3\,$R_\oplus$ should be common at ages of $10^7$ to $10^8$ years.
-This expectation is tied to inferences about the
-initial distributions of planetary core mass, core composition, and
-atmospheric mass fraction \citep{owen_evaporation_2017}.  The
-Kelvin-Helmholtz cooling timescale, which is tied to the entropy of
-the planetary interior once the disk disperses, could also play a
-significant role \citep{owen_constraining_2020}.  As an example,
+This expectation is tied to inferences about the initial distributions
+of planetary core mass, core composition, and atmospheric mass
+fraction \citep{owen_evaporation_2017}.  The Kelvin-Helmholtz cooling
+timescale, which is tied to the entropy of the planetary interior once
+the disk disperses, could also play a significant role
+\citep{owen_constraining_2020}.  As an example,
 \citet{rogers_unveiling_2021} predicted that given a core-mass
 distribution peaked at $\approx$$4$\,$M_\oplus$, an ice-poor rock/iron
 core composition, and a typical H/He mass fraction of $\approx$4\%,
 there should be a maximum in planet occurrence at 2 to 3\,$R_\oplus$
-at times between 10 and 100\,Myr
-(their Figure~16).  The models advanced by
-\citet{gupta_signatures_2020} and \citet{lee_primordial_2021} agree;
-the theoretical differences lie in their explanations
-for the radius valley.  If the radius gap is primordial
-and created by gas accretion physics, then super-Earths
+at times between 10 and 100\,Myr.  The models
+advanced by \citet{gupta_signatures_2020} and
+\citet{lee_primordial_2021} agree; their differences lie in the mechanism
+for producing the radius valley.  If the radius valley is
+primordial and created by gas accretion physics, then super-Earths
 ($<$$1.8$\,$R_\oplus$) would be common as early as $10^7$ years
 \citep{lee_primordial_2021}.   The photoevaporation-driven models more
 often quote $10^8$ year timescales for production of
 atmosphere-stripped super-Earths, while the models with the mass-loss
 driven by a slow escape of heat from the core predict longer
-$\sim$$10^9$ year timescales (but see \citealt{king_euv_2020}).
+$\sim$$10^9$ year timescales (but see \citealt{king_2021}).
 
-Systems such as K2-25, V1298~Tau, HIP-67522, TOI-837,
-and TOI-1227 have sizes that are much larger than the picture we have
-just described.  However, their large sizes can be accommodated
-by existing models by invoking any of {\it i)} larger core masses,
-{\it ii)} more volatile-rich compositions, {\it iii)}  larger initial
-atmospheric mass fractions, or {\it iv)} longer thermal cooling times.
-For instance, perhaps all five of the the aforementioned systems are
-large simply because the planets are more massive than most
-mini-Neptunes.  Secure mass measurements would help constrain this
-parameter space, but the $\sim$1\,\kms\ spot-induced radial velocity
-semi-amplitudes makes measuring the Doppler orbits incredibly
-challenging.  \citep[][]{cale_diving_2021,zicher_one_2022,klein_one_2022}.
+Systems such as K2-25, V1298~Tau, HIP-67522, TOI-837, and TOI-1227
+have sizes that are much larger than the picture we have just
+described.  However, their large sizes can be accommodated by existing
+models by invoking any of {\it i)} larger core masses, {\it ii)} more
+volatile-rich compositions, {\it iii)}  larger initial atmospheric
+mass fractions, or {\it iv)} longer thermal cooling times.  For
+instance, perhaps all five of the the aforementioned systems are large
+simply because the planets are more massive than most mini-Neptunes.
+Secure mass measurements would help constrain this parameter space,
+but the $\sim$1\,\kms\ spot-induced radial velocity semi-amplitudes
+makes measuring the Doppler orbits incredibly challenging.
+\citep[][]{cale_diving_2021,zicher_one_2022,klein_one_2022}.
 Regardless, the new Kepler-1643, KOI-7368, and KOI-7913 systems do
 demonstrate that at least some planets at 40\,Myr have sizes that are
 consistent with theoretical expectations for mini-Neptunes.  While
 selection effects imposed by spot-induced photometric variability are
 a likely explanation for why planets this small have not previously
-been identified \citep[{e.g.},][]{zhou_2021_tois}, future work
-should quantify this bias more carefully, in order to enable empirical
+been identified \citep[{e.g.},][]{zhou_2021_tois}, future work should
+quantify this bias more carefully, in order to enable empirical
 studies of how the planetary size distribution changes at early times.
 
 
@@ -1058,173 +1016,167 @@ studies of how the planetary size distribution changes at early times.
 
 RSG-5, and Kepler-1643's membership inside it, meet typical
 expectations for a star claimed to be in an open cluster.  RSG-5 is an
-obvious overdensity relative to the local field, and our
-membership selection easily produces a clean pre-main-sequence locus
-in color versus absolute magnitude (Figure~\ref{fig:age}).  CH-2, and
-KOI-7913 and KOI-7368's membership inside it, do not meet these
-expectations in as obvious a manner.  This is because the CH-2
-association is diffuse.
+obvious overdensity relative to the local field, and our membership
+selection easily produces a clean pre-main-sequence locus in color
+versus absolute magnitude (Figure~\ref{fig:age}).  CH-2, and KOI-7913
+and KOI-7368's membership inside it, do not meet these expectations in
+as obvious a manner.  This is because the CH-2 association is diffuse.
 
-To quantify the density difference between CH-2 and RSG-5, we can compare the spatial and
-velocity volumes searched for each group.
-For RSG-5, we drew \nrsgfive\ candidate members from a $30\,{\rm
-pc}\times30\,{\rm pc}\times30\,{\rm pc}$ spatial cube, given a $1 {\rm
-\mkms} \times 2 {\rm \mkms }$ rectangle in apparent galactic velocity.
-For CH-2, our \nchtwo\ candidate members came from a rectangular prism of
-dimension $50\,{\rm pc}\times40\,{\rm pc}\times30\,{\rm pc}$, and a
-rectangular box of $2 {\rm \mkms} \times 4 {\rm \mkms}$.  If we define
-the searched volume in units of ${\rm pc}^3\,{\rm km^2}\,{\rm s^{-2}}$, then
-the volume ratio of CH-2 to RSG-5 is 9 to 1.  The ratio of number
-densities (candidate members per unit searched volume) in RSG-5
-relative to CH-2 is 34 to 1.
+To quantify the density difference between CH-2 and RSG-5, we can
+compare the spatial and velocity volumes searched for each group.  For
+RSG-5, we drew \nrsgfive\ candidate members from a $30\,{\rm
+pc}\times30\,{\rm pc}\times40\,{\rm pc}$ rectangular prism, given a
+$1.5 {\rm \mkms} \times 2.5 {\rm \mkms }$ rectangle in apparent
+galactic velocity.  For CH-2, our \nchtwo\ candidate members came from
+a rectangular prism of dimension $50\,{\rm pc}\times40\,{\rm
+pc}\times30\,{\rm pc}$, and a rectangular box of $2 {\rm \mkms} \times
+4 {\rm \mkms}$.  If we define the searched volume in units of ${\rm
+pc}^3\,{\rm km^2}\,{\rm s^{-2}}$, then the volume ratio of CH-2 to
+RSG-5 is 3.5 to 1.  The ratio of number densities (candidate members
+per unit searched volume) in RSG-5 relative to CH-2 is 16 to 1.
 
 Given its low density, in CH-2 really a star cluster?  For this
-discussion, we adopt the definition that a star cluster is a group
-of at least 12 stars that was physically associated at its time of
-formation.  The somewhat arbitrary ``12'' is set to distinguish star
-clusters from high-order multiples \citep[see][]{krumholz_star_2019}.
-Dissolved clusters and their tidal tails are therefore included in our
-concept of clusters.  We do not require however that a particular number of stars per
-unit spatial volume is required for a group to be a ``cluster''.
-The latter point acknowledges that an important
-factor in cluster identification is also the density in velocity
-space.  Perhaps once stellar rotation periods and chemical abundances
-reach the same level of ubiquity as stellar proper motions, they might
-enable further refinement of our ability to discover stars that formed
-together.
+discussion, we adopt the definition that a star cluster is a group of
+at least 12 stars that was physically associated at its time of
+formation.  The ``12'' is set to distinguish star clusters from
+high-order multiples \citep[see][]{krumholz_star_2019}.  Dissolved
+clusters and their tidal tails are therefore included in our concept
+of clusters.  We do not however require a threshold number of stars
+per unit spatial volume for a group to be a ``cluster''.  The latter
+point acknowledges that an important factor in cluster identification
+is also the density in velocity space.  Perhaps once stellar rotation
+periods and chemical abundances reach the same level of ubiquity as
+stellar proper motions, they might enable further refinement of our
+ability to discover stars that formed together.
 
 From a data-driven perspective, demonstrating that a group of stars
 was physically associated at its time of formation is challenging.
 While some young groups show kinematic evidence for expansion
 \citep{kuhn_kinematics_2019}, many, including Sco-Cen, do not
 \citep{wright_kinematics_2018}.  This complicates the feasibility of
-deriving kinematic ages through traceback, as
-well as through the expansion itself
-\citep[see][]{crundall_chronostar_2019}.  
-A more minimal approach is
-that suggested by \citet{tofflemire_2021}: search for coeval,
-phase-space neighbors, measure their ages, and determine if they share
-a common age.  This approach can demonstrate whether a star is {\it
-currently associated} with a set of coeval stars, which is much easier
-than determining what the association looked like in the past.  Our
-analysis of CH-2 meets the latter standard for the existence of a
-$\approx$40\,Myr assocation today.  It would be a worthy exercise for
-future work to perform a similar search for coeval phase-space
-neighbors on the entire dataset of known exoplanet hosts.  For the
-time being, we can offer the anecdotal point that in our experience,
-most stars do not have dozens of 40\,Myr neighbors within a
-local volume of a few \kms\ and tens of parsecs.
+deriving kinematic ages through traceback, as well as through the
+expansion itself \citep[see][]{crundall_chronostar_2019}.  A more
+minimal approach is that suggested by \citet{tofflemire_2021}: search
+for coeval, phase-space neighbors, measure their ages, and determine
+if they share a common age.  This approach can demonstrate whether a
+star is currently associated with a set of coeval stars, which
+is much easier than determining what the association looked like in
+the past.  Our analysis of CH-2 meets the latter standard for the
+existence of a $\approx$40\,Myr assocation.  It would be a worthy
+exercise for future work to perform a similar search for coeval
+phase-space neighbors on the entire dataset of known exoplanet hosts.
+For the time being, we can offer the anecdotal point that in our
+experience, most stars do not have dozens of 40\,Myr neighbors within
+a local volume of a few \kms\ and tens of parsecs.
 
 
 \subsection{Future work}
 
 \paragraph{Cep-Her}
 Our analysis to date has focused only on portions of Cep-Her that were
-observed by Kepler: RSG-5, CH-2, and the $\delta$~Lyr cluster.  The
-membership and kinematics of the other subgroups shown in
-Figure~\ref{fig:XYZvtang} deserve independent attention.  R.~Kerr and
-collaborators have {\bf acquired N spectra} from which radial
-velocities will be derived in their upcoming study.
-One important aspect of these analyses will be to assess whether the 
-traceback approach could be applicable.
-However if the
-estimate that Cep-Her has $\gtrsim$3{,}500 stars is correct then more
-data might be required to fully untangle the kinematics of the various
-groups.  Wide-field spectroscopic surveys such as LAMOST
-\citep{zhao_2012_LAMOST} or SDSS-V \citep{kollmeier_2017} could
-enable such analyses, while also
-providing sensitivity to the Li 6708\,\AA\ line.  Gaia
-DR3 may also provide RVS spectra for some of the brighter F and G
-dwarfs, which would contain the calcium infrared triplet as another
-age indicator.
+observed by Kepler: RSG-5, CH-2, and the $\delta$~Lyr cluster.  In
+\citet{bouma_kep1627_2022} as well as this work, we have shown that
+these groups share similar ages, and have kinematic correlations that
+suggest a common origin.  With that said, the membership and
+kinematics of the other subgroups shown in Figure~\ref{fig:XYZvtang}
+deserve independent attention.  An important aspect of the work that
+remains will be to acquire radial velocities of a large subset of the
+stars, to assess whether the traceback approach could be applicable.
+Wide-field spectroscopic surveys such as LAMOST
+\citep{zhao_2012_LAMOST} or SDSS-V \citep{kollmeier_2017} could enable
+such analyses, while also providing sensitivity to the Li 6708\,\AA\
+line.  Gaia DR3 may also provide RVS spectra for the brighter F and G
+dwarfs; these would contain the calcium infrared triplet as another
+age indicator.  These indicators, combined with better kinematics,
+will be needed to definitively unravel the formation history of the
+complex.
 
 A number of worthy photometric projects also seem possible given the
-new understanding of the complex.  One is asteroseismology of the
+new understanding of Cep-Her.  One is asteroseismology of the
 $\delta$~Sct stars, using either TESS or Kepler data
 \citep{bedding_very_2020}.  For cases in which the modes are resolved,
-this might yield age estimates for the subgroups independent of other
-approaches.  Other projects could include searches of the Kepler light
-curves for exocomets \citep{zieba_transiting_2019}, and for missed
-planets around the most rapid rotators.
+this might yield age or metallicity estimates for the subgroups
+independent of other approaches.  Other projects could include
+searches of the Kepler light curves for exocomets
+\citep{zieba_transiting_2019}, and for missed planets around the most
+rapid rotators.
 
 \paragraph{Exoplanet demographics at early times}
-Our main motivation for finding new young planets is to help benchmark models
-for planetary evolution.  However demographic analyses of the known planets
-between $10^7$ and $10^9$ years have so far been somewhat limited.
-Approximately 40 such planets are now known (Figure~\ref{fig:age}).
-About half come from K2, a quarter from TESS, and now a quarter from
-Kepler.
+Our main motivation for finding new young planets is to help benchmark
+models for planetary evolution.  However demographic analyses of the
+known planets between $10^7$ and $10^9$ years have so far been
+somewhat limited.  Approximately 40 such planets are now known
+(Figure~\ref{fig:age}).  About half come from K2, a quarter from TESS,
+and now a quarter from Kepler.
 
-Given the current state of the field, a few reflections regarding experimental
-design of a demographic survey focused on planetary evolution during
-the first gigayear might be useful.  The first is that such a project
-requires a set of
-target stars with known ages.  The best way to
-compile relevant stars right now is likely by combining automated
-spatio-kinematic clustering from Gaia with rotation periods measured using TESS
-\citep[see the appendices of][]{bouma_kep1627_2022}.  The second consideration
-is that the known young planets smaller than $3$\,$R_\oplus$ all come from either
-K2 or Kepler.  Demographic inferences based on TESS are therefore limited to
-planetary sizes $\gtrsim4$\,$R_\oplus$, for planets close-in to their host stars.  It
-seems worthwhile to compare the absolute occurrence rate of such planets to
-those observed by Kepler.  One specific question that seems within reach would
-be to clarify whether enough young stars have been searched for the dearth of
-young hot Jupiters to be significant.  Since the
-hot Jupiter occurrence rate is strongly dependent on stellar mass and
-metallicity \citep{petigura_metallicity_2018,petigura_cksX_2022}, particular
-care would be needed to select a sample of well-studied FGK dwarfs for the
+Given the current state of the field, a few reflections regarding
+experimental design of a demographic survey focused on planetary
+evolution during the first gigayear might be useful.  The first is
+that such a project requires a set of target stars with known ages.
+The best way to compile relevant stars right now is likely by
+combining automated spatio-kinematic clustering from Gaia with
+rotation periods measured using TESS \citep[see the appendices
+of][]{bouma_kep1627_2022}.  The second consideration is that the known
+young planets smaller than $3$\,$R_\oplus$ all come from either K2 or
+Kepler.  Demographic inferences based on TESS are therefore limited to
+planetary sizes $\gtrsim4$\,$R_\oplus$, for planets close-in to their
+host stars.  It seems worthwhile to compare the absolute occurrence
+rate of such planets to those observed by Kepler.  One specific
+question that seems within reach would be to clarify whether enough
+young stars have been searched for the dearth of young hot Jupiters to
+be significant.  Since the hot Jupiter occurrence rate is strongly
+dependent on stellar mass and metallicity
+\citep{petigura_metallicity_2018,petigura_cksX_2022}, particular care
+would be needed to select a sample of well-studied FGK dwarfs for the
 measurement, likely using stars in Sco OB2, Cep-Her, and Orion.  For
-demographic studies focused on how mini-Neptune sizes evolve, the combined K2
-and Kepler dataset might be the better primary source.  
+demographic studies focused on how mini-Neptune sizes evolve, the
+combined K2 and Kepler dataset might be the better primary source.  
 
 
 
 \subsection{Summary}
 
-We have showed that Kepler-1643~b, KOI-7368~b, and KOI-7913~Ab
-are 40 to 50 million years old, and that each system
-is most likely planetary.  The evidence for the planetary
-interpretation comes from an application of \texttt{VESPA} to the
-Kepler data, alongside new imaging from NIRC2.  The
-validity of the \texttt{VESPA} framework rests on the premise that
-non-astrophysical false positives can be rejected.  Kepler-1643 and
-KOI-7368 both pass all but one of the canonical vetting tests: the
-check for centroid offsets between the in and out-of-transit phases.
-For both cases, the weak observed shifts seem to be
-caused by starspot-induced variability in specific quarters
-spuriously moving the stellar center-of-light.
-Independently, our imaging rules out companion stars at the brightness
-and positions that would be needed to explain the reported shifts.
+We have showed that Kepler-1643~b, KOI-7368~b, and KOI-7913~Ab are 40
+to 50 million years old, and that each system is most likely
+planetary.  The evidence for the planetary interpretation comes from
+an application of \texttt{VESPA} to the Kepler data, alongside new
+imaging from NIRC2.  The validity of the \texttt{VESPA} framework
+rests on the premise that non-astrophysical false positives can be
+rejected.  Kepler-1643 and KOI-7368 both pass all but one of the
+canonical vetting tests: the check for centroid offsets between the in
+and out-of-transit phases.  For both cases, the weak observed shifts
+seem to be caused by starspot-induced variability in specific quarters
+spuriously moving the stellar center-of-light.  Independently, our
+imaging rules out companion stars at the brightness and positions that
+would be needed to explain the reported shifts.
 
-Each system has multiple indicators of youth that support the
-reported ages.  For Kepler-1643, the strongest youth indicator
-is its physical and kinematic association with RSG-5.  Based on the
-color-absolute magnitude diagram, we are able to select members
-of this cluster with a false positive rate of a few percent
-(Figure~\ref{fig:age}).  Kepler-1643 is one such member.  While the
-stellar rotation period period agrees with this assessment, the star's
-lithium equivalent width is somewhat low, which might motivate future
-exploration of lithium depletion across FGKM stars in RSG-5 (see
+Each system has multiple indicators of youth that support the reported
+ages.  For Kepler-1643, the strongest youth indicator is its physical
+and kinematic association with RSG-5.  Based on the color-absolute
+magnitude diagram, we are able to select members of this cluster with
+a false positive rate of a few percent (Figure~\ref{fig:age}).
+Kepler-1643 is one such member.  While the stellar rotation period
+period agrees with this assessment, the star's lithium equivalent
+width is somewhat low, which might motivate future exploration of
+lithium depletion across FGKM stars in RSG-5 (see
 Appendix~\ref{app:spectra}).
 
-The spatio-kinematic argument for the youth of KOI-7368 and
-KOI-7913 is weaker because they are in an association of stars, CH-2,
-that is more diffuse.  For KOI-7913, stronger indicators of its age
-come from its binary.  Both stellar components in KOI-7913
-have isochronal ages consistent with $40$\,Myr.
-Both components also show H$\alpha$ in emission, which for
-the $\approx$K6V primary is a strong indicator that the star is
-$\lesssim$100$\,$Myr old.  KOI-7368 is slightly more
+The spatio-kinematic argument for the youth of KOI-7368 and KOI-7913
+is weaker because they are in an association of stars, CH-2, that is
+more diffuse.  For KOI-7913, stronger indicators of its age come from
+its binary.  Both stellar components in KOI-7913 have isochronal ages
+consistent with $40$\,Myr.  Both components also show H$\alpha$ in
+emission, which for the $\approx$K6V primary is a strong indicator
+that the star is $\lesssim$100$\,$Myr old.  KOI-7368 is slightly more
 massive, and the Li 6708\,\AA\ measurement and stellar rotation period
-provide independent verification of the
-star's youth.
+provide independent verification of the star's youth.
 
-The astrophysical significance of these considerations
-is that planets $\sim$2 Earth radii in size exist at ages of 40 million years.
-It will be interesting to continue the push down to smaller planetary
-sizes at comparable ages -- the planetary detections we have
-presented are well above the average detection significance for Kepler 
-planets.  There may still be room at the bottom.
+The astrophysical significance of these considerations is that planets
+$\sim$2 Earth radii in size exist at ages of 40 million years.  It
+will be interesting to continue the push down to smaller planetary
+sizes at comparable ages -- the planetary detections we have presented
+are well above the average detection significance for Kepler planets.
+There may still be room at the bottom.
 
 
 
@@ -1356,11 +1308,11 @@ from this mountain.
 \software{
   %\texttt{arviz} \citep{arviz_2019},
   %\texttt{altaipony} \citep{ilin_flares_2021},
-  \texttt{astrobase} \citep{bhatti_astrobase_2018},
+  %\texttt{astrobase} \citep{bhatti_astrobase_2018},
   %\texttt{astroplan} \citep{astroplan2018},
 	%\texttt{AstroImageJ} \citep{collins_astroimagej_2017},
-  \texttt{astropy} \citep{astropy_2018},
-  \texttt{astroquery} \citep{astroquery_2018},
+  %\texttt{astropy} \citep{astropy_2018},
+  %\texttt{astroquery} \citep{astroquery_2018},
   %\texttt{BATMAN} \citep{kreidberg_batman_2015},
   %\texttt{ceres} \citep{brahm_2017_ceres},
   %\texttt{cdips-pipeline} \citep{bhatti_cdips-pipeline_2019},
@@ -1382,7 +1334,7 @@ from this mountain.
   \texttt{PyMC3} \citep{salvatier_2016_PyMC3},
   %\texttt{radvel} \citep{fulton_radvel_2018},
   %\texttt{scikit-learn} \citep{scikit-learn},
-  \texttt{scipy} \citep{jones_scipy_2001},
+  %\texttt{scipy} \citep{jones_scipy_2001},
   %\texttt{TESS-point}  \citep{burke_2020},
   %\texttt{tesscut} \citep{brasseur_astrocut_2019},
 	\texttt{VESPA} \citep{morton_efficient_2012,vespa_2015},
@@ -1443,11 +1395,11 @@ from this mountain.
 \section{Tables of Candidate Cep-Her Members}
 \label{app:members}
 
-\paragraph{Table~2} contains candidate Cep-Her members with weights $\alpha>0.02$
-observed by Kepler.  More restrictive weight cuts
-would be needed if one wanted to remove the majority of field star interlopers: at
-least half of the stars included in the table are unlikely
-to be bonafide members of Cep-Her.  Table~2  was created by
+\paragraph{Table~2} contains candidate Cep-Her members with weights
+$\alpha>0.02$ observed by Kepler.  More restrictive weight cuts would
+be needed if one wanted to remove the majority of field star
+interlopers; at least half of the stars included in the table are
+unlikely to be bonafide Cep-Her members.  Table~2  was created by
 cross-matching candidate Cep-Her members (selected using Gaia EDR3;
 Section~\ref{subsec:members}) against a Kepler to Gaia DR2 cross-match
 (the \texttt{gaia-kepler.fun} crossmatch database created by Megan
@@ -1455,43 +1407,44 @@ Bedell).  The \texttt{kic\_dr2\_ang\_dist} column is from the latter
 table.  The EDR3 to DR2 match was performed using the
 \texttt{gaiaedr3.dr2\_neighbourhood} table, and the closest proper
 motion and epoch-corrected angular distance neighbor was taken as the
-single best match.  The \texttt{edr3\_dr2\_mag\_diff} column
-gives some indication of the reliability of this EDR3 to DR2
-conversion, as there are a few cases between Gaia DR2 and EDR3 where
-partially resolved binaries became fully resolved.
+single best match.  The \texttt{edr3\_dr2\_mag\_diff} column gives
+some indication of the reliability of this EDR3 to DR2 conversion, as
+there are a few cases between Gaia DR2 and EDR3 where partially
+resolved binaries became fully resolved.
 
-\paragraph{Table~3} contains spatial, kinematic, astrometric, and rotation period
-information for the \nrsgfive\ candidate RSG-5 members and \nchtwo\ candidate CH-2
-members described in Section~\ref{subsec:members}.
-These are the data used to make the lower panels of
-Figure~\ref{fig:age}.
-Table~3 includes rotation periods for 53 stars with ZTF and 51 stars with
- TESS, for a total of 71 periods reported for unique stars and 32
- overlapping between the surveys. We adopted the ZTF period over the
- TESS period in three cases: (1) Gaia EDR3 2081755809272821248: the
- Lomb-Scargle periodogram favored 6.67 days, consistent with the ZTF
- period of 6.61 days; however, we flagged it as a candidate
- double-dipper, which appears to have inaccurately doubled the TESS
- period to 13.34 days; (2) Gaia EDR3 2081737529891330560: we found 3.06
- days with TESS and 6.64 days with ZTF; we suspect that TESS captured
- the 1/2-period harmonic and adopt the approximately double value from
- ZTF; (3) 2134851775526125696: for this star, we measured 1.91 days
- with TESS from Cycle 2, but noted that the signal appeared to be
- missing in Cycle 4; ZTF found a strong signal at 12.23 days and we
- adopt this as the star's period. In the remaining overlap cases, we
- adopted the average between TESS and ZTF as the final period. For
- these overlap stars, the median absolute deviation is 0.01 days,
- showing remarkable consistency between the surveys. For three stars,
- we failed to detect a period in TESS but recovered one from ZTF; in
- all cases the periods appear to be 13--16 days.
- These stars were: (1) Gaia EDR3
- 2129930258400157440, for which TESS showed a flat light curve while ZTF yielded
- a 15.3-day period; (2) Gaia EDR3 2082376861542398336, LS found a
- 7.6-day period which we rejected during visual validation; we found
- 15.4 days with ZTF, and we suspect that the weak/rejected signal form
- TESS might have been a 1/2 period harmonic; (3) Gaia EDR3
- 2082397099429013120, similar to the previous case, we rejected a
- 6.7-day signal from TESS and recovered a 12.8-day period with ZTF. 
+\paragraph{Table~3} contains spatial, kinematic, astrometric, and
+rotation period information for the \nrsgfive\ candidate RSG-5 members
+and \nchtwo\ candidate CH-2 members described in
+Section~\ref{subsec:members}.  These are the data used to make the
+lower panels of Figure~\ref{fig:age}. 
+% Table~3 includes rotation periods for 53 stars with ZTF and 51 stars
+% with TESS, for a total of 71 periods reported for unique stars and 32
+% overlapping between the surveys.
+We adopted the ZTF period over the
+TESS period in three cases: (1) Gaia EDR3 2081755809272821248: the
+Lomb-Scargle periodogram favored 6.67 days, consistent with the ZTF
+period of 6.61 days; however, we flagged it as a candidate
+double-dipper, which appears to have inaccurately doubled the TESS
+period to 13.34 days; (2) Gaia EDR3 2081737529891330560: we found 3.06
+days with TESS and 6.64 days with ZTF; we suspect that TESS captured
+the 1/2-period harmonic and adopt the approximately double value from
+ZTF; (3) 2134851775526125696: for this star, we measured 1.91 days
+with TESS from Cycle 2, but noted that the signal appeared to be
+missing in Cycle 4; ZTF found a strong signal at 12.23 days and we
+adopt this as the star's period. In the remaining overlap cases, we
+adopted the average between TESS and ZTF as the final period. For
+these overlap stars, the median absolute deviation is 0.01 days,
+showing remarkable consistency between the surveys. For three stars,
+we failed to detect a period in TESS but recovered one from ZTF; in
+all cases the periods appear to be 13--16 days.  These stars were: (1)
+Gaia EDR3 2129930258400157440, for which TESS showed a flat light
+curve while ZTF yielded a 15.3-day period; (2) Gaia EDR3
+2082376861542398336, LS found a 7.6-day period which we rejected
+during visual validation; we found 15.4 days with ZTF, and we suspect
+that the weak/rejected signal form TESS might have been a 1/2 period
+harmonic; (3) Gaia EDR3 2082397099429013120, similar to the previous
+case, we rejected a 6.7-day signal from TESS and recovered a 12.8-day
+period with ZTF. 
 
 
 \section{Spectroscopic Youth Indicators}
@@ -1683,7 +1636,7 @@ likely explained by the stellar variability).
 What of the ``halo\_ghost'' flag?  This test measures the transit
 strength for the pixels inside the aperture, and compares it to that
 measured in the ring of pixels around said aperture (the ``halo'').
-Generally one expects the transit signal to be strongest in the
+One usually expects the transit signal to be strongest in the
 central aperture, rather than the halo.  Two types of false positive
 scenarios can change this and trigger the flag: the first is when
 optical ghosts from bright eclipsing binaries reflect off the CCD, and
@@ -1709,8 +1662,9 @@ products accurately correct the mean flux level
 was separately acquired for KOI-7913~B also reveals a
 different stellar rotation period, and no hint of the transit signal.
 
-%\clearpage
+\clearpage
 \input{tab_supp_CepHer_X_Kepler.tex}
+\vspace{-6cm}
 \input{tab_supp_RSG5_CH2_Prot.tex}
 \input{source_KOIs_simpletransit_posteriortable.tex}
 

@@ -2195,7 +2195,7 @@ def plot_hr(
             c='#ff6eff', # magenta
             alpha=1, zorder=10,
             s=1.6*s, rasterized=False, label='RSG-5 candidates', marker='o',
-            edgecolors='k', linewidths=0.1
+            edgecolors='k', linewidths=0.2
         )
 
 
@@ -2328,7 +2328,7 @@ def plot_hr(
         # add log stretch...
         from astropy.visualization import LogStretch
         from astropy.visualization.mpl_normalize import ImageNormalize
-        norm = ImageNormalize(vmin=1., vmax=1000,
+        norm = ImageNormalize(vmin=10, vmax=1000,
                               stretch=LogStretch())
 
         density = ax.scatter_density(_x[s], _y[s], cmap='Greys', norm=norm)
@@ -2714,7 +2714,8 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     colordict = {
         'deltaLyrCluster': 'k',
         'CH-2': 'lime',
-        'RSG-5': '#ff6eff'
+        'RSG-5': '#ff6eff' # magenta
+        #'RSG-5': '#ffa873' # orange
     }
     sizedict = {
         'deltaLyrCluster': 8,
@@ -2788,54 +2789,51 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
             df = df[~df.is_phot_nonmember]
 
         elif runid in ['CH-2','RSG-5']:
-            csvpath = os.path.join(DATADIR, 'rotation',
-                                   'CepHer_RSG5_EDR3_v2_Curtis_20220326.csv')
+            csvpath = os.path.join(TABLEDIR, 'RSG5_CH2_Prot_cleaned.csv')
             _df = pd.read_csv(csvpath)
+            csvpath = os.path.join(DATADIR, 'Cep-Her',
+                                   '20220311_Kerr_CepHer_Extended_Candidates_v0-result.csv')
+            rdf = pd.read_csv(csvpath)
+            _df['dr3_source_id'] = _df.dr3_source_id.astype(str)
+            rdf['source_id'] = rdf.source_id.astype(str)
+            _df = _df.merge(rdf, how='left', left_on='dr3_source_id',
+                            right_on='source_id')
 
             # match Jason's keys against what I call these clusters
             if runid == 'CH-2':
-                sel = (_df.Cluster == 'CepHer')
+                sel = (_df.cluster == 'CH-2')
             elif runid == 'RSG-5':
-                sel = (_df.Cluster == 'RSG5')
+                sel = (_df.cluster == 'RSG-5')
 
-            _df = _df[sel]
-
-            # merge in knowledge of the reddening correction (from plot_hr)
-            cstr = '_corr'
-            redpath = os.path.join(
-                RESULTSDIR, 'tables', f'{runid}_auto_withreddening_gaia2018.csv'
-            )
-            rdf = pd.read_csv(redpath)
-            rdf = rdf[get_clean_gaia_photometric_sources(rdf)]
-
-            # EDR3
-            _df['Source_Input'] = _df['Source_Input'].astype(str)
-            rdf['source_id'] = rdf['source_id'].astype(str)
-
-            df = _df.merge(
-                rdf, how='inner', left_on='Source_Input', right_on='source_id'
-            )
-
-            # NOTE: only true if you don't impose the "clean
-            # photometric sources" cut.
-            # assert len(df) == len(_df)
+            df = _df[sel]
 
             if runid == 'CH-2':
                 # drop KOI-7913 A
-                df = df[df.Source_Input != '2106235301785454208' ]
+                df = df[df.dr3_source_id != '2106235301785454208' ]
                 # drop KOI-7913 A
-                df = df[df.Source_Input != '2106235301785453824' ]
+                df = df[df.dr3_source_id != '2106235301785453824' ]
                 # drop KOI-7368
-                df = df[df.Source_Input != '2128840912955018368' ]
+                df = df[df.dr3_source_id != '2128840912955018368' ]
 
             elif runid == 'RSG-5':
-                df = df[df.Source_Input != '2082142734285082368' ]
+                df = df[df.dr3_source_id != '2082142734285082368' ]
 
         if f'{runid}' not in _cls:
             key = '(BP-RP)0' if not xval_absmag else 'MGmag'
             xval = df[key]
+            ykey = 'Prot'
+
+        elif runid in ['CH-2', 'RSG-5']:
+            xkey = '(BP-RP)0'
+            xval = df[xkey]
+            ykey = 'Prot_Adopted'
+            cstr = '_corr'
+            get_xval = lambda __df: np.array(
+                __df['phot_bp_mean_mag'+cstr] - __df['phot_rp_mean_mag'+cstr]
+            )
 
         else:
+            ykey = 'period'
             if not xval_absmag:
                 get_xval = lambda __df: np.array(
                     __df['phot_bp_mean_mag'+cstr] - __df['phot_rp_mean_mag'+cstr]
@@ -2847,14 +2845,12 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                 )
                 xval = get_xval(df)
 
-        ykey = 'Prot' if f'{runid}' not in _cls else 'period'
-
         if refcluster_only and f'{runid}' in _cls:
             pass
 
         else:
             if runid in ['CH-2','RSG-5'] and f'{runid}' in _cls:
-                sel = (xval > 0.5) & (df.phot_g_mean_mag_x < 16)
+                sel = (xval > 0.5) & (df.phot_g_mean_mag < 16)
             else:
                 sel = (xval > 0.5)
             ax.scatter(
@@ -2877,14 +2873,14 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
             print(f'and got {len(df[sel][~pd.isnull(df[sel][ykey])])} rotation period detections.')
             print(f'N={len(df[sel])} Detections and non-detections are as follows')
             print(df[sel][[
-                'Source_Input', 'TESS_Data', 'bp_rp_x',
-                'period']].sort_values(by='bp_rp_x')
+                'dr3_source_id', 'weight', '(BP-RP)0',
+                'Prot_Adopted', 'Prot_TESS', 'Prot_ZTF']].sort_values(by='(BP-RP)0')
             )
             print(10*'#')
             print('Stars with Prot>10 days:')
-            print(df[(df.period > 10) & (df.phot_g_mean_mag_x < 16)][[
-                'DESIGNATION', 'TESS_Data', 'bp_rp_x',
-                'period']].sort_values(by='bp_rp_x')
+            print(df[(df.Prot_Adopted > 10) & (df.phot_g_mean_mag < 16)][[
+                'dr3_source_id', 'weight', '(BP-RP)0',
+                'Prot_Adopted', 'Prot_TESS', 'Prot_ZTF']].sort_values(by='(BP-RP)0')
             )
             print(42*'-')
 
