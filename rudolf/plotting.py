@@ -5577,6 +5577,19 @@ def _get_theia520():
     return df
 
 
+def _get_melange2():
+    #csvpath = os.path.join(DATADIR, "gaia",
+    #                       "Barber_2022_melange2_webplotdigitize.csv")
+    csvpath = os.path.join(DATADIR, "gaia",
+                           "Barber_2022_MELANGE-2.csv")
+    df = pd.read_csv(csvpath)
+    df = df[df['Voff(km/s)'] < 2]
+    c = SkyCoord(ra=nparr(df.RA)*u.deg, dec=nparr(df.DEC)*u.deg)
+    df['l'] = c.galactic.l.value
+    df['b'] = c.galactic.b.value
+    return df
+
+
 def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                               clusters=None, showplanets=0):
     """
@@ -5634,8 +5647,7 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
             if cluster == 'Theia-520':
                 df = _get_theia520()
             if cluster == 'Melange-2':
-                csvpath = os.path.join(DATADIR, "gaia", "Barber_2022_melange2.csv")
-                df = pd.read_csv(csvpath)
+                df = _get_melange2()
             if cluster == 'δ Lyr':
                 df = get_deltalyr_kc19_cleansubset()
             if cluster == 'RSG-5':
