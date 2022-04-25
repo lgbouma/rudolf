@@ -771,14 +771,14 @@ Table~\ref{tab:sysparams}.
 
 Our goals in fitting the Kepler light curves are twofold.  First, we
 want to derive accurate planetary sizes and orbital properties.
-Second, we want to remove the stellar variability signal to enable a
+Second, we want to remove the spot-induced variability signal to enable a
 statistical assessment of the probability that the transit signals are
 planetary.
 
 We fitted the data as follows.  Given the transit
 ephemeris from \citet{thompson_planetary_2018}, we first trimmed the
 light curve to a local window around each transit that spanned three
-transit durations before and after each mid-transit time.  The
+transit durations before and after each transit midpoint.  The
 out-of-transit points in each local window were then fitted with a
 fourth-order polynomial, which was divided out from the light curve.
 The resulting flattened transits were then fitted with a transit model
@@ -788,15 +788,15 @@ u_1 ,u_2, R_\star, \log g\}$), 2 free parameters for the light curve
 normalization and a white noise jitter ($\{\langle f \rangle, \sigma_f
 \}$), and 5 fixed parameters for each transit.
 
-We fitted the models using \texttt{exoplanet}
+We fitted the data using \texttt{exoplanet}
 \citep{exoplanet:exoplanet}.  We assumed a Gaussian likelihood, and
 sampled using \texttt{PyMC3}'s No-U-Turn Sampler
 \citep{hoffman_no-u-turn_2014}, after having initialized to the the
 maximum {\it a posteriori} (MAP) model.  We used the
-\citet{gelman_inference_1992} statistic ($\hat{R}$) as our convergence
+\citet{gelman_inference_1992} statistic, $\hat{R}$, as our convergence
 diagnostic.  The resulting fits are shown in the lower panels of
 Figure~\ref{fig:planets}, and the important derived parameters are in
-Table~\ref{tab:sysparams}.  The set of full parameters with their
+Table~\ref{tab:sysparams}.  The set of full parameters and their
 priors are given in Appendix~\ref{app:transit}.
 
 A potential drawback of our approach is that to remove
@@ -805,7 +805,7 @@ parameters per transit to their MAP values.
 An alternative could be to fit the
 planetary transits simultaneously with the starspot-induced
 variability using a quasiperiodic Gaussian process (GP).  We explored
-this approach, but found that it sometimes required fine-tuning of the
+this approach, but found that it often required fine-tuning of the
 hyperparameter priors, otherwise the GP would overfit flares,
 instrumental noise, and any other variability that was not part of the
 transit.  This failure mode is pernicious, in that it yields an
@@ -819,8 +819,8 @@ captures the planetary parameters about which we care the most.
 \subsection{Planet Validation}
 
 In the future, it may be possible to obtain independent evidence for
-the planetary nature of the Cep-Her planets, for instance through
-transit observations using a high-resolution spectrograph.  For now,
+the planetary nature of the Cep-Her planets, for instance by observing
+spectroscopic transits.  For now,
 it is of interest whether the transit signals might be astrophysical
 false positives, or whether they are statistically more likely to be
 planetary.  We adopt the Bayesian framework implemented in
@@ -845,7 +845,7 @@ of the aforementioned false positive scenarios of 9$\times$10$^{-6}$.
 Repeating the calculation with our own stellar-variability correction
 and the new NIRC2 imaging constraints, we find ${\rm FPP} =
 6\times10^{-9}$.  Figure~\ref{fig:planets} shows the justification:
-the transit is flat and has a high S/N ($\approx 47$).  The shape is
+the transit is flat and has a high S/N ($\approx$$47$).  The shape is
 therefore nearly impossible to reproduce with eclipsing binary models.
 
 Intriguingly, Kepler-1643 failed one of the data validation
@@ -855,8 +855,8 @@ position and the position of the transiting source was measured as
 $1\farcs0$ at 4.4-$\sigma$.  The reports show however that two
 outlying quarters (2 and 6) drive the offset -- the centroid locations
 from the other Kepler quarters are consistent at $\lesssim 0\farcs4$.
-Nonetheless, this is an instructive exercise in how stellar
-variability complicates centroid-based vetting tests.  The centroid
+This is an instructive exercise in how stellar
+variability complicates centroid-based vetting tests.  The 
 shifts measured by these tests are determined from the in- and
 out-of-transit flux-weighted centroids.  For stars with significant
 spot-induced variability there is no static baseline in either the in-
@@ -869,7 +869,7 @@ probability for the system because their default trapezoidal fitting
 routine failed, presumably due to the spot-induced variability.  Our
 fitting approach rectifies this point, and our new NIRC2 images
 revealed no new stellar companions.  Performing the relevant
-calculation, we find ${\rm FPP} \approx 4\times10^{-3}$.  Though not
+calculation, we find ${\rm FPP} = 4\times10^{-3}$.  Though not
 as convincing as Kepler-1643, this clears the usual threshold
 for calling the planet statistically validated
 \citep{morton_efficient_2012}.  The S/N of the transit is
@@ -882,19 +882,19 @@ transiting sources thought to share positions with their target stars
 It bears mentioning that KOI-7368 shows a weak centroid shift in the
 \texttt{q1\_q17\_dr25\_koi} validation reports, similar to
 Kepler-1643.  For KOI-7368, the reported offset is smaller, and less
-statistically significant ($0\farcs2$; 3.0-$\sigma$).  Again, the data
+significant ($0\farcs2$; 3.0-$\sigma$).  Again, the data
 validation reports show that the shift is caused by a few outlying
 quarters (4, 5, 8, and 12).  The fact that the remaining data show a
 consistent scatter between centroid locations suggests that these
-outliers are also caused by the stellar variability.  Independently,
-our NIRC2 imaging shows that there are no neighboring sources that
-could cause an offset of the observed amplitude.
+outliers are also caused by the stellar variability.  
+Our NIRC2 imaging independently shows that there are no neighboring
+sources that could cause an offset of the observed amplitude.
 
 \paragraph{KOI-7913}
 KOI-7913.01 is also currently listed on the NASA Exoplanet Archive as a
-``candidate'' planet.  The canonical \citet{morton_false_2016}
+``candidate'' planet.  The \citet{morton_false_2016}
 analysis was of Q1-Q17 KOIs from DR24, and therefore spanned KOI-1.01
-to KOI-7620.01 and omitted KOI-7913.01.  However the results of the
+to KOI-7620.01 (omitting KOI-7913.01).  However the results of the
 subsequent DR25 analysis by Morton et al.\ are listed at the NASA
 Exoplanet Archive.  The relevant table gives a probability for the
 system being an astrophysical false positive of $1.4\times10^{-4}$,
@@ -902,20 +902,20 @@ with the most likely false positive scenario being a blended eclipsing
 binary.  Repeating the calculation with our new detrending and
 contrast curves, we find a similar result: ${\rm FPP} =
 1.3\times10^{-4}$.  Though the transit has the lowest S/N of any of
-the objects discusssed (${\rm S/N}=14$), its lower FPP relative to
+the objects discusssed ($\approx$$14$), its lower FPP relative to
 KOI-7368 can be understood through its flat-bottomed shape,
 combined with its long transit duration relative to plausible
 eclipsing binary models (Figure~\ref{fig:planets}).  The host star
 probability usability score \citep{2017ksci.rept...16B} also meets the
-usual threshold, and so the planet seems to be validated.  Its
+usual threshold, and so the planet is statistically validated.  Its
 disposition has however previously fluctuated from ``false positive''
-to ``candidate''.  The most likely explanation is the presence of
-KOI-7913~B, which is located approximately one Kepler pixel away from
-Kepler-7913 A (see Appendix~\ref{app:koi7913}).  Our pixel-level
-analysis of the target pixel files did not show any evidence to
-support the idea that KOI-7913~B could host the transiting planet.
-Our NIRC2 imaging similarly ruled out the possibility of any other
-plausible host star for the planet other than KOI-7913~A.
+to ``candidate'' (see Appendix~\ref{app:koi7913}).  The most likely
+explanation is the presence of KOI-7913~B, which is located
+approximately one Kepler pixel away from Kepler-7913 A.  Our
+pixel-level analysis of the target pixel files did not show any
+evidence to support the idea that KOI-7913~B could host the transiting
+planet.  Our NIRC2 imaging similarly ruled out the possibility of any
+other plausible host star for the planet other than KOI-7913~A.
 
 
 \section{Discussion \& Conclusion}
@@ -933,8 +933,8 @@ plausible host star for the planet other than KOI-7913~A.
     factor of three are emphasized. The Cep-Her planets are
     Kepler-1643~b ($\square$), KOI-7368~b ($\triangledown$),
     KOI-7913~Ab (X), and Kepler-1627~Ab (+).  Interesting trends in
-    the population of young planets include {\it i)} their
-    large sizes and {\it ii)} the lack of young hot Jupiters.  The new
+    the population of $<10^8$ year old planets include {\it i)} their
+    large sizes and {\it ii)} the lack of hot Jupiters.  The new
     objects of interest in Cep-Her have normal mini-Neptune sizes
     between 2 and 3\,$R_\oplus$, which is a novelty given their ages.
     Parameters are from the NASA Exoplanet Archive (2022 Apr 5).
@@ -946,9 +946,9 @@ plausible host star for the planet other than KOI-7913~A.
 \subsection{Normal-Sized Mini-Neptunes Exist at 40$\,$Myr}
 \label{subsec:sizes}
 
-The most significant novelty about Kepler-1643~b, KOI-7368.01, and
-KOI-7913~Ab is that their sizes are normal, relative to the known
-population of gigayear-old mini-Neptunes.  At field star ages,
+The most significant novelty about the planets in Kepler-1643, KOI-7368, and
+KOI-7913 is that their sizes are normal relative to the known
+population of mini-Neptunes from Kepler.  At field star ages,
 mini-Neptune sizes span 1.8\,$R_\oplus$ to 3.6\,$R_\oplus$, with the
 most common size being $\approx 2.4\,R_\oplus$
 \citep[][Figure~7]{Fulton_et_al_2017}.  The known planets younger than
@@ -969,8 +969,9 @@ The theoretical expectation is that mini-Neptunes with sizes of 2 to
 This expectation is tied to inferences about the initial distributions
 of planetary core mass, core composition, and atmospheric mass
 fraction \citep{owen_evaporation_2017}.  The Kelvin-Helmholtz cooling
-timescale, which is tied to the entropy of the planetary interior once
-the disk disperses, could also play a significant role
+timescale, which is tied to the entropy of the planetary interior
+shortly after
+disk dispersal, also plays a significant role
 \citep{owen_constraining_2020}.  As an example,
 \citet{rogers_unveiling_2021} predicted that given a core-mass
 distribution peaked at $\approx$$4$\,$M_\oplus$, an ice-poor rock/iron
@@ -979,23 +980,23 @@ there should be a maximum in planet occurrence at 2 to 3\,$R_\oplus$
 at times between 10 and 100\,Myr.  The models
 advanced by \citet{gupta_signatures_2020} and
 \citet{lee_primordial_2021} agree; their differences lie in the mechanism
-for producing the radius valley.  If the radius valley is
-primordial and created by gas accretion physics, then super-Earths
-($<$$1.8$\,$R_\oplus$) would be common as early as $10^7$ years
-\citep{lee_primordial_2021}.   The photoevaporation-driven models more
-often quote $10^8$ year timescales for production of
-atmosphere-stripped super-Earths, while the models with the mass-loss
-driven by a slow escape of heat from the core predict longer
-$\sim$$10^9$ year timescales (but see \citealt{king_2021}).
+for producing the radius valley. 
+% If the radius valley is
+% primordial and created by gas accretion physics, then super-Earths
+% ($<$$1.8$\,$R_\oplus$) would be common as early as $10^7$ years
+% \citep{lee_primordial_2021}.   The photoevaporation-driven models more
+% often quote $10^8$ year timescales for production of
+% atmosphere-stripped super-Earths, while the models with the mass-loss
+% driven by a slow escape of heat from the core predict longer
+% $\sim$$10^9$ year timescales (but see \citealt{king_2021}).
 
 Systems such as K2-25, V1298~Tau, HIP-67522, TOI-837, and TOI-1227
-have sizes that are much larger than the picture we have just
-described.  However, their large sizes can be accommodated by existing
-models by invoking any of {\it i)} larger core masses, {\it ii)} more
+have sizes that are anomalously large relative to the predicted peak
+in planet occurrence at 2 to 3\,$R_\oplus$.
+However, their large sizes can be accommodated 
+by invoking any of {\it i)} larger core masses, {\it ii)} more
 volatile-rich compositions, {\it iii)}  larger initial atmospheric
-mass fractions, or {\it iv)} longer thermal cooling times.  For
-instance, perhaps all five of the the aforementioned systems are large
-because the planets are more massive than most mini-Neptunes.
+mass fractions, or {\it iv)} longer thermal cooling times.  
 Secure mass measurements would help constrain this parameter space,
 but the $\sim$1\,\kms\ spot-induced radial velocity semi-amplitudes
 makes measuring the Doppler orbits very difficult.
@@ -1077,17 +1078,17 @@ observed by Kepler: RSG-5, CH-2, and the $\delta$~Lyr cluster.  In
 \citet{bouma_kep1627_2022} as well as this work, we have shown that
 these groups share similar ages, and have kinematic correlations that
 suggest a common origin.  With that said, the membership and
-kinematics of the other subgroups shown in Figure~\ref{fig:XYZvtang}
+kinematics of the other Cep-Her groups shown in Figure~\ref{fig:XYZvtang}
 deserve independent attention.  An important aspect of the work that
 remains will be to acquire radial velocities of a large subset of the
 stars, to assess whether the traceback approach could be applicable.
 Wide-field spectroscopic surveys such as LAMOST
 \citep{zhao_2012_LAMOST} or SDSS-V \citep{kollmeier_2017} could enable
 such analyses, while also providing sensitivity to the Li 6708\,\AA\
-line.  Gaia DR3 may also provide RVS spectra for the brighter F and G
-dwarfs; these would contain the calcium infrared triplet as another
+line.  If Gaia DR3 provides RVS spectra for the brighter F and G
+dwarfs, these would also contain the calcium infrared triplet as another
 age indicator.  These indicators, combined with better kinematics,
-will be needed to definitively unravel the formation history of the
+would help in definitively unravelling the formation history of the
 complex.
 
 A number of worthy photometric projects also seem possible given the
@@ -1095,7 +1096,7 @@ new understanding of Cep-Her.  One is asteroseismology of the
 $\delta$~Sct stars, using either TESS or Kepler data
 \citep{bedding_very_2020}.  For cases in which the modes are resolved,
 this might yield age or metallicity estimates for the subgroups
-independent of other approaches.  Other projects could include
+independent of other methods.  Other projects could include
 searches of the Kepler light curves for exocomets
 \citep{zieba_transiting_2019}, and for missed planets around the most
 rapid rotators.
@@ -1104,7 +1105,7 @@ rapid rotators.
 Our main motivation for finding new young planets is to help benchmark
 models for planetary evolution.  However demographic analyses of the
 known planets between $10^7$ and $10^9$ years have so far been
-somewhat limited.  Approximately 40 such planets are now known
+rather limited.  Approximately 40 such planets are now known
 (Figure~\ref{fig:age}).  About half come from K2, a quarter from TESS,
 and now a quarter from Kepler.
 
@@ -1115,12 +1116,12 @@ that such a project requires a set of target stars with known ages.
 A promising way to compile relevant stars could be to
 combine automated spatio-kinematic clustering from Gaia with
 rotation periods measured using TESS \citep[see the appendices
-of][]{bouma_kep1627_2022}.  The second consideration is that the known
-young planets smaller than $3$\,$R_\oplus$ all come from either K2 or
+of][]{bouma_kep1627_2022}.  The second consideration is that all the known
+young planets smaller than $3$\,$R_\oplus$ come from either K2 or
 Kepler.  Demographic inferences based on TESS are therefore limited to
 planetary sizes $\gtrsim4$\,$R_\oplus$, for planets close-in to their
-host stars.  It seems worthwhile to compare the absolute occurrence
-rate of such planets to those observed by Kepler.  One specific
+host stars.  It would be worthwhile to compare the occurrence
+rates of both types of planets with those from the main Kepler sample.  One specific
 question that seems within reach would be to clarify whether enough
 young stars have been searched for the dearth of young hot Jupiters to
 be significant.  Since the hot Jupiter occurrence rate is strongly
@@ -1129,7 +1130,7 @@ dependent on stellar mass and metallicity
 would be needed to select a sample of well-studied FGK dwarfs for the
 measurement, likely using stars in Sco OB2, Cep-Her, and Orion.  For
 demographic studies focused on how mini-Neptune sizes evolve, the
-combined K2 and Kepler dataset might be the better primary source.  
+combined K2 and Kepler dataset would be the better primary source.  
 
 
 
@@ -1144,10 +1145,10 @@ rests on the premise that non-astrophysical false positives can be
 rejected.  Kepler-1643 and KOI-7368 both pass all but one of the
 canonical vetting tests: the check for centroid offsets between the in
 and out-of-transit phases.  For both cases, the weak observed shifts
-seem to be caused by starspot-induced variability in specific quarters
-spuriously moving the stellar center-of-light.  Independently, our
-imaging rules out companion stars at the brightness and positions that
-would be needed to explain the reported shifts.
+are consistent with being caused by starspot-induced variability in
+specific quarters spuriously moving the stellar center-of-light.
+Independently, our imaging rules out companion stars with the brightness
+and positions that would be needed to otherwise explain the reported shifts.
 
 Each system has multiple indicators of youth that support the reported
 ages.  For Kepler-1643, the strongest youth indicator is its physical
@@ -1156,7 +1157,7 @@ magnitude diagram, we are able to select members of this cluster with
 a false positive rate of a few percent (Figure~\ref{fig:age}).
 Kepler-1643 is one such member.  While the stellar rotation period
 period agrees with this assessment, the star's lithium equivalent
-width is somewhat low, which might motivate future exploration of
+width is marginally low, which might motivate future exploration of
 lithium depletion across FGKM stars in RSG-5 (see
 Appendix~\ref{app:spectra}).
 
@@ -1170,8 +1171,8 @@ that the star is $\lesssim$100$\,$Myr old.  KOI-7368 is slightly more
 massive, and the Li 6708\,\AA\ measurement and stellar rotation period
 provide independent verification of the star's youth.
 
-The astrophysical significance of these considerations is that planets
-$\sim$2 Earth radii in size exist at ages of 40 million years.  It
+The astrophysical implicatoin of these considerations is that planets
+$\approx$2 Earth radii in size exist at ages of 40 million years.  It
 will be interesting to continue the push down to smaller planetary
 sizes at comparable ages -- the planetary detections we have presented
 are well above the average detection significance for Kepler planets.
@@ -1386,7 +1387,7 @@ from this mountain.
 % \input{t1_appendix.tex}
 % \input{t2_appendix.tex}
 
-\clearpage
+%\clearpage
 \bibliographystyle{yahapj}                            
 \bibliography{bibliography} 
 
