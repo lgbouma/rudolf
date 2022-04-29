@@ -168,7 +168,8 @@ latitudes between 0$^\circ$ and 20$^\circ$.  We therefore refer to it
 as the Cep-Her complex.  It exhibits significant sub-structure over
 its $\approx$250 parsec length, and a detailed analysis of its
 memberships, kinematics, and possible origin is currently being
-prepared by R.~Kerr and collaborators.
+prepared as part of the 1\,kpc expansion of the SPYGLASS project
+(R.~Kerr et al.\ in prep).
 
 Our focus is on the intersection of the Cep-Her complex with the
 Kepler field.  Cross-matching our Cep-Her members against known Kepler
@@ -253,14 +254,15 @@ subgroups between 30 and 35 Myr.
 
 The possibility that the $\delta$~Lyr cluster, RSG-5, and the
 sub-populations identified by \citet{Kerr2021} share a common origin
-has yet to be fully substantiated, and is the subject of the upcoming
-study by R.~Kerr and collaborators.  Our primary interest in the
-region stems from the fact that a portion of it was observed by Kepler
-(Figure~\ref{fig:XYZvtang}, top panel).  To further explore the
-population of stars that were observed, we select candidate Cep-Her
-members through four steps, the first three being identical to those
-described in Section~3 of \citet{Kerr2021}.  We briefly summarize them
-here.
+has yet to be fully substantiated, but preliminary clustering results
+from the 1\,kpc SPYGLASS analysis (R.~Kerr et al.\ in prep) suggest
+the presence of contiguous stellar populations connecting each of
+these groups.  In this work, our primary interest in the region stems
+from the fact that a portion of it was observed by Kepler
+(Figure~\ref{fig:XYZvtang}, top panel).  To further explore this
+sub-population, we select candidate Cep-Her members through four
+steps, the first three being identical to those described in Section~3
+of \citet{Kerr2021}.  We briefly summarize them here.
 
 The first step is to select stars that are photometrically distinct
 from the field star population based on Gaia EDR3 magnitudes $\{G,
@@ -284,11 +286,11 @@ center, and assumes the solar velocity with respect to the local
 standard of rest from \citet{schonrich_local_2010}.  As input
 parameters to HDBScan, we set the minimum $\epsilon$ threshold past
 which clusters cannot be fragmented as $25$\,pc in physical space, and
-$c$\,\kms\ in velocity.  The minimum cluster size $N$ is set to 10, as
+$25/c$\,\kms\ in velocity.  The minimum cluster size $N$ is set to 10, as
 is $k$, the parameter used to define the ``core distance'' density
 metric. 
 
-This unsupervised clustering in our case yielded 8 distinct groups.
+This unsupervised clustering in this case yielded 8 distinct subgroups.
 These groups are then used as the ``seed'' populations for the third
 step, which is to search for objects at least as close to the 10$^{\rm
 th}$ nearest HDBSCAN-identified member in space-velocity coordinates.
@@ -300,17 +302,17 @@ magnitude diagram.
 The outcome of the analysis up to the point of the third step is shown
 in Figure~\ref{fig:XYZvtang}.  To enable a selection cut that filters
 out field-star contaminants, we also compute a weight metric,
-$\alpha$, defined such that the group member with the smallest core
-distance has $\alpha=1$, the group member with the greatest core
-distance has $\alpha=0$, and weights for the other group members are
+$D$, defined such that the group member with the smallest core
+distance has $D=1$, the group member with the greatest core
+distance has $D=0$, and weights for the other group members are
 log-normally distributed between these two extremes.  After applying a
 set of quality cuts on the astrometry and
 photometry,\footnote{$\varpi/\sigma_\varpi>5$; $G/\sigma_{G}>50$;
 $G_{\rm RP}/\sigma_{G_{RP}}>20$; $G_{\rm BP}/\sigma_{G_{BP}}>20$.}
-this procedure yields $\alpha \sim \log_{10}\mathcal{N}(-1.55,0.61)$.
+this procedure yields $D \sim \log_{10}\mathcal{N}(-1.55,0.61)$.
 To visualize the results, in Figure~\ref{fig:XYZvtang} we show
-12{,}436 objects with $\alpha>0.02$ as gray points, and 
-4{,}763 objects with $\alpha>0.10$ as black points.  The previously
+12{,}436 objects with $D>0.02$ as gray points, and 
+4{,}763 objects with $D>0.10$ as black points.  The previously
 known $\delta$~Lyr\ cluster is visible at $(l,b)=(68^\circ,15^\circ$)
 and $(v_{l'}, v_b)=(-4.5 ,-4 )\mkms$.  RSG-5 is visible at
 $(l,b)=(83^\circ,6^\circ)$, $(v_{l'}, v_b)=(5.5 ,-3.5 )\mkms$.  Most
@@ -377,7 +379,9 @@ near KOI-7368 and KOI-7913, we require
   v_b/{\rm km\,s^{-1}} &\in [-3.5, -1.5] \nonumber \\
   v_{l^*}/{\rm km\,s^{-1}} &\in [2, 6] \nonumber
 \end{align}
-and we call this latter set of stars ``CH-2''.  These cuts yield
+and we call this latter set of stars ``CH-2'', using the preliminary 
+Cep-Her (CH) subgroup identifier from R.~Kerr et al.\ (in prep).
+These cuts yield
 \nrsgfive\ candidate RSG-5 members, and \nchtwo\ candidate CH-2
 members.  These stars are listed in Appendix~\ref{app:members}, as are
 the Cep-Her candidates that were observed by Kepler.  An important
@@ -529,7 +533,7 @@ interpretation for these latter stars, particularly the $\approx$M2.5
 dwarf, is not obvious.  \citet{rebull_usco_2018} for instance have
 found numerous M-dwarfs with 10-12 day rotation periods at ages of
 USco ($\sim$$8$\,Myr), and some may still exist at ages of LCC
-($\sim$$16$\,Myr; L.~Rebull in preparation).  Regardless, since
+($\sim$$16$\,Myr; L.~Rebull submitted).  Regardless, since
 nearly no field star outliers seem to be present on the RSG-5 CAMD,
 the fact that we do not detect rotation periods for $\approx$13\% of
 stars should perhaps be taken as an indication for the fraction of
@@ -602,15 +606,16 @@ yielded $[{\rm Fe/H}]=0.13 \pm 0.09$.  Using the broadened synthetic
 templates from \texttt{SpecMatch-Synth} \citep{petigura_cksi_2017}, we
 found $v\sin i = 9.3 \pm 1.0\,\mkms$.  The systemic radial velocity at
 the two epochs was $-9.1 \pm 1.9\,\mkms$ and $-7.8\pm 1.2\,\mkms$
-respectively.  To infer the equivalent width of the \ion{Li}{1}
-6708\,\AA\ doublet, we followed the procedure described by
-\citet{bouma_2021_ngc2516}.  This yielded a strong detection: ${\rm
-EW}_{\rm Li} = 130^{+6}_{-5}$\,m\AA, with values consistent at
-$<$$1$-$\sigma$ between the two epochs.   The quoted value does not
-correct for the \ion{Fe}{1} blend at 6707.44\,\AA, because HIRES
-resolves the two features.  Given the purported age and effective
-temperature of the star, the lithium equivalent width is somewhat low.
-We discuss this in greater depth in Appendix~\ref{app:spectra}.
+respectively \citep{chubak_2012}.  To infer the equivalent width of
+the \ion{Li}{1} 6708\,\AA\ doublet, we followed the procedure
+described by \citet{bouma_2021_ngc2516}.  This yielded a strong
+detection: ${\rm EW}_{\rm Li} = 130^{+6}_{-5}$\,m\AA, with values
+consistent at $<$$1$-$\sigma$ between the two epochs.   The quoted
+value does not correct for the \ion{Fe}{1} blend at 6707.44\,\AA,
+because HIRES resolves the two features.  Given the purported age and
+effective temperature of the star, the lithium equivalent width is
+somewhat low.  We discuss this in greater depth in
+Appendix~\ref{app:spectra}.
 
 \paragraph{High-Resolution Imaging}
 We acquired adaptive optics imaging of Kepler-1643 on the night of
@@ -732,8 +737,8 @@ age of the system, it would have a mass between 10 and
     flux in units of parts-per-thousand ($\times 10^{-3}$).  The
     dominant signal is induced by starspots.  {\it Bottom}:
     Phase-folded transits of Kepler-1643, KOI-7913, KOI-7368, and
-    Kepler-1627 with stellar variability removed.  The maximum {\it a
-    posteriori} transit model is shown with the gray line, and the
+    Kepler-1627 with stellar variability removed.  The maximum a
+    posteriori transit model is shown with the gray line, and the
     residual after subtracting the transit model is vertially
     displaced.  Windows over 10 hours are shown.  Gray points are
     individual flux measurements; black points are binned to 20 minute
@@ -792,7 +797,7 @@ We fitted the data using \texttt{exoplanet}
 \citep{exoplanet:exoplanet}.  We assumed a Gaussian likelihood, and
 sampled using \texttt{PyMC3}'s No-U-Turn Sampler
 \citep{hoffman_no-u-turn_2014}, after having initialized to the the
-maximum {\it a posteriori} (MAP) model.  We used the
+maximum a posteriori (MAP) model.  We used the
 \citet{gelman_inference_1992} statistic, $\hat{R}$, as our convergence
 diagnostic.  The resulting fits are shown in the lower panels of
 Figure~\ref{fig:planets}, and the important derived parameters are in
@@ -1011,7 +1016,7 @@ quantify this bias more carefully, in order to enable empirical
 studies of how the planetary size distribution changes at early times.
 
 
-\subsection{Is CH-2 a real cluster?}
+\subsection{Is CH-2 real?}
 \label{subsec:ch2}
 
 RSG-5, and Kepler-1643's membership inside it, meet typical
@@ -1039,15 +1044,16 @@ Given its low density, in CH-2 really a star cluster?  For this
 discussion, we adopt the definition that a star cluster is a group of
 at least 12 stars that was physically associated at its time of
 formation.  The ``12'' is set to distinguish star clusters from
-high-order multiples \citep[see][]{krumholz_star_2019}.  Dissolved
-clusters and their tidal tails are therefore included in our concept
-of clusters.  We do not however require a threshold number of stars
-per unit spatial volume for a group to be a ``cluster''.  The latter
-point acknowledges that an important factor in cluster identification
-is also the density in velocity space.  Perhaps once stellar rotation
+high-order multiples \citep[see][]{krumholz_star_2019}.  We explicitly
+do not require a ``star cluster'' to be gravitationally bound:
+dissolved clusters as well as their tidal tails are included in our
+adopted definition of ``clusters''.  We similarly do not require a
+threshold number of stars per unit spatial volume.  The latter point
+acknowledges that an important factor in cluster identification is
+also density in velocity space.  Perhaps once stellar rotation
 periods and chemical abundances reach the same level of ubiquity as
 stellar proper motions, they might enable further refinement of our
-ability to discover stars that formed together.
+ability to discover stars that formed as part of the same event.
 
 From a data-driven perspective, demonstrating that a group of stars
 was physically associated at its time of formation is challenging.
@@ -1059,11 +1065,11 @@ expansion itself \citep[see][]{crundall_chronostar_2019}.  A more
 minimal approach is that suggested by \citet{tofflemire_2021}: search
 for coeval, phase-space neighbors, measure their ages, and determine
 if they share a common age.  This approach can demonstrate whether a
-star is currently associated with a set of coeval stars, which
-is much easier than determining what the association looked like in
+star is currently associated with a set of coeval stars, though it
+falls short of determining what the association looked like in
 the past.  Our analysis of CH-2 meets the latter standard for the
-existence of a $\approx$40\,Myr assocation.  It would be a worthy
-exercise for future work to perform a similar search for coeval
+existence of a $\approx$40\,Myr stellar assocation.  It would be a
+worthy exercise for future work to perform a similar search for coeval
 phase-space neighbors on the entire dataset of known exoplanet hosts.
 For the time being, we can offer the anecdotal point that in our
 experience, most stars do not have dozens of 40\,Myr neighbors within
@@ -1187,25 +1193,25 @@ There may still be room at the bottom.
 \acknowledgements
 \raggedbottom
 % Cycle 3 and 4
-L.G.B{.} acknowledges support from the Heising-Simons Foundation 51 Pegasi~b
-Fellowship
-and the TESS GI Program (NASA grants
-80NSSC21K0335 and 80NSSC22K0298).
-J.L.C{.} is supported by NSF AST-2009840 and NASA TESS G04217. 
+L.G.B{.} acknowledges support from the Heising-Simons Foundation 51
+Pegasi~b Fellowship and the TESS GI Program (NASA grants 80NSSC21K0335
+and 80NSSC22K0298).
+J.L.C{.} is supported by NSF AST-2009840 and the TESS GI Program (NASA
+grant 80NSSC22K0299).
 %
 % ACKNOWLEDGE PFS / CAMPANAS.
 %
-This paper also includes data collected by the TESS mission, which are
-publicly available from the Mikulski Archive for Space Telescopes
-(MAST).
-%
-Funding for the TESS mission is provided by NASA's Science Mission
-directorate.
-%
-We thank the TESS Architects
-%(G.~Ricker, R.~Vanderspek, D.~Latham, S.~Seager, J.~Jenkins)
-and the many TESS team members for their
-efforts to make the mission a continued success.
+%This paper includes data collected by the TESS mission, which are
+%publicly available from the Mikulski Archive for Space Telescopes
+%(MAST).
+%%
+%Funding for the TESS mission is provided by NASA's Science Mission
+%directorate.
+%%
+%We thank the TESS architects
+%%(G.~Ricker, R.~Vanderspek, D.~Latham, S.~Seager, J.~Jenkins)
+%and the many TESS team members for their
+%efforts to make the mission a continued success.
 %
 %
 %This study was based in part on observations at Cerro Tololo
@@ -1219,11 +1225,11 @@ efforts to make the mission a continued success.
 %which is operated by the W. M. Keck Observatory and the NASA Exoplanet
 %Science Institute (NExScI), under contract with the National
 %Aeronautics and Space Administration.
-Finally, we also thank the Keck Observatory staff for their support of
-HIRES and remote observing.  We recognize the importance that the
-summit of Maunakea has within the indigenous Hawaiian community, and
-are deeply grateful to have the opportunity to conduct observations
-from this mountain.
+%We also thank the Keck Observatory staff for their support of
+%HIRES and remote observing.  We recognize the importance that the
+%summit of Maunakea has within the indigenous Hawaiian community, and
+%are deeply grateful to have the opportunity to conduct observations
+%from this mountain.
 %
 % The Digitized Sky Survey was produced at the Space Telescope Science
 % Institute under U.S. Government grant NAG W-2166.
@@ -1384,11 +1390,6 @@ from this mountain.
     ZTF \citep{bellm_zwicky_2019}.
 }
 
-% \input{starparams.tex}
-% \input{model_posterior_table.tex}
-% \input{t1_appendix.tex}
-% \input{t2_appendix.tex}
-
 %\clearpage
 \bibliographystyle{yahapj}                            
 \bibliography{bibliography} 
@@ -1398,15 +1399,18 @@ from this mountain.
 \label{app:members}
 
 \paragraph{Table~2} contains candidate Cep-Her members with weights
-$\alpha>0.02$ observed by Kepler.  More restrictive weight cuts would
-be needed if one wanted to remove the majority of field star
-interlopers; at least half of the stars included in the table are
-unlikely to be bonafide Cep-Her members.  Table~2  was created by
-cross-matching candidate Cep-Her members (selected using Gaia EDR3;
-Section~\ref{subsec:members}) against a Kepler to Gaia DR2 cross-match
-(the \texttt{gaia-kepler.fun} crossmatch database created by Megan
-Bedell).  The \texttt{kic\_dr2\_ang\_dist} column is from the latter
-table.  The EDR3 to DR2 match was performed using the
+$D>0.02$ observed by Kepler.  The final catalog of candidate
+Cep-Her members will be provided by R.~Kerr et al.\ in prep.; Table~2 is
+from a preliminary version of that same catalog.  Note that more
+restrictive weight cuts should be imposed should one wish to remove
+the majority of field star interlopers; at least half of the stars
+included in the table are unlikely to be bonafide Cep-Her members.
+Table~2  was created by cross-matching candidate Cep-Her members
+(selected using Gaia EDR3; Section~\ref{subsec:members}) against a
+Kepler to Gaia DR2 cross-match (the \texttt{gaia-kepler.fun}
+crossmatch database created by Megan Bedell).  The
+\texttt{kic\_dr2\_ang\_dist} column is from the latter table.  The
+EDR3 to DR2 match was performed using the
 \texttt{gaiaedr3.dr2\_neighbourhood} table, and the closest proper
 motion and epoch-corrected angular distance neighbor was taken as the
 single best match.  The \texttt{edr3\_dr2\_mag\_diff} column gives
@@ -1418,7 +1422,9 @@ resolved binaries became fully resolved.
 rotation period information for the \nrsgfive\ candidate RSG-5 members
 and \nchtwo\ candidate CH-2 members described in
 Section~\ref{subsec:members}.  These are the data used to make the
-lower panels of Figure~\ref{fig:age}. 
+lower panels of Figure~\ref{fig:age}; as with Table~2, these are
+from a preliminary version of the SPYGLASS 1\,kpc expansion (R. Kerr et
+al.\ in prep). 
 % Table~3 includes rotation periods for 53 stars with ZTF and 51 stars
 % with TESS, for a total of 71 periods reported for unique stars and 32
 % overlapping between the surveys.
