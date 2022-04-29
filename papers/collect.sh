@@ -12,11 +12,11 @@ cp /Users/luke/Dropbox/proj/rudolf/results/rotation/RSG-5_rotation_vs_BpmRp_talk
 cp /Users/luke/Dropbox/proj/rudolf/results/rotation/CH-2_rotation_vs_BpmRp_talkaspect_kinematicspatialselected_linear_defaultcleaning_allknown.pdf f2d.pdf
 
 # phased and sliced LCs
-cp /Users/luke/Dropbox/proj/rudolf/results/koikeplerlc/koikeplerlc_xlim0550_0600.pdf f3e.pdf
-cp ~/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1643/*singlepanel*pdf f3a.pdf
-cp ~/Dropbox/proj/rudolf/results/run_simpletransit_KOI_7913/*singlepanel*pdf f3b.pdf
-cp ~/Dropbox/proj/rudolf/results/run_simpletransit_KOI_7368/*singlepanel*pdf f3c.pdf
-cp ~/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1627/*singlepanel*pdf f3d.pdf
+cp /Users/luke/Dropbox/proj/rudolf/results/koikeplerlc/koikeplerlc_xlim0550_0600.pdf f3a.pdf
+cp ~/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1643/*singlepanel*pdf f3b.pdf
+cp ~/Dropbox/proj/rudolf/results/run_simpletransit_KOI_7913/*singlepanel*pdf f3c.pdf
+cp ~/Dropbox/proj/rudolf/results/run_simpletransit_KOI_7368/*singlepanel*pdf f3d.pdf
+cp ~/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1627/*singlepanel*pdf f3e.pdf
 
 # Rp, Period, Age
 cp ~/Dropbox/proj/rudolf/results/rp_vs_period_scatter/rp_vs_period_scatter_20220405_colorbyage_showCepHer.pdf f4.pdf
