@@ -1047,8 +1047,8 @@ def plot_koikeplerlc(outdir, xlim=[200,300]):
 
         ymin, ymax = ax.get_ylim()
         ax.vlines(
-            tra_times, ymin, ymax, colors='darkgray', alpha=0.5,
-            linestyles='--', zorder=-2, linewidths=0.2
+            tra_times, ymin, ymax, colors='darkgray', alpha=1,
+            linestyles=':', zorder=-2, linewidths=0.6
         )
         ax.set_ylim((ymin, ymax))
 
