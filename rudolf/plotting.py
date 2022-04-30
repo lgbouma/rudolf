@@ -5394,6 +5394,7 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
             )
 
             # Schonrich+2010 solar velocity wrt local standard of rest
+            # note the systemic uncertainties are not included
             U = 11.10 * u.km/u.s
             U_hi = 0.69 * u.km/u.s
             U_lo = 0.75 * u.km/u.s

@@ -18,7 +18,7 @@ from rudolf.helpers import get_ronan_cepher_augmented
 # __df: after Ronan's flags
 # df: after Ronan's + my flags
 
-df, __df = get_ronan_cepher_augmented()
+df, __df, _ = get_ronan_cepher_augmented()
 fig1_grey = (df.strengths > 0.02)
 fig1_black = (df.strengths > 0.10)
 sdf = df[fig1_grey]
@@ -76,18 +76,18 @@ rename_dict = {
 smdf = smdf.rename(rename_dict, axis='columns')
 
 round_dict = {
-    'ra_EDR3': 4,
-    'dec_EDR3': 4,
+    'ra_EDR3': 5,
+    'dec_EDR3': 5,
     'l_EDR3': 4,
     'b_EDR3': 4,
     'parallax_EDR3': 4,
     'ruwe_EDR3': 3,
-    'weight': 5,
-    'v_l': 4,
-    'v_b': 4,
-    'x_pc': 2,
-    'y_pc': 2,
-    'z_pc': 2,
+    'weight': 3,
+    'v_l': 2,
+    'v_b': 2,
+    'x_pc': 1,
+    'y_pc': 1,
+    'z_pc': 1,
     'M_G': 3,
     'bp_rp_EDR3': 3,
     'kic_dr2_ang_dist': 3,
