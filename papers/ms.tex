@@ -598,8 +598,7 @@ the \ion{Li}{1} 6708\,\AA\ doublet, we followed the procedure
 described by \citet{bouma_2021_ngc2516}.  This yielded a strong
 detection: ${\rm EW}_{\rm Li} = 130^{+6}_{-5}$\,m\AA, with values
 consistent at $<$$1$-$\sigma$ between the two epochs.   The quoted
-value does not correct for the \ion{Fe}{1} blend at 6707.44\,\AA,
-because HIRES resolves the two features.  Given the purported age and
+value does not correct for the \ion{Fe}{1} blend at 6707.44\,\AA.  Given the purported age and
 effective temperature of the star, the lithium equivalent width is
 somewhat low.  We discuss this in greater depth in
 Appendix~\ref{app:spectra}.
@@ -874,14 +873,14 @@ The positional probability score also meets the requirements for
 transiting sources thought to share positions with their target stars
 \citep{2017ksci.rept...16B}. 
 
-It bears mentioning that KOI-7368 shows a weak centroid shift in the
+It bears mentioning that KOI-7368 shows a centroid shift in the
 \texttt{q1\_q17\_dr25\_koi} validation reports, similar to
 Kepler-1643.  For KOI-7368, the reported offset is smaller, and less
 significant ($0\farcs2$; 3.0-$\sigma$).  Again, the data
 validation reports show that the shift is caused by a few outlying
-quarters (4, 5, 8, and 12).  The fact that the remaining data show a
-consistent scatter between centroid locations suggests that these
-outliers are also caused by the stellar variability.  
+quarters (4, 5, 8, and 12).  Since the remaining data show
+consistent scatter in their centroid locations, these
+outlying quarters are likely also caused by the stellar variability.  
 Our NIRC2 imaging independently shows that there are no neighboring
 sources that could cause an offset of the observed amplitude.
 
@@ -895,22 +894,24 @@ Exoplanet Archive.  The relevant table gives a probability for the
 system being an astrophysical false positive of $1.4\times10^{-4}$,
 with the most likely false positive scenario being a blended eclipsing
 binary.  Repeating the calculation with our new detrending and
-contrast curves, we find a similar result: ${\rm FPP} =
+NIRC2 contrast curves, we find a similar result: ${\rm FPP} =
 1.3\times10^{-4}$.  Though the transit has the lowest S/N of any of
 the objects discussed ($\approx$$14$), its lower FPP relative to
 KOI-7368 can be understood through its flat-bottomed shape,
-combined with its long transit duration relative to plausible
+combined with its long transit duration relative to most
 eclipsing binary models (Figure~\ref{fig:planets}).  The host star
 probability usability score \citep{2017ksci.rept...16B} also meets the
 usual threshold, and so the planet is statistically validated.  Its
 disposition has however previously fluctuated from ``false positive''
 to ``candidate'' (see Appendix~\ref{app:koi7913}).  The most likely
 explanation is the presence of KOI-7913~B, which is located
-approximately one Kepler pixel away from Kepler-7913 A.  Our
-pixel-level analysis of the target pixel files did not show any
-evidence to support the idea that KOI-7913~B could host the transiting
-planet.  Our NIRC2 imaging similarly ruled out the possibility of any
-other plausible host star for the planet other than KOI-7913~A.
+$\approx0.9$ Kepler pixels away from Kepler-7913 A.  
+While the $\approx$1.5 pixel FWHM of the Kepler pixel response function
+implies that there is blending between the two stars,
+the target-pixel level data for KOI-7913 B reveals an
+entirely different stellar rotation
+period (Table~\ref{tab:sysparams}), and no hint of the transit signal.
+This implies that KOI-7913 B cannot host the planet.
 
 
 \section{Discussion \& Conclusion}
@@ -919,7 +920,7 @@ other plausible host star for the planet other than KOI-7913~A.
 \begin{figure*}[!t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.8\textwidth]{f4.pdf}
+		\includegraphics[width=0.9\textwidth]{f4.pdf}
 	\end{center}
 	\vspace{-0.6cm}
 	\caption{
@@ -1175,9 +1176,10 @@ There may still be room at the bottom.
 \acknowledgements
 \raggedbottom
 % Cycle 3 and 4
-L.G.B{.} acknowledges support from the Heising-Simons Foundation 51
+L.G.B{.} is supported by the Heising-Simons Foundation 51
 Pegasi~b Fellowship and the TESS GI Program (NASA grants 80NSSC21K0335
 and 80NSSC22K0298).
+R.K{.} is supported by the Heising-Simons Foundation.
 J.L.C{.} is supported by NSF AST-2009840 and the TESS GI Program (NASA
 grant 80NSSC22K0299).
 %
