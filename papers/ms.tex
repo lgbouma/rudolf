@@ -66,8 +66,11 @@
 
 % 208 words (250 max)
 \begin{abstract}
+  %The best way to measure a planet's age is to ignore the planet and
+  %pay attention to the star.
   Stellar positions and velocities from Gaia are yielding a new window
-  on open cluster dispersal.  Here we present an analysis of a group
+  on open cluster dispersal.  
+  Here we present an analysis of a group
   of stars spanning Cepheus ($l=100^\circ$) to Hercules ($l=40^\circ$),
   hereafter the Cep-Her complex.  The group includes four Kepler
   Objects of Interest:
@@ -336,8 +339,9 @@ Kepler data validation summaries and Robovetter classifications for
 these objects showed whether they were potentially consistent with
 being {\it i)} planets, and {\it ii)} $\lesssim 10^8$ years old, based
 on the presence of rotational modulation at the expected period and
-amplitude \citep[{e.g.},][Figure~9]{rebull_rotation_2020}.  Four
-objects remained after this inspection: Kepler-1627, Kepler-1643,
+amplitude \citep[{e.g.},][Figure~9]{rebull_rotation_2020}. 
+Four
+objects passed both cuts: Kepler-1627, Kepler-1643,
 KOI-7368, and KOI-7913.
 
 Figure~\ref{fig:XYZvtang} shows the positions of the KOIs along
@@ -626,8 +630,7 @@ Stellar Parameter Classification pipeline for TRES has been described
 by \citet{2021tsc2.confE.124B}.  It is based on the synthetic template
 library constructed by \citet{Buchhave2012}.  The resulting stellar
 parameters ($T_{\rm eff}, \log g, R_\star$) agreed with those from the
-cluster-isochrone method within $1$-$\sigma$, though the effective
-temperature was more precise by a factor of three.  Auxiliary
+cluster-isochrone method within $1$-$\sigma$.  Auxiliary
 spectroscopic parameters included the metallicity $[{\rm Fe/H}]= -0.02
 \pm 0.08$, the equatorial velocity $v\sin i = 20.21 \pm 0.50\,\mkms$,
 and the systemic velocity ${\rm RV}_{\rm sys} = -10.9 \pm 0.2\,\mkms$.
@@ -968,14 +971,14 @@ fraction \citep{owen_evaporation_2017}.  The Kelvin-Helmholtz cooling
 timescale, which is tied to the entropy of the planetary interior
 shortly after disk dispersal, also plays a significant role
 \citep{owen_constraining_2020}.  As an example,
-\citet{rogers_unveiling_2021} predicted that given a core-mass
+\citet{rogers_unveiling_2021} predicted that given a core mass
 distribution peaked at $\approx$$4$\,$M_\oplus$, an ice-poor rock/iron
 core composition, and a typical H/He mass fraction of $\approx$4\%,
 there should be a maximum in planet occurrence at 2 to 3\,$R_\oplus$
 at times between 10 and 100\,Myr.  The models advanced by
-\citet{gupta_signatures_2020} and \citet{lee_primordial_2021} agree;
+\citet{gupta_signatures_2020} and \citet{lee_primordial_2021} broadly agree;
 their differences lie in the mechanism for producing the radius
-valley. 
+valley, and in their assumed initial core mass distributions. 
 
 Systems such as K2-25, V1298~Tau, HIP-67522, TOI-837, and TOI-1227
 have sizes that are anomalously large relative to the predicted peak
@@ -985,7 +988,7 @@ masses, {\it ii)} more volatile-rich compositions, {\it iii)}  larger
 initial atmospheric mass fractions, or {\it iv)} longer thermal
 cooling times.  Secure mass measurements would help constrain this
 parameter space, but the $\sim$1\,\kms\ spot-induced radial velocity
-semi-amplitudes makes measuring the Doppler orbits very difficult.
+semi-amplitudes make measuring the Doppler orbits very difficult.
 \citep[][]{cale_diving_2021,zicher_one_2022,klein_one_2022}.
 Regardless, the new Kepler-1643, KOI-7368, and KOI-7913 systems do
 demonstrate that at least some planets at 40\,Myr have sizes that are
@@ -1130,14 +1133,16 @@ planetary.  The evidence for the planetary interpretation comes from
 an application of \texttt{VESPA} to the Kepler data, alongside new
 imaging from NIRC2.  The validity of the \texttt{VESPA} framework
 rests on the premise that non-astrophysical false positives can be
-rejected.  Kepler-1643 and KOI-7368 both pass all but one of the
-canonical vetting tests: the check for centroid offsets between the in
+rejected.  
+This seems to be the case for all three objects, even though
+Kepler-1643 and KOI-7368 
+both show weak centroid offsets between the in
 and out-of-transit phases.  For both cases, the weak observed shifts
 are consistent with being caused by starspot-induced variability in
 specific quarters spuriously moving the stellar center-of-light.
 Independently, our imaging rules out companion stars with the
 brightness and positions that would be needed to otherwise explain the
-reported shifts.
+reported shifts.  All three objects are therefore validated planets.
 
 Each system has multiple indicators of youth that support the reported
 ages.  For Kepler-1643, the strongest youth indicator is its physical
@@ -1177,11 +1182,12 @@ There may still be room at the bottom.
 \raggedbottom
 % Cycle 3 and 4
 L.G.B{.} is supported by the Heising-Simons Foundation 51
-Pegasi~b Fellowship and the TESS GI Program (NASA grants 80NSSC21K0335
+Pegasi~b Fellowship and the NASA TESS GI Program (80NSSC21K0335
 and 80NSSC22K0298).
 R.K{.} is supported by the Heising-Simons Foundation.
-J.L.C{.} is supported by NSF AST-2009840 and the TESS GI Program (NASA
-grant 80NSSC22K0299).
+J.L.C{.} is supported by NSF AST-2009840 and the NASA TESS GI Program
+(80NSSC22K0299).
+D.H. is supported by the Alfred P. Sloan Foundation and NASA (80NSSC19K0597).
 %
 % ACKNOWLEDGE PFS / CAMPANAS.
 %
@@ -1383,14 +1389,13 @@ grant 80NSSC22K0299).
 \label{app:members}
 
 
-\paragraph{Table~2} contains candidate Cep-Her members with weights
+\paragraph{Table~2} contains 338 candidate Cep-Her members with weights
 $D>0.02$ observed by Kepler.  The final catalog of candidate
 Cep-Her members will be provided by R.~Kerr et al.\ in prep; Table~2 is
 from a preliminary version of that work.  Note that more
-restrictive weight cuts should be imposed should one wish to remove
-the majority of field star interlopers; at least half of the stars
-included in the table are unlikely to be bonafide Cep-Her members.
-Table~2  was created by cross-matching candidate Cep-Her members
+restrictive weight cuts should be imposed if one wishes to remove
+the majority of field star interlopers.
+Table~2 was created by cross-matching candidate Cep-Her members
 (selected using Gaia EDR3; Section~\ref{subsec:members}) against a
 Kepler to Gaia DR2 cross-match (the \texttt{gaia-kepler.fun}
 crossmatch database created by Megan Bedell).  The
@@ -1406,7 +1411,7 @@ resolved binaries became fully resolved.
 \paragraph{Candidate matches between Cep-Her and the Kepler Objects of
 Interest:}
 The full list of candidate matches between Cep-Her and the Kepler
-objects of interest is as follows -- the objects are listed in order
+Objects of Interest is as follows -- the objects are listed in order
 of descending weights, $D$.
 Objects designated as confirmed planets included
 Kepler-1627,
@@ -1440,15 +1445,19 @@ Of these objects, only Kepler-1627, Kepler-1643, KOI-7368, and
 KOI-7913 met our requirements for potentially
 both {\it i)} having real planets, and {\it ii)} being $\lesssim 10^8$
 years old, based on the presence of rotational modulation at the
-expected period and amplitude.  One object was ambiguous: Kepler-1933.
+expected period and amplitude.  
+Of the
+14 confirmed and candidate planets,
+6 failed first filter, and 7 independently failed the second.
+One object was ambiguous: Kepler-1933.
 This system has a confirmed $\approx$$1.4\,R_\oplus$ planet, a stellar
 rotation period of 6.5\ days, and an effective temperature of $\approx$$5750\,{\rm K}$.  This places it near the upper envelope of the
 rotation period vs.\ color distribution for the Pleiades, making
 it unlikely to be $\approx$40\,Myr old.  Nonetheless, we acquired a
 reconnaissance HIRES spectrum, and it yielded ${\rm EW}_{\rm Li} = 93 \pm
 5$\,m\AA.  Combined with the rotation period, this suggests an age
-between 100 and 200\,Myr for Kepler-1933, but the system is
-unlikely to be part of Cep-Her.
+for Kepler-1933 between 100 and 300\,Myr.  Based on these indicators, the system is
+unlikely to be part of Cep-Her, but could merit further study.
 
 
 
