@@ -1,6 +1,8 @@
 """
 Fit the Kepler-1627 / Kepler-1643 / KOI-7368 / KOI-7913 datasets, using a local
 polynomial for the stellar variability and a transit for the planet.
+
+(NOTE: this was the model that was actually adopted for the Cep-Her paper!)
 """
 
 import numpy as np, matplotlib.pyplot as plt, pandas as pd, pymc3 as pm

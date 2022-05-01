@@ -32,4 +32,6 @@ cp /Users/luke/Dropbox/proj/rudolf/results/koiyouthlines/koiyouthlines.pdf f5.pd
 cp /Users/luke/Dropbox/proj/rudolf/results/tables/CepHer_X_Kepler.csv tab_supp_CepHer_X_Kepler.csv
 cp /Users/luke/Dropbox/proj/rudolf/results/tables/RSG5_CH2_Prot_cleaned.csv tab_supp_RSG5_CH2_Prot.csv
 
-
+cp /Users/luke/Dropbox/proj/rudolf/results/run_simpletransit_KOI_7368/source_KOI_7368_simpletransit_posteriortable.tex .
+cp /Users/luke/Dropbox/proj/rudolf/results/run_simpletransit_KOI_7913/source_KOI_7913_simpletransit_posteriortable.tex .
+cp /Users/luke/Dropbox/proj/rudolf/results/run_simpletransit_Kepler_1643/source_Kepler_1643_simpletransit_posteriortable.tex .
