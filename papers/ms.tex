@@ -48,7 +48,7 @@
 
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2.
 %% Add "Submitted to " argument.
-\received{---}
+\received{2022 May 2}
 \revised{---}
 \accepted{---}
 %\submitjournal{AAS Journals}
@@ -92,7 +92,7 @@
   with false positive probabilities of $6\times10^{-9}$,
   $4\times10^{-3}$, and $1\times10^{-4}$ for Kepler-1643, KOI-7368,
   and KOI-7913 respectively.  These planets demonstrate
-  that mini-Neptunes with sizes of $\sim$2 Earth radii exist at ages
+  that mini-Neptunes with sizes of $\approx$2 Earth radii exist at ages
   of 40 million years.
 \end{abstract}
 
@@ -570,7 +570,7 @@ color--absolute magnitude diagrams.
 
 \input{tab_sysparams.tex}
 
-A few salient properties of the Kepler objects in Cep-Her can be
+Many of the salient properties of the Kepler objects of interest in Cep-Her can be
 gleaned from Figure~\ref{fig:age}.  The stars span spectral types of
 G8V (Kepler-1627) to K6V (KOI-7913 A).  The secondary in the KOI-7913
 system has spectral type $\approx$K8V.  And since a star with
@@ -592,10 +592,12 @@ To verify these parameters and to analyze youth
 proxies such as the Li 6708\,\AA\ doublet and H$\alpha$, we acquired
 spectra.  We also acquired high resolution imaging for each system, to
 constrain the existence of visual companions, including possible bound
-binaries.  The system-by-system details follow, and the relevant
-results are also summarized in Table~\ref{tab:sysparams}.
+binaries.  We give the system-by-system details in Sections~\ref{subsec:kep1643}
+through~\ref{subsec:koi7913}, and summarize their implications for
+the youth of the stars in Section~\ref{subsec:specyouth}.
 
 \subsection{Kepler\,1643}
+\label{subsec:kep1643}
 
 \paragraph{Spectra}
 For Kepler-1643, we acquired two iodine-free spectra from Keck/HIRES
@@ -617,7 +619,7 @@ consistent at $<$$1$-$\sigma$ between the two epochs.   The quoted
 value does not correct for the \ion{Fe}{1} blend at 6707.44\,\AA.  Given the purported age and
 effective temperature of the star, the lithium equivalent width is
 somewhat low.  We discuss this in greater depth in
-Appendix~\ref{app:spectra}.
+Section~\ref{subsec:specyouth}.
 
 \paragraph{High-Resolution Imaging}
 We acquired adaptive optics imaging of Kepler-1643 on the night of
@@ -659,6 +661,7 @@ mag at $\rho = 300$ mas, and $\Delta K' = 8.7$ mag at $\rho > 1000$
 mas.
 
 \subsection{KOI-7913}
+\label{subsec:koi7913}
 
 \paragraph{Binarity}
 KOI-7913 is a binary.  The north-west primary is
@@ -688,7 +691,7 @@ components shows strong lithium absorption, but this is expected given
 their $\approx$K6V and $\approx$K8V spectral types.  They do however
 both show H$\alpha$ in emission.  Broadly speaking, both observations
 are consistent with a $\approx$40 Myr age for KOI-7913 (see
-Appendix~\ref{app:spectra}).
+Section~\ref{subsec:specyouth}).
 
 
 \paragraph{High-Resolution Imaging}
@@ -704,6 +707,170 @@ faint to affect the interpretation of the transit signal, it would be
 amusing if this faint neighbor were comoving and therefore part of the system, 
 because it would have a mass between 10 and
 15\,M$_{\rm Jup}$.  Additional imaging epochs will tell.
+
+
+\subsection{Spectroscopic Youth Indicators}
+\label{subsec:specyouth}
+
+\begin{figure*}[t]
+	\begin{center}
+		\leavevmode
+			\includegraphics[width=0.9\textwidth]{f5.pdf}
+	\end{center}
+	\vspace{-0.6cm}
+	\caption{
+    {\bf Spectroscopic youth diagnostics for Kepler-1627, KOI-7368,
+    Kepler-1643, and KOI-7913 AB. }
+    The spectra are shown in the observed frame, and the stars are
+    sorted left-to-right in order of decreasing effective temperature.
+    \label{fig:koiyouthindicators}
+	}
+\end{figure*}
+
+Figure~\ref{fig:koiyouthindicators} shows key portions of the HIRES
+and TRES spectra for the Kepler objects in Cep-Her.  Lithium
+absorption is obvious at 6708\AA\ in all stars except KOI-7913 B.  
+H$\alpha$ is in emission for both components of
+KOI-7913, and in absorption for the hotter stars.  Here, we compare
+these observations against benchmark open clusters in order to
+assess their implications for the stellar ages.
+
+\subsubsection{Lithium}
+
+\begin{figure}[tp]
+	\begin{center}
+		\leavevmode
+		\subfloat{
+			\includegraphics[width=0.49\textwidth]{f6a.pdf}
+		}
+	
+		\vspace{-0.35cm}
+		\subfloat{
+			\includegraphics[width=0.49\textwidth]{f6b.pdf}
+		}
+	
+		\vspace{-0.35cm}
+		\subfloat{
+			\includegraphics[width=0.49\textwidth]{f6c.pdf}
+		}
+	\end{center}
+	\vspace{-0.6cm}
+	\caption{
+    {\bf Lithium 6708\AA\ and H$\alpha$ equivalent widths for the
+    objects of interest compared to young open clusters and field
+    stars. } Positive equivalent width means absorption; negative
+    equivalent width means emission.  
+    {\it Top \& middle}:
+    The field stars are KOIs from
+    \citet{berger_identifying_2018}.  The ``40-50 Myr'' reference
+    stars ({\it left}) are from IC\,2602 \citep{randich_gaiaeso_2018} and
+    Tuc-Hor \citep{kraus_stellar_2014}.  The ``112 Myr'' stars
+    are from the Pleiades
+    \citep{soderblom_evolution_1993,jones_evolution_1996,bouvier_pleiades_lirot_2018}.
+    The statistical uncertainties on
+    the equivalent widths are shown, or else are
+    smaller than the markers.
+    {\it Bottom}:
+    The H$\alpha$ comparison is against Tuc-Hor
+    \citep[$\approx$$40$\,Myr;][]{kraus_stellar_2014}
+    \label{fig:lithium}
+	}
+\end{figure}
+
+Figure~\ref{fig:lithium} compares the measured lithium equivalent
+widths of the Kepler objects against a few reference populations.  We
+selected reference studies from the literature only when upper limits were
+explicitly reported.  KOI-7368 and KOI-7913~A have secure lithium
+detections, while for KOI-7913~B the detection is marginal (${\rm EW}_{\rm
+Li} = 42^{+12}_{-19}$\,m\AA).  For all three stars, as well as for
+Kepler-1627~A, the observed lithium equivalent width is consistent
+with the stellar effective temperatures and a $\approx40$\,Myr age.
+
+Kepler-1643, in RSG-5, is conspicuously below the 40-50$\,$Myr
+sequence in the left-panel of Figure~\ref{fig:lithium}, though
+above the field stars (${\rm EW}_{\rm Li} = 130^{+6}_{-5}$\,m\AA).
+The right panel shows the comparison against the Pleiades, where
+Kepler-1643 is more consistent with the observed dispersion in
+lithium.
+
+One explanation for the lack of Li in Kepler-1643 could be that it is a field
+interloper; another could be that RSG-5 is much older than 50\,Myr.  We do
+not favor either explanation.  
+RSG-5 cannot be much older than 50\,Myr
+based on its proximity to the $\delta$~Lyr cluster and IC\,2602 in the
+CAMD, and because it is below the Pleiades in the 
+rotation versus color diagram (Figure~\ref{fig:age}).
+Kepler-1643 also seems highly unlikely to be a field interloper, 
+because we demonstrated a $\approx$$1\%$ false positive probability
+in our spatio-kinematic selection of RSG-5 members, and there is a 
+similar independent chance
+($\approx$$1\%$) of a field K2V star having a rotation period below the
+Pleiades \citep{mcquillan_rotation_2014}.
+This yields a puzzle: how could a star have spatial, kinematic, and rotational
+evidence consistent with being in a $\approx$50\,Myr cluster,
+but a low lithium content?
+
+Our preferred explanation for Kepler-1643's meager lithium 
+content is that the reference sample of IC\,2602 and Tuc-Hor
+stars may not fully explore all possible stellar rotation
+periods and lithium equivalent widths at this age. 
+Considering the top panels of Figure~\ref{fig:lithium}, it is remarkable that in
+50 million years, stars between $4500$\,K and $5200$\,K go from
+having a tight lithium sequence to one with a dispersion
+$\approx10\times$ greater.  The existence of the Li dispersion in
+Pleiades-age K-dwarfs has been known for decades; it has also been
+known that the stars with the largest lithium abundances are also the
+most rapidly rotating
+\citep{butler_pleiades_1987,soderblom_evolution_1993}.  More recent
+analyses of this correlation have been reviewed by
+\citet{bouvier_lithium-rotation_2020}.  The conclusion of that work
+was that the origin of the rotation-lithium correlation likely lies
+within pre-main-sequence stellar physics.  If so, one would expect the
+IC\,2602 and Tuc-Hor K-dwarfs to show a larger intrinsic lithium
+dispersion.  A recent analysis of the $\approx$40\,Myr
+NGC~2547 by \citet{binks_2022} suggests that this may
+be the case, though that study only had $\approx$10 stars in the relevant
+effective temperature range.
+This suggests that
+RSG-5 and Cep-Her could be
+worthy objects for a closer analysis of the lithium-rotation correlation
+near the zero-age main sequence.
+
+\subsubsection{H$\alpha$}
+
+As shown in Figure~\ref{fig:koiyouthindicators}, H$\alpha$ is in
+emission for both components of KOI-7913, and in absorption for the
+hotter stars.  Additionally, the emission appears double-peaked for
+both of the KOI-7913 components.  An important note is that KOI-7913~A and
+KOI-7913~B were spatially resolved from each other during data
+acquisition.  Performing a cross-correlation between each of the stars
+and the nearest matches in the Keck/HIRES template library, we also
+found that the CCFs for both components of KOI-7913 showed no
+indications of double-lined binarity \citep{kolbl_detection_2015}.
+
+Balmer line emission, particularly in H$\alpha$, is expected for
+low-mass stars of this age.  \citet{kraus_stellar_2014} for instance, in their
+survey of Tuc-Hor ($\approx$40\,Myr), observed that all
+cluster members with spectral types $>$${\rm K4.5V}$ had H$\alpha$ in
+emission.  Ths is consistent with our observations: KOI-7913 shows
+H$\alpha$ in emission for both components, and in absorption
+for all of our other Kepler objects (Figure~\ref{fig:koiyouthindicators}, lower panel).  The double-peaked nature of the
+emission, though not always present, is also common for
+active stars.  Proxima Centauri, for instance, has double-peaked
+H$\alpha$ emission \citep{collins_calculations_2017}.  Given
+that we have ruled out spectroscopic binarity, the most
+likely
+explanation is self-absorption: photons near the center of the line
+see a greater optical depth from higher layers of the chromosphere,
+while photons on the wings are too far from the
+rest-wavelength to excite electrons and be re-absorbed in the upper
+layers.  The exact details of when a star's atmosphere reaches the
+conditions for such self-absorption require non-local thermal
+equilibrium models of the chromosphere
+\citep{short_chromospheric_1998,2005A&A...439.1137F}.
+
+
+
 
 
 
@@ -935,7 +1102,7 @@ This implies that KOI-7913 B cannot host the planet.
 \begin{figure*}[!t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.9\textwidth]{f4.pdf}
+		\includegraphics[width=0.93\textwidth]{f4.pdf}
 	\end{center}
 	\vspace{-0.6cm}
 	\caption{
@@ -958,15 +1125,16 @@ This implies that KOI-7913 B cannot host the planet.
 \label{subsec:sizes}
 
 The most significant novelty about the planets in Kepler-1643,
-KOI-7368, and KOI-7913 is that their sizes are normal relative to the
-known population of mini-Neptunes from Kepler.  At field star ages,
-mini-Neptune sizes span 1.8\,$R_\oplus$ to 3.6\,$R_\oplus$, with the
-most common size being $\approx 2.4\,R_\oplus$
-\citep[][Figure~7]{Fulton_et_al_2017}.  The known planets younger than
+KOI-7368, and KOI-7913 is that their sizes (2.2 to 2.3\,$R_\oplus$)
+are normal relative to the known population of mini-Neptunes from
+Kepler.  At field star ages, mini-Neptune sizes span 1.8\,$R_\oplus$
+to 3.6\,$R_\oplus$, with the most common size being $\approx
+2.4\,R_\oplus$
+\citep{Fulton_et_al_2017}.  The known planets younger than
 $10^8$ years are almost all larger, with sizes between 4 and
 10$\,R_\oplus$
 \citep{Mann_K2_33b_2016,David_et_al_2016,benatti_possibly_2019,david_four_2019,newton_tess_2019,rizzuto_tess_2020,bouma_cluster_2020,mann_toi1227_2022}.
-Figure~\ref{fig:rp_period_age} explores this in more detail by showing
+Figure~\ref{fig:rp_period_age} explores this by showing
 the sizes, orbital periods, and ages of the known transiting planets,
 emphasizing planets with precise ages.  The smallest previously known
 planets comparable to the new Cep-Her mini-Neptunes are AU~Mic~c
@@ -1019,10 +1187,10 @@ studies of how the planetary size distribution changes at early times.
 RSG-5, and Kepler-1643's membership inside it, meet typical
 expectations for a star claimed to be in an open cluster.  RSG-5 is an
 obvious overdensity relative to the local field, and our membership
-selection easily produces a clean pre-main-sequence locus in color
-versus absolute magnitude (Figure~\ref{fig:age}).  CH-2, and KOI-7913
-and KOI-7368's membership inside it, do not meet these expectations in
-as obvious a manner.  This is because the CH-2 association is diffuse.
+selection easily yielded a clean pre-main-sequence locus
+(Figure~\ref{fig:age}).  CH-2, and KOI-7913 and KOI-7368's membership
+inside it, do not meet these expectations in as obvious a manner.
+This is because the CH-2 association is diffuse.
 
 To quantify the density difference between CH-2 and RSG-5, we can
 compare the spatial and velocity volumes searched for each group.  For
@@ -1037,7 +1205,7 @@ pc}^3\,{\rm km^2}\,{\rm s^{-2}}$, then the volume ratio of CH-2 to
 RSG-5 is 3.5 to 1.  The ratio of number densities (candidate members
 per unit searched volume) in RSG-5 relative to CH-2 is 16 to 1.
 
-Given its low density, in CH-2 a real star cluster?  For this
+Given its low density, in CH-2 truly a star cluster?  For this
 discussion, we adopt the definition that a star cluster is a group of
 at least 12 stars that was physically associated at its time of
 formation.  The ``12'' is set to distinguish star clusters from
@@ -1065,10 +1233,9 @@ if they share a common age.  This approach can demonstrate whether a
 star is currently associated with a set of coeval stars, though it
 falls short of determining what the association looked like in the
 past.  Our analysis of CH-2 meets the latter standard for
-demonstrating the
-existence of a $\approx$40\,Myr stellar association. 
+demonstrating the existence of a $\approx$40\,Myr stellar association. 
 
-It would be a worthy exercise for future work to perform a similar
+It would be a worthy exercise to perform a similar
 search for coeval phase-space neighbors on the entire dataset of known
 exoplanet hosts.  For the time being, we can offer the anecdotal point
 that in our experience, most stars do not have dozens of 40\,Myr
@@ -1086,7 +1253,7 @@ suggest a common origin.  With that said, the membership and
 kinematics of the other Cep-Her groups shown in
 Figure~\ref{fig:XYZvtang} deserve independent attention.  An important
 aspect of the remaining work will be to acquire radial velocities of a
-large subset of the stars, to assess whether the traceback approach
+large subset of the stars, and to determine whether the traceback approach
 could be applicable.  Wide-field spectroscopic surveys such as LAMOST
 \citep{zhao_2012_LAMOST} or SDSS-V \citep{kollmeier_2017} could enable
 such analyses, while also providing sensitivity to the Li 6708\,\AA\
@@ -1168,7 +1335,7 @@ Kepler-1643 is one such member.  While the stellar rotation period
 period agrees with this assessment, the star's lithium equivalent
 width is marginally low, which might motivate future exploration of
 lithium depletion across FGKM stars in RSG-5 (see
-Appendix~\ref{app:spectra}).
+Section~\ref{subsec:specyouth}).
 
 The spatio-kinematic argument for the youth of KOI-7368 and KOI-7913
 is weaker because they are in an association of stars, CH-2, that is
@@ -1194,7 +1361,7 @@ There may still be room at the bottom.
 
 %\clearpage
 \acknowledgements
-\raggedbottom
+%\raggedbottom
 % Cycle 3 and 4
 L.G.B{.} is supported by the Heising-Simons Foundation 51
 Pegasi~b Fellowship and the NASA TESS GI Program (80NSSC21K0335
@@ -1395,7 +1562,7 @@ D.H. is supported by the Alfred P. Sloan Foundation and NASA (80NSSC19K0597).
     ZTF.
 }
 
-\clearpage
+% \clearpage
 \bibliographystyle{yahapj}                            
 \bibliography{bibliography} 
 
@@ -1513,161 +1680,6 @@ case, we rejected a 6.7-day signal from TESS and recovered a 12.8-day
 period with ZTF. 
 
 
-\section{Spectroscopic Youth Indicators}
-\label{app:spectra}
-
-\begin{figure*}[t]
-	\begin{center}
-		\leavevmode
-			\includegraphics[width=0.99\textwidth]{f5.pdf}
-	\end{center}
-	\vspace{-0.3cm}
-	\caption{
-    {\bf Spectroscopic youth diagnostics for Kepler-1627, KOI-7368,
-    Kepler-1643, and KOI-7913 AB. }
-    The spectra are shown in the observed frame, and the stars are
-    sorted left-to-right in order of decreasing effective temperature.
-    \label{fig:koiyouthindicators}
-	}
-\end{figure*}
-
-Figure~\ref{fig:koiyouthindicators} shows key portions of the HIRES
-and TRES spectra for the Kepler objects in Cep-Her.  Lithium
-absorption is obvious at 6708\AA\ in all stars except KOI-7913 B,
-where it is marginal.  H$\alpha$ is in emission for both components of
-KOI-7913, and in absorption for the hotter stars.  In the following,
-we compare these observations against stars in benchmark open
-clusters.
-
-\subsection{Lithium}
-
-\begin{figure*}[tp]
-	\begin{center}
-		\leavevmode
-		\subfloat{
-			\includegraphics[width=0.49\textwidth]{f6a.pdf}
-			\includegraphics[width=0.49\textwidth]{f6b.pdf}
-		}
-
-		\subfloat{
-			\includegraphics[width=0.49\textwidth]{f6c.pdf}
-		}
-	\end{center}
-	\vspace{-0.3cm}
-	\caption{
-    {\bf Lithium 6708\AA\ and H$\alpha$ equivalent widths for the
-    objects of interest compared to young open clusters and field
-    stars. } Positive equivalent width means absorption; negative
-    equivalent width means emission.  The statistical uncertainties on
-    the newly measured equivalent widths are shown, or else are
-    smaller than the markers.
-    {\it Top}:
-    The field stars are stars with Kepler planets from
-    \citet{berger_identifying_2018}.  The ``40-50 Myr'' reference
-    stars (left) are from IC\,2602 \citep{randich_gaiaeso_2018} and
-    Tuc-Hor \citep{kraus_stellar_2014}.  The ``112 Myr'' stars (right)
-    are from the Pleiades
-    \citep{soderblom_evolution_1993,jones_evolution_1996,bouvier_pleiades_lirot_2018}.
-    {\it Bottom}:
-    The H$\alpha$ comparison is against Tuc-Hor
-    \citep[$\approx$$40$\,Myr;][]{kraus_stellar_2014}
-    \label{fig:lithium}
-	}
-\end{figure*}
-
-Figure~\ref{fig:lithium} compares the measured lithium equivalent
-widths of the Kepler objects against a few reference populations.  We
-selected studies from the literature only where upper limits were
-explicitly reported.  KOI-7368 and KOI-7913~A have secure lithium
-detections, while for KOI-7913~B the detection is marginal (${\rm EW}_{\rm
-Li} = 42^{+12}_{-19}$\,m\AA).  For all three stars, as well as for
-Kepler-1627~A, the observed lithium equivalent width is consistent
-with the stellar effective temperatures and $\approx40$\,Myr ages.
-
-Kepler-1643, in RSG-5, is conspicuously below the 40-50$\,$Myr
-sequence in the left-panel of Figure~\ref{fig:lithium}, while still
-being above the field stars (${\rm EW}_{\rm Li} = 130^{+6}_{-5}$\,m\AA).
-The right panel shows the comparison against the Pleiades, where
-Kepler-1643 is more consistent with the observed dispersion in
-lithium.
-
-One explanation for this could be that Kepler-1643 is a field
-interloper; another could be that RSG-5 is much older than 50\,Myr.  We do
-not favor either, given that {\it i)} the star was selected based
-on its spatio-kinematic proximity to other RSG-5 members, nearly all
-of which appear consistent with being $\approx$50\,Myr old
-(Figure~\ref{fig:age} upper left), and {\it ii)} the same RSG-5
-members display a gyrochronal sequence consistent with being younger
-than the Pleaides (Figure~\ref{fig:age} lower left).  
-There is a $\approx$$1\%$ chance of being a field interloper based on
-the spatio-kinematic selection, and a similar independent chance
-($\approx$$1\%$) of a field K2V star having a rotation period below the
-Pleiades \citep{mcquillan_rotation_2014}.
-The extra observation of a strong lithium detection at these
-effective temperatures yields a very small probability for Kepler-1643 
-being a field interloper.
-It also seems unlikely that RSG-5 could be much older than 50\,Myr,
-based on its proximity to the $\delta$~Lyr cluster and IC\,2602 in the
-CAMD, as well as the data shown in rotation versus color diagram.
-
-Our preferred explanation for Kepler-1643's lithium equivalent
-width is tied to the reference sample of IC\,2602 and Tuc-Hor
-stars not fully exploring the possible stellar rotation
-periods and lithium equivalent widths. 
-Analyzing Figure~\ref{fig:lithium}, it is remarkable that in
-just 50 million years, K-dwarfs between $4500$\,K and $5200$\,K go from
-having a tight lithium sequence to one with a dispersion
-$\approx10\times$ greater.  The existence of the Li dispersion in
-Pleiades-age K-dwarfs has been known for decades; it has also been
-known that the stars with the largest lithium abundances are also the
-most rapidly rotating
-\citep{butler_pleiades_1987,soderblom_evolution_1993}.  More recent
-analyses of this correlation have been reviewed by
-\citet{bouvier_lithium-rotation_2020}.  The conclusion of that work
-was that the origin of the rotation-lithium correlation likely lies
-within pre-main-sequence stellar physics.  If so, one would expect the
-IC\,2602 and Tuc-Hor K-dwarfs to show a larger intrinsic lithium
-dispersion.  A recent analysis of the $\approx$40\,Myr
-NGC~2547 by \citet{binks_2022} suggests that this may
-be the case, though it only had $\approx$10 stars in the relevant
-effective temperature range.
-This suggests that
-RSG-5 and Cep-Her could be
-worthy objects for a closer analysis of the lithium-rotation correlation
-near the zero-age main sequence.
-
-\subsection{H$\alpha$}
-
-As shown in Figure~\ref{fig:koiyouthindicators}, H$\alpha$ is in
-emission for both components of KOI-7913, and in absorption for the
-hotter stars.  Additionally, the emission appears double-peaked for
-both of the KOI-7913 components.  An important note is that KOI-7913~A and
-KOI-7913~B were spatially resolved from each other during data
-acquisition.  Performing a cross-correlation between each of the stars
-and the nearest matches in the Keck/HIRES template library, we also
-found that the CCFs for both components of KOI-7913 showed no
-indications of double-lined binarity \citep{kolbl_detection_2015}.
-
-Balmer line emission, particularly for H$\alpha$, is expected for
-stars of this age.  \citet{kraus_stellar_2014} for instance, in their
-survey of Tuc-Hor ($\approx$40\,Myr), observed that all
-cluster members with spectral type $>$${\rm K4.5V}$ had H$\alpha$ in
-emission.  The agrees with our observations that KOI-7913 shows
-H$\alpha$ in emission for both components, while it is in absorption
-for all of our other Kepler objects.  The double-peaked nature of the
-emission, though not always present, is also common for
-active stars.  Proxima Centauri, for instance, has double-peaked
-H$\alpha$ emission \citep{collins_calculations_2017}.  A simple
-explanation is self-absorption: photons nearest the center of the line
-see a greater optical depth from higher layers of the chromosphere,
-while photons on the wings are on average too far from the
-rest-wavelength to excite electrons and be re-absorbed in the upper
-layers.  The exact details of when a star's atmosphere reaches the
-conditions for such self-absorption require non-local thermal
-equilibrium models of the chromosphere
-\citep{short_chromospheric_1998,2005A&A...439.1137F}.
-
-
 \section{Table of Transit Fit Parameters}
 \label{app:transit}
 
@@ -1728,7 +1740,7 @@ products accurately correct the mean flux level
 was separately acquired for KOI-7913~B also reveals a
 different stellar rotation period, and no hint of the transit signal.
 
-\clearpage
+% \clearpage
 \input{tab_supp_CepHer_X_Kepler.tex}
 \vspace{-6cm}
 \input{tab_supp_RSG5_CH2_Prot.tex}
