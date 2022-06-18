@@ -5671,7 +5671,8 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     #
 
     plt.close('all')
-    f, ax = plt.subplots(figsize=(15/2,7/2))
+    #f, ax = plt.subplots(figsize=(15/2,7/2)) # for keynote
+    f, ax = plt.subplots(figsize=(19/2,7/2))
 
     xkey, ykey = 'l', 'b'
     get_yval = lambda _df: np.array(_df[ykey])
@@ -5752,8 +5753,10 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     #leg = ax.legend(loc='lower left', handletextpad=0.1,
     #                fontsize='x-small', framealpha=0.9)
 
-    ax.set_xlim([90, 58])
-    ax.set_ylim([0, 23])
+    #ax.set_xlim([90, 58])
+    #ax.set_ylim([0, 23])
+    ax.set_xlim([102, 38])
+    ax.set_ylim([-5, 25])
 
     ax.set_xlabel(r'Galactic longitude, $l$ [deg]', fontsize='large')
     ax.set_ylabel(r'Galactic latitude, $b$ [deg]', fontsize='large')
