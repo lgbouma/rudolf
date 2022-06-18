@@ -35,3 +35,5 @@ drivers/vespa_drivers/pull_simpletransit.sh
 papers/paper_kep1627/paper/Bouma_2022_Table3_cdips_targets_v0.6.csv
 papers/paper_kep1627/paper/cdips_targets_v0.6_nomagcut_gaiasources_table.csv
 *temp*
+arxiv_cepher/
+arxiv_metadata/
