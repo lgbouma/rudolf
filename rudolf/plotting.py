@@ -1898,7 +1898,7 @@ def plot_hr(
     show100pc=0, clusters=['$\delta$ Lyr cluster'], reddening_corr=0,
     cleanhrcut=1, extinctionmethod='gaia2018', smalllims=0,
     overplotkep1627=0, overplotkoi7368=0, getstellarparams=0,
-    show_allknown=0, overplotkep1643=0, overplotkoi7913=0
+    show_allknown=0, overplotkep1643=0, overplotkoi7913=0, darkcolors=0
 ):
     """
     clusters: ['$\delta$ Lyr cluster', 'IC 2602', 'Pleiades']
@@ -2061,7 +2061,10 @@ def plot_hr(
         # lime: CH-2 (KOI-7913, KOI-7368)
         # #ff6eff: RSG5 (Kepler-1643)
         # gray/black: del Lyr cluster (Kepler-1627)
-        mfcs = ['white', 'lime', 'lime', 'lime', '#ff6eff']
+        if not darkcolors:
+            mfcs = ['white', 'lime', 'lime', 'lime', '#ff6eff']
+        else:
+            mfcs = ['white', 'lime', 'lime', 'lime', "#55c9ed"]
 
         for mfc, marker, (name,_kdf) in zip(mfcs, markers, koi_df_dict.items()):
 
@@ -2074,10 +2077,11 @@ def plot_hr(
             _kdf = pd.read_csv(cachepath)
 
             if show_allknown:
+                edgecolor = 'black' if not darkcolors else 'white'
                 ax.plot(
                     get_xval(_kdf), get_yval(_kdf),
                     alpha=1, mew=0.5, zorder=9001, label=name, markerfacecolor=mfc,
-                    markersize=11, marker=marker, color='black', lw=0
+                    markersize=11, marker=marker, color=edgecolor, lw=0
                 )
             if (
                 (overplotkoi7368 and name == 'KOI-7368')
@@ -2086,10 +2090,11 @@ def plot_hr(
                 or
                 (overplotkep1643 and name == 'Kepler-1643')
             ):
+                edgecolor = 'black' if not darkcolors else 'white'
                 ax.plot(
                     get_xval(_kdf), get_yval(_kdf),
                     alpha=1, mew=0.5, zorder=9001, label=name, markerfacecolor=mfc,
-                    markersize=10, marker=marker, color='black', lw=0
+                    markersize=10, marker=marker, color=edgecolor, lw=0
                 )
 
     if 'BPMG' in clusters:
@@ -2189,13 +2194,16 @@ def plot_hr(
             print('RSG5')
             print(_df['reddening[mag][stilism]'].describe())
 
+        #c='#ffa873', # orange
+        # magenta, else light blue
+        c = '#ff6eff' if not darkcolors else "#55c9ed"
+        edgecolors = 'k' if not darkcolors else 'white'
         ax.scatter(
             get_xval(_df), get_yval(_df),
-            #c='#ffa873', # orange
-            c='#ff6eff', # magenta
+            c=c,
             alpha=1, zorder=10,
             s=1.6*s, rasterized=False, label='RSG-5 candidates', marker='o',
-            edgecolors='k', linewidths=0.2
+            edgecolors=edgecolors, linewidths=0.2
         )
 
 
@@ -2331,7 +2339,8 @@ def plot_hr(
         norm = ImageNormalize(vmin=10, vmax=1000,
                               stretch=LogStretch())
 
-        density = ax.scatter_density(_x[s], _y[s], cmap='Greys', norm=norm)
+        cmap = "Greys" if not darkcolors else "Greys_r"
+        density = ax.scatter_density(_x[s], _y[s], cmap=cmap, norm=norm)
 
         ax.scatter(-99,-99,marker='s',c='gray',label='Field',s=5)
 
@@ -2654,6 +2663,26 @@ def plot_hr(
     tax.tick_params(axis='x', which='minor', top=False)
     tax.get_yaxis().set_tick_params(which='both', direction='in')
 
+    if darkcolors:
+        ax.spines['bottom'].set_color('white')
+        ax.spines['top'].set_color('white')
+        ax.spines['left'].set_color('white')
+        ax.spines['right'].set_color('white')
+        ax.xaxis.label.set_color('white')
+        ax.yaxis.label.set_color('white')
+        ax.tick_params(axis='both', colors='white')
+
+        tax.spines['bottom'].set_color('white')
+        tax.spines['top'].set_color('white')
+        tax.spines['left'].set_color('white')
+        tax.spines['right'].set_color('white')
+        tax.xaxis.label.set_color('white')
+        tax.tick_params(axis='both', colors='white')
+
+        f.patch.set_alpha(0)
+        tax.patch.set_alpha(0)
+        ax.patch.set_alpha(0)
+
     if not isochrone:
         s = ''
     else:
@@ -2682,6 +2711,8 @@ def plot_hr(
         c0s += '_overplotkoi7913'
     if show_allknown:
         c0s += '_allknownkois'
+    if darkcolors:
+        c0s += "_darkcolors"
 
     outpath = os.path.join(outdir, f'hr{s}{c0s}.png')
 
@@ -2692,7 +2723,8 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                                  emph_binaries=False, refcluster_only=False,
                                  talk_aspect=0, xval_absmag=0,
                                  kinematic_selection=0,
-                                 overplotkep1627=0, show_allknown=0):
+                                 overplotkep1627=0, show_allknown=0,
+                                 darkcolors=0):
     """
     Plot rotation periods that satisfy the automated selection criteria
     (specified in helpers.get_autorotation_dataframe)
@@ -2714,7 +2746,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     colordict = {
         'deltaLyrCluster': 'k',
         'CH-2': 'lime',
-        'RSG-5': '#ff6eff' # magenta
+        'RSG-5': '#ff6eff' if not darkcolors else "#55c9ed" # magenta/lightblue
         #'RSG-5': '#ffa873' # orange
     }
     sizedict = {
@@ -2724,13 +2756,16 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     }
 
     classes = ['pleiades', 'praesepe', f'{runid}']
-    colors = ['gray', 'gray', colordict[runid]]
+    gray = 'gray' if not darkcolors else 'lightgray'
+    colors = [gray, gray, colordict[runid]]
     zorders = [-3, -4, -1]
     markers = ['X', '+', 'o']
-    lws = [0., 0.1, 0.35]
+    praesepelw = 0.1 if not darkcolors else 0.4
+    lws = [0., praesepelw, 0.35]
     mews= [0., 0.5, 2]
     _s = 3 if runid != 'VelaOB2' else 1.2
-    ss = [15, 12, sizedict[runid]]
+    pleiadessize = 15 if not darkcolors else 12
+    ss = [pleiadessize, 12, sizedict[runid]]
     if runid == 'deltaLyrCluster':
         l = '$\delta$ Lyr candidates'
     elif runid in ['CH-2','RSG-5']:
@@ -2853,10 +2888,11 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                 sel = (xval > 0.5) & (df.phot_g_mean_mag < 16)
             else:
                 sel = (xval > 0.5)
+            edgecolors = 'k' if not darkcolors else 'white'
             ax.scatter(
                 xval[sel],
                 df[sel][ykey],
-                c=_col, alpha=1, zorder=z, s=s, edgecolors='k',
+                c=_col, alpha=1, zorder=z, s=s, edgecolors=edgecolors,
                 marker=m, linewidths=_lw, label=f"{l.replace('_',' ')}"
             )
 
@@ -2927,7 +2963,8 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
         # lime: CH-2 (KOI-7913, KOI-7368)
         # #ff6eff: RSG5 (Kepler-1643)
         # gray/black: del Lyr cluster (Kepler-1627)
-        mfcs = ['white', 'lime', 'lime', 'lime', '#ff6eff']
+        rsg5mfc = '#ff6eff' if not darkcolors else "#55c9ed"
+        mfcs = ['white', 'lime', 'lime', 'lime', rsg5mfc]
 
         from rudolf.starinfo import starinfodict as sd
         for mfc, marker, (name,_kdf) in zip(mfcs, markers, koi_df_dict.items()):
@@ -2954,10 +2991,11 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                 'Kepler-1627 A'
             ]:
                 continue
+            edgecolor = 'k' if not darkcolors else 'white'
             ax.plot(
                 get_xval(_kdf), Prot,
                 alpha=1, mew=0.5, zorder=-2, label=name, markerfacecolor=mfc,
-                markersize=12, marker=marker, color='black', lw=0,
+                markersize=12, marker=marker, color=edgecolor, lw=0,
             )
 
 
@@ -3016,6 +3054,26 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     leg = ax.legend(loc=loc, handletextpad=0.3, fontsize='xx-small',
                     framealpha=1.0, borderaxespad=2.0, borderpad=0.8)
 
+    if darkcolors:
+        ax.spines['bottom'].set_color('white')
+        ax.spines['top'].set_color('white')
+        ax.spines['left'].set_color('white')
+        ax.spines['right'].set_color('white')
+        ax.xaxis.label.set_color('white')
+        ax.yaxis.label.set_color('white')
+        ax.tick_params(axis='both', colors='white', which='minor')
+        ax.tick_params(axis='both', colors='white', which='major')
+
+        tax.spines['bottom'].set_color('white')
+        tax.spines['top'].set_color('white')
+        tax.spines['left'].set_color('white')
+        tax.spines['right'].set_color('white')
+        tax.xaxis.label.set_color('white')
+        tax.tick_params(axis='both', colors='white')
+
+        f.patch.set_alpha(0)
+        tax.patch.set_alpha(0)
+        ax.patch.set_alpha(0)
 
     outstr = '_vs_BpmRp'
     if emph_binaries:
@@ -3026,6 +3084,8 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
         outstr += '_xvalAbsG'
     if kinematic_selection:
         outstr += '_kinematicspatialselected'
+    if darkcolors:
+        outstr += '_darkcolors'
     else:
         outstr += '_allKC19'
     outstr += f'_{yscale}'
@@ -5592,7 +5652,7 @@ def _get_melange2():
 
 
 def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
-                              clusters=None, showplanets=0):
+                              clusters=None, showplanets=0, darkcolors=False):
     """
     clusters: any of ['Theia-520', 'Melange-2', 'Cep-Her', 'δ Lyr', 'RSG-5', 'CH-2']
     """
@@ -5624,7 +5684,7 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     cluster_color_dict = {
         'Theia-520': '#5c167f',
         'Melange-2': '#a4327e',
-        'Cep-Her': '#ffa873',
+        'Cep-Her': '#ffa873' if not darkcolors else "#55c9ed",
         'δ Lyr': 'white',
         'RSG-5': '#ff6eff',
         'CH-2': 'lime'
@@ -5683,10 +5743,11 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
             df = clusterdict[cluster]
             color = cluster_color_dict[cluster]
             if cluster != 'Cep-Her':
+                edgecolors = 'k'
                 ax.scatter(
                     get_xval(df), get_yval(df), c=color, alpha=1,
                     s=5, rasterized=False, label=cluster, marker='o',
-                    edgecolors='k', linewidths=0.1
+                    edgecolors=edgecolors, linewidths=0.1
                 )
             else:
                 #sdf = df[df.strengths > 0.02]
@@ -5696,10 +5757,13 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                 #                rasterized=True)
                 sdf = df[df.strengths > 0.10]
                 print(f'Strength cut: > 0.10: {len(sdf)} objects')
+                s = 5 if not darkcolors else 3
+                edgecolors = 'k' if not darkcolors else 'white'
+                linewidths = 0.1 if not darkcolors else 0.08
                 ax.scatter(
                     get_xval(sdf), get_yval(sdf), c=color, alpha=1,
-                    s=5, rasterized=False, label=cluster, marker='o',
-                    edgecolors='k', linewidths=0.1
+                    s=s, rasterized=False, label=cluster, marker='o',
+                    edgecolors=edgecolors, linewidths=linewidths
                 )
 
 
@@ -5711,11 +5775,12 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                 l,b = position_dict[pl]
                 ind = np.argwhere(np.array(namelist)==pl)
                 marker = markers[int(ind)]
+                edgecolor = 'white' if darkcolors else 'white'
                 ax.plot(
                     l, b,
                     alpha=1, mew=0.5, zorder=10, label=pl,
-                    markerfacecolor=color, markersize=7, marker=marker,
-                    color='black', lw=0
+                    markerfacecolor=color, markersize=8, marker=marker,
+                    color=edgecolor, lw=0
                 )
 
     if showkepler:
@@ -5727,7 +5792,8 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                 c = SkyCoord(ra=nparr(ra)*u.deg, dec=nparr(dec)*u.deg)
                 glon = c.galactic.l.value
                 glat = c.galactic.b.value
-                ax.fill(glon, glat, c='lightgray', alpha=0.95, lw=0,
+                c = 'dimgray' if darkcolors else 'lightgray'
+                ax.fill(glon, glat, c=c, alpha=0.95, lw=0,
                         rasterized=True, zorder=-1)
 
 
@@ -5758,8 +5824,14 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     ax.set_xlim([102, 38])
     ax.set_ylim([-5, 25])
 
-    ax.set_xlabel(r'Galactic longitude, $l$ [deg]', fontsize='large')
-    ax.set_ylabel(r'Galactic latitude, $b$ [deg]', fontsize='large')
+    if darkcolors:
+        f.patch.set_alpha(0)
+        ax.patch.set_alpha(0)
+        ax.set_axis_off()
+
+    if not darkcolors:
+        ax.set_xlabel(r'Galactic longitude, $l$ [deg]', fontsize='large')
+        ax.set_ylabel(r'Galactic latitude, $b$ [deg]', fontsize='large')
 
     s = ''
     if clusters is not None:
@@ -5770,10 +5842,9 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
         s += '_showkepclusters'
     if showplanets:
         s += '_showplanets'
+    if darkcolors:
+        s += '_darkcolors'
 
     bn = 'kepclusters_skychart'
     outpath = os.path.join(outdir, f'{bn}{s}.png')
     savefig(f, outpath, dpi=400)
-
-
-

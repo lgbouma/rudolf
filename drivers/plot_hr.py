@@ -11,6 +11,13 @@ PLOTDIR = os.path.join(RESULTSDIR, 'hr')
 if not os.path.exists(PLOTDIR):
     os.mkdir(PLOTDIR)
 
+# eres-vii
+rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
+           clusters=['RSG-5'], reddening_corr=1,
+           overplotkep1627=0, show_allknown=0, overplotkep1643=1,
+           smalllims=1, darkcolors=1)
+assert 0
+
 # show all the known KOIs that are ~40 Myr old
 for smalllims in [1,0]:
 
@@ -23,8 +30,6 @@ for smalllims in [1,0]:
                clusters=['δ Lyr cluster', 'RSG-5'], reddening_corr=1,
                overplotkep1627=0, show_allknown=0, overplotkep1643=1,
                smalllims=smalllims)
-
-assert 0
 
 # get the isochrones for KOI-7913 and Kepler-1643
 for iso in ['mist', 'parsec']:
