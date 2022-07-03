@@ -111,13 +111,13 @@ def run_simpletransit_polyremover(starid='Kepler_1643', N_samples=2000, N_cores=
                         kind='stats', stat_funcs={'median':np.nanmedian},
                         extend=True)
 
-    localpolyindivpanels = 1
-    phaseplot = 1
-    spphaseplot = 1
-    posttable = 1
-    cornerplot = 1
-    writevespa = 1
-    getbecclimits = 1
+    localpolyindivpanels = 0
+    phaseplot = 0
+    spphaseplot = 1 #FIXME
+    posttable = 0
+    cornerplot = 0
+    writevespa = 0
+    getbecclimits = 0
 
     if localpolyindivpanels:
         outpath = join(
@@ -146,18 +146,35 @@ def run_simpletransit_polyremover(starid='Kepler_1643', N_samples=2000, N_cores=
                           singleinstrument='kepler')
 
     if spphaseplot:
-        outpath = join(PLOTDIR, f'{starid}_{modelid}_singlepanelphaseplot.png')
-        ylimds = {
-            'KOI_7368':[-4, 1.5],
-            'KOI_7913':[-5.5, 1.5],
-            'Kepler_1627':[-6.5, 1.5],
-            'Kepler_1643':[-4, 1.5],
-        }
+        # sub-options!
+        darkcolors = 1
+        showresid = 0
+        s = ''
+        if darkcolors:
+            s += '_darkcolors'
+        if not showresid:
+            s += '_noresid'
+        outpath = join(PLOTDIR, f'{starid}_{modelid}_singlepanelphaseplot{s}.png')
+        if showresid:
+            ylimds = {
+                'KOI_7368':[-4, 1.5],
+                'KOI_7913':[-5.5, 1.5],
+                'Kepler_1627':[-6.5, 1.5],
+                'Kepler_1643':[-4, 1.5],
+            }
+        else:
+            ylimds = {
+                'KOI_7368':[-3.5, 1.5],
+                'KOI_7913':[-3.5, 1.5],
+                'Kepler_1627':[-3.5, 1.5],
+                'Kepler_1643':[-3.5, 1.5],
+            }
         dyfactor = 4.2 if starid != 'Kepler_1627' else 2.8
         bp.plot_singlepanelphasefold(
-            m, summdf, outpath, dyfactor=dyfactor, txt=starid.replace('_','-'), modelid=modelid,
-            inppt=1, ylims=ylimds[starid], binsize_minutes=20,
-            singleinstrument='kepler'
+            m, summdf, outpath, dyfactor=dyfactor, txt=starid.replace('_','-'),
+            modelid=modelid, inppt=1, ylims=ylimds[starid], binsize_minutes=20,
+            singleinstrument='kepler', darkcolors=darkcolors,
+            showresid=showresid
         )
 
     if posttable:
