@@ -68,8 +68,6 @@ def plot_rp_vs_period_scatter(
     """
 
     set_style()
-    if dark_bkgd:
-        plt.style.use('dark_background')
 
     #
     # Columns are described at
@@ -226,16 +224,23 @@ def plot_rp_vs_period_scatter(
             #mpl.cm.register_cmap(name='trunc_map', cmap=cmap)
             #cmap = mpl.cm.get_cmap('trunc_map', 6)
 
-
         else:
-            cmap = mpl.cm.get_cmap('Wistia', 6)
+            cmap = mpl.cm.get_cmap('Blues', 6)
+            # good
+            cmap = truncate_colormap(
+                plt.get_cmap("Blues"), minval=0.1, maxval=1.0, n=256
+            )
+            mpl.cm.register_cmap(name='trunc_map', cmap=cmap)
+            cmap = mpl.cm.get_cmap('trunc_map', 6)
+
         bounds = np.arange(7.0,9.0,0.01)
         norm = mpl.colors.LogNorm(vmin=1e7, vmax=1e9)
 
         alpha = 1 if oldalpha is None else oldalpha
+        edgecolors = 'k' if not dark_bkgd else 'white'
         _p = ax.scatter(
             period[s1], rp[s1],
-            c=age[s1], alpha=alpha, zorder=2, s=32, edgecolors='k',
+            c=age[s1], alpha=alpha, zorder=2, s=32, edgecolors=edgecolors,
             marker='o', cmap=cmap, linewidths=0.3, norm=norm
         )
 
@@ -319,9 +324,10 @@ def plot_rp_vs_period_scatter(
 
                 _age = np.ones(len(_sdf))*a
 
+                edgecolors = 'k' if not dark_bkgd else 'white'
                 ax.scatter(
                     _per, _rp,
-                    c=_age, alpha=1, zorder=2, s=_s, edgecolors='k',
+                    c=_age, alpha=1, zorder=2, s=_s, edgecolors=edgecolors,
                     marker=m, cmap=cmap, linewidths=0.3, norm=norm
                 )
 
@@ -369,9 +375,10 @@ def plot_rp_vs_period_scatter(
 
                 _age = np.ones(len(_sdf))*a
 
+                edgecolors = 'k' if not dark_bkgd else 'white'
                 ax.scatter(
                     _per, _rp,
-                    c=_age, alpha=1, zorder=2, s=_s, edgecolors='k',
+                    c=_age, alpha=1, zorder=2, s=_s, edgecolors=edgecolors,
                     marker=m, cmap=cmap, linewidths=0.3, norm=norm
                 )
 
@@ -456,8 +463,6 @@ def plot_rp_vs_period_scatter(
                     ):
                         ax.text(__per, __rp, __n, ha='right', va='bottom',
                                 fontsize=2, bbox=bbox, zorder=49)
-
-
 
         cb = fig.colorbar(_p, cax=axins1, orientation="vertical",
                           extend="neither", norm=norm)
@@ -545,6 +550,21 @@ def plot_rp_vs_period_scatter(
     else:
         ax.set_xlim([0.1, 1100])
 
+    if dark_bkgd:
+        for _ax in [ax, cb.ax, axins1]:
+            _ax.spines['bottom'].set_color('white')
+            _ax.spines['top'].set_color('white')
+            _ax.spines['left'].set_color('white')
+            _ax.spines['right'].set_color('white')
+            _ax.xaxis.label.set_color('white')
+            _ax.yaxis.label.set_color('white')
+            _ax.tick_params(axis='both', colors='white', which='major')
+            _ax.tick_params(axis='both', colors='white', which='minor')
+        cb.outline.set_edgecolor('white')
+
+        fig.patch.set_alpha(0)
+        ax.patch.set_alpha(0)
+
     format_ax(ax)
 
     ax.set_yscale('log')
@@ -594,6 +614,16 @@ def plot_rp_vs_period_scatter(
 
 if __name__=='__main__':
 
+    # ERES-VII
+    for oldalpha in [0.4, None]:
+        plot_rp_vs_period_scatter(
+            showlegend=0, colorbydisc=0, showarchetypes=0, showss=0,
+            colorbyage=1, verbose=1, add_kep1627=0, add_allkep=0,
+            add_CepHer=1, add_plnames=0, dark_bkgd=1,
+            oldalpha=oldalpha
+        )
+
+    assert 0
     for dark_bkgd in [0]:
         for oldalpha in [0.4, None]:
             for add_plnames in [0]:
@@ -627,7 +657,6 @@ if __name__=='__main__':
                     add_plnames=add_plnames, oldalpha=oldalpha
                 )
 
-    assert 0
 
     plot_rp_vs_period_scatter(
         showlegend=0, colorbydisc=0, showarchetypes=0, showss=0, colorbyage=0,
