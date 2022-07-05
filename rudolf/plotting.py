@@ -2064,7 +2064,7 @@ def plot_hr(
         if not darkcolors:
             mfcs = ['white', 'lime', 'lime', 'lime', '#ff6eff']
         else:
-            mfcs = ['white', 'lime', 'lime', 'lime', "#55c9ed"]
+            mfcs = ['white', 'lime', 'lime', 'lime', "#BDD7EC"]
 
         for mfc, marker, (name,_kdf) in zip(mfcs, markers, koi_df_dict.items()):
 
@@ -2196,7 +2196,7 @@ def plot_hr(
 
         #c='#ffa873', # orange
         # magenta, else light blue
-        c = '#ff6eff' if not darkcolors else "#55c9ed"
+        c = '#ff6eff' if not darkcolors else "#BDD7EC"
         edgecolors = 'k' if not darkcolors else 'white'
         ax.scatter(
             get_xval(_df), get_yval(_df),
@@ -2716,7 +2716,7 @@ def plot_hr(
 
     outpath = os.path.join(outdir, f'hr{s}{c0s}.png')
 
-    savefig(f, outpath, dpi=500)
+    savefig(f, outpath, dpi=600)
 
 
 def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
@@ -2746,7 +2746,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     colordict = {
         'deltaLyrCluster': 'k',
         'CH-2': 'lime',
-        'RSG-5': '#ff6eff' if not darkcolors else "#55c9ed" # magenta/lightblue
+        'RSG-5': '#ff6eff' if not darkcolors else "#BDD7EC" # magenta/lightblue
         #'RSG-5': '#ffa873' # orange
     }
     sizedict = {
@@ -2963,7 +2963,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
         # lime: CH-2 (KOI-7913, KOI-7368)
         # #ff6eff: RSG5 (Kepler-1643)
         # gray/black: del Lyr cluster (Kepler-1627)
-        rsg5mfc = '#ff6eff' if not darkcolors else "#55c9ed"
+        rsg5mfc = '#ff6eff' if not darkcolors else "#BDD7EC"
         mfcs = ['white', 'lime', 'lime', 'lime', rsg5mfc]
 
         from rudolf.starinfo import starinfodict as sd
@@ -3097,7 +3097,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     if show_allknown:
         outstr += '_allknown'
     outpath = os.path.join(outdir, f'{runid}_rotation{outstr}.png')
-    savefig(f, outpath)
+    savefig(f, outpath, dpi=600)
 
 
 
@@ -5684,7 +5684,7 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     cluster_color_dict = {
         'Theia-520': '#5c167f',
         'Melange-2': '#a4327e',
-        'Cep-Her': '#ffa873' if not darkcolors else "#55c9ed",
+        'Cep-Her': '#ffa873' if not darkcolors else "#BDD7EC",
         'δ Lyr': 'white',
         'RSG-5': '#ff6eff',
         'CH-2': 'lime'
