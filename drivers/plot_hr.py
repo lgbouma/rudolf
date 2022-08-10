@@ -11,12 +11,23 @@ PLOTDIR = os.path.join(RESULTSDIR, 'hr')
 if not os.path.exists(PLOTDIR):
     os.mkdir(PLOTDIR)
 
+# get the isochrones for KOI-7913 and Kepler-1643
+for iso in ['mist', 'parsec']:
+    rp.plot_hr(PLOTDIR, isochrone=iso, color0='phot_bp_mean_mag', show100pc=1,
+               clusters=['δ Lyr cluster', 'IC 2602', 'Pleiades'],
+               reddening_corr=1, overplotkep1643=1, getstellarparams=1)
+    rp.plot_hr(PLOTDIR, isochrone=iso, color0='phot_bp_mean_mag', show100pc=1,
+               clusters=['δ Lyr cluster', 'IC 2602', 'Pleiades'],
+               reddening_corr=1, overplotkoi7913=1, getstellarparams=1)
+    rp.plot_hr(PLOTDIR, isochrone=iso, color0='phot_bp_mean_mag', show100pc=1,
+               clusters=['δ Lyr cluster', 'IC 2602', 'Pleiades'],
+               reddening_corr=1, overplotkoi7913b=1, getstellarparams=1)
+
 # eres-vii
 rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
            clusters=['RSG-5'], reddening_corr=1,
            overplotkep1627=0, show_allknown=0, overplotkep1643=1,
            smalllims=1, darkcolors=1)
-assert 0
 
 # show all the known KOIs that are ~40 Myr old
 for smalllims in [1,0]:
@@ -30,15 +41,6 @@ for smalllims in [1,0]:
                clusters=['δ Lyr cluster', 'RSG-5'], reddening_corr=1,
                overplotkep1627=0, show_allknown=0, overplotkep1643=1,
                smalllims=smalllims)
-
-# get the isochrones for KOI-7913 and Kepler-1643
-for iso in ['mist', 'parsec']:
-    rp.plot_hr(PLOTDIR, isochrone=iso, color0='phot_bp_mean_mag', show100pc=1,
-               clusters=['δ Lyr cluster', 'IC 2602', 'Pleiades'],
-               reddening_corr=1, overplotkep1643=1, getstellarparams=1)
-    rp.plot_hr(PLOTDIR, isochrone=iso, color0='phot_bp_mean_mag', show100pc=1,
-               clusters=['δ Lyr cluster', 'IC 2602', 'Pleiades'],
-               reddening_corr=1, overplotkoi7913=1, getstellarparams=1)
 
 # as in ms, but with "Set 1" (KOI 7368)
 rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,

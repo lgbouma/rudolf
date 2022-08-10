@@ -1898,7 +1898,8 @@ def plot_hr(
     show100pc=0, clusters=['$\delta$ Lyr cluster'], reddening_corr=0,
     cleanhrcut=1, extinctionmethod='gaia2018', smalllims=0,
     overplotkep1627=0, overplotkoi7368=0, getstellarparams=0,
-    show_allknown=0, overplotkep1643=0, overplotkoi7913=0, darkcolors=0
+    show_allknown=0, overplotkep1643=0, overplotkoi7913=0,
+    overplotkoi7913b=0, darkcolors=0
 ):
     """
     clusters: ['$\delta$ Lyr cluster', 'IC 2602', 'Pleiades']
@@ -2053,7 +2054,7 @@ def plot_hr(
             edgecolors='k', linewidths=0.2
         )
 
-    if show_allknown or overplotkoi7913 or overplotkep1643:
+    if show_allknown or overplotkoi7913 or overplotkep1643 or overplotkoi7913b:
         _, _, _, koi_df_dict = get_deltalyr_kc19_gaia_data(return_all_targets=1)
 
         namelist = ['Kepler-1627 A', 'KOI-7368', 'KOI-7913 A', 'KOI-7913 B', 'Kepler-1643']
@@ -2086,7 +2087,9 @@ def plot_hr(
             if (
                 (overplotkoi7368 and name == 'KOI-7368')
                 or
-                (overplotkoi7913 and 'KOI-7913' in name)
+                (overplotkoi7913 and 'KOI-7913 A' in name)
+                or
+                (overplotkoi7913b and 'KOI-7913 B' in name)
                 or
                 (overplotkep1643 and name == 'Kepler-1643')
             ):
@@ -2429,6 +2432,9 @@ def plot_hr(
                     elif overplotkoi7913:
                         print("overplotkoi7913")
                         sel = (mstar > 0.70) & (mstar < 0.80)
+                    elif overplotkoi7913b:
+                        print("overplotkoi7913b")
+                        sel = (mstar > 0.65) & (mstar < 0.75)
                     else:
                         sel = (mstar > 0.93) & (mstar < 1.0)
 
@@ -2540,6 +2546,12 @@ def plot_hr(
                             (np.abs(iso_df.logAge - la) < 0.01) &
                             (iso_df.Mass > 0.70) &
                             (iso_df.Mass < 0.80)
+                        )
+                    elif overplotkoi7913b:
+                        sel = (
+                            (np.abs(iso_df.logAge - la) < 0.01) &
+                            (iso_df.Mass > 0.65) &
+                            (iso_df.Mass < 0.75)
                         )
                     else:
                         sel = (
@@ -2709,6 +2721,8 @@ def plot_hr(
         c0s += '_overplotkep1643'
     if overplotkoi7913:
         c0s += '_overplotkoi7913'
+    if overplotkoi7913b:
+        c0s += '_overplotkoi7913b'
     if show_allknown:
         c0s += '_allknownkois'
     if darkcolors:
