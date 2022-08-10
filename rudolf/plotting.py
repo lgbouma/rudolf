@@ -5517,7 +5517,7 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
     savefig(fig, outpath)
 
 
-def plot_kerr21_XY(outdir, tablenum=1, colorkey=None):
+def plot_kerr21_XY(outdir, tablenum=1, colorkey=None, show_CepHer=0):
     """
     Make a top-down plot like Figure 7 of Kerr+2021
     (https://ui.adsabs.harvard.edu/abs/2021ApJ...917...23K/abstract).
@@ -5556,6 +5556,10 @@ def plot_kerr21_XY(outdir, tablenum=1, colorkey=None):
     from sunnyhills.physicalpositions import calculate_XYZ_given_RADECPLX
     x,y,z = calculate_XYZ_given_RADECPLX(df.RAdeg, df.DEdeg, df.plx)
 
+    if show_CepHer:
+        from rudolf.helpers import get_ronan_cepher_augmented
+        _df, __df, _mdf = get_ronan_cepher_augmented()
+
     #
     # make the plot
     #
@@ -5576,6 +5580,14 @@ def plot_kerr21_XY(outdir, tablenum=1, colorkey=None):
             linewidths=0, marker='.'
         )
 
+        if show_CepHer:
+            sel = _df.strengths > 0.15
+            ax.scatter(
+                _df[sel].x_pc, _df[sel].y_pc, c='black', alpha=1, zorder=2,
+                s=2, rasterized=True, linewidths=0, marker='.'
+            )
+
+
     else:
         # Add a colorbar.
         color = df[colorkey]
@@ -5591,9 +5603,25 @@ def plot_kerr21_XY(outdir, tablenum=1, colorkey=None):
         cmap = mpl.cm.get_cmap('rainbow')
 
         _p = ax.scatter(
-            x[sel], y[sel], c=color[sel], alpha=1, zorder=3, s=2, rasterized=True,
-            linewidths=0, marker='.', cmap=cmap
+            x[sel], y[sel], c=color[sel], alpha=1, zorder=3, s=2,
+            rasterized=True, linewidths=0, marker='.', cmap=cmap
         )
+
+        if (tablenum == 2 and colorkey == 'Weight'):
+            for ix, lo in enumerate(np.arange(0,1,0.1)):
+                hi = lo + 0.1
+                sel = (
+                    (~pd.isnull(color))
+                    &
+                    (color > lo)
+                    &
+                    (color <= hi)
+                )
+                ax.scatter(
+                    x[sel], y[sel], c=color[sel], alpha=1, s=2,
+                    rasterized=True, linewidths=0, marker='.', cmap=cmap,
+                    zorder=10+ix
+                )
 
         # For the colorbar, inset it into the main plot to keep the square
         # aspect ratio.
@@ -5622,6 +5650,8 @@ def plot_kerr21_XY(outdir, tablenum=1, colorkey=None):
     s = ''
     if colorkey:
         s += f"_{colorkey}"
+    if show_CepHer:
+        s += f"_ShowCepHer"
 
     outpath = os.path.join(outdir, f'kerr21t{tablenum}_XY{s}.png')
     fig.savefig(outpath, bbox_inches='tight', dpi=400)

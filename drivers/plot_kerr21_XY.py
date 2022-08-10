@@ -8,9 +8,10 @@ if not os.path.exists(outdir):
 
 for tablenum in [1,2]:
     plot_kerr21_XY(outdir, tablenum=tablenum, colorkey=None)
-    plot_kerr21_XY(outdir, tablenum=tablenum, colorkey='plx')
     if tablenum == 1:
+        plot_kerr21_XY(outdir, tablenum=tablenum, colorkey=None, show_CepHer=1)
         plot_kerr21_XY(outdir, tablenum=tablenum, colorkey='Age')
         plot_kerr21_XY(outdir, tablenum=tablenum, colorkey='P')
+        plot_kerr21_XY(outdir, tablenum=tablenum, colorkey='plx')
     if tablenum == 2:
         plot_kerr21_XY(outdir, tablenum=tablenum, colorkey='Weight')
