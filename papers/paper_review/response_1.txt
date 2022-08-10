@@ -1,0 +1,463 @@
+Dear Dr. Endl,
+
+We thank you for organizing the review of our paper, and also thank the referee for constructive criticism.  We have considered the remarks of the reviewer carefully and revised our manuscript accordingly.
+
+Below, we have reproduced the relevant portions of the reviewer's report, alongside our responses. The changes are bolded in the attached ms_boldchanges.pdf file, using the trackchanges AASTeX macros. 
+
+Sincerely,
+
+Luke Bouma
+
+
+******************************************
+Reviewer #1 MODERATE CONCERNS
+
+REVIEWER COMMENT
+----------
+Figure 1:
+- It is interesting to note that all four planets are concentrated in X-Z, vb-vl*, and vl*-l. This could be because of the small fraction of space that the Kepler field surveyed. Is that accurate? Is there any way to indicated which stars were observed by Kepler in these figures?
+- Note that in B&W only the + symbol has a different color than the rest, although since the symbols are different this wasn't much of an issue. The exception is that I can't tell which group is magenta and which lime green, so specifying which are the larger filled circles and which are the smaller would be helpful.
+- Why is it important to show the projection of the solar velocity?
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+If at all possible, please assure in Kerr+in prep that the nomenclature does not change such that CH-2 remains CH-2, or update this paper prior to publication.
+RESPONSE
+----------
+>
+
+
+REVIEWER COMMENT
+----------
+Line 248: I am skeptical of the few % false positive rate (later referenced as 1%). Once stars get hotter than K2, the young and field sequences overlap significantly and so field stars wouldn't likely be outliers in the CAMD. I'm also wondering if not all of the stars are shown on the CAMD; the text states 173 stars in RSG-5; it doesn't quite look to me like there are 173 stars on the upper left panel, but I could be wrong.
+RESPONSE
+----------
+>
+
+
+REVIEWER COMMENT
+----------
+Figure 2:
+- I don't see any squares for the field sample, is this just the background of small indistinct points?
+- Very hard to see Praesepe in black and white
+- Praesepe isn't very useful as a reference since the figure is considering things younger than Pleiades. However, it would be useful to see a younger comparison cluster more similar in age to Cep-Her.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 280, "Generally speaking, this method is expected": It is not clear that this method of interpolation should be accurate, since it relies on changes occurring linearly in time. Since the ages are quite close to one of the anchors it is probably fine in any case. Please provide a citation or more discussion.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Overall, the discussion of rotation discrepancies in Sec 2.3.2 is not clear and has the feel of the authors trying overly hard to justify their argument (I do agree with the argument, however).
+- It would generally be much easier to follow this section if Fig 2 contained a younger cluster for comparison, such as the two cited at the end of this section.
+- After some reflection, I think the argument about the M dwarfs is that both very young M dwarfs still in the process of contracting, and moderately young M dwarfs that have just begun to spin down, can have periods of 10-12 days. I suggest simply stating this up front, and then only consider FGK stars in the subsequent discussion.
+- Line 328: "no field star outliers" - but the authors have previously stated that there is one outlier.
+- 13% seems like a lot of pole-on stars for random chance, and at these young ages the amplitudes should almost always be quite large. Rampalli+2021 detects a higher fraction of rotators amongst older Praesepe stars. It seems more likely that the false positive rate is similar to the other sub-associations considered.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+The discussion of vsini measurements did not provide adequate details, such as macroturbulence and potential impact of the targets being very young.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+The discussion of Li could use further clarity.
+- Identification of which stars have Li is inconsistent. Line 456 says neither component of 7913 has strong Li, but at line 477 Li is obvious in all but one star, and at line 487 Li is noted as secure in 7913A.
+- Line 497: "Lack of Li" implies there's no Li, not that there's not as much as expected
+- As I mentioned previously, I am skeptical of the 1% false positive rate for RSG-5
+- The authors point out an interesting possibility about why the Li in 1643 could be low, namely that the dispersion could be higher than expected. Though I am not an expert in Li, this seems reasonable. However, I think it should be qualified a bit more: how many stars were previously studied; few enough that scatter could be missed? Why might RSG-5 be different?
+- Did the authors consider initial Li abundance, or differences in Fe abundance, as a possible reason for differences in current Li? 1643 certainly stands out the most, but I might be able to argue from Fig 4 that on average, the observed planet hosts in Cep-Her are all a bit lower than expected from the reference sequences.
+
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Figure 4, H-alpha plot:
+- Only the part of the plot showing M0 and earlier is really useful here, perhaps limit the axis range.
+- It is difficult to distinguish the field stars and TucHor stars in black and white
+- There must be more field K stars with H-a measurements for comparison; the two showing in the late K dwarf regime don't do a good job of illustrating how H-a inactive field K dwarfs are. It can be inferred from Rauscher & Marcy (2006), although I couldn't really find an appropriate reference for field K dwarfs since 1990 (https://iopscience.iop.org/article/10.1086/132624). However, https://academic.oup.com/mnras/article/476/1/908/4828379#112872390 includes hotter stars in numerous clusters.
+
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+The discussion of centroid offsets could use further elaboration.
+- Line 664: how many sigma is 0.4"? Is this generally considered a good value?
+- 1643 and 7368 both have centroid shifts that are larger than normal for Kepler, and it is stated that stellar variability is the likely cause. But not all young stars show centroid shifts, and presumably some level of centroid shift would still be concerning. Is the impact of stellar variability well established in the literature? Can the amplitude of stellar variability be used to inform one about the centroid offsets?
+- The discussion for 7368 indicates that the centroid shift can't be due to another star due to the high contrast imaging constraints. Is there an established method for this? Can the same analysis be done for 1643?
+
+RESPONSE
+----------
+>
+
+******************************************
+Reviewer #1 CLARITY, CITATIONS, ETC.
+
+REVIEWER COMMENT
+----------
+Line 54, "To date...": Sentence meaning unclear. These analyses have focused on positions & velocities? Or have used clustering based on?
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 63: Unclear whether "larger" refers to size or kinematic spread, perhaps "more diffuse kinematically" if referring to kinematic spread.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 70: Consider also citing Arancibia-Silva et al. (2020) which also looked at Li in Psc-Eri
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 114: Consider adding citations for ages for delta Lyr and RSG-5.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 118: From the information given so far about delta Lyr and RSG-5, I do not know where to look in Zari+2018 figures 11 and 13, so this is not a very useful reference without additional information on the velocities and XY positions.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 122: It is worth noting that Zucker+2022 found that many of the "strings" from Kounkel & Covey are not likely real associations. Obviously, some of the associations K&C identify are real, but the extended groups that are more similar to Cep-Her may more often be artifacts.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 130, "identified three of the nearest subpopulations": subpopulations of Cep-Her?
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 140: Figure 1 reference seems to be specifically to the lower right panel, not both lower panels.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+*Line 162: vb and vl* not defined
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+*Line 171: core distance metric is not defined, but is quite important per the subsequent paragraph and so should be explained. It would also be helpful to state that larger values of D are better.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 174-175, "at least as close to the 10th nearest": Not clear what this means.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 188: I understand the notation for a normal distribution, but perhaps worth just writing in words instead. I also don't know why D is Gaussian in the first place, but this would presumably be explained by defining the core distance.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+*Line 190-191: Please explain how thresholds of 0.02 and 0.10 were selected.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+*Line 192: vl' not defined
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 209: The expected period and amplitude based on stars of what age?
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 225: Phrasing makes it sound like Cep-Her candidates observed by Kepler are distinct from those in RSG-5 and CH-2, but I assume they overlap?
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 235: May be useful to readers to specify which part of Gaia Collaboration + 2018 the data filters are listed.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 246: "set the color range" had me looking for a color map, suggest saying "color axis" instead
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 251: This struck me as an odd use of "control sample" since delta Lyra seems like just another example equivalent to RSG-5 and CH-2
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 253-254: If photometrically overlapping with the field, by definition a star must be an outlier from the cluster sequence, correct? Current wording suggests otherwise, suggest rephrasing.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 260: Specify overlap is on CAMD.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 359: Stars are referred to by spectral types, but then define ZAMS in terms of mass so it is not possible to compare without additional information about the spectral type of the sun on the ZAMS.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+*Table 1: Please specify which component of the binary KOI 7913 orbits
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 364: From later comparisons with the spectroscopy, it seems that the MIST analysis also returns Teff.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 365: Clarify what is interpolating against the MIST isochrones.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 372: Should be stated Teff is also adopted from spectra, not just used to verify previous values.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 373, "we acquired spectra": might as well specify they are high resolution optical spectra!
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 392, citation to Chubak et al.: were these values determined following the methods of those authors, or by comparison to templates from that work?
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 394: Would be helpful to include a one-sentence description of Li measurement.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 413: Just wanted to confirm the 2015 date, presumably this was an archival spectrum from Kepler days.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+*Line 449: Teff values are only quoted for these two stars, and were not in previous sections, and the subsequent text also implies that for these stars, the spectra-based Teff values disagreed with the isochrone-based values. Either re-phrase, or discuss disagreement.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 471: "amusing" ?
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 472: mass of X - at the assumed age of 40Myr?
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Section 3.4.2.: This section makes a big deal out of H-a self-reversals, but to my knowledge these are well-known and expected since the 80s. Admittedly the references I can think of are all for M dwarfs, but I wouldn't expect a late K dwarf to be fundamentally different than an early M. The section also implies it's a possible (though ruled out) concern for binarity, but since no other spectral lines in Fig 3 are doubled this does not need to be a concern.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Line 618: for a GP regression, it is necessary to remove outliers, so this outcome is expected.
+RESPONSE
+----------
+>
+
+REVIEWER COMMENT
+----------
+Figure 5: "planetary transit times are indicated" add "by dashed vertical lines"
+RESPONSE
+----------
+> Done, thank you.
+
+REVIEWER COMMENT
+----------
+Line 678: "clears the usual threshold" - what is the usual threshold?
+RESPONSE
+----------
+> We've updated the sentence as follows:
+> "Though not as convincing as Kepler-1643, this clears the \replaced{usual threshold for calling the planet statistically validated \citep{morton_efficient_2012}}{threshold probability of 1 in 100 suggested by \citet{morton_false_2016} for calling a planet statistically validated}."
+> Note the updated citation is to Morton+2016, rather than Morton 2012.  The relevant portion from Morton 2012 that we had previously considered (Section 3) has important discussion about this boundary, but the Morton+2016 citation is more relevant as the practical adoption of the 2012 method.
+
+REVIEWER COMMENT
+----------
+Line 682: Please define positional probability.
+RESPONSE
+----------
+> We have added a footnote pointing to the relevant columns at the NASA Exoplanet Archive, which contains more extensive documentation on this calculation (as does the referenced memo by Bryson & Morton 2017).  We have also reworded the text in favor of a plain-english interpretation, which is that the probability they calculated indicates that the transit signal shares its position with the target star.
+
+REVIEWER COMMENT
+----------
+Line 707: The FPP is only barely lower than 7368.
+RESPONSE
+----------
+> Good point -- the relevant text has been reworded to omit the comparison against 7368.
+
+REVIEWER COMMENT
+----------
+Line 710: Please define probability usability score.
+RESPONSE
+----------
+> We have reworded the relevant sentence to emphasize the interpretation: the positional probability calculation performed by Bryson & Morton yielded a near-unity probability that the transit event is at the same location as the host star.  We have omitted discussion of the "usability score", since the discussion in the final sentences of Section 4 provide more salient information than this metric -- the pixel level data show two distinct stellar rotation signals from the two marginally resolved stars, and no evidence for the transiting planet signal in the pixels that show the KOI-7913B rotation signal.
+
+REVIEWER COMMENT
+----------
+In the discussion in 5.2, it may be worth noting that in recent years difuse associations have become more common. For example, what is the spatial density of Psc-Eri?
+RESPONSE
+----------
+> We have added the following sentences in paragraph 3: \added{For instance, the Psc-Eri stream, which has a shape that can be approximated as a 600 parsec-long cylinder with a radius of 30 parsecs, has a number density roughly a factor of three times lower than even CH-2 \citep{roser_psceri_2020}.  However its existence is discernible because of the $\lesssim 2.5$\kms\ scatter in its cylindrical velocities. }
+
+> This estimate imposed a G<16.5 magnitude cut to the 1387 Psc-Eri members from Roser & Schilbach 2020, which yielded 858 stars.  The shape of the stream was approximated as a 600 pc long cylinder, with radius 30 pc, and tangential velocity radius 2.5km/s, based on the figures and discussion in that analysis.  The resulting relative number density is as quoted.
+
+REVIEWER COMMENT
+----------
+Line 804: Would "association" be a useful term here?
+RESPONSE
+----------
+> The term is used at a few points throughout Section 5.2 already, and it is not clear that its usage at this exact line would necessarily add anything that it hasn't already (e.g., in the first paragraph, or second-to-last paragraph, of Section 5.2).
+
+REVIEWER COMMENT
+----------
+Line 847: I am not aware of precise RVs coming from low resolution optical spectra for low mass stars. Perhaps for higher mass stars they would be useful, but in these cases I imagine DR3 will provide.
+RESPONSE
+----------
+> We have added the qualification that LAMOST and SDSS-V spectra would likely only be useful for velocities for the brightest (higher mass) members.
+
+REVIEWER COMMENT
+----------
+Line 849: I realize this is my fault since this report is quite delayed, but DR3 now is released and it should be possibly to determine (broadly, I am certainly not asking this paper to look at the DR3 data) whether DR3 RVs are going to be important.
+RESPONSE
+----------
+> We have reworded these sentences to point out that DR3 contains reported velocities down to G_RVS of 14, or spectral types of ~K5V. 
+
+REVIEWER COMMENT
+----------
+*Line 925: "come from its binary" add "companion" but it would also be helpful to remind readers which component the KOI orbits.
+RESPONSE
+----------
+> Thank you for this catch.  "binary" was a typo, and has been replaced by "binarity".  We have added the phrase "transit-hosting" when describing the primary for the suggested reminder.
+
+REVIEWER COMMENT
+----------
+Table 4: is the median value the adopted value?
+RESPONSE
+----------
+> Posterior values quoted in the text are means and standard deviations for symmetric distributions, and are otherwise medians bracketed by the upper and lower 84.1 and 15.9 percentile deviations.  We have added a table note to this effect.
+
+REVIEWER COMMENT
+----------
+Line 1182: I'm confused by the period(s) for this star. "The L-S favored 6.67 days..." L-S as applied to what data? Both the ZTF period and the TESS period are quoted subsequently. Perhaps I am confused by the concept of "double dipper" but it seems unlikely for spots to make a signal appear at 2P in the TESS light curve.
+RESPONSE
+----------
+> Thank you for this suggestion -- we've reworded this sentence for clarity.
+
+
+******************************************
+
+REVIEWER COMMENT
+----------
+Apologies to the authors for the very tardy report, I was sick for several weeks.
+RESPONSE
+----------
+Thank you for the helpful report!  Health is more important than science.
+
+******************************************
+
+Other minor changes made to the manuscript include:
+
+* The radius of Kepler-1643b was previously stated in the abstract to be 2.32 +/- 0.14 R_earth.  This was a typo, it is +/- 0.13 R_earth.
+
+* We added the follow text as a note to table 2: "\added{Users who wish to minimize field star contamination should apply more restrictive weight cuts, {\it e.g.}, $\texttt{weight}>0.1$.}"

@@ -1,0 +1,144 @@
+Reviewer:
+Apologies to the authors for the very tardy report, I was sick for several weeks.
+
+This paper presents the identification of four planetary systems with a complex of young stars, the Cep-Her complex. Overall, this paper is well-presented and I have no major concerns. There are several items of moderate to minor concern that I suggest the authors take into consideration. Some items that fall under the clarity section I consider necessary to address for comprehension, I've marked those items with a *. Line numbers refer to those in the two-column version.
+
+MODERATE CONCERNS
+
+Figure 1:
+- It is interesting to note that all four planets are concentrated in X-Z, vb-vl*, and vl*-l. This could be because of the small fraction of space that the Kepler field surveyed. Is that accurate? Is there any way to indicated which stars were observed by Kepler in these figures?
+- Note that in B&W only the + symbol has a different color than the rest, although since the symbols are different this wasn't much of an issue. The exception is that I can't tell which group is magenta and which lime green, so specifying which are the larger filled circles and which are the smaller would be helpful.
+- Why is it important to show the projection of the solar velocity?
+
+If at all possible, please assure in Kerr+in prep that the nomenclature does not change such that CH-2 remains CH-2, or update this paper prior to publication.
+
+Line 248: I am skeptical of the few % false positive rate (later referenced as 1%). Once stars get hotter than K2, the young and field sequences overlap significantly and so field stars wouldn't likely be outliers in the CAMD. I'm also wondering if not all of the stars are shown on the CAMD; the text states 173 stars in RSG-5; it doesn't quite look to me like there are 173 stars on the upper left panel, but I could be wrong.
+
+Figure 2:
+- I don't see any squares for the field sample, is this just the background of small indistinct points?
+- Very hard to see Praesepe in black and white
+- Praesepe isn't very useful as a reference since the figure is considering things younger than Pleiades. However, it would be useful to see a younger comparison cluster more similar in age to Cep-Her.
+
+Line 280, "Generally speaking, this method is expected": It is not clear that this method of interpolation should be accurate, since it relies on changes occurring linearly in time. Since the ages are quite close to one of the anchors it is probably fine in any case. Please provide a citation or more discussion.
+
+Overall, the discussion of rotation discrepancies in Sec 2.3.2 is not clear and has the feel of the authors trying overly hard to justify their argument (I do agree with the argument, however).
+- It would generally be much easier to follow this section if Fig 2 contained a younger cluster for comparison, such as the two cited at the end of this section.
+- After some reflection, I think the argument about the M dwarfs is that both very young M dwarfs still in the process of contracting, and moderately young M dwarfs that have just begun to spin down, can have periods of 10-12 days. I suggest simply stating this up front, and then only consider FGK stars in the subsequent discussion.
+- Line 328: "no field star outliers" - but the authors have previously stated that there is one outlier.
+- 13% seems like a lot of pole-on stars for random chance, and at these young ages the amplitudes should almost always be quite large. Rampalli+2021 detects a higher fraction of rotators amongst older Praesepe stars. It seems more likely that the false positive rate is similar to the other sub-associations considered.
+
+The discussion of vsini measurements did not provide adequate details, such as macroturbulence and potential impact of the targets being very young.
+
+The discussion of Li could use further clarity.
+- Identification of which stars have Li is inconsistent. Line 456 says neither component of 7913 has strong Li, but at line 477 Li is obvious in all but one star, and at line 487 Li is noted as secure in 7913A.
+- Line 497: "Lack of Li" implies there's no Li, not that there's not as much as expected
+- As I mentioned previously, I am skeptical of the 1% false positive rate for RSG-5
+- The authors point out an interesting possibility about why the Li in 1643 could be low, namely that the dispersion could be higher than expected. Though I am not an expert in Li, this seems reasonable. However, I think it should be qualified a bit more: how many stars were previously studied; few enough that scatter could be missed? Why might RSG-5 be different?
+- Did the authors consider initial Li abundance, or differences in Fe abundance, as a possible reason for differences in current Li? 1643 certainly stands out the most, but I might be able to argue from Fig 4 that on average, the observed planet hosts in Cep-Her are all a bit lower than expected from the reference sequences.
+
+Figure 4, H-alpha plot:
+- Only the part of the plot showing M0 and earlier is really useful here, perhaps limit the axis range.
+- It is difficult to distinguish the field stars and TucHor stars in black and white
+- There must be more field K stars with H-a measurements for comparison; the two showing in the late K dwarf regime don't do a good job of illustrating how H-a inactive field K dwarfs are. It can be inferred from Rauscher & Marcy (2006), although I couldn't really find an appropriate reference for field K dwarfs since 1990 (https://iopscience.iop.org/article/10.1086/132624). However, https://academic.oup.com/mnras/article/476/1/908/4828379#112872390 includes hotter stars in numerous clusters.
+
+The discussion of centroid offsets could use further elaboration.
+- Line 664: how many sigma is 0.4"? Is this generally considered a good value?
+- 1643 and 7368 both have centroid shifts that are larger than normal for Kepler, and it is stated that stellar variability is the likely cause. But not all young stars show centroid shifts, and presumably some level of centroid shift would still be concerning. Is the impact of stellar variability well established in the literature? Can the amplitude of stellar variability be used to inform one about the centroid offsets?
+- The discussion for 7368 indicates that the centroid shift can't be due to another star due to the high contrast imaging constraints. Is there an established method for this? Can the same analysis be done for 1643?
+
+
+CLARITY, CITATIONS, ETC.
+
+Line 54, "To date...": Sentence meaning unclear. These analyses have focused on positions & velocities? Or have used clustering based on?
+
+Line 63: Unclear whether "larger" refers to size or kinematic spread, perhaps "more diffuse kinematically" if referring to kinematic spread.
+
+Line 70: Consider also citing Arancibia-Silva et al. (2020) which also looked at Li in Psc-Eri
+
+Line 114: Consider adding citations for ages for delta Lyr and RSG-5.
+
+Line 118: From the information given so far about delta Lyr and RSG-5, I do not know where to look in Zari+2018 figures 11 and 13, so this is not a very useful reference without additional information on the velocities and XY positions.
+
+Line 122: It is worth noting that Zucker+2022 found that many of the "strings" from Kounkel & Covey are not likely real associations. Obviously, some of the associations K&C identify are real, but the extended groups that are more similar to Cep-Her may more often be artifacts.
+
+Line 130, "identified three of the nearest subpopulations": subpopulations of Cep-Her?
+
+Line 140: Figure 1 reference seems to be specifically to the lower right panel, not both lower panels.
+
+*Line 162: vb and vl* not defined
+
+*Line 171: core distance metric is not defined, but is quite important per the subsequent paragraph and so should be explained. It would also be helpful to state that larger values of D are better.
+
+Line 174-175, "at least as close to the 10th nearest": Not clear what this means.
+
+Line 188: I understand the notation for a normal distribution, but perhaps worth just writing in words instead. I also don't know why D is Gaussian in the first place, but this would presumably be explained by defining the core distance.
+
+*Line 190-191: Please explain how thresholds of 0.02 and 0.10 were selected.
+
+*Line 192: vl' not defined
+
+Line 209: The expected period and amplitude based on stars of what age?
+
+Line 225: Phrasing makes it sound like Cep-Her candidates observed by Kepler are distinct from those in RSG-5 and CH-2, but I assume they overlap?
+
+Line 235: May be useful to readers to specify which part of Gaia Collaboration + 2018 the data filters are listed.
+
+Line 246: "set the color range" had me looking for a color map, suggest saying "color axis" instead
+
+Line 251: This struck me as an odd use of "control sample" since delta Lyra seems like just another example equivalent to RSG-5 and CH-2
+
+Line 253-254: If photometrically overlapping with the field, by definition a star must be an outlier from the cluster sequence, correct? Current wording suggests otherwise, suggest rephrasing.
+
+Line 260: Specify overlap is on CAMD.
+
+Line 359: Stars are referred to by spectral types, but then define ZAMS in terms of mass so it is not possible to compare without additional information about the spectral type of the sun on the ZAMS.
+
+*Table 1: Please specify which component of the binary KOI 7913 orbits
+
+Line 364: From later comparisons with the spectroscopy, it seems that the MIST analysis also returns Teff.
+
+Line 365: Clarify what is interpolating against the MIST isochrones.
+
+Line 372: Should be stated Teff is also adopted from spectra, not just used to verify previous values.
+
+Line 373, "we acquired spectra": might as well specify they are high resolution optical spectra!
+
+Line 392, citation to Chubak et al.: were these values determined following the methods of those authors, or by comparison to templates from that work?
+
+Line 394: Would be helpful to include a one-sentence description of Li measurement.
+
+Line 413: Just wanted to confirm the 2015 date, presumably this was an archival spectrum from Kepler days.
+
+*Line 449: Teff values are only quoted for these two stars, and were not in previous sections, and the subsequent text also implies that for these stars, the spectra-based Teff values disagreed with the isochrone-based values. Either re-phrase, or discuss disagreement.
+
+Line 471: "amusing" ?
+
+Line 472: mass of X - at the assumed age of 40Myr?
+
+Section 3.4.2.: This section makes a big deal out of H-a self-reversals, but to my knowledge these are well-known and expected since the 80s. Admittedly the references I can think of are all for M dwarfs, but I wouldn't expect a late K dwarf to be fundamentally different than an early M. The section also implies it's a possible (though ruled out) concern for binarity, but since no other spectral lines in Fig 3 are doubled this does not need to be a concern.
+
+Line 618: for a GP regression, it is necessary to remove outliers, so this outcome is expected.
+
+Figure 5: "planetary transit times are indicated" add "by dashed vertical lines"
+
+Line 678: "clears the usual threshold" - what is the usual threshold?
+
+Line 682: Please define positional probability.
+
+Line 707: The FPP is only barely lower than 7368.
+
+Line 710: Please define probability usability score.
+
+In the discussion in 5.2, it may be worth noting that in recent years difuse associations have become more common. For example, what is the spatial density of Psc-Eri?
+
+Line 804: Would "association" be a useful term here?
+
+Line 847: I am not aware of precise RVs coming from low resolution optical spectra for low mass stars. Perhaps for higher mass stars they would be useful, but in these cases I imagine DR3 will provide.
+
+Line 849: I realize this is my fault since this report is quite delayed, but DR3 now is released and it should be possibly to determine (broadly, I am certainly not asking this paper to look at the DR3 data) whether DR3 RVs are going to be important.
+
+*Line 925: "come from its binary" add "companion" but it would also be helpful to remind readers which component the KOI orbits.
+
+Table 4: is the median value the adopted value?
+
+Line 1182: I'm confused by the period(s) for this star. "The L-S favored 6.67 days..." L-S as applied to what data? Both the ZTF period and the TESS period are quoted subsequently. Perhaps I am confused by the concept of "double dipper" but it seems unlikely for spots to make a signal appear at 2P in the TESS light curve.

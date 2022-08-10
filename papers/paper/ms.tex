@@ -1,8 +1,8 @@
 %\documentclass[12pt,modern,twocolumn,tighten]{aastex63}
 %\documentclass[12pt,twocolumn]{aastex63}
 %\documentclass[12pt,modern,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
-\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
-%\documentclass[12pt,twocolumn,tighten,trackchanges]{aastex63}
+%\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
+\documentclass[12pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 \usepackage{amsmath,amstext,amssymb}
 \usepackage[T1]{fontenc}
 \usepackage{apjfonts}
@@ -49,7 +49,7 @@
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2.
 %% Add "Submitted to " argument.
 \received{2022 May 2}
-\revised{---}
+\revised{2022 Sep 6}
 \accepted{---}
 %\submitjournal{AAS Journals}
 \shorttitle{Trio of Mini-Neptunes in Cep-Her}
@@ -74,7 +74,7 @@
   of stars spanning Cepheus ($l=100^\circ$) to Hercules ($l=40^\circ$),
   hereafter the Cep-Her complex.  The group includes four Kepler
   Objects of Interest:
-  Kepler-1643 b ($R_{\rm p} = 2.32 \pm 0.14\,R_\oplus$, $P = 5.3\ {\rm days}$),
+  Kepler-1643 b ($R_{\rm p} = 2.32 \pm 0.13\,R_\oplus$, $P = 5.3\ {\rm days}$),
   KOI-7368 b ($R_{\rm p} = 2.22 \pm 0.12\,R_\oplus$, $P = 6.8\ {\rm days}$), 
   KOI-7913 Ab ($R_{\rm p} = 2.34 \pm 0.18\,R_\oplus$, $P = 24.2\ {\rm days}$), and
   Kepler-1627 Ab ($R_{\rm p} = 3.85 \pm 0.11\,R_\oplus$, $P = 7.2\ {\rm days}$).
@@ -905,7 +905,7 @@ equilibrium models of the chromosphere
     data.  The ordinate shows the \texttt{PDCSAP} median-subtracted
     flux in units of parts-per-thousand ($\times 10^{-3}$).  The
     dominant signal is from starspots; planetary transit times
-    are indicated but the individual transits are not visible at this scale.
+    are indicated \added{with vertical dashed lines }but the individual transits are not visible at this scale.
     {\it Bottom}:
     Phase-folded transits of Kepler-1643, KOI-7913, KOI-7368, and
     Kepler-1627 with stellar variability removed.  The maximum a
@@ -1046,14 +1046,12 @@ routine failed, presumably due to the spot-induced variability.  Our
 fitting approach rectifies this point, and our new NIRC2 images
 revealed no new stellar companions.  Performing the relevant
 calculation, we find ${\rm FPP} = 4\times10^{-3}$.  Though not
-as convincing as Kepler-1643, this clears the usual threshold
+as convincing as Kepler-1643, this clears the \replaced{usual threshold
 for calling the planet statistically validated
-\citep{morton_efficient_2012}.  The S/N of the transit is
+\citep{morton_efficient_2012}}{threshold probability of 1 in 100 suggested by \citet{morton_false_2016} for calling a planet statistically validated}.  The S/N of the transit is
 $\approx$$32$, which indicates that it is unlikely to be caused by
 systematic noise in the light curve (see Figure~\ref{fig:planets}).
-The positional probability score also meets the requirements for
-transiting sources thought to share positions with their target stars
-\citep{2017ksci.rept...16B}. 
+The positional probability\deleted{ score}\added{\footnote{Columns $\textit{pp\_host\_rel\_prob}$ and $\textit{pp\_host\_prob\_score}$ on the KOI Positional Probabilities table at the NASA Exoplanet Archive \citep{Akeson13}.}}\added{ calculated by \citet{2017ksci.rept...16B}} also \replaced{meets the requirements for transiting sources thought to share positions with their target stars \citep{2017ksci.rept...16B}}{indicates that the transit signal shares its position with the target star.}
 
 It bears mentioning that KOI-7368 shows a centroid shift in the
 \texttt{q1\_q17\_dr25\_koi} validation reports, similar to
@@ -1078,12 +1076,12 @@ with the most likely false positive scenario being a blended eclipsing
 binary.  Repeating the calculation with our new detrending and
 NIRC2 contrast curves, we find a similar result: ${\rm FPP} =
 1.3\times10^{-4}$.  Though the transit has the lowest S/N of any of
-the objects discussed ($\approx$$14$), its lower FPP relative to
-KOI-7368 can be understood through its flat-bottomed shape,
+the objects discussed ($\approx$$14$), its low\deleted{er} FPP \deleted{relative to
+KOI-7368} can be understood through its flat-bottomed shape,
 combined with its long transit duration relative to most
-eclipsing binary models (Figure~\ref{fig:planets}).  The host star
+eclipsing binary models (Figure~\ref{fig:planets}).  \replaced{The host star
 probability usability score \citep{2017ksci.rept...16B} also meets the
-usual threshold, and so the planet is statistically validated.  Its
+usual threshold, and so the planet is statistically validated}{The positional probability calculation performed by \citet{2017ksci.rept...16B} yielded a near-unity probability that the transit event is at the same location as the host star, and so the cumulative evidence suggests that KOI-7913~Ab is indeed a statistically validated planet}.  Its
 disposition has however previously fluctuated from ``false positive''
 to ``candidate'' (see Appendix~\ref{app:koi7913}).  The most likely
 explanation is the presence of KOI-7913~B, which is located
@@ -1215,9 +1213,9 @@ dissolved clusters as well as their tidal tails are included in our
 adopted definition of ``clusters''.  We similarly do not require a
 threshold number of stars per unit spatial volume.  The latter point
 acknowledges that an important factor in cluster identification is
-also density in velocity space.  Perhaps once stellar rotation periods
+also \replaced{density}{coherence} in velocity space.  \added{For instance, the Psc-Eri stream, which has a shape that can be approximated as a 600 parsec-long cylinder with a radius of 30 parsecs, has a number density roughly a factor of three times lower than even CH-2 \citep{roser_psceri_2020}.  However its existence is discernible because of the $\lesssim 2.5$\kms\ scatter in its cylindrical velocities. }Perhaps once stellar rotation periods
 and chemical abundances reach the same level of ubiquity as stellar
-proper motions, they might enable further refinement of our ability to
+proper motions, they might enable further refinement in our ability to
 discover stars that formed as part of the same event.
 
 From a data-driven perspective, demonstrating that a group of stars
@@ -1252,15 +1250,15 @@ these groups share similar ages, and have kinematic correlations that
 suggest a common origin.  With that said, the membership and
 kinematics of the other Cep-Her groups shown in
 Figure~\ref{fig:XYZvtang} deserve independent attention.  An important
-aspect of the remaining work will be to acquire radial velocities of a
-large subset of the stars, and to determine whether the traceback approach
+aspect of the remaining work will be to acquire radial velocities \replaced{of a
+large}{for a larger} subset of the stars, and to determine whether the traceback approach
 could be applicable.  Wide-field spectroscopic surveys such as LAMOST
 \citep{zhao_2012_LAMOST} or SDSS-V \citep{kollmeier_2017} could enable
-such analyses, while also providing sensitivity to the Li 6708\,\AA\
-line.  If Gaia DR3 provides RVS spectra for the brighter F and G
+such analyses\added{ for the brightest members}, while also providing sensitivity to the Li 6708\,\AA\
+line.  \replaced{If Gaia DR3 provides RVS spectra for the brighter F and G
 dwarfs, these would also contain the calcium infrared triplet as
-another age indicator.  These indicators, combined with better
-kinematics, would help in definitively unraveling the formation
+another age indicator}{The Gaia DR3 RVS spectra (released during review of this manuscript) could contain similar velocity information down to spectral types of $\approx$K5V ($G_{\rm RVS}\lesssim 14$), and perhaps also enable analyses of the calcium infrared triplet as a youth indicator}.  \replaced{These indicators, combined with better
+kinematics,}{The combination of more complete kinematics and youth indicators} would help in definitively unraveling the formation
 history of the complex.
 
 A number of worthy photometric projects also seem possible given the
@@ -1340,11 +1338,11 @@ Section~\ref{subsec:specyouth}).
 The spatio-kinematic argument for the youth of KOI-7368 and KOI-7913
 is weaker because they are in an association of stars, CH-2, that is
 more diffuse.  For KOI-7913, stronger indicators of its age come from
-its binary.  Both stellar components in KOI-7913 have isochronal ages
+its \replaced{binary}{binarity}.  Both stellar components in KOI-7913 have isochronal ages
 consistent with $40$\,Myr.  Both components also show H$\alpha$ in
-emission, which for the $\approx$K6V primary is a strong indicator
-that the star is $\lesssim$100$\,$Myr old.  KOI-7368 is slightly more
-massive, and the Li 6708\,\AA\ measurement and stellar rotation period
+emission, which for the \added{transit-hosting} $\approx$K6V primary is a strong indicator
+that the star is $\lesssim$100$\,$Myr old.  KOI-7368 is \deleted{slightly} more
+massive, and \replaced{the}{its} Li 6708\,\AA\ measurement and stellar rotation period
 provide independent verification of the star's youth.
 
 The astrophysical implication of these considerations is that planets
@@ -1654,11 +1652,11 @@ al.\ in prep).
 % with TESS, for a total of 71 periods reported for unique stars and 32
 % overlapping between the surveys.
 We adopted the ZTF period over the
-TESS period in three cases: (1) Gaia EDR3 2081755809272821248: the
+TESS period in three cases: (1) Gaia EDR3 2081755809272821248: \replaced{the
 Lomb-Scargle periodogram favored 6.67 days, consistent with the ZTF
 period of 6.61 days; however, we flagged it as a candidate
 double-dipper, which appears to have inaccurately doubled the TESS
-period to 13.34 days; (2) Gaia EDR3 2081737529891330560: we found 3.06
+period to 13.34 days}{the top ZTF Lomb-Scargle peak gave 6.61 days, while our default pipeline favored a TESS peak of 13.34 days;  manual inspection of the light curve favors the former}; (2) Gaia EDR3 2081737529891330560: we found 3.06
 days with TESS and 6.64 days with ZTF; we suspect that TESS captured
 the 1/2-period harmonic and adopt the approximately double value from
 ZTF; (3) 2134851775526125696: for this star, we measured 1.91 days
@@ -1746,7 +1744,8 @@ different stellar rotation period, and no hint of the transit signal.
 \input{tab_supp_RSG5_CH2_Prot.tex}
 \input{source_KOIs_simpletransit_posteriortable.tex}
 
-%\listofchanges
+\clearpage
+\listofchanges
 %\allauthors
 \end{document}
 
