@@ -680,9 +680,9 @@ important for deriving accurate transit depths.
 We acquired Keck/HIRES spectra for KOI-7913 A on the night of 2021 Nov
 13, and KOI-7913 B on the night of 2021 Oct 26.  The
 \texttt{SpecMatch-Emp} machinery yielded $T_{\rm eff,A} = 4324 \pm
-70\,{\rm K}$, and $T_{\rm eff,B} = 4038 \pm 70\,{\rm K}$.  The
-remaining parameters were in agreement with those from the cluster
-isochrone.  For the primary, we also found $[{\rm Fe/H}]= -0.06 \pm
+70\,{\rm K}$, and $T_{\rm eff,B} = 4038 \pm 70\,{\rm K}$.  \replaced{The
+remaining parameters were in agreement}{These temperatures as well as the other spectroscopic parameters agreed} with those from the cluster
+isochrone\added{ method within 1-$\sigma$}.  For the primary, we also found $[{\rm Fe/H}]= -0.06 \pm
 0.09$, $v\sin i = 13.3 \pm 1.0\,\mkms$, and ${\rm RV}_{\rm sys} =
 -17.8 \pm 1.1\,\mkms$.  For the secondary, these same parameters were
 $[{\rm Fe/H}]= -0.01 \pm 0.09$, $v\sin i = 10.7 \pm 1.0\,\mkms$, and
@@ -706,7 +706,7 @@ of KOI-7913 B.  Applying the PSF-fitting routines from
 faint to affect the interpretation of the transit signal, it would be
 amusing if this faint neighbor were comoving and therefore part of the system, 
 because it would have a mass between 10 and
-15\,M$_{\rm Jup}$.  Additional imaging epochs will tell.
+15\,M$_{\rm Jup}$\added{ at an assumed age of 40\,Myr}.  Additional imaging epochs will tell.
 
 
 \subsection{Spectroscopic Youth Indicators}
@@ -981,12 +981,12 @@ parameters per transit to their MAP values.
 An alternative could be to fit the
 planetary transits simultaneously with the starspot-induced
 variability using a quasiperiodic Gaussian process (GP).  We explored
-this approach, but found that it often required fine-tuning of the
+this approach, but \replaced{found that it often required fine-tuning of the
 hyperparameter priors, otherwise the GP would overfit flares,
 instrumental noise, and any other variability that was not part of the
 transit.  This failure mode is pernicious, in that it yields an
 ill-founded sense of confidence in a visually clean fit.  Our model is
-simpler, and it has the benefit that the white noise jitter never
+simpler, and it has}{ultimately prefer our model for its simplicity, and for} the benefit that the white noise jitter never
 trades off with any parameter equivalent to a damping timescale for
 the coherence of the GP.  It is also computationally efficient, and it
 captures the planetary parameters about which we care the most.

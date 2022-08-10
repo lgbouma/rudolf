@@ -319,42 +319,48 @@ REVIEWER COMMENT
 Line 413: Just wanted to confirm the 2015 date, presumably this was an archival spectrum from Kepler days.
 RESPONSE
 ----------
->
+> Confirmed.
 
 REVIEWER COMMENT
 ----------
 *Line 449: Teff values are only quoted for these two stars, and were not in previous sections, and the subsequent text also implies that for these stars, the spectra-based Teff values disagreed with the isochrone-based values. Either re-phrase, or discuss disagreement.
 RESPONSE
 ----------
->
+> Thank you for this wording catch -- the text has been updated to clarify that the temperatures as well as the other spectroscopic parameters agreed with the isochrone parameters within 1-sigma.  This is a rather brief way of hiding what in our view is more complicated that what needs to be discussed.  Table 1 states the adopted (spectroscopic) effective temperatures for all the stars.  We reported the spectroscopic effective temperatures in all cases because their formal uncertainties were smaller than those from the isochrone method, and they seemed less model-dependent.  The isochrone method yielded the following effective temperatures for the stars in Table 1:
+> Kepler-1643: 4878 +/- 140 K
+> KOI-7368: 5135 +/- 162 K
+> KOI-7913 A: 4286 +/- 144 K
+> KOI-7913 B 4006 +/- 335 K.
+> As discussed in the second paragraph of Section 3, the quoted values are from MIST, while the uncertainties are a quadrature sum of a statistical and systematic component (the absolute difference between the PARSEC and MIST isochrones).  For KOI-7913 B, this systematic component is higher than for any other stars, because MIST gives Teff_MIST = 4005 +75 -73 K, while PARSEC gives Teff_PARSEC = 3679 +95 -60 K.  This is most likely due to different assumptions in the MIST and PARSEC models for how to treat young M-dwarfs.  The MIST models have known discrepancies between their synthetic photometry and observed open cluster data (e.g., Choi+2016 Section 8).  Possible explanations include starspots, or incomplete molecular line lists (e.g., Mann+2013, Rajpurohit+2013). The PARSEC isochrones might be a better choice for the lowest mass stars (KOI-7913A and KOI-7913B) for this reason, since Chen et al (2014) implemented an empirical temperature–opacity calibration into the PARSEC models to create synthetic photometry that matches available data.  See for instance "hr_parsec_7913b.png" and "hr_mist_7913b.png" attached -- the 39.8 Myr MIST model diverges from the IC2602 and delta-Lyr loci at BP-RP>~1.6.  In comparison, the 39.8 Myr PARSEC model fits the observed locus down to BP-RP~=2.0.  
+> Three additional plots are also included in the response: smemp_koi7913B.png, smemp_koi7913A.png, and smemp_kepler1643.png.  These plots give some diagnostic understanding of how SpecMatch-Empirical performs for these stars.  Note that a chi^2 of 5 corresponds to a reduced chi^2 of 1 in this model.  While the KOI-7913B spectra is still the worst fit(!), our prefernce is for calibrating our reported effective temperatures to this spectral library, rather than to the isochronal method.  Any suggestions on possible methodological improvements would be appreciated.
 
 REVIEWER COMMENT
 ----------
 Line 471: "amusing" ?
 RESPONSE
 ----------
->
+> Depending on one's sense of humor.
 
 REVIEWER COMMENT
 ----------
 Line 472: mass of X - at the assumed age of 40Myr?
 RESPONSE
 ----------
->
+> Yes -- we've added this to the manuscript to make it explicit.
 
 REVIEWER COMMENT
 ----------
 Section 3.4.2.: This section makes a big deal out of H-a self-reversals, but to my knowledge these are well-known and expected since the 80s. Admittedly the references I can think of are all for M dwarfs, but I wouldn't expect a late K dwarf to be fundamentally different than an early M. The section also implies it's a possible (though ruled out) concern for binarity, but since no other spectral lines in Fig 3 are doubled this does not need to be a concern.
 RESPONSE
 ----------
->
+> Enough of our team did not know about these H-alpha self-reversals that it merited some internal discussion, which yielded the second paragraph of text, including the comparison to proxima Cen and the references to NLTE models (Short & Doyle 1998) explaining the effect.  Sometimes things that are "well-known" are worth repeating!  Regarding binarity, yes, the first paragraph of Section 3.4.2 makes the point about double-lined binarity being ruled out more directly through analysis of the CCFs between KOI-7913A/B and the HIRES template matches.  This is a stronger test than the visual inspection of the Li and Fe lines in the upper-right panels of Figure 3.
 
 REVIEWER COMMENT
 ----------
 Line 618: for a GP regression, it is necessary to remove outliers, so this outcome is expected.
 RESPONSE
 ----------
->
+> Thank you for this point -- it is true that we did not pre-mask the flares in our exploratory GP analysis, and so they may have contributed to the overfitting that we encountered.  This does seem qualitatively surprising, since "flare-contaminated" data comprise ~0.1% of the 30-minute cadence data points (e.g., Appendix D of Bouma+22, AJ, 163, 121 found a total duration of 6.5 hours of flares over the single 90 day quarter of available 1-minute cadence data).  Nonetheless, we've adjusted the discussion to omit the claim that fine-tuning of the hyperparameter priors would be strictly necessary, and instead focus on the reasons that we ultimately adopted our simpler model.
 
 REVIEWER COMMENT
 ----------
