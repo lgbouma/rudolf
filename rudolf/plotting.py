@@ -1189,10 +1189,11 @@ def _plot_zoom_light_curve(data, soln, axd, fig, xlim=[200,300], mask=None,
         # C: data - GP on same 100 day slice.  see residual transits IN THE DATA.
         ax = axd['C']
         ax.axhline(0, color="#aaaaaa", lw=0.5, zorder=-1)
-        ax.scatter(x[mask][g]-x0, 1e3*(y[mask][g]-gp_mod[g]), c="k", s=0.5,
+        ax.scatter(x[mask][g]-x0, 1e3*(y[mask][g]-1-gp_mod[g]), c="k", s=0.5,
                    rasterized=True,
                    label="$f_{\mathrm{obs}} - f_{\mathrm{mod},\star}$",
                    linewidths=0, zorder=42)
+
         # NOTE: could plot the transit model
         # for i, l in enumerate("b"):
         #     mod = soln["light_curves"][:, i]
@@ -2762,6 +2763,9 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     else:
         f, ax = plt.subplots(figsize=(4,4))
 
+    for axis in ['top','bottom','left','right']:
+        ax.spines[axis].set_linewidth(0.5)
+
     colordict = {
         'deltaLyrCluster': 'k',
         'CH-2': 'lime',
@@ -3105,10 +3109,10 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
         outstr += '_xvalAbsG'
     if kinematic_selection:
         outstr += '_kinematicspatialselected'
-    if darkcolors:
-        outstr += '_darkcolors'
     else:
         outstr += '_allKC19'
+    if darkcolors:
+        outstr += '_darkcolors'
     outstr += f'_{yscale}'
     outstr += f'_{cleaning}'
     if overplotkep1627:
@@ -4755,11 +4759,13 @@ def plot_halpha(outdir, reference='TucHor'):
     ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1), handletextpad=0.1,
               fontsize='xx-small', framealpha=1, ncol=3)
 
-    ax.set_ylabel(r'H$\mathrm{\alpha}$ EW [$\mathrm{\AA}$]', fontsize='large')
-    ax.set_xlabel('Spectral Type', fontsize='large')
+    ax.set_ylabel(r'H$\mathrm{\alpha}$ EW [$\mathrm{\AA}$]')
+    ax.set_xlabel('Spectral Type')
 
     ax.set_xticks([-8,-6,-4,-2,0,2,4,6])
     ax.set_xticklabels(['K2', 'K4', 'K6', 'K8', 'M0', 'M2', 'M4', 'M6'])
+
+    ax.tick_params(axis='both', which='major', labelsize='small')
 
     ax.set_ylim((2,-10))
 
@@ -4938,8 +4944,8 @@ def plot_lithium(outdir, reference='Randich18'):
     ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1), handletextpad=0.1,
               fontsize='xx-small', framealpha=1, ncol=4)
 
-    ax.set_ylabel('Li$_{6708}$ EW [m$\mathrm{\AA}$]', fontsize='large')
-    ax.set_xlabel('Effective Temperature [K]', fontsize='large')
+    ax.set_ylabel('Li$_{6708}$ EW [m$\mathrm{\AA}$]')
+    ax.set_xlabel('Effective Temperature [K]')
 
     #ax.set_xlim((4900, 6600))
     ax.set_ylim((-20,420))
