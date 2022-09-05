@@ -2744,7 +2744,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
                                  talk_aspect=0, xval_absmag=0,
                                  kinematic_selection=0,
                                  overplotkep1627=0, show_allknown=0,
-                                 darkcolors=0):
+                                 darkcolors=0, show_douglas=0):
     """
     Plot rotation periods that satisfy the automated selection criteria
     (specified in helpers.get_autorotation_dataframe)
@@ -2783,7 +2783,7 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
     colors = [gray, gray, colordict[runid]]
     zorders = [-3, -4, -1]
     markers = ['X', '+', 'o']
-    praesepelw = 0.1 if not darkcolors else 0.4
+    praesepelw = 0.4 if not darkcolors else 0.4
     lws = [0., praesepelw, 0.35]
     mews= [0., 0.5, 2]
     _s = 3 if runid != 'VelaOB2' else 1.2
@@ -2980,6 +2980,43 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
             color='black', lw=0
         )
 
+    if show_douglas:
+        douglaspath = os.path.join(
+            DATADIR, 'rotation', 'Douglas_PrivComm_zams.csv'
+        )
+        ddf = pd.read_csv(douglaspath)
+
+        sel = (
+            (
+                (ddf.Cluster == "IC_2602")
+                |
+                (ddf.Cluster == "IC_2391")
+            )
+            &
+            (ddf.Q1 == 0)
+            &
+            (ddf.CG_MemProb >= 0.3)
+        )
+
+        sddf = ddf[sel]
+
+        EBmV = 0.07 # assumed 0.03 to 0.07 from Randich+2018; A_V=0.217 in Bouma+2020
+        A_V = 0.217
+        from earhart.extinction import AV_to_EBpmRp
+
+        E_BpmRp = AV_to_EBpmRp(A_V)
+
+        _xval = sddf.GAIAEDR3_BP - sddf.GAIAEDR3_RP - E_BpmRp
+        _yval = sddf["Prot1"]
+
+        ax.scatter(
+            _xval,
+            _yval,
+            c='k', alpha=1, zorder=0, s=10, edgecolors='k',
+            marker='o', linewidths=0.5, label=f"IC2602 & IC2391"
+        )
+
+
     if show_allknown:
         _, _, _, koi_df_dict = get_deltalyr_kc19_gaia_data(return_all_targets=1)
 
@@ -3121,6 +3158,8 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
         outstr += '_refclusteronly'
     if show_allknown:
         outstr += '_allknown'
+    if show_douglas:
+        outstr += '_douglas'
     outpath = os.path.join(outdir, f'{runid}_rotation{outstr}.png')
     savefig(f, outpath, dpi=600)
 

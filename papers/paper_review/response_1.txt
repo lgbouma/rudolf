@@ -56,7 +56,11 @@ Figure 2:
 - Praesepe isn't very useful as a reference since the figure is considering things younger than Pleiades. However, it would be useful to see a younger comparison cluster more similar in age to Cep-Her.
 RESPONSE
 ----------
+> Yes, the field sample is the gray indistinct background.
 >
+> We have updated the Praesepe markers to be thicker, which improves their visibility.
+>
+> The attached figure rotn_ic2602_ic2391_reference.png shows a concatenation from S. Douglas (private communication) of TESS-derived rotation periods from IC-2602 and IC-2391, which are both similar in age to Cep-Her/RSG-5.  These are preliminary rotation period measurements, from the same Douglas+2021 work referenced in the manuscript, which is not yet published.  The IC-2602 and IC-2391 rotation period distributions look quite similar to those from RSG-5, though their work a) extends to lower masses, b) appears to show slightly more super-Pleiades rotation periods from F5 to G0 spectral types, and c) appears to show more stars on the fast sequence, which are lacking in the RSG-5 sample.  Given the unpublished nature of this comparison sample, and the fact that our aim is not to firmly establish the intrinsic rotational distribution of stars at this age, we prefer to leave the reference to Douglas+2021 as it is and to not include these data in the manuscript.
 
 REVIEWER COMMENT
 ----------
@@ -477,3 +481,5 @@ Other minor changes made to the manuscript include:
 * The radius of Kepler-1643b was previously stated in the abstract to be 2.32 +/- 0.14 R_earth.  This was a typo, it is +/- 0.13 R_earth.
 
 * We added the follow text as a note to table 2: "\added{Users who wish to minimize field star contamination should apply more restrictive weight cuts, {\it e.g.}, $\texttt{weight}>0.1$.}"
+
+* We have modified the axis width on all figures for visual clarity.

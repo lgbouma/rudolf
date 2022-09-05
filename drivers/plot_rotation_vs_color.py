@@ -9,12 +9,13 @@ if not os.path.exists(PLOTDIR):
 from earhart.priors import AVG_EBpmRp
 
 # add all KOIs
-for runid in ['CH-2', 'RSG-5', 'deltaLyrCluster']:
-    rp.plot_rotationperiod_vs_color(
-        PLOTDIR, runid, yscale='linear', cleaning='defaultcleaning',
-        emph_binaries=0, talk_aspect=1, kinematic_selection=1,
-        overplotkep1627=0, show_allknown=1
-    )
+for runid in ['RSG-5', 'CH-2', 'deltaLyrCluster']:
+    for show_douglas in [1,0]:
+        rp.plot_rotationperiod_vs_color(
+            PLOTDIR, runid, yscale='linear', cleaning='defaultcleaning',
+            emph_binaries=0, talk_aspect=1, kinematic_selection=1,
+            overplotkep1627=0, show_allknown=1, show_douglas=show_douglas
+        )
 
 # eres-vii
 rp.plot_rotationperiod_vs_color(
