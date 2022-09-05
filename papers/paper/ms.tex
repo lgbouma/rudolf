@@ -213,10 +213,11 @@ point out possible directions for future work
   The gray band in the lower-right shows the $\pm$1-$\sigma$
   projection of the Solar velocity with respect to the local standard
   of rest \citep{schonrich_local_2010}.  There is a strong spatial and kinematic overlap between
-  Kepler-1643 and RSG-5 (magenta).  The local population
+  Kepler-1643 and RSG-5 (magenta\added{; smaller circles}).  The local population
   of candidate young stars around KOI-7368 and KOI-7913 is more
-  diffuse -- we call this region ``CH-2'' (lime-green).
-  The selection method for all of the stars 
+  diffuse -- we call this region ``CH-2'' (lime-green\added{; larger
+  circles}).
+  The selection method for \replaced{all of the stars}{these groups}
   is described in Section~\ref{subsec:members}.
 	\label{fig:XYZvtang}
 	}
@@ -260,11 +261,20 @@ sub-populations identified by \citet{Kerr2021} share a common origin
 has yet to be fully substantiated, but preliminary clustering results
 from the 1\,kpc SPYGLASS analysis (R.~Kerr et al.\ in prep) suggest
 the presence of contiguous stellar populations connecting each of
-these groups in space-velocity coordinates.  
-In other words, the stars appear to be comoving, though with a
-continuous gradient in velocity as a function of position
-(Figure~\ref{fig:XYZvtang}, lower panels).
-In this work, our primary interest in the region stems
+these groups in space-velocity coordinates.  In other words, the stars
+appear to be comoving, though with a continuous gradient in velocity
+as a function of position\replaced{ (Figure~\ref{fig:XYZvtang}, lower
+panels).}{. The lower panels of Figure~\ref{fig:XYZvtang} show this in
+detail, where $v_b$ is the distance-corrected proper motion in the
+direction of increasing galactic latitude, and $v_{l^*}=v_l \cos b$ is
+the distance-corrected proper motion in the direction of increasing
+galactic longitude after accounting for the local tangent plane
+correction.  Some, but not all, of the gradient in the $v_{l^*}$-$l$
+plane can be understood through a projection effect stemming from the
+Sun's motion with respect to the local standard of rest (see also
+Figure 11 by \citet{Zari2018}).  }
+In this work, our primary interest in \replaced{the region}{this
+region of sky} stems
 from the fact that a portion of it was observed by Kepler
 (Figure~\ref{fig:XYZvtang}, top panel).  To further explore this
 sub-population, we select candidate Cep-Her members through four
@@ -284,10 +294,11 @@ The second step is to perform an unsupervised HDBSCAN clustering on
 the photometrically selected population
 \citep{campello_hierarchical_2015,mcinnes_hdbscan_2017}.  The
 parameters we use in the clustering are $\{ X, Y, Z, c v_b, c v_{l^*}
-\} $, where $c$ is the size-velocity corrective factor, which is taken
-as $c=6\,{\rm pc / km\,s}^{-1}$ to ensure that the spatial and
-velocity scales have identical standard deviations.  Positions are
-computed assuming the \texttt{astropy v4.0} coordinate standard
+\} $, where $c$ is
+the size-velocity corrective factor, which is taken as $c=6\,{\rm pc /
+km\,s}^{-1}$ to ensure that the spatial and velocity scales have
+identical standard deviations.  Positions are computed assuming the
+\texttt{astropy v4.0} coordinate standard
 \citep{astropy_2018}. %, which places the Sun $8122$ pc from the galactic
 %center, and assumes the solar velocity with respect to the local
 %standard of rest from \citet{schonrich_local_2010}.  
@@ -456,7 +467,9 @@ color range to best visualize the region of maximal age information
 content: the pre-main-sequence.
 
 The CAMDs show that for RSG-5, all but one of the candidate
-members are on a tight pre-main-sequence locus.  This implies a false
+members are on a tight pre-main-sequence locus.  \added{Quantiatively,
+88/89 stars with $\bpmrpo \geq 1.5$ are consistent with being on the
+pre-main-sequence.} This implies a false
 positive rate of a few percent, at most.  By comparison, our control
 sample (the $\delta$~Lyr candidates) has a false positive rate of
 $\approx$12\%, based on the number of stars that photometrically
@@ -507,13 +520,14 @@ in benchmark open clusters \citep[see
 our case are especially useful, since they provide 3 to 5 lunar months
 of photometry for all of our candidate CH-2 and RSG-5 members.
 
-We selected stars suitable for gyrochronology by requiring $\bpmrpo
-\geq 0.5$ to focus on FGKM stars that experience magnetic braking.
+We selected stars suitable for gyrochronology by requiring 
+\replaced{$\bpmrpo \geq 0.5$}{$\bpmrpo \geq 0.6$} to focus on FGKM stars that experience magnetic
+braking.
 For TESS, we also restricted our sample to $G<16$, to ensure the stars
 are bright enough to extract usable light curves from the full-frame
 images.  The magnitude cut corresponds to $\bpmrpo < 2.6$
 ($\sim$M3V) at the relevant distances.  These cuts gave 19 stars in
-CH-2 and 47 stars in RSG-5.  We extracted light curves from the TESS
+CH-2 and \replaced{47}{42} stars in RSG-5.  We extracted light curves from the TESS
 images using the \texttt{unpopular} package \citep{hattorio_2021_cpm},
 and regressed them against systematics with its causal pixel model.
 We measured rotation periods using Lomb-Scargle periodograms and
@@ -529,30 +543,39 @@ the target and neighboring stars identified with Gaia, and used them
 to define a systematics correction to refine the target light curves. 
 
 The lower panels of Figure~\ref{fig:age} show the results.  In RSG-5,
-41/47 stars have rotation periods faster than the Pleiades (87\%).
-This numerator omits the two stars with periods $>$$12$\,days visible
-in the lower-left panel of Figure~\ref{fig:age}.  The age
-interpretation for these latter stars, particularly the $\approx$M2.5
-dwarf, is not obvious.  \citet{rebull_usco_2018} for instance have
-found numerous M-dwarfs with 10-12 day rotation periods at ages of
-USco ($\sim$$8$\,Myr), and some may still exist at ages of LCC
-($\sim$$16$\,Myr; L.~Rebull submitted).  Regardless, since
-nearly no field star outliers seem to be present on the RSG-5 CAMD,
-the fact that we do not detect rotation periods for $\approx$13\% of
-stars should perhaps be taken as an indication for the fraction of
+\replaced{41/47}{39/42} stars have rotation periods \replaced{faster
+than}{at least as fast as} the Pleiades (\replaced{87}{93}\%).  This
+numerator omits the two stars with periods $>$$12$\,days visible in
+the lower-left panel of Figure~\ref{fig:age}.  The age interpretation
+for these latter stars, particularly the $\approx$M2.5 dwarf, is not
+obvious.  \citet{rebull_usco_2018} for instance have found numerous
+M-dwarfs with 10-12 day rotation periods at ages of USco
+($\sim$$8$\,Myr), and some \replaced{may}{do} still exist at ages of
+LCC ($\sim$$16$\,Myr; \replaced{L.~Rebull
+submitted}{\citealt{2022AJ....164...80R}}).  Regardless, since nearly
+no field star outliers seem to be present on the RSG-5 CAMD, the fact
+that we do not detect rotation periods for $\approx$\replaced{13}{7}\%
+of stars should perhaps be taken as an indication for the fraction of
 stars for which rotation periods might not be detectable, due to
 {e.g.}, pole-on stars having lower amplitude starspot modulation.
 
 For CH-2, 13/19 stars have rotation periods that are obviously faster
-than their counterparts in the Pleiades (68\%).  4 stars, not included
+than their counterparts in the Pleiades\deleted{ (68\%)}.  4 stars, not included
 in the preceding numerator, are M-dwarfs with rotation periods between
-10 and 12.5 days.  As previously noted, the age interpretation for these
-M-dwarfs is not obvious.  Regardless, the $\approx$15\% false positive
-rate for CH-2 determined from the CAMD seems consistent with our
-fraction of detected rotation periods; RSG-5 was missing rotation
+10 and 12.5 days.  As previously noted, the age interpretation for
+these M-dwarfs is not obvious.  \added{If none are cluster members,
+the rotation period detection fraction is 68\%; if all are members, it
+is 89\%}.
+\replaced{Regardless, the $\approx$15\% false
+positive rate for CH-2 determined from the CAMD seems consistent with
+our fraction of detected rotation periods; RSG-5 was missing rotation
 periods for $\approx$15\% of its candidate members, even though all of
 its stars appear photometrically consistent with being on a single
-pre-main-sequence locus.
+pre-main-sequence locus.}{
+This sets an upper bound on the contaminant fraction in our candidate
+CH-2 members at about one in three.  The true value may be as low as 
+one in six, based on our earlier CAMD analysis.
+}
 
 It is challenging to convert these stellar rotation periods to a
 precise age estimate, since on the pre-main-sequence the stars are

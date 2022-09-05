@@ -20,23 +20,33 @@ Figure 1:
 - Why is it important to show the projection of the solar velocity?
 RESPONSE
 ----------
+> - The Kepler field is shown in the top panel of the figure, between roughly l of 70 to 85, and b of 5 to 20.  This roughly corresponds to a cone in XYZ -- in case it helps intution, (l,b)=(90,0) corresponds to the line of X=0.  The resulting concentration of the planets in vl* we believe follows from the clustering in l, which is a direct result of the fraction of space that Kepler surveyed, combined with the solar velocity projection effect (described in point three below).
 >
+> - We have specified in the caption which are the larger and smaller filled circles.
+>
+> - We have briefly summarized in the first paragraph of section 2.2 why we have shown the projection of the solar velocity: it is because we are interested in how much of the spread in v_l* it might explain.  The short answer is "some, but not all of it".  To give a more complete explanation: the Sun moves at around 16 km/s toward (l,b)=(53deg,23deg), relative to a hypothetical circular orbit around the center of the galaxy.  This means that in our observed frame, nearby stars on average appear to move opposite this direction.  At l=53 and 53+180 degrees, the effect does not influence vl.  At l=53+90 degrees, the effect on vl (or equivalently vl*) is maximized, with amplitude = v_LSR = 16 km/s.  The minimum is at l=53+270 degrees.  Figure 11 of Zari, Brown et al 2018 provides some helpful intuition for how much of the variance in observed vl can be ascribed to this projection effect for stars near the galactic plane.  The lower-right panel of our Figure 1 however shows that while the LSR projection accounts for some of the change in observed v_l* in Cep-Her, the data and the gray band do not match!  There therefore needs to be some intrinsic differences in the UVW velocities of these stars (though v_r, v_phi, and v_z is perhaps the better coordinate system).
 
 REVIEWER COMMENT
 ----------
 If at all possible, please assure in Kerr+in prep that the nomenclature does not change such that CH-2 remains CH-2, or update this paper prior to publication.
 RESPONSE
 ----------
->
-
+> The sub-group identifier will remain the same.
 
 REVIEWER COMMENT
 ----------
 Line 248: I am skeptical of the few % false positive rate (later referenced as 1%). Once stars get hotter than K2, the young and field sequences overlap significantly and so field stars wouldn't likely be outliers in the CAMD. I'm also wondering if not all of the stars are shown on the CAMD; the text states 173 stars in RSG-5; it doesn't quite look to me like there are 173 stars on the upper left panel, but I could be wrong.
 RESPONSE
 ----------
+> Thank you for this comment -- it has helped us assess the false positive rates in RSG-5 more closely.
 >
-
+> In the color versus absolute magnitude diagram (CAMD), let us use (BP-RP)0 = 1.5 as the dividing line, redward of which stars can be easily seen to be on the pre-main-sequence (or at least elevated relative to typical field stars of the same color).  For RSG-5, there are 89 stars with (BP-RP)0 > 1.5.  One of them falls on the "field star" locus; the others fall on the pre-main-sequence locus.  This implies that, photometrically, 88/89= 98.9% of the candidate RSG-5 members redward of (BP-RP)0=1.5 are photometrically consistent with being on the pre-main-sequence.
+>
+> Regarding more massive stars, yes, there are plenty: see hr_rsg5.png attached to the response.  The caption of Figure 2 already explicitly states "The range of colors is truncated to emphasize the pre-main-sequence."  This visualization point is necessary because the full dynamic range in magnitude and color.  But yes, we cannot determine whether these stars earlier than ~K2 are young based on their location in the CAMD.  We can and do use stellar rotation.
+>
+> Using stellar rotation, we previously quoted in Section 2.3.2 that in RSG-5 41/47 stars have rotation periods consistent with being at least as fast as the Pleiades (87%).  Of the six inconsistent stars, two are the M-dwarfs previously discussed in the text.  The new point that emerged from our reanalysis concerns the other four stars without any detectable rotation period: three of them were the bluest three stars in our sample!  This implies that our blue cutoff was too lenient -- the amplitudes of spot-induced modulation plummet for young stars blueward of the Kraft break (Figure 10 in Rebull+2020, 2020AJ....159..273R).  We have propagated this through the manuscript: we now require (BP-RP)0 > 0.6, and G < 16.  The corresponding fraction of RSG-5 stars for which detected rotation periods is 39 detections / 42 expected, i.e. 93%.  
+>
+> The manuscript has been adjusted for this discussion, including the quantitative statements regarding the pre-main-sequence K and M dwarfs, as well as the rapidly-rotating FGK stars.
 
 REVIEWER COMMENT
 ----------
@@ -172,7 +182,7 @@ REVIEWER COMMENT
 *Line 162: vb and vl* not defined
 RESPONSE
 ----------
->
+> $v_b$ is the distance-corrected proper motion in the direction of increasing galactic latitude, and $v_{l^*}=v_l \cos b$ is the same in the direction of increasing galactic longitude after accounting for the local tangent plane correction.  We have added verbiage to this effect.
 
 REVIEWER COMMENT
 ----------
@@ -326,13 +336,13 @@ REVIEWER COMMENT
 *Line 449: Teff values are only quoted for these two stars, and were not in previous sections, and the subsequent text also implies that for these stars, the spectra-based Teff values disagreed with the isochrone-based values. Either re-phrase, or discuss disagreement.
 RESPONSE
 ----------
-> Thank you for this wording catch -- the text has been updated to clarify that the temperatures as well as the other spectroscopic parameters agreed with the isochrone parameters within 1-sigma.  This is a rather brief way of hiding what in our view is more complicated that what needs to be discussed.  Table 1 states the adopted (spectroscopic) effective temperatures for all the stars.  We reported the spectroscopic effective temperatures in all cases because their formal uncertainties were smaller than those from the isochrone method, and they seemed less model-dependent.  The isochrone method yielded the following effective temperatures for the stars in Table 1:
+> Thank you for this wording catch -- the text has been updated to clarify that the temperatures as well as the other spectroscopic parameters agreed with the isochrone parameters within 1-sigma.  This is a rather brief way of hiding what in our view is more complicated than what needs to be discussed.  Table 1 states the adopted (spectroscopic) effective temperatures for all the stars.  We reported the spectroscopic effective temperatures in all cases because their formal uncertainties were smaller than those from the isochrone method, and they seemed less model-dependent.  The isochrone method yielded the following effective temperatures for the stars in Table 1:
 > Kepler-1643: 4878 +/- 140 K
 > KOI-7368: 5135 +/- 162 K
 > KOI-7913 A: 4286 +/- 144 K
 > KOI-7913 B 4006 +/- 335 K.
-> As discussed in the second paragraph of Section 3, the quoted values are from MIST, while the uncertainties are a quadrature sum of a statistical and systematic component (the absolute difference between the PARSEC and MIST isochrones).  For KOI-7913 B, this systematic component is higher than for any other stars, because MIST gives Teff_MIST = 4005 +75 -73 K, while PARSEC gives Teff_PARSEC = 3679 +95 -60 K.  This is most likely due to different assumptions in the MIST and PARSEC models for how to treat young M-dwarfs.  The MIST models have known discrepancies between their synthetic photometry and observed open cluster data (e.g., Choi+2016 Section 8).  Possible explanations include starspots, or incomplete molecular line lists (e.g., Mann+2013, Rajpurohit+2013). The PARSEC isochrones might be a better choice for the lowest mass stars (KOI-7913A and KOI-7913B) for this reason, since Chen et al (2014) implemented an empirical temperature–opacity calibration into the PARSEC models to create synthetic photometry that matches available data.  See for instance "hr_parsec_7913b.png" and "hr_mist_7913b.png" attached -- the 39.8 Myr MIST model diverges from the IC2602 and delta-Lyr loci at BP-RP>~1.6.  In comparison, the 39.8 Myr PARSEC model fits the observed locus down to BP-RP~=2.0.  
-> Three additional plots are also included in the response: smemp_koi7913B.png, smemp_koi7913A.png, and smemp_kepler1643.png.  These plots give some diagnostic understanding of how SpecMatch-Empirical performs for these stars.  Note that a chi^2 of 5 corresponds to a reduced chi^2 of 1 in this model.  While the KOI-7913B spectra is still the worst fit(!), our prefernce is for calibrating our reported effective temperatures to this spectral library, rather than to the isochronal method.  Any suggestions on possible methodological improvements would be appreciated.
+> As discussed in the second paragraph of Section 3, the quoted values are from MIST, while the uncertainties are a quadrature sum of a statistical and systematic component (where the latter is from the absolute difference between the PARSEC and MIST isochrones).  For KOI-7913 B, this systematic component is higher than for any other stars, because MIST gives Teff_MIST = 4005 +75 -73 K, while PARSEC gives Teff_PARSEC = 3679 +95 -60 K.  This is most likely due to different assumptions in the MIST and PARSEC models for how to treat young M-dwarfs.  The MIST models have known discrepancies between their synthetic photometry and observed open cluster data (e.g., Choi+2016 Section 8).  Possible explanations include starspots, or incomplete molecular line lists (e.g., Mann+2013, Rajpurohit+2013). The PARSEC isochrones might be a better choice for the lowest mass stars (KOI-7913A and KOI-7913B), since Chen et al (2014) implemented an empirical temperature-opacity calibration into the PARSEC models to create synthetic photometry that matches available data.  See for instance "hr_parsec_7913b.png" and "hr_mist_7913b.png" attached -- the 39.8 Myr MIST model diverges from the IC2602 and delta-Lyr loci at BP-RP>~1.6.  In comparison, the 39.8 Myr PARSEC model fits the observed locus down to BP-RP~=2.0.  
+> Three additional plots are also included in the response: smemp_koi7913B.png, smemp_koi7913A.png, and smemp_kepler1643.png.  These plots give some diagnostic understanding of how SpecMatch-Empirical performs for these stars.  Note that a chi^2 of 5 corresponds to a reduced chi^2 of 1 in this model.  While the KOI-7913B spectrum is still the worst fit(!), our prefernce is for calibrating our reported effective temperatures to the HIRES spectral library, rather than to the isochronal method.  Any suggestions on possible methodological improvements would be appreciated.
 
 REVIEWER COMMENT
 ----------
