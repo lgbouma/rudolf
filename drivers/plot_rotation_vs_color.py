@@ -14,7 +14,6 @@ rp.plot_rotationperiod_vs_color(
     emph_binaries=0, talk_aspect=1, kinematic_selection=1,
     overplotkep1627=0, show_allknown=1, darkcolors=1
 )
-assert 0
 
 # add all KOIs
 for runid in ['CH-2', 'RSG-5', 'deltaLyrCluster']:

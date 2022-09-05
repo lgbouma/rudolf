@@ -7,14 +7,15 @@ if not os.path.exists(PLOTDIR):
     os.mkdir(PLOTDIR)
 
 for showplanets in [1,0]:
-    # poster
+    ## poster
+    #rp.plot_kepclusters_skychart(PLOTDIR, showplanets=showplanets,
+    #                             clusters=['Cep-Her'], showkepclusters=0,
+    #                             darkcolors=1)
+
+    # AAS240
     rp.plot_kepclusters_skychart(PLOTDIR, showplanets=showplanets,
                                  clusters=['Cep-Her'], showkepclusters=0,
-                                 darkcolors=1)
-
-    ## AAS240
-    #rp.plot_kepclusters_skychart(PLOTDIR, showplanets=showplanets,
-    #                             clusters=['Cep-Her'], showkepclusters=0)
+                                 hideaxes=1)
 
     # Exoplanets-4
     #rp.plot_kepclusters_skychart(PLOTDIR, showplanets=showplanets, clusters=['Theia-520'])

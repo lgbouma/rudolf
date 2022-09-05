@@ -98,7 +98,7 @@ from cdips.utils.mamajek import (
 )
 
 from earhart.physicalpositions import (
-    calc_vl_vb_physical, append_physicalpositions
+    calc_vl_vb_physical, append_physicalpositions, get_vl_lsr_corr
 )
 
 from rudolf.paths import DATADIR, RESULTSDIR, TABLEDIR
@@ -2339,7 +2339,12 @@ def plot_hr(
         # add log stretch...
         from astropy.visualization import LogStretch
         from astropy.visualization.mpl_normalize import ImageNormalize
-        norm = ImageNormalize(vmin=10, vmax=1000,
+        if smalllims:
+            vmin, vmax = 10, 1000
+        else:
+            vmin, vmax = 25, 2500
+
+        norm = ImageNormalize(vmin=vmin, vmax=vmax,
                               stretch=LogStretch())
 
         cmap = "Greys" if not darkcolors else "Greys_r"
@@ -2898,10 +2903,13 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
             pass
 
         else:
+            CUTOFF = 0.6
             if runid in ['CH-2','RSG-5'] and f'{runid}' in _cls:
-                sel = (xval > 0.5) & (df.phot_g_mean_mag < 16)
+                sel = (
+                    (xval > CUTOFF) & (df.phot_g_mean_mag < 16)
+                )
             else:
-                sel = (xval > 0.5)
+                sel = (xval > CUTOFF)
             edgecolors = 'k' if not darkcolors else 'white'
             ax.scatter(
                 xval[sel],
@@ -2914,12 +2922,11 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
             # get a few quick statistics
             print(42*'-')
             print(f'For the cluster {runid}')
-            #sel = (xval > 0.5) & (df.phot_g_mean_mag_x < 16)
             if runid == 'CH-2':
                 print('OMITTING 3 stars (KOI-7913, KOI-7368)')
             elif runid == 'RSG-5':
                 print('OMITTING 1 star (Kepler-1643)')
-            print(f'Started with {len(df[sel])} in 0.5 < BP-RP0, and G < 16')
+            print(f'Started with {len(df[sel])} in {CUTOFF} < BP-RP0, and G < 16')
             print(f'and got {len(df[sel][~pd.isnull(df[sel][ykey])])} rotation period detections.')
             print(f'N={len(df[sel])} Detections and non-detections are as follows')
             print(df[sel][[
@@ -5237,7 +5244,10 @@ def plot_CepHerExtended_quicklook_tests(outdir):
             savefig(fig, outpath)
 
 
-def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
+def plot_CepHer_XYZvtang_sky(outdir, showgroups=0, lsrcorr=0):
+    """
+    Figure 1 from Cep-Her paper
+    """
 
     from rudolf.helpers import get_ronan_cepher_augmented
     df, __df, _mdf = get_ronan_cepher_augmented()
@@ -5270,6 +5280,10 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
 
     df['v_l'] = df['v_l*']/np.cos(np.deg2rad(df['b']))
 
+    vlstr = (
+        "$v_{l*}$ [km$\,$s$^{-1}$]" if not lsrcorr else
+        "$v_{l*} - v_{\mathrm{LSR}}$ [km$\,$s$^{-1}$]"
+    )
     xytuples = [
         ('l', 'b', 'linear', 'linear', "A",
          ["$l$ [deg]", "$b$ [deg]"], [(102, 38), (-6,26)]),
@@ -5280,10 +5294,10 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
         ('y_pc', 'z_pc', 'linear', 'linear', "D",
          ["$Y$ [pc]", "$Z$ [pc]"], None),
         ('v_l*', 'v_b', 'linear', 'linear', "E",
-         ["$v_{l*}$ [km$\,$s$^{-1}$]", "$v_{b}$ [km$\,$s$^{-1}$]"],
+         [vlstr, "$v_{b}$ [km$\,$s$^{-1}$]"],
          [(-15,15), (-11,1)]),
         ('l', 'v_l*', 'linear', 'linear', "F",
-         ["$l$ [deg]", "$v_{l*}$ [km$\,$s$^{-1}$]"],
+         ["$l$ [deg]", vlstr],
          [(102,38), (-15,15)]),
     ]
 
@@ -5320,12 +5334,26 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
         # assign axis
         ax = axd[axkey]
 
+        if xkey == 'l' and ykey == 'v_l*':
+            lons = np.arange(0,360,1)
+            _, v_l_cosb_kms_upper, v_l_cosb_kms_lower = get_vl_lsr_corr(lons, get_errs=1)
+            ax.fill_between(
+                lons, v_l_cosb_kms_lower, v_l_cosb_kms_upper,
+                alpha=0.1, color='black', lw=0.5, zorder=-2
+            )
+
         # iterate over "gold" and "maybe" candidates
         for strength_cut, c, size in zip(
             [0.02, 0.10], ['darkgray','black'], [1.0,1.8]
         ):
             # STRENGTH_CUT: require > 0.02
             sdf = df[df.strengths > strength_cut]
+
+            dx, dy = 0, 0
+            if lsrcorr and (xkey == 'v_l*'):
+                dx,_,_ = get_vl_lsr_corr(np.array(sdf['l']))
+            if lsrcorr and (ykey == 'v_l*'):
+                dy,_,_ = get_vl_lsr_corr(np.array(sdf['l']))
 
             print(f'Strength cut: > {strength_cut}: {len(sdf)} objects')
             sstr = f'strengthgt{strength_cut:.2f}'
@@ -5340,11 +5368,11 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
                 color = np.log10(sdf['strengths'])
                 # https://matplotlib.org/stable/tutorials/colors/colormaps.html
                 cmap = mpl.cm.get_cmap('plasma')
-                _p = ax.scatter(sdf[xkey]+x0, sdf[ykey], c=color, s=size,
+                _p = ax.scatter(sdf[xkey]+x0-dx, sdf[ykey]-dy, c=color, s=size,
                                 zorder=2, linewidths=0, marker='.', cmap=cmap,
                                 rasterized=True)
             else:
-                _p = ax.scatter(sdf[xkey]+x0, sdf[ykey], c=c, s=size, zorder=2,
+                _p = ax.scatter(sdf[xkey]+x0-dx, sdf[ykey]-dy, c=c, s=size, zorder=2,
                                 linewidths=0, marker='.', rasterized=True)
 
         if showgroups:
@@ -5362,8 +5390,15 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
                 grouppath = os.path.join(outdir, groupname)
                 _df = pd.read_csv(grouppath)
                 _df['v_l'] = _df['v_l*']/np.cos(np.deg2rad(_df['b']))
+
+                _dx, _dy = 0, 0
+                if lsrcorr and (xkey == 'v_l*'):
+                    _dx,_,_ = get_vl_lsr_corr(np.array(_df['l']))
+                if lsrcorr and (ykey == 'v_l*'):
+                    _dy,_,_ = get_vl_lsr_corr(np.array(_df['l']))
+
                 ax.plot(
-                    _df[xkey]+x0, _df[ykey],
+                    _df[xkey]+x0-_dx, _df[ykey]-_dy,
                     alpha=1, mew=mew, zorder=10+ix, markerfacecolor=color,
                     markersize=size, marker='o', color='black', lw=0
                 )
@@ -5394,8 +5429,15 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
             source_id = koi_dict[name]
             sel = _mdf.source_id.astype(str) == source_id
             _mdf['v_l'] = _mdf['v_l*']/np.cos(np.deg2rad(_mdf['b']))
+
+            _dx, _dy = 0, 0
+            if lsrcorr and (xkey == 'v_l*'):
+                _dx,_,_ = get_vl_lsr_corr(np.array(_mdf[sel]['l']))
+            if lsrcorr and (ykey == 'v_l*'):
+                _dy,_,_ = get_vl_lsr_corr(np.array(_mdf[sel]['l']))
+
             ax.plot(
-                _mdf[sel][xkey]+x0, _mdf[sel][ykey],
+                _mdf[sel][xkey]+x0-_dx, _mdf[sel][ykey]-_dy,
                 alpha=1, mew=0.5, zorder=10, label=name,
                 markerfacecolor=mfc, markersize=7, marker=marker,
                 color='black', lw=0
@@ -5459,70 +5501,11 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0):
                         ax.fill(glon, glat, c='lightgray', alpha=0.95, lw=0,
                                 rasterized=True, zorder=-1)
 
-        if xkey == 'l' and ykey == 'v_l*':
-
-            import astropy.coordinates as coord
-            _ = coord.galactocentric_frame_defaults.set('v4.0')
-            from astropy.coordinates import (
-                Galactic, CartesianDifferential
-            )
-
-            # Schonrich+2010 solar velocity wrt local standard of rest
-            # note the systemic uncertainties are not included
-            U = 11.10 * u.km/u.s
-            U_hi = 0.69 * u.km/u.s
-            U_lo = 0.75 * u.km/u.s
-            V = 12.24 * u.km/u.s
-            V_hi = 0.47 * u.km/u.s
-            V_lo = 0.47 * u.km/u.s
-            W = 7.25 * u.km/u.s
-            W_hi = 0.37 * u.km/u.s
-            W_lo = 0.36 * u.km/u.s
-
-            lons = np.arange(0,360,1)
-            _lat = 42   # doesn't matter
-            _dist = 300 # doesn't matter
-
-            lats = _lat*np.ones_like(lons)
-            dists_pc = _dist*np.ones_like(lons)
-
-            for _U, _V, _W, label in zip(
-                [U, U+U_hi, U-U_lo],
-                [V, V+V_hi, V-V_lo],
-                [W, W+W_hi, W-W_lo],
-                [0, 1, 2]
-            ):
-                print(42*'-')
-                print(label)
-                v_l_cosb_kms_list = []
-                for ix, (lon, lat, dist_pc) in enumerate(zip(lons, lats, dists_pc)):
-                    #print(f'{ix}/{len(lons)}')
-                    gal = Galactic(lon*u.deg, lat*u.deg, distance=dist_pc*u.pc)
-                    vel_to_add = CartesianDifferential(_U, _V, _W)
-                    newdata = gal.data.to_cartesian().with_differentials(vel_to_add)
-                    newgal = gal.realize_frame(newdata)
-                    pm_l_cosb_AU_per_yr = (newgal.pm_l_cosb.value*1e-3) * dist_pc * (1*u.AU/u.yr)
-                    v_l_cosb_kms = pm_l_cosb_AU_per_yr.to(u.km/u.second)
-                    v_l_cosb_kms_list.append(v_l_cosb_kms.value)
-
-                v_l_cosb_kms = -np.array(v_l_cosb_kms_list)
-
-                if label == 0:
-                    v_l_cosb_kms_mid = v_l_cosb_kms*1.
-                elif label == 1:
-                    v_l_cosb_kms_upper = v_l_cosb_kms*1.
-                elif label == 2:
-                    v_l_cosb_kms_lower = v_l_cosb_kms*1.
-
-            ax.fill_between(lons, v_l_cosb_kms_lower,
-                            v_l_cosb_kms_upper,
-                            alpha=0.1, color='black', lw=0.5, zorder=-2)
-
-
-
     s = ''
     if showgroups:
         s += '_showgroups'
+    if lsrcorr:
+        s += '_lsrcorr'
     outpath = os.path.join(outdir, f'CepHer_XYZvtang_sky{s}.png')
 
     fig.tight_layout(h_pad=0., w_pad=0.2)
@@ -5696,7 +5679,8 @@ def _get_melange2():
 
 
 def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
-                              clusters=None, showplanets=0, darkcolors=False):
+                              clusters=None, showplanets=0, darkcolors=False,
+                              hideaxes=0):
     """
     clusters: any of ['Theia-520', 'Melange-2', 'Cep-Her', 'δ Lyr', 'RSG-5', 'CH-2']
     """
@@ -5819,7 +5803,7 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                 l,b = position_dict[pl]
                 ind = np.argwhere(np.array(namelist)==pl)
                 marker = markers[int(ind)]
-                edgecolor = 'white' if darkcolors else 'white'
+                edgecolor = 'white' if darkcolors else 'k'
                 ax.plot(
                     l, b,
                     alpha=1, mew=0.5, zorder=10, label=pl,
@@ -5877,6 +5861,13 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
         ax.set_xlabel(r'Galactic longitude, $l$ [deg]', fontsize='large')
         ax.set_ylabel(r'Galactic latitude, $b$ [deg]', fontsize='large')
 
+    if hideaxes:
+        f.patch.set_alpha(0)
+        ax.patch.set_alpha(0)
+        ax.set_axis_off()
+        ax.set_xlabel('')
+        ax.set_ylabel('')
+
     s = ''
     if clusters is not None:
         s += "_".join([f"{s}" for s in clusters])
@@ -5888,6 +5879,8 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
         s += '_showplanets'
     if darkcolors:
         s += '_darkcolors'
+    if hideaxes:
+        s += '_hideaxes'
 
     bn = 'kepclusters_skychart'
     outpath = os.path.join(outdir, f'{bn}{s}.png')
