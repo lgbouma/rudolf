@@ -113,7 +113,7 @@ def run_simpletransit_polyremover(starid='Kepler_1643', N_samples=2000, N_cores=
 
     localpolyindivpanels = 0
     phaseplot = 0
-    spphaseplot = 1 #FIXME
+    spphaseplot = 1
     posttable = 0
     cornerplot = 0
     writevespa = 0
@@ -147,8 +147,8 @@ def run_simpletransit_polyremover(starid='Kepler_1643', N_samples=2000, N_cores=
 
     if spphaseplot:
         # sub-options!
-        darkcolors = 1
-        showresid = 0
+        darkcolors = 0
+        showresid = 1
         s = ''
         if darkcolors:
             s += '_darkcolors'
