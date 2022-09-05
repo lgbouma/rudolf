@@ -8,13 +8,6 @@ if not os.path.exists(PLOTDIR):
 
 from earhart.priors import AVG_EBpmRp
 
-# eres-vii
-rp.plot_rotationperiod_vs_color(
-    PLOTDIR, 'RSG-5', yscale='linear', cleaning='defaultcleaning',
-    emph_binaries=0, talk_aspect=1, kinematic_selection=1,
-    overplotkep1627=0, show_allknown=1, darkcolors=1
-)
-
 # add all KOIs
 for runid in ['CH-2', 'RSG-5', 'deltaLyrCluster']:
     rp.plot_rotationperiod_vs_color(
@@ -22,6 +15,13 @@ for runid in ['CH-2', 'RSG-5', 'deltaLyrCluster']:
         emph_binaries=0, talk_aspect=1, kinematic_selection=1,
         overplotkep1627=0, show_allknown=1
     )
+
+# eres-vii
+rp.plot_rotationperiod_vs_color(
+    PLOTDIR, 'RSG-5', yscale='linear', cleaning='defaultcleaning',
+    emph_binaries=0, talk_aspect=1, kinematic_selection=1,
+    overplotkep1627=0, show_allknown=1, darkcolors=1
+)
 
 runid = 'deltaLyrCluster'
 # pleiades and praesepe only

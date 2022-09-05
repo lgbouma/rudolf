@@ -623,7 +623,6 @@ if __name__=='__main__':
             oldalpha=oldalpha
         )
 
-    assert 0
     for dark_bkgd in [0]:
         for oldalpha in [0.4, None]:
             for add_plnames in [0]:

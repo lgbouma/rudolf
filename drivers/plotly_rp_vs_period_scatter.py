@@ -56,7 +56,7 @@ def plot_rp_vs_period_scatter(
         add_plnames: if True, shows tiny texts for the age-dated planets.
     """
 
-    set_style()
+    set_style('science')
 
     #
     # Columns are described at
@@ -205,11 +205,8 @@ def plot_rp_vs_period_scatter(
     fig.update_xaxes(type="log", title='Period [days]')
     fig.update_yaxes(type="log", title='Size [Earths]')
 
-
     fig.write_image('../results/plotly/rp_vs_period_vs_age.pdf')
     fig.write_html('../results/plotly/rp_vs_period_vs_age.html')
-
-    assert 0
 
     #
     # Plot age vs rp. (age is on y axis b/c it has the error bars, and I at
