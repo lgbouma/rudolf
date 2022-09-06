@@ -110,7 +110,15 @@ The discussion of Li could use further clarity.
 
 RESPONSE
 ----------
+> - The wording at L456 has been updated as follows: "The primary showed lithium in absorption with ${\rm EW}_{\rm Li} = 65^{+8}_{-6}$\,m\AA, while the secondary had a marginal detection of ${\rm EW}_{\rm Li} = 42^{+12}_{-19}$\,m\AA."
 >
+> - The wording at L497 has similary been adjusted.
+>
+> - Regarding the 1% false postive rate, we have previously addressed that photometrically, 88/89= 98.9% of the candidate RSG-5 members redward of (BP-RP)0=1.5 are consistent with being on the pre-main-sequence.  Based on rotation periods, the relevant fraction was 39/42 (93%).  The detection process for stellar rotation periods is more complicated than that for measuring a star's brightness and color, so our initial wording of "$\approx 1\%$ false positive probability" seems accurate.  We have nonetheless replaced the text with the term "few-percent false positive probability".  This does not change the conclusion, which is based on both the FPP from the spatio-kinematic selection, as well as the chance of selecting an interloping field star at this color with a sub-Pleiades rotation period.
+>
+> - We have added a sentence quantifying the discrepancy: "Quantitatively, there are 14 reference stars within $\pm$150\,K of Kepler-1643.  The mean and standard deviation of their lithium EWs is $255 \pm 31$\,m\AA, which implies that Kepler-1643 is $4.0$-$\sigma$ discrepant from expectations."  We have also added sentences indicating that given these ~dozen stars, an anomalous Li EW scatter would indeed be surprising.  However, in our view it remains the most plausible interpretation.  The suggested alternative of differences in overall metallicity seems unlikely because the [Fe/H] abundances measured for the Kepler Objects of Interest are all near-solar.
+>
+> - In constructing this response, a typo was correct: the manuscript previously referenced Randich+2018 for the lithium sample in IC-2602.  The correct reference is Randich+2001.  We did consider the Randich+2018 study, but the results were qualitatively the same, but with less clearly stated uncertainties on the equivalent width measurements, and a selection function (their Figure 1b) that we did not want to impose.
 
 REVIEWER COMMENT
 ----------

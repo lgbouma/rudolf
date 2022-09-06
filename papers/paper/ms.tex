@@ -730,10 +730,14 @@ isochrone\added{ method within 1-$\sigma$}.  For the primary, we also found $[{\
 0.09$, $v\sin i = 13.3 \pm 1.0\,\mkms$, and ${\rm RV}_{\rm sys} =
 -17.8 \pm 1.1\,\mkms$.  For the secondary, these same parameters were
 $[{\rm Fe/H}]= -0.01 \pm 0.09$, $v\sin i = 10.7 \pm 1.0\,\mkms$, and
-${\rm RV}_{\rm sys} = -18.8 \pm 1.1\,\mkms$.  Neither of the KOI-7913
+${\rm RV}_{\rm sys} = -18.8 \pm 1.1\,\mkms$.  \replaced{Neither of the KOI-7913
 components shows strong lithium absorption, but this is expected given
-their $\approx$K6V and $\approx$K8V spectral types.  They do however
-both show H$\alpha$ in emission.  Broadly speaking, both observations
+their $\approx$K6V and $\approx$K8V spectral types}{The primary showed lithium in absorption
+with ${\rm EW}_{\rm Li} =
+65^{+8}_{-6}$\,m\AA, while the secondary had a marginal detection of ${\rm EW}_{\rm Li} =
+42^{+12}_{-19}$\,m\AA. }.  \replaced{They do however
+both show H$\alpha$ in emission.  Broadly speaking, both}{Both components displayed 
+H$\alpha$ in emission.  Given the spectral types of the stars, these} observations
 are consistent with a $\approx$40 Myr age for KOI-7913 (see
 Section~\ref{subsec:specyouth}).
 
@@ -807,7 +811,7 @@ assess their implications for the stellar ages.
     {\it Top \& middle}:
     The field stars are KOIs from
     \citet{berger_identifying_2018}.  The ``40-50 Myr'' reference
-    stars ({\it left}) are from IC\,2602 \citep{randich_gaiaeso_2018} and
+    stars ({\it left}) are from IC\,2602 \replaced{\citep{randich_gaiaeso_2018}}{\citep{randich_2001}} and
     Tuc-Hor \citep{kraus_stellar_2014}.  The ``112 Myr'' stars
     are from the Pleiades
     \citep{soderblom_evolution_1993,jones_evolution_1996,bouvier_pleiades_lirot_2018}.
@@ -833,11 +837,17 @@ with the stellar effective temperatures and a $\approx40$\,Myr age.
 Kepler-1643, in RSG-5, is conspicuously below the 40-50$\,$Myr
 sequence in the left-panel of Figure~\ref{fig:lithium}, though
 above the field stars (${\rm EW}_{\rm Li} = 130^{+6}_{-5}$\,m\AA).
+added{
+Quantitatively, there are 14 reference stars within $\pm$150\,K of Kepler-1643.
+The mean and standard deviation of their lithium EWs is $255 \pm 31$\,m\AA,
+which implies that Kepler-1643 is $4.0$-$\sigma$ discrepant from expectations.
+}
 The right panel shows the comparison against the Pleiades, where
 Kepler-1643 is more consistent with the observed dispersion in
 lithium.
 
-One explanation for the lack of Li in Kepler-1643 could be that it is a field
+One explanation for the \replaced{lack of Li in Kepler-1643}{low Li equivalent width
+in Kepler-1643 relative to the comparison stars} could be that it is a field
 interloper; another could be that RSG-5 is much older than 50\,Myr.  We do
 not favor either explanation.  
 RSG-5 cannot be much older than 50\,Myr
@@ -845,7 +855,7 @@ based on its proximity to the $\delta$~Lyr cluster and IC\,2602 in the
 CAMD, and because it is below the Pleiades in the 
 rotation versus color diagram (Figure~\ref{fig:age}).
 Kepler-1643 also seems highly unlikely to be a field interloper, 
-because we demonstrated a $\approx$$1\%$ false positive probability
+because we demonstrated a \replaced{$\approx$$1\%$}{few-percent} false positive probability
 in our spatio-kinematic selection of RSG-5 members, and there is a 
 similar independent chance
 ($\approx$$1\%$) of a field K2V star having a rotation period below the
@@ -855,10 +865,12 @@ evidence consistent with being in a $\approx$50\,Myr cluster,
 but a low lithium content?
 
 Our preferred explanation for Kepler-1643's meager lithium 
-content is that the reference sample of IC\,2602 and Tuc-Hor
+content is that the reference sample\added{s} of IC\,2602 and Tuc-Hor
 stars may not fully explore all possible stellar rotation
-periods and lithium equivalent widths at this age. 
-Considering the top panels of Figure~\ref{fig:lithium}, it is remarkable that in
+periods and lithium equivalent widths at this age.
+\added{This would be somewhat surprising since over a dozen
+stars have already been analyzed in the relevant effective temperature range. However, considering}
+the top panels of Figure~\ref{fig:lithium}, it is remarkable that in
 50 million years, stars between $4500$\,K and $5200$\,K go from
 having a tight lithium sequence to one with a dispersion
 $\approx10\times$ greater.  The existence of the Li dispersion in
@@ -875,9 +887,12 @@ dispersion.  A recent analysis of the $\approx$40\,Myr
 NGC~2547 by \citet{binks_2022} suggests that this may
 be the case, though that study only had $\approx$10 stars in the relevant
 effective temperature range.
-This suggests that
+\added{An alternative explanation could be that the overall metallicity of the cluster 
+is different from Tuc-Hor and IC\,2602, but this seems unlikely given the near-solar
+metallicities we have measured for the Kepler Objects of Interest.}
+\replaced{This suggests}{Broadly, these considerations suggest} that
 RSG-5 and Cep-Her could be
-worthy objects for a closer analysis of the lithium-rotation correlation
+worthy objects for a \replaced{closer analysis of the lithium-rotation correlation}{spectroscopic analysis of lithium}
 near the zero-age main sequence.
 
 \subsubsection{H$\alpha$}
