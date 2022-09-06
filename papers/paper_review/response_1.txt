@@ -144,7 +144,16 @@ The discussion of centroid offsets could use further elaboration.
 
 RESPONSE
 ----------
+> The Data Validation Summaries for the KOIs are available at the following links, for reference.
+> Kepler-1643: https://exoplanetarchive.ipac.caltech.edu/data/KeplerData/008/008653/008653134/dv/kplr008653134-001-20160209194854_dvs.pdf
+> KOI-7368: https://exoplanetarchive.ipac.caltech.edu/data/KeplerData/010/010736/010736489/dv/kplr010736489-001-20160209194854_dvs.pdf
+> KOI-7913: https://exoplanetarchive.ipac.caltech.edu/data/KeplerData/008/008873/008873450/dv/kplr008873450-006-20160209194854_dvs.pdf
 >
+> - Re: 0.4" and "good values", \citet{bryson_2013} showed that for typical field star KOIs without centroid offsets, the mean offset distribution peaks at 0.3$''$ (their Figure 23).  By comparison, stars with centroid offsets that can be localized to nearby stars have a distribution that peaks at 7$''$ (their Figure 32).  The stellar variability in Kepler-1643 complicates the centroid-based vetting tests, because the shifts measured by these tests are determined from the in- and out-of-transit flux-weighted centroids.  For stars with significant spot-induced variability there is no static baseline in either the in- or out-of-transit , and so the centroid location may shift depending on the rotational phase combined with the local scene.  Nonetheless, it appears that the centroid-level diagnostics for Kepler-1643 are consistent with the transit signal being localized to the target star, though only at moderate confidence.  We have modified the text to include these points.
+>
+> - Re: what level of centroid shift is concerning -- if the centroid shifts across quarters were consistently >~ 1 arcsecond (and measured at ~0.1 arcsecond precision), and in the same direction across many Kepler quarters, it would be much more concerning.  However the outlier centroid shifts in Kepler-1643 and KOI-7368 appear to be in effectively random directions, which suggests that the stellar rotation and systematic errors in the NASA SPOC pipeline's whitening are more likely to be the root cause.  A few sentences have been modified to this effect.
+>
+> - Re: methods for establishing whether other stars can create the centroid shift, and Kepler-1643, yes, the same logic applies.  We have added a comment to the manuscript to this effect.  The "established method" for this is the logic laid out by Bryson+2013.  For instance, given the target star T and a neighbor star N separated by distance D, one can calculate the expected centroid shifts for the various scenarios where the target T hosts an eclipse signal of depth δ, and also when the neighbor N hosts the signal.  We do not present these calculations in the text, because there is no evidence that the offset itself is statistically signficant.  Nonetheless, the absence of companions for Kepler-1643 and KOI-7368 does help bolster the interpretation.
 
 ******************************************
 Reviewer #1 CLARITY, CITATIONS, ETC.

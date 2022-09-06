@@ -1087,17 +1087,24 @@ therefore nearly impossible to reproduce with eclipsing binary models.
 
 Intriguingly, Kepler-1643 failed one of the data validation
 centroid shift tests (see the \texttt{q1\_q17\_dr25\_koi} data
-release): the angular distance between the target star's catalog
+release): the angular distance between the target star's \added{KIC }catalog
 position and the position of the transiting source was measured as
 $1\farcs0$ at 4.4-$\sigma$.  The reports show however that two
 outlying quarters (2 and 6) drive the offset --- the centroid locations
-from the other Kepler quarters are consistent at $\lesssim 0\farcs4$.
-This is an instructive exercise in how stellar
-variability complicates centroid-based vetting tests.  The 
-shifts measured by these tests are determined from the in- and
-out-of-transit flux-weighted centroids.  For stars with significant
-spot-induced variability there is no static baseline in either the in-
-or out-of-transit phases.
+from the other Kepler quarters are consistent at $\lesssim 0\farcs4$\added{ (3-$\sigma$)}.
+\added{\citet{bryson_2013} showed that for typical field star KOIs without
+centroid offsets, the mean offset distribution peaks at 0.3$''$ (their
+Figure 23).  By comparison, stars with centroid offsets that can be
+localized to nearby stars have a distribution that peaks at 7$''$ (their
+Figure 32). } \replaced{This is an instructive exercise in how }{The }stellar
+variability \added{in Kepler-1643} complicates \added{the} centroid-based
+vetting tests\replaced{. The}{, because the} shifts measured by these tests are
+determined from the in- and out-of-transit flux-weighted centroids.  For stars
+with significant spot-induced variability there is no static baseline in either
+the in- or out-of-transit phases\added{, and so the centroid location may shift
+depending on the combination of the rotation phase combined and the local scene.  Based on
+these considerations, the centroid-level diagnostics for Kepler-1643 appear to
+be consistent with the transit signal being localized to the target star}.
 
 \paragraph{KOI-7368}
 KOI-7368.01 is listed on the NASA Exoplanet Archive as a ``candidate''
@@ -1117,13 +1124,15 @@ The positional probability\deleted{ score}\added{\footnote{Columns $\textit{pp\_
 It bears mentioning that KOI-7368 shows a centroid shift in the
 \texttt{q1\_q17\_dr25\_koi} validation reports, similar to
 Kepler-1643.  For KOI-7368, the reported offset is smaller, and less
-significant ($0\farcs2$; 3.0-$\sigma$).  Again, the data
-validation reports show that the shift is caused by a few outlying
-quarters (4, 5, 8, and 12).  Since the remaining data show
-consistent scatter in their centroid locations, these
-outlying quarters are likely also caused by the stellar variability.  
-Our NIRC2 imaging independently shows that there are no neighboring
-sources that could cause an offset of the observed amplitude.
+\added{formally }significant ($0\farcs2$; 3.0-$\sigma$).  Again, the
+data validation reports show that the shift is caused by a few
+outlying quarters (4, 5, 8, and 12).  Since the remaining data show
+consistent scatter in their centroid locations, these outlying
+quarters are likely also caused by the stellar variability\added{,
+since their directions across different quarters are inconsistent}.
+Our NIRC2 imaging independently shows that there are no \added{known
+}neighboring sources that could cause an offset of the observed
+amplitude\added{, as is also the case for Kepler-1643}.
 
 \paragraph{KOI-7913}
 KOI-7913.01 is also currently listed on the NASA Exoplanet Archive as a
