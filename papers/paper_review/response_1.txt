@@ -67,7 +67,9 @@ REVIEWER COMMENT
 Line 280, "Generally speaking, this method is expected": It is not clear that this method of interpolation should be accurate, since it relies on changes occurring linearly in time. Since the ages are quite close to one of the anchors it is probably fine in any case. Please provide a citation or more discussion.
 RESPONSE
 ----------
->
+> We have added the following text: 
+> \added{While in reality stellar populations do not evolve linearly in the dimensions of absolute magnitude versus color, in our case the Cep-Her loci are nearly indistinguishable from IC\,2602 (e.g., Figure~3 of \citet{bouma_kep1627_2022}).  Systematic errors incurred in the age from the non-linear evolution are therefore likely much smaller than the $\approx$10\,Myr systematic uncertainty in the absolute reference age for IC\,2602 itself \citep{david_ages_2015,randich_gaiaeso_2018}.
+
 
 REVIEWER COMMENT
 ----------
@@ -78,14 +80,21 @@ Overall, the discussion of rotation discrepancies in Sec 2.3.2 is not clear and 
 - 13% seems like a lot of pole-on stars for random chance, and at these young ages the amplitudes should almost always be quite large. Rampalli+2021 detects a higher fraction of rotators amongst older Praesepe stars. It seems more likely that the false positive rate is similar to the other sub-associations considered.
 RESPONSE
 ----------
+> - Regarding younger clusters for comparison, please see our response regarding Figure 2, which contains the comparison against IC-2391 and IC-2602, and our reason for not including it in the manuscript.
 >
+> - Regarding M dwarfs, the suggestion to exclude them by cutting at say (BP-RP)0=1.84 (Mamajek's M0V main sequence boundary) would have the following effect.  In RSG-5, it would omit 13 stars currently in the 42 star sample, including the one non-detection, and the one 12.7 day rotator.  The net result would be that 28 stars in RSG-5 would have rotation period detections consistent with being younger than the Pleaides, out of 29 expected.  In CH-2, this cut would omit 10 stars currently in the 19 star sample.  The net result would be that 8 stars in CH-2 would have rotation period detections consistent with being younger than the Pleiades, out of 9 stars expected.   We would prefer to not make this cut, chiefly because of the factor of 2x reduction in the CH-2 rotation sample.  In addition, in our view the rotation periods of the early M-dwarfs are still informative, particularly in the sense that non-detections immediately imply inconsistency with the expected >1% amplitude spot-induced modulations (e.g. Figure 10 of Rebull 2020 2020AJ....159..273R).   We have clarified the wording in the relevant paragraphs of Section 2.3.2 to emphasize the main points, which concern the range of plausible false positive rates from this analysis.  They seem to be at most one in three for CH-2 candidate members, and one in fifteen for candidate RSG-5 members.
+>
+>
+> - Regarding "nearly no field star outliers", which was the relevant phrase, the wording has been adjusted to "only one field star outlier".  Thank you for this helpful comment.
+>
+> - Regarding 87/13%, please see the earlier discussion regarding the sensitivity of this fraction to our blue cutoff boundary, and the adjustment to (BP-RP)0 > 0.6, which yielded a 93% detection rate.  Given the small amplitudes of rotation-induced signals in the bluer regime, this seems like the wiser approach.  Based on the color absolute magnitude diagrams, the false positive rate in the candidate RSG-5 members is quite likely lower than in the candidate δ Lyr or CH-2 members.
 
 REVIEWER COMMENT
 ----------
 The discussion of vsini measurements did not provide adequate details, such as macroturbulence and potential impact of the targets being very young.
 RESPONSE
 ----------
->
+>  FIXME FIXME TODO TODO GET THE MACROTURBULENCE ESTIMATES FOR MAIN SEQUENCE STARS...
 
 REVIEWER COMMENT
 ----------

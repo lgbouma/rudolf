@@ -333,8 +333,8 @@ To visualize the results, in Figure~\ref{fig:XYZvtang} we show
 12{,}436 objects with $D>0.02$ as gray points, and 
 4{,}763 objects with $D>0.10$ as black points.  The 
 $\delta$~Lyr\ cluster is visible at $(l,b)=(68^\circ,15^\circ$)
-and $(v_{l'}, v_b)=(-4.5 ,-4 )\mkms$.  RSG-5 is visible at
-$(l,b)=(83^\circ,6^\circ)$, $(v_{l'}, v_b)=(5.5 ,-3.5 )\mkms$.  Most
+and $(v_{l^*}, v_b)=(-4.5 ,-4 )\mkms$.  RSG-5 is visible at
+$(l,b)=(83^\circ,6^\circ)$, $(v_{l^*}, v_b)=(5.5 ,-3.5 )\mkms$.  Most
 of the other subclusters, including in Cep-Cyg
 ($l,b=90^\circ,7^\circ$) and Cerberus ($l,b=48^\circ,18^\circ$) are
 too small or dispersed to have previously been analyzed in great
@@ -467,16 +467,17 @@ color range to best visualize the region of maximal age information
 content: the pre-main-sequence.
 
 The CAMDs show that for RSG-5, all but one of the candidate
-members are on a tight pre-main-sequence locus.  \added{Quantiatively,
+members are on a tight pre-main-sequence locus.  \added{Quantitatively,
 88/89 stars with $\bpmrpo \geq 1.5$ are consistent with being on the
 pre-main-sequence.} This implies a false
-positive rate of a few percent, at most.  By comparison, our control
+positive rate of a few percent, at most.  In comparison, our control
 sample (the $\delta$~Lyr candidates) has a false positive rate of
 $\approx$12\%, based on the number of stars that photometrically
 overlap with the field population, while being outliers from the bulk
 cluster population.  For CH-2, our membership selection gives 27
 objects in the color range displayed, and 23 of them appear to be
-consistent with being on the pre-main-sequence.  This implies a false
+consistent with being on the pre-main-sequence.  This
+\replaced{implies}{would imply} a false
 positive rate in CH-2 of $\approx$15\%.
 
 Figure~\ref{fig:age} also shows that most RSG-5 and CH-2 members
@@ -505,6 +506,14 @@ that the metallicities of IC\,2602 and the Cep-Her groups (RSG-5,
 CH-2, and the $\delta$~Lyr cluster) are roughly identical.  The
 spectroscopic metallicities that we find in Section~\ref{sec:stars}
 suggest that this is indeed the case.
+\added{While in reality stellar populations do not evolve linearly in
+the dimensions of absolute magnitude versus color, in our case the
+Cep-Her loci are nearly indistinguishable from IC\,2602 (e.g.,
+Figure~3 of \citet{bouma_kep1627_2022}).  Systematic errors incurred
+in the age from the non-linear evolution are therefore likely much
+smaller than the $\approx$10\,Myr systematic uncertainty in the
+absolute reference age for IC\,2602 itself
+\citep{david_ages_2015,randich_gaiaeso_2018}.
 
 
 \subsubsection{Stellar Rotation Periods}
@@ -550,20 +559,23 @@ the lower-left panel of Figure~\ref{fig:age}.  The age interpretation
 for these latter stars, particularly the $\approx$M2.5 dwarf, is not
 obvious.  \citet{rebull_usco_2018} for instance have found numerous
 M-dwarfs with 10-12 day rotation periods at ages of USco
-($\sim$$8$\,Myr), and some \replaced{may}{do} still exist at ages of
+($\sim$$8$\,Myr), and some \deleted{may} still exist at ages of
 LCC ($\sim$$16$\,Myr; \replaced{L.~Rebull
-submitted}{\citealt{2022AJ....164...80R}}).  Regardless, since nearly
-no field star outliers seem to be present on the RSG-5 CAMD, the fact
+submitted}{\citealt{2022AJ....164...80R}}).  Regardless, since
+\replaced{nearly no field star outliers seem}{only one field star
+outlier seems} to be present on the RSG-5 CAMD,
+the fact
 that we do not detect rotation periods for $\approx$\replaced{13}{7}\%
 of stars should perhaps be taken as an indication for the fraction of
 stars for which rotation periods might not be detectable, due to
 {e.g.}, pole-on stars having lower amplitude starspot modulation.
+\added{Field star contamination is another possible contributor.}
 
 For CH-2, 13/19 stars have rotation periods that are obviously faster
 than their counterparts in the Pleiades\deleted{ (68\%)}.  4 stars, not included
 in the preceding numerator, are M-dwarfs with rotation periods between
 10 and 12.5 days.  As previously noted, the age interpretation for
-these M-dwarfs is not obvious.  \added{If none are cluster members,
+these M-dwarfs is \replaced{not obvious}{ambiguous}.  \added{If none are cluster members,
 the rotation period detection fraction is 68\%; if all are members, it
 is 89\%}.
 \replaced{Regardless, the $\approx$15\% false
@@ -573,8 +585,10 @@ periods for $\approx$15\% of its candidate members, even though all of
 its stars appear photometrically consistent with being on a single
 pre-main-sequence locus.}{
 This sets an upper bound on the contamination fraction in our candidate
-CH-2 members at about one in three.  The true value may be as low as 
-one in six, based on the earlier CAMD analysis.
+CH-2 members at about one in three.  Combined with the roughly one in
+six contaminant rate implied by the earlier CAMD analysis, this
+suggests that the sample of candidate CH-2 members is more polluted by
+field stars than the RSG-5 sample.
 }
 
 It is challenging to convert these stellar rotation periods to a
