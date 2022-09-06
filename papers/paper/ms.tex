@@ -513,7 +513,7 @@ Figure~3 of \citet{bouma_kep1627_2022}).  Systematic errors incurred
 in the age from the non-linear evolution are therefore likely much
 smaller than the $\approx$10\,Myr systematic uncertainty in the
 absolute reference age for IC\,2602 itself
-\citep{david_ages_2015,randich_gaiaeso_2018}.
+\citep{david_ages_2015,randich_gaiaeso_2018}.}
 
 
 \subsubsection{Stellar Rotation Periods}
@@ -645,7 +645,14 @@ eff}, \log g, R_\star$) using \texttt{SpecMatch-Emp}
 \citep{yee_SM_2017}, which yielded values in $<$$1$-$\sigma$ agreement
 with those from the cluster-isochrone method.  This approach also
 yielded $[{\rm Fe/H}]=0.13 \pm 0.09$.  Using the broadened synthetic
-templates from \texttt{SpecMatch-Synth} \citep{petigura_cksi_2017}, we
+templates\added{\footnote{The broadening is calculated using the joint
+rotational and macroturbulent broadening kernel from \citet{hirano_2011},
+assuming that the macroturbulent velocity scales with effective temperature similar
+to the prescription from \citet{2014MNRAS.444.3592D}.  The latter assumption could be a 
+source of systematic uncertainty in our equatorial velocity measurements, since
+the macroturbulent velocity could be systematically higher (or lower) on
+the pre-main-sequence than it is for more slowly rotating field stars.}}
+ from \texttt{SpecMatch-Synth} \citep{petigura_cksi_2017}, we
 found $v\sin i = 9.3 \pm 1.0\,\mkms$.  The systemic radial velocity at
 the two epochs was $-9.1 \pm 1.9\,\mkms$ and $-7.8\pm 1.2\,\mkms$
 respectively \citep{chubak_2012}.  To infer the equivalent width of
@@ -683,7 +690,7 @@ library constructed by \citet{Buchhave2012}.  The resulting stellar
 parameters ($T_{\rm eff}, \log g, R_\star$) agreed with those from the
 cluster-isochrone method within $1$-$\sigma$.  Auxiliary
 spectroscopic parameters included the metallicity $[{\rm Fe/H}]= -0.02
-\pm 0.08$, the equatorial velocity $v\sin i = 20.21 \pm 0.50\,\mkms$,
+\pm 0.08$, the equatorial velocity \replaced{$v\sin i = 20.21 \pm 0.50\,\mkms$}{$v\sin i = 20.2 \pm 1.0\,\mkms$},
 and the systemic velocity ${\rm RV}_{\rm sys} = -10.9 \pm 0.2\,\mkms$.
 The Li 6708\AA\ EW measurement procedure yielded ${\rm EW}_{\rm Li} =
 236^{+16}_{-14}$\,m\AA.
