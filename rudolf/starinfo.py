@@ -45,7 +45,7 @@ starinfodict = {
         'Prot': 5.106414,
         'Prot_err': 0.043881,
         'SpT': ['K3V', -7],
-        'Halpha_EW': 120, 'Halpha_EW_perr': 20, 'Halpha_EW_merr': 20
+        'Halpha_EW': 165, 'Halpha_EW_perr': 20, 'Halpha_EW_merr': 20
     },
     "Kepler-1627 A": {
         # HIRES / SM-Emp Median / Bouma+22

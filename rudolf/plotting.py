@@ -4728,6 +4728,13 @@ def plot_halpha(outdir, reference='TucHor'):
     df = Table(hdul[1].data).to_pandas()
     hdul.close()
 
+    fitspath = os.path.join(
+        DATADIR, 'cluster', 'Fang_2018_MNRAS_476_908_Pleiades_378.fits'
+    )
+    hdul = fits.open(fitspath)
+    pdf = Table(hdul[1].data).to_pandas()
+    hdul.close()
+
     #In [10]: Counter([t[0] for t in df['SpT']])
     #Out[10]: Counter({'M': 156, 'K': 42, 'F': 1, 'G': 6})
     sel = (df['SpT'].str.contains("M")) | (df['SpT'].str.contains("K"))
@@ -4753,16 +4760,46 @@ def plot_halpha(outdir, reference='TucHor'):
     ax.scatter(
         sdf[sdf.Mm == 'Y'].SpT_val,
         sdf[sdf.Mm == 'Y'].EWHa,
-        zorder=2,
+        zorder=7,
         label='TucHor (Kraus+14)',
-        c='k', marker='o', s=1.5
+        c='k', marker='o', edgecolors='k', linewidths=0.3, s=6
     )
+    # ax.scatter(
+    #     sdf[sdf.Mm == 'N'].SpT_val,
+    #     sdf[sdf.Mm == 'N'].EWHa,
+    #     zorder=6,
+    #     label='Field (Kraus+14)',
+    #     c='white', marker='o', edgecolors='k', linewidths=0.3, s=4
+    # )
+
+    from cdips.utils.mamajek import get_interp_SpType_from_teff
+
+    #for teff in np.arange(3600, 5300, 100):
+    #    print(get_interp_SpType_from_teff(teff))
+
+    sel_pleaides = (pdf.multi == 0)
+    spdf = pdf[sel_pleaides]
+    pl_teff = spdf.Teff
+    pl_sptypes = [get_interp_SpType_from_teff(T, verbose=False) for T in pl_teff]
+
+    pl_SpT_val = []
+    for v in pl_sptypes:
+        if v.startswith('M'):
+            pl_SpT_val.append(float(v[1:-1]))
+        elif v.startswith('K'):
+            pl_SpT_val.append(float(v[1:-1])-10)
+        else:
+            pl_SpT_val.append(np.nan)
+    spdf['SpT_val'] = pl_SpT_val
+
+    np.random.seed(42)
+    eps = np.random.normal(loc=0,scale=0.05,size=len(spdf))
     ax.scatter(
-        sdf[sdf.Mm == 'N'].SpT_val,
-        sdf[sdf.Mm == 'N'].EWHa,
-        zorder=1,
-        label='Field',
-        c='gray', marker='.', s=5
+        spdf.SpT_val+eps,
+        spdf.EW_Ha,
+        zorder=6,
+        label='Pleiades (Fang+18)',
+        c='white', marker='o', edgecolors='k', linewidths=0.3, s=4
     )
 
     from rudolf.starinfo import starinfodict as sd
@@ -4803,10 +4840,11 @@ def plot_halpha(outdir, reference='TucHor'):
 
     ax.set_xticks([-8,-6,-4,-2,0,2,4,6])
     ax.set_xticklabels(['K2', 'K4', 'K6', 'K8', 'M0', 'M2', 'M4', 'M6'])
+    ax.set_xlim([-9.5, 3])
 
     ax.tick_params(axis='both', which='major', labelsize='small')
 
-    ax.set_ylim((2,-10))
+    ax.set_ylim((2,-6))
 
 
     # set naming options

@@ -129,7 +129,11 @@ Figure 4, H-alpha plot:
 
 RESPONSE
 ----------
+> - We have limited the axis range.
 >
+> - We have updated the markers to be more distinguishable.
+>
+> - Good point regarding the field comparison.  We have replaced it for the Pleaides using the data from Fang+2018, as suggested.
 
 REVIEWER COMMENT
 ----------
