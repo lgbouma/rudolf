@@ -312,27 +312,39 @@ which clusters cannot be fragmented as $25$\,pc in physical space, and
 $25/c$\,\kms\ in velocity.  The minimum cluster size $N$ is set to 10, as
 is $k$, the parameter used to define the ``core distance'' density
 metric. 
+\added{Core distance is the distance to the $k^{\rm th}$ nearest star,
+and therefore $k$ acts as a smoothing parameter, where a larger value
+reduces the influence of local overdensities smaller than the
+scale that interests us.}
 
 The unsupervised clustering in this case yielded 8 distinct subgroups.
-These groups are then used as the ``seed'' populations for the third
-step, which is to search for objects at least as close to the 10$^{\rm
-th}$ nearest HDBSCAN-identified member in space-velocity coordinates.
-This third step yields stars that are spatially and kinematically
-close to the photometrically young stars, but which cannot be
-identified as young based on their positions in the color--absolute
-magnitude diagram.
+These groups are then used as the ``seed'' populations\replaced{ for
+the third step, which is to search for objects at least as close to
+the 10$^{\rm th}$ nearest HDBSCAN-identified member in space-velocity
+coordinates}{, in which the stellar members each have their own
+individually-assigned distances to their tenth-nearest
+photometrically-young neighbor.  Using those distances, we search the
+entire Gaia EDR3 point source catalog for stars that fall within each
+star's 10$^\th$ nearest-neighbor distance}.  This third step yields
+stars that are spatially and kinematically close to the
+photometrically young stars, but which cannot be identified as young
+based on their positions in the color--absolute magnitude diagram.
 
 The outcome of the analysis up to the point of the third step is shown
 in Figure~\ref{fig:XYZvtang}.  To enable a selection cut that filters
 out field-star contaminants, we also compute a weight metric,
 $D$, defined such that the group member with the smallest core
 distance has $D=1$, the group member with the greatest core
-distance has $D=0$, and weights for the other group members are
-log-normally distributed between these two extremes.  After applying a
+distance has $D=0$, and \replaced{weights for the other group members are
+log-normally distributed between these two extremes}{the weight $D$
+scales linearly between the two extremes}.  After applying a
 set of quality cuts on the astrometry and
 photometry\footnote{$\varpi/\sigma_\varpi>5$; $G/\sigma_{G}>50$;
 $G_{\rm RP}/\sigma_{G_{RP}}>20$; $G_{\rm BP}/\sigma_{G_{BP}}>20$}
-this procedure yields $D \sim \log_{10}\mathcal{N}(-1.55,0.61)$.
+this procedure yields \replaced{$D \sim
+\log_{10}\mathcal{N}(-1.55,0.61)$}{a distribution of weights $D$
+that is well described by a log-normal distribution with
+\log_{10}\mathcal{N}(-1.55,0.61)$}.
 To visualize the results, in Figure~\ref{fig:XYZvtang} we show
 12{,}436 objects with $D>0.02$ as gray points, and 
 4{,}763 objects with $D>0.10$ as black points.  \added{These thresholds were

@@ -229,21 +229,26 @@ REVIEWER COMMENT
 *Line 171: core distance metric is not defined, but is quite important per the subsequent paragraph and so should be explained. It would also be helpful to state that larger values of D are better.
 RESPONSE
 ----------
-> RONAN TODO
+> We have added the following clarifying sentence to the manuscript:
+> \added{Core distance is the distance to the $k^{\rm th}$ nearest star, and therefore $k$ acts as a smoothing parameter, where a larger value reduces the influence of local overdensities smaller than the scale that interests us.}
 
 REVIEWER COMMENT
 ----------
 Line 174-175, "at least as close to the 10th nearest": Not clear what this means.
 RESPONSE
 ----------
-> RONAN TODO
+> The relevant sentence has been reworded for clarity.
 
 REVIEWER COMMENT
 ----------
 Line 188: I understand the notation for a normal distribution, but perhaps worth just writing in words instead. I also don't know why D is Gaussian in the first place, but this would presumably be explained by defining the core distance.
 RESPONSE
 ----------
-> RONAN TODO
+> Thank you for this catch -- the wording in the original text had a subtle error. The revised wording is as follows.
+>
+> "To enable a selection cut that filters out field-star contaminants, we also compute a weight metric, $D$, defined such that the group member with the smallest core distance has $D=1$, the group member with the greatest core distance has $D=0$, and the metric $D$ scales linearly between the two extremes.  After applying a set of quality cuts on the astrometry and photometry [...] this procedure yields a distribution of weights $D$ that is well described by a log-normal distribution with \log_{10}\mathcal{N}(-1.55,0.61)$."
+>
+> The original wording incorrectly stated that the "weights for the other group members are log-normally distributed" between the two extremes, while instead the scaling is linear.  The fact that the resulting distributon of weights is well-fit by a log-normal is an emergent property of the HDBScan clustering and our definition of D -- the attached hist_weight.png substantiates the claim that the distribution is "well-described" by such a functional form.
 
 REVIEWER COMMENT
 ----------
