@@ -133,7 +133,7 @@ greatly expanded our knowledge of stellar groups
 \citep[{e.g.},][]{CantatGaudin2018a,KounkelCovey2019,Kerr2021}.
 \replaced{To date these analyses have mostly clustered on stellar
 positions and 2D velocities}{So far, these analyses have mostly
-leveraged 3D stellar positions and 2D on-sky tangential velocities.}.
+leveraged 3D stellar positions and 2D on-sky tangential velocities}.
 One important result has been the discovery of diffuse
 streams and tidal tails comparable in stellar mass to the previously
 known cores of nearby open clusters
@@ -273,10 +273,10 @@ detail, where $v_b$ is the distance-corrected proper motion in the
 direction of increasing galactic latitude, and $v_{l^*}=v_l \cos b$ is
 the distance-corrected proper motion in the direction of increasing
 galactic longitude after accounting for the local tangent plane
-correction.  Some, but not all, of the gradient in the $v_{l^*}$ {\it vs.}~$l$
+correction.  Some, but not all, of the gradient in the $v_{l^*}$ vs.~$l$
 plane can be understood through a projection effect stemming from the
 Sun's motion with respect to the local standard of rest (see also
-Figure 11 by \citet{Zari2018}).  }
+Figure 11 by \citealt{Zari2018}).  }
 In this work, our primary interest in \replaced{the region}{this
 region of sky} stems
 from the fact that a portion of it was observed by Kepler
@@ -475,7 +475,8 @@ The CAMDs show that for RSG-5, all but one of the candidate
 members are on a tight pre-main-sequence locus.  \added{Quantitatively,
 88/89 stars with $\bpmrpo \geq 1.5$ are consistent with being on the
 pre-main-sequence.} This implies a false
-positive rate of a few percent, at most.  In comparison, our \replaced{control}{comparison}
+positive rate of a few percent, at most.  In comparison, our
+\replaced{control}{reference}
 sample (the $\delta$~Lyr candidates) has a false positive rate of
 $\approx$12\%, based on the number of stars that photometrically
 overlap with the field population\deleted{, while being outliers from the bulk
@@ -514,7 +515,7 @@ suggest that this is indeed the case.
 \added{While in reality stellar populations do not evolve linearly in
 the dimensions of absolute magnitude versus color, in our case the
 Cep-Her loci are nearly indistinguishable from IC\,2602 (e.g.,
-Figure~3 of \citet{bouma_kep1627_2022}).  Systematic errors incurred
+Figure~3 of \citealt{bouma_kep1627_2022}).  Systematic errors incurred
 in the age from the non-linear evolution are therefore likely much
 smaller than the $\approx$10\,Myr systematic uncertainty in the
 absolute reference age for IC\,2602 itself
@@ -564,7 +565,7 @@ the lower-left panel of Figure~\ref{fig:age}.  The age interpretation
 for these latter stars, particularly the $\approx$M2.5 dwarf, is not
 obvious.  \citet{rebull_usco_2018} for instance have found numerous
 M-dwarfs with 10-12 day rotation periods at ages of USco
-($\sim$$8$\,Myr), and some \deleted{may} still exist at ages of
+($\sim$$8$\,Myr), and some \deleted{may} still exist at the age of
 LCC ($\sim$$16$\,Myr; \replaced{L.~Rebull
 submitted}{\citealt{2022AJ....164...80R}}).  Regardless, since
 \replaced{nearly no field star outliers seem}{only one field star
@@ -623,7 +624,7 @@ late stages of their pre-main-sequence contraction.
 The adopted stellar parameters are listed in
 Table~\ref{tab:sysparams}.  The stellar surface gravity, radius, mass,
 and density are found by interpolating against the MIST isochrones
-\added{in absolute reddening-corrected $G$-band magnitude as a function of $\bpmrpo$\ color}
+\added{in reddening-corrected absolute $G$-band magnitude as a function of $\bpmrpo$\ color}
 \citep{choi_mesa_2016}.  The statistical uncertainties from this
 technique mostly originate from the parallax uncertainties; the
 systematic uncertainties are taken to be the absolute difference
@@ -665,10 +666,11 @@ respectively\replaced{ \citep{chubak_2012}}{, and was calculated
 following the methods of \citet{chubak_2012}}.  To infer the equivalent width of
 the \ion{Li}{1} 6708\,\AA\ doublet, we followed the procedure
 described by \citet{bouma_2021_ngc2516}. \added{In brief, this
-involved a Monte Carlo procedure in which the continuum normalization
-was allowed to vary through a bootstrap approach based on the local
-scatter, and the line width itself was calculated by integrating a
-single Gaussian over a local window.}  For Kepler-1643, this yielded a
+involved calculating the line width by numerically integrating a
+single best-fit Gaussian over a local window, and estimating the
+uncertainties through a Monte Carlo procedure in which the continuum
+normalization was allowed to vary through a bootstrap approach based
+on the local scatter in the spectra.}  For Kepler-1643, this yielded a
 strong detection: ${\rm EW}_{\rm Li} = 130^{+6}_{-5}$\,m\AA, with
 values consistent at $<$$1$-$\sigma$ between the two epochs.   The
 quoted value does not correct for the \ion{Fe}{1} blend at
@@ -725,7 +727,7 @@ optical passbands.  The two stars are separated in Gaia EDR3 by
 $3\farcs5$ on-sky, and have parallaxes consistent within $1$-$\sigma$
 (with an average $\varpi=3.66 \pm 0.01$\,mas).  The apparent on-sky
 separation is $959 \pm 2$ au.  The Gaia EDR3 proper motions are also
-very similar.  Since two stars were resolved in the Kepler Input
+very similar.  Since the two stars were resolved in the Kepler Input
 Catalog and are roughly one Kepler pixel apart, an accurate crowding
 metric has already been applied in the NASA Ames data products to
 correct the mean flux level \citep{2017ksci.rept....6M}.  This is
@@ -846,14 +848,14 @@ Kepler-1627~A, the observed lithium equivalent width is consistent
 with the stellar effective temperatures and a $\approx40$\,Myr age.
 
 Kepler-1643, in RSG-5, is conspicuously below the 40-50$\,$Myr
-sequence in the left-panel of Figure~\ref{fig:lithium}, though
+sequence in the \replaced{left-panel}{top panel} of Figure~\ref{fig:lithium}, though
 above the field stars (${\rm EW}_{\rm Li} = 130^{+6}_{-5}$\,m\AA).
-added{
+\added{
 Quantitatively, there are 14 reference stars within $\pm$150\,K of Kepler-1643.
 The mean and standard deviation of their lithium EWs is $255 \pm 31$\,m\AA,
 which implies that Kepler-1643 is $4.0$-$\sigma$ discrepant from expectations.
 }
-The right panel shows the comparison against the Pleiades, where
+The \replaced{right}{middle} panel shows \replaced{the}{a} comparison against the Pleiades, where
 Kepler-1643 is more consistent with the observed dispersion in
 lithium.
 
@@ -877,15 +879,15 @@ but a low lithium content?
 
 Our preferred explanation for Kepler-1643's meager lithium 
 content is that the reference sample\added{s} of IC\,2602 and Tuc-Hor
-stars may not fully explore all possible stellar rotation
-periods and lithium equivalent widths at this age.
+stars may not fully explore all possible \deleted{stellar rotation
+periods and }lithium equivalent widths at this age.
 \added{This would be somewhat surprising since over a dozen stars have
 already been analyzed in the relevant effective temperature range.
 However, considering}
 the top panels of Figure~\ref{fig:lithium}, it is \added{also} remarkable that in
 50 million years, stars between $4500$\,K and $5200$\,K go from
 having a tight lithium sequence to one with a dispersion
-$\approx10\times$ greater.  The existence of the Li dispersion in
+$\approx$$10\times$ greater.  The existence of the Li dispersion in
 Pleiades-age K-dwarfs has been known for decades; it has also been
 known that the stars with the largest lithium abundances are also the
 most rapidly rotating
@@ -935,7 +937,7 @@ likely
 explanation is self-absorption: photons near the center of the line
 see a greater optical depth from higher layers of the chromosphere,
 while photons on the wings are too far from the
-rest-wavelength to excite electrons and be re-absorbed in the upper
+rest wavelength to excite electrons and be re-absorbed in the upper
 layers.  The exact details of when a star's atmosphere reaches the
 conditions for such self-absorption require non-local thermal
 equilibrium models of the chromosphere
@@ -1138,10 +1140,11 @@ It bears mentioning that KOI-7368 shows a centroid shift in the
 Kepler-1643.  For KOI-7368, the reported offset is smaller, and less
 \added{formally }significant ($0\farcs2$; 3.0-$\sigma$).  Again, the
 data validation reports show that the shift is caused by a few
-outlying quarters (4, 5, 8, and 12).  Since the remaining data show
+outlying quarters (4, 5, 8, and 12).  Since the remaining
+\replaced{data}{quarters} show
 consistent scatter in their centroid locations, these outlying
 quarters are likely also caused by the stellar variability\added{,
-since their directions across different quarters are inconsistent}.
+because their directions are inconsistent across different quarters}.
 Our NIRC2 imaging independently shows that there are no \added{known
 }neighboring sources that could cause an offset of the observed
 amplitude\added{, as is also the case for Kepler-1643}.
@@ -1234,9 +1237,12 @@ shortly after disk dispersal, also plays a significant role
 \citet{rogers_unveiling_2021} predicted that given a core mass
 distribution peaked at $\approx$$4$\,$M_\oplus$, an ice-poor rock/iron
 core composition, and a typical H/He mass fraction of $\approx$4\%,
-there should be a local maximum in planet occurrence rates at 2 to 3\,$R_\oplus$,
-at times between 10 and 100\,Myr.  The models advanced by
-\citet{gupta_signatures_2020} and \citet{lee_primordial_2021} agree;
+there should be a \added{single} local maximum in planet occurrence rates at 2 to 3\,$R_\oplus$,
+at times between 10 and 100\,Myr. \added{In other words,
+\citet{rogers_unveiling_2021} predict the existence of a ``radius
+mountain'' at these early times, rather than a ``radius valley''.}  The models advanced by
+\citet{gupta_signatures_2020} and \citet{lee_primordial_2021}
+agree\added{ that this local maximum should exist};
 their differences lie in the mechanism for producing the radius
 valley, and in whether a population of rocky planets is predicted to exist
 at the time of disk dispersal. 
@@ -1561,7 +1567,7 @@ D.H. is supported by the Alfred P. Sloan Foundation and NASA (80NSSC19K0597).
 % within the indigenous Hawaiian community.  We are most fortunate to
 % have the opportunity to conduct observations from this mountain.
 %
-% \newline
+%\newline
 %
 
 \software{
@@ -1642,7 +1648,7 @@ D.H. is supported by the Alfred P. Sloan Foundation and NASA (80NSSC19K0597).
     ZTF.
 }
 
-% \clearpage
+\clearpage
 \bibliographystyle{yahapj}                            
 \bibliography{bibliography} 
 
@@ -1710,7 +1716,7 @@ years old, based on the presence of rotational modulation at the
 expected period and amplitude.  
 Of the
 14 confirmed and candidate planets,
-6 failed first filter, and 7 independently failed the second.
+6 failed the first filter, and 7 independently failed the second.
 One object was ambiguous: Kepler-1933.
 This system has a confirmed $\approx$$1.4\,R_\oplus$ planet, a stellar
 rotation period of 6.5\ days, and an effective temperature of $\approx$$5750\,{\rm K}$.  This places it near the upper envelope of the

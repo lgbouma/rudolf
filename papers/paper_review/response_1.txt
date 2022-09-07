@@ -290,7 +290,7 @@ REVIEWER COMMENT
 Line 251: This struck me as an odd use of "control sample" since delta Lyra seems like just another example equivalent to RSG-5 and CH-2
 RESPONSE
 ----------
-> We now call it a "comparison sample".  It is another example, equivalent to RSG-5 and CH-2, except that it was studied in our earlier Kepler-1627 paper, where the explicit comparison against IC-2602 is made.
+> We now call it a "reference sample".  It is indeed another example, equivalent to RSG-5 and CH-2.  The only difference is that it was studied in our earlier Kepler-1627 paper, where the explicit comparison against IC-2602 was made (Figure 3 of that work).
 
 REVIEWER COMMENT
 ----------
@@ -332,7 +332,7 @@ REVIEWER COMMENT
 Line 365: Clarify what is interpolating against the MIST isochrones.
 RESPONSE
 ----------
-> The interpolation is performed in the dimensions of absolute reddening-corrected $G$-band magnitude versus (BP-RP)0 color.  This clarification has been added.
+> The interpolation is performed in the dimensions of reddening-corrected absolute $G$-band magnitude versus (BP-RP)0 color.  This clarification has been added.
 
 REVIEWER COMMENT
 ----------
