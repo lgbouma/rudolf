@@ -163,56 +163,57 @@ REVIEWER COMMENT
 Line 54, "To date...": Sentence meaning unclear. These analyses have focused on positions & velocities? Or have used clustering based on?
 RESPONSE
 ----------
->
+> Sentence has been reworded: \replaced{To date these analyses have mostly clustered on stellar
+positions and 2D velocities}{So far, these analyses have mostly leveraged 3D stellar positions and 2D on-sky tangential velocities.}.
 
 REVIEWER COMMENT
 ----------
 Line 63: Unclear whether "larger" refers to size or kinematic spread, perhaps "more diffuse kinematically" if referring to kinematic spread.
 RESPONSE
 ----------
->
+> Sentence has been reworded as suggested.
 
 REVIEWER COMMENT
 ----------
 Line 70: Consider also citing Arancibia-Silva et al. (2020) which also looked at Li in Psc-Eri
 RESPONSE
 ----------
->
+> Done.
 
 REVIEWER COMMENT
 ----------
 Line 114: Consider adding citations for ages for delta Lyr and RSG-5.
 RESPONSE
 ----------
->
+> The end of Section 2.1 already cites Kerr+21's ages for some of the subgroups.  The relevant citations other than Bouma+2022 (Kepler-1627 / delta Lyr cluster) would be Kounkel & Covey 2019 and Roser+2016.  The Roser+2016 reference is already made in the preceding sentence.  The KC2019 reference we prefer to avoid in reference to the age based on the manual stitching step they used which yielded a very diferent "delta Lyra cluster" (Stephenson-1) than that originally described by Stephenson (1959).  Given the existing citations to the relevant studies, these age citations are not needed.
 
 REVIEWER COMMENT
 ----------
 Line 118: From the information given so far about delta Lyr and RSG-5, I do not know where to look in Zari+2018 figures 11 and 13, so this is not a very useful reference without additional information on the velocities and XY positions.
 RESPONSE
 ----------
->
+> This Zari+2018 reference has been updated to refer to Figure 1, to help the reader know where to look.
 
 REVIEWER COMMENT
 ----------
 Line 122: It is worth noting that Zucker+2022 found that many of the "strings" from Kounkel & Covey are not likely real associations. Obviously, some of the associations K&C identify are real, but the extended groups that are more similar to Cep-Her may more often be artifacts.
 RESPONSE
 ----------
->
+> The Kounkel & Covey 2019 study indeed included many false positives, both in the sense of "clusters" that do not correspond to stars that were ever physically associated, and also in the sense of clusters that do have some "true" core population, but many erroneous field star interlopers.  Zucker et al's argument however was not particularly helpful for our purposes of identifying which are which.  One reason is that for the youngest (<100 Myr) cluster candidates from KC2019, most of the HR diagrams independently show the expected pre-main-sequence M-dwarfs as well as massive stars (http://mkounkel.com/mw3d/hr.html).  It is hard to fake such stellar populations.  Nonetheless, Zucker+2022 did nicely demonstrate the extreme nature of some of the groups in e.g., XY space (https://faun.rc.fas.harvard.edu/czucker/Paper_Figures/String_Gallery_Interactive.html), and for the extended groups older than a few hundred million years, there is almost no independent evidence for their coevality.  Despite this point, for the youngest groups, the KC2019 study to us seems to be more likely an example of why the manual stitching must be treated cautiously, and also for why there are better dimensions to cluster in than those selected in the original study.  A reference has been added to Zucker et al's rebuttal.
 
 REVIEWER COMMENT
 ----------
 Line 130, "identified three of the nearest subpopulations": subpopulations of Cep-Her?
 RESPONSE
 ----------
->
+> Yes, clarification made.
 
 REVIEWER COMMENT
 ----------
 Line 140: Figure 1 reference seems to be specifically to the lower right panel, not both lower panels.
 RESPONSE
 ----------
->
+> The wording in this paragraph has been clarified.
 
 REVIEWER COMMENT
 ----------
@@ -226,140 +227,140 @@ REVIEWER COMMENT
 *Line 171: core distance metric is not defined, but is quite important per the subsequent paragraph and so should be explained. It would also be helpful to state that larger values of D are better.
 RESPONSE
 ----------
->
+> RONAN TODO
 
 REVIEWER COMMENT
 ----------
 Line 174-175, "at least as close to the 10th nearest": Not clear what this means.
 RESPONSE
 ----------
->
+> RONAN TODO
 
 REVIEWER COMMENT
 ----------
 Line 188: I understand the notation for a normal distribution, but perhaps worth just writing in words instead. I also don't know why D is Gaussian in the first place, but this would presumably be explained by defining the core distance.
 RESPONSE
 ----------
->
+> RONAN TODO
 
 REVIEWER COMMENT
 ----------
 *Line 190-191: Please explain how thresholds of 0.02 and 0.10 were selected.
 RESPONSE
 ----------
->
+> Done; these thresholds were selected visually based on the apparent purity with which they yielded pre-main-sequence stars on a color--absolute magnitude diagram.
 
 REVIEWER COMMENT
 ----------
 *Line 192: vl' not defined
 RESPONSE
 ----------
->
+> Thank you for the typo catch: v_l' was equivalent to v_l*, and has been relabelled as such.  v_l* is also now defined (inre: Line 162 comment).
 
 REVIEWER COMMENT
 ----------
 Line 209: The expected period and amplitude based on stars of what age?
 RESPONSE
 ----------
->
+> For stars at least as young as the Pleiades -- words added.
 
 REVIEWER COMMENT
 ----------
 Line 225: Phrasing makes it sound like Cep-Her candidates observed by Kepler are distinct from those in RSG-5 and CH-2, but I assume they overlap?
 RESPONSE
 ----------
->
+> Yes, there is overlap.  But the set of Cep-Her stars that Kepler observed is a distinct set from the described sets of candidate stars in RSG-5 and CH-2.  The wording has been adjusted.
 
 REVIEWER COMMENT
 ----------
 Line 235: May be useful to readers to specify which part of Gaia Collaboration + 2018 the data filters are listed.
 RESPONSE
 ----------
->
+> We now include a reference to appendix B of Gaia Collaboration+2018.
 
 REVIEWER COMMENT
 ----------
 Line 246: "set the color range" had me looking for a color map, suggest saying "color axis" instead
 RESPONSE
 ----------
->
+> Done
 
 REVIEWER COMMENT
 ----------
 Line 251: This struck me as an odd use of "control sample" since delta Lyra seems like just another example equivalent to RSG-5 and CH-2
 RESPONSE
 ----------
->
+> We now call it a "comparison sample".  It is another example, equivalent to RSG-5 and CH-2, except that it was studied in our earlier Kepler-1627 paper, where the explicit comparison against IC-2602 is made.
 
 REVIEWER COMMENT
 ----------
 Line 253-254: If photometrically overlapping with the field, by definition a star must be an outlier from the cluster sequence, correct? Current wording suggests otherwise, suggest rephrasing.
 RESPONSE
 ----------
->
+> Wording simplified, thank you.
 
 REVIEWER COMMENT
 ----------
 Line 260: Specify overlap is on CAMD.
 RESPONSE
 ----------
->
+> Done, thank you.
 
 REVIEWER COMMENT
 ----------
 Line 359: Stars are referred to by spectral types, but then define ZAMS in terms of mass so it is not possible to compare without additional information about the spectral type of the sun on the ZAMS.
 RESPONSE
 ----------
->
+> We do not entirely understand what, if any, change is requested:  the purpose of these sentences is to give a broad-brush overview of the stellar properties.  The rough implicit understanding that the Sun would be "near" G2V at ZAMS (while in reality perhaps being a little less bright, and a little lower surface gravity) provides the necessary context that the stars being discussed spanning G8V to K6V are less massive than the Sun, and given ~40 Myr ages, therefore on the pre-main-sequence.
 
 REVIEWER COMMENT
 ----------
 *Table 1: Please specify which component of the binary KOI 7913 orbits
 RESPONSE
 ----------
->
+> A table note has been added.
 
 REVIEWER COMMENT
 ----------
 Line 364: From later comparisons with the spectroscopy, it seems that the MIST analysis also returns Teff.
 RESPONSE
 ----------
->
+> Yes -- please see the response to Line 449 below.
 
 REVIEWER COMMENT
 ----------
 Line 365: Clarify what is interpolating against the MIST isochrones.
 RESPONSE
 ----------
->
+> The interpolation is performed in the dimensions of absolute reddening-corrected $G$-band magnitude versus (BP-RP)0 color.  This clarification has been added.
 
 REVIEWER COMMENT
 ----------
 Line 372: Should be stated Teff is also adopted from spectra, not just used to verify previous values.
 RESPONSE
 ----------
->
+> Done.
 
 REVIEWER COMMENT
 ----------
 Line 373, "we acquired spectra": might as well specify they are high resolution optical spectra!
 RESPONSE
 ----------
->
+> Done.
 
 REVIEWER COMMENT
 ----------
 Line 392, citation to Chubak et al.: were these values determined following the methods of those authors, or by comparison to templates from that work?
 RESPONSE
 ----------
->
+> Following their methods; the manuscript has been updated accordingly.
 
 REVIEWER COMMENT
 ----------
 Line 394: Would be helpful to include a one-sentence description of Li measurement.
 RESPONSE
 ----------
->
+> Done.
 
 REVIEWER COMMENT
 ----------
@@ -379,7 +380,7 @@ RESPONSE
 > KOI-7913 A: 4286 +/- 144 K
 > KOI-7913 B 4006 +/- 335 K.
 > As discussed in the second paragraph of Section 3, the quoted values are from MIST, while the uncertainties are a quadrature sum of a statistical and systematic component (where the latter is from the absolute difference between the PARSEC and MIST isochrones).  For KOI-7913 B, this systematic component is higher than for any other stars, because MIST gives Teff_MIST = 4005 +75 -73 K, while PARSEC gives Teff_PARSEC = 3679 +95 -60 K.  This is most likely due to different assumptions in the MIST and PARSEC models for how to treat young M-dwarfs.  The MIST models have known discrepancies between their synthetic photometry and observed open cluster data (e.g., Choi+2016 Section 8).  Possible explanations include starspots, or incomplete molecular line lists (e.g., Mann+2013, Rajpurohit+2013). The PARSEC isochrones might be a better choice for the lowest mass stars (KOI-7913A and KOI-7913B), since Chen et al (2014) implemented an empirical temperature-opacity calibration into the PARSEC models to create synthetic photometry that matches available data.  See for instance "hr_parsec_7913b.png" and "hr_mist_7913b.png" attached -- the 39.8 Myr MIST model diverges from the IC2602 and delta-Lyr loci at BP-RP>~1.6.  In comparison, the 39.8 Myr PARSEC model fits the observed locus down to BP-RP~=2.0.  
-> Three additional plots are also included in the response: smemp_koi7913B.png, smemp_koi7913A.png, and smemp_kepler1643.png.  These plots give some diagnostic understanding of how SpecMatch-Empirical performs for these stars.  Note that a chi^2 of 5 corresponds to a reduced chi^2 of 1 in this model.  While the KOI-7913B spectrum is still the worst fit(!), our prefernce is for calibrating our reported effective temperatures to the HIRES spectral library, rather than to the isochronal method.  Any suggestions on possible methodological improvements would be appreciated.
+> Three additional plots are also included in the response: smemp_koi7913B.png, smemp_koi7913A.png, and smemp_kepler1643.png.  These plots give some diagnostic understanding of how SpecMatch-Empirical performs for these stars.  Note that a chi^2 of 5 corresponds to a reduced chi^2 of 1 in this model.  While the KOI-7913B spectrum is still the worst fit(!), our preference is for calibrating our reported effective temperatures to the HIRES spectral library, rather than to the isochronal method.  Any suggestions on possible methodological improvements would be appreciated.
 
 REVIEWER COMMENT
 ----------

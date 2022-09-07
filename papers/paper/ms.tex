@@ -1,8 +1,8 @@
 %\documentclass[12pt,modern,twocolumn,tighten]{aastex63}
 %\documentclass[12pt,twocolumn]{aastex63}
 %\documentclass[12pt,modern,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
-%\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
-\documentclass[12pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
+\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
+%\documentclass[12pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 \usepackage{amsmath,amstext,amssymb}
 \usepackage[T1]{fontenc}
 \usepackage{apjfonts}
@@ -130,23 +130,25 @@ lithium content, x-ray activity, and emission line strength
 
 In this work, we leverage recent analyses of the Gaia data, which have
 greatly expanded our knowledge of stellar groups
-\citep[{e.g.},][]{CantatGaudin2018a,KounkelCovey2019,Kerr2021}.  To
-date these analyses have mostly clustered on stellar positions and 2D
-velocities.  One important result has been the discovery of diffuse
+\citep[{e.g.},][]{CantatGaudin2018a,KounkelCovey2019,Kerr2021}.
+\replaced{To date these analyses have mostly clustered on stellar
+positions and 2D velocities}{So far, these analyses have mostly
+leveraged 3D stellar positions and 2D on-sky tangential velocities.}.
+One important result has been the discovery of diffuse
 streams and tidal tails comparable in stellar mass to the previously
 known cores of nearby open clusters
 \citep{meingast_psceri_2019,Meingast2021,gagne_number_2021}.  Even
 though these streams are spread over tens to hundreds of parsecs,
 their velocity dispersions can remain coherent at the $\sim$1\kms\
 level.  Internal dynamics and projection effects can also drive them
-to be much larger: in the Hyades, stars in the tidal tails are
+to be much \replaced{larger}{more kinematically diffuse}: in the Hyades, stars in the tidal tails are
 expected to span up to $\pm 40\mkms$ in velocity relative to the
 cluster center \citep{jerabkova_800_2021}.  The stars in such diffuse
 regions can be verified to be the same age as the core cluster members
 through analyses of color--absolute magnitude diagrams
 \citep{KounkelCovey2019}, stellar rotation periods
 \citep{curtis_tess_2019,bouma_2021_ngc2516}, and chemical abundances
-\citep{hawkins_2020}.  While there are implications for our
+\citep{hawkins_2020,2020A&A...635L..13A}.  While there are implications for our
 understanding of star formation and cluster evolution
 \citep{dinnbier_tidal_2020}, a separate consequence is that we now
 know the ages of many more stars, including previously known planet
@@ -234,12 +236,14 @@ Each of these clusters was known before Gaia.  Their reported ages are
 between 30 and 60\,Myr.  Early empirical evidence that these two
 clusters could be part of a large and more diffuse population was
 apparent in the Gaia-based photometric analysis of pre-main-sequence
-stars by \citet[][see their Figures~11 and~13]{Zari2018}.  Further
-kinematic connections and complexity were highlighted by
-\citet{KounkelCovey2019}, who included these previously known groups
-in the larger structures dubbed ``Theia~73'' and
-``Theia~96''\footnote{See their visualization online at
-\url{http://mkounkel.com/mw3d/mw2d.html} (accessed 15 March 2022)}.
+stars by \citet[][compare their Figures~11 and~13 to our
+Figure~\ref{fig:XYZvtang}]{Zari2018}.  Further kinematic connections
+and complexity were highlighted by \citet{KounkelCovey2019}, who
+included these previously known groups in the larger structures dubbed
+``Theia~73'' and ``Theia~96''\footnote{See their visualization online
+at \url{http://mkounkel.com/mw3d/mw2d.html} (accessed 15 March
+2022)\added{. Important caveats, particularly for extended groups $\gtrsim 100$\,Myr
+old, were presented by \citet{2022arXiv220514160Z}.}}.
 The connection made by \citet{KounkelCovey2019} between the previously
 known open clusters and the other groups in the region was made as
 part of an unsupervised clustering analysis of the Gaia DR2 positions
@@ -248,7 +252,7 @@ Their results support the idea that there is an overdensity of 30 to
 60\,Myr old stars in this region of the Galaxy.  \citet{Kerr2021}, in
 a volume-limited analysis of the Gaia DR2 point-source catalog out to
 one third of a kiloparsec, identified three of the nearest
-sub-populations, dubbed ``Cepheus-Cygnus'', ``Lyra'', and
+sub-populations\added{ of Cep-Her}, dubbed ``Cepheus-Cygnus'', ``Lyra'', and
 ``Cerberus''.  \citet{Kerr2021} reported ages for each of these
 subgroups between 30 and 35 Myr.
 
@@ -261,7 +265,7 @@ sub-populations identified by \citet{Kerr2021} share a common origin
 has yet to be fully substantiated, but preliminary clustering results
 from the 1\,kpc SPYGLASS analysis (R.~Kerr et al.\ in prep) suggest
 the presence of contiguous stellar populations connecting each of
-these groups in space-velocity coordinates.  In other words, the stars
+these groups in \replaced{space-velocity}{both space and velocity} coordinates.  In other words, the stars
 appear to be comoving, though with a continuous gradient in velocity
 as a function of position\replaced{ (Figure~\ref{fig:XYZvtang}, lower
 panels).}{. The lower panels of Figure~\ref{fig:XYZvtang} show this in
@@ -269,7 +273,7 @@ detail, where $v_b$ is the distance-corrected proper motion in the
 direction of increasing galactic latitude, and $v_{l^*}=v_l \cos b$ is
 the distance-corrected proper motion in the direction of increasing
 galactic longitude after accounting for the local tangent plane
-correction.  Some, but not all, of the gradient in the $v_{l^*}$-$l$
+correction.  Some, but not all, of the gradient in the $v_{l^*}$ {\it vs.}~$l$
 plane can be understood through a projection effect stemming from the
 Sun's motion with respect to the local standard of rest (see also
 Figure 11 by \citet{Zari2018}).  }
@@ -331,14 +335,14 @@ $G_{\rm RP}/\sigma_{G_{RP}}>20$; $G_{\rm BP}/\sigma_{G_{BP}}>20$}
 this procedure yields $D \sim \log_{10}\mathcal{N}(-1.55,0.61)$.
 To visualize the results, in Figure~\ref{fig:XYZvtang} we show
 12{,}436 objects with $D>0.02$ as gray points, and 
-4{,}763 objects with $D>0.10$ as black points.  The 
-$\delta$~Lyr\ cluster is visible at $(l,b)=(68^\circ,15^\circ$)
-and $(v_{l^*}, v_b)=(-4.5 ,-4 )\mkms$.  RSG-5 is visible at
-$(l,b)=(83^\circ,6^\circ)$, $(v_{l^*}, v_b)=(5.5 ,-3.5 )\mkms$.  Most
-of the other subclusters, including in Cep-Cyg
-($l,b=90^\circ,7^\circ$) and Cerberus ($l,b=48^\circ,18^\circ$) are
-too small or dispersed to have previously been analyzed in great
-detail.
+4{,}763 objects with $D>0.10$ as black points.  \added{These thresholds were
+selected visually based on the apparent purity with which they yielded
+pre-main-sequence stars on a color--absolute magnitude diagram.} The
+$\delta$~Lyr\ cluster is visible at $(l,b)=(68^\circ,15^\circ$) and $(v_{l^*},
+v_b)=(-4.5 ,-4 )\mkms$.  RSG-5 is visible at $(l,b)=(83^\circ,6^\circ)$,
+$(v_{l^*}, v_b)=(5.5 ,-3.5 )\mkms$.  Most of the other subclusters, including
+in Cep-Cyg ($l,b=90^\circ,7^\circ$) and Cerberus ($l,b=48^\circ,18^\circ$) are
+too small or dispersed to have previously been analyzed in great detail.
 
 %
 % KOI match numbers from calc_CepHer_group_numbers.py
@@ -355,7 +359,7 @@ potentially consistent with being {\it i)} planets, and {\it ii)}
 $\lesssim 10^8$ years old, we inspected the Kepler data validation
 reports and Robovetter classifications.  Youth was assessed based on
 the presence of rotational modulation at the expected period and
-amplitude \citep[{e.g.},][]{rebull_rotation_2020}. 
+amplitude \added{for stars at least as young as the Pleiades} \citep[{e.g.},][]{rebull_rotation_2020}. 
 Planetary status was assessed through the Robovetter flags, and by
 requiring non-grazing transits with ${\rm S/N}>10$.
 Four objects passed both cuts: Kepler-1627, Kepler-1643, KOI-7368, and
@@ -397,8 +401,9 @@ and we call this latter set of stars ``CH-2'', using the preliminary
 Cep-Her (CH) subgroup identifier from R.~Kerr et al.\ (in prep).
 These cuts yielded
 \nrsgfive\ candidate RSG-5 members, and \nchtwo\ candidate CH-2
-members.  These stars are listed in Appendix~\ref{app:members}, as are
-the Cep-Her candidates that were observed by Kepler. 
+members.  These stars are listed in Appendix~\ref{app:members}, \replaced{as are
+the Cep-Her candidates that were observed by Kepler}{as is the set of Cep-Her
+candidates that was observed by Kepler}.
 %An important
 %consideration, especially for CH-2, is the contamination rate by field
 %stars.  We assess this in the following section.
@@ -451,7 +456,7 @@ stars from the $\delta$~Lyr cluster are from
 \citet{bouma_kep1627_2022}, and the field stars are from the Gaia EDR3
 Catalog of Nearby Stars \citep{gaia_gcns_2021}.  To make these
 diagrams, we imposed the data filtering criteria from
-\citet{GaiaCollaboration2018}, which include binaries
+\citet[][Appendix~B]{GaiaCollaboration2018}, which include binaries
 while omitting artifacts from for instance low
 photometric signal to noise, or a small number of visibility periods.
 We then corrected for extinction using the
@@ -463,25 +468,25 @@ deviation for the reddening of $E(B-V)=0.036\pm0.002$ for RSG-5, and
 $E(B-V)=0.017\pm0.001$ for CH-2.  By way of comparison, in
 \citet{bouma_kep1627_2022} the same query for the $\delta$~Lyr cluster
 yielded $E(B-V)=0.032\pm0.006$.  Finally, for the plots we set the
-color range to best visualize the region of maximal age information
+color \replaced{range}{axis} to best visualize the region of maximal age information
 content: the pre-main-sequence.
 
 The CAMDs show that for RSG-5, all but one of the candidate
 members are on a tight pre-main-sequence locus.  \added{Quantitatively,
 88/89 stars with $\bpmrpo \geq 1.5$ are consistent with being on the
 pre-main-sequence.} This implies a false
-positive rate of a few percent, at most.  In comparison, our control
+positive rate of a few percent, at most.  In comparison, our \replaced{control}{comparison}
 sample (the $\delta$~Lyr candidates) has a false positive rate of
 $\approx$12\%, based on the number of stars that photometrically
-overlap with the field population, while being outliers from the bulk
-cluster population.  For CH-2, our membership selection gives 27
+overlap with the field population\deleted{, while being outliers from the bulk
+cluster population}.  For CH-2, our membership selection gives 27
 objects in the color range displayed, and 23 of them appear to be
 consistent with being on the pre-main-sequence.  This
 \replaced{implies}{would imply} a false
 positive rate in CH-2 of $\approx$15\%.
 
 Figure~\ref{fig:age} also shows that most RSG-5 and CH-2 members
-overlap with the $\delta$~Lyr cluster, and that the groups are
+overlap with the $\delta$~Lyr cluster\added{ on the CAMD}, and that the groups are
 therefore roughly the same age.  To quantify this, we use the method
 introduced by \citet[][their Section~6.3]{gagne_mutau_2020}.  The idea
 is to fit the pre-main-sequence loci of a set of reference clusters,
@@ -618,6 +623,7 @@ late stages of their pre-main-sequence contraction.
 The adopted stellar parameters are listed in
 Table~\ref{tab:sysparams}.  The stellar surface gravity, radius, mass,
 and density are found by interpolating against the MIST isochrones
+\added{in absolute reddening-corrected $G$-band magnitude as a function of $\bpmrpo$\ color}
 \citep{choi_mesa_2016}.  The statistical uncertainties from this
 technique mostly originate from the parallax uncertainties; the
 systematic uncertainties are taken to be the absolute difference
@@ -625,9 +631,9 @@ between the PARSEC \citep{bressan_parsec_2012} and MIST isochrones.
 Reported uncertainties are a quadrature sum of the statistical and
 systematic components. 
 
-To verify these parameters and to analyze youth
+To verify these parameters\added{, determine the stellar effective temperatures,} and to analyze youth
 proxies such as the Li 6708\,\AA\ doublet and H$\alpha$, we acquired
-spectra.  We also acquired high resolution imaging for each system, to
+\added{high resolution optical } spectra.  We also acquired high resolution imaging for each system, to
 constrain the existence of visual companions, including possible bound
 binaries.  We give the system-by-system details in Sections~\ref{subsec:kep1643}
 through~\ref{subsec:koi7913}, and summarize their implications for
@@ -655,15 +661,20 @@ the pre-main-sequence than it is for more slowly rotating field stars.}}
  from \texttt{SpecMatch-Synth} \citep{petigura_cksi_2017}, we
 found $v\sin i = 9.3 \pm 1.0\,\mkms$.  The systemic radial velocity at
 the two epochs was $-9.1 \pm 1.9\,\mkms$ and $-7.8\pm 1.2\,\mkms$
-respectively \citep{chubak_2012}.  To infer the equivalent width of
+respectively\replaced{ \citep{chubak_2012}}{, and was calculated
+following the methods of \citet{chubak_2012}}.  To infer the equivalent width of
 the \ion{Li}{1} 6708\,\AA\ doublet, we followed the procedure
-described by \citet{bouma_2021_ngc2516}.  This yielded a strong
-detection: ${\rm EW}_{\rm Li} = 130^{+6}_{-5}$\,m\AA, with values
-consistent at $<$$1$-$\sigma$ between the two epochs.   The quoted
-value does not correct for the \ion{Fe}{1} blend at 6707.44\,\AA.  Given the purported age and
-effective temperature of the star, the lithium equivalent width is
-somewhat low.  We discuss this in greater depth in
-Section~\ref{subsec:specyouth}.
+described by \citet{bouma_2021_ngc2516}. \added{In brief, this
+involved a Monte Carlo procedure in which the continuum normalization
+was allowed to vary through a bootstrap approach based on the local
+scatter, and the line width itself was calculated by integrating a
+single Gaussian over a local window.}  For Kepler-1643, this yielded a
+strong detection: ${\rm EW}_{\rm Li} = 130^{+6}_{-5}$\,m\AA, with
+values consistent at $<$$1$-$\sigma$ between the two epochs.   The
+quoted value does not correct for the \ion{Fe}{1} blend at
+6707.44\,\AA.  Given the purported age and effective temperature of
+the star, the lithium equivalent width is somewhat low.  We discuss
+this in greater depth in Section~\ref{subsec:specyouth}.
 
 \paragraph{High-Resolution Imaging}
 We acquired adaptive optics imaging of Kepler-1643 on the night of
@@ -765,7 +776,7 @@ because it would have a mass between 10 and
 		\leavevmode
 			\includegraphics[width=0.9\textwidth]{f5.pdf}
 	\end{center}
-	\vspace{-0.6cm}
+	\vspace{-0.5cm}
 	\caption{
     {\bf Spectroscopic youth diagnostics for Kepler-1627, KOI-7368,
     Kepler-1643, and KOI-7913 AB. }
@@ -789,17 +800,17 @@ assess their implications for the stellar ages.
 	\begin{center}
 		\leavevmode
 		\subfloat{
-			\includegraphics[width=0.48\textwidth]{f6a.pdf}
+			\includegraphics[width=0.47\textwidth]{f6a.pdf}
 		}
 	
 		\vspace{-0.35cm}
 		\subfloat{
-			\includegraphics[width=0.48\textwidth]{f6b.pdf}
+			\includegraphics[width=0.47\textwidth]{f6b.pdf}
 		}
 	
 		\vspace{-0.35cm}
 		\subfloat{
-			\includegraphics[width=0.48\textwidth]{f6c.pdf}
+			\includegraphics[width=0.47\textwidth]{f6c.pdf}
 		}
 	\end{center}
 	\vspace{-0.6cm}
@@ -1054,6 +1065,7 @@ captures the planetary parameters about which we care the most.
 
 
 \subsection{Planet Validation}
+\label{subsec:validation}
 
 In the future, it may be possible to obtain independent evidence for
 the planetary nature of the Cep-Her planets, for instance by observing
@@ -1102,7 +1114,7 @@ vetting tests\replaced{. The}{, because the} shifts measured by these tests are
 determined from the in- and out-of-transit flux-weighted centroids.  For stars
 with significant spot-induced variability there is no static baseline in either
 the in- or out-of-transit phases\added{, and so the centroid location may shift
-depending on the combination of the rotation phase combined and the local scene.  Based on
+depending on the rotation phase combined with the local scene.  Based on
 these considerations, the centroid-level diagnostics for Kepler-1643 appear to
 be consistent with the transit signal being localized to the target star}.
 
@@ -1386,8 +1398,8 @@ rests on the premise that non-astrophysical false positives can be
 rejected.  
 This seems to be the case for all three objects, even though
 Kepler-1643 and KOI-7368 
-both show weak centroid offsets between the in
-and out-of-transit phases.  For both cases, the observed shifts
+both show weak centroid offsets \replaced{between the in
+and out-of-transit phases}{in specific quarters}.  For both \replaced{cases}{systems}, the observed shifts
 are consistent with being caused by starspot-induced variability in
 specific quarters spuriously moving the stellar center-of-light.
 Independently, our imaging rules out companion stars with the
