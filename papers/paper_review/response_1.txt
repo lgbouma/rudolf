@@ -2,7 +2,7 @@ Dear Dr. Endl,
 
 We thank you for organizing the review of our paper, and also thank the referee for constructive criticism.  We have considered the remarks of the reviewer carefully and revised our manuscript accordingly.
 
-Below, we have reproduced the relevant portions of the reviewer's report, alongside our responses. The changes are bolded in the attached ms_boldchanges.pdf file, using the trackchanges AASTeX macros. 
+Below, we have reproduced the relevant portions of the reviewer's report, alongside our responses. The changes are bolded in the attached ms_boldchanges.pdf file, using the trackchanges AASTeX macros. The revised text is in the ms.pdf file.
 
 Sincerely,
 
@@ -20,11 +20,11 @@ Figure 1:
 - Why is it important to show the projection of the solar velocity?
 RESPONSE
 ----------
-> - The Kepler field is shown in the top panel of the figure, between l of 70 to 85, and b of 5 to 20.  This approximately corresponds to a cone in XYZ -- in case it helps intution, (l,b)=(90,0) corresponds to the line of X=0.  The resulting concentration of the planets in vl* we believe follows from the clustering in l, which is a direct result of the fraction of space that Kepler surveyed, combined with the solar velocity projection effect (described in point three below).
+> - The Kepler field is shown in the top panel of the figure, between l of 70 to 85, and b of 5 to 20.  This approximately corresponds to a cone in XYZ -- in case it helps intuition, (l,b)=(90,0) corresponds to the line of X=Z=0.  The resulting concentration of the planets in v_l* follows from the narrow range of galactic longitudes that Kepler looked at, and the narrow spread in v_l* at a given galactic longitude.
 >
-> - We have specified in the caption which are the larger and smaller filled circles.
+> - We now specify in the caption which are the larger and smaller filled circles.
 >
-> - We have briefly summarized in the first paragraph of section 2.2 why we have shown the projection of the solar velocity: it is because we are interested in how much of the spread in v_l* it might explain.  The short answer is "some of it, but not all of it".  To give a more complete explanation: the Sun moves at ~17 km/s toward (l,b)=(53deg,23deg), relative to a hypothetical circular orbit around the center of the galaxy.  This means that in our observed frame, nearby stars on average appear to move opposite this direction.  At l=53 and 53+180 degrees, the effect does not influence v_l.  At l=53+90 degrees, the effect on v_l is maximized, with amplitude = v_LSR = 17 km/s.  The minimum is at l=53+270 degrees.  Figure 11 of Zari, Brown et al 2018 provides an example for how much of the variance in observed v_l can be ascribed to this projection effect for stars near the galactic plane.  The lower-right panel of our Figure 1 however shows that while the LSR projection accounts for some of the change in observed v_l* in Cep-Her, the data and the gray band do not match!  There therefore needs to be some intrinsic differences in the UVW velocities of these stars (though v_r, v_phi, and v_z is perhaps the better coordinate system).
+> - We have briefly summarized in the first paragraph of section 2.2 why we have shown the projection of the solar velocity: it is because we are interested in how much of the spread in v_l* it might explain.  The short answer is "some of it, but not all of it".  To give a more complete explanation: the Sun moves at ~17 km/s toward (l,b)=(53deg,23deg), relative to a hypothetical circular orbit around the center of the galaxy.  This means that in our observed frame, nearby stars on average appear to move opposite this direction.  At l=53 and 53+180 degrees, the effect does not influence v_l*.  At l=53+90 degrees, the effect on v_l* is maximized, with amplitude = v_LSR = 17 km/s.  The minimum is at l=53+270 degrees.  Figure 11 of Zari, Brown et al 2018 provides an example for how much of the variance in observed v_l* can be ascribed to this projection effect for stars near the galactic plane.  The lower-right panel of our Figure 1 however shows that while the LSR projection accounts for some of the change in observed v_l* in Cep-Her, the data and the gray band do not match!  There therefore needs to be some intrinsic differences in the UVW velocities of these stars (though v_r, v_phi, and v_z is perhaps the better coordinate system).
 
 REVIEWER COMMENT
 ----------
@@ -40,11 +40,11 @@ RESPONSE
 ----------
 > Thank you for this comment -- it has helped us assess the false positive rates in RSG-5 more closely.
 >
-> In the color versus absolute magnitude diagram (CAMD), let us use (BP-RP)0 = 1.5 as the dividing line, redward of which stars can be easily seen to be on the pre-main-sequence (or at least elevated relative to typical field stars of the same color).  For RSG-5, there are 89 stars with (BP-RP)0 > 1.5.  One of them falls on the "field star" locus; the others fall on the pre-main-sequence locus.  This implies that, photometrically, 88/89= 98.9% of the candidate RSG-5 members redward of (BP-RP)0=1.5 are photometrically consistent with being on the pre-main-sequence.
+> In the color versus absolute magnitude diagram (CAMD), let us use (BP-RP)0 = 1.5 as the dividing line, red-ward of which stars can be easily seen to be on the pre-main-sequence (or at least elevated relative to typical field stars of the same color).  For RSG-5, there are 89 stars with (BP-RP)0 > 1.5.  One of them falls on the "field star" locus; the others fall on the pre-main-sequence locus.  This implies that, photometrically, 88/89= 98.9% of the candidate RSG-5 members red-ward of (BP-RP)0=1.5 are photometrically consistent with being on the pre-main-sequence.
 >
-> Regarding more massive stars, yes, there are plenty: see hr_rsg5.png attached to the response.  The caption of Figure 2 already explicitly states "The range of colors is truncated to emphasize the pre-main-sequence."  The manuscript also has a sentence "Finally, for the plots we set the color range to best visualize the region of maximal age information content: the pre-main-sequence."  But yes, we cannot determine whether these stars more massive than ~K2V are young based on their location in the CAMD.  We can and do use stellar rotation.
+> Regarding more massive stars, yes, there are plenty: see hr_rsg5.png attached to the response.  The caption of Figure 2 already explicitly states "The range of colors is truncated to emphasize the pre-main-sequence."  The manuscript also has a sentence "Finally, for the plots we set the color [axis] to best visualize the region of maximal age information content: the pre-main-sequence."  But yes, we cannot determine whether these stars more massive than ~K2V are young based on their location in the CAMD.  We can and do use stellar rotation.
 >
-> Using stellar rotation, we previously wrote in Section 2.3.2 that in RSG-5 41/47 stars have rotation periods consistent with being at least as fast as the Pleiades (87%).  Of the six inconsistent stars, two are the M-dwarfs previously discussed in the text.  The new point that emerged from our reanalysis concerns the other four stars without any detectable rotation period: three of them were the bluest three stars in our sample!  This implies that our blue cutoff was too lenient -- the amplitudes of spot-induced modulation plummet for young stars blueward of the Kraft break (eg. Figure 10 in Rebull+2020, 2020AJ....159..273R).  We have propagated this through the manuscript: we now require (BP-RP)0 > 0.6, and G < 16; the previous cutoff was (BP-RP)0 > 0.5.  The corresponding fraction of RSG-5 stars for which detected rotation periods is 39 detections / 42 expected, i.e. 93%.  
+> Using stellar rotation, we previously wrote in Section 2.3.2 that in RSG-5 41/47 stars have rotation periods consistent with being at least as fast as the Pleiades (87%).  Of the six inconsistent stars, two are the M-dwarfs previously discussed in the text.  The new point that emerged from our reanalysis concerns the other four stars without any detectable rotation period: three of them were the bluest three stars in the sample!  This implies that our blue cutoff was too lenient -- the amplitudes of spot-induced modulation plummet for young stars blue-ward of the Kraft break (eg. Figure 10 in Rebull+2020, 2020AJ....159..273R).  We have propagated this through the manuscript: we now require (BP-RP)0 > 0.6, and G < 16; the previous cutoff was (BP-RP)0 > 0.5.  The corresponding fraction of RSG-5 stars for which detected rotation periods is 39 detections / 42 expected, i.e. 93%.  
 >
 > The manuscript has been adjusted following this discussion, including the quantitative statements regarding the pre-main-sequence K and M dwarfs, as well as the rapidly-rotating FGK stars.
 
@@ -68,7 +68,7 @@ Line 280, "Generally speaking, this method is expected": It is not clear that th
 RESPONSE
 ----------
 > We have added the following text: 
-> \added{While in reality stellar populations do not evolve linearly in the dimensions of absolute magnitude versus color, in our case the Cep-Her loci are nearly indistinguishable from IC\,2602 (e.g., Figure~3 of \citet{bouma_kep1627_2022}).  Systematic errors incurred in the age from the non-linear evolution are therefore likely much smaller than the $\approx$10\,Myr systematic uncertainty in the absolute reference age for IC\,2602 itself \citep{david_ages_2015,randich_gaiaeso_2018}.
+> \added{While in reality stellar populations do not evolve linearly in the dimensions of absolute magnitude versus color, in our case the Cep-Her loci are nearly indistinguishable from IC\,2602 (e.g., Figure~3 of \citealtt{bouma_kep1627_2022}).  Systematic errors incurred in the age from the non-linear evolution are therefore likely much smaller than the $\approx$10\,Myr systematic uncertainty in the absolute reference age for IC\,2602 itself \citep{david_ages_2015,randich_gaiaeso_2018}.
 
 
 REVIEWER COMMENT
@@ -82,7 +82,7 @@ RESPONSE
 ----------
 > - Regarding younger clusters for comparison, please see our response regarding Figure 2, which contains the comparison against IC-2391 and IC-2602, and our reasons for not including it in the manuscript.
 >
-> - Regarding M dwarfs, the suggestion to exclude them by cutting at say (BP-RP)0=1.84 (Mamajek's M0V main sequence boundary) would have the following effect.  In RSG-5, it would omit 13 stars currently in the 42 star sample, including the one non-detection, and the one 12.7 day rotator.  The net result would be that 28 stars in RSG-5 would have rotation period detections consistent with being younger than the Pleaides, out of 29 expected.  In CH-2, this cut would omit 10 stars currently in the 19 star sample.  The net result would be that 8 stars in CH-2 would have rotation period detections consistent with being younger than the Pleiades, out of 9 stars expected.   We would prefer to not make this cut, chiefly because of the factor of 2x reduction in the CH-2 rotation sample, which would weaken its statistical power.  In our view, the rotation periods of the early M-dwarfs are still informative, particularly in the sense that non-detections would imply inconsistency with the expected >1% amplitude spot-induced modulations (e.g. Figure 10 of Rebull 2020 2020AJ....159..273R).  We have clarified the wording in the relevant paragraphs of Section 2.3.2 to emphasize the main points, which concern the range of plausible false positive rates based on the rotation period analysis.  The contamination rates seem to be at most one in three for CH-2 candidate members, and one in fifteen for candidate RSG-5 members.
+> - Regarding M dwarfs, the suggestion to exclude them by cutting at say (BP-RP)0=1.84 (Mamajek's M0V main sequence boundary) would have the following effect.  In RSG-5, it would omit 13 stars currently in the 42 star sample, including the one non-detection, and the one 12.7 day rotator.  The net result would be that 28 stars in RSG-5 would have rotation period detections consistent with being younger than the Pleaides, out of 29 expected.  In CH-2, this cut would omit 10 stars currently in the 19 star sample.  The net result would be that 8 stars in CH-2 would have rotation period detections consistent with being younger than the Pleiades, out of 9 stars expected.   We would prefer to not make this cut, chiefly because of the factor of 2x reduction in the CH-2 rotation sample, which would weaken its statistical power more than necessary.  In our view, the rotation periods of the early M-dwarfs are still informative, particularly in the sense that non-detections would imply inconsistency with the expected >1% amplitude spot-induced modulations (see again Figure 10 of Rebull 2020 2020AJ....159..273R).  We have clarified the wording in the relevant paragraphs of Section 2.3.2 to emphasize the main points, which concern the range of plausible false positive rates based on the rotation period analysis.  The contamination rates seem to be at most one in three for CH-2 candidate members, and one in fifteen for candidate RSG-5 members.
 >
 > - Regarding "nearly no field star outliers", which was the relevant phrase, the wording has been adjusted to "only one field star outlier".
 >
@@ -97,7 +97,7 @@ RESPONSE
 >
 > \footnote{The broadening is calculated using the joint rotational and macroturbulent broadening kernel from \citet{hirano_2011}, assuming that the macroturbulent velocity scales with effective temperature similar to the prescription from \citet{2014MNRAS.444.3592D}.  The latter assumption could be a source of systematic uncertainty in our equatorial velocity measurements, since the macroturbulent velocity could be systematically higher (or lower) on the pre-main-sequence than it is for more slowly rotating field stars.}
 >
-> We have also corrected the number of significant figures in the KOI-7368 vsini, and imposed an uncertainty floor of 1 km/s. 
+> Relatedly, we have corrected the number of significant figures in the KOI-7368 vsini, and imposed an uncertainty floor of 1 km/s. 
 
 REVIEWER COMMENT
 ----------
@@ -112,13 +112,13 @@ RESPONSE
 ----------
 > - The wording at L456 has been updated as follows: "The primary showed lithium in absorption with ${\rm EW}_{\rm Li} = 65^{+8}_{-6}$\,m\AA, while the secondary had a marginal detection of ${\rm EW}_{\rm Li} = 42^{+12}_{-19}$\,m\AA."
 >
-> - The wording at L497 has similary been adjusted.
+> - The wording at L497 has similarly been adjusted.
 >
-> - Regarding the 1% false postive rate, we have previously addressed that photometrically, 88/89= 98.9% of the candidate RSG-5 members redward of (BP-RP)0=1.5 are consistent with being on the pre-main-sequence.  Based on rotation periods, the relevant fraction was 39/42 (93%).  The detection process for stellar rotation periods is more complicated than that for measuring a star's brightness and color, so our initial wording of "$\approx 1\%$ false positive probability" seems accurate.  We have nonetheless replaced the text with the term "few-percent false positive probability".  This does not change the conclusion, which is based on both the FPP from the spatio-kinematic selection, as well as the chance of selecting an interloping field star at this color with a sub-Pleiades rotation period.
+> - Regarding the 1% false positive rate, we have previously addressed that photometrically, 88/89= 98.9% of the candidate RSG-5 members red-ward of (BP-RP)0=1.5 are consistent with being on the pre-main-sequence.  Based on rotation periods, the relevant fraction was 39/42 (93%).  The detection process for stellar rotation periods is more complicated than that for measuring a star's brightness and color, so our initial wording of "$\approx 1\%$ false positive probability" seems accurate.  We have nonetheless updated the text with the term "few-percent false positive probability".  This does not change the conclusion, which is based on both the FPP from the spatio-kinematic selection, as well as the chance of randomly selecting an interloping field star at this color with a sub-Pleiades rotation period.
 >
 > - We have added a sentence quantifying the discrepancy: "Quantitatively, there are 14 reference stars within $\pm$150\,K of Kepler-1643.  The mean and standard deviation of their lithium EWs is $255 \pm 31$\,m\AA, which implies that Kepler-1643 is $4.0$-$\sigma$ discrepant from expectations."  We have also added sentences indicating that given these ~dozen stars, an anomalous Li EW scatter would indeed be surprising.  However, in our view it remains the most plausible interpretation.  The suggested alternative of differences in overall metallicity seems unlikely because the [Fe/H] abundances measured for the Kepler Objects of Interest are all near-solar.
 >
-> - In constructing this response, a typo was correct: the manuscript previously referenced Randich+2018 for the lithium sample in IC-2602.  The correct reference is Randich+2001.  We did consider the Randich+2018 study, but the results were qualitatively the same, but with less clearly stated uncertainties on the equivalent width measurements, and a selection function (their Figure 1b) that we did not want to impose.
+> - In constructing this response, a typo was noticed and corrected: the manuscript previously referenced Randich+2018 for the lithium sample in IC-2602.  The correct reference is Randich+2001.  We did consider the Randich+2018 study, but the results were more challenging to interpret because that study had less clearly stated uncertainties on the equivalent width measurements, and a selection function (their Figure 1b) that we did not want to impose.
 
 REVIEWER COMMENT
 ----------
@@ -133,7 +133,7 @@ RESPONSE
 >
 > - We have updated the markers to be more distinguishable.
 >
-> - Good point regarding the field comparison.  We have replaced it for the Pleaides using the data from Fang+2018, as suggested.
+> - Good point regarding the field comparison.  We have replaced it for the Pleiades using the data from Fang+2018, as suggested.
 
 REVIEWER COMMENT
 ----------
@@ -144,16 +144,16 @@ The discussion of centroid offsets could use further elaboration.
 
 RESPONSE
 ----------
-> The Data Validation Summaries for the KOIs are available at the following links, for reference.
+> For reference, the relevant Data Validation Summaries for the KOIs are available at the following links.
 > Kepler-1643: https://exoplanetarchive.ipac.caltech.edu/data/KeplerData/008/008653/008653134/dv/kplr008653134-001-20160209194854_dvs.pdf
 > KOI-7368: https://exoplanetarchive.ipac.caltech.edu/data/KeplerData/010/010736/010736489/dv/kplr010736489-001-20160209194854_dvs.pdf
 > KOI-7913: https://exoplanetarchive.ipac.caltech.edu/data/KeplerData/008/008873/008873450/dv/kplr008873450-006-20160209194854_dvs.pdf
 >
-> - Re: 0.4" and "good values", \citet{bryson_2013} showed that for typical field star KOIs without centroid offsets, the mean offset distribution peaks at 0.3$''$ (their Figure 23).  By comparison, stars with centroid offsets that can be localized to nearby stars have a distribution that peaks at 7$''$ (their Figure 32).  The stellar variability in Kepler-1643 complicates the centroid-based vetting tests, because the shifts measured by these tests are determined from the in- and out-of-transit flux-weighted centroids.  For stars with significant spot-induced variability there is no static baseline in either the in- or out-of-transit , and so the centroid location may shift depending on the rotational phase combined with the local scene.  Nonetheless, it appears that the centroid-level diagnostics for Kepler-1643 are consistent with the transit signal being localized to the target star, though only at moderate confidence.  We have modified the text to include these points.
+> - Re: 0.4" and "good values", \citet{bryson_2013} showed that for typical field star KOIs without centroid offsets, the mean offset distribution peaks at 0.3$''$ (their Figure 23).  By comparison, stars with centroid offsets that can be localized to nearby stars have a distribution that peaks at 7$''$ (their Figure 32).  The stellar variability in Kepler-1643 complicates the centroid-based vetting tests, because the shifts measured by these tests are determined from the in- and out-of-transit flux-weighted centroids.  For stars with significant spot-induced variability there is no static baseline in either the in- or out-of-transit , and so the centroid location may shift depending on the rotational phase combined with the local scene.  Nonetheless, it appears that the centroid-level diagnostics for Kepler-1643 are consistent with the transit signal being localized to the target star.  We have modified the text to include these points.
 >
-> - Re: what level of centroid shift is concerning -- if the centroid shifts across quarters were consistently >~ 1 arcsecond (and measured at ~0.1 arcsecond precision), and in the same direction across many Kepler quarters, it would be much more concerning.  However the outlier centroid shifts in Kepler-1643 and KOI-7368 appear to be in effectively random directions, which suggests that the stellar rotation and systematic errors in the NASA SPOC pipeline's whitening are more likely to be the root cause.  A few sentences have been modified to this effect.
+> - Re: what level of centroid shift is concerning -- if the centroid shifts across quarters were consistently >~ 1 arcsecond (and measured at ~0.1 arcsecond precision), and in the same direction across many Kepler quarters, it would be concerning.  The measured centroid shifts in Kepler-1643 and KOI-7368 are not that large, and appear to be in effectively random directions, which suggests that the stellar rotation and systematic errors in the NASA SPOC pipeline's whitening are more likely to be the root cause.  A few sentences in the manuscript have been modified to this effect.
 >
-> - Re: methods for establishing whether other stars can create the centroid shift, and Kepler-1643, yes, the same logic applies.  We have added a comment to the manuscript to this effect.  The "established method" for this is the logic laid out by Bryson+2013.  For instance, given the target star T and a neighbor star N separated by distance D, one can calculate the expected centroid shifts for the various scenarios where the target T hosts an eclipse signal of depth δ, and also when the neighbor N hosts the signal.  We do not present these calculations in the text, because there is no evidence that the offset itself is statistically signficant.  Nonetheless, the absence of companions for Kepler-1643 and KOI-7368 does help bolster the interpretation.
+> - Re: methods for establishing whether other stars can create the centroid shift, and Kepler-1643, yes, the same logic applies.  We have added a comment to the manuscript to this effect.  The "established method" for this is the logic laid out by Bryson+2013 (which unfortunately excludes considerations of intrinsic stellar variability).  For instance, given the target star T and a neighbor star N separated by distance D with known flux ratio, one can calculate the expected centroid shifts for the various scenarios where the target T hosts an eclipse signal of depth δ, and also when the neighbor N hosts the signal.  We do not present these calculations in the text, because they would not improve the clarity, and there is no evidence that the offsets themselves are statistically significant.  Nonetheless, the absence of directly resolved companions for Kepler-1643 and KOI-7368 does help bolster the interpretation.
 
 ******************************************
 Reviewer #1 CLARITY, CITATIONS, ETC.
@@ -185,21 +185,23 @@ REVIEWER COMMENT
 Line 114: Consider adding citations for ages for delta Lyr and RSG-5.
 RESPONSE
 ----------
-> The end of Section 2.1 already cites Kerr+21's ages for some of the subgroups.  The relevant citations other than Bouma+2022 (Kepler-1627 / delta Lyr cluster) would be Kounkel & Covey 2019 and Roser+2016.  The Roser+2016 reference is already made in the preceding sentence.  The KC2019 reference we prefer to avoid in reference to the age based on the manual stitching step they used which yielded a very diferent "delta Lyra cluster" (Stephenson-1) than that originally described by Stephenson (1959).  Given the existing citations to the relevant studies, these age citations are not needed.
+> The end of Section 2.1 already cites Kerr+21's ages for some of the subgroups.  The relevant citations other than Bouma+2022 (Kepler-1627 / delta Lyr cluster) would be Kounkel & Covey 2019 and Roser+2016.  The Roser+2016 reference is already made in the preceding sentence.  The KC2019 reference we prefer to avoid in reference to the age based on the manual stitching step they used which yielded a very different "delta Lyra cluster" (Stephenson-1) than that originally described by Stephenson (1959).  Given the existing citations to the relevant studies, these age citations are not needed.
 
 REVIEWER COMMENT
 ----------
 Line 118: From the information given so far about delta Lyr and RSG-5, I do not know where to look in Zari+2018 figures 11 and 13, so this is not a very useful reference without additional information on the velocities and XY positions.
 RESPONSE
 ----------
-> This Zari+2018 reference has been updated to refer to Figure 1, to help the reader know where to look.
+> This Zari+2018 reference has been updated to also refer to our Figure 1, to help the reader know where to look.
 
 REVIEWER COMMENT
 ----------
 Line 122: It is worth noting that Zucker+2022 found that many of the "strings" from Kounkel & Covey are not likely real associations. Obviously, some of the associations K&C identify are real, but the extended groups that are more similar to Cep-Her may more often be artifacts.
 RESPONSE
 ----------
-> The Kounkel & Covey 2019 study indeed included many false positives, both in the sense of "clusters" that do not correspond to stars that were ever physically associated, and also in the sense of clusters that do have some "true" core population, but many erroneous field star interlopers.  Zucker et al's argument however was not particularly helpful for our purposes of identifying which are which.  One reason is that for the youngest (<100 Myr) cluster candidates from KC2019, most of the HR diagrams independently show the expected pre-main-sequence M-dwarfs as well as massive stars (http://mkounkel.com/mw3d/hr.html).  It is hard to fake such stellar populations.  Nonetheless, Zucker+2022 did nicely demonstrate the extreme nature of some of the groups in e.g., XY space (https://faun.rc.fas.harvard.edu/czucker/Paper_Figures/String_Gallery_Interactive.html), and for the extended groups older than a few hundred million years, there is almost no independent evidence for their coevality.  Despite this point, for the youngest groups, the KC2019 study to us seems to be more likely an example of why the manual stitching must be treated cautiously, and also for why there are better dimensions to cluster in than those selected in the original study.  A reference has been added to Zucker et al's rebuttal.
+> A reference has been added to Zucker et al's rebuttal.
+>
+> In more detail, the Kounkel & Covey 2019 study indeed included many false positives, both in the sense of "clusters" that do not correspond to stars that were ever physically associated, and also in the sense of clusters that do have some "true" core population, but many erroneous field star interlopers.  Zucker et al's argument however was not particularly helpful for our purposes of identifying which are which.  One reason is that for the youngest (<100 Myr) cluster candidates from KC2019, most of the HR diagrams independently show the expected pre-main-sequence M-dwarfs as well as massive stars (http://mkounkel.com/mw3d/hr.html).  It is hard to fake such stellar populations.  Nonetheless, Zucker+2022 did nicely demonstrate the extreme nature of some of the groups in e.g., XY space (https://faun.rc.fas.harvard.edu/czucker/Paper_Figures/String_Gallery_Interactive.html). And yes, for the extended groups older than a few hundred million years, there is almost no independent evidence for their coevality.  Despite these points, for the youngest groups, the KC2019 study to us seems to be more likely an example of why the manual stitching must be treated cautiously, and also for why there are better dimensions to cluster in than those selected in the original KC2019 study.  
 
 REVIEWER COMMENT
 ----------
@@ -220,7 +222,7 @@ REVIEWER COMMENT
 *Line 162: vb and vl* not defined
 RESPONSE
 ----------
-> $v_b$ is the distance-corrected proper motion in the direction of increasing galactic latitude, and $v_{l^*}=v_l \cos b$ is the same in the direction of increasing galactic longitude after accounting for the local tangent plane correction.  We have added verbiage to this effect.
+> Thank you for this catch -- $v_b$ is the distance-corrected proper motion in the direction of increasing galactic latitude, and $v_{l^*}=v_l \cos b$ is the same in the direction of increasing galactic longitude after accounting for the local tangent plane correction.  We have added verbiage to this effect.
 
 REVIEWER COMMENT
 ----------
@@ -311,7 +313,7 @@ REVIEWER COMMENT
 Line 359: Stars are referred to by spectral types, but then define ZAMS in terms of mass so it is not possible to compare without additional information about the spectral type of the sun on the ZAMS.
 RESPONSE
 ----------
-> We do not entirely understand what, if any, change is requested:  the purpose of these sentences is to give a broad-brush overview of the stellar properties.  The rough implicit understanding that the Sun would be "near" G2V at ZAMS (while in reality perhaps being a little less bright, and a little lower surface gravity) provides the necessary context that the stars being discussed spanning G8V to K6V are less massive than the Sun, and given ~40 Myr ages, therefore on the pre-main-sequence.
+> We do not entirely understand what, if any, change is requested:  the purpose of these sentences is to give a broad-brush overview of the stellar properties.  The implicit understanding that the Sun would be "near" G2V at ZAMS (while in reality perhaps being a little less bright, and a little lower surface gravity) provides the necessary context that the stars being discussed spanning "G8V to K6V" are less massive than the Sun, and given their ~40 Myr ages, on the late stages of the pre-main-sequence.
 
 REVIEWER COMMENT
 ----------
@@ -374,7 +376,9 @@ REVIEWER COMMENT
 *Line 449: Teff values are only quoted for these two stars, and were not in previous sections, and the subsequent text also implies that for these stars, the spectra-based Teff values disagreed with the isochrone-based values. Either re-phrase, or discuss disagreement.
 RESPONSE
 ----------
-> Thank you for this wording catch -- the text has been updated to clarify that the temperatures as well as the other spectroscopic parameters agreed with the isochrone parameters within 1-sigma.  This is a rather brief way of hiding what in our view is more complicated than what needs to be discussed.  Table 1 states the adopted (spectroscopic) effective temperatures for all the stars.  We reported the spectroscopic effective temperatures in all cases because their formal uncertainties were smaller than those from the isochrone method, and they seemed less model-dependent.  The isochrone method yielded the following effective temperatures for the stars in Table 1:
+> Thank you for this wording catch -- the text has been updated to clarify that the temperatures as well as the other spectroscopic parameters agreed with the isochrone parameters within 1-sigma.
+>
+> This is a rather brief way of hiding what in our view is more complicated than what needs to be discussed in the manuscript.  Table 1 states the adopted (spectroscopic) effective temperatures for all the stars.  We reported the spectroscopic effective temperatures in all cases because their formal uncertainties were smaller than those from the isochrone method, and they seemed less model-dependent.  The isochrone method yielded the following effective temperatures for the stars in Table 1:
 > Kepler-1643: 4878 +/- 140 K
 > KOI-7368: 5135 +/- 162 K
 > KOI-7913 A: 4286 +/- 144 K
