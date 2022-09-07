@@ -5071,7 +5071,7 @@ def plot_CepHer_weights(outdir):
         txt = f"α ~ logN({g_fit.mean.value:.4f}, {g_fit.stddev.value:.4f})"
         ax.set_title(txt)
 
-        ax.set_xlabel('strengths')
+        ax.set_xlabel('strengths [D]')
         ax.set_ylabel('count')
         ax.set_xscale('log')
         ax.set_yscale('linear')
