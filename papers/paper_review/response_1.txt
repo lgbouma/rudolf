@@ -20,11 +20,11 @@ Figure 1:
 - Why is it important to show the projection of the solar velocity?
 RESPONSE
 ----------
-> - The Kepler field is shown in the top panel of the figure, between l of 70 to 85, and b of 5 to 20.  This approximately corresponds to a cone in XYZ -- in case it helps intuition, (l,b)=(90,0) corresponds to the line of X=Z=0.  The resulting concentration of the planets in v_l* follows from the narrow range of galactic longitudes that Kepler looked at, and the narrow spread in v_l* at a given galactic longitude.
+> - The Kepler field is shown with the large gray squares in the top panel of the figure, between l of 70 to 85, and b of 5 to 20.  This approximately corresponds to a cone in XYZ -- in case it helps intuition, (l,b)=(90,0) corresponds to the line of X=Z=0.  The resulting concentration of the planets in v_l* follows from the narrow range of galactic longitudes that Kepler looked at, and the narrow spread in v_l* at a given galactic longitude.
 >
 > - We now specify in the caption which are the larger and smaller filled circles.
 >
-> - We have briefly summarized in the first paragraph of section 2.2 why we have shown the projection of the solar velocity: it is because we are interested in how much of the spread in v_l* it might explain.  The short answer is "some of it, but not all of it".  To give a more complete explanation: the Sun moves at ~17 km/s toward (l,b)=(53deg,23deg), relative to a hypothetical circular orbit around the center of the galaxy.  This means that in our observed frame, nearby stars on average appear to move opposite this direction.  At l=53 and 53+180 degrees, the effect does not influence v_l*.  At l=53+90 degrees, the effect on v_l* is maximized, with amplitude = v_LSR = 17 km/s.  The minimum is at l=53+270 degrees.  Figure 11 of Zari, Brown et al 2018 provides an example for how much of the variance in observed v_l* can be ascribed to this projection effect for stars near the galactic plane.  The lower-right panel of our Figure 1 however shows that while the LSR projection accounts for some of the change in observed v_l* in Cep-Her, the data and the gray band do not match!  There therefore needs to be some intrinsic differences in the UVW velocities of these stars (though v_r, v_phi, and v_z is perhaps the better coordinate system).
+> - We have briefly summarized in the first paragraph of section 2.2 why we have shown the projection of the solar velocity: it is because we are interested in how much of the spread in v_l* it might explain.  The short answer is "some of it, but not all of it".  To give a more complete explanation: the Sun moves at ~17 km/s toward (l,b)=(53deg,23deg), relative to a hypothetical circular orbit around the center of the galaxy.  This means that in our observed frame, nearby stars on average appear to move opposite this direction.  At l=53 and 53+180 degrees, the effect does not influence v_l*.  At l=53+90 degrees, the effect on v_l* is maximized, with amplitude = v_LSR = 17 km/s.  The minimum is at l=53+270 degrees.  Figure 11 of Zari, Brown et al 2018 provides an example for how much of the variance in observed v_l* can be ascribed to this projection effect for stars near the galactic plane.  The lower-right panel of our Figure 1 however shows that while the LSR projection accounts for some of the change in observed v_l* in Cep-Her, the data and the gray band do not match!  There therefore needs to be some intrinsic differences in the UVW velocities of these stars (though v_r, v_phi, and v_z may perhaps the better coordinate system).
 
 REVIEWER COMMENT
 ----------
@@ -248,7 +248,7 @@ RESPONSE
 >
 > "To enable a selection cut that filters out field-star contaminants, we also compute a weight metric, $D$, defined such that the group member with the smallest core distance has $D=1$, the group member with the greatest core distance has $D=0$, and the metric $D$ scales linearly between the two extremes.  After applying a set of quality cuts on the astrometry and photometry [...] this procedure yields a distribution of weights $D$ that is well described by a log-normal distribution with \log_{10}\mathcal{N}(-1.55,0.61)$."
 >
-> The original wording incorrectly stated that the "weights for the other group members are log-normally distributed" between the two extremes, while instead the scaling is linear.  The fact that the resulting distributon of weights is well-fit by a log-normal is an emergent property of the HDBScan clustering and our definition of D -- the attached hist_weight.png substantiates the claim that the distribution is "well-described" by such a functional form.
+> The original wording incorrectly stated that the "weights for the other group members are log-normally distributed" between the two extremes, while instead the scaling is linear.  The fact that the resulting distribution of weights is well-fit by a log-normal is an emergent property of the HDBScan clustering and our definition of D -- the attached hist_weight.png substantiates the claim that the distribution is "well-described" by such a functional form.
 
 REVIEWER COMMENT
 ----------
@@ -523,6 +523,6 @@ Other minor changes made to the manuscript include:
 
 * The radius of Kepler-1643b was previously stated in the abstract to be 2.32 +/- 0.14 R_earth.  This was a typo, it is +/- 0.13 R_earth.
 
-* We added the follow text as a note to table 2: "\added{Users who wish to minimize field star contamination should apply more restrictive weight cuts, {\it e.g.}, $\texttt{weight}>0.1$.}"
+* We added the following text as a note to table 2: "\added{Users who wish to minimize field star contamination should apply more restrictive weight cuts, {\it e.g.}, $\texttt{weight}>0.1$.}"
 
-* We have modified the axis width on all figures for visual clarity.
+* We reduced the axis width on all figures for visual clarity.
