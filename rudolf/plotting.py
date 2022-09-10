@@ -2650,7 +2650,7 @@ def plot_hr(
     #
     from rudolf.priors import AVG_EBpmRp
     tax = ax.twiny()
-    tax.set_xlabel('Spectral Type')
+    #tax.set_xlabel('Spectral Type')
 
     xlim = ax.get_xlim()
     getter = (
@@ -3084,11 +3084,13 @@ def plot_rotationperiod_vs_color(outdir, runid, yscale='linear', cleaning=None,
 
     format_ax(ax)
 
+    ax.set_yticks([0, 5, 10, 15, 20])
+
     #
     # twiny for the SpTypes
     #
     tax = ax.twiny()
-    tax.set_xlabel('Spectral Type')
+    #tax.set_xlabel('Spectral Type')
 
     xlim = ax.get_xlim()
     if runid in ['deltaLyrCluster', 'RSG-5', 'CH-2'] :
