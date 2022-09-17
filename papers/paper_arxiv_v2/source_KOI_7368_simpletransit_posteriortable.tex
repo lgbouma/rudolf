@@ -1,0 +1,86 @@
+\documentclass[12pt,modern,twocolumn,tighten]{aastex63}
+\usepackage{amsmath,amstext,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage[figure,figure*]{hypcap}
+\usepackage{graphics,graphicx}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage[caption=false]{subfig} % for subfloat
+\usepackage{enumitem} % for specific spacing of enumerate
+\usepackage{epigraph}
+
+\begin{document}
+\pagenumbering{gobble} % removes page number
+% Table of best fit parameters
+%\startlongtable
+\begin{deluxetable*}{lllrrrrrrr}
+	%
+	\tablecaption{ Priors and posteriors for transit model with local
+  polynomials removed.}
+	\label{tab:posterior}
+	%
+	\tabletypesize{\scriptsize}
+	%\tabletypesize{\small}
+	%
+	%\tablenum{2}
+	%
+	\tablehead{
+		\colhead{Param.} & 
+		\colhead{Unit} &
+		\colhead{Prior} & 
+		\colhead{Median} & 
+		\colhead{Mean} & 
+		\colhead{Std{.} Dev.} &
+		\colhead{3\% HDI} &
+		\colhead{97\% HDI} &
+		\colhead{ESS} &
+		\colhead{$\hat{R}-1$}
+	}
+  %
+	\startdata
+$P$ & d & $\mathcal{N}(6.84294; 0.01000)$ & 6.8430344 & 6.8430341 & 0.0000125 & 6.8430107 & 6.8430574 & 10045 & 6.5e-05 \\
+$t_0^{(1)}$ & d & $\mathcal{N}(137.06000; 0.02000)$ & 137.0463 & 137.0463 & 0.0014 & 137.0437 & 137.0489 & 10303 & 9.2e-05 \\
+$\log R_{\rm p}/R_\star$ & -- & $\mathcal{U}(-4.605; 0.000)$ & -3.760 & -3.763 & 0.031 & -3.819 & -3.708 & 4043 & 6.3e-04 \\
+$b$ & -- & $\mathcal{U}(0; 1+R_{\mathrm{p}}/R_\star)$ & 0.508 & 0.500 & 0.064 & 0.380 & 0.612 & 4434 & 3.5e-04 \\
+$u_1$ & -- & Kipping 2013 & 0.98 & 0.95 & 0.27 & 0.43 & 1.42 & 5809 & -5.6e-05 \\
+$u_2$ & -- & Kipping 2013 & -0.19 & -0.16 & 0.31 & -0.66 & 0.42 & 4387 & 2.6e-04 \\
+$R_\star$ & $R_\odot$ & $\mathcal{N}(0.876; 0.035)$ & 0.874 & 0.874 & 0.036 & 0.804 & 0.938 & 9902 & 7.3e-04 \\
+$\log g$ & cgs & $\mathcal{N}(4.499; 0.030)$ & 4.503 & 4.502 & 0.030 & 4.445 & 4.557 & 7527 & 2.7e-05 \\
+$\log \sigma_f$ & -- & $\mathcal{N}(\log\langle \sigma_f \rangle; 2.000)$ & -8.314 & -8.314 & 0.012 & -8.337 & -8.292 & 10636 & 1.3e-03 \\
+$\langle f \rangle$ & -- & $\mathcal{N}(1.000; 0.100)$ & 1.000 & 1.000 & 0.000 & 1.000 & 1.000 & 9742 & -2.9e-04 \\
+$R_{\rm p}/R_\star$ & -- & -- & 0.023 & 0.023 & 0.001 & 0.022 & 0.025 & 4043 & 6.3e-04 \\
+$\rho_\star$ & g$\ $cm$^{-3}$ & -- & 1.87 & 1.88 & 0.15 & 1.59 & 2.16 & 6829 & 3.4e-04 \\
+$R_{\rm p}$ & $R_{\mathrm{Jup}}$ & -- & 0.198 & 0.198 & 0.011 & 0.177 & 0.218 & 5676 & 2.8e-04 \\
+$R_{\rm p}$ & $R_{\mathrm{Earth}}$ & -- & 2.22 & 2.22 & 0.12 & 1.98 & 2.44 & 5676 & 2.8e-04 \\
+$a/R_\star$ & -- & -- & 16.67 & 16.68 & 0.45 & 15.86 & 17.54 & 6829 & 3.3e-04 \\
+$\cos i$ & -- & -- & 0.030 & 0.030 & 0.004 & 0.022 & 0.038 & 4518 & 5.4e-04 \\
+$T_{14}$ & hr & -- & 2.79 & 2.79 & 0.07 & 2.65 & 2.93 & 4845 & 5.0e-04 \\
+$T_{13}$ & hr & -- & 2.62 & 2.62 & 0.08 & 2.47 & 2.78 & 4575 & 3.1e-04 \\
+	\enddata
+	%
+	\tablecomments{
+		ESS refers to the number of effective samples.
+		$\hat{R}$ is the Gelman-Rubin convergence diagnostic.
+		Logarithms in this table are base-$e$.
+		$\mathcal{U}$ denotes a uniform distribution,
+		and $\mathcal{N}$ a normal distribution.
+    Many of the $T_{13}$ statistics may be \texttt{nan} in the event of a
+    grazing transit.
+		 (1) The ephemeris is in units of BJDTDB.
+		%  (2) Although $\mathcal{U}(0,1+R_{\rm p}/R_\star)$ is formally
+		%  correct, for this model we assumed a non-grazing transit to enable
+		%  sampling in $\log \delta$.
+		%  (3) The eccentricity vectors are sampled in the $(e\cos\omega,
+		%  e\sin\omega)$ plane.
+		%  (4) The true planet size is a factor of $((F_1+F_2)/F_1)^{1/2}$
+		%  larger than that from the fit because of dilution from Kepler
+		%  1627B, where $F_1$ is the flux from the primary, and $F_2$ is that
+		%  from the secondary; the mean and standard deviation of $R_{\rm
+		%  p}=3.817\pm0.158\,R_{\oplus}$ quoted in the text includes this correction,
+		%  assuming $(F_1+F_2)/F_1\approx 1.015$.
+	}
+	\vspace{-0.3cm}
+\end{deluxetable*}
+% hidden entry needed to get pdflatex to work
+\ 
+\end{document}
