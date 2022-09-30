@@ -4871,10 +4871,8 @@ def plot_lithium(outdir, reference='Randich18'):
         rdf = get_Randich18_lithium()
     elif 'Randich01' in reference:
         rdf = get_Randich01_lithium()
-    elif 'Pleiades' in reference:
-        rdf = get_Pleiades_Bouvier17_Jones96_Soderblom93()
-    else:
-        raise NotImplementedError
+    if 'Pleiades' in reference:
+        pdf = get_Pleiades_Bouvier17_Jones96_Soderblom93()
     bdf = get_Berger18_lithium()
 
     if reference == 'Randich18':
@@ -4892,17 +4890,17 @@ def plot_lithium(outdir, reference='Randich18'):
         srdf_lim = srdf[srdf.f_EWLi==3]
         srdf_val = srdf[srdf.f_EWLi==0]
 
-    elif 'Randich01' in reference:
+    elif reference == 'Randich01':
         srdf = rdf
         srdf_lim = srdf[srdf.f_EWLi=='<=']
         srdf_val = srdf[srdf.f_EWLi!='<=']
 
-    elif 'Pleiades' in reference:
-        srdf = rdf
+    elif reference == 'Pleiades':
+        srdf = pdf
         srdf_lim = srdf[srdf.f_EWLi==1]
         srdf_val = srdf[srdf.f_EWLi==0]
 
-    if 'Randich01_TucHorK14M08' in reference:
+    elif reference == 'Randich01_TucHorK14M08':
         tdf = get_Kraus14_Mentuch08_TucHor()
         tdf_lim = tdf[tdf.f_EWLi==1]
         tdf_val = tdf[tdf.f_EWLi==0]
@@ -4916,6 +4914,34 @@ def plot_lithium(outdir, reference='Randich18'):
         srdf_lim = deepcopy(_df_lim)
         srdf_val = deepcopy(_df_val)
 
+    elif reference == 'Pleiades_Randich01_TucHorK14M08':
+
+        # IC2602
+        srdf = rdf
+        srdf_lim = srdf[srdf.f_EWLi=='<=']
+        srdf_val = srdf[srdf.f_EWLi!='<=']
+
+        # TucHor
+        tdf = get_Kraus14_Mentuch08_TucHor()
+        tdf_lim = tdf[tdf.f_EWLi==1]
+        tdf_val = tdf[tdf.f_EWLi==0]
+
+        cols = 'Teff,e_Teff,EWLi,e_EWLi'.split(',')
+
+        # merge IC2602 and Tuc-Hor dataframes
+        import pandas as pd
+        _df_val = pd.concat((srdf_val[cols], tdf_val[cols]))
+        _df_lim = pd.concat((srdf_lim[cols], tdf_lim[cols]))
+
+        srdf_lim = deepcopy(_df_lim)
+        srdf_val = deepcopy(_df_val)
+
+        # Pleiades
+        spdf = deepcopy(pdf)
+        spdf_lim = spdf[spdf.f_EWLi==1]
+        spdf_val = spdf[spdf.f_EWLi==0]
+
+
     # young dictionary
     yd = {
         'val_teff_young': nparr(srdf_val.Teff),
@@ -4927,6 +4953,18 @@ def plot_lithium(outdir, reference='Randich18'):
         'lim_li_ew_young': nparr(srdf_lim.EWLi),
         'lim_li_ew_err_young': nparr(srdf_lim.e_EWLi),
     }
+    if reference == 'Pleiades_Randich01_TucHorK14M08':
+        pd = {
+            'val_teff_young': nparr(spdf_val.Teff),
+            'val_teff_err_young': nparr(spdf_val.e_Teff),
+            'val_li_ew_young': nparr(spdf_val.EWLi),
+            'val_li_ew_err_young': nparr(spdf_val.e_EWLi),
+            'lim_teff_young': nparr(spdf_lim.Teff),
+            'lim_teff_err_young': nparr(spdf_lim.e_Teff),
+            'lim_li_ew_young': nparr(spdf_lim.EWLi),
+            'lim_li_ew_err_young': nparr(spdf_lim.e_EWLi),
+        }
+
     # field dictionary
     # SNR > 3
     field_det = ( (bdf.EW_Li_ / bdf.e_EW_Li_) > 3 )
@@ -4956,7 +4994,7 @@ def plot_lithium(outdir, reference='Randich18'):
     colors = ['k', 'gray']
     zorders = [2, 1]
     markers = ['o', '.']
-    ss = [1.5, 5]
+    ss = [2.5, 5]
     #NGC$\,$2547 & IC$\,$2602
     label = '40-50 Myr' if reference != 'Pleiades' else '112 Myr'
     labels = [label, 'Kepler Field']
@@ -4965,26 +5003,60 @@ def plot_lithium(outdir, reference='Randich18'):
     # plot vals
     for _cls, _col, z, m, l, s in zip(classes, colors, zorders, markers,
                                       labels, ss):
-        if _cls == 'young':
-            ax.errorbar(
-                d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'],
-                yerr=d[f'val_li_ew_err_{_cls}'], c=_col, alpha=alpha,
-                zorder=z, markersize=s, elinewidth=0.35, capsize=0, mew=0.5,
-                rasterized=False, label=l, marker=m, lw=0
-            )
 
-            ax.scatter(
-                d[f'lim_teff_{_cls}'], d[f'lim_li_ew_{_cls}'], c=_col,
-                alpha=alpha,
-                zorder=z+1, s=5*s, rasterized=False, linewidths=0, marker='v'
-            )
+        if reference == 'Pleiades_Randich01_TucHorK14M08':
+            if _cls == 'young':
+                ax.scatter(
+                    d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'],
+                    c=_col, alpha=alpha,
+                    zorder=z, s=s,
+                    rasterized=False, label=l, marker=m, linewidths=0.3
+                )
+
+                ax.scatter(
+                    pd[f'val_teff_{_cls}'], pd[f'val_li_ew_{_cls}'],
+                    c='white', alpha=alpha,
+                    zorder=z-1, s=s,
+                    rasterized=False, label='112 Myr', marker=m, linewidths=0.3,
+                    edgecolors='k'
+                )
+
+                ax.scatter(
+                    d[f'lim_teff_{_cls}'], d[f'lim_li_ew_{_cls}'], c=_col,
+                    alpha=alpha,
+                    zorder=z+1, s=5*s, rasterized=False, linewidths=0, marker='v'
+                )
+
+
+            else:
+                ax.scatter(
+                    d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'], c=_col,
+                    alpha=alpha,
+                    zorder=z, s=s, rasterized=False, linewidths=0, label=l, marker=m
+                )
+
 
         else:
-            ax.scatter(
-                d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'], c=_col,
-                alpha=alpha,
-                zorder=z, s=s, rasterized=False, linewidths=0, label=l, marker=m
-            )
+            if _cls == 'young':
+                ax.errorbar(
+                    d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'],
+                    yerr=d[f'val_li_ew_err_{_cls}'], c=_col, alpha=alpha,
+                    zorder=z, markersize=s, elinewidth=0.35, capsize=0, mew=0.5,
+                    rasterized=False, label=l, marker=m, lw=0
+                )
+
+                ax.scatter(
+                    d[f'lim_teff_{_cls}'], d[f'lim_li_ew_{_cls}'], c=_col,
+                    alpha=alpha,
+                    zorder=z+1, s=5*s, rasterized=False, linewidths=0, marker='v'
+                )
+
+            else:
+                ax.scatter(
+                    d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'], c=_col,
+                    alpha=alpha,
+                    zorder=z, s=s, rasterized=False, linewidths=0, label=l, marker=m
+                )
 
 
     from rudolf.starinfo import starinfodict as sd
