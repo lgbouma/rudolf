@@ -1994,6 +1994,33 @@ def plot_hr(
             edgecolors='k'
         )
 
+    if 'del-Lyr-clean' in clusters:
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', f'del-Lyr_withreddening_{extinctionmethod}.csv'
+        )
+        if not os.path.exists(outpath):
+            MANUALDIR = '/Users/luke/Dropbox/proj/ldb/data/Cep-Her'
+            csvpath = os.path.join(MANUALDIR, 'delLyr.csv')
+            _df = pd.read_csv(csvpath)
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(
+                _df, extinctionmethod=extinctionmethod,
+                savpath=os.path.join(RESULTSDIR,'tables','del-Lyr_stilism.csv')
+            )
+            _df.to_csv(outpath, index=False)
+        _df = pd.read_csv(outpath)
+        #if cleanhrcut:
+        #    _df = _df[get_clean_gaia_photometric_sources(_df)]
+        if reddening_corr:
+            print('del-lyr (hard cuts)')
+            print(_df['reddening[mag][stilism]'].describe())
+
+        l0 = '$\delta$ Lyr candidates'
+        ax.scatter(
+            get_xval(_df), get_yval(_df), c='white', alpha=1, zorder=10,
+            s=s, rasterized=False, label='$\delta$ Lyr', marker='o',
+            edgecolors='k', linewidths=0.5
+        )
+
     if overplotkep1627:
         sel = (df.source_id == 2103737241426734336)
         sdf = df[sel]
@@ -2209,6 +2236,74 @@ def plot_hr(
             s=1.6*s, rasterized=False, label='RSG-5 candidates', marker='o',
             edgecolors=edgecolors, linewidths=0.2
         )
+
+
+    if 'RSG-5-clean' in clusters:
+
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', f'RSG-5-clean_withreddening_{extinctionmethod}.csv'
+        )
+        if not os.path.exists(outpath):
+            MANUALDIR = '/Users/luke/Dropbox/proj/ldb/data/Cep-Her'
+            csvpath = os.path.join(MANUALDIR, 'rsg5.csv')
+            _df = pd.read_csv(csvpath)
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(
+                _df, extinctionmethod=extinctionmethod,
+                savpath=os.path.join(RESULTSDIR,'tables','rsg5-clean_stilism.csv')
+            )
+            _df.to_csv(outpath, index=False)
+        _df = pd.read_csv(outpath)
+        #if cleanhrcut:
+        #    _df = _df[get_clean_gaia_photometric_sources(_df)]
+        if reddening_corr:
+            print('rsg-5 (hard cuts)')
+            print(_df['reddening[mag][stilism]'].describe())
+
+        #c='#ffa873', # orange
+        # magenta, else light blue
+        c = '#ff6eff' if not darkcolors else "#BDD7EC"
+        edgecolors = 'k' if not darkcolors else 'white'
+        ax.scatter(
+            get_xval(_df), get_yval(_df),
+            c=c,
+            alpha=1, zorder=10,
+            s=1.6*s, rasterized=False, label='RSG-5', marker='o',
+            edgecolors=edgecolors, linewidths=0.2
+        )
+
+    if 'Cep Foregnd' in clusters:
+
+        outpath = os.path.join(
+            RESULTSDIR, 'tables', f'CepFgnd-clean_withreddening_{extinctionmethod}.csv'
+        )
+        if not os.path.exists(outpath):
+            MANUALDIR = '/Users/luke/Dropbox/proj/ldb/data/Cep-Her'
+            csvpath = os.path.join(MANUALDIR, 'ch01_cep.csv')
+            _df = pd.read_csv(csvpath)
+            _df = supplement_gaia_stars_extinctions_corrected_photometry(
+                _df, extinctionmethod=extinctionmethod,
+                savpath=os.path.join(RESULTSDIR,'tables','ch01_cep-clean_stilism.csv')
+            )
+            _df.to_csv(outpath, index=False)
+        _df = pd.read_csv(outpath)
+        #if cleanhrcut:
+        #    _df = _df[get_clean_gaia_photometric_sources(_df)]
+        if reddening_corr:
+            print('ch01/cep clean (hard cuts)')
+            print(_df['reddening[mag][stilism]'].describe())
+
+        #c='#ffa873', # orange
+        # magenta, else light blue
+        c = 'cyan'
+        edgecolors = 'k' if not darkcolors else 'white'
+        ax.scatter(
+            get_xval(_df), get_yval(_df),
+            c=c,
+            alpha=1, zorder=10,
+            s=1.6*s, rasterized=False, label='Cep Foreground', marker='o',
+            edgecolors=edgecolors, linewidths=0.2
+        )
+
 
 
     if 'CH-2' in clusters:
