@@ -11,13 +11,18 @@ PLOTDIR = os.path.join(RESULTSDIR, 'hr')
 if not os.path.exists(PLOTDIR):
     os.mkdir(PLOTDIR)
 
+# alpha-Per, for andy
+for smalllims in [1,0]:
+    rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
+               clusters=['α Per', 'IC 2602', 'Pleiades'], reddening_corr=1,
+               smalllims=smalllims)
+assert 0
+
 # show all the known KOIs that are ~40 Myr old
 for smalllims in [1,0]:
     rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
                clusters=['del-Lyr-clean', 'RSG-5-clean', 'Cep Foregnd'], reddening_corr=1,
                show_allknown=1, smalllims=smalllims)
-assert 0
-
 
 # get the isochrones for KOI-7913 and Kepler-1643
 for iso in ['mist', 'parsec']:

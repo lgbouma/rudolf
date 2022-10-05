@@ -596,6 +596,11 @@ def get_mutau_members():
     return sdf
 
 
+def get_alphaPer_members():
+    csvpath = os.path.join(DATADIR, "alpha_Per", "set0_XYZ-vl-vb_cut.csv")
+    return pd.read_csv(csvpath)
+
+
 def get_ScoOB2_members():
 
     from cdips.catalogbuild.vizier_xmatch_utils import get_vizier_table_as_dataframe

@@ -109,6 +109,7 @@ from rudolf.helpers import (
     get_set1_koi7368,
     get_gaia_catalog_of_nearby_stars, get_clustermembers_cg18_subset,
     get_mutau_members, get_ScoOB2_members,
+    get_alphaPer_members,
     get_BPMG_members,
     supplement_gaia_stars_extinctions_corrected_photometry,
     get_clean_gaia_photometric_sources, get_galex_data, get_2mass_data,
@@ -2031,6 +2032,33 @@ def plot_hr(
             markerfacecolor='yellow', markersize=11, marker='*',
             color='black', lw=0
         )
+
+    if 'α Per' in clusters:
+        # already done (trust the dr3 de-reddening)
+        #outpath = os.path.join(
+        #    RESULTSDIR, 'tables', f'alpha-Per_withreddening_{extinctionmethod}.csv'
+        #)
+        #if not os.path.exists(outpath):
+        #    import IPython; IPython.embed()
+        #    _df = supplement_gaia_stars_extinctions_corrected_photometry(
+        #        _df, extinctionmethod=extinctionmethod,
+        #        savpath=os.path.join(RESULTSDIR,'tables','alpha-Per_stilism.csv')
+        #    )
+        #    _df.to_csv(outpath, index=False)
+        #_df = pd.read_csv(outpath)
+        _df = get_alphaPer_members()
+        if cleanhrcut:
+            _df = _df[get_clean_gaia_photometric_sources(_df)]
+        if reddening_corr:
+            print('alpha-Per')
+            print(_df['reddening[mag][stilism]'].describe())
+
+        ax.scatter(
+            get_xval(_df), get_yval(_df), c='cyan', alpha=1, zorder=10,
+            s=s, rasterized=False, label='alpha-Per', marker='o',
+            edgecolors='k', linewidths=0.1
+        )
+
 
     if 'UCL' in clusters:
         outpath = os.path.join(

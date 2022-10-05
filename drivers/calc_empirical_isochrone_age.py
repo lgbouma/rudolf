@@ -63,6 +63,11 @@ def _get_ic2602():
     mdf = _df.merge(ruwe_df, how='left', on='source_id')
     return mdf
 
+def _get_alphaper():
+    from rudolf.helpers import get_alphaPer_members
+    _df = get_alphaPer_members()
+    return _df
+
 def _get_pleiades():
     outpath = os.path.join(
         RESULTSDIR, 'tables', f'Pleiades_withreddening_{extinctionmethod}.csv'
@@ -104,8 +109,10 @@ def collect_isochrone_data(clusterid='δ Lyr cluster'):
     # NOTE: need to assume hard-coded ages for the reference clusters
     age_dict = {
         'UCL': 16e6, # Preibisch & Mamajek 2008, Table 11, UCL
-        'IC 2602': 38e6,
-        'Pleiades': 112e6 # Dahn 2015
+        #'IC 2602': 38e6,
+        #'Pleiades': 150e6 # Dahm 2015
+        'IC 2602': 52.5e6, # Galindo-Guil 22
+        'Pleiades': 127.4e6 # Galindo-Guil 22
     }
 
     #
@@ -123,15 +130,19 @@ def collect_isochrone_data(clusterid='δ Lyr cluster'):
         )
     )
 
+    #
     # save the HR diagram information, and the resulting binned values etc, as
     # entries in a dict.  structure is `hr_dict[cluster_name][parameter]`.
+    #
     hr_dict = {}
-    clusters = ['δ Lyr cluster', 'IC 2602', 'Pleiades', 'UCL', 'RSG-5', 'CH-2']
+    clusters = ['δ Lyr cluster', 'IC 2602', 'Pleiades', 'UCL', 'RSG-5', 'CH-2',
+               'alpha_Per']
     getclusterfn = [
-        _get_deltalyr, _get_ic2602, _get_pleiades, _get_ucl, _get_rsg5, _get_ch2
+        _get_deltalyr, _get_ic2602, _get_pleiades, _get_ucl, _get_rsg5,
+        _get_ch2, _get_alphaper
     ]
     smoothingfactors = [
-        1e-2, 5e-2, 1e-2, 5e-2, 5e-2, 5e-2
+        1e-2, 5e-2, 1e-2, 5e-2, 5e-2, 5e-2, 1e-2
     ]
 
     for c,fn,_smooth in zip(clusters, getclusterfn, smoothingfactors):
@@ -166,28 +177,31 @@ def collect_isochrone_data(clusterid='δ Lyr cluster'):
         ax.update({'xlabel': 'G [mag]', 'ylabel': 'RUWE'})
         savefig(f, outpath, dpi=400)
 
-        # step 2: cut on RV_error < 80th pctile
-        # TODO: maybe do not run this on CH-2??  tryt with it first...
-        rvkey = (
-            'dr2_radial_velocity' if 'dr2_radial_velocity' in _df else
-            'radial_velocity'
-        )
+        # NOTE: omitting below paragraph for Gaia DR3 because the cut should be applied as a
+        # parabola
 
-        cutval = np.nanpercentile(_df[rvkey+'_error'], 80)
-        sel &= (
-            (_df[rvkey+'_error'] < cutval)
-            |
-            (pd.isnull(_df[rvkey+'_error']))
-        )
-        print(f'...& RV_error<80th pct ({cutval:.2f} km/s): {len(_df[sel])}/{len(_df)}')
+            # step 2: cut on RV_error < 80th pctile
+            # TODO: maybe do not run this on CH-2??  tryt with it first...
+            #rvkey = (
+            #    'dr2_radial_velocity' if 'dr2_radial_velocity' in _df else
+            #    'radial_velocity'
+            #)
 
-        outpath = os.path.join(RESULTSDIR, 'empirical_isochrone_age',
-                               f"{c.replace(' ','_')}_gmag_vs_rverror.png")
-        f,ax = plt.subplots(figsize=(4,3))
-        ax.scatter(_df.phot_g_mean_mag, _df[rvkey+'_error'], s=1, c='k')
-        ax.axhline(cutval, color="#aaaaaa", lw=0.5, zorder=-1)
-        ax.update({'xlabel': 'G [mag]', 'ylabel': 'DR2 RV error [km/s]'})
-        savefig(f, outpath, dpi=400)
+            #cutval = np.nanpercentile(_df[rvkey+'_error'], 80)
+            #sel &= (
+            #    (_df[rvkey+'_error'] < cutval)
+            #    |
+            #    (pd.isnull(_df[rvkey+'_error']))
+            #)
+            #print(f'...& RV_error<80th pct ({cutval:.2f} km/s): {len(_df[sel])}/{len(_df)}')
+
+            #outpath = os.path.join(RESULTSDIR, 'empirical_isochrone_age',
+            #                       f"{c.replace(' ','_')}_gmag_vs_rverror.png")
+            #f,ax = plt.subplots(figsize=(4,3))
+            #ax.scatter(_df.phot_g_mean_mag, _df[rvkey+'_error'], s=1, c='k')
+            #ax.axhline(cutval, color="#aaaaaa", lw=0.5, zorder=-1)
+            #ax.update({'xlabel': 'G [mag]', 'ylabel': 'DR2 RV error [km/s]'})
+            #savefig(f, outpath, dpi=400)
 
         # step 3: unresolved binaries manual.  these CSV files were manually
         # made by lasso'ing in glue.
@@ -293,6 +307,7 @@ def collect_isochrone_data(clusterid='δ Lyr cluster'):
 
     # step1: UCL to IC2602:
     # isochrones (N_yeval, N_age_spaced_grid)
+    # 1000 steps between age of UCL, and age of IC-2602
     I_step1 = (
         (1-alpha[None,:])*hr_dict['UCL']['y_eval'][:,None]
         + (alpha[None,:])*hr_dict['IC 2602']['y_eval'][:,None]
@@ -407,6 +422,8 @@ def collect_isochrone_data(clusterid='δ Lyr cluster'):
     print(f'Wrote {cachepath}')
 
 if __name__ == "__main__":
+    collect_isochrone_data(clusterid='alpha_Per')
+    assert 0
     collect_isochrone_data(clusterid='δ Lyr cluster')
     collect_isochrone_data(clusterid='RSG-5')
     collect_isochrone_data(clusterid='CH-2')
