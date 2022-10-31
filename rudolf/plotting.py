@@ -2397,6 +2397,7 @@ def plot_hr(
             print('Pleiades')
             print(_df['reddening[mag][stilism]'].describe())
 
+        import IPython; IPython.embed()
         ax.scatter(
             get_xval(_df), get_yval(_df), c='deepskyblue', alpha=1, zorder=1,
             s=s, rasterized=False, label='Pleiades', marker='o',
@@ -5960,7 +5961,7 @@ def _get_melange2():
 
 def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                               clusters=None, showplanets=0, darkcolors=False,
-                              hideaxes=0):
+                              hideaxes=0, showET=0):
     """
     clusters: any of ['Theia-520', 'Melange-2', 'Cep-Her', 'δ Lyr', 'RSG-5', 'CH-2']
     """
@@ -6032,15 +6033,17 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                 chdf = deepcopy(df)
             clusterdict[cluster] = df
 
-    # fix the RSG-5 definition??? yeah....
-
     #
     # make the plot
     #
 
     plt.close('all')
     #f, ax = plt.subplots(figsize=(15/2,7/2)) # for keynote
-    f, ax = plt.subplots(figsize=(19/2,7/2))
+    if not showET:
+        f, ax = plt.subplots(figsize=(19/2,7/2))
+    else:
+        factor = 1.3
+        f, ax = plt.subplots(figsize=(factor*4,factor*3))
 
     xkey, ykey = 'l', 'b'
     get_yval = lambda _df: np.array(_df[ykey])
@@ -6101,8 +6104,78 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                 glon = c.galactic.l.value
                 glat = c.galactic.b.value
                 c = 'dimgray' if darkcolors else 'lightgray'
-                ax.fill(glon, glat, c=c, alpha=0.95, lw=0,
+                alpha = 0.95 if not showET else 0.4
+                ax.fill(glon, glat, c=c, alpha=alpha, lw=0,
                         rasterized=True, zorder=-1)
+
+    if showET:
+        glon_c = 76.5
+        glat_c = 13.5
+        halfwidth = 500**0.5 / 2 # 22.36 per side, or 11.18 half-side
+        eps = 0.05
+        modules = [
+            [
+                # top-right
+                (glon_c+halfwidth, glat_c+halfwidth),
+                (glon_c+halfwidth, glat_c+eps),
+                (glon_c+eps, glat_c+eps),
+                (glon_c+eps, glat_c+halfwidth),
+                (glon_c+halfwidth, glat_c+halfwidth)
+            ],
+            [
+                # bottom-right
+                (glon_c+halfwidth, glat_c-eps),
+                (glon_c+halfwidth, glat_c-halfwidth),
+                (glon_c+eps, glat_c-halfwidth),
+                (glon_c+eps, glat_c-eps),
+                (glon_c+halfwidth, glat_c-eps)
+            ],
+            [
+                # top-left
+                (glon_c-eps, glat_c+halfwidth),
+                (glon_c-eps, glat_c+eps),
+                (glon_c-halfwidth, glat_c+eps),
+                (glon_c-halfwidth, glat_c+halfwidth),
+                (glon_c-eps, glat_c+halfwidth)
+            ],
+            [
+                # bottom-left
+                (glon_c-eps, glat_c-eps),
+                (glon_c-eps, glat_c-halfwidth),
+                (glon_c-halfwidth, glat_c-halfwidth),
+                (glon_c-halfwidth, glat_c-eps),
+                (glon_c-eps, glat_c-eps)
+            ],
+        ]
+
+        glons_glats = [
+            (glon_c+halfwidth, glat_c+halfwidth),
+            (glon_c+halfwidth, glat_c-halfwidth),
+            (glon_c-halfwidth, glat_c-halfwidth),
+            (glon_c-halfwidth, glat_c+halfwidth),
+            (glon_c+halfwidth, glat_c+halfwidth)
+        ]
+        glon = [x[0] for x in glons_glats]
+        glat = [x[1] for x in glons_glats]
+        c = 'dimgray' if darkcolors else 'lightgray'
+        #ax.fill(glon, glat, c=c, alpha=0.15, lw=0,
+        #        rasterized=True, zorder=-2)
+        #ax.fill(glon, glat, facecolor='none', edgecolor='k', alpha=0.3,
+        #        linewidth=1, ls='-', zorder=1)
+
+        for module in modules:
+            glon = [x[0] for x in module]
+            glat = [x[1] for x in module]
+            ax.fill(glon, glat, c=c, alpha=0.3, lw=0,
+                    rasterized=True, zorder=-2)
+
+        bbox = dict(facecolor='white', alpha=0.97, pad=0.1, edgecolor='white')
+        ax.text(glon_c+halfwidth-1, glat_c+halfwidth-1, "Earth 2.0", ha='left',
+                va='top', fontsize=8, bbox=bbox, zorder=4)
+        #x0,y0 = 74.1, 20.5
+        x0,y0 = 75, 17
+        ax.text(x0, y0, "Kepler", ha='center',
+                va='center', fontsize=8, bbox=bbox, zorder=4)
 
 
     if showkepclusters:
@@ -6131,6 +6204,9 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     #ax.set_ylim([0, 23])
     ax.set_xlim([102, 38])
     ax.set_ylim([-5, 25])
+    if showET:
+        ax.set_xlim([92, 63])
+        ax.set_ylim([-1, 27])
 
     if darkcolors:
         f.patch.set_alpha(0)
@@ -6151,6 +6227,8 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     s = ''
     if clusters is not None:
         s += "_".join([f"{s}" for s in clusters])
+    if showET:
+        s += '_showET'
     if showkepler:
         s += '_showkepler'
     if showkepclusters:
