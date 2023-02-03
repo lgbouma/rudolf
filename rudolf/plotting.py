@@ -2055,7 +2055,7 @@ def plot_hr(
 
         ax.scatter(
             get_xval(_df), get_yval(_df), c='cyan', alpha=1, zorder=10,
-            s=s, rasterized=False, label='alpha-Per', marker='o',
+            s=s, rasterized=False, label='α Per', marker='o',
             edgecolors='k', linewidths=0.1
         )
 
@@ -2397,7 +2397,6 @@ def plot_hr(
             print('Pleiades')
             print(_df['reddening[mag][stilism]'].describe())
 
-        import IPython; IPython.embed()
         ax.scatter(
             get_xval(_df), get_yval(_df), c='deepskyblue', alpha=1, zorder=1,
             s=s, rasterized=False, label='Pleiades', marker='o',
@@ -5961,12 +5960,15 @@ def _get_melange2():
 
 def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                               clusters=None, showplanets=0, darkcolors=False,
-                              hideaxes=0, showET=0):
+                              hideaxes=0, showET=0, showcdipsages=0):
     """
     clusters: any of ['Theia-520', 'Melange-2', 'Cep-Her', 'δ Lyr', 'RSG-5', 'CH-2']
     """
 
-    set_style()
+    if not showET:
+        set_style()
+    else:
+        set_style('science')
 
     #
     # collect data
@@ -6033,6 +6035,27 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                 chdf = deepcopy(df)
             clusterdict[cluster] = df
 
+    if showcdipsages:
+        from cdips.utils.catalogs import get_cdips_catalog
+        df = get_cdips_catalog(ver=0.6)
+        ra, dec = nparr(df['ra']), nparr(df['dec'])
+        c = SkyCoord(ra=nparr(ra)*u.deg, dec=nparr(dec)*u.deg)
+        df['l'] = c.galactic.l.value
+        df['b'] = c.galactic.b.value
+
+        sel = (
+            (df.parallax > 1)
+            &
+            (df.parallax / df.parallax_error > 10)
+            &
+            (df.mean_age < 9)
+            &
+            (~pd.isnull(df.cluster))
+            &
+            (df.phot_g_mean_mag < 17)
+        )
+        sdf = df[sel]
+
     #
     # make the plot
     #
@@ -6076,6 +6099,95 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                     s=s, rasterized=False, label=cluster, marker='o',
                     edgecolors=edgecolors, linewidths=linewidths
                 )
+
+    if showcdipsages:
+
+        # # METHOD-1:
+        cmap = mpl.cm.get_cmap('magma_r', 6)
+        bounds = np.arange(7.0,9.0,0.01)
+        norm = mpl.colors.LogNorm(vmin=1e7, vmax=1e9)
+
+        agebins = np.array([
+            (5,7+1/3), (7+1/3,7+2/3), (7+2/3,8), (8,8+1/3), (8+1/3,8+2/3),
+            (8+2/3,9)
+        ])
+
+        _N = 0
+        for ix, agebin in enumerate(agebins[::-1]):
+            sel = (
+                (sdf.mean_age > agebin[0]) & (sdf.mean_age < agebin[1])
+                &
+                ((sdf.l  > 65 ) | (sdf.b < 20))
+            )
+            _p = ax.scatter(
+                get_xval(sdf[sel]), get_yval(sdf[sel]),
+                c=10**sdf[sel].mean_age, alpha=1, zorder=2+ix, s=1+0.3*ix,
+                edgecolors='k',
+                marker='o', cmap=cmap, linewidths=0.05, norm=norm,
+                rasterized=True
+            )
+
+            glon_c = 76.5
+            glat_c = 13.5
+            halfwidth = 500**0.5 / 2 # 22.36 per side, or 11.18 half-side
+
+            sel1 = (
+                (sdf[sel].b > glat_c - halfwidth)
+                &
+                (sdf[sel].b < glat_c + halfwidth)
+                &
+                (sdf[sel].l > glon_c - halfwidth)
+                &
+                (sdf[sel].l < glon_c + halfwidth)
+            )
+
+            N = len(sdf[sel & sel1])
+            print(f"{agebin[0]:.2f} to {agebin[1]:.2f}: {N}")
+            _N += N
+
+        print(f"b {glat_c - halfwidth} to {glat_c + halfwidth}")
+        print(f"l {glon_c - halfwidth} to {glon_c + halfwidth}")
+        print(f"Total: {_N}")
+
+        #_p = ax.scatter(
+        #    get_xval(sdf), get_yval(sdf),
+        #    c=10**sdf.mean_age, alpha=1, zorder=2, s=5, edgecolors='k',
+        #    marker='o', cmap=cmap, linewidths=0.2, norm=norm
+        #)
+
+        # draw the colored points
+        axins1 = inset_axes(ax, width="25%", height="3%", loc='upper right',
+                            borderpad=1.2)
+        cb = f.colorbar(_p, cax=axins1, orientation="horizontal",
+                        extend="min", norm=norm)
+
+        cb.set_ticks([1e7,1e8,1e9])
+        #cb.set_ticklabels(['$10^7$','$10^8$','$10^9$'])
+
+        cb.ax.tick_params(labelsize='small')
+        cb.ax.tick_params(size=0, which='both') # remove the ticks
+        cb.ax.yaxis.set_ticks_position('left')
+        cb.ax.yaxis.set_label_position('left')
+        cb.set_label("Age [years]", fontsize='small')
+
+        # del Lyr cluster
+        txtclusternames = {
+            #name, glon, glat, age?
+            'δ Lyr': [67, 16.5, 40],
+            'RSG-5': [83, 7.2, 40],
+            'UBC-1': [87.8, 20.7, 350], # Theia 350
+            'Teutsch-35': [69.6, 8, 170], # Theia 457
+            'LDN-988e': [78.5, 3.2, "10"],
+            'Theia-397': [87.5, 10.5, 150],
+            #"NGC-7039": [0, 88, "<10"],
+            #"FSR-0261": [0, 87, "<10"]
+        }
+        for k,v in txtclusternames.items():
+            bbox = dict(facecolor='white', alpha=0.97, pad=0.1, edgecolor='white')
+            x,y = v[0],v[1]
+            txt = k + " (" + str(v[2]) + " Myr)"
+            ax.text(x, y, txt, ha='center',
+                    va='bottom', fontsize=6, bbox=bbox, zorder=99)
 
 
     if showplanets:
@@ -6171,11 +6283,11 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
 
         bbox = dict(facecolor='white', alpha=0.97, pad=0.1, edgecolor='white')
         ax.text(glon_c+halfwidth-1, glat_c+halfwidth-1, "Earth 2.0", ha='left',
-                va='top', fontsize=8, bbox=bbox, zorder=4)
+                va='top', fontsize=9, bbox=bbox, zorder=4)
         #x0,y0 = 74.1, 20.5
         x0,y0 = 75, 17
         ax.text(x0, y0, "Kepler", ha='center',
-                va='center', fontsize=8, bbox=bbox, zorder=4)
+                va='center', fontsize=9, bbox=bbox, zorder=4)
 
 
     if showkepclusters:
@@ -6205,8 +6317,8 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     ax.set_xlim([102, 38])
     ax.set_ylim([-5, 25])
     if showET:
-        ax.set_xlim([92, 63])
-        ax.set_ylim([-1, 27])
+        ax.set_xlim([92, 58])
+        ax.set_ylim([-4, 27])
 
     if darkcolors:
         f.patch.set_alpha(0)
@@ -6227,6 +6339,8 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     s = ''
     if clusters is not None:
         s += "_".join([f"{s}" for s in clusters])
+    if showcdipsages:
+        s += '_showcdipsages'
     if showET:
         s += '_showET'
     if showkepler:
@@ -6242,4 +6356,4 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
 
     bn = 'kepclusters_skychart'
     outpath = os.path.join(outdir, f'{bn}{s}.png')
-    savefig(f, outpath, dpi=400)
+    savefig(f, outpath, dpi=200)
