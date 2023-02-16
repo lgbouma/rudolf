@@ -67,7 +67,7 @@ def plot_rp_vs_period_scatter(
         add_plnames: if True, shows tiny texts for the age-dated planets.
     """
 
-    set_style()
+    set_style('clean')
 
     #
     # Columns are described at
@@ -202,7 +202,7 @@ def plot_rp_vs_period_scatter(
 
         # draw the colored points
         axins1 = inset_axes(ax, width="3%", height="33%", loc='lower right',
-                            borderpad=0.7)
+                            borderpad=1.0)
 
         #cmap = mpl.cm.magma_r
         if not dark_bkgd:
@@ -470,13 +470,13 @@ def plot_rp_vs_period_scatter(
         cb.set_ticks([1e7,1e8,1e9])
         cb.set_ticklabels(['$10^7$','$10^8$','$10^9$'])
 
-        cb.ax.tick_params(labelsize='x-small')
+        cb.ax.tick_params(labelsize='medium')
         cb.ax.tick_params(size=0, which='both') # remove the ticks
 
         cb.ax.yaxis.set_ticks_position('left')
         cb.ax.yaxis.set_label_position('left')
 
-        cb.set_label("Age [years]", fontsize='x-small')
+        cb.set_label("Age [years]", weight='bold')
 
     if colorbydisc:
         dmethods = np.unique(discoverymethod)
@@ -542,8 +542,8 @@ def plot_rp_vs_period_scatter(
 
         leg.get_frame().set_linewidth(0.5)
 
-    ax.set_xlabel('Orbital period [days]')
-    ax.set_ylabel('Planet radius [Earths]')
+    ax.set_xlabel('Orbital period [days]', weight='bold')
+    ax.set_ylabel('Planet radius [Earths]', weight='bold')
 
     if showss:
         ax.set_xlim([0.1, 110000])
@@ -568,8 +568,20 @@ def plot_rp_vs_period_scatter(
     format_ax(ax)
 
     ax.set_yscale('log')
-
     ax.set_xscale('log')
+
+	# Hide the right and top spines
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+
+    # Only show ticks on the left and bottom spines
+    ax.yaxis.set_ticks_position('left')
+    ax.xaxis.set_ticks_position('bottom')
+
+    ax.set_yticks([1,2,4,10])
+    ax.set_yticklabels([1,2,4,10], fontsize='medium')
+    ax.set_xticks([0.1,1,10,100,1000])
+    ax.set_xticklabels([0.1,1,10,100,1000], fontsize='medium')
 
     s = ''
     if showlegend:
