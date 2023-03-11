@@ -6393,3 +6393,115 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     bn = 'kepclusters_skychart'
     outpath = os.path.join(outdir, f'{bn}{s}.png')
     savefig(f, outpath, dpi=200)
+
+
+def plot_prisinzano22_XY(outdir, colorkey=None, show_CepHer=0, noaxis=0):
+    """
+    Args:
+
+        outdir (str): path to output directory
+
+        colorkey (str or None): column string from Prisinzano+2022 table...
+    """
+
+    set_style('clean')
+
+    assert isinstance(outdir, str)
+    assert isinstance(colorkey, str) or (colorkey is None)
+
+    #
+    # get data, calculate galactic X,Y,Z positions (assuming well-measured
+    # parallaxes).
+    #
+    fitspath = os.path.join(DATADIR, 'gaia', "Prisizano_2022_t4.fits")
+
+    hl = fits.open(fitspath)
+    df = Table(hl[1].data).to_pandas()
+    sdf = df[df.Plx / df.e_Plx > 15]
+
+    from rudolf.physical_positions import (
+        calculate_XYZ_given_LBPLX, calculate_XYZ_given_RADECPLX
+    )
+    x,y,z = calculate_XYZ_given_LBPLX(sdf.GLON, sdf.GLAT, sdf.Plx)
+
+    kerrpath = os.path.join(DATADIR, 'gaia', "Kerr_2021_Table1.txt")
+    df = Table.read(kerrpath, format='cds').to_pandas()
+    kx,ky,kz = calculate_XYZ_given_RADECPLX(df.RAdeg, df.DEdeg, df.plx)
+
+    rx = np.random.uniform(-500, +500, size=int(2e4))
+    ry = np.random.uniform(-500, +500, size=int(2e4))
+    sel = np.sqrt(rx**2 + ry**2) > 333
+    rx, ry = rx[sel], ry[sel]
+
+    if show_CepHer:
+        from rudolf.helpers import get_ronan_cepher_augmented
+        _df, __df, _mdf = get_ronan_cepher_augmented()
+
+    #
+    # make the plot
+    #
+    fig, ax = plt.subplots(figsize=(4,4))
+
+    x_sun, y_sun = -8122, 0
+    ax.scatter(
+        x_sun, y_sun, c='black', alpha=1, zorder=1, s=20, rasterized=True,
+        linewidths=1, marker='x'
+    )
+
+    if colorkey is None:
+        # By default, just show all the stars as the same color.  The
+        # "rasterized=True" kwarg here is good if you save the plots as pdfs,
+        # to not need to save the positions of too many points.
+
+        sel = np.sqrt((x+8122)**2 + y**2) < 500
+        ax.scatter(
+            x[sel], y[sel], c='black', alpha=1, zorder=2, s=1.5, rasterized=True,
+            linewidths=0, marker='.'
+        )
+        sel = np.sqrt((kx+8122)**2 + ky**2) < 500
+        ax.scatter(
+            kx[sel], ky[sel], c='black', alpha=1, zorder=2, s=1.5, rasterized=True,
+            linewidths=0, marker='.'
+        )
+        sel = np.sqrt(rx**2 + ry**2) < 500
+        ax.scatter(
+            -8122+rx[sel], ry[sel], c='black', alpha=1, zorder=2, s=1.5, rasterized=True,
+            linewidths=0, marker='.'
+        )
+
+
+        if show_CepHer:
+            sel = _df.strengths > 0.15
+            ax.scatter(
+                _df[sel].x_pc, _df[sel].y_pc, c='black', alpha=1, zorder=2,
+                s=2, rasterized=True, linewidths=0, marker='.'
+            )
+
+
+    else:
+        raise NotImplementedError
+
+    if noaxis:
+        ax.set_axis_off()
+
+    if not noaxis:
+        ax.set_xlabel("X [pc]")
+        ax.set_ylabel("Y [pc]")
+
+    ax.set_xlim([-500-8122, 500-8122])
+    ax.set_ylim([-500, 500])
+
+    s = ''
+    if colorkey:
+        s += f"_{colorkey}"
+    if show_CepHer:
+        s += f"_ShowCepHer"
+    if noaxis:
+        s += f"_noaxis"
+
+    outpath = os.path.join(outdir, f'prisinzano22_XY{s}.png')
+    fig.savefig(outpath, bbox_inches='tight', dpi=400)
+    print(f"Made {outpath}")
+
+
+
