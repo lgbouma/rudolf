@@ -5960,7 +5960,7 @@ def _get_melange2():
 
 def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                               clusters=None, showplanets=0, darkcolors=False,
-                              hideaxes=0, showET=0, showcdipsages=0):
+                              hideaxes=0, showET=0, showPLATO=0, showcdipsages=0):
     """
     clusters: any of ['Theia-520', 'Melange-2', 'Cep-Her', 'δ Lyr', 'RSG-5', 'CH-2']
     """
@@ -6081,7 +6081,7 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                 ax.scatter(
                     get_xval(df), get_yval(df), c=color, alpha=1,
                     s=5, rasterized=False, label=cluster, marker='o',
-                    edgecolors=edgecolors, linewidths=0.1
+                    edgecolors=edgecolors, linewidths=0.1, zorder=5
                 )
             else:
                 #sdf = df[df.strengths > 0.02]
@@ -6089,15 +6089,15 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                 #_p = ax.scatter(get_xval(sdf), get_yval(sdf), c='darkgray',
                 #                s=1.5, linewidths=0, marker='.',
                 #                rasterized=True)
-                sdf = df[df.strengths > 0.10]
-                print(f'Strength cut: > 0.10: {len(sdf)} objects')
+                _sdf = df[df.strengths > 0.10]
+                print(f'Strength cut: > 0.10: {len(_sdf)} objects')
                 s = 5 if not darkcolors else 3
                 edgecolors = 'k' if not darkcolors else 'white'
                 linewidths = 0.1 if not darkcolors else 0.08
                 ax.scatter(
-                    get_xval(sdf), get_yval(sdf), c=color, alpha=1,
+                    get_xval(_sdf), get_yval(_sdf), c=color, alpha=1,
                     s=s, rasterized=False, label=cluster, marker='o',
-                    edgecolors=edgecolors, linewidths=linewidths
+                    edgecolors=edgecolors, linewidths=linewidths, zorder=5
                 )
 
     if showcdipsages:
@@ -6290,6 +6290,36 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                 va='center', fontsize=9, bbox=bbox, zorder=4)
 
 
+    if showPLATO:
+        glon_c = 70
+        glat_c = 30
+
+        csvpath = '/Users/luke/Dropbox/proj/Earth_2pt0/PLATO_fov.csv'
+        pldf = pd.read_csv(csvpath)
+        ax.fill(
+            glon_c + pldf['dlon'], glat_c + pldf['dlat'], c='lightgray',
+            alpha=0.2, lw=0, rasterized=True, zorder=-5
+        )
+
+        csvpath = '/Users/luke/Dropbox/proj/Earth_2pt0/PLATO_inner12_fov.csv'
+        pldf = pd.read_csv(csvpath)
+        ax.fill(
+            glon_c + pldf['dlon'], glat_c + pldf['dlat'], c='lightgray',
+            alpha=0.2, lw=0, rasterized=True, zorder=-5
+        )
+        ax.fill(
+            glon_c + pldf['dlat'], glat_c + pldf['dlon'], c='lightgray',
+            alpha=0.2, lw=0, rasterized=True, zorder=-5
+        )
+
+        csvpath = '/Users/luke/Dropbox/proj/Earth_2pt0/PLATO_innermost.csv'
+        pldf = pd.read_csv(csvpath)
+        ax.fill(
+            glon_c + pldf['dlon'], glat_c + pldf['dlat'], c='lightgray',
+            alpha=0.3, lw=0, rasterized=True, zorder=-5
+        )
+
+
     if showkepclusters:
         cluster_names = ['NGC6819', 'NGC6791', 'NGC6811', 'NGC6866']
         cras = [295.33, 290.22, 294.34, 300.983]
@@ -6319,6 +6349,10 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     if showET:
         ax.set_xlim([92, 58])
         ax.set_ylim([-4, 27])
+    #if showPLATO:
+    #    ax.set_xlim([120, 40])
+    #    ax.set_ylim([-4, 50])
+
 
     if darkcolors:
         f.patch.set_alpha(0)
@@ -6343,6 +6377,8 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
         s += '_showcdipsages'
     if showET:
         s += '_showET'
+    if showPLATO:
+        s += '_showPLATO'
     if showkepler:
         s += '_showkepler'
     if showkepclusters:
