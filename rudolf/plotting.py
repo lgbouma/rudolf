@@ -5960,15 +5960,14 @@ def _get_melange2():
 
 def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                               clusters=None, showplanets=0, darkcolors=False,
-                              hideaxes=0, showET=0, showPLATO=0, showcdipsages=0):
+                              hideaxes=0, showET=0, showPLATO=0,
+                              showcdipsages=0, style='science', factor=1,
+                              cepher_alpha=1, figx=19/2, figy=7/2):
     """
     clusters: any of ['Theia-520', 'Melange-2', 'Cep-Her', 'δ Lyr', 'RSG-5', 'CH-2']
     """
 
-    if not showET:
-        set_style()
-    else:
-        set_style('science')
+    set_style(style)
 
     #
     # collect data
@@ -5979,8 +5978,14 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
         'Melange-2': ['KOI-3876', 'Kepler-970'],
         'Cep-Her': ['Kepler-1627', 'Kepler-1643', 'KOI-7368', 'KOI-7913'],
         'δ Lyr': ['Kepler-1627'],
+        'δ Lyr keck': ['Kepler-1627'],
         'RSG-5': ['Kepler-1643'],
-        'CH-2': ['KOI-7368', 'KOI-7913']
+        'RSG-5 keck': ['Kepler-1643'],
+        'CH-2': ['KOI-7368', 'KOI-7913'],
+        'ch03': [],
+        'ch01': [],
+        'ch06': [],
+        'ch04': []
     }
     position_dict = {
         'Kepler-52': [80.47826, 18.08719],
@@ -5997,8 +6002,14 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
         'Melange-2': '#a4327e',
         'Cep-Her': '#ffa873' if not darkcolors else "#BDD7EC",
         'δ Lyr': 'white',
+        'δ Lyr keck': 'white',
         'RSG-5': '#ff6eff',
-        'CH-2': 'lime'
+        'RSG-5 keck': '#ff6eff',
+        'CH-2': 'lime',
+        'ch01': 'cyan', # Cep-Foreground
+        'ch03': 'C5', # lyr-foreground
+        'ch04': 'C3', # Hercules,
+        'ch06': 'C4', # Hercules-diffuse,
         #'Theia-520': 'royalblue',
         #'Melange-2': 'goldenrod',
         #'Cep-Her': None,
@@ -6033,6 +6044,20 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
             if cluster == 'Cep-Her':
                 df, _, _ = get_ronan_cepher_augmented()
                 chdf = deepcopy(df)
+            if cluster in [
+                'ch01', 'ch03', 'ch04', 'ch06', 'δ Lyr keck', 'RSG-5 keck'
+            ]:
+                DATADIR = '/Users/luke/Dropbox/proj/ldb/data/Cep-Her'
+                namedict = {
+                    'δ Lyr keck': 'delLyr.csv',
+                    'RSG-5 keck': 'rsg5.csv',
+                    'ch01': 'ch01_cep.csv',
+                    'ch03': 'ch03_lyrfgd.csv',
+                    'ch04': 'ch04_her.csv',
+                    'ch06': 'ch06_herdiffuse.csv'
+                }
+                csvpath = os.path.join(DATADIR, namedict[cluster])
+                df = pd.read_csv(csvpath)
             clusterdict[cluster] = df
 
     if showcdipsages:
@@ -6062,11 +6087,7 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
 
     plt.close('all')
     #f, ax = plt.subplots(figsize=(15/2,7/2)) # for keynote
-    if not showET:
-        f, ax = plt.subplots(figsize=(19/2,7/2))
-    else:
-        factor = 1.3
-        f, ax = plt.subplots(figsize=(factor*4,factor*3))
+    f, ax = plt.subplots(figsize=(factor*figx,factor*figy))
 
     xkey, ykey = 'l', 'b'
     get_yval = lambda _df: np.array(_df[ykey])
@@ -6095,7 +6116,7 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                 edgecolors = 'k' if not darkcolors else 'white'
                 linewidths = 0.1 if not darkcolors else 0.08
                 ax.scatter(
-                    get_xval(_sdf), get_yval(_sdf), c=color, alpha=1,
+                    get_xval(_sdf), get_yval(_sdf), c=color, alpha=cepher_alpha,
                     s=s, rasterized=False, label=cluster, marker='o',
                     edgecolors=edgecolors, linewidths=linewidths, zorder=5
                 )
@@ -6191,7 +6212,7 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
 
 
     if showplanets:
-        for cluster in clusters:
+        for cluster in ['δ Lyr', 'RSG-5', 'CH-2']:
             pl_list = cluster_planet_dict[cluster]
             color = cluster_color_dict[cluster]
             for pl in pl_list:
@@ -6298,25 +6319,25 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
         pldf = pd.read_csv(csvpath)
         ax.fill(
             glon_c + pldf['dlon'], glat_c + pldf['dlat'], c='lightgray',
-            alpha=0.2, lw=0, rasterized=True, zorder=-5
+            alpha=0.3, lw=0, rasterized=False, zorder=-5, hatch='/'
         )
 
         csvpath = '/Users/luke/Dropbox/proj/Earth_2pt0/PLATO_inner12_fov.csv'
         pldf = pd.read_csv(csvpath)
         ax.fill(
             glon_c + pldf['dlon'], glat_c + pldf['dlat'], c='lightgray',
-            alpha=0.2, lw=0, rasterized=True, zorder=-5
+            alpha=0.3, lw=0, rasterized=False, zorder=-5, hatch='x'
         )
         ax.fill(
             glon_c + pldf['dlat'], glat_c + pldf['dlon'], c='lightgray',
-            alpha=0.2, lw=0, rasterized=True, zorder=-5
+            alpha=0.3, lw=0, rasterized=False, zorder=-5, hatch='x'
         )
 
         csvpath = '/Users/luke/Dropbox/proj/Earth_2pt0/PLATO_innermost.csv'
         pldf = pd.read_csv(csvpath)
         ax.fill(
             glon_c + pldf['dlon'], glat_c + pldf['dlat'], c='lightgray',
-            alpha=0.3, lw=0, rasterized=True, zorder=-5
+            alpha=0.5, lw=0, rasterized=False, zorder=-5, hatch='....'
         )
 
 
@@ -6392,7 +6413,7 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
 
     bn = 'kepclusters_skychart'
     outpath = os.path.join(outdir, f'{bn}{s}.png')
-    savefig(f, outpath, dpi=200)
+    savefig(f, outpath, dpi=400)
 
 
 def plot_prisinzano22_XY(outdir, colorkey=None, show_CepHer=0, noaxis=0):
@@ -6502,6 +6523,3 @@ def plot_prisinzano22_XY(outdir, colorkey=None, show_CepHer=0, noaxis=0):
     outpath = os.path.join(outdir, f'prisinzano22_XY{s}.png')
     fig.savefig(outpath, bbox_inches='tight', dpi=400)
     print(f"Made {outpath}")
-
-
-
