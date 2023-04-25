@@ -11,13 +11,24 @@ PLOTDIR = os.path.join(RESULTSDIR, 'hr')
 if not os.path.exists(PLOTDIR):
     os.mkdir(PLOTDIR)
 
+# show all the known KOIs that are ~40 Myr old
+for smalllims in [1,0]:
+    rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
+               clusters=['δ Lyr cluster', 'CH-2'], reddening_corr=1,
+               overplotkep1627=0, show_allknown=0, overplotkoi7368=1,
+               overplotkoi7913=1, smalllims=smalllims, overplotkoi7913b=1)
+    rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
+               clusters=['δ Lyr cluster', 'RSG-5'], reddening_corr=1,
+               overplotkep1627=0, show_allknown=0, overplotkep1643=1,
+               smalllims=smalllims)
+
+assert 0
+
 # alpha-Per, for andy
 for smalllims in [1,0]:
     rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
                clusters=['α Per', 'IC 2602', 'Pleiades'], reddening_corr=1,
                smalllims=smalllims)
-assert 0
-
 # show all the known KOIs that are ~40 Myr old
 for smalllims in [1,0]:
     rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
@@ -41,17 +52,6 @@ rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
            clusters=['RSG-5'], reddening_corr=1,
            overplotkep1627=0, show_allknown=0, overplotkep1643=1,
            smalllims=1, darkcolors=1)
-
-# show all the known KOIs that are ~40 Myr old
-for smalllims in [1,0]:
-    rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
-               clusters=['δ Lyr cluster', 'CH-2'], reddening_corr=1,
-               overplotkep1627=0, show_allknown=0, overplotkoi7368=1,
-               overplotkoi7913=1, smalllims=smalllims)
-    rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,
-               clusters=['δ Lyr cluster', 'RSG-5'], reddening_corr=1,
-               overplotkep1627=0, show_allknown=0, overplotkep1643=1,
-               smalllims=smalllims)
 
 # as in ms, but with "Set 1" (KOI 7368)
 rp.plot_hr(PLOTDIR, isochrone=None, color0='phot_bp_mean_mag', show100pc=1,

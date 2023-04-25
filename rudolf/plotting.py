@@ -2054,7 +2054,7 @@ def plot_hr(
             print(_df['reddening[mag][stilism]'].describe())
 
         ax.scatter(
-            get_xval(_df), get_yval(_df), c='cyan', alpha=1, zorder=10,
+            get_xval(_df), get_yval(_df), c='red', alpha=1, zorder=10,
             s=s, rasterized=False, label='α Per', marker='o',
             edgecolors='k', linewidths=0.1
         )
@@ -2398,7 +2398,9 @@ def plot_hr(
             print(_df['reddening[mag][stilism]'].describe())
 
         ax.scatter(
-            get_xval(_df), get_yval(_df), c='deepskyblue', alpha=1, zorder=1,
+            get_xval(_df), get_yval(_df), #c='deepskyblue',
+            c='lightskyblue',
+            alpha=1, zorder=1,
             s=s, rasterized=False, label='Pleiades', marker='o',
             edgecolors='k', linewidths=0.1
         )
