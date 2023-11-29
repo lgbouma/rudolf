@@ -5008,9 +5008,10 @@ def plot_halpha(outdir, reference='TucHor'):
     savefig(fig, outpath, dpi=400)
 
 
-def plot_lithium(outdir, reference='Randich18'):
+def plot_lithium(outdir, reference='Randich18', style='science', lgb_cepher=0,
+                 kepms=10):
 
-    set_style()
+    set_style(style)
 
     from timmy.lithium import (
         get_Randich18_lithium, get_Berger18_lithium, get_Randich01_lithium,
@@ -5025,6 +5026,12 @@ def plot_lithium(outdir, reference='Randich18'):
     if 'Pleiades' in reference:
         pdf = get_Pleiades_Bouvier17_Jones96_Soderblom93()
     bdf = get_Berger18_lithium()
+    if lgb_cepher:
+        import pandas as pd
+        chdf = pd.read_csv(
+            '/Users/luke/Dropbox/proj/CepHer_spectra_traceback/data/'
+            '20231128_CepHer_RVs_LiEWs_Prots_x_GDR2.csv'
+        )
 
     if reference == 'Randich18':
         selclusters = [
@@ -5139,7 +5146,10 @@ def plot_lithium(outdir, reference='Randich18'):
 
     plt.close('all')
 
-    f, ax = plt.subplots(figsize=(4,3))
+    if not lgb_cepher:
+        f, ax = plt.subplots(figsize=(4,3))
+    else:
+        f, ax = plt.subplots(figsize=(4,4))
 
     classes = ['young', 'field']
     colors = ['k', 'gray']
@@ -5147,7 +5157,7 @@ def plot_lithium(outdir, reference='Randich18'):
     markers = ['o', '.']
     ss = [2.5, 5]
     #NGC$\,$2547 & IC$\,$2602
-    label = '40-50 Myr' if reference != 'Pleiades' else '112 Myr'
+    label = '40-50 Myr (IC2602 R01, TucHor K14)' if reference != 'Pleiades' else '112 Myr (Pleiades S93, J96, B16)'
     labels = [label, 'Kepler Field']
     alpha = 1
 
@@ -5168,7 +5178,7 @@ def plot_lithium(outdir, reference='Randich18'):
                     pd[f'val_teff_{_cls}'], pd[f'val_li_ew_{_cls}'],
                     c='white', alpha=alpha,
                     zorder=z-1, s=s,
-                    rasterized=False, label='112 Myr', marker=m, linewidths=0.3,
+                    rasterized=False, label='112 Myr (Pleiades S93, J96, B16)', marker=m, linewidths=0.3,
                     edgecolors='k'
                 )
 
@@ -5178,7 +5188,21 @@ def plot_lithium(outdir, reference='Randich18'):
                     zorder=z+1, s=5*s, rasterized=False, linewidths=0, marker='v'
                 )
 
-
+                if lgb_cepher:
+                    _ms, _cs, _clrs = (
+                        ['s','o'], ['rsg5','delLyr'],
+                        ['darkviolet','rebeccapurple']
+                    )
+                    for _m, _c, _clr in zip(_ms, _cs, _clrs):
+                        s0 = (chdf.subcluster == _c)
+                        ax.errorbar(
+                            chdf[s0][f'Teff_Curtis20'], chdf[s0]['Fitted_Li_EW_mA'],
+                            yerr=np.array([chdf[s0]['Fitted_Li_EW_mA_merr'],
+                                           chdf[s0]['Fitted_Li_EW_mA_perr']]),
+                            c=_clr, alpha=alpha, zorder=z, markersize=s,
+                            elinewidth=0.35, capsize=0, mew=0.5, rasterized=False,
+                            label=_c, marker=_m, lw=0
+                        )
             else:
                 ax.scatter(
                     d[f'val_teff_{_cls}'], d[f'val_li_ew_{_cls}'], c=_col,
@@ -5233,7 +5257,7 @@ def plot_lithium(outdir, reference='Randich18'):
             marker=m,
             c=mfc,
             label=n,
-            elinewidth=1, capsize=0, lw=0, mew=0.5, markersize=10,
+            elinewidth=1, capsize=0, lw=0, mew=0.5, markersize=kepms,
             mec='k',
             zorder=5
         )
@@ -5255,6 +5279,8 @@ def plot_lithium(outdir, reference='Randich18'):
 
     format_ax(ax)
     s = f'_{reference}'
+    if lgb_cepher:
+        s += f'_LGB-CepHer'
     outpath = os.path.join(outdir, f'lithium{s}.png')
     savefig(f, outpath)
 
