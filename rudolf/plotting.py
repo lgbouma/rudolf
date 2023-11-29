@@ -31,12 +31,12 @@ Spec:
     plot_lithium
     plot_halpha
     plot_koiyouthlines
+    plot_rvactivitypanel
 
 RM:
     plot_simulated_RM
     plot_RM
     plot_RM_and_phot
-    plot_rvactivitypanel
     plot_youthlines
     plot_rv_checks
 
@@ -1901,13 +1901,15 @@ def plot_hr(
     cleanhrcut=1, extinctionmethod='gaia2018', smalllims=0,
     overplotkep1627=0, overplotkoi7368=0, getstellarparams=0,
     show_allknown=0, overplotkep1643=0, overplotkoi7913=0,
-    overplotkoi7913b=0, darkcolors=0
+    overplotkoi7913b=0, darkcolors=0, tinylims=0
 ):
     """
     clusters: ['$\delta$ Lyr cluster', 'IC 2602', 'Pleiades']
     """
 
     set_style()
+    if tinylims:
+        set_style('science')
 
     # Kinematic (and spatially) selected subgroups of KC19's δ Lyr cluster
     #df = get_deltalyr_kc19_comovers()
@@ -1968,6 +1970,8 @@ def plot_hr(
         # note: standard...
         # f = plt.figure(figsize=(3,4.5))
         f = plt.figure(figsize=(4,4))
+        if tinylims:
+            f = plt.figure(figsize=(1.3,1.1))
         ax = f.add_subplot(1, 1, 1, projection='scatter_density')
 
     cstr = '_corr' if reddening_corr else ''
@@ -1985,6 +1989,8 @@ def plot_hr(
     s = 4
     if smalllims:
         s = 9
+    if tinylims:
+        s = 1
 
     if 'δ Lyr cluster' in clusters:
         # mixed rasterizing along layers b/c we keep the loading times nice
@@ -2467,6 +2473,8 @@ def plot_hr(
         from astropy.visualization.mpl_normalize import ImageNormalize
         if smalllims:
             vmin, vmax = 10, 1000
+        elif tinylims:
+            vmin, vmax = 200, 5000
         else:
             vmin, vmax = 25, 2500
 
@@ -2745,6 +2753,13 @@ def plot_hr(
         c0s = '_G_m_Rp_corr'
     else:
         raise NotImplementedError
+    if tinylims:
+        ax.set_ylabel('')
+        ax.set_xlabel('')
+        ax.set_xticklabels([])
+        ax.set_yticklabels([])
+        # 6 8 10
+        # 1 2 3
 
     ylim = ax.get_ylim()
     ax.set_ylim((max(ylim),min(ylim)))
@@ -2760,7 +2775,7 @@ def plot_hr(
         ax.set_xlim([-0.2,2.0])
         ax.set_ylim((16, -3))
 
-    if smalllims and 'phot_bp_mean_mag' in color0:
+    if (smalllims and 'phot_bp_mean_mag' in color0) or (tinylims and 'phot_bp_mean_mag' in color0):
         ax.set_xlim([0.85,3.45])
         ax.set_ylim([11.5,5.0])
     elif smalllims and 'phot_bp_mean_mag' not in color0:
@@ -2768,6 +2783,8 @@ def plot_hr(
 
     format_ax(ax)
     ax.tick_params(axis='x', which='both', top=False)
+    if tinylims:
+        ax.set_yticks([10,8,6])
 
 
     #
@@ -2783,9 +2800,13 @@ def plot_hr(
         if 'phot_bp_mean_mag' in color0 else
         get_SpType_GmRp_correspondence
     )
-    if not smalllims:
+    if not smalllims and not tinylims:
         sptypes, xtickvals = getter(
             ['A0V','F0V','G0V','K2V','K5V','M0V','M2V','M4V']
+        )
+    elif tinylims:
+        sptypes, xtickvals = getter(
+            ['K2V','M1V','M4V']
         )
     else:
         sptypes, xtickvals = getter(
@@ -2805,6 +2826,9 @@ def plot_hr(
     tax.xaxis.set_ticks_position('top')
     tax.tick_params(axis='x', which='minor', top=False)
     tax.get_yaxis().set_tick_params(which='both', direction='in')
+
+    if tinylims:
+        tax.set_xticklabels([])
 
     if darkcolors:
         ax.spines['bottom'].set_color('white')
@@ -2844,6 +2868,8 @@ def plot_hr(
         c0s += f'_{extinctionmethod}'
     if smalllims:
         c0s += '_smalllims'
+    if tinylims:
+        c0s += '_tinylims'
     if overplotkep1627:
         c0s += '_overplotkep1627'
     if overplotkoi7368:
