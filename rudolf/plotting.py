@@ -5191,7 +5191,7 @@ def plot_lithium(outdir, reference='Randich18', style='science', lgb_cepher=0,
                 if lgb_cepher:
                     _ms, _cs, _clrs = (
                         ['s','o'], ['rsg5','delLyr'],
-                        ['darkviolet','rebeccapurple']
+                        ['darkviolet','cyan']
                     )
                     for _m, _c, _clr in zip(_ms, _cs, _clrs):
                         s0 = (chdf.subcluster == _c)
@@ -6470,7 +6470,9 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     savefig(f, outpath, dpi=400)
 
 
-def plot_prisinzano22_XY(outdir, colorkey=None, show_CepHer=0, noaxis=0):
+def plot_prisinzano22_XY(outdir, colorkey=None, show_CepHer=0, show_randommw=0,
+                         show_realrandommw=0,
+                         noaxis=0, hide_prisinzano=0):
     """
     Args:
 
@@ -6507,10 +6509,26 @@ def plot_prisinzano22_XY(outdir, colorkey=None, show_CepHer=0, noaxis=0):
     ry = np.random.uniform(-500, +500, size=int(2e4))
     sel = np.sqrt(rx**2 + ry**2) > 333
     rx, ry = rx[sel], ry[sel]
+    if show_randommw:
+        rx = np.random.uniform(-500, +500, size=int(2e5))
+        ry = np.random.uniform(-500, +500, size=int(2e5))
 
     if show_CepHer:
         from rudolf.helpers import get_ronan_cepher_augmented
         _df, __df, _mdf = get_ronan_cepher_augmented()
+
+    if show_realrandommw:
+        from cdips.utils.gaiaqueries import given_votable_get_df
+        votablepath = os.path.join(
+            DATADIR, 'gaia',
+            #"example_500parsec_random_draw-result_plxgt2_plxovererrorgt5_gmag_gt17.vot.gz"
+            "example_500parsec_random_draw-result_plxgt1.8_plxovererrorgt10_gmag_gt17.vot.gz"
+            #"example_500parsec_random_draw-result.vot.gz"
+        )
+        rdf = given_votable_get_df(votablepath, assert_equal='source_id')
+        rx,ry,rz = calculate_XYZ_given_RADECPLX(rdf.ra, rdf.dec, rdf.parallax)
+        sel = np.sqrt((rx+8122)**2 + ry**2) < 500
+        rx, ry = rx[sel], ry[sel]
 
     #
     # make the plot
@@ -6528,22 +6546,31 @@ def plot_prisinzano22_XY(outdir, colorkey=None, show_CepHer=0, noaxis=0):
         # "rasterized=True" kwarg here is good if you save the plots as pdfs,
         # to not need to save the positions of too many points.
 
-        sel = np.sqrt((x+8122)**2 + y**2) < 500
-        ax.scatter(
-            x[sel], y[sel], c='black', alpha=1, zorder=2, s=1.5, rasterized=True,
-            linewidths=0, marker='.'
-        )
-        sel = np.sqrt((kx+8122)**2 + ky**2) < 500
-        ax.scatter(
-            kx[sel], ky[sel], c='black', alpha=1, zorder=2, s=1.5, rasterized=True,
-            linewidths=0, marker='.'
-        )
-        sel = np.sqrt(rx**2 + ry**2) < 500
-        ax.scatter(
-            -8122+rx[sel], ry[sel], c='black', alpha=1, zorder=2, s=1.5, rasterized=True,
-            linewidths=0, marker='.'
-        )
+        if not hide_prisinzano:
+            sel = np.sqrt((x+8122)**2 + y**2) < 500
+            ax.scatter(
+                x[sel], y[sel], c='black', alpha=1, zorder=2, s=1.5, rasterized=True,
+                linewidths=0, marker='.'
+            )
+            sel = np.sqrt((kx+8122)**2 + ky**2) < 500
+            ax.scatter(
+                kx[sel], ky[sel], c='black', alpha=1, zorder=2, s=1.5, rasterized=True,
+                linewidths=0, marker='.'
+            )
 
+        if show_randommw:
+            sel = np.sqrt(rx**2 + ry**2) < 500
+            ax.scatter(
+                -8122+rx[sel], ry[sel], c='black', alpha=1, zorder=2, s=1.5, rasterized=True,
+                linewidths=0, marker='.'
+            )
+
+        if show_realrandommw:
+            #sel = np.sqrt(rx**2 + ry**2) < 500
+            ax.scatter(
+                rx, ry, c='black', alpha=1, zorder=2, s=1.5, rasterized=True,
+                linewidths=0, marker='.'
+            )
 
         if show_CepHer:
             sel = _df.strengths > 0.15
@@ -6571,8 +6598,14 @@ def plot_prisinzano22_XY(outdir, colorkey=None, show_CepHer=0, noaxis=0):
         s += f"_{colorkey}"
     if show_CepHer:
         s += f"_ShowCepHer"
+    if show_randommw:
+        s += f"_showrandomMW"
+    if hide_prisinzano:
+        s += f"_hidekerrprisinzano"
     if noaxis:
         s += f"_noaxis"
+    if show_realrandommw:
+        s += f"_showrealrandomMW"
 
     outpath = os.path.join(outdir, f'prisinzano22_XY{s}.png')
     fig.savefig(outpath, bbox_inches='tight', dpi=400)
