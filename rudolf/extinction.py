@@ -24,7 +24,7 @@ from scipy.interpolate import interp1d
 
 from rudolf.paths import DATADIR
 
-def given_EBmV_and_BpmRp_get_A_X(EBmV, BpmRp, bandpass='G'):
+def given_EBmV_and_BpmRp_get_A_X(E_BmV, BpmRp, bandpass='G'):
     """
     Assuming GaiaCollaboration_2018_table1 coefficients, convert an E(B-V)
     value to a A_G, A_BP, or A_RP value.
@@ -32,6 +32,7 @@ def given_EBmV_and_BpmRp_get_A_X(EBmV, BpmRp, bandpass='G'):
     bandpass: 'G','BP', or 'RP'
     """
     assert bandpass in ['G','BP','RP']
+    bp = bandpass
 
     corr_path = os.path.join(DATADIR, 'extinction',
                              'GaiaCollaboration_2018_table1.csv')
