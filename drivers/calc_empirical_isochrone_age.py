@@ -1,5 +1,6 @@
 import numpy as np, pandas as pd, matplotlib.pyplot as plt
 import os, pickle
+from os.path import join
 from numpy import array as nparr
 
 from rudolf.paths import DATADIR, RESULTSDIR
@@ -68,6 +69,33 @@ def _get_alphaper():
     _df = get_alphaPer_members()
     return _df
 
+def _get_tic1411():
+    from cdips.utils.gaiaqueries import given_source_ids_get_gaia_data
+
+    savpath = join(RESULTSDIR, 'empirical_isochrone_age', 'TIC141146667_gaia_supp.csv')
+
+    if not os.path.exists(savpath):
+
+        dr3_source_id = np.int64(860453786736413568)
+        groupname = 'tic1411'
+        gdf = given_source_ids_get_gaia_data(np.array([dr3_source_id]), groupname,
+                                             n_max=2, overwrite=False,
+                                             enforce_all_sourceids_viable=True,
+                                             savstr='', which_columns='*',
+                                             table_name='gaia_source',
+                                             gaia_datarelease='gaiadr3')
+
+        savpath = join(RESULTSDIR, 'empirical_isochrone_age', '_tic1411_cache.csv')
+        gdf = supplement_gaia_stars_extinctions_corrected_photometry(
+            gdf, extinctionmethod='gaia2018', savpath=savpath
+        )
+
+        gdf.to_csv(savpath, index=False)
+        print(f'wrote {savpath}')
+
+    return pd.read_csv(savpath)
+
+
 def _get_pleiades():
     outpath = os.path.join(
         RESULTSDIR, 'tables', f'Pleiades_withreddening_{extinctionmethod}.csv'
@@ -109,10 +137,10 @@ def collect_isochrone_data(clusterid='δ Lyr cluster'):
     # NOTE: need to assume hard-coded ages for the reference clusters
     age_dict = {
         'UCL': 16e6, # Preibisch & Mamajek 2008, Table 11, UCL
-        #'IC 2602': 38e6,
-        #'Pleiades': 150e6 # Dahm 2015
-        'IC 2602': 52.5e6, # Galindo-Guil 22
-        'Pleiades': 127.4e6 # Galindo-Guil 22
+        'IC 2602': 46e6, # Dobbie+2010
+        'Pleiades': 112e6 # Dahm 2015
+        #'IC 2602': 52.5e6, # Galindo-Guil 22
+        #'Pleiades': 127.4e6 # Galindo-Guil 22
     }
 
     #
@@ -136,13 +164,13 @@ def collect_isochrone_data(clusterid='δ Lyr cluster'):
     #
     hr_dict = {}
     clusters = ['δ Lyr cluster', 'IC 2602', 'Pleiades', 'UCL', 'RSG-5', 'CH-2',
-               'alpha_Per']
+               'alpha_Per', 'tic1411']
     getclusterfn = [
         _get_deltalyr, _get_ic2602, _get_pleiades, _get_ucl, _get_rsg5,
-        _get_ch2, _get_alphaper
+        _get_ch2, _get_alphaper, _get_tic1411
     ]
     smoothingfactors = [
-        1e-2, 5e-2, 1e-2, 5e-2, 5e-2, 5e-2, 1e-2
+        1e-2, 5e-2, 1e-2, 5e-2, 5e-2, 5e-2, 1e-2, None
     ]
 
     for c,fn,_smooth in zip(clusters, getclusterfn, smoothingfactors):
@@ -233,7 +261,7 @@ def collect_isochrone_data(clusterid='δ Lyr cluster'):
         xs, ys = xval[sel], yval[sel]
 
         dMag = 0.1
-        bins = np.arange(0, 3+dMag, dMag)
+        bins = np.arange(0, 3.3+dMag, dMag)
         ymean,ystdev,N_in_bin,binmids = [],[],[],[]
         for bin_start in bins[:-1]:
             bin_end = bin_start + dMag
@@ -263,16 +291,25 @@ def collect_isochrone_data(clusterid='δ Lyr cluster'):
 
         # cubic spline
         # s = smoothing factor.  bigger means more smooth.
-        fn_BpmRp_to_AbsG = UnivariateSpline(
-            binmids[_s], ymean[_s], k=3, s=_smooth, ext=1
-        )
+        if np.sum(~np.isnan(ymean)) > 1:
+            fn_BpmRp_to_AbsG = UnivariateSpline(
+                binmids[_s], ymean[_s], k=3, s=_smooth, ext=1
+            )
 
-        # this is the (Bp-Rp)0 component
-        x_interp = np.linspace(0.8, 2.9, 1001) #NOTE: for clean plots
-        x_eval = np.arange(0.85, 2.85+0.1, dMag) # NOTE: to match in probability calc
+            # this is the (Bp-Rp)0 component
+            MAX_BPRP = 2.9 # DEFAULT
+            MAX_BPRP = 3.3
+            x_interp = np.linspace(0.8, MAX_BPRP, 1001) #NOTE: for clean plots
+            x_eval = np.arange(0.85, MAX_BPRP-0.05+0.1, dMag) # NOTE: to match in probability calc
 
-        y_interp = fn_BpmRp_to_AbsG(x_interp)
-        y_eval = fn_BpmRp_to_AbsG(x_eval)
+            y_interp = fn_BpmRp_to_AbsG(x_interp)
+            y_eval = fn_BpmRp_to_AbsG(x_eval)
+
+            ymean_eval = ymean[(binmids >= 0.80) & (binmids <= MAX_BPRP-0.05)]
+            ystdev_eval = ystdev[(binmids >= 0.80) & (binmids <= MAX_BPRP-0.05)]
+        else:
+            import IPython; IPython.embed()
+            assert 0
 
         outpath = os.path.join(RESULTSDIR, 'empirical_isochrone_age',
                                f"{c.replace(' ','_')}_CMD_binning.png")
@@ -281,7 +318,8 @@ def collect_isochrone_data(clusterid='δ Lyr cluster'):
         ax.errorbar(binmids, ymean, ystdev, marker='o', elinewidth=0.5,
                     capsize=4, lw=0, mew=0.5, color='k', markersize=3,
                     zorder=5)
-        ax.plot(x_interp, y_interp, lw=1, c='C1', zorder=42)
+        if np.sum(~np.isnan(ymean)) > 1:
+            ax.plot(x_interp, y_interp, lw=1, c='C1', zorder=42)
         ax.update({'xlabel': '(Bp-Rp)0 [mag]', 'ylabel': '(MG)0',
                    'xlim':[-0.3,3.2], 'ylim':[-2.5, 12]})
         savefig(f, outpath, dpi=400)
@@ -293,8 +331,8 @@ def collect_isochrone_data(clusterid='δ Lyr cluster'):
         hr_dict[c]['binmids'] = binmids
         hr_dict[c]['ymean'] = ymean
         hr_dict[c]['ystdev'] = ystdev
-        hr_dict[c]['ymean_eval'] = ymean[(binmids >= 0.80) & (binmids <= 2.85)]
-        hr_dict[c]['ystdev_eval'] = ystdev[(binmids >= 0.80) & (binmids <= 2.85)]
+        hr_dict[c]['ymean_eval'] = ymean_eval
+        hr_dict[c]['ystdev_eval'] = ystdev_eval
         hr_dict[c]['N_in_bin'] = N_in_bin
         hr_dict[c]['x_interp'] = x_interp
         hr_dict[c]['y_interp'] = y_interp
@@ -345,10 +383,11 @@ def collect_isochrone_data(clusterid='δ Lyr cluster'):
         ax.plot(hr_dict[c]['x_interp'], hr_dict[c]['y_interp'], lw=0.5,
                 c=color, zorder=42, label=label)
 
+    dt_myr = 1e-6 * ( age_dict['Pleiades'] - age_dict['UCL'] ) / 10
     for i in range(0,I_grid.shape[1],200):
         if i == 0:
             ax.plot(x_eval, I_grid[:,i], color='gray', lw=0.25,
-                    label='Interpolated splines')
+                    label=f'Interpolated splines (dt={dt_myr:.1f})')
         else:
             ax.plot(x_eval, I_grid[:,i], color='gray', lw=0.25)
 
@@ -422,8 +461,10 @@ def collect_isochrone_data(clusterid='δ Lyr cluster'):
     print(f'Wrote {cachepath}')
 
 if __name__ == "__main__":
-    collect_isochrone_data(clusterid='alpha_Per')
+    #collect_isochrone_data(clusterid='alpha_Per')
+    collect_isochrone_data(clusterid='tic1411')
     assert 0
+    collect_isochrone_data(clusterid='alpha_Per')
     collect_isochrone_data(clusterid='δ Lyr cluster')
     collect_isochrone_data(clusterid='RSG-5')
     collect_isochrone_data(clusterid='CH-2')

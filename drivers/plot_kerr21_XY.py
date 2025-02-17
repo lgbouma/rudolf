@@ -7,7 +7,9 @@ if not os.path.exists(outdir):
     os.mkdir(outdir)
 
 for tablenum in [1,2]:
+    plot_kerr21_XY(outdir, tablenum=tablenum, colorkey=None, dcut=200)
     plot_kerr21_XY(outdir, tablenum=tablenum, colorkey=None)
+    assert 0
     if tablenum == 1:
         plot_kerr21_XY(outdir, tablenum=tablenum, colorkey=None, show_CepHer=1)
         plot_kerr21_XY(outdir, tablenum=tablenum, colorkey='Age')
