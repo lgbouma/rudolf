@@ -758,10 +758,22 @@ def supplement_gaia_stars_extinctions_corrected_photometry(
         append_corrected_gaia_phot_Gaia2018
     )
 
+    from dustmaps.bayestar import BayestarQuery
+
     # cache the slow step
     if not os.path.exists(savpath):
         df['distance'] = parallax_to_distance_highsn(df['parallax'])
-        df = retrieve_stilism_reddening(df, verbose=False, outpath=savpath)
+
+        # Bayestar dust map of Green+2019.
+        bayestar = BayestarQuery(max_samples=2, version='bayestar2019')
+        coords = SkyCoord(np.array(df.l)*u.deg, np.array(df.b)*u.deg,
+                          distance=np.array(df.distance)*u.pc,
+                          frame='galactic')
+        ebv = bayestar(coords, mode='median')
+        df['E(B-V)'] = ebv
+
+        # DEPRECATED
+        #df = retrieve_stilism_reddening(df, verbose=False, outpath=savpath)
     else:
         df = pd.read_csv(savpath)
 

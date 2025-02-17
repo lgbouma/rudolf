@@ -68,13 +68,13 @@ def given_EBmV_and_BpmRp_get_A_X(E_BmV, BpmRp, bandpass='G'):
 def append_corrected_gaia_phot_Gaia2018(df):
     """
     Using the coefficients calculated by GaiaCollaboration+2018 Table
-    1, and the STILISM reddening values, calculate corrected Gaia
-    photometric magnitudes.  Assumes you have acquired STILISM
-    reddening estimates per retrieve_stilism_reddening below.
+    1, and the retrieved reddening values, calculate corrected Gaia
+    photometric magnitudes.  Assumes you have acquired
+    reddening estimates somewhere else, for instance using `dustmaps`.
 
     Args:
-        df (DataFrame): contains Gaia photometric magnitudes, and STILISM
-        reddening columns.
+        df (DataFrame): contains Gaia photometric magnitudes, and an E(B-V)
+        reddening column.
 
     Returns:
         Same DataFrame, with 'phot_g_mean_mag_corr', 'phot_rp_mean_mag_corr',
@@ -87,7 +87,7 @@ def append_corrected_gaia_phot_Gaia2018(df):
 
     bandpasses = ['G','BP','RP']
 
-    E_BmV = df['reddening[mag][stilism]']
+    E_BmV = df['E(B-V)']
     A_0 = 3.1 * E_BmV
 
     for bp in bandpasses:
@@ -128,14 +128,14 @@ def append_corrected_gaia_phot_Gaia2018(df):
 
 def append_corrected_gaia_phot_Gagne2020(df):
     """
-    Using the coefficients calculated by Gagne+20 Table 8, and the STILISM
+    Using the coefficients calculated by Gagne+20 Table 8, and the retrieved
     reddening values, calculate corrected Gaia photometric magnitudes.  Assumes
-    you have acquired STILISM reddening estimates per
-    retrieve_stilism_reddening below.
+    you have acquired reddening estimates somewhere else, for instance using
+    `dustmaps`.
 
     Args:
-        df (DataFrame): contains Gaia photometric magnitudes, and STILISM
-        reddening columns.
+        df (DataFrame): contains Gaia photometric magnitudes, and "E(B-V)"
+        reddening column.
 
     Returns:
         Same DataFrame, with 'phot_g_mean_mag_corr', 'phot_rp_mean_mag_corr',
@@ -165,8 +165,8 @@ def append_corrected_gaia_phot_Gagne2020(df):
     R_G_RP = fn_GmRp_to_R_G_RP(GmRp)
     R_G_BP = fn_GmRp_to_R_G_BP(GmRp)
 
-    assert 'reddening[mag][stilism]' in df
-    E_BmV = df['reddening[mag][stilism]']
+    assert 'E(B-V)' in df
+    E_BmV = df['E(B-V)']
 
     G_corr = df['phot_g_mean_mag'] - E_BmV * R_G
     G_RP_corr = df['phot_rp_mean_mag'] - E_BmV * R_G_RP
@@ -181,6 +181,9 @@ def append_corrected_gaia_phot_Gagne2020(df):
 
 def retrieve_stilism_reddening(df, verbose=True, outpath=None):
     """
+    NOTE: As of 2025/01/22 this web query is broken because the STILISM group
+    refactored their API.
+
     Note: this is slow. 1 second per item. so, 10 minutes for 600 queries.
     --------------------
     (Quoting the website)
@@ -215,6 +218,7 @@ def retrieve_stilism_reddening(df, verbose=True, outpath=None):
 
     Where "reddening" means "E(B-V)".
     """
+    raise NotImplementedError('Their API was deprecated as of 2025/01/22')
 
     URL = "http://stilism.obspm.fr/reddening?frame=galactic&vlong={}&ulong=deg&vlat={}&ulat=deg&distance={}"
 
