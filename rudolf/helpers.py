@@ -17,7 +17,6 @@ Data getters:
         get_becc_limits
 
     Get cluster datasets (useful for HR diagrams!):
-        get_gaia_catalog_of_nearby_stars
         get_clustermembers_cg18_subset
         get_mutau_members
         get_ScoOB2_members
