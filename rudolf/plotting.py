@@ -55,7 +55,7 @@ import os, corner, pickle, inspect
 from copy import deepcopy
 from glob import glob
 from datetime import datetime
-import numpy as np, matplotlib.pyplot as plt, pandas as pd, pymc3 as pm
+import numpy as np, matplotlib.pyplot as plt, pandas as pd
 from numpy import array as nparr
 from collections import Counter, OrderedDict
 from importlib.machinery import SourceFileLoader
@@ -5848,7 +5848,7 @@ def plot_CepHer_XYZvtang_sky(outdir, showgroups=0, lsrcorr=0):
     savefig(fig, outpath)
 
 
-def plot_kerr21_XY(outdir, tablenum=1, colorkey=None, show_CepHer=0):
+def plot_kerr21_XY(outdir, tablenum=1, colorkey=None, show_CepHer=0, dcut=500):
     """
     Make a top-down plot like Figure 7 of Kerr+2021
     (https://ui.adsabs.harvard.edu/abs/2021ApJ...917...23K/abstract).
@@ -5887,6 +5887,12 @@ def plot_kerr21_XY(outdir, tablenum=1, colorkey=None, show_CepHer=0):
     from sunnyhills.physicalpositions import calculate_XYZ_given_RADECPLX
     x,y,z = calculate_XYZ_given_RADECPLX(df.RAdeg, df.DEdeg, df.plx)
 
+    x_sun, y_sun = -8122, 0
+    if isinstance(dcut, int):
+        r = np.sqrt( (x-x_sun)**2 + y**2 + z**2 )
+        sel = (r < dcut)
+        x,y,z = x[sel], y[sel], z[sel]
+
     if show_CepHer:
         from rudolf.helpers import get_ronan_cepher_augmented
         _df, __df, _mdf = get_ronan_cepher_augmented()
@@ -5896,7 +5902,6 @@ def plot_kerr21_XY(outdir, tablenum=1, colorkey=None, show_CepHer=0):
     #
     fig, ax = plt.subplots(figsize=(4,4))
 
-    x_sun, y_sun = -8122, 0
     ax.scatter(
         x_sun, y_sun, c='black', alpha=1, zorder=1, s=20, rasterized=True,
         linewidths=1, marker='x'
@@ -5983,6 +5988,9 @@ def plot_kerr21_XY(outdir, tablenum=1, colorkey=None, show_CepHer=0):
         s += f"_{colorkey}"
     if show_CepHer:
         s += f"_ShowCepHer"
+    if isinstance(dcut, int):
+        if dcut < 333:
+            s += f"_dcut{dcut}"
 
     outpath = os.path.join(outdir, f'kerr21t{tablenum}_XY{s}.png')
     fig.savefig(outpath, bbox_inches='tight', dpi=400)
