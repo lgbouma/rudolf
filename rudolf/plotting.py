@@ -5274,8 +5274,14 @@ def plot_lithium(outdir, reference='Randich18', style='science', lgb_cepher=0,
     ax.set_xlabel('Effective Temperature [K]')
 
     #ax.set_xlim((4900, 6600))
-    ax.set_ylim((-20,420))
-    ax.set_xlim((3200, 6700))
+    if ylim is None:
+        ax.set_ylim((-20,420))
+    else:
+        ax.set_ylim(ylim)
+    if xlim is None:
+        ax.set_xlim((3200, 6700))
+    else:
+        ax.set_xlim(xlim)
 
     format_ax(ax)
     s = f'_{reference}'
@@ -6023,6 +6029,7 @@ def _get_melange2():
 def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                               clusters=None, showplanets=0, darkcolors=False,
                               hideaxes=0, showET=0, showPLATO=0,
+                              southern_plato=0,
                               showcdipsages=0, style='science', factor=1,
                               cepher_alpha=1, figx=19/2, figy=7/2):
     """
@@ -6139,7 +6146,7 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
             &
             (~pd.isnull(df.cluster))
             &
-            (df.phot_g_mean_mag < 17)
+            (df.phot_g_mean_mag < 15)
         )
         sdf = df[sel]
 
@@ -6199,8 +6206,8 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
         for ix, agebin in enumerate(agebins[::-1]):
             sel = (
                 (sdf.mean_age > agebin[0]) & (sdf.mean_age < agebin[1])
-                &
-                ((sdf.l  > 65 ) | (sdf.b < 20))
+                #&
+                #((sdf.l  > 65 ) | (sdf.b < 20))
             )
             _p = ax.scatter(
                 get_xval(sdf[sel]), get_yval(sdf[sel]),
@@ -6210,9 +6217,16 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
                 rasterized=True
             )
 
-            glon_c = 76.5
-            glat_c = 13.5
-            halfwidth = 500**0.5 / 2 # 22.36 per side, or 11.18 half-side
+            if showET:
+                glon_c = 76.5
+                glat_c = 13.5
+                halfwidth = 500**0.5 / 2 # 22.36 per side, or 11.18 half-side
+                mission = 'ET'
+            elif showPLATO and southern_plato:
+                glon_c = 255.94
+                glat_c = -24.624
+                halfwidth = 22. # deg, guess from eye-balling Fig1 of Nascimbeni+25
+                mission = 'PLATO LOPS2'
 
             sel1 = (
                 (sdf[sel].b > glat_c - halfwidth)
@@ -6228,9 +6242,25 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
             print(f"{agebin[0]:.2f} to {agebin[1]:.2f}: {N}")
             _N += N
 
+        sel2 = (
+            (sdf.mean_age < 8)
+            &
+            (sdf.b > glat_c - halfwidth)
+            &
+            (sdf.b < glat_c + halfwidth)
+            &
+            (sdf.l > glon_c - halfwidth)
+            &
+            (sdf.l < glon_c + halfwidth)
+        )
+        _odf = sdf[sel2]
+        _outdir = '/Users/luke/Dropbox/proj/kairos_plato/data'
+        outpath = os.path.join(_outdir, 'cdips_v0pt6_logtLT8_Glt15_platolops2.csv')
+        _odf.to_csv(outpath, index=False)
+
         print(f"b {glat_c - halfwidth} to {glat_c + halfwidth}")
         print(f"l {glon_c - halfwidth} to {glon_c + halfwidth}")
-        print(f"Total: {_N}")
+        print(f"{mission} Total: {_N}")
 
         #_p = ax.scatter(
         #    get_xval(sdf), get_yval(sdf),
@@ -6239,8 +6269,9 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
         #)
 
         # draw the colored points
-        axins1 = inset_axes(ax, width="25%", height="3%", loc='upper right',
-                            borderpad=1.2)
+        loc = 'upper right' if not southern_plato else 'lower right'
+        axins1 = inset_axes(ax, width="15%", height="3%", loc=loc,
+                            borderpad=3.5)
         cb = f.colorbar(_p, cax=axins1, orientation="horizontal",
                         extend="min", norm=norm)
 
@@ -6265,12 +6296,30 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
             #"NGC-7039": [0, 88, "<10"],
             #"FSR-0261": [0, 87, "<10"]
         }
-        for k,v in txtclusternames.items():
+        southernclusternames = {
+            # name, glon, glat, age
+            'Vela OB2': [-98+360, -10, "10-40"],
+            'IC2391': [-89.9+360, -6.6, "45"],
+            'NGC2547chain': [-115+360, -14, 50],
+            'IC2602ext': [-84.5+360, -6, 45],
+            'NGC2451A': [-107+360, -8, 50],
+            'NGC2547': [-110+360, -11, 55],
+            'ABDor': [-103+360, -17, 110],
+            'NGC2516': [-86+360, -16, 150],
+            'Alessi3': [-102+360, -15, 700]
+        }
+
+        if southern_plato:
+            cnames = southernclusternames
+        else:
+            cnames = txtclusternames
+
+        for k,v in cnames.items():
             bbox = dict(facecolor='white', alpha=0.97, pad=0.1, edgecolor='white')
             x,y = v[0],v[1]
             txt = k + " (" + str(v[2]) + " Myr)"
             ax.text(x, y, txt, ha='center',
-                    va='bottom', fontsize=6, bbox=bbox, zorder=99)
+                    va='bottom', fontsize=4, bbox=bbox, zorder=99)
 
 
     if showplanets:
@@ -6306,6 +6355,7 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     if showET:
         glon_c = 76.5
         glat_c = 13.5
+
         halfwidth = 500**0.5 / 2 # 22.36 per side, or 11.18 half-side
         eps = 0.05
         modules = [
@@ -6374,8 +6424,14 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
 
 
     if showPLATO:
-        glon_c = 70
-        glat_c = 30
+        if not southern_plato:
+            glon_c = 70
+            glat_c = 30
+        else:
+            # Nascimbeni+2025
+            glon_c = 255.937
+            glat_c = -24.6243
+
 
         csvpath = '/Users/luke/Dropbox/proj/Earth_2pt0/PLATO_fov.csv'
         pldf = pd.read_csv(csvpath)
@@ -6383,6 +6439,12 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
             glon_c + pldf['dlon'], glat_c + pldf['dlat'], c='lightgray',
             alpha=0.3, lw=0, rasterized=False, zorder=-5, hatch='/'
         )
+        if southern_plato:
+            _x = (glon_c + pldf['dlon']).to_list()
+            _y = (glat_c + pldf['dlat']).to_list()
+            _x.append(_x[0])
+            _y.append(_y[0])
+            ax.plot(_x, _y, c='k', alpha=0.5, lw=1, zorder=9999)
 
         csvpath = '/Users/luke/Dropbox/proj/Earth_2pt0/PLATO_inner12_fov.csv'
         pldf = pd.read_csv(csvpath)
@@ -6432,6 +6494,10 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
     if showET:
         ax.set_xlim([92, 58])
         ax.set_ylim([-4, 27])
+    if southern_plato:
+        ax.set_xlim([255.9-50, 255.9+50])
+        ax.set_ylim([-24.6-30, -24.6+30])
+
     #if showPLATO:
     #    ax.set_xlim([120, 40])
     #    ax.set_ylim([-4, 50])
@@ -6462,6 +6528,8 @@ def plot_kepclusters_skychart(outdir, showkepler=1, showkepclusters=1,
         s += '_showET'
     if showPLATO:
         s += '_showPLATO'
+    if southern_plato:
+        s += '_southernPLATO'
     if showkepler:
         s += '_showkepler'
     if showkepclusters:
